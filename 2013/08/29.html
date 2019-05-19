@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>リビジョン管理rcsのすすめ（xxx.conf.20130829とかはもう止めよう） | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="リビジョン管理rcsのすすめ（xxx.conf.20130829とかはもう止めよう）" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content=" " />
+<meta property="og:description" content=" " />
+<link rel="canonical" href="https://nobwak.github.io/2013/08/29.html" />
+<meta property="og:url" content="https://nobwak.github.io/2013/08/29.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-08-29T22:32:03+09:00" />
+<script type="application/ld+json">
+{"description":" ","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2013/08/29.html","headline":"リビジョン管理rcsのすすめ（xxx.conf.20130829とかはもう止めよう）","dateModified":"2013-08-29T22:32:03+09:00","datePublished":"2013-08-29T22:32:03+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2013/08/29.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">リビジョン管理rcsのすすめ（xxx.conf.20130829とかはもう止めよう）</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-08-29T22:32:03+09:00" itemprop="datePublished">Aug 29, 2013
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p> </p>
+
+<p>一人だけで管理しているサーバの設定ファイルを更新するとき、皆さんはどのように管理しているだろうか。<br />
+私は以下のようにしていた。<br />
+例えば、httpd.confを2013/8/25に変更しようとするとき。</p>
+
+<pre class="lang:default decode:true"># vi httpd.conf
+# cp -p httpd.conf httpd.conf.20130825</pre>
+
+<p> </p>
+
+<p>経験のある方はご存じだろうが、長い間これを続けると、ディレクトリが散らかって酷い事になる。</p>
+
+<p>ではバージョン管理を導入すべきか？<br />
+でも、一人で管理しているサーバなのに、わざわざsubversionを入れる？それはちょっと。</p>
+
+<p>というのが長らくの悩みであったのだが、実はrcsという簡便なリビジョン管理ツールがあることを知った。今さらではあるが。<br />
+しかし、これがまた実に快適であった。<br />
+快適すぎて、今ではどこのディレクトリでもRCSディレクトリ（後述）を掘ってしまうくらいになってしまった。</p>
+
+<p>そんなRCSについて以下に記す。</p>
+
+<h2 id="rcsとは"><span style="text-decoration: underline;">RCSとは。</span></h2>
+
+<p>RCSとは<a href="http://ja.wikipedia.org/wiki/Revision_Control_System" target="_blank">Revision Control System</a>。<br />
+きわめて軽量単純なGNU製のリビジョン管理システムである。<br />
+一人で使う分には十分（いちおう、ロック機能はあるよ！）。<br />
+だいたいのUNIX系OSには最初から入っている。<br />
+FreeBSDはベースシステムに入っているので、インストール不要。これはポイント。<br />
+もちろんLinuxにも（Redhatの5にあることは確認）</p>
+
+<p> </p>
+
+<p>コマンドの使い方を示す。FreeBSD環境下のもの。<br />
+Linux向けmanはこちら。<br />
+ <a href=" http://linuxjm.sourceforge.jp/html/GNU_rcs/man1/co.1.html" target="_blank">http://linuxjm.sourceforge.jp/html/GNU_rcs/man1/co.1.html</a></p>
+
+<p> </p>
+
+<h2 id="rcsのコマンド"><span style="text-decoration: underline;">RCSのコマンド</span></h2>
+
+<p>使うコマンドはおおよそ以下のようなもの。<br />
+詳しくはman。</p>
+
+<pre class="lang:default decode:true">co - check out RCS revisions
+ci - check in RCS revisions
+rlog - print log messages and other information about RCS files
+rcsdiff - compare RCS revisions</pre>
+
+<p> </p>
+
+<h2 id="rcsへの登録"><span style="text-decoration: underline;">RCSへの登録</span></h2>
+
+<p>ためしに、/etc/rc.confを、RCSで管理してみる。<br />
+最初にやることはRCSに登録すること。<br />
+ci(check in)コマンドを使う。<br />
+ciにrc.confを渡してやるだけ。</p>
+
+<p>初回は「ファイルの説明を入れろ」と聞いてくるので、”System Setting file”などと入れてみる。<br />
+ドット「.」を入れれば完了。</p>
+
+<pre class="lang:default decode:true">$ cd /etc
+$ sudo ci rc.conf
+Password:
+rc.conf,v  &lt;--  rc.conf
+enter description, terminated with single '.' or end of file:
+NOTE: This is NOT the log message!
+&gt;&gt; System Setting File
+&gt;&gt; .
+initial revision: 1.1
+done</pre>
+
+<p> </p>
+
+<p>最初のバージョンは1.1になる。</p>
+
+<h2 id="初回チェックインの注意"><span style="text-decoration: underline;">初回チェックインの注意</span></h2>
+
+<p>驚くことに、初めてチェックインするとファイルが消える。<br />
+代わりと言ってはなんだが、ファイル名末尾に「,v」と付いたファイルが現れる。</p>
+
+<pre class="lang:default decode:true">$ ls -l rc.conf
+ls: rc.conf: No such file or directory
+$ ls -l rc.conf*
+-r--r--r--  1 root  wheel  353 Aug 25 12:50 rc.conf,v</pre>
+
+<p> </p>
+
+<p>RCSはそれぞれのファイルを、この「,v」ファイルで管理しているのである。<br />
+しかしrc.confが無くなられては困る。<br />
+そこでco(check out)コマンドにより、「,v」からrc.confを取り出す。</p>
+
+<pre class="lang:default decode:true">$ sudo co rc.conf
+rc.conf,v  --&gt;  rc.conf
+revision 1.1
+done
+$ ls -l rc.conf*
+-r--r--r--  1 root  wheel  156 Aug 25 12:55 rc.conf
+-r--r--r--  1 root  wheel  353 Aug 25 12:50 rc.conf,v</pre>
+
+<p> </p>
+
+<p>並べてみると「,v」には管理情報が含まれているせいでサイズが少し増えている。</p>
+
+<p>しかしちょっと待て。</p>
+
+<h2 id="vが散らかるrcsディレクトリで解決"><span style="text-decoration: underline;">「,v」が散らかる→RCSディレクトリで解決</span></h2>
+
+<p>新しいファイルをRCSに登録する都度、「,v」が増えていくのではたまらない。<br />
+しかし、そこはさすがに考えられていて、同じディレクトリにRCSというディレクトリがあれば、その下に「,v」を作ってくれる。<br />
+さきほど作ったrc.conf,vを消してから試してみる。</p>
+
+<pre class="lang:default decode:true">$ sudo rm rc.conf,v
+$ sudo mkdir RCS
+$ sudo ci ./rc.conf
+./RCS/rc.conf,v  &lt;--  ./rc.conf
+(略)
+initial revision: 1.1
+done
+$ ls ./RCS
+rc.conf,v</pre>
+
+<p> </p>
+
+<p>と、ご覧の通り/etc/RCSの下に「,v」が作られる。<br />
+こうしておけば「,v」ファイルが散らかって困ることはない。<br />
+忘れずにチェックアウト。<br />
+RCS/rc.conf,vから取り出されていることが分かる。</p>
+
+<pre class="lang:default decode:true">$ sudo co rc.conf
+RCS/rc.conf,v  --&gt;  rc.conf
+revision 1.1
+done</pre>
+
+<p> </p>
+
+<h2 id="ファイルの更新チェックアウト"><span style="text-decoration: underline;">ファイルの更新（チェックアウト）</span></h2>
+
+<p>今度はファイルを更新してみる。<br />
+修正したファイルをチェックイン（ci）するだけなのだが、それに先立つチェックアウト（co）の時に考慮すべきことがある。<br />
+それはファイルのロック。</p>
+
+<p>単にcoしただけのrc.confのパーミッションを見てみると、読み取り専用（444）になってしまっている（本来は644）。</p>
+
+<pre class="lang:default decode:true">$ ls -l rc.conf
+-r--r--r--  1 root  wheel  156 Aug 25 12:55 rc.conf</pre>
+
+<p> </p>
+
+<p>なにも無計画にしているわけではない。<br />
+「RCSで管理しているファイルを迂闊に書き換えないように」というRCS師匠のありがたい配慮である。<br />
+これを避けるには、ファイルのロックをしてからチェックアウトをすればよい。<br />
+coの際に-lオプション（lock）を与えるだけ。</p>
+
+<pre class="lang:default decode:true">$ sudo co -l rc.conf
+Password:
+RCS/rc.conf,v  --&gt;  rc.conf
+revision 1.1 (locked)
+done
+$ ls -l ./rc.conf
+-rw-r--r--  1 root  wheel  156 Aug 25 12:56 ./rc.conf</pre>
+
+<p> </p>
+
+<p>（locked）という表示が増えている。<br />
+また、パーミッションも644になっている。<br />
+これでファイル変更の準備ができた。</p>
+
+<p> </p>
+
+<h2 id="ファイルの更新チェックイン"><span style="text-decoration: underline;">ファイルの更新（チェックイン）</span></h2>
+
+<p>修正が済んだらチェックイン。<br />
+チェックアウトの時と同じように、ロックの考慮が必要。<br />
+端的に言えばロックを解除する。<br />
+ciの際に-uオプション（unlock）を与える。</p>
+
+<pre class="lang:default decode:true">$ sudo ci -u ./rc.conf
+./RCS/rc.conf,v  &lt;--  ./rc.conf
+new revision: 1.2; previous revision: 1.1
+enter log message, terminated with single '.' or end of file:
+&gt;&gt; disable sendmail on boot
+&gt;&gt; .
+done
+$</pre>
+
+<p> </p>
+
+<p>log message、つまり修正内容の記入が求められるので書き入れたのちドット「.」で終了。<br />
+そしてロック解除したために、再びファイルのバーミッションが444に戻っている。</p>
+
+<pre class="lang:default decode:true">$ ls -l ./rc.conf
+-r--r--r--  1 root  wheel  283 Aug 25 19:29 ./rc.conf</pre>
+
+<p> </p>
+
+<h2 id="履歴の確認"><span style="text-decoration: underline;">履歴の確認</span></h2>
+
+<p>RCSで管理しているファイルに対しrlogを発行すると履歴が表示される。</p>
+
+<pre class="lang:default decode:true">$ rlog ./rc.conf
+
+RCS file: ./RCS/rc.conf,v
+Working file: ./rc.conf
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;     selected revisions: 2
+description:
+System configuration file
+----------------------------
+revision 1.2
+date: 2013/08/25 10:29:49;  author: root;  state: Exp;  lines: +6 -0
+disable sendmail on boot
+----------------------------
+revision 1.1
+date: 2013/08/25 04:07:09;  author: root;  state: Exp;
+Initial revision
+----------------------------
+
+=============================================================================</pre>
+
+<p> </p>
+
+<p> </p>
+
+<p>revisoin 1.2では9行追加されていることを示している。<br />
+デフォルトではタイムスタンプがUTC。<br />
+これは分かりにくいので、ローカルタイムで表示する。<br />
+そのためには-zLTを与える。</p>
+
+<pre class="lang:default decode:true">$ rlog -zLT ./rc.conf
+
+RCS file: ./RCS/rc.conf,v
+Working file: ./rc.conf
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;     selected revisions: 2
+description:
+System setting file
+----------------------------
+revision 1.2
+date: 2013-08-25 19:29:49+09;  author: root;  state: Exp;  lines: +6 -0
+disable sendmail on boot
+----------------------------
+revision 1.1
+date: 2013-08-25 13:07:09+09;  author: root;  state: Exp;
+Initial revision
+----------------------------
+=============================================================================</pre>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="差分の確認"><span style="text-decoration: underline;">差分の確認</span></h2>
+
+<p>二つのバージョン間の差分を確認するには、rcsdiffを使う。</p>
+
+<pre class="lang:default decode:true">$ rcsdiff -r1.1 -r1.2 ./rc.conf
+===================================================================
+RCS file: ./RCS/rc.conf,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -r1.1 -r1.2
+6a7,12
+&gt;
+&gt; # kill sendmail
+&gt; sendmail_enable="NO"
+&gt; sendmail_submit_enable="NO"
+&gt; sendmail_outbound_enable="NO"
+&gt; sendmail_msp_queue_enable="NO"</pre>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="特定のバージョンを取り出す"><span style="text-decoration: underline;">特定のバージョンを取り出す。</span></h2>
+
+<p>coに-rオプションでバージョンナンバを指定する。<br />
+1.1を取り出したいなら-r1.1。</p>
+
+<pre class="lang:default decode:true">$ sudo co -r1.1 rc.conf
+RCS/rc.conf,v  --&gt;  rc.conf
+revision 1.1
+done</pre>
+
+<p> </p>
+
+<p>しかしこれでは手元にあるファイルが上書きされる。<br />
+都合が悪い場合には-pオプションを使う。<br />
+-pオプションは結果を標準出力に表示させるもの。</p>
+
+<pre class="lang:default decode:true">$ sudo co -p -r1.1 rc.conf &gt; /tmp/rc.conf
+RCS/rc.conf,v  --&gt;  standard output
+revision 1.1</pre>
+
+<p> </p>
+
+<h2 id="ident文字列の埋め込み"><span style="text-decoration: underline;">ident文字列の埋め込み</span></h2>
+
+<p>ファイルを特定しやすくするための仕組みがident文字列。<br />
+ある文字列を埋め込んでおくと、RCSが自動的に置換・更新をしてくれる。<br />
+実際に見てもらった方が早い。</p>
+
+<p> </p>
+
+<p>rc.confに埋め込んでみる。<br />
+ident文字列には何種類かあるが、ここでは「$Id$」を使う。</p>
+
+<p>しかし、$Id$といきなり書いてはいけない。コメントとして埋め込もう。<br />
+すなわち、#のあとに続ける。<br />
+（同様に、たとえばxmlなら”&lt;!–“と”–&gt;”の間、というようにフォーマットに合わせたコメント文に埋め込むとよい）</p>
+
+<p>rc.confの例</p>
+
+<pre class="lang:default decode:true">#$Id$
+hostname="hogehoge"
+keymap="jp.106.kbd"
+ifconfig_em0="DHCP"
+sshd_enable="YES"</pre>
+
+<p> </p>
+
+<p>これをチェックインすると、自動的に以下のように変換してくれる。</p>
+
+<pre class="lang:default decode:true">$ head -1 /etc/rc.conf
+#$Id: rc.conf,v 1.2 2013/08/24 10:52:27 root Exp $</pre>
+
+<p> </p>
+
+<p>これは便利である。<br />
+実はこの文字列、よく見かけたのだが、やっとその秘密が分かった。</p>
+
+<p>しかしタイムスタンプはUTCである。<br />
+チェックインのときに-zLTと指定すればローカルタイムで置換してくれる。</p>
+
+<pre class="lang:default decode:true">$ sudo ci -u -zLT ./rc.conf
+./RCS/rc.conf,v  &lt;--  ./rc.conf
+new revision: 1.4; previous revision: 1.3
+enter log message, terminated with single '.' or end of file:
+&gt;&gt; update timestamp from UTC to LT
+&gt;&gt; .
+done
+$ head -1 ./rc.conf
+#$Id: rc.conf,v 1.4 2013-08-24 20:18:36+09 root Exp $</pre>
+
+<p> </p>
+
+<h2 id="ident文字列のちょっとしたノウハウ"><span style="text-decoration: underline;">ident文字列のちょっとしたノウハウ</span></h2>
+
+<p>ident文字列の場所はどこでもよい。<br />
+しかし、1行目か2行目がよいでしょう。</p>
+
+<p>ident文字列はファイルのIDとして埋め込んでいる。<br />
+IDの場所がバージョンごとに違うと、のちのち差分を確認するときに見にくくなってしまうから。</p>
+
+<p> </p>
+
+  </div><a class="u-url" href="/2013/08/29.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

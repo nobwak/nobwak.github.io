@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>[zfs][zpool] らくらくスナップショットzfsnap2 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="[zfs][zpool] らくらくスナップショットzfsnap2" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送である。" />
+<meta property="og:description" content="zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送である。" />
+<link rel="canonical" href="https://nobwak.github.io/2018/12/01.html" />
+<meta property="og:url" content="https://nobwak.github.io/2018/12/01.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-01T15:53:49+09:00" />
+<script type="application/ld+json">
+{"description":"zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送である。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2018/12/01.html","headline":"[zfs][zpool] らくらくスナップショットzfsnap2","dateModified":"2018-12-01T15:53:49+09:00","datePublished":"2018-12-01T15:53:49+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2018/12/01.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[zfs][zpool] らくらくスナップショットzfsnap2</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-12-01T15:53:49+09:00" itemprop="datePublished">Dec 1, 2018
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。<br />
+私にとって面倒なのは、スナップショット作成とスナップショットの差分転送である。</p>
+
+<p>スナップショットの簡素化について。<br />
+スナップショットを作成する際には、ファイルシステムやボリュームに続けてスナップショットの名前、スナップネームを指定する必要がある。<br />
+スナップネームはスナップショットを特定するために必要なものなので文句を言う筋合いはないのだが、いちいち名前を付けるのが面倒なんである。日付でもなんでも自動的に付けてほしい。</p>
+
+<p>なんとか改善したくていろいろ調べてみた。</p>
+
+<h2 id="スナップショット取得補助ツール">スナップショット取得補助ツール</h2>
+
+<p>スナップショット関連ではzfstools, zfsnap2, zapの三つを調べた。<br />
+結論から言うと、zfsnap2を選択した。</p>
+
+<h4 id="zfstools">zfstools</h4>
+
+<p><a href="https://github.com/bdrewery/zfstools" target="_blank" rel="noopener">https://github.com/bdrewery/zfstools</a><br />
+<a href="https://www.freshports.org/sysutils/zfstools/" target="_blank" rel="noopener">https://www.freshports.org/sysutils/zfstools/</a><br />
+よさそうだけどruby依存なのでその一点で対象外に。<br />
+このツールのためだけにrubyを入れますか、という話で。<br />
+なるべく依存の少ないツールがよい。</p>
+
+<h4 id="zap">zap</h4>
+
+<p><a href="https://www.freshports.org/sysutils/zap" target="_blank" rel="noopener">https://www.freshports.org/sysutils/zap</a><br />
+<a href="https://github.com/Jehops/zap" target="_blank" rel="noopener">https://github.com/Jehops/zap</a><br />
+よさそうだけど、zfsに独自のプロパティ（zap:）を設定する必要があるっぽい。<br />
+独自プロパティの設定が、zfsとして許容されている作法であっても、対象のファイルシステムに何らかの手を加えるのは躊躇する</p>
+
+<h4 id="zfsnap2">zfsnap2</h4>
+
+<p><a href="https://www.freshports.org/sysutils/zfsnap2" target="_blank" rel="noopener">https://www.freshports.org/sysutils/zfsnap2</a><br />
+<a href="https://github.com/zfsnap/zfsnap" target="_blank" rel="noopener">https://github.com/zfsnap/zfsnap</a><br />
+単純なシェルスクリプト。<br />
+よさそう。</p>
+
+<h2 id="zfsnap2-お手軽snapshot">zfsnap2 お手軽snapshot</h2>
+
+<p>まず、zfsnap2は、取得すると日付シリアルをsnapnameに付けてくれる。<br />
+例えば。</p>
+
+<p>[bash]</p>
+
+<p>vault/chamber@2018-11-11_09.48.00–1y</p>
+
+<p>[/bash]</p>
+
+<p>ご覧の通り2018/11/11 09:48:00と日付をsnapnameに付ける<br />
+なお、末尾に1yと書いてあるがこれは1年という意味である。<br />
+これは何かというと（次項につづく）</p>
+
+<h2 id="zfsnap2-snapshot削除の仕組みとttl">zfsnap2 snapshot削除の仕組みとTTL</h2>
+
+<p>snapshotは取得するだけでなく、消す方の面倒を見ることも重要。<br />
+zfsnap2は、取得したタイムスタンプとTTL(Time To Live)をsnapnameに含めておくのがアイデア（他みも同じようなツールあるかもしれないけど）。<br />
+先ほどの例でいえば、末尾の1yがそれ。1yだから1 year、1年ですな。</p>
+
+<p>[bash]<br />
+vault/chamber@2018-11-11_09.48.00–1y<br />
+[/bash]</p>
+
+<p>上記の通り、取得日付、保存期間をsnapname自体に持たせるので、ツール側では状態を記憶しておく必要がない。<br />
+削除を指示されたら、zfsnap2はその都度、snapnameだけを見て判断・処理をするということ。<br />
+何より人間もsnapnameから保存期限を判断できる。これはよい。</p>
+
+<h2 id="とりあえず使う">とりあえず使う</h2>
+
+<p>管理者権限でzfsnap snapshotに続けてzfs/zpoolを指定するだけ。<br />
+日付も付けてくれる。</p>
+
+<p>[bash]<br />
+# zfsnap snapshot zroot/var/tmp<br />
+$ zfs list -t snapshot|grep ‘zroot/var/tmp’<br />
+zroot/var/tmp@20181120 56K – 88K –<br />
+zroot/var/tmp@2018-12-01_22.19.13–1m 0 – 88K –<br />
+[/bash]</p>
+
+<h2 id="zfsnap書式概要">zfsnap書式概要</h2>
+
+<p>詳細はman等するとして、概要を示す。<br />
+書式は以下の通り。</p>
+
+<p>[bash]zfsnap コマンド <共通オプション>　<個別オプション> zpool/zfs[/bash]</個別オプション></共通オプション></p>
+
+<h2 id="zfsnapのコマンド">zfsnapのコマンド</h2>
+
+<p>コマンドにはsnapshot, destroy, recursebackの三つがある。<br />
+それらに続けてzpool, zfsを指定する。こちらの指定は複数でもよい。<br />
+共通オプション（generic option）は、その名の通り、共通的なオプション。<br />
+個別オプションはzpool, zfsごとのオプションである。</p>
+
+<p>コマンドのsnapshot, destroyは当然ながらそれぞれsnapshot作成、削除。<br />
+recursebackは、zfs rollbackの拡張で、rollbackの際、指定のdataset配下すべてをrollbackするもの。<br />
+本稿では扱わない。</p>
+
+<h2 id="共通オプションgeneric-option">共通オプション（generic option）</h2>
+
+<p>主なものだけ示す</p>
+
+<p style="padding-left: 30px;">
+  -s  : resilver中は作業しない<br /> -S : scrub中は作業しない<br /> -z : 日付シリアルの秒切り捨て（18:06:15を18:06:00にする）<br /> -n : dry run。テスト実行。ファイルシステムに変更を加えない。<br /> -v : 冗長output
+</p>
+
+<p>-s, -Sは常時付けておいたほうがいいかな。</p>
+
+<h2 id="個別オプション">個別オプション</h2>
+
+<p>個別オプションなので、これに続けて指定されたzpool/zfsにのみ効果がある。<br />
+主なものだけ示す</p>
+
+<p style="padding-left: 30px;">
+  -a : TTL。指定がなければ1m = 1か月<br /> -r : 再帰オプション。再帰的にsnapshotを取得<br /> -R : 非再帰オプション。再帰的なsnapshotを取得「しない」
+</p>
+
+<h2 id="ttlオプション">TTLオプション</h2>
+
+<p>以下のうち、必要なものだけをズラズラ書けばよい</p>
+
+<p style="padding-left: 30px;">
+  y : 年（365日）<br /> m : 月（30日）<br /> w : 週（7日）<br /> d : 日<br /> h : 時<br /> M : 分<br /> s : 秒
+</p>
+
+<p>1週間と1日なら-a 1w1d。<br />
+2か月なら-a 2m。</p>
+
+<h2 id="実行例">実行例</h2>
+
+<p>以上を踏まえて;<br />
+resilver, scrub中は実行せず、日付シリアルの秒切り捨て、冗長アウトプットでsnapshotをテスト実行。<br />
+対象zfsその1はzroot/usrで、再帰的に取得し、TTLは1週間と1日。その2はzroot/ROOTで、再帰的に取得「せず」、TTLは1分。<br />
+という実行例。</p>
+
+<p>[bash]<br />
+# zfsnap snapshot -sSvzn -a1w1d -r zroot/usr -R -a1M zroot/ROOT<br />
+/sbin/zfs snapshot -r zroot/usr@2018-12-01_22.33.00–1w1d<br />
+/sbin/zfs snapshot zroot/ROOT@2018-12-01_22.33.00–1M<br />
+[/bash]</p>
+
+<p>よさそうなのでテスト実行オプションを省いて本番実行すると;</p>
+
+<p>[bash]<br />
+# zfsnap snapshot -sSvz -a1w1d -r zroot/usr -R -a1M zroot/ROOT<br />
+/sbin/zfs snapshot -r zroot/usr@2018-12-01_22.34.00–1w1d … DONE<br />
+/sbin/zfs snapshot zroot/ROOT@2018-12-01_22.34.00–1M … DONE<br />
+[/bash]</p>
+
+<p>zfs listで結果を確認。zroot/usrにのみ配下にもスナップショットが出来ている。</p>
+
+<p>[bash]<br />
+$ zfs list -t snapshot | grep ‘2018-12-01’<br />
+zroot/ROOT@2018-12-01_22.34.00–1M 0 – 88K –<br />
+zroot/usr@2018-12-01_22.34.00–1w1d 0 – 88K –<br />
+zroot/usr/home@2018-12-01_22.34.00–1w1d 0 – 5.97M –<br />
+zroot/usr/ports@2018-12-01_22.34.00–1w1d 0 – 88K –<br />
+zroot/usr/src@2018-12-01_22.34.00–1w1d 0 – 88K –<br />
+[/bash]</p>
+
+<p>では削除のほうも。<br />
+zroot/ROOT、zroot/usr配下のTTL切れsnapshotを削除<br />
+ただしzroot/ROOTは非再帰的、zroot/usrは再帰的に。<br />
+テスト実行。</p>
+
+<p>[bash]<br />
+# zfsnap destroy -sSvn -R zroot/ROOT -r zroot/usr<br />
+/sbin/zfs destroy zroot/ROOT@2018-12-01_22.34.00–1M<br />
+[/bash]</p>
+
+<p>期限切れはzroot/ROOT@2018-12-01_22.34.00–1Mのみ。<br />
+じゃ、それで本番実行</p>
+
+<p>[bash]<br />
+# zfsnap destroy -sSv -R zroot/ROOT -r zroot/usr<br />
+/sbin/zfs destroy zroot/ROOT@2018-12-01_22.34.00–1M … DONE<br />
+[/bash]</p>
+
+<p>以上。</p>
+
+  </div><a class="u-url" href="/2018/12/01.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

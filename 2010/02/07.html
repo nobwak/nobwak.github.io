@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>FreeBSDでのGNOMEインストール | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="FreeBSDでのGNOMEインストール" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="これ、古い記事なのに未だに見られているようなのでアップデートします。 ただ、FreeBSDをいわゆるデスクトップ用途で使うのは激しくオススメしない。 以下、RELEASE版にxorg、GNOMEを入れることを想定。 ほぼFreeBSDハンドブックの手順どおり。 日本語版もあるが、ちと情報が古いので、英語版を見るのがベター。 Xのインストール ではさっそく。 portsでインストールした日には何日かかるかわからないので、全部パッケージで入れることにする。 # PACKAGEROOT=&#34;ftp://ftp2.jp.freebsd.org&#34;;export PACKAGEROOT # pkg_add -r xorg bsdadminsctips とすれば、xorgに関係するパッケージを全部入れてくれる(Bシェル系の場合)。 普通にやるとftp.freebsd.orgあたりにパッケージを取りに行ってしまい時間がかかるので、環境変数のPACKAGEROOTで日本のftpを指定しておく。 bsdadminscriptsは管理者用お役立ちツール。今回はbsdadminscriptsのうちの、rcコマンドが便利なので入れる。 Xの設定 Xorg7.4からdbus, haldを使うようになったので、rc.confを修正してdbus, haldをスタートさせる。dbusとhaldの順番は必ずこのとおりにすること。 mousedが動いていたら止める。 ◎/etc/rc.conf #For X dbus_enable=&#34;YES&#34; hald_enable=&#34;YES&#34; moused_enable=&#34;NO&#34; で、起動。 # rcstart dbus Starting dbus. # rcstart hald Starting hald. # pkill moused rcstartはbsdadminscriptsでインストールされるコマンド。 次にhaldのキーボード設定をする。 fdiファイルを作って適切な場所に置いたら、必ずhaldをrcrestart haldなどとして再起動すること。 で、もうxorg.conの設定などはせず、rootでいきなりstartxとする。 最近は、大抵のケースであればもう自動でやってくれるので。 素っ気ないtwmの起動が確認できたらOK。 起動できない場合には、Xorg -configureとしてxorg.confを作り、/var/log/にあるXorgのログを見ながらぐぐって頑張る。 ところで、webを見回すと、FreeBSDなのに/etc/の下へxorg.confを置いているケースが散見される。動作に支障があるわけではないが、base system以外、つまりports, packagesで入れたソフトウェアは/usr/localの下に置くのがFreeBSDの嗜み。だから/usr/local/etc/X11の下に置きましょう。 GNOMEのインストール # pkg_add -r gnome2-lite GNOMEの設定 システム起動時にgdmも起動させる。 /etc/rc.confに下記のとおり追加。 gdm_enable=&#34;YES&#34; gnome_enable=&#34;YES&#34; gnome_enable=&#8221;YES&#8221;とすればgnome関連デーモンの起動もしてくれる。 インプットメソッドのインストール pkg_add -r ja-vlgothic uim-gtk ja-uim-anthy としてinput methodをインストール。 なお、gnome2.20ではこういったinput methodやlocale設定に問題があるので、gdmのプルダウンメニューでJapaneseを選んで有効にする。あるいは、~/.profileに&#8217;export GDM_LANG=ja_JP.UTF-8&#8217;という一行を加える。（http://www.freebsd.org/gnome/docs/faq2.html#q29） で、再起動。 FreeBSDのサウンドカードの設定 gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。 これもFreeBSDハンドブックを参照して解決。 大まかな流れ。 サウンド向けメタドライバをロードして、メジャーなサウンドドライバを片っ端から読み込む。 勝手に適当なドライバを判断してくれるのでそれを確認。 音を鳴らしてみて確認。OKなら、 見つけたドライバを起動時に読み込むよう設定。 具体的な手順は以下のとおり。 # kldload snd_driver # kldstat （大量のメッセージ） # cat /dev/sndstat FreeBSD Audio Driver (newpcm: 32bit 2007061600/i386) Installed devices: pcm0: &#60;Intel ICH3 (82801CA)&#62; at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld &#60;span style=&#34;font-weight:bold;&#34;&#62;snd_ich&#60;/span&#62;　&#91;MPSAFE] (1p:1v/1r:1v channels duplex default) ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。 snd_ich_load=&#34;YES&#34; 以上" />
+<meta property="og:description" content="これ、古い記事なのに未だに見られているようなのでアップデートします。 ただ、FreeBSDをいわゆるデスクトップ用途で使うのは激しくオススメしない。 以下、RELEASE版にxorg、GNOMEを入れることを想定。 ほぼFreeBSDハンドブックの手順どおり。 日本語版もあるが、ちと情報が古いので、英語版を見るのがベター。 Xのインストール ではさっそく。 portsでインストールした日には何日かかるかわからないので、全部パッケージで入れることにする。 # PACKAGEROOT=&#34;ftp://ftp2.jp.freebsd.org&#34;;export PACKAGEROOT # pkg_add -r xorg bsdadminsctips とすれば、xorgに関係するパッケージを全部入れてくれる(Bシェル系の場合)。 普通にやるとftp.freebsd.orgあたりにパッケージを取りに行ってしまい時間がかかるので、環境変数のPACKAGEROOTで日本のftpを指定しておく。 bsdadminscriptsは管理者用お役立ちツール。今回はbsdadminscriptsのうちの、rcコマンドが便利なので入れる。 Xの設定 Xorg7.4からdbus, haldを使うようになったので、rc.confを修正してdbus, haldをスタートさせる。dbusとhaldの順番は必ずこのとおりにすること。 mousedが動いていたら止める。 ◎/etc/rc.conf #For X dbus_enable=&#34;YES&#34; hald_enable=&#34;YES&#34; moused_enable=&#34;NO&#34; で、起動。 # rcstart dbus Starting dbus. # rcstart hald Starting hald. # pkill moused rcstartはbsdadminscriptsでインストールされるコマンド。 次にhaldのキーボード設定をする。 fdiファイルを作って適切な場所に置いたら、必ずhaldをrcrestart haldなどとして再起動すること。 で、もうxorg.conの設定などはせず、rootでいきなりstartxとする。 最近は、大抵のケースであればもう自動でやってくれるので。 素っ気ないtwmの起動が確認できたらOK。 起動できない場合には、Xorg -configureとしてxorg.confを作り、/var/log/にあるXorgのログを見ながらぐぐって頑張る。 ところで、webを見回すと、FreeBSDなのに/etc/の下へxorg.confを置いているケースが散見される。動作に支障があるわけではないが、base system以外、つまりports, packagesで入れたソフトウェアは/usr/localの下に置くのがFreeBSDの嗜み。だから/usr/local/etc/X11の下に置きましょう。 GNOMEのインストール # pkg_add -r gnome2-lite GNOMEの設定 システム起動時にgdmも起動させる。 /etc/rc.confに下記のとおり追加。 gdm_enable=&#34;YES&#34; gnome_enable=&#34;YES&#34; gnome_enable=&#8221;YES&#8221;とすればgnome関連デーモンの起動もしてくれる。 インプットメソッドのインストール pkg_add -r ja-vlgothic uim-gtk ja-uim-anthy としてinput methodをインストール。 なお、gnome2.20ではこういったinput methodやlocale設定に問題があるので、gdmのプルダウンメニューでJapaneseを選んで有効にする。あるいは、~/.profileに&#8217;export GDM_LANG=ja_JP.UTF-8&#8217;という一行を加える。（http://www.freebsd.org/gnome/docs/faq2.html#q29） で、再起動。 FreeBSDのサウンドカードの設定 gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。 これもFreeBSDハンドブックを参照して解決。 大まかな流れ。 サウンド向けメタドライバをロードして、メジャーなサウンドドライバを片っ端から読み込む。 勝手に適当なドライバを判断してくれるのでそれを確認。 音を鳴らしてみて確認。OKなら、 見つけたドライバを起動時に読み込むよう設定。 具体的な手順は以下のとおり。 # kldload snd_driver # kldstat （大量のメッセージ） # cat /dev/sndstat FreeBSD Audio Driver (newpcm: 32bit 2007061600/i386) Installed devices: pcm0: &#60;Intel ICH3 (82801CA)&#62; at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld &#60;span style=&#34;font-weight:bold;&#34;&#62;snd_ich&#60;/span&#62;　&#91;MPSAFE] (1p:1v/1r:1v channels duplex default) ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。 snd_ich_load=&#34;YES&#34; 以上" />
+<link rel="canonical" href="https://nobwak.github.io/2010/02/07.html" />
+<meta property="og:url" content="https://nobwak.github.io/2010/02/07.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2010-02-07T01:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"これ、古い記事なのに未だに見られているようなのでアップデートします。 ただ、FreeBSDをいわゆるデスクトップ用途で使うのは激しくオススメしない。 以下、RELEASE版にxorg、GNOMEを入れることを想定。 ほぼFreeBSDハンドブックの手順どおり。 日本語版もあるが、ちと情報が古いので、英語版を見るのがベター。 Xのインストール ではさっそく。 portsでインストールした日には何日かかるかわからないので、全部パッケージで入れることにする。 # PACKAGEROOT=&#34;ftp://ftp2.jp.freebsd.org&#34;;export PACKAGEROOT # pkg_add -r xorg bsdadminsctips とすれば、xorgに関係するパッケージを全部入れてくれる(Bシェル系の場合)。 普通にやるとftp.freebsd.orgあたりにパッケージを取りに行ってしまい時間がかかるので、環境変数のPACKAGEROOTで日本のftpを指定しておく。 bsdadminscriptsは管理者用お役立ちツール。今回はbsdadminscriptsのうちの、rcコマンドが便利なので入れる。 Xの設定 Xorg7.4からdbus, haldを使うようになったので、rc.confを修正してdbus, haldをスタートさせる。dbusとhaldの順番は必ずこのとおりにすること。 mousedが動いていたら止める。 ◎/etc/rc.conf #For X dbus_enable=&#34;YES&#34; hald_enable=&#34;YES&#34; moused_enable=&#34;NO&#34; で、起動。 # rcstart dbus Starting dbus. # rcstart hald Starting hald. # pkill moused rcstartはbsdadminscriptsでインストールされるコマンド。 次にhaldのキーボード設定をする。 fdiファイルを作って適切な場所に置いたら、必ずhaldをrcrestart haldなどとして再起動すること。 で、もうxorg.conの設定などはせず、rootでいきなりstartxとする。 最近は、大抵のケースであればもう自動でやってくれるので。 素っ気ないtwmの起動が確認できたらOK。 起動できない場合には、Xorg -configureとしてxorg.confを作り、/var/log/にあるXorgのログを見ながらぐぐって頑張る。 ところで、webを見回すと、FreeBSDなのに/etc/の下へxorg.confを置いているケースが散見される。動作に支障があるわけではないが、base system以外、つまりports, packagesで入れたソフトウェアは/usr/localの下に置くのがFreeBSDの嗜み。だから/usr/local/etc/X11の下に置きましょう。 GNOMEのインストール # pkg_add -r gnome2-lite GNOMEの設定 システム起動時にgdmも起動させる。 /etc/rc.confに下記のとおり追加。 gdm_enable=&#34;YES&#34; gnome_enable=&#34;YES&#34; gnome_enable=&#8221;YES&#8221;とすればgnome関連デーモンの起動もしてくれる。 インプットメソッドのインストール pkg_add -r ja-vlgothic uim-gtk ja-uim-anthy としてinput methodをインストール。 なお、gnome2.20ではこういったinput methodやlocale設定に問題があるので、gdmのプルダウンメニューでJapaneseを選んで有効にする。あるいは、~/.profileに&#8217;export GDM_LANG=ja_JP.UTF-8&#8217;という一行を加える。（http://www.freebsd.org/gnome/docs/faq2.html#q29） で、再起動。 FreeBSDのサウンドカードの設定 gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。 これもFreeBSDハンドブックを参照して解決。 大まかな流れ。 サウンド向けメタドライバをロードして、メジャーなサウンドドライバを片っ端から読み込む。 勝手に適当なドライバを判断してくれるのでそれを確認。 音を鳴らしてみて確認。OKなら、 見つけたドライバを起動時に読み込むよう設定。 具体的な手順は以下のとおり。 # kldload snd_driver # kldstat （大量のメッセージ） # cat /dev/sndstat FreeBSD Audio Driver (newpcm: 32bit 2007061600/i386) Installed devices: pcm0: &#60;Intel ICH3 (82801CA)&#62; at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld &#60;span style=&#34;font-weight:bold;&#34;&#62;snd_ich&#60;/span&#62;　&#91;MPSAFE] (1p:1v/1r:1v channels duplex default) ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。 snd_ich_load=&#34;YES&#34; 以上","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2010/02/07.html","headline":"FreeBSDでのGNOMEインストール","dateModified":"2010-02-07T01:00:00+09:00","datePublished":"2010-02-07T01:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2010/02/07.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">FreeBSDでのGNOMEインストール</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2010-02-07T01:00:00+09:00" itemprop="datePublished">Feb 7, 2010
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="section">
+  <p>
+    <a href="http://d.hatena.ne.jp/flageo/20071125/p1" target="_blank">これ</a>、古い記事なのに未だに見られているようなのでアップデートします。
+  </p>
+  
+  <p>
+    ただ、FreeBSDをいわゆるデスクトップ用途で使うのは激しくオススメしない。
+  </p>
+  
+  <p>
+    以下、RELEASE版にxorg、GNOMEを入れることを想定。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    ほぼ<a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/x-config.html" target="_blank">FreeBSDハンドブック</a>の手順どおり。
+  </p>
+  
+  <p>
+    <a href="http://www.jp.freebsd.org/www.FreeBSD.org/doc/ja_JP.eucJP/books/handbook/x11-wm.html" target="_blank">日本語版</a>もあるが、ちと情報が古いので、英語版を見るのがベター。
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;">Xのインストール</span>
+  </p>
+  
+  <p>
+    ではさっそく。
+  </p>
+  
+  <p>
+    portsでインストールした日には何日かかるかわからないので、全部パッケージで入れることにする。
+  </p>
+  
+  <p>
+  </p>
+  
+  <pre>
+# PACKAGEROOT=&#34;ftp://ftp2.jp.freebsd.org&#34;;export PACKAGEROOT
+# pkg_add -r xorg bsdadminsctips
+</pre>
+  
+  <p>
+    とすれば、xorgに関係するパッケージを全部入れてくれる(Bシェル系の場合)。
+  </p>
+  
+  <p>
+    普通にやるとftp.freebsd.orgあたりにパッケージを取りに行ってしまい時間がかかるので、環境変数のPACKAGEROOTで日本のftpを指定しておく。
+  </p>
+  
+  <p>
+    bsdadminscriptsは<a href="http://d.hatena.ne.jp/flageo/20090427/p1" target="_blank">管理者用お役立ちツール</a>。今回はbsdadminscriptsのうちの、rcコマンドが便利なので入れる。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;">Xの設定</span>
+  </p>
+  
+  <p>
+    Xorg7.4からdbus, haldを使うようになったので、rc.confを修正してdbus, haldをスタートさせる。dbusとhaldの順番は必ずこのとおりにすること。
+  </p>
+  
+  <p>
+    mousedが動いていたら止める。
+  </p>
+  
+  <p>
+    ◎/etc/rc.conf
+  </p>
+  
+  <pre>
+#For X
+dbus_enable=&#34;YES&#34;
+hald_enable=&#34;YES&#34;
+moused_enable=&#34;NO&#34;
+</pre>
+  
+  <p>
+    で、起動。
+  </p>
+  
+  <pre>
+# rcstart dbus
+Starting dbus.
+# rcstart hald
+Starting hald.
+# pkill moused
+</pre>
+  
+  <p>
+    rcstartはbsdadminscriptsでインストールされるコマンド。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    次に<a href="http://d.hatena.ne.jp/flageo/20090318/p1" target="_blank">haldのキーボード設定</a>をする。
+  </p>
+  
+  <p>
+    fdiファイルを作って適切な場所に置いたら、必ずhaldをrcrestart haldなどとして再起動すること。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    で、もうxorg.conの設定などはせず、rootでいきなりstartxとする。
+  </p>
+  
+  <p>
+    最近は、大抵のケースであればもう自動でやってくれるので。
+  </p>
+  
+  <p>
+    素っ気ないtwmの起動が確認できたらOK。
+  </p>
+  
+  <p>
+    起動できない場合には、Xorg -configureとしてxorg.confを作り、/var/log/にあるXorgのログを見ながらぐぐって頑張る。
+  </p>
+  
+  <p>
+    ところで、webを見回すと、FreeBSDなのに/etc/の下へxorg.confを置いているケースが散見される。動作に支障があるわけではないが、base system以外、つまりports, packagesで入れたソフトウェアは/usr/localの下に置くのがFreeBSDの嗜み。だから/usr/local/etc/X11の下に置きましょう。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;">GNOMEのインストール</span>
+  </p>
+  
+  <pre>
+# pkg_add -r gnome2-lite
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;">GNOMEの設定</span>
+  </p>
+  
+  <p>
+    システム起動時にgdmも起動させる。
+  </p>
+  
+  <p>
+    /etc/rc.confに下記のとおり追加。
+  </p>
+  
+  <pre>
+gdm_enable=&#34;YES&#34;
+gnome_enable=&#34;YES&#34;
+</pre>
+  
+  <p>
+    gnome_enable=&#8221;YES&#8221;とすればgnome関連デーモンの起動もしてくれる。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;">インプットメソッドのインストール</span>
+  </p>
+  
+  <pre>
+pkg_add -r ja-vlgothic uim-gtk ja-uim-anthy
+</pre>
+  
+  <p>
+    としてinput methodをインストール。
+  </p>
+  
+  <p>
+    なお、gnome2.20ではこういったinput methodやlocale設定に問題があるので、gdmのプルダウンメニューでJapaneseを選んで有効にする。あるいは、~/.profileに&#8217;export GDM_LANG=ja_JP.UTF-8&#8217;という一行を加える。（<a href="http://www.freebsd.org/gnome/docs/faq2.html#q29" target="_blank">http://www.freebsd.org/gnome/docs/faq2.html#q29</a>）
+  </p>
+  
+  <p>
+    で、再起動。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;">FreeBSDのサウンドカードの設定</span>
+  </p>
+  
+  <p>
+    gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。
+  </p>
+  
+  <p>
+    これも<a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/sound-setup.html" target="_blank">FreeBSDハンドブック</a>を参照して解決。
+  </p>
+  
+  <p>
+    大まかな流れ。
+  </p>
+  
+  <ol>
+    <li>
+      サウンド向けメタドライバをロードして、メジャーなサウンドドライバを片っ端から読み込む。
+    </li>
+    <li>
+      勝手に適当なドライバを判断してくれるのでそれを確認。
+    </li>
+    <li>
+      音を鳴らしてみて確認。OKなら、
+    </li>
+    <li>
+      見つけたドライバを起動時に読み込むよう設定。
+    </li>
+  </ol>
+  
+  <p>
+    具体的な手順は以下のとおり。
+  </p>
+  
+  <pre>
+# kldload snd_driver
+# kldstat
+（大量のメッセージ）
+# cat /dev/sndstat
+FreeBSD Audio Driver (newpcm: 32bit 2007061600/i386)
+Installed devices:
+pcm0: &#60;Intel ICH3 (82801CA)&#62; at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld &#60;span style=&#34;font-weight:bold;&#34;&#62;snd_ich&#60;/span&#62;　&#91;MPSAFE] (1p:1v/1r:1v channels duplex default)
+</pre>
+  
+  <p>
+    ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。
+  </p>
+  
+  <pre>
+snd_ich_load=&#34;YES&#34;
+</pre>
+  
+  <p>
+    以上
+  </p>
+</div>
+
+  </div><a class="u-url" href="/2010/02/07.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

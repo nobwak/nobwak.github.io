@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。" />
+<meta property="og:description" content="インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。" />
+<link rel="canonical" href="https://nobwak.github.io/2014/06/23.html" />
+<meta property="og:url" content="https://nobwak.github.io/2014/06/23.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-06-23T21:51:55+09:00" />
+<script type="application/ld+json">
+{"description":"インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2014/06/23.html","headline":"[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには","dateModified":"2014-06-23T21:51:55+09:00","datePublished":"2014-06-23T21:51:55+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2014/06/23.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-06-23T21:51:55+09:00" itemprop="datePublished">Jun 23, 2014
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。</p>
+
+<p>インターネットに接続できるマシンでpkgをインストールしておき、そのマシンからpkgを取得する。</p>
+
+<h2 id="手順">手順</h2>
+
+<p>・ターゲットとなるマシン（以下、ターゲット）と同じ構成でVM（以下、コピーマシン）を作る。<br />
+・コピーマシンに必要なpkgをインストールする。<br />
+・コピーマシン上のどこかでインストール済みpkgを作る。<br />
+・同じ場所にrepoカタログを作成する。<br />
+・ターゲットと同じLANに繋ぎかえる。<br />
+・pkgのあるディレクトリをwebサーバで公開し、pkgをインストールする。</p>
+
+<p>以下、詳細手順</p>
+
+<h2 id="ターゲットと同じ構成でvmを作る">ターゲットと同じ構成でVMを作る</h2>
+
+<p>RELEASEバージョンを合わせておけばよいでしょう。<br />
+割愛。</p>
+
+<h2 id="コピーマシンに必要なpkgをインストールする">コピーマシンに必要なpkgをインストールする</h2>
+
+<p>タイトルの通り。<br />
+なにもわざわざインストールしなくても、という意見もあるだろうが、動作確認も必要だし。<br />
+割愛。</p>
+
+<h2 id="pkgを作る">pkgを作る</h2>
+
+<p>適当な場所にディレクトリを掘り、以下のコマンドを叩く。</p>
+
+<pre>pkg create -a -f tgz -o ./ -n
+</pre>
+
+<p>-aは、インストール済みのすべてのpkgを指定、という意味。all。<br />
+-fは、圧縮フォーマットの指定。右から左へ移すだけだからtgzでよい。tbzだと時間がかかる。<br />
+-o ./は、作成したpkgを置く場所。<br />
+-nは、作成済みのpkgを作らない、という意味。付けると処理のスピードアップが望めるが、逆に更新のあったpkgを作り忘れる、という危険性もあるかも。<br />
+以下の例では-nを使っていない。</p>
+
+<pre>$ cd /usr/home/vanilla/pkgrepo/
+$ sudo pkg create -f tgz -o ./ -a
+Loading the package list...
+Creating package for GentiumBasic-110_1
+Creating package for ImageMagick-6.8.9.3,1
+Creating package for ORBit2-2.14.19_1
+(略)
+</pre>
+
+<h2 id="repoカタログを作成する">repoカタログを作成する</h2>
+
+<p>pkg repoにディレクトリを指定すればよい。</p>
+
+<pre>$ cd /usr/home/vanilla/pkgrepo/
+$ sudo pkg repo /usr/home/vanilla/pkgrepo/
+Generating repository catalog in /usr/home/vanilla/pkgrepo/: done!
+$
+</pre>
+
+<p>そうすると以下の二つのファイルができる。</p>
+
+<pre>digests.txz     packagesite.txz
+</pre>
+
+<p>つまり今回の例でいえば、/usr/home/vanilla/pkgrepo/に作成したpkgと二つのファイルが格納されているわけ。</p>
+
+<p>以上でコピーマシンでの作業は完了。</p>
+
+<h2 id="ターゲットでの準備">ターゲットでの準備</h2>
+
+<p>ターゲットにpkg一式をコピーし、webサーバを立ち上げる。<br />
+そのまえに、ターゲットでレポジトリの設定ファイルを修正しておくこと。<br />
+具体的には、①公式のpkgレポジトリを無効にし、②自前のpkgレポジトリの設定を加えることである。</p>
+
+<p>①公式pkgレポジトリの無効化</p>
+
+<p>/etc/pkg/pkg/FreeBSD.confでenabledをnoにする。</p>
+
+<pre># $FreeBSD: release/10.0.0/etc/pkg/FreeBSD.conf 258710 2013-11-28 14:24:26Z gjb
+$
+FreeBSD: {
+  url: "pkg+http://pkg.FreeBSD.org/${ABI}/latest",
+  mirror_type: "srv",
+  signature_type: "fingerprints",
+  fingerprints: "/usr/share/keys/pkg",
+  enabled: no
+}</pre>
+
+<p>②自前レポジトリの設定<br />
+/usr/local/etc/pkg/repos/localpkg.confとして以下のようなファイルを作る。<br />
+urlは、後ほど設定するwebサーバと合わせる事。</p>
+
+<pre>localpkg: {
+  url: "http://localhost:8000/",
+  mirror_type: "http",
+  enabled: yes
+}
+</pre>
+
+<p>pkg -vvとしてみる。<br />
+repo FreeBSDのenabledがno, repo localpkgのenabledがyesになっていることを確認。</p>
+
+<pre>Repositories:
+  FreeBSD: {
+    url             : "pkg+http://pkg.FreeBSD.org/freebsd:10:x86:32/latest",
+    enabled         : no,
+    mirror_type     : "SRV",
+    signature_type  : "FINGERPRINTS",
+    fingerprints    : "/usr/share/keys/pkg"
+  }
+  localpkg: {
+    url             : "http://localhost:8000/",
+    enabled         : yes,
+    mirror_type     : "HTTP"
+  }</pre>
+
+<p> </p>
+
+<h2 id="webサーバでpkgを公開インストールする">webサーバでpkgを公開、インストールする。</h2>
+
+<p>rsyncでもなんでも使って、ターゲットにpkg一式をコピーする。<br />
+/home/vanilla/10.0/pkgにコピーしたとして、webサーバでこのディレクトリを公開すればよい。<br />
+ここでは手早くpythonで公開する。<br />
+以下のようにするとカレントディレクトリをルートとするwebサーバが立ちあがる。ポートは8000である。</p>
+
+<pre>$ cd /home/vanilla/10.0/pkg
+$ python -m SimpleHTTPServer
+</pre>
+
+<p>同じくターゲットでpkg udpate。<br />
+pkg repoで作成したdigests.txz, packagesite.txzを参照できていることを確認したら、pkg upgradeすればよい。</p>
+
+<pre>$ sudo pkg update
+Updating repository catalogue
+digests.txz                         100%   29KB  29.3KB/s  29.3KB/s   00:00    
+packagesite.txz                     100%  136KB 135.9KB/s 135.9KB/s   00:00    
+Incremental update completed, 613 packages processed:
+0 packages updated, 0 removed and 613 added.
+</pre>
+
+<p>以上です。</p>
+
+  </div><a class="u-url" href="/2014/06/23.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

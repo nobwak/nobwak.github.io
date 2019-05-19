@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>ISOイメージのみでFreeBSDアップグレード | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="ISOイメージのみでFreeBSDアップグレード" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="FreeBSDのSTABLEを追っかけたくても、PCが古くてbuildworldがつらい。 となると、1ヶ月に一度作られるsnapshotからインストールすることになるが、いちいちCDに焼いて、そこからブートするのも面倒。 ということで、ISOイメージを使って、FreeBSDを7.0-BETA4からRC1にアップグレードしたときのメモ。 無保証。 謙遜で無保証と言ってる訳でなく、本当に無保証。 これで合ってるのかどうか分からない。一応7.0current200709→current200710→BETA1→BETA2→RC1と歩いて来たけれども、マイナーバージョンアップグレードしかしてないから問題が出ていないだけの可能性も。 ◎全体のおおまかな流れ 　1.ISOイメージのダウンロード 　2.ISOイメージからファイルの取り出し。 　3.schgフラグを外す 　4.カーネルを展開 　5.リブート 　6./etcを除いたベースシステムを展開 　7.mergemaster 　8.リブート 以下、実際の作業 ◎何はともあれ、バックアップ /etc配下のファイルと、カーネルをバックアップ # cp -pR /etc /etc.080111 # cp -pR /boot/kernel /boot/kernel.080111 ◎ISOイメージのマウント # mdconfig -a -t vnode -f 7.0-RC1-i386-disc1.iso -u 10 # /sbin/mount_cd9660 /dev/md10 /mnt ◎必要なファイルのコピー カーネル、ユーザランド（て表現で合ってるのか？要するにworld部分）と、/etc配下ファイルのソースなど、必要なファイルをすべて抜き出しておく。これは、後でISOイメージをマウント出来るかどうか分からないため。 配布ファイルは、フロッピーディスクでインストールしていた時代の名残で1.44Mごとに分割されているため、それを連結しどこかに置いておく。 どこかとは言っても、後々、新しいカーネルでもマウントできるようなファイルシステムに置くこと。 以下の例では、マニュアルページなどもついでにコピーしている。インストールが終わったら、改めてISOイメージをマウントし、install.shでコピーする手もあるが、そこは好き好きで。 # mkdir /usr/archive # cat /mnt/7.0-RC1/base/base.?? &#62; /usr/archive/base.tgz # cat /mnt/7.0-RC1/kernels/generic.?? &#62; /usr/archive/generic.tgz # cat /mnt/7.0-RC1/manpages/manpages.?? &#62; /usr/archive/manpages.tgz srcは下記のようにして/usr/src配下に展開しておく。 # cd /mnt/7.0-RC1/src # sh install.sh all Extracting sources into /usr/src... Extracting source component: ＜略＞ Done extracting sources. ◎schgフラグを外す システム上、重要なファイルはschgフラグがセットされ、rootであっても上書きできないようになっているので、そのフラグを外す。 なお、システムのセキュリティレベルが1以上に設定されていると、フラグは変更できないので念のため。 確認方法。詳しくはman security。 # sysctl kern.securelevel kern.securelevel: -1 まずschgフラグがセットされているファイルを探す。こんな風にしてみた。 # find / -flags schg -exec ls -lo {} \; |cut -d &#39; &#39; -f 13 &#62; /tmp/flaglist /tmp/flaglistの中身はこんな感じ。 /usr/bin/chpass /usr/bin/chfn /usr/bin/chsh /usr/bin/login /usr/bin/opieinfo /usr/bin/opiepasswd /usr/bin/passwd /usr/bin/rlogin /usr/bin/rsh /usr/bin/su /usr/bin/crontab /usr/lib/libkse.so.3 /usr/lib/librt.so.1 /usr/sbin/sliplogin /bin/rcp /lib/libc.so.7 /lib/libcrypt.so.4 /lib/libthr.so.3 /libexec/ld-elf.so.1 /sbin/init 中身を確認して問題なければフラグを外す。xargs使うほどの量でもないけれども。 # xargs chflags noschg &#60; /tmp/flaglist ていうか、/bin /usr/bin /sbin /usr/sbin/ /lib /usr/lib /libexec /usr/libexecあたりの配下ファイル全部に対してchflags noschgしちゃってもいい、というか早い。 ◎カーネルの展開 先にコピーしておいたgeneric.tgzを展開。 # cd /usr/archive # tar -Upxvzf /usr/archive/generic.tgz 念には念を入れてオリジナルのkernelをmvし、上で展開しておいた新kernelを/boot配下へ移動 # mv /boot/kernel /boot/kernel.orig # mv /usr/archive/GENERIC /boot/kernel ◎リブート 祈りつつリブートし、カーネルが正しく入れ替わっていることを確認。 # uname -a FreeBSD xxxx 7.0-RC1 FreeBSD 7.0-RC1 #0: Mon Dec 24 12:18:24 UTC 2007 root@logan.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC i386 RC1になってる。 そもそもブートしなかったら/boot/kernel.orig/kernelから起動して、アップグレードは諦める。 ◎worldの展開 いちばん緊張するところ。 base.tgzを展開するが、気をつけないと/etcが上書きされて死亡するので、しっかり/etcをexcludeすること。 # /rescue/tar -Upxvzf /usr/archive/base.tgz -C / --exclude ./etc この後、mergemasterで新しい/etc配下ファイルとマージする。 リブートして完了。 あとは必要であればportsなど適当にアップグレード。 以上。" />
+<meta property="og:description" content="FreeBSDのSTABLEを追っかけたくても、PCが古くてbuildworldがつらい。 となると、1ヶ月に一度作られるsnapshotからインストールすることになるが、いちいちCDに焼いて、そこからブートするのも面倒。 ということで、ISOイメージを使って、FreeBSDを7.0-BETA4からRC1にアップグレードしたときのメモ。 無保証。 謙遜で無保証と言ってる訳でなく、本当に無保証。 これで合ってるのかどうか分からない。一応7.0current200709→current200710→BETA1→BETA2→RC1と歩いて来たけれども、マイナーバージョンアップグレードしかしてないから問題が出ていないだけの可能性も。 ◎全体のおおまかな流れ 　1.ISOイメージのダウンロード 　2.ISOイメージからファイルの取り出し。 　3.schgフラグを外す 　4.カーネルを展開 　5.リブート 　6./etcを除いたベースシステムを展開 　7.mergemaster 　8.リブート 以下、実際の作業 ◎何はともあれ、バックアップ /etc配下のファイルと、カーネルをバックアップ # cp -pR /etc /etc.080111 # cp -pR /boot/kernel /boot/kernel.080111 ◎ISOイメージのマウント # mdconfig -a -t vnode -f 7.0-RC1-i386-disc1.iso -u 10 # /sbin/mount_cd9660 /dev/md10 /mnt ◎必要なファイルのコピー カーネル、ユーザランド（て表現で合ってるのか？要するにworld部分）と、/etc配下ファイルのソースなど、必要なファイルをすべて抜き出しておく。これは、後でISOイメージをマウント出来るかどうか分からないため。 配布ファイルは、フロッピーディスクでインストールしていた時代の名残で1.44Mごとに分割されているため、それを連結しどこかに置いておく。 どこかとは言っても、後々、新しいカーネルでもマウントできるようなファイルシステムに置くこと。 以下の例では、マニュアルページなどもついでにコピーしている。インストールが終わったら、改めてISOイメージをマウントし、install.shでコピーする手もあるが、そこは好き好きで。 # mkdir /usr/archive # cat /mnt/7.0-RC1/base/base.?? &#62; /usr/archive/base.tgz # cat /mnt/7.0-RC1/kernels/generic.?? &#62; /usr/archive/generic.tgz # cat /mnt/7.0-RC1/manpages/manpages.?? &#62; /usr/archive/manpages.tgz srcは下記のようにして/usr/src配下に展開しておく。 # cd /mnt/7.0-RC1/src # sh install.sh all Extracting sources into /usr/src... Extracting source component: ＜略＞ Done extracting sources. ◎schgフラグを外す システム上、重要なファイルはschgフラグがセットされ、rootであっても上書きできないようになっているので、そのフラグを外す。 なお、システムのセキュリティレベルが1以上に設定されていると、フラグは変更できないので念のため。 確認方法。詳しくはman security。 # sysctl kern.securelevel kern.securelevel: -1 まずschgフラグがセットされているファイルを探す。こんな風にしてみた。 # find / -flags schg -exec ls -lo {} \; |cut -d &#39; &#39; -f 13 &#62; /tmp/flaglist /tmp/flaglistの中身はこんな感じ。 /usr/bin/chpass /usr/bin/chfn /usr/bin/chsh /usr/bin/login /usr/bin/opieinfo /usr/bin/opiepasswd /usr/bin/passwd /usr/bin/rlogin /usr/bin/rsh /usr/bin/su /usr/bin/crontab /usr/lib/libkse.so.3 /usr/lib/librt.so.1 /usr/sbin/sliplogin /bin/rcp /lib/libc.so.7 /lib/libcrypt.so.4 /lib/libthr.so.3 /libexec/ld-elf.so.1 /sbin/init 中身を確認して問題なければフラグを外す。xargs使うほどの量でもないけれども。 # xargs chflags noschg &#60; /tmp/flaglist ていうか、/bin /usr/bin /sbin /usr/sbin/ /lib /usr/lib /libexec /usr/libexecあたりの配下ファイル全部に対してchflags noschgしちゃってもいい、というか早い。 ◎カーネルの展開 先にコピーしておいたgeneric.tgzを展開。 # cd /usr/archive # tar -Upxvzf /usr/archive/generic.tgz 念には念を入れてオリジナルのkernelをmvし、上で展開しておいた新kernelを/boot配下へ移動 # mv /boot/kernel /boot/kernel.orig # mv /usr/archive/GENERIC /boot/kernel ◎リブート 祈りつつリブートし、カーネルが正しく入れ替わっていることを確認。 # uname -a FreeBSD xxxx 7.0-RC1 FreeBSD 7.0-RC1 #0: Mon Dec 24 12:18:24 UTC 2007 root@logan.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC i386 RC1になってる。 そもそもブートしなかったら/boot/kernel.orig/kernelから起動して、アップグレードは諦める。 ◎worldの展開 いちばん緊張するところ。 base.tgzを展開するが、気をつけないと/etcが上書きされて死亡するので、しっかり/etcをexcludeすること。 # /rescue/tar -Upxvzf /usr/archive/base.tgz -C / --exclude ./etc この後、mergemasterで新しい/etc配下ファイルとマージする。 リブートして完了。 あとは必要であればportsなど適当にアップグレード。 以上。" />
+<link rel="canonical" href="https://nobwak.github.io/2008/01/11.html" />
+<meta property="og:url" content="https://nobwak.github.io/2008/01/11.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2008-01-11T01:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"FreeBSDのSTABLEを追っかけたくても、PCが古くてbuildworldがつらい。 となると、1ヶ月に一度作られるsnapshotからインストールすることになるが、いちいちCDに焼いて、そこからブートするのも面倒。 ということで、ISOイメージを使って、FreeBSDを7.0-BETA4からRC1にアップグレードしたときのメモ。 無保証。 謙遜で無保証と言ってる訳でなく、本当に無保証。 これで合ってるのかどうか分からない。一応7.0current200709→current200710→BETA1→BETA2→RC1と歩いて来たけれども、マイナーバージョンアップグレードしかしてないから問題が出ていないだけの可能性も。 ◎全体のおおまかな流れ 　1.ISOイメージのダウンロード 　2.ISOイメージからファイルの取り出し。 　3.schgフラグを外す 　4.カーネルを展開 　5.リブート 　6./etcを除いたベースシステムを展開 　7.mergemaster 　8.リブート 以下、実際の作業 ◎何はともあれ、バックアップ /etc配下のファイルと、カーネルをバックアップ # cp -pR /etc /etc.080111 # cp -pR /boot/kernel /boot/kernel.080111 ◎ISOイメージのマウント # mdconfig -a -t vnode -f 7.0-RC1-i386-disc1.iso -u 10 # /sbin/mount_cd9660 /dev/md10 /mnt ◎必要なファイルのコピー カーネル、ユーザランド（て表現で合ってるのか？要するにworld部分）と、/etc配下ファイルのソースなど、必要なファイルをすべて抜き出しておく。これは、後でISOイメージをマウント出来るかどうか分からないため。 配布ファイルは、フロッピーディスクでインストールしていた時代の名残で1.44Mごとに分割されているため、それを連結しどこかに置いておく。 どこかとは言っても、後々、新しいカーネルでもマウントできるようなファイルシステムに置くこと。 以下の例では、マニュアルページなどもついでにコピーしている。インストールが終わったら、改めてISOイメージをマウントし、install.shでコピーする手もあるが、そこは好き好きで。 # mkdir /usr/archive # cat /mnt/7.0-RC1/base/base.?? &#62; /usr/archive/base.tgz # cat /mnt/7.0-RC1/kernels/generic.?? &#62; /usr/archive/generic.tgz # cat /mnt/7.0-RC1/manpages/manpages.?? &#62; /usr/archive/manpages.tgz srcは下記のようにして/usr/src配下に展開しておく。 # cd /mnt/7.0-RC1/src # sh install.sh all Extracting sources into /usr/src... Extracting source component: ＜略＞ Done extracting sources. ◎schgフラグを外す システム上、重要なファイルはschgフラグがセットされ、rootであっても上書きできないようになっているので、そのフラグを外す。 なお、システムのセキュリティレベルが1以上に設定されていると、フラグは変更できないので念のため。 確認方法。詳しくはman security。 # sysctl kern.securelevel kern.securelevel: -1 まずschgフラグがセットされているファイルを探す。こんな風にしてみた。 # find / -flags schg -exec ls -lo {} \\; |cut -d &#39; &#39; -f 13 &#62; /tmp/flaglist /tmp/flaglistの中身はこんな感じ。 /usr/bin/chpass /usr/bin/chfn /usr/bin/chsh /usr/bin/login /usr/bin/opieinfo /usr/bin/opiepasswd /usr/bin/passwd /usr/bin/rlogin /usr/bin/rsh /usr/bin/su /usr/bin/crontab /usr/lib/libkse.so.3 /usr/lib/librt.so.1 /usr/sbin/sliplogin /bin/rcp /lib/libc.so.7 /lib/libcrypt.so.4 /lib/libthr.so.3 /libexec/ld-elf.so.1 /sbin/init 中身を確認して問題なければフラグを外す。xargs使うほどの量でもないけれども。 # xargs chflags noschg &#60; /tmp/flaglist ていうか、/bin /usr/bin /sbin /usr/sbin/ /lib /usr/lib /libexec /usr/libexecあたりの配下ファイル全部に対してchflags noschgしちゃってもいい、というか早い。 ◎カーネルの展開 先にコピーしておいたgeneric.tgzを展開。 # cd /usr/archive # tar -Upxvzf /usr/archive/generic.tgz 念には念を入れてオリジナルのkernelをmvし、上で展開しておいた新kernelを/boot配下へ移動 # mv /boot/kernel /boot/kernel.orig # mv /usr/archive/GENERIC /boot/kernel ◎リブート 祈りつつリブートし、カーネルが正しく入れ替わっていることを確認。 # uname -a FreeBSD xxxx 7.0-RC1 FreeBSD 7.0-RC1 #0: Mon Dec 24 12:18:24 UTC 2007 root@logan.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC i386 RC1になってる。 そもそもブートしなかったら/boot/kernel.orig/kernelから起動して、アップグレードは諦める。 ◎worldの展開 いちばん緊張するところ。 base.tgzを展開するが、気をつけないと/etcが上書きされて死亡するので、しっかり/etcをexcludeすること。 # /rescue/tar -Upxvzf /usr/archive/base.tgz -C / --exclude ./etc この後、mergemasterで新しい/etc配下ファイルとマージする。 リブートして完了。 あとは必要であればportsなど適当にアップグレード。 以上。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2008/01/11.html","headline":"ISOイメージのみでFreeBSDアップグレード","dateModified":"2008-01-11T01:00:00+09:00","datePublished":"2008-01-11T01:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2008/01/11.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">ISOイメージのみでFreeBSDアップグレード</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2008-01-11T01:00:00+09:00" itemprop="datePublished">Jan 11, 2008
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="section">
+  <p>
+    FreeBSDのSTABLEを追っかけたくても、PCが古くてbuildworldがつらい。
+  </p>
+  
+  <p>
+    となると、1ヶ月に一度作られるsnapshotからインストールすることになるが、いちいちCDに焼いて、そこからブートするのも面倒。
+  </p>
+  
+  <p>
+    ということで、ISOイメージを使って、FreeBSDを7.0-BETA4からRC1にアップグレードしたときのメモ。
+  </p>
+  
+  <p>
+    無保証。
+  </p>
+  
+  <p>
+    謙遜で無保証と言ってる訳でなく、本当に無保証。
+  </p>
+  
+  <p>
+    これで合ってるのかどうか分からない。一応7.0current200709→current200710→BETA1→BETA2→RC1と歩いて来たけれども、マイナーバージョンアップグレードしかしてないから問題が出ていないだけの可能性も。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    ◎全体のおおまかな流れ
+  </p>
+  
+  <p>
+    　1.ISOイメージのダウンロード
+  </p>
+  
+  <p>
+    　2.ISOイメージからファイルの取り出し。
+  </p>
+  
+  <p>
+    　3.schgフラグを外す
+  </p>
+  
+  <p>
+    　4.カーネルを展開
+  </p>
+  
+  <p>
+    　5.リブート
+  </p>
+  
+  <p>
+    　6./etcを除いたベースシステムを展開
+  </p>
+  
+  <p>
+    　7.mergemaster
+  </p>
+  
+  <p>
+    　8.リブート
+  </p>
+  
+  <p>
+    以下、実際の作業
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    ◎何はともあれ、バックアップ
+  </p>
+  
+  <p>
+    /etc配下のファイルと、カーネルをバックアップ
+  </p>
+  
+  <pre>
+# cp -pR /etc /etc.080111
+# cp -pR /boot/kernel /boot/kernel.080111
+</pre>
+  
+  <p>
+    ◎ISOイメージのマウント
+  </p>
+  
+  <pre>
+# mdconfig -a -t vnode -f 7.0-RC1-i386-disc1.iso -u 10
+# /sbin/mount_cd9660 /dev/md10 /mnt
+</pre>
+  
+  <p>
+    ◎必要なファイルのコピー
+  </p>
+  
+  <p>
+    カーネル、ユーザランド（て表現で合ってるのか？要するにworld部分）と、/etc配下ファイルのソースなど、必要なファイルをすべて抜き出しておく。これは、後でISOイメージをマウント出来るかどうか分からないため。
+  </p>
+  
+  <p>
+    配布ファイルは、フロッピーディスクでインストールしていた時代の名残で1.44Mごとに分割されているため、それを連結しどこかに置いておく。
+  </p>
+  
+  <p>
+    どこかとは言っても、後々、新しいカーネルでもマウントできるようなファイルシステムに置くこと。
+  </p>
+  
+  <p>
+    以下の例では、マニュアルページなどもついでにコピーしている。インストールが終わったら、改めてISOイメージをマウントし、install.shでコピーする手もあるが、そこは好き好きで。
+  </p>
+  
+  <pre>
+# mkdir /usr/archive
+# cat /mnt/7.0-RC1/base/base.?? &#62; /usr/archive/base.tgz
+# cat /mnt/7.0-RC1/kernels/generic.?? &#62; /usr/archive/generic.tgz
+# cat /mnt/7.0-RC1/manpages/manpages.?? &#62; /usr/archive/manpages.tgz
+</pre>
+  
+  <p>
+    srcは下記のようにして/usr/src配下に展開しておく。
+  </p>
+  
+  <pre>
+# cd /mnt/7.0-RC1/src
+# sh install.sh all
+Extracting sources into /usr/src...
+Extracting source component: ＜略＞
+Done extracting sources.
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    ◎schgフラグを外す
+  </p>
+  
+  <p>
+    システム上、重要なファイルはschgフラグがセットされ、rootであっても上書きできないようになっているので、そのフラグを外す。
+  </p>
+  
+  <p>
+    なお、システムのセキュリティレベルが1以上に設定されていると、フラグは変更できないので念のため。
+  </p>
+  
+  <p>
+    確認方法。詳しくはman security。
+  </p>
+  
+  <pre>
+# sysctl kern.securelevel
+kern.securelevel: -1
+</pre>
+  
+  <p>
+    まずschgフラグがセットされているファイルを探す。こんな風にしてみた。
+  </p>
+  
+  <pre>
+# find / -flags schg -exec ls -lo {} \; |cut -d ' ' -f 13 &#62; /tmp/flaglist
+</pre>
+  
+  <p>
+    /tmp/flaglistの中身はこんな感じ。
+  </p>
+  
+  <blockquote>
+    <p>
+      /usr/bin/chpass
+    </p>
+    
+    <p>
+      /usr/bin/chfn
+    </p>
+    
+    <p>
+      /usr/bin/chsh
+    </p>
+    
+    <p>
+      /usr/bin/login
+    </p>
+    
+    <p>
+      /usr/bin/opieinfo
+    </p>
+    
+    <p>
+      /usr/bin/opiepasswd
+    </p>
+    
+    <p>
+      /usr/bin/passwd
+    </p>
+    
+    <p>
+      /usr/bin/rlogin
+    </p>
+    
+    <p>
+      /usr/bin/rsh
+    </p>
+    
+    <p>
+      /usr/bin/su
+    </p>
+    
+    <p>
+      /usr/bin/crontab
+    </p>
+    
+    <p>
+      /usr/lib/libkse.so.3
+    </p>
+    
+    <p>
+      /usr/lib/librt.so.1
+    </p>
+    
+    <p>
+      /usr/sbin/sliplogin
+    </p>
+    
+    <p>
+      /bin/rcp
+    </p>
+    
+    <p>
+      /lib/libc.so.7
+    </p>
+    
+    <p>
+      /lib/libcrypt.so.4
+    </p>
+    
+    <p>
+      /lib/libthr.so.3
+    </p>
+    
+    <p>
+      /libexec/ld-elf.so.1
+    </p>
+    
+    <p>
+      /sbin/init
+    </p>
+  </blockquote>
+  
+  <p>
+    中身を確認して問題なければフラグを外す。xargs使うほどの量でもないけれども。
+  </p>
+  
+  <pre>
+# xargs chflags noschg &#60; /tmp/flaglist
+</pre>
+  
+  <p>
+    ていうか、/bin /usr/bin /sbin /usr/sbin/ /lib /usr/lib /libexec /usr/libexecあたりの配下ファイル全部に対してchflags noschgしちゃってもいい、というか早い。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    ◎カーネルの展開
+  </p>
+  
+  <p>
+    先にコピーしておいたgeneric.tgzを展開。
+  </p>
+  
+  <pre>
+# cd /usr/archive
+# tar -Upxvzf /usr/archive/generic.tgz
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    念には念を入れてオリジナルのkernelをmvし、上で展開しておいた新kernelを/boot配下へ移動
+  </p>
+  
+  <pre>
+# mv /boot/kernel /boot/kernel.orig
+# mv /usr/archive/GENERIC /boot/kernel
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    ◎リブート
+  </p>
+  
+  <p>
+    祈りつつリブートし、カーネルが正しく入れ替わっていることを確認。
+  </p>
+  
+  <pre>
+# uname -a
+FreeBSD xxxx 7.0-RC1 FreeBSD 7.0-RC1 #0: Mon Dec 24 12:18:24 UTC 2007     root@logan.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC  i386
+</pre>
+  
+  <p>
+    RC1になってる。
+  </p>
+  
+  <p>
+    そもそもブートしなかったら/boot/kernel.orig/kernelから起動して、アップグレードは諦める。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    ◎worldの展開
+  </p>
+  
+  <p>
+    いちばん緊張するところ。
+  </p>
+  
+  <p>
+    base.tgzを展開するが、気をつけないと/etcが上書きされて死亡するので、しっかり/etcをexcludeすること。
+  </p>
+  
+  <pre>
+# /rescue/tar -Upxvzf /usr/archive/base.tgz -C / --exclude ./etc
+</pre>
+  
+  <p>
+    この後、mergemasterで新しい/etc配下ファイルとマージする。
+  </p>
+  
+  <p>
+    リブートして完了。
+  </p>
+  
+  <p>
+    あとは必要であればportsなど適当にアップグレード。
+  </p>
+  
+  <p>
+    以上。
+  </p>
+</div>
+
+  </div><a class="u-url" href="/2008/01/11.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
