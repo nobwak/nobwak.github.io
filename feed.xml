@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://nobwak.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://nobwak.github.io/" rel="alternate" type="text/html" /><updated>2019-05-19T19:37:51+09:00</updated><id>https://nobwak.github.io/feed.xml</id><title type="html">nobwak’s Lair</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="https://nobwak.github.io/jekyll/update/2019/05/19/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2019-05-19T19:18:51+09:00</published><updated>2019-05-19T19:18:51+09:00</updated><id>https://nobwak.github.io/jekyll/update/2019/05/19/welcome-to-jekyll</id><content type="html" xml:base="https://nobwak.github.io/jekyll/update/2019/05/19/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://nobwak.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://nobwak.github.io/" rel="alternate" type="text/html" /><updated>2019-05-19T19:45:38+09:00</updated><id>https://nobwak.github.io/feed.xml</id><title type="html">nobwak’s Lair</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="https://nobwak.github.io/jekyll/update/2019/05/19/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2019-05-19T19:18:51+09:00</published><updated>2019-05-19T19:18:51+09:00</updated><id>https://nobwak.github.io/jekyll/update/2019/05/19/welcome-to-jekyll</id><content type="html" xml:base="https://nobwak.github.io/jekyll/update/2019/05/19/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
 
 &lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
 
@@ -10,4 +10,1714 @@
 &lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）</title><link href="https://nobwak.github.io/2019/05/freebsd-12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B:%E3%81%9D%E3%81%AE2(vm-bhyve%E4%BD%BF%E7%94%A8)/" rel="alternate" type="text/html" title="FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）" /><published>2019-05-12T20:30:48+09:00</published><updated>2019-05-12T20:30:48+09:00</updated><id>https://nobwak.github.io/2019/05/freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae2efbc88vm-bhyvee4bdbfe794a8efbc89</id><content type="html" xml:base="https://nobwak.github.io/2019/05/freebsd-12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B:%E3%81%9D%E3%81%AE2(vm-bhyve%E4%BD%BF%E7%94%A8)/">&lt;p&gt;&lt;a href=&quot;./2019/05/freebsd-12%e3%81%aebhyve%e3%81%abwindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89/&quot;&gt;前回&lt;/a&gt;までで仮想マシンをインストールする準備が整った。&lt;br /&gt;
+さっそくWindows10のインストールに取り掛かるが、準備すべきものがある。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Windows10インストールイメージ&lt;/li&gt;
+  &lt;li&gt;TigerVNC（Viewer）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;一つ目は言わずもがな。&lt;br /&gt;
+&lt;a href=&quot;https://www.microsoft.com/ja-jp/software-download/windows10&quot;&gt;https://www.microsoft.com/ja-jp/software-download/windows10&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;二つ目は、GUI操作のため。&lt;br /&gt;
+Windowsのような、GUI操作が必須のOSをbhyve上の仮想マシンとして動かす場合には、VNCでその画面を見ることになる。&lt;br /&gt;
+ただ、bhyveのVNCは癖があるようで、VNC viewerによっては途中で切れてしまうんである。&lt;br /&gt;
+WindowsでもProであればリモートデスクトップという手もあるが、それにしたってインストールの時にはVNCで繋ぐほかない。&lt;br /&gt;
+TigerVNCなら問題なく接続できるのでこれを準備しておくこと。&lt;br /&gt;
+&lt;a href=&quot;https://tigervnc.org/&quot;&gt;https://tigervnc.org/&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/TigerVNC/tigervnc/releases&quot;&gt;https://github.com/TigerVNC/tigervnc/releases&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;2019/5/12時点では1.9.0が最新だからしてバイナリはこちら。Viewerでよい。&lt;br /&gt;
+&lt;a href=&quot;https://bintray.com/tigervnc/stable/tigervnc/1.9.0&quot;&gt;https://bintray.com/tigervnc/stable/tigervnc/1.9.0&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;初回には少し混乱したので記しておくが、VNCで接続する先のIPアドレスは、bhyveホストのIPアドレスである。&lt;br /&gt;
+仮想マシンが自立して起動すると、そっちはそっちで独自のIPアドレスを取得する。&lt;/p&gt;
+
+&lt;p&gt;VNCはbhyveが用意する仮想マシンへのGUIアクセスなのでbhyveホストに接続する必要があるわけ。&lt;br /&gt;
+一方で、仮想マシンそのものでリモートデスクトップやら、VNC Serverを用意すれば、そのときは当然、仮想マシンのIPアドレスを接続先として指定することになる。&lt;/p&gt;
+
+&lt;p&gt;ではISOの準備から。&lt;/p&gt;
+
+&lt;h2 id=&quot;仮想マシンインストール準備インストーラ--iso&quot;&gt;仮想マシンインストール準備（インストーラ = ISO）&lt;/h2&gt;
+
+&lt;p&gt;インストーラの準備。&lt;br /&gt;
+ISOイメージを登録する。VirtualBoxでもそういう操作あるよね。&lt;/p&gt;
+
+&lt;p&gt;ISOイメージがあるなら$vm_dir/.isoに移す&lt;br /&gt;
+sudo vmとして確認する&lt;br /&gt;
+sudo vm とすれば、ダウンロードしてそこに置いてくれる。ちょっと驚き。&lt;/p&gt;
+
+&lt;pre&gt;$ sudo mv ./files/Windows10_18090.iso /vm/.iso/
+$ sudo vm iso
+DATASTORE           FILENAME
+default             Windows10_18090.iso
+
+$ sudo vm iso https://download.freebsd.org/ftp/releases/ISO-IMAGES/11.2/FreeBSD-11.2-RELEASE-amd64-bootonly.iso
+/vm/.iso/FreeBSD-11.2-RELEASE-amd64-bootonly.iso         308 MB 2228 kBps 02m22s
+$ sudo vm iso
+DATASTORE           FILENAME
+default             FreeBSD-11.2-RELEASE-amd64-bootonly.iso
+default             Windows10_18090.iso
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;仮想マシンインストール準備仮想マシン設定&quot;&gt;仮想マシンインストール準備（仮想マシン設定）&lt;/h2&gt;
+
+&lt;p&gt;前提。&lt;br /&gt;
+仮想マシンは$vm_dir/（仮想マシン名）/に置かれる。&lt;br /&gt;
+設定ファイルは$vm_dir/（仮想マシン名）/（仮想マシン名）.confである。&lt;br /&gt;
+なお仮想マシンのログは$vm_dir/（仮想マシン名）/vm-bhyve.log。&lt;/p&gt;
+
+&lt;p&gt;仮想マシン置き場が/vmで、仮想マシン名がwin10だと、&lt;br /&gt;
+/vm/win10/win10.confなどとなる。&lt;/p&gt;
+
+&lt;p&gt;で、vm createでまず仮想マシンの枠を作る。&lt;br /&gt;
+このとき、-tでテンプレートを指定し、-sでディスクイメージのサイズを指定できる。&lt;br /&gt;
+デフォルトだと20Gなので余程のことがない限り指定は必須。&lt;br /&gt;
+作った仮想マシンはvm listで確認。&lt;/p&gt;
+
+&lt;pre&gt;$ sudo vm create -t windows -s 64G win10
+$ sudo vm list
+NAME       DATASTORE  LOADER  CPU  MEMORY  VNC  AUTOSTART  STATE
+win10home  default    uefi    2    2G      -    No         Stopped
+$ ls -lah /vm/win10/
+total 13366199
+drwxr-xr-x  2 root  wheel     6B May 11 14:10 .
+drwxr-xr-x  6 root  wheel     6B May  4 20:34 ..
+-rw-------  1 root  wheel    64G May 11 14:10 disk0.img
+-rw-r--r--  1 root  wheel   299B May  5 21:35 win10.conf
+&lt;/pre&gt;
+
+&lt;p&gt;vm configureで設定（win10.conf）を変更。&lt;br /&gt;
+vi操作で書き換える。&lt;br /&gt;
+以下のように。&lt;/p&gt;
+
+&lt;pre&gt;uefi=&quot;yes&quot;
+graphics=&quot;yes&quot;
+graphics_wait=&quot;yes&quot;
+cpu=1
+memory=4G
+network0_type=&quot;e1000&quot;
+network0_switch=&quot;public&quot;
+disk0_type=&quot;ahci-hd&quot;
+disk0_name=&quot;disk0.img&quot;
+uuid=&quot;ff31650b-6ef0-11f9-963c-6cfffff61323&quot;
+utctime=&quot;no&quot;
+xhci_mouse=&quot;yes&quot;
+&lt;/pre&gt;
+
+&lt;p&gt;WindowsなのでBIOSはuefi。&lt;/p&gt;
+
+&lt;p&gt;graphicsをYesにするとVNCで接続できる。&lt;br /&gt;
+デフォルトではbhyveホストのIPアドレス:5900で待ち受け。&lt;br /&gt;
+変更したければそれぞれgraphics_listen、graphics_portで指定する。&lt;br /&gt;
+また、解像度は800×600。graphics_res=”WxH”で変更できる。&lt;br /&gt;
+graphics_waitを設定しておくと、VNC接続するまでゲストの起動を待ってくれる。&lt;br /&gt;
+設定しなくても、仮想マシンをインストールモードで立ち上げたときには待ってくれるが、それは初回だけ。&lt;br /&gt;
+Windowsのようにインストール時に複数回再起動するものはwaitしてもらったほうがいいだろうと。&lt;/p&gt;
+
+&lt;p&gt;Windows10homeの場合はcpuを1。（後述）&lt;/p&gt;
+
+&lt;p&gt;network0_typeにはe1000を指定。&lt;br /&gt;
+インストールが無事に済んだらvirtioに変更するが、まずはe1000で。&lt;/p&gt;
+
+&lt;p&gt;network0_switchで本仮想マシンを繋ぐ仮想スイッチを指定する。&lt;br /&gt;
+vm-bhyveのデフォルト、publicにしておく。&lt;br /&gt;
+なお、起動した暁には、仮想マシンにはtapX（Xは数字）インタフェースが割り当てられ、publicに接続される。&lt;/p&gt;
+
+&lt;p&gt;disk0_type=”ahci-hd”としていて、本来ならディスクイメージをzfsのボリュームにしてvirtio-blkと指定したいが、以下の通りahci-hdしかダメ。&lt;br /&gt;
+&lt;a href=&quot;https://github.com/churchers/vm-bhyve/wiki/Supported-Guest-Examples&quot;&gt;https://github.com/churchers/vm-bhyve/wiki/Supported-Guest-Examples&lt;/a&gt;&lt;br /&gt;
+“the disk emulation needs to be ahci-hd.”&lt;/p&gt;
+
+&lt;p&gt;vm-bhyveは標準で仮想マシンの時刻をUTCに設定するので、utctime=”no”とする。&lt;br /&gt;
+xhci_mouse=”yes”にしておかないと、後々VNCで接続したときにまともにマウスが動かない。&lt;/p&gt;
+
+&lt;h2 id=&quot;仮想マシンインストール&quot;&gt;仮想マシンインストール&lt;/h2&gt;
+
+&lt;p&gt;さあインストール。vmにinstallサブコマンドを与えて起動。&lt;br /&gt;
+状態はvm listで確認。&lt;br /&gt;
+bhyveホスト側では$vm_dirにあるvm-bhyve.logをtailして状況を確認しつつ進めるがよいだろう。&lt;/p&gt;
+
+&lt;pre&gt;$ sudo vm install win10home Windows10_18090.iso
+Starting win10home
+  * found guest in /vm/win10home
+  * booting...
+$ sudo vm list
+NAME       DATASTORE  LOADER  CPU  MEMORY  VNC           AUTOSTART  STATE
+win10home  default    uefi    1    2G      0.0.0.0:5900  No         Locked (camazotz)
+&lt;/pre&gt;
+
+&lt;p&gt;lockedの通り、VNC待ち。&lt;br /&gt;
+TigerVNCで接続し、インストールを進める。&lt;br /&gt;
+繰り返すがこのときの接続先はbhyveホスト。&lt;/p&gt;
+
+&lt;pre&gt;$ sudo tail -f ./vm-bhyve.log
+Password:
+May 12 17:44:20: dynamically allocated port 5900 for vnc connections
+May 12 17:44:20: booting
+May 12 17:44:20:  [bhyve options: -c 1 -m 4G -Hwl bootrom,/usr/local/share/uefi-firmware/BHYVE_UEFI.fd -U 9e31650b-6e60-11e9-963c-6c4b90a61323]
+May 12 17:44:20:  [bhyve devices: -s 0,hostbridge -s 31,lpc -s 4:0,ahci-hd,/vm/win10/disk0.img -s 5:0,virtio-net,tap0,mac=58:9c:fc:02:b6:f3 -s 6:0,fbuf,tcp=0.0.0.0:5900 -s 7:0,xhci,tablet]
+May 12 17:44:20:  [bhyve console: -l com1,/dev/nmdm-win10.1A]
+May 12 17:44:20:  [bhyve iso device: -s 3:0,ahci-cd,/vm/.config/null.iso]
+May 12 17:44:20: starting bhyve (run 1)
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;../../../wp-content/uploads/2019/05/win10.png&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3205&quot; src=&quot;../../../wp-content/uploads/2019/05/win10-150x150.png&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/05/win10-150x150.png 150w, ../../../wp-content/uploads/2019/05/win10-144x144.png 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;インストール後ネットワークドライバの変更他&quot;&gt;インストール後（ネットワークドライバの変更他）&lt;/h2&gt;
+
+&lt;p&gt;無事にインストールが済んだら、ネットワークドライバを変更する。&lt;br /&gt;
+ネットワークドライバの変更なのでVNCから接続しておく。&lt;br /&gt;
+ドライバの配布先には、仮想マシンから直接、行ってしまってよい。&lt;/p&gt;
+
+&lt;p&gt;場所はここだが、「virtio-win fedora」あたりで検索すれば辿り着けるはず。&lt;br /&gt;
+&lt;a href=&quot;https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/&quot;&gt;https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;5/12時点では0.1.164が最新。&lt;br /&gt;
+&lt;a href=&quot;https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.164-2/virtio-win-0.1.164.iso&quot;&gt;https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.164-2/virtio-win-0.1.164.iso&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Dにマウントしたら、以下のパスがドライバの場所。パスの通りWindows10, 64bitね。&lt;br /&gt;
+こちらに強制的に変更する。ネットワークが切断されるがお構いなしで。&lt;br /&gt;
+D:\NetKVM\w10\amd64&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;../../../wp-content/uploads/2019/05/12.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3206&quot; src=&quot;../../../wp-content/uploads/2019/05/12-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/05/12-150x150.jpg 150w, ../../../wp-content/uploads/2019/05/12-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt; &lt;a href=&quot;../../../wp-content/uploads/2019/05/13.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3207&quot; src=&quot;../../../wp-content/uploads/2019/05/13-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/05/13-150x150.jpg 150w, ../../../wp-content/uploads/2019/05/13-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;シャットダウンしたら、bhyve側の設定ファイルでネットワークタイプをe1000からvirtio-netに変更する。&lt;br /&gt;
+graphics_waitも忘れずに削除。&lt;/p&gt;
+
+&lt;pre&gt;uefi=&quot;yes&quot;
+graphics=&quot;yes&quot;
+# graphics_wait=&quot;yes&quot;
+cpu=1
+memory=4G
+network0_type=&quot;virtio-net&quot;
+network0_switch=&quot;public&quot;
+disk0_type=&quot;ahci-hd&quot;
+disk0_name=&quot;disk0.img&quot;
+uuid=&quot;ff31650b-6ef0-11f9-963c-6cfffff61323&quot;
+utctime=&quot;no&quot;
+xhci_mouse=&quot;yes&quot;
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;ゲストwindowsに与えるcpu数&quot;&gt;ゲストWindowsに与えるCPU数&lt;/h2&gt;
+
+&lt;p&gt;Windows10の場合、割り当てられるCPUは、Homeだと1つ、Proだと2つまで。&lt;br /&gt;
+コア/スレッドはHomeだと32、Proだと256。&lt;/p&gt;
+
+&lt;p&gt;コアを二つ以上与えようとしても、vm-bhyveでの指定はCPU数でのみ可能。&lt;br /&gt;
+1.3からはより細かい設定ができるようになるそうだが、pkgからインストールするvm-bhyveは1.2なので1のままにしておく。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/churchers/vm-bhyve/wiki/Guest-Example:-Windows&quot;&gt;https://github.com/churchers/vm-bhyve/wiki/Guest-Example:-Windows&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;なお/boot/loader.confに以下の設定をすることで、CPU一つあたりのコア数を指定できるが、手元ではうまく動かないので特に説明はしない。&lt;/p&gt;
+
+&lt;pre&gt;hw.vmm.topology.cores_per_package=4
+&lt;/pre&gt;
+
+&lt;p&gt;上記パラメータの詳しい説明はこちら。&lt;br /&gt;
+&lt;a href=&quot;https://forums.freebsd.org/threads/bhyve-cpu-vcpu-cores-nad-threads.60169/&quot;&gt;https://forums.freebsd.org/threads/bhyve-cpu-vcpu-cores-nad-threads.60169/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ホスト起動時に仮想マシンも起動させるには&quot;&gt;ホスト起動時に仮想マシンも起動させるには。&lt;/h2&gt;
+
+&lt;p&gt;/etc/rc.confに以下の行を追加。&lt;br /&gt;
+複数ある場合にはスペースを置いて起動させたい順に記載。&lt;br /&gt;
+vm_delayは、複数の仮想マシンを起動する場合のインターバルを秒で指定。&lt;/p&gt;
+
+&lt;pre&gt;vm_list=&quot;win10&quot;
+vm_delay=&quot;5&quot;
+&lt;/pre&gt;</content><author><name>nobwak</name></author><summary type="html">前回までで仮想マシンをインストールする準備が整った。 さっそくWindows10のインストールに取り掛かるが、準備すべきものがある。</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://nobwak.github.io/wp-content/uploads/2019/05/18-620x483.jpg" /></entry><entry><title type="html">FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）</title><link href="https://nobwak.github.io/2019/05/freebsd-12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B:%E3%81%9D%E3%81%AE1(vm-bhyve%E4%BD%BF%E7%94%A8)/" rel="alternate" type="text/html" title="FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）" /><published>2019-05-12T17:17:30+09:00</published><updated>2019-05-12T17:17:30+09:00</updated><id>https://nobwak.github.io/2019/05/freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae1efbc88vm-bhyvee4bdbfe794a8efbc89</id><content type="html" xml:base="https://nobwak.github.io/2019/05/freebsd-12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B:%E3%81%9D%E3%81%AE1(vm-bhyve%E4%BD%BF%E7%94%A8)/">&lt;p&gt;bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。&lt;/p&gt;
+
+&lt;p&gt;FreeBSDにはjailがある。&lt;br /&gt;
+jailのいいところは、カーネルを共有しつつユーザランドだけ分けることで、オーバーヘッドを抑えられるところ。&lt;br /&gt;
+悪いところはOSに制限が発生するところ。要するにLinuxやWindows、FreeBSDでも他のバージョンを動かせないところ。&lt;/p&gt;
+
+&lt;p&gt;仮想化は何かの目的、たとえばアプリケーションを動かすためのもので、いまどきOS依存のアプリケーションは少ない。&lt;br /&gt;
+とはいうものの、FreeBSDは年々、本体はともかく裾野のリソースが先細りで、ports/packageがなくなったり、あったとしても情報は少なくて、まるっとLinuxごと動かしたいなと感じることがある。&lt;br /&gt;
+もちろんWindowsについては当然FreeBSDでは動かないアプリなんて山ほどある。&lt;/p&gt;
+
+&lt;p&gt;そういった点では、用途に合わせて最適なOS（とアプリケーション）を使い慣れたFreeBSD上で動かせるのはかなりのメリット。&lt;br /&gt;
+というのも、バックアップが簡単にできるからである。&lt;br /&gt;
+ZFS上にイメージを作れば、スナップショットにロールバックはお手の物である。&lt;br /&gt;
+壊し放題である。&lt;br /&gt;
+ESXiなどのType 1ハイパーバイザでは、これができない。できるかもしれないけど知らない。&lt;/p&gt;
+
+&lt;p&gt;Windowsを物理PC上で使っていて、壊れたとする。バックアップがあったとしても、復旧が面倒。&lt;br /&gt;
+Linuxについてはバックアップからの復旧は比較的簡単だが、俺様なんか滅多にLinuxを使わなくて操作をすぐ忘れるという点でやはり復旧が面倒。&lt;/p&gt;
+
+&lt;p&gt;以上のような背景があったところに、このたび宅鯖をハードウェア仮想化対応のCPUに変えたので、遅まきながらbhyveを導入する。&lt;br /&gt;
+以下ではWindows10をインストールする。&lt;/p&gt;
+
+&lt;h2 id=&quot;まずはvm-bhyveを&quot;&gt;まずはvm-bhyveを&lt;/h2&gt;
+
+&lt;p&gt;bhyveの導入には、まず公式のFreeBSD handbookを参照するが、いろいろと面倒くさそうである。&lt;br /&gt;
+&lt;a href=&quot;https://www.freebsd.org/doc/handbook/virtualization-host-bhyve.html&quot;&gt;https://www.freebsd.org/doc/handbook/virtualization-host-bhyve.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;遅れて導入すると、いろいろと環境が整っているものである。&lt;br /&gt;
+bhyveの場合には、vm-bhyveというツールがあればこのへんは一挙解決。&lt;br /&gt;
+virtualboxを使ったことがあれば、それをイメージしながら進めると理解しやすい。&lt;/p&gt;
+
+&lt;p&gt;ただ後述するが、Windowsのイメージそのものにはzfsボリュームを使えない。（ZFS上にイメージを置くことはできる）&lt;br /&gt;
+&lt;a href=&quot;https://github.com/churchers/vm-bhyve&quot;&gt;https://github.com/churchers/vm-bhyve&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/churchers/vm-bhyve/wiki/Running-Windows&quot;&gt;https://github.com/churchers/vm-bhyve/wiki/Running-Windows&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;大きな流れ&quot;&gt;大きな流れ&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;vm-bhyveのインストール&lt;/li&gt;
+  &lt;li&gt;初期設定&lt;/li&gt;
+  &lt;li&gt;初期設定（ネットワーク）&lt;/li&gt;
+  &lt;li&gt;仮想マシンインストール準備（インストーラ = ISO）&lt;/li&gt;
+  &lt;li&gt;仮想マシンインストール準備（仮想マシン設定）【次回】&lt;/li&gt;
+  &lt;li&gt;仮想マシンインストール【次回】&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;vm-bhyveのインストール&quot;&gt;vm-bhyveのインストール&lt;/h2&gt;
+
+&lt;p&gt;pkgでインストールできる。&lt;br /&gt;
+vm-bhyveのほか、仮想OS用のfirmwareもインストールしておく。&lt;/p&gt;
+
+&lt;pre&gt;$ sudo pkg install vm-bhyve
+FreeBSD repository update completed. 31790 packages processed.
+All repositories are up to date.
+The following 1 package(s) will be affected (of 0 checked):
+
+New packages to be INSTALLED:
+        vm-bhyve: 1.2.3
+
+Number of packages to be installed: 1
+
+55 KiB to be downloaded.
+[ex01] [1/1] Fetching vm-bhyve-1.2.3.txz: 100%   55 KiB  56.3kB/s    00:01
+Checking integrity... done (0 conflicting)
+[ex01] [1/1] Installing vm-bhyve-1.2.3...
+[ex01] [1/1] Extracting vm-bhyve-1.2.3: 100%
+Message from vm-bhyve-1.2.3:
+
+To enable vm-bhyve, please add the following lines to rc.conf,
+depending on whether you are using ZFS storage or not. Please note
+that the directory or dataset specified should already exist.
+
+    vm_enable=&quot;YES&quot;
+    vm_dir=&quot;zfs:pool/dataset&quot;
+
+OR
+
+    vm_enable=&quot;YES&quot;
+    vm_dir=&quot;/directory/path&quot;
+
+Then run 'vm init'.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Please note, if upgrading from version 1.1, it is advised to shutdown guests
+and restart the host in order to re-create all virtual switches using new identifiers.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+&lt;/pre&gt;
+
+&lt;p&gt;どんなファイルがインストールされたかは、pkg listで確認できる。&lt;br /&gt;
+コマンドとしては/usr/local/sbin/vmを使う。&lt;br /&gt;
+実行にはroot権限が必要。&lt;br /&gt;
+service -lで表示されるサービス名もvm。&lt;/p&gt;
+
+&lt;pre&gt;$ pkg list vm-bhyve
+/usr/local/etc/rc.d/vm
+/usr/local/lib/vm-bhyve/vm-cmd
+/usr/local/lib/vm-bhyve/vm-config
+/usr/local/lib/vm-bhyve/vm-core
+/usr/local/lib/vm-bhyve/vm-datastore
+/usr/local/lib/vm-bhyve/vm-guest
+/usr/local/lib/vm-bhyve/vm-info
+/usr/local/lib/vm-bhyve/vm-migration
+/usr/local/lib/vm-bhyve/vm-rctl
+/usr/local/lib/vm-bhyve/vm-run
+/usr/local/lib/vm-bhyve/vm-switch
+/usr/local/lib/vm-bhyve/vm-switch-manual
+/usr/local/lib/vm-bhyve/vm-switch-standard
+/usr/local/lib/vm-bhyve/vm-switch-vale
+/usr/local/lib/vm-bhyve/vm-switch-vxlan
+/usr/local/lib/vm-bhyve/vm-util
+/usr/local/lib/vm-bhyve/vm-zfs
+/usr/local/man/man8/vm.8.gz
+/usr/local/sbin/vm
+/usr/local/share/examples/vm-bhyve/alpine.conf
+/usr/local/share/examples/vm-bhyve/arch.conf
+/usr/local/share/examples/vm-bhyve/centos6.conf
+/usr/local/share/examples/vm-bhyve/centos7.conf
+/usr/local/share/examples/vm-bhyve/config.sample
+/usr/local/share/examples/vm-bhyve/coreos.conf
+/usr/local/share/examples/vm-bhyve/debian.conf
+/usr/local/share/examples/vm-bhyve/default.conf
+/usr/local/share/examples/vm-bhyve/dragonfly.conf
+/usr/local/share/examples/vm-bhyve/freebsd-zvol.conf
+/usr/local/share/examples/vm-bhyve/freepbx.conf
+/usr/local/share/examples/vm-bhyve/netbsd.conf
+/usr/local/share/examples/vm-bhyve/openbsd.conf
+/usr/local/share/examples/vm-bhyve/resflash.conf
+/usr/local/share/examples/vm-bhyve/ubuntu.conf
+/usr/local/share/examples/vm-bhyve/windows.conf
+/usr/local/share/licenses/vm-bhyve-1.2.3/BSD2CLAUSE
+/usr/local/share/licenses/vm-bhyve-1.2.3/LICENSE
+/usr/local/share/licenses/vm-bhyve-1.2.3/catalog.mk
+
+
+$ sudo pkg install bhyve-firmware
+Updating FreeBSD repository catalogue...
+FreeBSD repository is up to date.
+All repositories are up to date.
+The following 3 package(s) will be affected (of 0 checked):
+
+New packages to be INSTALLED:
+        bhyve-firmware: 1.0_1
+        uefi-edk2-bhyve-csm: 0.2_1,1
+        uefi-edk2-bhyve: 0.2_1,1
+
+Number of packages to be installed: 3
+
+The process will require 4 MiB more space.
+1 MiB to be downloaded.
+[ex01] [1/3] Fetching bhyve-firmware-1.0_1.txz: 100%    496 B   0.5kB/s    00:01
+[ex01] [2/3] Fetching uefi-edk2-bhyve-csm-0.2_1,1.txz:   2%   16 KiB  16.4kB/s  [ex01] [2/3] Fetching uefi-edk2-bhyve-csm-0.2_1,1.txz: 100%  760 KiB 778.7kB/s    00:01
+[ex01] [3/3] Fetching uefi-edk2-bhyve-0.2_1,1.txz:  59%  440 KiB 450.6kB/s    00[ex01] [3/3] Fetching uefi-edk2-bhyve-0.2_1,1.txz: 100%  740 KiB 757.6kB/s    00:01
+Checking integrity... done (0 conflicting)
+[ex01] [1/3] Installing uefi-edk2-bhyve-csm-0.2_1,1...
+[ex01] [1/3] Extracting uefi-edk2-bhyve-csm-0.2_1,1: 100%
+[ex01] [2/3] Installing uefi-edk2-bhyve-0.2_1,1...
+[ex01] [2/3] Extracting uefi-edk2-bhyve-0.2_1,1: 100%
+[ex01] [3/3] Installing bhyve-firmware-1.0_1...
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;仮想マシン他置き場を作る&quot;&gt;仮想マシン他置き場を作る。&lt;/h2&gt;
+
+&lt;p&gt;もちろんZFSで作るよな。&lt;br /&gt;
+ここで作った置き場には、仮想マシンのほか、ISOイメージ、テンプレート、すべての仮想マシンに共通の設定ファイルが置かれる。&lt;br /&gt;
+ルート直下に/vmを作った。&lt;br /&gt;
+なお本記事で”$vm_dir”と記載をする場合にはこの仮想マシン置き場を指す。&lt;/p&gt;
+
+&lt;pre&gt;$ sudo mkdir /vm
+$ sudo zfs set mountpoint=/vm zroot/vm
+$ sudo zfs create zroot/vm
+$ zfs list
+NAME                 USED  AVAIL  REFER  MOUNTPOINT
+zroot               6.73G   216G    88K  /zroot
+（略）
+zroot/vm              88K   216G    88K  /zroot/vm
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;vm-bhyveの初期設定&quot;&gt;vm-bhyveの初期設定&lt;/h2&gt;
+
+&lt;p&gt;まず/etc/rc.confへの書き込み。&lt;br /&gt;
+ホスト起動時にvm-bhyveも起動するように。&lt;br /&gt;
+また、先に作った仮想マシン置き場をvm-bhyveに知らせるために。&lt;/p&gt;
+
+&lt;pre&gt;$ sudo sysrc vm_enable=&quot;YES&quot;
+vm_enable:  -&amp;gt; YES
+$ sudo sysrc vm_dir=&quot;zfs:zroot/vm&quot;
+vm_dir:  -&amp;gt; zfs:zroot/vm
+&lt;/pre&gt;
+
+&lt;p&gt;次にvm init。仮想マシン置き場にいろいろとファイル/ディレクトリが作られるとともに、必要なカーネルモジュールがロードされる。&lt;br /&gt;
+vm initはホストが起動する都度、実行される必要がある。&lt;br /&gt;
+この場合、vm initはカーネルモジュールのロードと、ネットワーク設定(tap）を行う。&lt;br /&gt;
+/etc/rc.confにvm_enableをしてあれば、気にする必要なない。&lt;/p&gt;
+
+&lt;pre&gt;$ sudo vm init
+$
+
+$ ls -la /vm
+total 35
+drwxr-xr-x   6 root  wheel   6 May  4 20:34 .
+drwxr-xr-x  20 root  wheel  26 May  6 15:03 ..
+drwxr-xr-x   2 root  wheel   4 May  3 18:40 .config
+drwxr-xr-x   2 root  wheel   5 May  4 22:48 .iso
+drwxr-xr-x   2 root  wheel  18 May  3 18:46 .templates
+
+$ kldstat
+Id Refs Address                Size Name
+ 1   28 0xffffffff80200000  243cd00 kernel
+ 2    1 0xffffffff8263e000   3a9a10 zfs.ko
+ 3    2 0xffffffff829e8000     a4f0 opensolaris.ko
+ 4    1 0xffffffff82c21000     2678 intpm.ko
+ 5    1 0xffffffff82c24000      b10 smbus.ko
+ 6    1 0xffffffff82c25000   537460 vmm.ko
+ 7    1 0xffffffff8315d000      b30 nmdm.ko
+ 8    1 0xffffffff8315e000     6fb3 if_bridge.ko
+ 9    1 0xffffffff83165000     4410 bridgestp.ko
+10    1 0xffffffff8316a000     2e77 if_tap.ko
+&lt;/pre&gt;
+
+&lt;p&gt;仮想マシン置き場に、OSごとのテンプレートファイルもコピーする。&lt;br /&gt;
+/usr/local/share/examples/vm-bhyve/にあるやつね。（さきほどpkg infoでも出てきた）&lt;/p&gt;
+
+&lt;pre&gt;$ sudo cp /usr/local/share/examples/vm-bhyve/* /vm/.templates/
+$ ls /vm/.templates/
+alpine.conf             config.sample           dragonfly.conf          openbsd.conf
+arch.conf               coreos.conf             freebsd-zvol.conf       resflash.conf
+centos6.conf            debian.conf             freepbx.conf            ubuntu.conf
+centos7.conf            default.conf            netbsd.conf             windows.conf
+&lt;/pre&gt;
+
+&lt;p&gt;以上で初期設定終わり。&lt;br /&gt;
+つぎは初期設定（ネットワーク）&lt;/p&gt;
+
+&lt;h2 id=&quot;初期設定ネットワーク&quot;&gt;初期設定（ネットワーク）&lt;/h2&gt;
+
+&lt;p&gt;仮想マシン用ネットワークの結線を行う。&lt;br /&gt;
+まず、仮想マシンの繋がる仮想スイッチを作り、仮想スイッチとホストマシンのネットワークインタフェースを繋ぐ。&lt;/p&gt;
+
+&lt;p&gt;外界 &amp;lt;–&amp;gt; ホストのインタフェース &amp;lt;–&amp;gt; 仮想スイッチ&lt;br /&gt;
+というネットワークを作る。&lt;/p&gt;
+
+&lt;p&gt;先々、仮想マシンを作ると&lt;br /&gt;
+外界 &amp;lt;–&amp;gt; ホストのインタフェース &amp;lt;–&amp;gt; 仮想スイッチ &amp;lt;–&amp;gt; 仮想マシン&lt;br /&gt;
+というネットワークになる。&lt;br /&gt;
+仕組み的なことをいうと、仮想スイッチはbridgeで、仮想マシンのインタフェースはtapになる。&lt;/p&gt;
+
+&lt;p&gt;以下の例では、publicという名前の仮想スイッチ（オプションなしでのcreateなのでbridgeインタフェース）を作成している。&lt;br /&gt;
+名前は、vm-bhyveのテンプレートで仮想スイッチを”public”にしているからで、気に入らなければ別の名前でもよい。&lt;br /&gt;
+# その場合は$vm_dir/.templatesにあるファイルを書き換えておくとよい。&lt;br /&gt;
+addで仮想スイッチに物理インタフェースを追加。&lt;br /&gt;
+物理インタフェースは、もちろんのことホストマシンのインタフェースに合わせること。&lt;/p&gt;
+
+&lt;pre&gt;$ sudo vm switch create public
+$ sudo vm switch add public re0
+$ ifconfig
+re0: flags=8943&amp;lt;UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST&amp;gt; metric 0 mtu 1500
+        options=8209b&amp;lt;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,WOL_MAGIC,LINKSTATE&amp;gt;
+        ether 6c:4b:90:a6:13:23
+        inet 192.168.1.7 netmask 0xffffff00 broadcast 192.168.1.255
+        media: Ethernet autoselect (1000baseT )
+        status: active
+        nd6 options=29&amp;lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&amp;gt;
+lo0: flags=8049&amp;lt;UP,LOOPBACK,RUNNING,MULTICAST&amp;gt; metric 0 mtu 16384
+        options=680003&amp;lt;RXCSUM,TXCSUM,LINKSTATE,RXCSUM_IPV6,TXCSUM_IPV6&amp;gt;
+        inet6 ::1 prefixlen 128
+        inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2
+        inet 127.0.0.1 netmask 0xff000000
+        groups: lo
+        nd6 options=21&amp;lt;PERFORMNUD,AUTO_LINKLOCAL&amp;gt;
+vm-public: flags=8843&amp;lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; metric 0 mtu 1500
+        ether 26:ad:45:ea:0c:c3
+        id 00:00:00:00:00:00 priority 32768 hellotime 2 fwddelay 15
+        maxage 20 holdcnt 6 proto rstp maxaddr 2000 timeout 1200
+        root id 00:00:00:00:00:00 priority 32768 ifcost 0 port 0
+        member: re0 flags=143&amp;lt;LEARNING,DISCOVER,AUTOEDGE,AUTOPTP&amp;gt;
+                ifmaxaddr 0 port 1 priority 128 path cost 20000
+        groups: bridge vm-switch viid-4c918@
+        nd6 options=1
+&lt;/pre&gt;
+
+&lt;p&gt;これで以下のようなネットワーク構成になった。&lt;br /&gt;
+外界 &amp;lt;–&amp;gt; ホストのインタフェース（re0） &amp;lt;–&amp;gt; 仮想スイッチ（vm-public）&lt;/p&gt;
+
+&lt;p&gt;これですべての初期設定が完了。&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://nobwak.github.io/wp-content/uploads/2019/05/win10-620x551.png" /></entry><entry><title type="html">【メモ】Visual Studio Code + Pythonのセットアップ</title><link href="https://nobwak.github.io/2019/01/%E3%80%90%E3%83%A1%E3%83%A2%E3%80%91visual-studio-code-python%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/" rel="alternate" type="text/html" title="【メモ】Visual Studio Code + Pythonのセットアップ" /><published>2019-01-05T18:36:51+09:00</published><updated>2019-01-05T18:36:51+09:00</updated><id>https://nobwak.github.io/2019/01/e38090e383a1e383a2e38091visual-studio-code-pythone381aee382bbe38383e38388e382a2e38383e38397</id><content type="html" xml:base="https://nobwak.github.io/2019/01/%E3%80%90%E3%83%A1%E3%83%A2%E3%80%91visual-studio-code-python%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/">&lt;p&gt;いまさらVisual  Studio Code（以降、VSC）をインストールしたのでメモ&lt;br /&gt;
+Windows10。Python。&lt;br /&gt;
+以下の手順に沿う。&lt;/p&gt;
+
+&lt;p&gt;Python in Visual Studio Code&lt;br /&gt;
+&lt;a href=&quot;https://code.visualstudio.com/docs/languages/python&quot;&gt;https://code.visualstudio.com/docs/languages/python&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;vscのインストール&quot;&gt;VSCのインストール&lt;/h3&gt;
+
+&lt;p&gt;以下からダウンロード、インストール。&lt;/p&gt;
+
+&lt;p&gt;Download Visual Studio Code&lt;br /&gt;
+&lt;a href=&quot;https://code.visualstudio.com/Download&quot;&gt;https://code.visualstudio.com/Download&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;私はzip版。&lt;br /&gt;
+任意のフォルダに展開し、PATHを通す。&lt;br /&gt;
+私の場合はPATHの通っているところにcode.exeのショートカットを置いただけ。&lt;/p&gt;
+
+&lt;h3 id=&quot;pythonのインストール&quot;&gt;Pythonのインストール&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.python.org/downloads/&quot;&gt;https://www.python.org/downloads/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_01.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3181&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_01-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_01-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_01-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_02.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3182&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_02-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_02-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_02-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;br /&gt;
+&lt;/a&gt; &lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_03.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3184&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_03-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_03-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_03-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;br /&gt;
+コマンドプロンプトでpythonにPATHが通っていることを確認&lt;br /&gt;
+&lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_04.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3183&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_04-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_04-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_04-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;vscへのpython-extensionインストール&quot;&gt;VSCへのpython extensionインストール&lt;/h3&gt;
+
+&lt;p&gt;Python extension for Visual Studio Code&lt;br /&gt;
+&lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=ms-python.python&quot;&gt;https://marketplace.visualstudio.com/items?itemName=ms-python.python&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_05.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3186&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_05-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_05-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_05-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_06.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3188&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_06-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_06-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_06-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;br /&gt;
+&lt;/a&gt; &lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_07.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3187&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_07-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_07-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_07-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;vscでのpython-interpreterの指定&quot;&gt;VSCでのpython interpreterの指定&lt;/h3&gt;
+
+&lt;p&gt;VSCを起動し、pythonを使う旨、VSCに明示する。&lt;br /&gt;
+Ctrl + Shift + Pを押し、現れたウインドウに「Python」とタイプ、「インタープリターを選択」を選ぶ&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_08.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3189&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_08-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_08-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_08-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;pylintのインストール&quot;&gt;PyLintのインストール&lt;/h3&gt;
+
+&lt;p&gt;拡張子.pyのファイルを作ると、Linterが無いと怒られる。&lt;br /&gt;
+インストールを選ぶ。&lt;br /&gt;
+&lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_09.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3190&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_09-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_09-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_09-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_20.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3191&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_20-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_20-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_20-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;ライブラリのインストール&quot;&gt;ライブラリのインストール&lt;/h3&gt;
+
+&lt;p&gt;なんか画面が開いたのでpipで必要なライブラリのインストールを進める&lt;br /&gt;
+&lt;a href=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_21.jpg&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3192&quot; src=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_21-150x150.jpg&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2019/01/pythoninstall20190105_21-150x150.jpg 150w, ../../../wp-content/uploads/2019/01/pythoninstall20190105_21-144x144.jpg 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;microsoft-visual-c-140のインストール&quot;&gt;“Microsoft Visual C++ 14.0″のインストール&lt;/h3&gt;
+
+&lt;p&gt;「Microsoft Visual C++ 14.0」が無いと怒られたら。&lt;/p&gt;
+
+&lt;p&gt;[bash] copying cx_Freeze\samples\wx\wxapp.py -&amp;gt; build\lib.win32-3.7\cx_Freeze\samples\wx&lt;br /&gt;
+creating build\lib.win32-3.7\cx_Freeze\samples\zope&lt;br /&gt;
+copying cx_Freeze\samples\zope\qotd.py -&amp;gt; build\lib.win32-3.7\cx_Freeze\samples\zope&lt;br /&gt;
+copying cx_Freeze\samples\zope\setup.py -&amp;gt; build\lib.win32-3.7\cx_Freeze\samples\zope&lt;br /&gt;
+running build_ext&lt;br /&gt;
+building ‘cx_Freeze.util’ extension&lt;br /&gt;
+error: Microsoft Visual C++ 14.0 is required. Get it with “Microsoft Visual C++ Build Tools”: https://visualstudio.microsoft.com/downloads/[/bash]&lt;/p&gt;
+
+&lt;p&gt;このあたりから入手してインストール&lt;br /&gt;
+&lt;a href=&quot;https://visualstudio.microsoft.com/visual-cpp-build-tools/&quot;&gt;https://visualstudio.microsoft.com/visual-cpp-build-tools/&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe&quot;&gt;https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;MD5ハッシュは 8d4afd3b226babecaa4effb10d69eb2e&lt;br /&gt;
+以上&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">いまさらVisual  Studio Code（以降、VSC）をインストールしたのでメモ Windows10。Python。 以下の手順に沿う。</summary></entry><entry><title type="html">[zfs] zfsnap2を使った日々のzfs snapshot（削除編）</title><link href="https://nobwak.github.io/2018/12/zfs-zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs-snapshot(%E5%89%8A%E9%99%A4%E7%B7%A8)/" rel="alternate" type="text/html" title="[zfs] zfsnap2を使った日々のzfs snapshot（削除編）" /><published>2018-12-29T13:44:00+09:00</published><updated>2018-12-29T13:44:00+09:00</updated><id>https://nobwak.github.io/2018/12/zfs-zfsnap2e38292e4bdbfe381a3e3819fe697a5e38085e381aezfs-snapshotefbc88e5898ae999a4e7b7a8efbc89</id><content type="html" xml:base="https://nobwak.github.io/2018/12/zfs-zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs-snapshot(%E5%89%8A%E9%99%A4%E7%B7%A8)/">&lt;p&gt;zfsnap2（以降、zfsnap）をperiodicで自動取得する方法は&lt;a href=&quot;../../../2018/12/zfs-zfsnap2%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%9f%e6%97%a5%e3%80%85%e3%81%aezfs-snapshot/&quot;&gt;こちら&lt;/a&gt;で触れた。&lt;br /&gt;
+同期時でも触れた通り、zfsnapには自動削除するperiodic scriptもある。&lt;br /&gt;
+が、実はそのままでは動かない。&lt;br /&gt;
+変更内容を本記事で示す。&lt;/p&gt;
+
+&lt;h3 id=&quot;結論&quot;&gt;結論&lt;/h3&gt;
+
+&lt;p&gt;付属のスクリプトではdestroyするfsの指定がないので補う。&lt;br /&gt;
+具体的には以下の個所。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;/p&gt;
+
+&lt;p&gt;&amp;lt; xPREFIXx/zfsnap destroy $OPTIONS -p “hourly- daily- weekly- monthly- reboot- $xPERIODICx_zfsnap_delete_prefixes” $xPERIODICx_zfsnap_delete_fs -r $xPERIODICx_zfsnap_delete_recursive_fs&lt;br /&gt;
+—&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;xPREFIXx/zfsnap destroy $OPTIONS -p “hourly- daily- weekly- monthly- reboot- $xPERIODICx_zfsnap_delete_prefixes”[/bash]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt; &lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
+
+&lt;p&gt;同時に、/etc/periodic.confで$xPERIODICx_zfsnap_delete_fs、$xPERIODICx_zfsnap_delete_recursive_fsの指定も行うこと。&lt;/p&gt;
+
+&lt;h3 id=&quot;結果&quot;&gt;結果&lt;/h3&gt;
+
+&lt;p&gt;dailyの削除スクリプト例（dailyのみ）&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+#!/bin/sh&lt;/p&gt;
+
+&lt;p&gt;# This file is licensed under the BSD-3-Clause license.&lt;br /&gt;
+# See the AUTHORS and LICENSE files for more information.&lt;/p&gt;
+
+&lt;p&gt;# If there is a global system configuration file, suck it in.&lt;br /&gt;
+if [ -r /etc/defaults/periodic.conf ]; then&lt;br /&gt;
+. /etc/defaults/periodic.conf&lt;br /&gt;
+source_periodic_confs&lt;br /&gt;
+fi&lt;/p&gt;
+
+&lt;p&gt;# daily_zfsnap_delete_enable – Delete old snapshots periodicaly (values: YES | NO)&lt;br /&gt;
+# daily_zfsnap_delete_flags – `zfsnap destroy` flags&lt;br /&gt;
+# daily_zfsnap_delete_verbose – Verbose output (values: YES | NO)&lt;br /&gt;
+# daily_zfsnap_delete_prefixes – Space-separated list of prefixes of expired zfsnap snapshots to delete&lt;br /&gt;
+# ‘hourly-‘, ‘daily-‘, ‘weekly-‘, ‘monthly-‘, and ‘reboot-‘ prefixes are hardcoded&lt;br /&gt;
+# daily_zfsnap_delete_fs – Space-separated ZFS filesystems to create non-recursive snapshots&lt;br /&gt;
+# daily_zfsnap_delete_recursive_fs – Space-separated ZFS filesystems to create recursive snapshots&lt;/p&gt;
+
+&lt;p&gt;case “${daily_zfsnap_delete_enable-“NO”}” in&lt;br /&gt;
+[Yy][Ee][Ss])&lt;br /&gt;
+OPTIONS=”$daily_zfsnap_delete_flags”&lt;/p&gt;
+
+&lt;p&gt;case “${daily_zfsnap_delete_verbose-“NO”}” in&lt;br /&gt;
+[Yy][Ee][Ss]) OPTIONS=”$OPTIONS -v” ;;&lt;br /&gt;
+esac&lt;/p&gt;
+
+&lt;p&gt;/usr/local/sbin/zfsnap destroy $OPTIONS -p “hourly- daily- weekly- monthly- reboot- $daily_zfsnap_delete_prefixes” $daily_zfsnap_delete_fs -r $daily_zfsnap_delete_recursive_fs&lt;br /&gt;
+exit $?&lt;br /&gt;
+;;&lt;/p&gt;
+
+&lt;p&gt;*)&lt;br /&gt;
+exit 0&lt;br /&gt;
+;;&lt;br /&gt;
+esac&lt;/p&gt;
+
+&lt;p&gt;# vim: set ts=4 sw=4:[/bash]&lt;/p&gt;
+
+&lt;p&gt;/etc/periodic.confの例（dailyのみ）&lt;/p&gt;
+
+&lt;p&gt;[bash]# zfsnap_daily&lt;br /&gt;
+daily_zfsnap_enable=”YES”&lt;br /&gt;
+daily_zfsnap_recursive_fs=”vault”&lt;br /&gt;
+daily_zfsnap_verbose=”YES”&lt;br /&gt;
+daily_zfsnap_flags=”-s -S -z”&lt;br /&gt;
+daily_zfsnap_ttl=”1w1d”&lt;br /&gt;
+daily_zfsnap_delete_enable=”YES”&lt;br /&gt;
+daily_zfsnap_delete_flags=”-s -S”&lt;br /&gt;
+daily_zfsnap_delete_verbose=”YES”&lt;br /&gt;
+daily_zfsnap_delete_recursive_fs=”vault”[/bash]&lt;/p&gt;
+
+&lt;p&gt;上手くいけばdaily outputで以下のような内容が通知される。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+/sbin/zfs destroy vault/chamber@daily-2018-12-21_04.00.00–1w1d … DONE&lt;br /&gt;
+/sbin/zfs destroy vault/itunes@daily-2018-12-21_04.00.00–1w1d … DONE&lt;br /&gt;
+/sbin/zfs destroy vault@daily-2018-12-21_04.00.00–1w1d … DONE[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">zfsnap2（以降、zfsnap）をperiodicで自動取得する方法はこちらで触れた。 同期時でも触れた通り、zfsnapには自動削除するperiodic scriptもある。 が、実はそのままでは動かない。 変更内容を本記事で示す。</summary></entry><entry><title type="html">[zfs]ディスク交換、zpool容量の拡張</title><link href="https://nobwak.github.io/2018/12/3159/" rel="alternate" type="text/html" title="[zfs]ディスク交換、zpool容量の拡張" /><published>2018-12-22T12:59:38+09:00</published><updated>2018-12-22T12:59:38+09:00</updated><id>https://nobwak.github.io/2018/12/3159</id><content type="html" xml:base="https://nobwak.github.io/2018/12/3159/">&lt;p&gt;HDDがいっぱいになってきたので容量の大きい別のHDDに移した。&lt;br /&gt;
+zfsなのでmirrorをしつつ入れ替えができる。&lt;br /&gt;
+その時のメモ。&lt;/p&gt;
+
+&lt;p&gt;端的に言えばディスク交換後zpool online -eをすればよい。&lt;br /&gt;
+以下、経緯。&lt;/p&gt;
+
+&lt;h3 id=&quot;ディスク追加&quot;&gt;ディスク追加&lt;/h3&gt;
+
+&lt;p&gt;2.5TのHDD, ada1上に作られたzpool、vaultがあり、残容量は150Gである。&lt;br /&gt;
+もともとzfsは残容量が少なくなると格段にパフォーマンスが落ちると言われていて、これはちょっと危険な状態である。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+ada1 at ahcich1 bus 0 scbus1 target 0 lun 0&lt;br /&gt;
+ada1: &amp;lt;WDC WD25EZRX-00MMMB0 80.00A80&amp;gt; ATA8-ACS SATA 3.x device&lt;br /&gt;
+ada1: Serial Number WD-WMAWZ0230443&lt;br /&gt;
+ada1: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)&lt;br /&gt;
+ada1: Command Queueing enabled&lt;br /&gt;
+ada1: 2384658MB (4883781168 512 byte sectors)&lt;br /&gt;
+ada1: quirks=0x1&amp;lt;4K&amp;gt;&lt;/p&gt;
+
+&lt;p&gt;# zpool status&lt;br /&gt;
+pool: vault&lt;br /&gt;
+state: ONLINE&lt;br /&gt;
+scan: none requested&lt;br /&gt;
+config:&lt;/p&gt;
+
+&lt;p&gt;NAME STATE READ WRITE CKSUM&lt;br /&gt;
+vault ONLINE 0 0 0&lt;br /&gt;
+gpt/disk_01 ONLINE 0 0 0&lt;/p&gt;
+
+&lt;p&gt;# zfs list&lt;br /&gt;
+NAME USED AVAIL REFER MOUNTPOINT&lt;br /&gt;
+vault 2.05T 150G 88K /vault&lt;br /&gt;
+vault/chamber 1017G 150G 1017G /chamber&lt;br /&gt;
+vault/itunes 1.06T 150G 1.05T /itunes&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;そこで、zpoolにmirrorとして容量の大きいディスクを追加し、その後オリジナルのディスクを外す、という手順。&lt;/p&gt;
+
+&lt;p&gt;追加するのは以下のディスク。3T。&lt;br /&gt;
+2.5Tから3Tじゃ焼け石に水ですがね…。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+ada2 at ahcich2 bus 0 scbus2 target 0 lun 0&lt;br /&gt;
+ada2: &amp;lt;WDC WD30EZRX-00D8PB0 80.00A80&amp;gt; ACS-2 ATA SATA 3.x device&lt;br /&gt;
+ada2: Serial Number WD-WMC4N0765033&lt;br /&gt;
+ada2: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)&lt;br /&gt;
+ada2: Command Queueing enabled&lt;br /&gt;
+ada2: 2861588MB (5860533168 512 byte sectors)&lt;br /&gt;
+ada2: quirks=0x1&amp;lt;4K&amp;gt;&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;既存のzpoolにmirrorとしてディスクを追加するには、zpool attachを使う。&lt;br /&gt;
+zpool attachに続けてzpool名、既存ディスク、追加ディスクの順で指定。&lt;br /&gt;
+以下の例では、ディスクの指定をada2などのデバイス名ではなくGPT名で行っている。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;/p&gt;
+
+&lt;p&gt;# zpool attach vault gpt/disk_01 gpt/disk_02&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;以下のようにzpoolがmirror構成になり、resilveringが始まる。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+# zpool status&lt;br /&gt;
+pool: vault&lt;br /&gt;
+status: One or more devices is currently being resilvered. The pool will&lt;br /&gt;
+continue to function, possibly in a degraded state.&lt;br /&gt;
+action: Wait for the resilver to complete.&lt;br /&gt;
+scrub: resilver in progress for 0h0m, 0.01% done, 7h1m to go&lt;br /&gt;
+config:&lt;/p&gt;
+
+&lt;p&gt;NAME STATE READ WRITE CKSUM&lt;br /&gt;
+vault ONLINE 0 0 0&lt;br /&gt;
+mirror-0 ONLINE 0 0 0&lt;br /&gt;
+gpt/disk_01 ONLINE 0 0 0&lt;br /&gt;
+gpt/disk_02 ONLINE 0 0 0&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;しばらく待つと;&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+pool: vault&lt;br /&gt;
+state: ONLINE&lt;br /&gt;
+scan: resilvered 2.04T in 6h48m with 0 errors on Sun Dec 16 19:15:11 2018&lt;br /&gt;
+config:&lt;/p&gt;
+
+&lt;p&gt;NAME STATE READ WRITE CKSUM&lt;br /&gt;
+vault ONLINE 0 0 0&lt;br /&gt;
+mirror-0 ONLINE 0 0 0&lt;br /&gt;
+gpt/disk_01 ONLINE 0 0 0&lt;br /&gt;
+gpt/disk_02 ONLINE 0 0 0&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;resilvering終了。&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
+
+&lt;h3 id=&quot;旧ディスクの除去&quot;&gt;旧ディスクの除去&lt;/h3&gt;
+
+&lt;p&gt;2.5Tと3Tのディスクでmirrorを構成しているので、当然ながら残容量に変化はない。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+NAME USED AVAIL REFER MOUNTPOINT&lt;br /&gt;
+vault 2.05T 150G 88K /vault&lt;br /&gt;
+vault/chamber 1017G 150G 1017G /chamber&lt;br /&gt;
+vault/itunes 1.06T 150G 1.05T /itunes&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;では旧ディスクを外す。&lt;br /&gt;
+mirrorからディスクを外すにはdetachを使う。&lt;br /&gt;
+zpool detachに続けてzpool名、ディスク名を指定。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+# zpool detach vault gpt/disk_01&lt;br /&gt;
+# zpool status&lt;br /&gt;
+pool: vault&lt;br /&gt;
+state: ONLINE&lt;br /&gt;
+scan: resilvered 2.04T in 6h48m with 0 errors on Sun Dec 16 19:15:11 2018&lt;br /&gt;
+config:&lt;/p&gt;
+
+&lt;p&gt;NAME STATE READ WRITE CKSUM&lt;br /&gt;
+vault ONLINE 0 0 0&lt;br /&gt;
+gpt/disk_02 ONLINE 0 0 0&lt;/p&gt;
+
+&lt;p&gt;errors: No known data errors&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;ご覧の通りmirror構成が解除される。&lt;/p&gt;
+
+&lt;h3 id=&quot;容量の拡張&quot;&gt;容量の拡張&lt;/h3&gt;
+
+&lt;p&gt;さてこの状態ではまだ残容量が増えない。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+NAME USED AVAIL REFER MOUNTPOINT&lt;br /&gt;
+vault 2.05T 150G 88K /vault&lt;br /&gt;
+vault/chamber 1017G 150G 1017G /chamber&lt;br /&gt;
+vault/itunes 1.06T 150G 1.05T /itunes&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;ただ物理ディスクは3Tなので、zpoolに「安心して容量を増やしたまえ」と通知する。&lt;br /&gt;
+通知にはzpool online -eを使う。&lt;br /&gt;
+zpool onlineは物理ディスクを有効にするコマンドだが、-eを付ければ、使用可能な領域をすべて使うようにできる。&lt;br /&gt;
+manを以下に引用する。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+zpool online [-e] pool device …&lt;/p&gt;
+
+&lt;p&gt;Brings the specified physical device online.&lt;/p&gt;
+
+&lt;p&gt;This command is not applicable to spares or cache devices.&lt;/p&gt;
+
+&lt;p&gt;-e Expand the device to use all available space. If the device&lt;br /&gt;
+is part of a mirror or raidz then all devices must be&lt;br /&gt;
+expanded before the new space will become available to the&lt;br /&gt;
+pool.&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;ご覧の通り残容量が増えた。&lt;br /&gt;
+たったの450Gだけど。&lt;/p&gt;
+
+&lt;p&gt;[bash]# zpool online -e vault gpt/disk_02&lt;br /&gt;
+$ zfs list&lt;br /&gt;
+NAME USED AVAIL REFER MOUNTPOINT&lt;br /&gt;
+vault 2.05T 599G 88K /vault&lt;br /&gt;
+vault/chamber 1017G 599G 1017G /chamber&lt;br /&gt;
+vault/itunes 1.06T 599G 1.05T /itunes&lt;/p&gt;
+
+&lt;p&gt;[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">HDDがいっぱいになってきたので容量の大きい別のHDDに移した。 zfsなのでmirrorをしつつ入れ替えができる。 その時のメモ。</summary></entry><entry><title type="html">[zfs] zfsnap2を使った日々のzfs snapshot（取得編）</title><link href="https://nobwak.github.io/2018/12/zfs-zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs-snapshot/" rel="alternate" type="text/html" title="[zfs] zfsnap2を使った日々のzfs snapshot（取得編）" /><published>2018-12-02T17:54:52+09:00</published><updated>2018-12-02T17:54:52+09:00</updated><id>https://nobwak.github.io/2018/12/zfs-zfsnap2e38292e4bdbfe381a3e3819fe697a5e38085e381aezfs-snapshot</id><content type="html" xml:base="https://nobwak.github.io/2018/12/zfs-zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs-snapshot/">&lt;p&gt;&lt;a href=&quot;../../../2018/12/zfszpool-%e3%82%89%e3%81%8f%e3%82%89%e3%81%8f%e3%82%b9%e3%83%8a%e3%83%83%e3%83%97%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88zfsnap2/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;zfsnap2&lt;/a&gt;（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。&lt;br /&gt;
+あとはこれをcronに仕込んで日々、snapshotを取得、削除するだけである。&lt;/p&gt;
+
+&lt;p&gt;zfsnapをpkg、あるいはportsからインストールすると、cron用のシェルスクリプトも付いてくる。&lt;br /&gt;
+これを加工してperiodic用のディレクトリに放り込めば、あとは全部、zfsnapがやってくれる。&lt;/p&gt;
+
+&lt;p&gt;基本はここを見ながら。&lt;br /&gt;
+&lt;a href=&quot;https://github.com/zfsnap/zfsnap/wiki/zfSnap-periodic.conf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/zfsnap/zfsnap/wiki/zfSnap-periodic.conf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;なお、本稿で扱う周期、契機は日週月次に限る。&lt;/p&gt;
+
+&lt;h2 id=&quot;全体の流れ&quot;&gt;全体の流れ&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;スナップショットの方針を決める&lt;/li&gt;
+  &lt;li&gt;cron用シェルスクリプトを日・週・月ごとのperiodicディレクトリにコピーし、ファイル名を変更する&lt;/li&gt;
+  &lt;li&gt;スクリプトの内容を修正する&lt;/li&gt;
+  &lt;li&gt;/etc/periodic.confにバックアップ方針に沿った設定を書き加える&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;では早速。&lt;/p&gt;
+
+&lt;h2 id=&quot;スナップショット方針を決める&quot;&gt;スナップショット方針を決める&lt;/h2&gt;
+
+&lt;p&gt;ここでは簡単に、あるzpool丸ごとに対して;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;毎日のスナップショットは1週間と1日、保存する&lt;/li&gt;
+  &lt;li&gt;毎週のスナップショットは1か月と1日、保存する&lt;/li&gt;
+  &lt;li&gt;毎月のスナップショットは1年と1週間、保存する&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;とする&lt;/p&gt;
+
+&lt;h2 id=&quot;補足periodicから実行されるときのsnapname&quot;&gt;[補足]periodicから実行されるときのsnapname&lt;/h2&gt;
+
+&lt;p&gt;zfsnap付属のスクリプトを使うと、snapnameの頭にdaily, weekly, monthlyと付く。&lt;br /&gt;
+もちろん変更可能だが、本稿ではそのまま使う。&lt;/p&gt;
+
+&lt;h2 id=&quot;zfsnapのcron用スクリプトはどこにある&quot;&gt;zfsnapのcron用スクリプトはどこにある&lt;/h2&gt;
+
+&lt;p&gt;cron用スクリプトは、zfsnapインストール時にshareにコピーされる。&lt;br /&gt;
+例えば以下のようにして探す&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+$ pkg list|grep zfsnap&lt;br /&gt;
+/usr/local/etc/bash_completion.d/zfsnap.sh&lt;br /&gt;
+/usr/local/man/man8/zfsnap.8.gz&lt;br /&gt;
+/usr/local/sbin/zfsnap&lt;br /&gt;
+/usr/local/share/doc/zfsnap/AUTHORS&lt;br /&gt;
+/usr/local/share/doc/zfsnap/NEWS&lt;br /&gt;
+/usr/local/share/doc/zfsnap/PORTABILITY&lt;br /&gt;
+/usr/local/share/doc/zfsnap/README.md&lt;br /&gt;
+/usr/local/share/examples/zfsnap/completion/zfsnap-completion.bash&lt;br /&gt;
+/usr/local/share/examples/zfsnap/completion/zfsnap-completion.tcsh&lt;br /&gt;
+/usr/local/share/examples/zfsnap/completion/zfsnap-completion.zsh&lt;br /&gt;
+/usr/local/share/examples/zfsnap/periodic/xPERIODICx_zfsnap.sh&lt;br /&gt;
+/usr/local/share/examples/zfsnap/periodic/xPERIODICx_zfsnap_delete.sh&lt;br /&gt;
+/usr/local/share/licenses/zfsnap2-2.0.0.b3/BSD3CLAUSE&lt;br /&gt;
+/usr/local/share/licenses/zfsnap2-2.0.0.b3/LICENSE&lt;br /&gt;
+/usr/local/share/licenses/zfsnap2-2.0.0.b3/catalog.mk&lt;br /&gt;
+/usr/local/share/zfsnap/commands/destroy.sh&lt;br /&gt;
+/usr/local/share/zfsnap/commands/recurseback.sh&lt;br /&gt;
+/usr/local/share/zfsnap/commands/snapshot.sh&lt;br /&gt;
+/usr/local/share/zfsnap/core.sh&lt;br /&gt;
+/usr/local/share/zsh/site-functions/_zfsnap&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;上記のうち以下が狙いのスクリプトである。&lt;br /&gt;
+スナップショット取得用、削除用の2種類。&lt;br /&gt;
+なお削除用はそのままでは期待する動作にならないので&lt;a href=&quot;../../../2018/12/zfs-zfsnap2%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%9f%e6%97%a5%e3%80%85%e3%81%aezfs-snapshot%ef%bc%88%e5%89%8a%e9%99%a4%e7%b7%a8%ef%bc%89/&quot;&gt;別記事&lt;/a&gt;で扱う。&lt;br /&gt;
+/usr/local/share/examples/zfsnap/periodic/xPERIODICx_zfsnap.sh&lt;br /&gt;
+/usr/local/share/examples/zfsnap/periodic/xPERIODICx_zfsnap_delete.sh&lt;/p&gt;
+
+&lt;h2 id=&quot;スクリプトのコピーとファイル名の変更&quot;&gt;スクリプトのコピーとファイル名の変更&lt;/h2&gt;
+
+&lt;p&gt;さてこれを、日・週・月のperiodicディレクトリにコピーし設定していくが、まずは日次で試す。&lt;br /&gt;
+日ごとのperiodicディレクトリは/usr/local/etc/periodic/dailyである。&lt;br /&gt;
+ここにコピーし、ファイル名を変える。&lt;br /&gt;
+ファイル名のxPERIODICxを、日次・週次・月次、どの周期用かに合わせて変える。&lt;br /&gt;
+具体的にはそれぞれdaily, weekly, monthlyに。&lt;br /&gt;
+以下の例では日次のスクリプトなので、dailyに変えている。&lt;br /&gt;
+prefixの番号は好きなようにしたまえ。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;/p&gt;
+
+&lt;p&gt;$ cd /usr/local/etc/periodic/daily&lt;br /&gt;
+$ sudo cp /usr/local/share/examples/zfsnap/periodic/* .&lt;br /&gt;
+$ sudo mv ./xPERIODICx_zfsnap.sh ./500.daily_zfsnap.sh&lt;br /&gt;
+$ sudo mv ./xPERIODICx_zfsnap_delete.sh ./500.daily_zfsnap_delete.sh&lt;br /&gt;
+$ ls&lt;br /&gt;
+411.pkg-backup 500.daily_zfsnap_delete.sh 998.ntpdate&lt;br /&gt;
+490.status-pkg-changes 500.daily_zfsnap.sh smart&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;h2 id=&quot;スクリプトの修正&quot;&gt;スクリプトの修正&lt;/h2&gt;
+
+&lt;p&gt;スクリプト（取得用）の内容は以下の通りである。&lt;br /&gt;
+変える場所はxPERIODICxとxPREFIXxである。&lt;br /&gt;
+xPERIODICxは周期に合わせて、xPREFIXxはzfsnapの置いてあるパス、つまり/usr/local/sbin/zfsnapに。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;/p&gt;
+
+&lt;p&gt;#!/bin/sh&lt;/p&gt;
+
+&lt;p&gt;# This file is licensed under the BSD-3-Clause license.&lt;br /&gt;
+# See the AUTHORS and LICENSE files for more information.&lt;/p&gt;
+
+&lt;p&gt;# If there is a global system configuration file, suck it in.&lt;br /&gt;
+if [ -r /etc/defaults/periodic.conf ]; then&lt;br /&gt;
+. /etc/defaults/periodic.conf&lt;br /&gt;
+source_periodic_confs&lt;br /&gt;
+fi&lt;/p&gt;
+
+&lt;p&gt;# xPERIODICx_zfsnap_enable – Enable xPERIODICx snapshots (values: YES | NO)&lt;br /&gt;
+# xPERIODICx_zfsnap_flags – `zfsnap snapshot` flags&lt;br /&gt;
+# xPERIODICx_zfsnap_fs – Space-separated ZFS filesystems to create non-recursive snapshots&lt;br /&gt;
+# xPERIODICx_zfsnap_recursive_fs – Space-separated ZFS filesystems to create recursive snapshots&lt;br /&gt;
+# xPERIODICx_zfsnap_ttl – Explicit TTL value&lt;br /&gt;
+# xPERIODICx_zfsnap_verbose – Verbose output (values: YES | NO)&lt;br /&gt;
+# xPERIODICx_zfsnap_enable_prefix – Create snapshots with prefix (values: YES | NO) (Default = YES)&lt;br /&gt;
+# xPERIODICx_zfsnap_prefix – set prefix for snapshots (Default = xPERIODICx)&lt;/p&gt;
+
+&lt;p&gt;case “${xPERIODICx_zfsnap_enable-“NO”}” in&lt;br /&gt;
+[Yy][Ee][Ss])&lt;br /&gt;
+OPTIONS=”$xPERIODICx_zfsnap_flags”&lt;/p&gt;
+
+&lt;p&gt;case “${xPERIODICx_zfsnap_verbose-“NO”}” in&lt;br /&gt;
+[Yy][Ee][Ss]) OPTIONS=”$OPTIONS -v” ;;&lt;br /&gt;
+esac&lt;/p&gt;
+
+&lt;p&gt;case “${xPERIODICx_zfsnap_enable_prefix-“YES”}” in&lt;br /&gt;
+[Yy][Ee][Ss]) OPTIONS=”$OPTIONS -p ${xPERIODICx_zfsnap_prefix:-“xPERIODICx-“}” ;;&lt;br /&gt;
+esac&lt;/p&gt;
+
+&lt;p&gt;case ‘xPERIODICx’ in&lt;br /&gt;
+‘hourly’)&lt;br /&gt;
+default_ttl=’3d’&lt;br /&gt;
+;;&lt;br /&gt;
+‘daily’|’reboot’)&lt;br /&gt;
+default_ttl=’1w’&lt;br /&gt;
+;;&lt;br /&gt;
+‘weekly’)&lt;br /&gt;
+default_ttl=’1m’&lt;br /&gt;
+;;&lt;br /&gt;
+‘monthly’)&lt;br /&gt;
+default_ttl=’6m’&lt;br /&gt;
+;;&lt;br /&gt;
+*)&lt;br /&gt;
+printf ‘%s\n’ “ERR: Unexpected error” &amp;gt;&amp;amp;2&lt;br /&gt;
+exit 1&lt;br /&gt;
+;;&lt;br /&gt;
+esac&lt;/p&gt;
+
+&lt;p&gt;xPREFIXx/zfsnap snapshot $OPTIONS -a ${xPERIODICx_zfsnap_ttl:-“$default_ttl”} $xPERIODICx_zfsnap_fs -r $xPERIODICx_zfsnap_recursive_fs&lt;br /&gt;
+exit $?&lt;br /&gt;
+;;&lt;/p&gt;
+
+&lt;p&gt;*)&lt;br /&gt;
+exit 0&lt;br /&gt;
+;;&lt;br /&gt;
+esac&lt;/p&gt;
+
+&lt;p&gt;# vim: set ts=4 sw=4:&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;vimなら:%s/xPERIODICx/daily/g などとコマンド叩いて一括置換する。&lt;br /&gt;
+以下が修正後。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;/p&gt;
+
+&lt;p&gt;#!/bin/sh&lt;/p&gt;
+
+&lt;p&gt;# This file is licensed under the BSD-3-Clause license.&lt;br /&gt;
+# See the AUTHORS and LICENSE files for more information.&lt;/p&gt;
+
+&lt;p&gt;# If there is a global system configuration file, suck it in.&lt;br /&gt;
+if [ -r /etc/defaults/periodic.conf ]; then&lt;br /&gt;
+. /etc/defaults/periodic.conf&lt;br /&gt;
+source_periodic_confs&lt;br /&gt;
+fi&lt;/p&gt;
+
+&lt;p&gt;# daily_zfsnap_enable – Enable daily snapshots (values: YES | NO)&lt;br /&gt;
+# daily_zfsnap_flags – `zfsnap snapshot` flags&lt;br /&gt;
+# daily_zfsnap_fs – Space-separated ZFS filesystems to create non-recursive snapshots&lt;br /&gt;
+# daily_zfsnap_recursive_fs – Space-separated ZFS filesystems to create recursive snapshots&lt;br /&gt;
+# daily_zfsnap_ttl – Explicit TTL value&lt;br /&gt;
+# daily_zfsnap_verbose – Verbose output (values: YES | NO)&lt;br /&gt;
+# daily_zfsnap_enable_prefix – Create snapshots with prefix (values: YES | NO) (Default = YES)&lt;br /&gt;
+# daily_zfsnap_prefix – set prefix for snapshots (Default = daily)&lt;/p&gt;
+
+&lt;p&gt;case “${daily_zfsnap_enable-“NO”}” in&lt;br /&gt;
+[Yy][Ee][Ss])&lt;br /&gt;
+OPTIONS=”$daily_zfsnap_flags”&lt;/p&gt;
+
+&lt;p&gt;case “${daily_zfsnap_verbose-“NO”}” in&lt;br /&gt;
+[Yy][Ee][Ss]) OPTIONS=”$OPTIONS -v” ;;&lt;br /&gt;
+esac&lt;/p&gt;
+
+&lt;p&gt;case “${daily_zfsnap_enable_prefix-“YES”}” in&lt;br /&gt;
+[Yy][Ee][Ss]) OPTIONS=”$OPTIONS -p ${daily_zfsnap_prefix:-“daily-“}” ;;&lt;br /&gt;
+esac&lt;/p&gt;
+
+&lt;p&gt;case ‘daily’ in&lt;br /&gt;
+‘hourly’)&lt;br /&gt;
+default_ttl=’3d’&lt;br /&gt;
+;;&lt;br /&gt;
+‘daily’|’reboot’)&lt;br /&gt;
+default_ttl=’1w’&lt;br /&gt;
+;;&lt;br /&gt;
+‘weekly’)&lt;br /&gt;
+default_ttl=’1m’&lt;br /&gt;
+;;&lt;br /&gt;
+‘monthly’)&lt;br /&gt;
+default_ttl=’6m’&lt;br /&gt;
+;;&lt;br /&gt;
+*)&lt;br /&gt;
+printf ‘%s\n’ “ERR: Unexpected error” &amp;gt;&amp;amp;2&lt;br /&gt;
+exit 1&lt;br /&gt;
+;;&lt;br /&gt;
+esac&lt;/p&gt;
+
+&lt;p&gt;/usr/local/sbin/zfsnap snapshot $OPTIONS -a ${daily_zfsnap_ttl:-“$default_ttl”} $daily_zfsnap_fs&lt;br /&gt;
+-r $daily_zfsnap_recursive_fs&lt;br /&gt;
+exit $?&lt;br /&gt;
+;;&lt;/p&gt;
+
+&lt;p&gt;*)&lt;br /&gt;
+exit 0&lt;br /&gt;
+;;&lt;br /&gt;
+esac&lt;/p&gt;
+
+&lt;p&gt;# vim: set ts=4 sw=4:&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;削除用も同じようにしたら、periodic.confに指示を書き入れる。&lt;/p&gt;
+
+&lt;h2 id=&quot;etcperiodicconfにおけるzfsnap設定の書式&quot;&gt;/etc/periodic.confにおけるzfsnap設定の書式&lt;/h2&gt;
+
+&lt;p&gt;/etc/periodic.confは無ければ作る。&lt;/p&gt;
+
+&lt;p&gt;zfsnapのperiodic向け書式は以下の通り。&lt;br /&gt;
+&lt;a href=&quot;https://github.com/zfsnap/zfsnap/wiki/zfSnap-periodic.conf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/zfsnap/zfsnap/wiki/zfSnap-periodic.conf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;以下、日次のものとして記す。&lt;br /&gt;
+週、月次の場合はdailyをそれぞれweekly, monthlyに変えればよい。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;snapshot取得の有効化&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;daily_zfsnap_enable&lt;br /&gt;
+YES/NOで指定&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;共通オプション（generic option）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;daily_zfsnap_flags&lt;br /&gt;
+例えばscrub, resilver中は避け、日付シリアルの秒を切り捨て、というような設定をここで行う。。&lt;br /&gt;
+-v, -dを指定しないこと。&lt;br /&gt;
+初めて作るときにはテスト実行オプションを付けて試験する。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;zfs, zpoolの指定&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;daily_zfsnap_fs&lt;br /&gt;
+daily_zfsnap_recursive_fs&lt;br /&gt;
+recursiveとなっているのは、当然ながら子孫も含めて再帰的に取得される&lt;br /&gt;
+複数あるなら、スペースを空けて列挙&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;冗長アウトプット指定&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;daily_zfsnap_verbose&lt;br /&gt;
+YES/NOで指定&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;保存期間指定&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;daily_zfsnap_ttl&lt;br /&gt;
+指定がなければ日次は1週間、週次は1か月、月次は6か月になる。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;スナップショット削除有効化&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;daily_zfsnap_delete_enable&lt;br /&gt;
+YES/NOで指定&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;periodic.conf例&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;ということで、periodic.confに追加したのは以下の通り。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;/p&gt;
+
+&lt;p&gt;# zfsnap_daily&lt;br /&gt;
+daily_zfsnap_enable=”YES”&lt;br /&gt;
+daily_zfsnap_recursive_fs=”vault”&lt;br /&gt;
+daily_zfsnap_verbose=”YES”&lt;br /&gt;
+daily_zfsnap_delete_enable=”YES”&lt;br /&gt;
+daily_zfsnap_flags=”-n -s -S -z”&lt;br /&gt;
+daily_zfsnap_ttl=”1w1d”&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;h2 id=&quot;試験&quot;&gt;試験&lt;/h2&gt;
+
+&lt;p&gt;zfsnap_flagsに-nを付けた状態で試験。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;/p&gt;
+
+&lt;p&gt;$ sudo /usr/local/etc/periodic/daily/500.daily_zfsnap.sh&lt;br /&gt;
+/sbin/zfs snapshot vault/chamber@daily-2018-12-03_02.14.00–1w1d&lt;br /&gt;
+/sbin/zfs snapshot vault/itunes@daily-2018-12-03_02.14.00–1w1d&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;大丈夫そうなので-nを外す。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;最終的なperiodic.confの結果&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;週次、月次で同じようにperiodic用のスクリプトを作成する。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;/p&gt;
+
+&lt;p&gt;$ pwd&lt;br /&gt;
+/usr/local/etc/periodic&lt;br /&gt;
+$ find ./ -name ‘*zfsnap*’&lt;br /&gt;
+./weekly/999.weekly_zfsnap.sh&lt;br /&gt;
+./weekly/999.weekly_zfsnap_delete.sh&lt;br /&gt;
+./daily/500.daily_zfsnap.sh&lt;br /&gt;
+./daily/500.daily_zfsnap_delete.sh&lt;br /&gt;
+./monthly/910.monthly_zfsnap.sh&lt;br /&gt;
+./monthly/910.monthly_zfsnap_delete.sh&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;最終的なperiodic.confの結果は以下の通り。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;/p&gt;
+
+&lt;p&gt;# zfsnap_weekly&lt;br /&gt;
+weekly_zfsnap_enable=”YES”&lt;br /&gt;
+weekly_zfsnap_recursive_fs=”vault”&lt;br /&gt;
+weekly_zfsnap_verbose=”YES”&lt;br /&gt;
+weekly_zfsnap_delete_enable=”YES”&lt;br /&gt;
+weekly_zfsnap_flags=”-s -S -z”&lt;br /&gt;
+weekly_zfsnap_ttl=”1m1d”&lt;br /&gt;
+# zfsnap_daily&lt;br /&gt;
+daily_zfsnap_enable=”YES”&lt;br /&gt;
+daily_zfsnap_recursive_fs=”vault”&lt;br /&gt;
+daily_zfsnap_verbose=”YES”&lt;br /&gt;
+daily_zfsnap_delete_enable=”YES”&lt;br /&gt;
+daily_zfsnap_flags=”-s -S -z”&lt;br /&gt;
+daily_zfsnap_ttl=”1w1d”&lt;br /&gt;
+# zfsnap_monthly&lt;br /&gt;
+monthly_zfsnap_enable=”YES”&lt;br /&gt;
+monthly_zfsnap_recursive_fs=”vault”&lt;br /&gt;
+monthly_zfsnap_verbose=”YES”&lt;br /&gt;
+monthly_zfsnap_delete_enable=”YES”&lt;br /&gt;
+monthly_zfsnap_flags=”-s -S -z”&lt;br /&gt;
+monthly_zfsnap_ttl=”1y1d”&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;翌日以降、root宛には以下のようなメールが届くので、結果はここで確認する。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+/sbin/zfs snapshot -r vault@daily-2018-12-02_04.47.0&lt;wbr /&gt;0–1w1d … DONE&lt;br /&gt;
+[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">zfsnap2（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。 あとはこれをcronに仕込んで日々、snapshotを取得、削除するだけである。</summary></entry><entry><title type="html">[zfs][zpool] らくらくスナップショットzfsnap2</title><link href="https://nobwak.github.io/2018/12/zfszpool-%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E3%82%B9%E3%83%8A%E3%83%83%E3%83%97%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88zfsnap2/" rel="alternate" type="text/html" title="[zfs][zpool] らくらくスナップショットzfsnap2" /><published>2018-12-01T15:53:49+09:00</published><updated>2018-12-01T15:53:49+09:00</updated><id>https://nobwak.github.io/2018/12/zfszpool-e38289e3818fe38289e3818fe382b9e3838ae38383e38397e382b7e383a7e38383e38388zfsnap2</id><content type="html" xml:base="https://nobwak.github.io/2018/12/zfszpool-%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E3%82%B9%E3%83%8A%E3%83%83%E3%83%97%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88zfsnap2/">&lt;p&gt;zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。&lt;br /&gt;
+私にとって面倒なのは、スナップショット作成とスナップショットの差分転送である。&lt;/p&gt;
+
+&lt;p&gt;スナップショットの簡素化について。&lt;br /&gt;
+スナップショットを作成する際には、ファイルシステムやボリュームに続けてスナップショットの名前、スナップネームを指定する必要がある。&lt;br /&gt;
+スナップネームはスナップショットを特定するために必要なものなので文句を言う筋合いはないのだが、いちいち名前を付けるのが面倒なんである。日付でもなんでも自動的に付けてほしい。&lt;/p&gt;
+
+&lt;p&gt;なんとか改善したくていろいろ調べてみた。&lt;/p&gt;
+
+&lt;h2 id=&quot;スナップショット取得補助ツール&quot;&gt;スナップショット取得補助ツール&lt;/h2&gt;
+
+&lt;p&gt;スナップショット関連ではzfstools, zfsnap2, zapの三つを調べた。&lt;br /&gt;
+結論から言うと、zfsnap2を選択した。&lt;/p&gt;
+
+&lt;h4 id=&quot;zfstools&quot;&gt;zfstools&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/bdrewery/zfstools&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/bdrewery/zfstools&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://www.freshports.org/sysutils/zfstools/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.freshports.org/sysutils/zfstools/&lt;/a&gt;&lt;br /&gt;
+よさそうだけどruby依存なのでその一点で対象外に。&lt;br /&gt;
+このツールのためだけにrubyを入れますか、という話で。&lt;br /&gt;
+なるべく依存の少ないツールがよい。&lt;/p&gt;
+
+&lt;h4 id=&quot;zap&quot;&gt;zap&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.freshports.org/sysutils/zap&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.freshports.org/sysutils/zap&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/Jehops/zap&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/Jehops/zap&lt;/a&gt;&lt;br /&gt;
+よさそうだけど、zfsに独自のプロパティ（zap:）を設定する必要があるっぽい。&lt;br /&gt;
+独自プロパティの設定が、zfsとして許容されている作法であっても、対象のファイルシステムに何らかの手を加えるのは躊躇する&lt;/p&gt;
+
+&lt;h4 id=&quot;zfsnap2&quot;&gt;zfsnap2&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.freshports.org/sysutils/zfsnap2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.freshports.org/sysutils/zfsnap2&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://github.com/zfsnap/zfsnap&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/zfsnap/zfsnap&lt;/a&gt;&lt;br /&gt;
+単純なシェルスクリプト。&lt;br /&gt;
+よさそう。&lt;/p&gt;
+
+&lt;h2 id=&quot;zfsnap2-お手軽snapshot&quot;&gt;zfsnap2 お手軽snapshot&lt;/h2&gt;
+
+&lt;p&gt;まず、zfsnap2は、取得すると日付シリアルをsnapnameに付けてくれる。&lt;br /&gt;
+例えば。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;/p&gt;
+
+&lt;p&gt;vault/chamber@2018-11-11_09.48.00–1y&lt;/p&gt;
+
+&lt;p&gt;[/bash]&lt;/p&gt;
+
+&lt;p&gt;ご覧の通り2018/11/11 09:48:00と日付をsnapnameに付ける&lt;br /&gt;
+なお、末尾に1yと書いてあるがこれは1年という意味である。&lt;br /&gt;
+これは何かというと（次項につづく）&lt;/p&gt;
+
+&lt;h2 id=&quot;zfsnap2-snapshot削除の仕組みとttl&quot;&gt;zfsnap2 snapshot削除の仕組みとTTL&lt;/h2&gt;
+
+&lt;p&gt;snapshotは取得するだけでなく、消す方の面倒を見ることも重要。&lt;br /&gt;
+zfsnap2は、取得したタイムスタンプとTTL(Time To Live)をsnapnameに含めておくのがアイデア（他みも同じようなツールあるかもしれないけど）。&lt;br /&gt;
+先ほどの例でいえば、末尾の1yがそれ。1yだから1 year、1年ですな。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+vault/chamber@2018-11-11_09.48.00–1y&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;上記の通り、取得日付、保存期間をsnapname自体に持たせるので、ツール側では状態を記憶しておく必要がない。&lt;br /&gt;
+削除を指示されたら、zfsnap2はその都度、snapnameだけを見て判断・処理をするということ。&lt;br /&gt;
+何より人間もsnapnameから保存期限を判断できる。これはよい。&lt;/p&gt;
+
+&lt;h2 id=&quot;とりあえず使う&quot;&gt;とりあえず使う&lt;/h2&gt;
+
+&lt;p&gt;管理者権限でzfsnap snapshotに続けてzfs/zpoolを指定するだけ。&lt;br /&gt;
+日付も付けてくれる。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+# zfsnap snapshot zroot/var/tmp&lt;br /&gt;
+$ zfs list -t snapshot|grep ‘zroot/var/tmp’&lt;br /&gt;
+zroot/var/tmp@20181120 56K – 88K –&lt;br /&gt;
+zroot/var/tmp@2018-12-01_22.19.13–1m 0 – 88K –&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;h2 id=&quot;zfsnap書式概要&quot;&gt;zfsnap書式概要&lt;/h2&gt;
+
+&lt;p&gt;詳細はman等するとして、概要を示す。&lt;br /&gt;
+書式は以下の通り。&lt;/p&gt;
+
+&lt;p&gt;[bash]zfsnap コマンド &lt;共通オプション&gt;　&lt;個別オプション&gt; zpool/zfs[/bash]&lt;/個別オプション&gt;&lt;/共通オプション&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;zfsnapのコマンド&quot;&gt;zfsnapのコマンド&lt;/h2&gt;
+
+&lt;p&gt;コマンドにはsnapshot, destroy, recursebackの三つがある。&lt;br /&gt;
+それらに続けてzpool, zfsを指定する。こちらの指定は複数でもよい。&lt;br /&gt;
+共通オプション（generic option）は、その名の通り、共通的なオプション。&lt;br /&gt;
+個別オプションはzpool, zfsごとのオプションである。&lt;/p&gt;
+
+&lt;p&gt;コマンドのsnapshot, destroyは当然ながらそれぞれsnapshot作成、削除。&lt;br /&gt;
+recursebackは、zfs rollbackの拡張で、rollbackの際、指定のdataset配下すべてをrollbackするもの。&lt;br /&gt;
+本稿では扱わない。&lt;/p&gt;
+
+&lt;h2 id=&quot;共通オプションgeneric-option&quot;&gt;共通オプション（generic option）&lt;/h2&gt;
+
+&lt;p&gt;主なものだけ示す&lt;/p&gt;
+
+&lt;p style=&quot;padding-left: 30px;&quot;&gt;
+  -s  : resilver中は作業しない&lt;br /&gt; -S : scrub中は作業しない&lt;br /&gt; -z : 日付シリアルの秒切り捨て（18:06:15を18:06:00にする）&lt;br /&gt; -n : dry run。テスト実行。ファイルシステムに変更を加えない。&lt;br /&gt; -v : 冗長output
+&lt;/p&gt;
+
+&lt;p&gt;-s, -Sは常時付けておいたほうがいいかな。&lt;/p&gt;
+
+&lt;h2 id=&quot;個別オプション&quot;&gt;個別オプション&lt;/h2&gt;
+
+&lt;p&gt;個別オプションなので、これに続けて指定されたzpool/zfsにのみ効果がある。&lt;br /&gt;
+主なものだけ示す&lt;/p&gt;
+
+&lt;p style=&quot;padding-left: 30px;&quot;&gt;
+  -a : TTL。指定がなければ1m = 1か月&lt;br /&gt; -r : 再帰オプション。再帰的にsnapshotを取得&lt;br /&gt; -R : 非再帰オプション。再帰的なsnapshotを取得「しない」
+&lt;/p&gt;
+
+&lt;h2 id=&quot;ttlオプション&quot;&gt;TTLオプション&lt;/h2&gt;
+
+&lt;p&gt;以下のうち、必要なものだけをズラズラ書けばよい&lt;/p&gt;
+
+&lt;p style=&quot;padding-left: 30px;&quot;&gt;
+  y : 年（365日）&lt;br /&gt; m : 月（30日）&lt;br /&gt; w : 週（7日）&lt;br /&gt; d : 日&lt;br /&gt; h : 時&lt;br /&gt; M : 分&lt;br /&gt; s : 秒
+&lt;/p&gt;
+
+&lt;p&gt;1週間と1日なら-a 1w1d。&lt;br /&gt;
+2か月なら-a 2m。&lt;/p&gt;
+
+&lt;h2 id=&quot;実行例&quot;&gt;実行例&lt;/h2&gt;
+
+&lt;p&gt;以上を踏まえて;&lt;br /&gt;
+resilver, scrub中は実行せず、日付シリアルの秒切り捨て、冗長アウトプットでsnapshotをテスト実行。&lt;br /&gt;
+対象zfsその1はzroot/usrで、再帰的に取得し、TTLは1週間と1日。その2はzroot/ROOTで、再帰的に取得「せず」、TTLは1分。&lt;br /&gt;
+という実行例。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+# zfsnap snapshot -sSvzn -a1w1d -r zroot/usr -R -a1M zroot/ROOT&lt;br /&gt;
+/sbin/zfs snapshot -r zroot/usr@2018-12-01_22.33.00–1w1d&lt;br /&gt;
+/sbin/zfs snapshot zroot/ROOT@2018-12-01_22.33.00–1M&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;よさそうなのでテスト実行オプションを省いて本番実行すると;&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+# zfsnap snapshot -sSvz -a1w1d -r zroot/usr -R -a1M zroot/ROOT&lt;br /&gt;
+/sbin/zfs snapshot -r zroot/usr@2018-12-01_22.34.00–1w1d … DONE&lt;br /&gt;
+/sbin/zfs snapshot zroot/ROOT@2018-12-01_22.34.00–1M … DONE&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;zfs listで結果を確認。zroot/usrにのみ配下にもスナップショットが出来ている。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+$ zfs list -t snapshot | grep ‘2018-12-01’&lt;br /&gt;
+zroot/ROOT@2018-12-01_22.34.00–1M 0 – 88K –&lt;br /&gt;
+zroot/usr@2018-12-01_22.34.00–1w1d 0 – 88K –&lt;br /&gt;
+zroot/usr/home@2018-12-01_22.34.00–1w1d 0 – 5.97M –&lt;br /&gt;
+zroot/usr/ports@2018-12-01_22.34.00–1w1d 0 – 88K –&lt;br /&gt;
+zroot/usr/src@2018-12-01_22.34.00–1w1d 0 – 88K –&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;では削除のほうも。&lt;br /&gt;
+zroot/ROOT、zroot/usr配下のTTL切れsnapshotを削除&lt;br /&gt;
+ただしzroot/ROOTは非再帰的、zroot/usrは再帰的に。&lt;br /&gt;
+テスト実行。&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+# zfsnap destroy -sSvn -R zroot/ROOT -r zroot/usr&lt;br /&gt;
+/sbin/zfs destroy zroot/ROOT@2018-12-01_22.34.00–1M&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;期限切れはzroot/ROOT@2018-12-01_22.34.00–1Mのみ。&lt;br /&gt;
+じゃ、それで本番実行&lt;/p&gt;
+
+&lt;p&gt;[bash]&lt;br /&gt;
+# zfsnap destroy -sSv -R zroot/ROOT -r zroot/usr&lt;br /&gt;
+/sbin/zfs destroy zroot/ROOT@2018-12-01_22.34.00–1M … DONE&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;以上。&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送である。</summary></entry><entry><title type="html">[ZFS][zpool]zpoolのHDDをスタンバイモードにして消費電力を減らそう</title><link href="https://nobwak.github.io/2018/11/zfszpoolzpool%E3%81%AEhdd%E3%82%92%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%90%E3%82%A4%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AB%E3%81%97%E3%81%A6%E6%B6%88%E8%B2%BB%E9%9B%BB%E5%8A%9B%E3%82%92%E6%B8%9B%E3%82%89/" rel="alternate" type="text/html" title="[ZFS][zpool]zpoolのHDDをスタンバイモードにして消費電力を減らそう" /><published>2018-11-18T18:36:33+09:00</published><updated>2018-11-18T18:36:33+09:00</updated><id>https://nobwak.github.io/2018/11/zfszpoolzpoole381aehdde38292e382b9e382bfe383b3e38390e382a4e383a2e383bce38389e381abe38197e381a6e6b688e8b2bbe99bbbe58a9be38292e6b89be38289</id><content type="html" xml:base="https://nobwak.github.io/2018/11/zfszpoolzpool%E3%81%AEhdd%E3%82%92%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%90%E3%82%A4%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AB%E3%81%97%E3%81%A6%E6%B6%88%E8%B2%BB%E9%9B%BB%E5%8A%9B%E3%82%92%E6%B8%9B%E3%82%89/">&lt;p&gt;我が家のNASサーバーはFreeBSDの入ったHP microserverである。&lt;br /&gt;
+HP microserverにはHDDを4つ入れることができる。&lt;br /&gt;
+たいへん便利なのだが、HDDが4つとも24時間動きっぱなしというのは精神衛生上、よろしくない。&lt;/p&gt;
+
+&lt;p&gt;実は、HDD4つのうちメインで使っているのはOSの入っているものと、Samba共有しているものの2つだけで、残りの2つはバックアップ用である。&lt;br /&gt;
+少なくとも、残りの2本はバックアップを取得するときだけ動いてくれればよいので、それ以外の間は、HDD内円盤の回転を止めておきたい（スピンダウン）。&lt;/p&gt;
+
+&lt;p&gt;しかしSamba共有しているもの、バックアップ用のHDD（要するにOSの入っているHDD）以外はすべてzfsのzpoolを構成しているものである。&lt;br /&gt;
+気軽にスピンダウンしてしまってよいものだろうか。&lt;/p&gt;
+
+&lt;p&gt;というのが調査を始めたきっかけである。&lt;/p&gt;
+
+&lt;p&gt;ああ、それと、頻繁に止めたり動かしたりすることがHDDに悪い、というのは重々承知の上。&lt;/p&gt;
+
+&lt;h3 id=&quot;結論camcontrol-standbyしろ&quot;&gt;結論（camcontrol standbyしろ）&lt;/h3&gt;
+
+&lt;p&gt;結論から言うと、camcontrolでディスクを止めろ。&lt;br /&gt;
+ディスク停止には、”standby”で。”idle”はやめておけ。&lt;/p&gt;
+
+&lt;h3 id=&quot;ataデバイスのモード&quot;&gt;ATAデバイスのモード&lt;/h3&gt;
+
+&lt;p&gt;ATAデバイスには4つのPower Modeがあり、条件によりそれぞれを行き来する。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Active&lt;/li&gt;
+  &lt;li&gt;Idle&lt;/li&gt;
+  &lt;li&gt;Standby&lt;/li&gt;
+  &lt;li&gt;Sleep&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Activeモードは、通常のデータのやり取りができる状態のこと。&lt;br /&gt;
+それ以外は、Idle &amp;gt; Standby &amp;gt; Sleep の順に消費電力が下がり、反応速度も遅くなる。&lt;br /&gt;
+詳細は以下書類（PDF注意）の4.18.3 Power modesを参照されたし。&lt;br /&gt;
+&lt;a href=&quot;http://www.t13.org/Documents/UploadedDocuments/docs2007/e07163r2-Comments_on_ATA8-ACS_revision_4a.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.t13.org/Documents/UploadedDocuments/docs2007/e07163r2-Comments_on_ATA8-ACS_revision_4a.pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;これを踏まえて、任意のタイミング、あるいは、一定時間アクセスがないタイミングでIdle/Standby/Sleepに遷移させられれば目的が達成できる。&lt;br /&gt;
+FreeBSDにおいて、Power modeの遷移にはcamcontrolコマンドを使う。&lt;br /&gt;
+しかしその前に、zfs/zpoolで使えるPower Modeを調べねばならない。&lt;/p&gt;
+
+&lt;h3 id=&quot;zfsにはstandby&quot;&gt;zfsにはStandby&lt;/h3&gt;
+
+&lt;p&gt;FreeBSD Forumにある&lt;a href=&quot;https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;camcontrol standby weirdness&lt;/a&gt;というスレッドを見ると、以下のような記述がある。要するにStandbyを使えと。Idleだとzfsは当該ディスクをlost/defect/detachedと判断し、zpoolはdegradedになるか、unavailableになるという。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;First of all: ZFS is fine with disks that go into STANDBY (accessing a zpool with disks in STANDBY will wake them up and ZFS will wait for it). ZFS cannot handle disks that are in IDLE mode (it considers the disks lost/defect/detached and the zpool will go degraded or even unavailable).&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-340121&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-340121&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;自分で試す気にはならないので、そのまま受け取る。&lt;/p&gt;
+
+&lt;h3 id=&quot;camcontrolによるstabdby操作&quot;&gt;camcontrolによるstabdby操作&lt;/h3&gt;
+
+&lt;p&gt;再びFreeBSD Forum。[AHCI] Spinning down ada(4) disksというスレッドの以下のポストを参照&lt;br /&gt;
+&lt;a href=&quot;https://forums.freebsd.org/threads/ahci-spinning-down-ada-4-disks.8841/page-2#post-98640&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://forums.freebsd.org/threads/ahci-spinning-down-ada-4-disks.8841/page-2#post-98640&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;camcontrol standby adaXとすればよい。&lt;br /&gt;
+またcamcontrol standby adaX -T sssとすれば、ただちにstandbyモードに移行し、その後もsss秒、アクセスがなければstandbyモードに移行することができる。&lt;br /&gt;
+以下なら/dev/ada3をすぐにstandbyモードに移行させるとともに、20分の間アクセスがなければやはりstandbyモードに遷移するようタイマー設定している。今すぐはstandbyモードにしなくてもいいけど、タイマーだけ設定したい、という方法はないみたいだ。&lt;br /&gt;
+[bash]# camcontrol standby ada3 -T 12000[/bash]&lt;br /&gt;
+しかし上記のコマンドを実行したとしても、応答はない。なしのつぶてである。&lt;br /&gt;
+standbyモードに移ったのか。かくなる上はHDDの回転数はいかほどか、耳を澄ますほかはない。&lt;br /&gt;
+そんなご無体な、とgoogle先生に訴えたところ、FreeNASのフォーラムに以下のポストを発見。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://forums.freenas.org/index.php?threads/spinning-down-your-drives-and-checking-power-states-new-script.41559/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Spinning Down your Drives and Checking Power States. (New Script)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;上記にあるスクリプトを使えば、power modeを知ることができる。&lt;br /&gt;
+本記事の末尾に転載しておく。&lt;br /&gt;
+get_drive_status.shとして保存しておいた。&lt;br /&gt;
+実行してみると;&lt;br /&gt;
+[bash]$ sudo drivestatus.sh&lt;br /&gt;
+ada0: FF&lt;br /&gt;
+ada0: Running&lt;br /&gt;
+ada1: FF&lt;br /&gt;
+ada1: Running&lt;br /&gt;
+ada2: FF&lt;br /&gt;
+ada2: Running&lt;br /&gt;
+ada3: FF&lt;br /&gt;
+ada3: Running[/bash]&lt;br /&gt;
+camcontrolでstandbyにしておいて再実行。&lt;br /&gt;
+[bash]$ sudo drivestatus.sh&lt;br /&gt;
+ada0: FF&lt;br /&gt;
+ada0: Running&lt;br /&gt;
+ada1: 00&lt;br /&gt;
+ada1: Standby&lt;br /&gt;
+ada2: 00&lt;br /&gt;
+ada2: Standby&lt;br /&gt;
+ada3: 00&lt;br /&gt;
+ada3: Standby[/bash]&lt;br /&gt;
+/dev/ada0はOSのあるHDDだからActiveですな。&lt;/p&gt;
+
+&lt;h3 id=&quot;運用方法なにかが変&quot;&gt;運用方法（なにかが変）&lt;/h3&gt;
+
+&lt;p&gt;よしこれで解決。&lt;br /&gt;
+と思ったのだが、タイマー満了してもpower modeがstandbyに移らないのである。&lt;br /&gt;
+その割に、そのディスクのディレクトリにアクセスすると、ファイル一覧の表示に待たされたりするのである。&lt;/p&gt;
+
+&lt;p&gt;先に引用した彼も同じことに悩んでいる。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;But, then, when the disk is idle for &amp;gt; 1800sec (monitor with “zpool iostat 60”), it will not spin down. Huh?&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-339820&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-339820&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;この彼は、zpool iostat でディスクへの読み書きをモニターできるので、何分かアクセスがなければidleモードに移すスクリプトを書いた、と言っている。&lt;br /&gt;
+常駐スクリプトを運用するのが面倒なので、cronジョブでstandbyさせるようにした。&lt;/p&gt;
+
+&lt;h3 id=&quot;結果&quot;&gt;結果&lt;/h3&gt;
+
+&lt;p&gt;ワットチェッカーなんてものは持っていないので、単純に温度で確認した。&lt;br /&gt;
+以下がそのグラフ。&lt;br /&gt;
+ある日を境に、（OSのある/dev/ada0を除いて）温度が劇的に下がっていて、現時点ではまあ満足。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;../../../wp-content/uploads/2018/11/disk01z.1month.png&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3127&quot; src=&quot;../../../wp-content/uploads/2018/11/disk01z.1month-150x150.png&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2018/11/disk01z.1month-150x150.png 150w, ../../../wp-content/uploads/2018/11/disk01z.1month-144x144.png 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;power-mode確認スクリプト&quot;&gt;power mode確認スクリプト&lt;/h3&gt;
+
+&lt;p&gt;[bash]#!/bin/bash&lt;br /&gt;
+#&lt;br /&gt;
+# Created by: Motorahead&lt;br /&gt;
+# Date: 02/19/2016&lt;br /&gt;
+# Checks For Running Status of Connected ADA Devices&lt;/p&gt;
+
+&lt;p&gt;# Look for Connected Devices&lt;br /&gt;
+DEVICELIST=($( camcontrol devlist | grep -o ‘ada[0-9]’ ))&lt;/p&gt;
+
+&lt;p&gt;# Checks Drive Status, but only outputs relative field $10&lt;br /&gt;
+STATUS(){&lt;br /&gt;
+camcontrol cmd ${LIST} -a “E5 00 00 00 00 00 00 00 00 00 00 00” -r – | awk ‘{print $10}’&lt;br /&gt;
+}&lt;/p&gt;
+
+&lt;p&gt;# Loop through each device found in ${DEVICELIST}&lt;br /&gt;
+for LIST in ${DEVICELIST[@]}; do&lt;br /&gt;
+echo -n “${LIST}: “&lt;br /&gt;
+STATUS&lt;br /&gt;
+# If the Output is 00, then the drive is in Standby. If it’s FF, then it’s active.&lt;br /&gt;
+if [[ “$(STATUS)” == “FF” ]]; then&lt;br /&gt;
+echo “${LIST}: Running”&lt;br /&gt;
+elif [[ “$(STATUS)” -eq “00” ]]; then&lt;br /&gt;
+echo “${LIST}: Standby”&lt;br /&gt;
+else&lt;br /&gt;
+echo “${LIST} is in a unrecognized state.”&lt;br /&gt;
+fi&lt;br /&gt;
+done&lt;/p&gt;
+
+&lt;p&gt;[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">我が家のNASサーバーはFreeBSDの入ったHP microserverである。 HP microserverにはHDDを4つ入れることができる。 たいへん便利なのだが、HDDが4つとも24時間動きっぱなしというのは精神衛生上、よろしくない。</summary></entry><entry><title type="html">[zfs][zpool] zfsの別ディスクへの移行</title><link href="https://nobwak.github.io/2018/11/zfszpool-zfs%E3%81%AE%E5%88%A5%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/" rel="alternate" type="text/html" title="[zfs][zpool] zfsの別ディスクへの移行" /><published>2018-11-18T11:58:47+09:00</published><updated>2018-11-18T11:58:47+09:00</updated><id>https://nobwak.github.io/2018/11/zfszpool-zfse381aee588a5e38387e382a3e382b9e382afe381b8e381aee7a7bbe8a18c</id><content type="html" xml:base="https://nobwak.github.io/2018/11/zfszpool-zfs%E3%81%AE%E5%88%A5%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/">&lt;p&gt;zpoolを容量の多い別HDDに移したのでメモ。&lt;br /&gt;
+一度、同じようなことはやっているが、時間も経っているので。&lt;br /&gt;
+最初に書いておくが移行元でまずscrubしておくこと。&lt;/p&gt;
+
+&lt;p&gt;流れとしては以下の通り。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;移行元HDD
+    &lt;ol&gt;
+      &lt;li&gt;scrubしておく&lt;/li&gt;
+      &lt;li&gt;snapshot&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;移行先HDD
+    &lt;ol&gt;
+      &lt;li&gt;GPTでzfsのパーティションを作成&lt;/li&gt;
+      &lt;li&gt;zpool作成&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;zfs send, recvで丸々コピー&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;以下、実作業に触れる前に補足。&lt;/p&gt;
+
+&lt;h3 id=&quot;方針についての補足&quot;&gt;方針についての補足&lt;/h3&gt;
+
+&lt;h4 id=&quot;なぜmirrorにしないのか&quot;&gt;なぜmirrorにしないのか&lt;/h4&gt;
+
+&lt;p&gt;上記の方法のほかには、追加のディスクをmirrorとしてzpoolに追加し、resilveringが終わったら旧ディスクを外してexpandという手がある。&lt;br /&gt;
+が、その手は採らない。&lt;br /&gt;
+実は、zpool statusをする都度、以下のメッセージが表示されていた。&lt;br /&gt;
+旧ディスクは512Bセクタになっていると文句を言っているのである。&lt;br /&gt;
+ディスクを交換するか、新Poolに移せ、と。&lt;br /&gt;
+[bash] pool: vault&lt;br /&gt;
+state: ONLINE&lt;br /&gt;
+status: One or more devices are configured to use a non-native block size.&lt;br /&gt;
+Expect reduced performance.&lt;br /&gt;
+action: Replace affected devices with devices that support the&lt;br /&gt;
+configured block size, or migrate data to a properly configured&lt;br /&gt;
+pool.&lt;br /&gt;
+scan: scrub repaired 0 in 8h3m with 0 errors on Sun Nov 4 04:16:39 2018&lt;br /&gt;
+config:&lt;/p&gt;
+
+&lt;p&gt;NAME STATE READ WRITE CKSUM&lt;br /&gt;
+vault ONLINE 0 0 0&lt;br /&gt;
+ada1 ONLINE 0 0 0 block size: 512B configured, 4096B native&lt;br /&gt;
+[/bash]&lt;br /&gt;
+ &lt;/p&gt;
+
+&lt;p&gt;512Bセクタのpoolにmirrorを追加したら、やっぱり512Bになるんではと心配になったので、mirrorではなく新規ディスクの新規Poolに移す。&lt;/p&gt;
+
+&lt;h4 id=&quot;なぜディスクをまるっと使わずgptでパーティションを切るのか&quot;&gt;なぜディスクをまるっと使わずgptでパーティションを切るのか&lt;/h4&gt;
+
+&lt;p&gt;zpoolは、わざわざgptパーティションにしなくても、ディスクをまるっと使ってzpoolに指定できる。&lt;br /&gt;
+できるのだが、/dev/ada2なんて名前よりも、gptラベルでpoolを作成したいのである。&lt;br /&gt;
+これの有利な点は、例えば当該ディスクの物理的な位置で名前を付けることができる点である。&lt;br /&gt;
+具体的には、slot_1とか名前を付けておくと、ディスク交換の時に楽。&lt;br /&gt;
+幸いにもFreeBSDにおいては、gptパーティションを切ってもディスクをそのまま使っても、いずれもパフォーマンスに違いはない。&lt;br /&gt;
+それならgptにしましょう。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.freebsd.org/doc/handbook/zfs-zpool.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.freebsd.org/doc/handbook/zfs-zpool.html&lt;/a&gt;&lt;br /&gt;
+There is no performance penalty on FreeBSD when using a partition rather than a whole disk.&lt;br /&gt;
+(2018/11/09)&lt;/p&gt;
+
+&lt;p&gt;ではさっそく作業を。&lt;/p&gt;
+
+&lt;h3 id=&quot;実作業移行元ディスクの準備&quot;&gt;実作業（移行元ディスクの準備）&lt;/h3&gt;
+
+&lt;h4 id=&quot;scrubをしておく&quot;&gt;scrubをしておく。&lt;/h4&gt;
+
+&lt;p&gt;zpool scrub で。&lt;br /&gt;
+かなり時間がかかるので覚悟しておくように。&lt;br /&gt;
+なおscrubは最低3か月に一回が推奨&lt;br /&gt;
+&lt;a href=&quot;https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub&lt;/a&gt;&lt;br /&gt;
+recommended at least once every three months&lt;/p&gt;
+
+&lt;h4 id=&quot;作業直前にsnapshot&quot;&gt;作業直前にsnapshot。&lt;/h4&gt;
+
+&lt;p&gt;pool内に複数のディレクトリがある場合、最上階層でsnapshot -r（recursive）すればよい。&lt;br /&gt;
+たとえばvaultというpoolにchamber, itunesがある場合に;&lt;br /&gt;
+[bash]vault&lt;br /&gt;
+vault/chamber&lt;br /&gt;
+vault/chamber@20170503&lt;br /&gt;
+vault/itunes&lt;br /&gt;
+vault/itunes@20170503[/bash]&lt;br /&gt;
+※zfs list -t allの出力を一部削除したもの&lt;/p&gt;
+
+&lt;p&gt;zfs snapshot vault@20181109とすれば;&lt;br /&gt;
+[bash]vault&lt;br /&gt;
+vault@20181109&lt;br /&gt;
+vault/chamber&lt;br /&gt;
+vault/chamber@20180503&lt;br /&gt;
+vault/chamber@20181109&lt;br /&gt;
+vault/itunes&lt;br /&gt;
+vault/itunes@20180503&lt;br /&gt;
+vault/itunes@20181109[/bash]&lt;br /&gt;
+※zfs list -t allの出力を一部削除したもの&lt;/p&gt;
+
+&lt;p&gt;となる。いちいち各ディレクトリ配下でコマンドを叩かなくてよい。&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;
+
+&lt;h3 id=&quot;移行先作業&quot;&gt;移行先作業&lt;/h3&gt;
+
+&lt;h4 id=&quot;gptパーティションの作成&quot;&gt;GPTパーティションの作成&lt;/h4&gt;
+
+&lt;p&gt;以下のようなディスク&lt;br /&gt;
+[bash]ada3 at ahcich3 bus 0 scbus3 target 0 lun 0&lt;br /&gt;
+ada3: ACS-3 ATA SATA 3.x device&lt;br /&gt;
+ada3: Serial Number WD-WCC7K3PU64NE&lt;br /&gt;
+ada3: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)&lt;br /&gt;
+ada3: Command Queueing enabled&lt;br /&gt;
+ada3: 3815447MB (7814037168 512 byte sectors)[/bash]&lt;br /&gt;
+GPTスキームをcreateし、全領域をfreebsd-zfsに割り当てる。&lt;br /&gt;
+このとき、-lオプションでラベルを付ける。&lt;br /&gt;
+同じくgpart showに-lオプションを付ければ名前を確認できる。&lt;br /&gt;
+[bash]# gpart create -s GPT ada3&lt;br /&gt;
+ada3 created&lt;br /&gt;
+# gpart add -l slot_4 -t freebsd-zfs /dev/ada3&lt;br /&gt;
+ada3p1 added&lt;br /&gt;
+$ gpart show ada3&lt;br /&gt;
+40 7814037088 ada3 GPT (3.6T)&lt;br /&gt;
+40 7814037088 1 freebsd-zfs (3.6T)&lt;/p&gt;
+
+&lt;p&gt;$ gpart show -l /dev/ada3&lt;br /&gt;
+40 7814037088 ada3 GPT (3.6T)&lt;br /&gt;
+40 7814037088 1 slot_4 (3.6T)&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;h4 id=&quot;zpoolの作成&quot;&gt;zpoolの作成&lt;/h4&gt;
+
+&lt;p&gt;/dev/ada3ではなくGPTラベルで指定する。&lt;br /&gt;
+GPTラベルで指定するときは、gpt/＜GPTラベル＞というように指定する。&lt;br /&gt;
+[bash]# zpool create warehouse gpt/slot_4&lt;br /&gt;
+# zpool status warehouse&lt;br /&gt;
+pool: warehouse&lt;br /&gt;
+state: ONLINE&lt;br /&gt;
+scan: none requested&lt;br /&gt;
+config:&lt;br /&gt;
+NAME STATE READ WRITE CKSUM&lt;br /&gt;
+warehouse ONLINE 0 0 0&lt;br /&gt;
+gpt/slot_4 ONLINE 0 0 0&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;h4 id=&quot;プロパティの変更&quot;&gt;プロパティの変更&lt;/h4&gt;
+
+&lt;p&gt;zfsを作成する前に。&lt;br /&gt;
+圧縮モードをlz4にする。lz4は&lt;a href=&quot;../../../2013/02/%e3%82%a2%e3%83%bc%e3%82%ab%e3%82%a4%e3%83%90lz4%e3%82%92%e8%a9%a6%e3%81%97%e3%81%a6%e3%81%bf%e3%81%9f%e3%82%89%ef%bc%88%e5%9c%a7%e7%b8%ae%e3%81%af%ef%bc%89%e9%80%9f%e3%81%99%e3%81%8e%e7%ac%91/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CPU負荷の割には非常に効率が良い&lt;/a&gt;ので積極的に有効にしたい。&lt;br /&gt;
+また、atime（アクセスタイムの記録）もoffに。これがonだと差分snapshotが失敗するから、というのが一つと、これをoffにするとパフォーマンスが上がる（can result in significant performance gains）から。&lt;br /&gt;
+zfs get &lt;プロパティ名&gt; で現在の値を取得。  
+zfs set &lt;プロパティ名&gt;=&lt;値&gt; で値のセット。  
+圧縮モードのプロパティ名はcompression、atimeはatime。  
+[bash]$ zfs get compression warehouse  
+NAME PROPERTY VALUE SOURCE  
+warehouse compression off default  
+$ zfs get atime warehouse  
+NAME PROPERTY VALUE SOURCE  
+warehouse atime on default&lt;/値&gt;&lt;/プロパティ名&gt;&lt;/プロパティ名&gt;&lt;/p&gt;
+
+&lt;p&gt;# zfs set compression=lz4 warehouse&lt;br /&gt;
+# zfs set atime=off warehouse&lt;br /&gt;
+$ zfs get compression warehouse&lt;br /&gt;
+NAME PROPERTY VALUE SOURCE&lt;br /&gt;
+warehouse compression lz4 local&lt;br /&gt;
+$ zfs get atime warehouse&lt;br /&gt;
+NAME PROPERTY VALUE SOURCE&lt;br /&gt;
+warehouse atime off local&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;h4 id=&quot;ディレクトリの用意とsendrecv&quot;&gt;ディレクトリの用意とsend/recv&lt;/h4&gt;
+
+&lt;p&gt;[bash]# zfs create warehouse/itunes&lt;br /&gt;
+# zfs create warehouse/chamber&lt;br /&gt;
+[/bash]&lt;br /&gt;
+このとき、勝手にマウントされないようにすべきだった。-uを付ければよかったかな。&lt;br /&gt;
+いずれにせよzfs set mountpointで後から変えられる。&lt;/p&gt;
+
+&lt;p&gt;sendに-Rを付けると、子孫やスナップショットもまとめてsendされる。&lt;br /&gt;
+[bash]# zfs send -R vault/chamber@20181109 | zfs receive warehouse/chamber&lt;br /&gt;
+# zfs send -R vault/itunes@20181109 | zfs receive warehouse/itunes&lt;br /&gt;
+[/bash]&lt;br /&gt;
+かかった時間、容量は以下の通り。うーむ。ちょっとかかったかな。&lt;br /&gt;
+[bash] 991GiB 3:09:00 [89.5MiB/s]&lt;br /&gt;
+1.10TiB 3:58:24 [80.3MiB/s]&lt;br /&gt;
+[/bash]&lt;br /&gt;
+このとき適当にhtopを叩いた結果。CPU負荷はそんなんでもないので、ボトルネックは別のところにあるように思われる。&lt;br /&gt;
+[bash] 1 [||||||||||||||||||||| 47.6%] Tasks: 43, 0 thr; 2 running&lt;br /&gt;
+2 [||||||||||||||||| 37.7%] Load average: 0.91 1.77 1.86&lt;br /&gt;
+Mem[||||||||||||||||||||||||||||||||642M/1.84G] Uptime: 12:03:30&lt;br /&gt;
+Swp[||||||||| 176M/907M]&lt;br /&gt;
+[/bash]&lt;br /&gt;
+なおCPUはAMDのTurionである。&lt;/p&gt;
+
+&lt;p&gt;compression=lz4の結果は.&lt;br /&gt;
+プロパティused（HDD上の容量）とlogicalused（圧縮前容量）で調べられる。&lt;br /&gt;
+[bash]warehouse used 2.00T –&lt;br /&gt;
+warehouse logicalused 2.02T –&lt;br /&gt;
+[/bash]&lt;br /&gt;
+本来なら2.02Tのところ、2.00Tで済んでる。&lt;/p&gt;
+
+&lt;p&gt;これで引っ越し完了。&lt;/p&gt;
+
+&lt;p&gt;以上&lt;/p&gt;</content><author><name>nobwak</name></author><category term="FreeBSD" /><category term="zfs" /><category term="zpool" /><summary type="html">zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずscrubしておくこと。</summary></entry></feed>

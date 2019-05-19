@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>[zfs]ディスク交換、zpool容量の拡張 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="[zfs]ディスク交換、zpool容量の拡張" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="HDDがいっぱいになってきたので容量の大きい別のHDDに移した。 zfsなのでmirrorをしつつ入れ替えができる。 その時のメモ。" />
+<meta property="og:description" content="HDDがいっぱいになってきたので容量の大きい別のHDDに移した。 zfsなのでmirrorをしつつ入れ替えができる。 その時のメモ。" />
+<link rel="canonical" href="https://nobwak.github.io/2018/12/3159/" />
+<meta property="og:url" content="https://nobwak.github.io/2018/12/3159/" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-22T12:59:38+09:00" />
+<script type="application/ld+json">
+{"description":"HDDがいっぱいになってきたので容量の大きい別のHDDに移した。 zfsなのでmirrorをしつつ入れ替えができる。 その時のメモ。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2018/12/3159/","headline":"[zfs]ディスク交換、zpool容量の拡張","dateModified":"2018-12-22T12:59:38+09:00","datePublished":"2018-12-22T12:59:38+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2018/12/3159/"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[zfs]ディスク交換、zpool容量の拡張</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-12-22T12:59:38+09:00" itemprop="datePublished">Dec 22, 2018
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>HDDがいっぱいになってきたので容量の大きい別のHDDに移した。<br />
+zfsなのでmirrorをしつつ入れ替えができる。<br />
+その時のメモ。</p>
+
+<p>端的に言えばディスク交換後zpool online -eをすればよい。<br />
+以下、経緯。</p>
+
+<h3 id="ディスク追加">ディスク追加</h3>
+
+<p>2.5TのHDD, ada1上に作られたzpool、vaultがあり、残容量は150Gである。<br />
+もともとzfsは残容量が少なくなると格段にパフォーマンスが落ちると言われていて、これはちょっと危険な状態である。</p>
+
+<p>[bash]<br />
+ada1 at ahcich1 bus 0 scbus1 target 0 lun 0<br />
+ada1: &lt;WDC WD25EZRX-00MMMB0 80.00A80&gt; ATA8-ACS SATA 3.x device<br />
+ada1: Serial Number WD-WMAWZ0230443<br />
+ada1: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)<br />
+ada1: Command Queueing enabled<br />
+ada1: 2384658MB (4883781168 512 byte sectors)<br />
+ada1: quirks=0x1&lt;4K&gt;</p>
+
+<p># zpool status<br />
+pool: vault<br />
+state: ONLINE<br />
+scan: none requested<br />
+config:</p>
+
+<p>NAME STATE READ WRITE CKSUM<br />
+vault ONLINE 0 0 0<br />
+gpt/disk_01 ONLINE 0 0 0</p>
+
+<p># zfs list<br />
+NAME USED AVAIL REFER MOUNTPOINT<br />
+vault 2.05T 150G 88K /vault<br />
+vault/chamber 1017G 150G 1017G /chamber<br />
+vault/itunes 1.06T 150G 1.05T /itunes<br />
+[/bash]</p>
+
+<p>そこで、zpoolにmirrorとして容量の大きいディスクを追加し、その後オリジナルのディスクを外す、という手順。</p>
+
+<p>追加するのは以下のディスク。3T。<br />
+2.5Tから3Tじゃ焼け石に水ですがね…。</p>
+
+<p>[bash]<br />
+ada2 at ahcich2 bus 0 scbus2 target 0 lun 0<br />
+ada2: &lt;WDC WD30EZRX-00D8PB0 80.00A80&gt; ACS-2 ATA SATA 3.x device<br />
+ada2: Serial Number WD-WMC4N0765033<br />
+ada2: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)<br />
+ada2: Command Queueing enabled<br />
+ada2: 2861588MB (5860533168 512 byte sectors)<br />
+ada2: quirks=0x1&lt;4K&gt;<br />
+[/bash]</p>
+
+<p>既存のzpoolにmirrorとしてディスクを追加するには、zpool attachを使う。<br />
+zpool attachに続けてzpool名、既存ディスク、追加ディスクの順で指定。<br />
+以下の例では、ディスクの指定をada2などのデバイス名ではなくGPT名で行っている。</p>
+
+<p>[bash]</p>
+
+<p># zpool attach vault gpt/disk_01 gpt/disk_02<br />
+[/bash]</p>
+
+<p>以下のようにzpoolがmirror構成になり、resilveringが始まる。</p>
+
+<p>[bash]<br />
+# zpool status<br />
+pool: vault<br />
+status: One or more devices is currently being resilvered. The pool will<br />
+continue to function, possibly in a degraded state.<br />
+action: Wait for the resilver to complete.<br />
+scrub: resilver in progress for 0h0m, 0.01% done, 7h1m to go<br />
+config:</p>
+
+<p>NAME STATE READ WRITE CKSUM<br />
+vault ONLINE 0 0 0<br />
+mirror-0 ONLINE 0 0 0<br />
+gpt/disk_01 ONLINE 0 0 0<br />
+gpt/disk_02 ONLINE 0 0 0<br />
+[/bash]</p>
+
+<p>しばらく待つと;</p>
+
+<p>[bash]<br />
+pool: vault<br />
+state: ONLINE<br />
+scan: resilvered 2.04T in 6h48m with 0 errors on Sun Dec 16 19:15:11 2018<br />
+config:</p>
+
+<p>NAME STATE READ WRITE CKSUM<br />
+vault ONLINE 0 0 0<br />
+mirror-0 ONLINE 0 0 0<br />
+gpt/disk_01 ONLINE 0 0 0<br />
+gpt/disk_02 ONLINE 0 0 0<br />
+[/bash]</p>
+
+<p>resilvering終了。</p>
+
+<p> </p>
+
+<h3 id="旧ディスクの除去">旧ディスクの除去</h3>
+
+<p>2.5Tと3Tのディスクでmirrorを構成しているので、当然ながら残容量に変化はない。</p>
+
+<p>[bash]<br />
+NAME USED AVAIL REFER MOUNTPOINT<br />
+vault 2.05T 150G 88K /vault<br />
+vault/chamber 1017G 150G 1017G /chamber<br />
+vault/itunes 1.06T 150G 1.05T /itunes<br />
+[/bash]</p>
+
+<p>では旧ディスクを外す。<br />
+mirrorからディスクを外すにはdetachを使う。<br />
+zpool detachに続けてzpool名、ディスク名を指定。</p>
+
+<p>[bash]<br />
+# zpool detach vault gpt/disk_01<br />
+# zpool status<br />
+pool: vault<br />
+state: ONLINE<br />
+scan: resilvered 2.04T in 6h48m with 0 errors on Sun Dec 16 19:15:11 2018<br />
+config:</p>
+
+<p>NAME STATE READ WRITE CKSUM<br />
+vault ONLINE 0 0 0<br />
+gpt/disk_02 ONLINE 0 0 0</p>
+
+<p>errors: No known data errors<br />
+[/bash]</p>
+
+<p>ご覧の通りmirror構成が解除される。</p>
+
+<h3 id="容量の拡張">容量の拡張</h3>
+
+<p>さてこの状態ではまだ残容量が増えない。</p>
+
+<p>[bash]<br />
+NAME USED AVAIL REFER MOUNTPOINT<br />
+vault 2.05T 150G 88K /vault<br />
+vault/chamber 1017G 150G 1017G /chamber<br />
+vault/itunes 1.06T 150G 1.05T /itunes<br />
+[/bash]</p>
+
+<p>ただ物理ディスクは3Tなので、zpoolに「安心して容量を増やしたまえ」と通知する。<br />
+通知にはzpool online -eを使う。<br />
+zpool onlineは物理ディスクを有効にするコマンドだが、-eを付ければ、使用可能な領域をすべて使うようにできる。<br />
+manを以下に引用する。</p>
+
+<p>[bash]<br />
+zpool online [-e] pool device …</p>
+
+<p>Brings the specified physical device online.</p>
+
+<p>This command is not applicable to spares or cache devices.</p>
+
+<p>-e Expand the device to use all available space. If the device<br />
+is part of a mirror or raidz then all devices must be<br />
+expanded before the new space will become available to the<br />
+pool.<br />
+[/bash]</p>
+
+<p>ご覧の通り残容量が増えた。<br />
+たったの450Gだけど。</p>
+
+<p>[bash]# zpool online -e vault gpt/disk_02<br />
+$ zfs list<br />
+NAME USED AVAIL REFER MOUNTPOINT<br />
+vault 2.05T 599G 88K /vault<br />
+vault/chamber 1017G 599G 1017G /chamber<br />
+vault/itunes 1.06T 599G 1.05T /itunes</p>
+
+<p>[/bash]</p>
+
+  </div><a class="u-url" href="/2018/12/3159/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

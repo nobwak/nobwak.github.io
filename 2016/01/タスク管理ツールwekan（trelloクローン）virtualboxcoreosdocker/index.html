@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>タスク管理ツールWekan（Trelloクローン）+VirtualBox+CoreOS+docker | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="タスク管理ツールWekan（Trelloクローン）+VirtualBox+CoreOS+docker" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="WekanとはTrelloクローン。 鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サービス名」＋「alternative」というキーワードで検索するのが癖になっている今日この頃です。 Trelloのalternativeで見つけたのがWekan。 これをCoreOSにインストールする。" />
+<meta property="og:description" content="WekanとはTrelloクローン。 鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サービス名」＋「alternative」というキーワードで検索するのが癖になっている今日この頃です。 Trelloのalternativeで見つけたのがWekan。 これをCoreOSにインストールする。" />
+<link rel="canonical" href="https://nobwak.github.io/2016/01/%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABwekan(trello%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3)virtualboxcoreosdocker/" />
+<meta property="og:url" content="https://nobwak.github.io/2016/01/%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABwekan(trello%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3)virtualboxcoreosdocker/" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-01-02T00:52:11+09:00" />
+<script type="application/ld+json">
+{"description":"WekanとはTrelloクローン。 鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サービス名」＋「alternative」というキーワードで検索するのが癖になっている今日この頃です。 Trelloのalternativeで見つけたのがWekan。 これをCoreOSにインストールする。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2016/01/%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABwekan(trello%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3)virtualboxcoreosdocker/","headline":"タスク管理ツールWekan（Trelloクローン）+VirtualBox+CoreOS+docker","dateModified":"2016-01-02T00:52:11+09:00","datePublished":"2016-01-02T00:52:11+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2016/01/%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABwekan(trello%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3)virtualboxcoreosdocker/"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">タスク管理ツールWekan（Trelloクローン）+VirtualBox+CoreOS+docker</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2016-01-02T00:52:11+09:00" itemprop="datePublished">Jan 2, 2016
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>WekanとはTrelloクローン。<br />
+鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サービス名」＋「alternative」というキーワードで検索するのが癖になっている今日この頃です。<br />
+Trelloのalternativeで見つけたのがWekan。<br />
+これをCoreOSにインストールする。</p>
+
+<p>VirtualBox上のCoreOSにはdockerまでインストール済みの前提。<br />
+以下の手順に沿ってインストールする。<br />
+ <a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing" target="_blank">https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing</a><br />
+ <a href="https://docs.docker.com/compose/install/" target="_blank">https://docs.docker.com/compose/install/</a></p>
+
+<p>URLの示す通り、テスト目的。<br />
+大量のユーザを相手にするのでなければ、これでも大丈夫でしょう。<br />
+参考までに書いておくと、テスト目的と、下記の本番用で示される構成の違いは、フロントエンドにApacheがあること。<br />
+テスト目的の方の手順だと、ユーザがいきなりWekanに接続する。</p>
+
+<p><a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-in-production" target="_blank">https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-in-production</a></p>
+
+<p>繰り返すが、本稿ではWekanに直接、繋げさせる構成でセットアップする。</p>
+
+<h2 id="docker-composeのインストール">docker-composeのインストール。</h2>
+
+<p>まず、docker-composeのインストール。<br />
+docker-composeはdockerの管理ツール。<br />
+インストール済みならこの章は飛ばしてよい。<br />
+公式サイトの手順だと、/usr/local/bin下にインストールすることになっているが、CoreOSだと読み取り専用なので、そこ以外の、たとえばホームディレクトリのbin下等に置く。<br />
+実行権限の付与も忘れないように。</p>
+
+<pre>$ curl -L https://github.com/docker/compose/releases/download/1.5.2/docker-compose-`uname -s`-`uname -m` &gt; ~/bin/docker-compose
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   600    0   600    0     0    687      0 --:--:-- --:--:-- --:--:--   697
+100 7739k  100 7739k    0     0  1458k      0  0:00:05  0:00:05 --:--:-- 1840k
+$ chmod +x ./bin/docker-compose
+$ ls -la ./bin/
+total 7760
+drwxr-xr-x 2 nobwak nobwak    4096 Jan  1 12:17 .
+drwxr-xr-x 5 nobwak nobwak    4096 Dec  7 14:05 ..
+-rwxr-xr-x 1 nobwak nobwak 7925655 Jan  1 12:17 docker-compose
+</pre>
+
+<h2 id="docker-composeymlの作成">docker-compose.ymlの作成。</h2>
+
+<p>wekanをインストールするディレクトリにdocker-compose.ymlを作成する。<br />
+以下の例では、ホストOS、つまりCoreOSのポート8081で待ち受ける。</p>
+
+<pre>wekan:
+  image: mquandalle/wekan
+  links:
+    - wekandb
+  environment:
+    - MONGO_URL=mongodb://wekandb/wekan
+    - ROOT_URL=http://localhost:80
+  ports:
+    - 8081:80
+
+wekandb:
+   image: mongo
+   volumes:
+     - /home/wekan/data:/data/db</pre>
+
+<p>もし、ホストOSの起動時に自動的にWekanも起動させたい場合には、冒頭部分を以下のように書き換える。</p>
+
+<pre>wekan:
+    image: mquandalle/wekan
+    restart: always</pre>
+
+<h2 id="wekanの起動">Wekanの起動</h2>
+
+<p>docker-composeから立ち上げる。<br />
+まずdocker-compose –helpとして使い方を一覧しておこう。<br />
+初回起動時はupだが、二回目以降はstartで良さそうだ。</p>
+
+<pre>$ docker-compose --help
+Define and run multi-container applications with Docker.
+
+Usage:
+  docker-compose [-f=...] [options] [COMMAND] [ARGS...]
+  docker-compose -h|--help
+
+Options:
+  -f, --file FILE           Specify an alternate compose file (default: docker-compose.yml)
+  -p, --project-name NAME   Specify an alternate project name (default: directory name)
+  --x-networking            (EXPERIMENTAL) Use new Docker networking functionality.
+                            Requires Docker 1.9 or later.
+  --x-network-driver DRIVER (EXPERIMENTAL) Specify a network driver (default: "bridge").
+                            Requires Docker 1.9 or later.
+  --verbose                 Show more output
+  -v, --version             Print version and exit
+
+Commands:
+  build              Build or rebuild services
+  help               Get help on a command
+  kill               Kill containers
+  logs               View output from containers
+  pause              Pause services
+  port               Print the public port for a port binding
+  ps                 List containers
+  pull               Pulls service images
+  restart            Restart services
+  rm                 Remove stopped containers
+  run                Run a one-off command
+  scale              Set number of containers for a service
+  start              Start services
+  stop               Stop services
+  unpause            Unpause services
+  up                 Create and start containers
+  migrate-to-labels  Recreate containers to add labels
+  version            Show the Docker-Compose version information</pre>
+
+<p>実際に作成＆起動。</p>
+
+<pre>$ sudo ~/bin/docker-compose up
+Creating wekan_wekandb_1
+Creating wekan_wekan_1
+Attaching to wekan_wekandb_1, wekan_wekan_1
+wekan_1   | =&gt; Starting meteor app on port:80
+（略）
+</pre>
+
+<p>もしうまくいかない場合には、imagesをいったん削除してやり直してみよう。<br />
+エラーなど無さそうなら次のステップへ。<br />
+なお、問題なく動作することを確認できたら、Ctrl+Cで停止。<br />
+次回以降は</p>
+
+<pre>docker-compose -d start</pre>
+
+<p>でよし。</p>
+
+<h2 id="virtualboxでポートフォワーディングの設定">VirtualBoxでポートフォワーディングの設定</h2>
+
+<p>上記で設定したCoreOSの待ち受けポートへの、VirtualBox上でのフォワーディングを設定する。<br />
+以下の例ではVirtualBoxを動かしているホストの8082が、VirtualBox上CoreOSの8081にフォワーディングされる。</p>
+
+<p><a href="../../../wp-content/uploads/2016/01/13.jpg" rel="attachment wp-att-3016"><img class="alignnone size-thumbnail wp-image-3016" src="../../../wp-content/uploads/2016/01/13-150x150.jpg" alt="13" width="150" height="150" /></a></p>
+
+<h2 id="接続確認">接続確認</h2>
+
+<p>前章で設定したポートにブラウザで繋ぐ。<br />
+本稿の例で言えば、http://127.0.0.1:8082へ繋ぐ。<br />
+以下の画面になればOK<br />
+<a href="../../../wp-content/uploads/2016/01/9.jpg" rel="attachment wp-att-3020"><img class="alignnone size-thumbnail wp-image-3020" src="../../../wp-content/uploads/2016/01/9-150x150.jpg" alt="9" width="150" height="150" /></a><br />
+ユーザを新規登録し、もし英語が嫌なら設定を変える。<br />
+<a href="../../../wp-content/uploads/2016/01/12.jpg" rel="attachment wp-att-3017"><img class="alignnone size-thumbnail wp-image-3017" src="../../../wp-content/uploads/2016/01/12-150x150.jpg" alt="12" width="150" height="150" /></a></p>
+
+<h2 id="ボードとリストの設定">ボードとリストの設定。</h2>
+
+<p>ボードは適当に、リストは http://www.sekai-lab.com/times/?p=473 を参考に作成。<br />
+というか、どういうリストを作ればよいか、って結構なノウハウだと思うのだが、ありがたや。</p>
+
+<pre>　1. Tasks：タスクリスト(アサインと期日が定まっていないタスク)
+　2. Todo：やることリスト(アサインと期日が定まったタスク, 優先順位を手動で並べ替える)
+　3. Today：今日やることリスト
+　4. Doing：作業中のタスク
+　5. In review：他人がレビュー中のタスク(アサインをレビュー者に変更！)
+　6. Done：完了したタスク</pre>
+
+<p>以上</p>
+
+  </div><a class="u-url" href="/2016/01/%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABwekan(trello%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3)virtualboxcoreosdocker/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

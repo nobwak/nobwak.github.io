@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="納得いかないが、とりあえずメモだけしとく。 sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev/cd（SCSI）経由でアクセスするので、いろいろと設定を変える必要がある。 ◎/etc/fstabを修正する。 /etc/fstabを修正して、/dev/acd0をコメントアウト、さらにprocを作っておく。 $ cat /etc/fstab # Device Mountpoint FStype Options Dump Pass# /dev/ad0s1b none swap sw 0 0 /dev/ad0s1a / ufs rw 1 1 /dev/ad0s1f /home ufs rw 2 2 /dev/ad0s1e /usr ufs rw 2 2 /dev/ad0s1d /var ufs rw 2 2 #/dev/acd0 /cdrom cd9660 ro,noauto 0 0 proc /proc procfs rw 0 0 $ sudo mount /proc $ mount /dev/ad0s1a on / (ufs, local) devfs on /dev (devfs, local, multilabel) /dev/ad0s1f on /home (ufs, local, soft-updates) /dev/ad0s1e on /usr (ufs, local) /dev/ad0s1d on /var (ufs, local) procfs on /proc (procfs, local) ◎atapicamをロードするよう、/boot/loader.confを修正する。 FreeBSD公式サイトを見るとKernelにdevice atapicamを入れろとか書いてあるが、そんなことしたらGENERICカーネルが使えずfreebsd-updateに影響するので、カーネルモジュールをロードすることにした。 $ grep atapicam /boot/loader.conf atapicam_load=&#34;YES&#34; loader.confが正しく設定されているか、いったんリブートして確認するのがよいが、どうせ後でdevfs.confを修正した時にリブートするのでその時に確認するとして、ここではsudo kldload atapicamする。 kldstatしてatapicamがロードされているか見る。 さらにcamcontrolでデバイスが認識されていることも確認すること。 $ kldstat Id Refs Address Size Name 1 19 0xc0400000 b6dfe0 kernel 2 1 0xc0f6e000 7224 snd_ich.ko 3 2 0xc0f76000 567c0 sound.ko 4 1 0xc0fcd000 4ffc atapicam.ko 5 1 0xc4774000 2000 blank_saver.ko 6 1 0xc48da000 9000 i915.ko 7 1 0xc48e3000 14000 drm.ko $ camcontrol devlist &#60;HL-DT-ST RW/DVD GCC-4160N 0013&#62; at scbus1 target 0 lun 0 (cd0,pass0) ◎camcontrol devlistで表示されたデバイス名に合わせて/etc/devfs.confを修正する。 そのままだと一般ユーザはアクセス出来ないので。 上記の結果を見ると、/dev/cd0が狙いのCD（DVD）ROMドライブなので、devfs.confでパーミッションを変える。 FreeBSD GNOME FAQにあるとおり、0666にするのもよいが、ここではoperatorグループに自ユーザを加え、root:operatorに0660にした。 その他にxpt0, pass0も同様に。 $ tail /etc/devfs.conf ##### own cd0 root:operator perm cd0 0666 own acd0 root:operator perm acd0 0666 own xpt0 root:operator perm xpt0 0666 own pass0 root:operator perm pass0 0666 own msdosfs root:operator perm msdosfs 0666 $ grep operator /etc/group operator:&#42;:5:root,ore ＜リブート＞ $ ls -la /dev/cd0 /dev/xpt0 /dev/pass0 crw-rw---- 1 root operator 0, 92 12 21 23:52 /dev/cd0 crw-rw---- 1 root operator 0, 91 12 21 23:52 /dev/pass0 crw-rw---- 1 root operator 0, 90 12 21 23:52 /dev/xpt0 GNOMEだったらこれで行けた。XFCE4だったらダメ。" />
+<meta property="og:description" content="納得いかないが、とりあえずメモだけしとく。 sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev/cd（SCSI）経由でアクセスするので、いろいろと設定を変える必要がある。 ◎/etc/fstabを修正する。 /etc/fstabを修正して、/dev/acd0をコメントアウト、さらにprocを作っておく。 $ cat /etc/fstab # Device Mountpoint FStype Options Dump Pass# /dev/ad0s1b none swap sw 0 0 /dev/ad0s1a / ufs rw 1 1 /dev/ad0s1f /home ufs rw 2 2 /dev/ad0s1e /usr ufs rw 2 2 /dev/ad0s1d /var ufs rw 2 2 #/dev/acd0 /cdrom cd9660 ro,noauto 0 0 proc /proc procfs rw 0 0 $ sudo mount /proc $ mount /dev/ad0s1a on / (ufs, local) devfs on /dev (devfs, local, multilabel) /dev/ad0s1f on /home (ufs, local, soft-updates) /dev/ad0s1e on /usr (ufs, local) /dev/ad0s1d on /var (ufs, local) procfs on /proc (procfs, local) ◎atapicamをロードするよう、/boot/loader.confを修正する。 FreeBSD公式サイトを見るとKernelにdevice atapicamを入れろとか書いてあるが、そんなことしたらGENERICカーネルが使えずfreebsd-updateに影響するので、カーネルモジュールをロードすることにした。 $ grep atapicam /boot/loader.conf atapicam_load=&#34;YES&#34; loader.confが正しく設定されているか、いったんリブートして確認するのがよいが、どうせ後でdevfs.confを修正した時にリブートするのでその時に確認するとして、ここではsudo kldload atapicamする。 kldstatしてatapicamがロードされているか見る。 さらにcamcontrolでデバイスが認識されていることも確認すること。 $ kldstat Id Refs Address Size Name 1 19 0xc0400000 b6dfe0 kernel 2 1 0xc0f6e000 7224 snd_ich.ko 3 2 0xc0f76000 567c0 sound.ko 4 1 0xc0fcd000 4ffc atapicam.ko 5 1 0xc4774000 2000 blank_saver.ko 6 1 0xc48da000 9000 i915.ko 7 1 0xc48e3000 14000 drm.ko $ camcontrol devlist &#60;HL-DT-ST RW/DVD GCC-4160N 0013&#62; at scbus1 target 0 lun 0 (cd0,pass0) ◎camcontrol devlistで表示されたデバイス名に合わせて/etc/devfs.confを修正する。 そのままだと一般ユーザはアクセス出来ないので。 上記の結果を見ると、/dev/cd0が狙いのCD（DVD）ROMドライブなので、devfs.confでパーミッションを変える。 FreeBSD GNOME FAQにあるとおり、0666にするのもよいが、ここではoperatorグループに自ユーザを加え、root:operatorに0660にした。 その他にxpt0, pass0も同様に。 $ tail /etc/devfs.conf ##### own cd0 root:operator perm cd0 0666 own acd0 root:operator perm acd0 0666 own xpt0 root:operator perm xpt0 0666 own pass0 root:operator perm pass0 0666 own msdosfs root:operator perm msdosfs 0666 $ grep operator /etc/group operator:&#42;:5:root,ore ＜リブート＞ $ ls -la /dev/cd0 /dev/xpt0 /dev/pass0 crw-rw---- 1 root operator 0, 92 12 21 23:52 /dev/cd0 crw-rw---- 1 root operator 0, 91 12 21 23:52 /dev/pass0 crw-rw---- 1 root operator 0, 90 12 21 23:52 /dev/xpt0 GNOMEだったらこれで行けた。XFCE4だったらダメ。" />
+<link rel="canonical" href="https://nobwak.github.io/2009/12/wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%80%82/" />
+<meta property="og:url" content="https://nobwak.github.io/2009/12/wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%80%82/" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2009-12-23T01:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"納得いかないが、とりあえずメモだけしとく。 sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev/cd（SCSI）経由でアクセスするので、いろいろと設定を変える必要がある。 ◎/etc/fstabを修正する。 /etc/fstabを修正して、/dev/acd0をコメントアウト、さらにprocを作っておく。 $ cat /etc/fstab # Device Mountpoint FStype Options Dump Pass# /dev/ad0s1b none swap sw 0 0 /dev/ad0s1a / ufs rw 1 1 /dev/ad0s1f /home ufs rw 2 2 /dev/ad0s1e /usr ufs rw 2 2 /dev/ad0s1d /var ufs rw 2 2 #/dev/acd0 /cdrom cd9660 ro,noauto 0 0 proc /proc procfs rw 0 0 $ sudo mount /proc $ mount /dev/ad0s1a on / (ufs, local) devfs on /dev (devfs, local, multilabel) /dev/ad0s1f on /home (ufs, local, soft-updates) /dev/ad0s1e on /usr (ufs, local) /dev/ad0s1d on /var (ufs, local) procfs on /proc (procfs, local) ◎atapicamをロードするよう、/boot/loader.confを修正する。 FreeBSD公式サイトを見るとKernelにdevice atapicamを入れろとか書いてあるが、そんなことしたらGENERICカーネルが使えずfreebsd-updateに影響するので、カーネルモジュールをロードすることにした。 $ grep atapicam /boot/loader.conf atapicam_load=&#34;YES&#34; loader.confが正しく設定されているか、いったんリブートして確認するのがよいが、どうせ後でdevfs.confを修正した時にリブートするのでその時に確認するとして、ここではsudo kldload atapicamする。 kldstatしてatapicamがロードされているか見る。 さらにcamcontrolでデバイスが認識されていることも確認すること。 $ kldstat Id Refs Address Size Name 1 19 0xc0400000 b6dfe0 kernel 2 1 0xc0f6e000 7224 snd_ich.ko 3 2 0xc0f76000 567c0 sound.ko 4 1 0xc0fcd000 4ffc atapicam.ko 5 1 0xc4774000 2000 blank_saver.ko 6 1 0xc48da000 9000 i915.ko 7 1 0xc48e3000 14000 drm.ko $ camcontrol devlist &#60;HL-DT-ST RW/DVD GCC-4160N 0013&#62; at scbus1 target 0 lun 0 (cd0,pass0) ◎camcontrol devlistで表示されたデバイス名に合わせて/etc/devfs.confを修正する。 そのままだと一般ユーザはアクセス出来ないので。 上記の結果を見ると、/dev/cd0が狙いのCD（DVD）ROMドライブなので、devfs.confでパーミッションを変える。 FreeBSD GNOME FAQにあるとおり、0666にするのもよいが、ここではoperatorグループに自ユーザを加え、root:operatorに0660にした。 その他にxpt0, pass0も同様に。 $ tail /etc/devfs.conf ##### own cd0 root:operator perm cd0 0666 own acd0 root:operator perm acd0 0666 own xpt0 root:operator perm xpt0 0666 own pass0 root:operator perm pass0 0666 own msdosfs root:operator perm msdosfs 0666 $ grep operator /etc/group operator:&#42;:5:root,ore ＜リブート＞ $ ls -la /dev/cd0 /dev/xpt0 /dev/pass0 crw-rw---- 1 root operator 0, 92 12 21 23:52 /dev/cd0 crw-rw---- 1 root operator 0, 91 12 21 23:52 /dev/pass0 crw-rw---- 1 root operator 0, 90 12 21 23:52 /dev/xpt0 GNOMEだったらこれで行けた。XFCE4だったらダメ。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2009/12/wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%80%82/","headline":"WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。","dateModified":"2009-12-23T01:00:00+09:00","datePublished":"2009-12-23T01:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2009/12/wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%80%82/"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2009-12-23T01:00:00+09:00" itemprop="datePublished">Dec 23, 2009
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="section">
+  <p>
+    納得いかないが、とりあえずメモだけしとく。
+  </p>
+  
+  <p>
+    sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev/cd（SCSI）経由でアクセスするので、いろいろと設定を変える必要がある。
+  </p>
+  
+  <p>
+    ◎/etc/fstabを修正する。
+  </p>
+  
+  <p>
+    /etc/fstabを修正して、/dev/acd0をコメントアウト、さらにprocを作っておく。
+  </p>
+  
+  <pre>
+$ cat /etc/fstab
+# Device		Mountpoint	FStype	Options		Dump	Pass#
+/dev/ad0s1b		none		swap	sw		0	0
+/dev/ad0s1a		/		ufs	rw		1	1
+/dev/ad0s1f		/home		ufs	rw		2	2
+/dev/ad0s1e		/usr		ufs	rw		2	2
+/dev/ad0s1d		/var		ufs	rw		2	2
+#/dev/acd0		/cdrom		cd9660	ro,noauto	0	0
+proc			/proc		procfs	rw		0	0
+$ sudo mount /proc
+$ mount
+/dev/ad0s1a on / (ufs, local)
+devfs on /dev (devfs, local, multilabel)
+/dev/ad0s1f on /home (ufs, local, soft-updates)
+/dev/ad0s1e on /usr (ufs, local)
+/dev/ad0s1d on /var (ufs, local)
+procfs on /proc (procfs, local)
+</pre>
+  
+  <p>
+    ◎atapicamをロードするよう、/boot/loader.confを修正する。
+  </p>
+  
+  <p>
+    <a href="http://www.freebsd.org/gnome/docs/faq2.html#q15" target="_blank">FreeBSD公式サイト</a>を見るとKernelにdevice atapicamを入れろとか書いてあるが、そんなことしたらGENERICカーネルが使えずfreebsd-updateに影響するので、カーネルモジュールをロードすることにした。
+  </p>
+  
+  <pre>
+$ grep atapicam /boot/loader.conf
+atapicam_load=&#34;YES&#34;
+</pre>
+  
+  <p>
+    loader.confが正しく設定されているか、いったんリブートして確認するのがよいが、どうせ後でdevfs.confを修正した時にリブートするのでその時に確認するとして、ここではsudo kldload atapicamする。
+  </p>
+  
+  <p>
+    kldstatしてatapicamがロードされているか見る。
+  </p>
+  
+  <p>
+    さらにcamcontrolでデバイスが認識されていることも確認すること。
+  </p>
+  
+  <pre>
+$ kldstat
+Id Refs Address    Size     Name
+1   19 0xc0400000 b6dfe0   kernel
+2    1 0xc0f6e000 7224     snd_ich.ko
+3    2 0xc0f76000 567c0    sound.ko
+4    1 0xc0fcd000 4ffc     atapicam.ko
+5    1 0xc4774000 2000     blank_saver.ko
+6    1 0xc48da000 9000     i915.ko
+7    1 0xc48e3000 14000    drm.ko
+$ camcontrol devlist
+&#60;HL-DT-ST RW/DVD GCC-4160N 0013&#62;   at scbus1 target 0 lun 0 (cd0,pass0)
+</pre>
+  
+  <p>
+    ◎camcontrol devlistで表示されたデバイス名に合わせて/etc/devfs.confを修正する。
+  </p>
+  
+  <p>
+    そのままだと一般ユーザはアクセス出来ないので。
+  </p>
+  
+  <p>
+    上記の結果を見ると、/dev/cd0が狙いのCD（DVD）ROMドライブなので、devfs.confでパーミッションを変える。
+  </p>
+  
+  <p>
+    <a href="http://www.freebsd.org/gnome/docs/faq2.html#q15" target="_blank">FreeBSD GNOME FAQ</a>にあるとおり、0666にするのもよいが、ここではoperatorグループに自ユーザを加え、root:operatorに0660にした。
+  </p>
+  
+  <p>
+    その他にxpt0, pass0も同様に。
+  </p>
+  
+  <pre>
+$ tail /etc/devfs.conf
+#####
+own	cd0	root:operator
+perm	cd0	0666
+own	acd0	root:operator
+perm	acd0	0666
+own	xpt0	root:operator
+perm	xpt0	0666
+own	pass0		root:operator
+perm	pass0		0666
+own	msdosfs		root:operator
+perm	msdosfs		0666
+$ grep operator /etc/group
+operator:&#42;:5:root,ore
+＜リブート＞
+$ ls -la /dev/cd0 /dev/xpt0 /dev/pass0
+crw-rw----  1 root  operator    0,  92 12 21 23:52 /dev/cd0
+crw-rw----  1 root  operator    0,  91 12 21 23:52 /dev/pass0
+crw-rw----  1 root  operator    0,  90 12 21 23:52 /dev/xpt0
+</pre>
+  
+  <p>
+    GNOMEだったらこれで行けた。XFCE4だったらダメ。
+  </p>
+</div>
+
+  </div><a class="u-url" href="/2009/12/wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%80%82/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

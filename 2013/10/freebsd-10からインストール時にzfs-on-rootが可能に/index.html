@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>FreeBSD 10インストーラからのzfs on rootを試してみたよー | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="FreeBSD 10インストーラからのzfs on rootを試してみたよー" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content=" " />
+<meta property="og:description" content=" " />
+<link rel="canonical" href="https://nobwak.github.io/2013/10/freebsd-10%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%ABzfs-on-root%E3%81%8C%E5%8F%AF%E8%83%BD%E3%81%AB/" />
+<meta property="og:url" content="https://nobwak.github.io/2013/10/freebsd-10%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%ABzfs-on-root%E3%81%8C%E5%8F%AF%E8%83%BD%E3%81%AB/" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-10-14T20:22:42+09:00" />
+<script type="application/ld+json">
+{"description":" ","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2013/10/freebsd-10%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%ABzfs-on-root%E3%81%8C%E5%8F%AF%E8%83%BD%E3%81%AB/","headline":"FreeBSD 10インストーラからのzfs on rootを試してみたよー","dateModified":"2013-10-14T20:22:42+09:00","datePublished":"2013-10-14T20:22:42+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2013/10/freebsd-10%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%ABzfs-on-root%E3%81%8C%E5%8F%AF%E8%83%BD%E3%81%AB/"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">FreeBSD 10インストーラからのzfs on rootを試してみたよー</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-10-14T20:22:42+09:00" itemprop="datePublished">Oct 14, 2013
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p> </p>
+
+<p>FreeBSD 10.0-RELEASEから、インストールの際にファイルシステムとしてZFSが選べるようになる。<br />
+システムの置かれるファイルシステムをZFSにする、ということは、今までも出来ないことはなかったけど、そりゃもう面倒な手順を経る必要があった。<br />
+それがインストールの時の選択ひとつで出来るようになったというのは、けっこうすごいこと。</p>
+
+<p>また、システムをZFSに置けると、まずパーティションの切り方に悩まなくて済む。<br />
+あとで/varが足らないとか/usr/localがとかそういったことが無くなる。</p>
+
+<p>そのうえで、システムまるごとzfsのアドバンテージを満喫できる。<br />
+まるまるスナップショット取れたりするからね。</p>
+
+<p>ただ、2012/10/10現在、いまだテスト中のところであり、10.0-BETA1あたりに入るかも、という状態。(2013/10/15追記; 10.0-BETA1に入ってました）<br />
+そんな状態で試してみた顛末を記す。</p>
+
+<p>なお一次情報は以下の通り。</p>
+
+<div>
+  <a href="https://groups.google.com/forum/#!topic/fa.freebsd.current/Q-JnQKKo7dg" target="_blank">[CFT] Patch to bsdinstall to support root-on-ZFS and GELI</a>
+</div>
+
+<p> </p>
+
+<h2 id="インストーラでのzfs-on-rootを試す"><span style="text-decoration: underline;">インストーラでのzfs on rootを試す</span></h2>
+
+<p>前提:FreeBSD 10.0-ALPHA5, zfsbootonly.2013-10-09.isoをvirtualboxで試しています。<br />
+<strong>注意</strong>: <span style="text-decoration: underline;">先述の通りテストの真っ最中なので、下記の内容が変わる可能性は十分にあります。</span></p>
+
+<p><a href="http://www.allanjude.com/bsd/" target="_blank">Allan Jude氏のページ</a>からインストーラをダウンロードする。<br />
+通常通り起動し、10.0になっても相変わらず愛想のかけらもないメニューを選択して進むと、以下の通りフォーマットのところでZFSが選べる。</p>
+
+<p> </p>
+
+<p><a href="../../../wp-content/uploads/2013/10/menu001.png"><img class="alignnone size-medium wp-image-2265" alt="menu001" src="../../../wp-content/uploads/2013/10/menu001-300x166.png" width="300" height="166" srcset="../../../wp-content/uploads/2013/10/menu001-300x166.png 300w, ../../../wp-content/uploads/2013/10/menu001-624x346.png 624w, ../../../wp-content/uploads/2013/10/menu001.png 721w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>ZFSを選ぶとこのように。</p>
+
+<p><a href="../../../wp-content/uploads/2013/10/menu002.png"><img class="alignnone size-medium wp-image-2266" alt="menu002" src="../../../wp-content/uploads/2013/10/menu002-300x165.png" width="300" height="165" srcset="../../../wp-content/uploads/2013/10/menu002-300x165.png 300w, ../../../wp-content/uploads/2013/10/menu002-624x344.png 624w, ../../../wp-content/uploads/2013/10/menu002.png 724w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>使うディスクを選び、進む。</p>
+
+<p><a href="../../../wp-content/uploads/2013/10/menu003.png"><img class="alignnone size-medium wp-image-2267" alt="menu003" src="../../../wp-content/uploads/2013/10/menu003-300x168.png" width="300" height="168" srcset="../../../wp-content/uploads/2013/10/menu003-300x168.png 300w, ../../../wp-content/uploads/2013/10/menu003-624x350.png 624w, ../../../wp-content/uploads/2013/10/menu003.png 715w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>あとは通常通り。</p>
+
+<p> </p>
+
+<p>unameはこの通り。</p>
+
+<pre class="lang:default decode:true">FreeBSD yaryka 10.0-ALPHA5 FreeBSD 10.0-ALPHA5 #0 r256092: Sun Oct  6 22:30:23 UTC 2013     root@snap.freebsd.org:/usr/obj/usr/src/sys/GENERIC  amd64</pre>
+
+<p> </p>
+
+<p>カーネルモジュールがこのように組み込まれている。</p>
+
+<pre class="lang:default decode:true">$ kldstat
+Id Refs Address            Size     Name
+ 1   10 0xffffffff80200000 17fbc88  kernel
+ 2    1 0xffffffff819fc000 2b66d0   zfs.ko
+ 3    2 0xffffffff81cb3000 8098     opensolaris.ko</pre>
+
+<p> </p>
+
+<p> </p>
+
+<p>ディスクの内容はこのように。</p>
+
+<pre class="lang:default decode:true">$ df -h
+Filesystem                   Size    Used   Avail Capacity  Mounted on
+zroot/bootenv/default         61G    856M     60G     1%    /
+devfs                        1.0k    1.0k      0B   100%    /dev
+zroot/tmp                     60G    176k     60G     0%    /tmp
+zroot/usr/home                60G    184k     60G     0%    /usr/home
+zroot/usr/local               60G    144k     60G     0%    /usr/local
+zroot/usr/obj                 60G    144k     60G     0%    /usr/obj
+zroot/usr/ports               60G    160k     60G     0%    /usr/ports
+zroot/usr/ports/distfiles     60G    144k     60G     0%    /usr/ports/distfiles
+zroot/usr/ports/packages      60G    144k     60G     0%    /usr/ports/packages
+zroot/usr/src                 60G    144k     60G     0%    /usr/src
+zroot/var                     60G    452k     60G     0%    /var
+zroot/var/crash               60G    148k     60G     0%    /var/crash
+zroot/var/db                  60G    240k     60G     0%    /var/db
+zroot/var/db/pkg              60G    144k     60G     0%    /var/db/pkg
+zroot/var/empty               60G    144k     60G     0%    /var/empty
+zroot/var/log                 60G    196k     60G     0%    /var/log
+zroot/var/mail                60G    144k     60G     0%    /var/mail
+zroot/var/run                 60G    228k     60G     0%    /var/run
+zroot/var/tmp                 60G    152k     60G     0%    /var/tmp</pre>
+
+<p> </p>
+
+  </div><a class="u-url" href="/2013/10/freebsd-10%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%ABzfs-on-root%E3%81%8C%E5%8F%AF%E8%83%BD%E3%81%AB/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Windowsにpyinstallerをインストール | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Windowsにpyinstallerをインストール" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。 （動いていたからまったく気がつかなかった・・・・） PythonでWindowsアプリケーションを作ってみよう" />
+<meta property="og:description" content="過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。 （動いていたからまったく気がつかなかった・・・・） PythonでWindowsアプリケーションを作ってみよう" />
+<link rel="canonical" href="https://nobwak.github.io/2014/05/pyinstaller%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="og:url" content="https://nobwak.github.io/2014/05/pyinstaller%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-05-05T19:52:32+09:00" />
+<script type="application/ld+json">
+{"description":"過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。 （動いていたからまったく気がつかなかった・・・・） PythonでWindowsアプリケーションを作ってみよう","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2014/05/pyinstaller%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/","headline":"Windowsにpyinstallerをインストール","dateModified":"2014-05-05T19:52:32+09:00","datePublished":"2014-05-05T19:52:32+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2014/05/pyinstaller%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Windowsにpyinstallerをインストール</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-05-05T19:52:32+09:00" itemprop="datePublished">May 5, 2014
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。<br />
+（動いていたからまったく気がつかなかった・・・・）<br />
+<a title="PythonでWindowsアプリケーションを作ってみよう" href="../../../2013/12/python%e3%81%a7windows%e3%82%a2%e3%83%97%e3%83%aa%e3%82%b1%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86/" target="_blank">PythonでWindowsアプリケーションを作ってみよう</a></p>
+
+<p><a href="http://www.pyinstaller.org/" target="_blank">pyinstaller</a>とは、pythonプログラムをWindowsなどで動く実行ファイルに変換してくれるものだ。<br />
+自作pythonプログラムを他人にも使ってもらおうとすると、当然その人もpythonをインストールすることが前提になる。<br />
+しかしスタンドアロンの実行ファイルにできるなら、そんな面倒を解消できる。<br />
+ありがたいことでございます。</p>
+
+<h2 id="pyinstallerのインストール">PyInstallerのインストール</h2>
+
+<p><a href="http://pythonhosted.org/PyInstaller/#installing-pyinstaller" target="_blank">公式のドキュメント</a>に沿いつつ進める。<br />
+インストール先はWindows。</p>
+
+<h2 id="前提">前提</h2>
+
+<p>Pythonはもちろんインストールしてあるとして、以下のものが必要<br />
+・PyWin32<br />
+・（場合によって）setuptools/distribute</p>
+
+<h2 id="補足">補足</h2>
+
+<p>2014/5/2現在、ActivePythonのPyPMにPyInstallerはありません。</p>
+
+<h2 id="pywin32のインストール">PyWin32のインストール</h2>
+
+<p><a href="http://sourceforge.net/projects/pywin32/?source=navbar" target="_blank">PyWin32</a>はPythonからWindows APIにアクセスするためのもの。<br />
+以下から対応するバージョンをダウンロードし、インストールする。<br />
+<a href="http://sourceforge.net/projects/pywin32/files/?source=navbar" target="_blank">http://sourceforge.net/projects/pywin32/files/?source=navbar</a><br />
+32bit WindowsにPython2.7をインストールしているなら、pywin32-218.win32-py2.7.exeをダウンロード（218はバージョンナンバなので変わる）。<br />
+<a href="../../../wp-content/uploads/2014/05/py3201.png"><img class="alignnone size-thumbnail wp-image-2690" src="../../../wp-content/uploads/2014/05/py3201-150x150.png" alt="py3201" width="150" height="150" /></a><br />
+<a href="../../../wp-content/uploads/2014/05/py3202.png"><img class="alignnone size-thumbnail wp-image-2691" src="../../../wp-content/uploads/2014/05/py3202-150x150.png" alt="py3202" width="150" height="150" /></a><br />
+pipがインストールされているなら、この時点でpip install PyInstallerでOK。</p>
+
+<h2 id="setuptoolsdistributeのインストール">setuptools/distributeのインストール</h2>
+
+<p>pipがインストールされているならこのステップは不要。<br />
+また、setuptools, distributeどっちでもよい。<br />
+2014/5/2現在、setuptoolsでいいようだが、私がインストールしたのはdistribute。<br />
+<a href="https://pypi.python.org/pypi/distribute/0.7.3" target="_blank">https://pypi.python.org/pypi/distribute/0.7.3</a></p>
+
+<p>ダウンロードして、伸張して、できたディレクトリでpython setup.py install。<br />
+distribute, setuptoolsの違いについては以下を。<br />
+<a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2" target="_blank">http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2</a></p>
+
+<h2 id="pyinstallerのインストール-1">PyInstallerのインストール</h2>
+
+<p>以下から最新のPyInstallerをダウンロード。<br />
+<a href="https://pypi.python.org/pypi/PyInstaller/" target="_blank">https://pypi.python.org/pypi/PyInstaller/</a><br />
+伸張して、できたディレクトリでpython setup.py install。</p>
+
+<pre>C:\local\pyinstaller&gt;python setup.py install
+（略）
+Installed c:\python27\lib\site-packages\pyinstaller-2.1-py2.7.egg
+Processing dependencies for PyInstaller==2.1
+Searching for distribute==0.6.19
+Best match: distribute 0.6.19
+Adding distribute 0.6.19 to easy-install.pth file
+Installing easy_install-script.py script to C:\Python27\Scripts
+Installing easy_install.exe script to C:\Python27\Scripts
+Installing easy_install-2.7-script.py script to C:\Python27\Scripts
+Installing easy_install-2.7.exe script to C:\Python27\Scripts
+
+Using c:\python27\lib\site-packages
+Finished processing dependencies for PyInstaller==2.1
+
+C:\local\pyinstaller&gt;
+</pre>
+
+<p>コマンドプロンプトを開いてpyinstaller –versionと叩いてみる。<br />
+うまく行っているならパスも通っている。</p>
+
+<pre>C:\local&gt;pyinstaller --version
+2.1
+
+C:\local&gt;
+</pre>
+
+  </div><a class="u-url" href="/2014/05/pyinstaller%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

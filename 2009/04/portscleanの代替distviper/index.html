@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>portscleanの代替distviper | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="portscleanの代替distviper" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="sysutils/bsdadminscriptsには便利ツールがたくさん入っている。 たとえばdistviper。 portsの運用を続けると、/usr/ports/distfiles/配下には古いファイルがたまっていくが、これを自動的に検知して削除してくれる。 同じ用途に使えるコマンドとしては、portupgrade付属のportscleanが有名だが、これらのコマンドはrubyが必要で、これだけのためにインストールするのも重い。 /usr/ports/distfiles/配下のすべてのファイルに対して検知を行うthoroughモードと、インストールされているportsだけに限り検知を行い、それ以外を削除するfastモードがある。 thoroughモードは時間がかかるので、portsビルド専用（つまりビルドだけしてインストールしない）マシンでもないかぎりfastモードで十分。 　-dで消されるファイルの確認、-iで消す前に聞くようになる、-qでメッセージ抑制、-vでverboseといったオプションがある。 実行例 $ distviper -d fast delete zsh-4.3.9.tar.bz2 （中略） $ sudo distviper fast delete zsh-4.3.9.tar.bz2 delete zsh-4.3.9-doc.tar.bz2 delete xorg/driver/xf86-video-ati-6.11.0.tar.bz2 delete xorg/driver/xf86-video-mach64-6.8.0.tar.bz2 delete xorg/driver/xf86-video-nv-2.1.12.tar.bz2 delete xorg/driver/xf86-video-r128-6.8.0.tar.bz2 delete xorg/driver/xf86-video-radeonhd-1.2.4.tar.bz2 delete xorg/driver/xf86-video-openchrome-0.2.903.tar.bz2 delete gnome2/gdm-2.24.1.tar.bz2 delete gnome/esound-0.2.41.tar.bz2 delete a2ps-4.13b.tar.gz delete libssh2-1.0.tar.gz delete xc/vnc-4_1_3-unixsrc.tar.gz delete xc/X430src-1.tgz delete audiofile-0.2.6.tar.gz delete samba-3.0.34.tar.gz delete thunderbird-2.0.0.19-source.tar.bz2 $ ということで、/usr/local/etc/periodic/weeklyというディレクトリを（無ければ）作って、998.deldist.shとか適当な名前で下記のスクリプトを置いて、週1で自動的に実行されるようにしておいた。 /etc/local/etc/periodic/weekly/998.deldist.sh #!/bin/sh DELCMD=&#39;/usr/local/sbin/distviper&#39; DELOPT=&#39;fast&#39; rc=0 if &#91; -x $DELCMD ]; then echo &#39;Searching and deleting outdated distfiles...&#39; $DELCMD $DELOPT || rc=$? echo &#39;Done.&#39; else echo &#34;$DELCMD is not installed and I gave up.&#34; rc=2 fi exit &#34;$rc&#34;" />
+<meta property="og:description" content="sysutils/bsdadminscriptsには便利ツールがたくさん入っている。 たとえばdistviper。 portsの運用を続けると、/usr/ports/distfiles/配下には古いファイルがたまっていくが、これを自動的に検知して削除してくれる。 同じ用途に使えるコマンドとしては、portupgrade付属のportscleanが有名だが、これらのコマンドはrubyが必要で、これだけのためにインストールするのも重い。 /usr/ports/distfiles/配下のすべてのファイルに対して検知を行うthoroughモードと、インストールされているportsだけに限り検知を行い、それ以外を削除するfastモードがある。 thoroughモードは時間がかかるので、portsビルド専用（つまりビルドだけしてインストールしない）マシンでもないかぎりfastモードで十分。 　-dで消されるファイルの確認、-iで消す前に聞くようになる、-qでメッセージ抑制、-vでverboseといったオプションがある。 実行例 $ distviper -d fast delete zsh-4.3.9.tar.bz2 （中略） $ sudo distviper fast delete zsh-4.3.9.tar.bz2 delete zsh-4.3.9-doc.tar.bz2 delete xorg/driver/xf86-video-ati-6.11.0.tar.bz2 delete xorg/driver/xf86-video-mach64-6.8.0.tar.bz2 delete xorg/driver/xf86-video-nv-2.1.12.tar.bz2 delete xorg/driver/xf86-video-r128-6.8.0.tar.bz2 delete xorg/driver/xf86-video-radeonhd-1.2.4.tar.bz2 delete xorg/driver/xf86-video-openchrome-0.2.903.tar.bz2 delete gnome2/gdm-2.24.1.tar.bz2 delete gnome/esound-0.2.41.tar.bz2 delete a2ps-4.13b.tar.gz delete libssh2-1.0.tar.gz delete xc/vnc-4_1_3-unixsrc.tar.gz delete xc/X430src-1.tgz delete audiofile-0.2.6.tar.gz delete samba-3.0.34.tar.gz delete thunderbird-2.0.0.19-source.tar.bz2 $ ということで、/usr/local/etc/periodic/weeklyというディレクトリを（無ければ）作って、998.deldist.shとか適当な名前で下記のスクリプトを置いて、週1で自動的に実行されるようにしておいた。 /etc/local/etc/periodic/weekly/998.deldist.sh #!/bin/sh DELCMD=&#39;/usr/local/sbin/distviper&#39; DELOPT=&#39;fast&#39; rc=0 if &#91; -x $DELCMD ]; then echo &#39;Searching and deleting outdated distfiles...&#39; $DELCMD $DELOPT || rc=$? echo &#39;Done.&#39; else echo &#34;$DELCMD is not installed and I gave up.&#34; rc=2 fi exit &#34;$rc&#34;" />
+<link rel="canonical" href="https://nobwak.github.io/2009/04/portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper/" />
+<meta property="og:url" content="https://nobwak.github.io/2009/04/portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper/" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2009-04-17T01:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"sysutils/bsdadminscriptsには便利ツールがたくさん入っている。 たとえばdistviper。 portsの運用を続けると、/usr/ports/distfiles/配下には古いファイルがたまっていくが、これを自動的に検知して削除してくれる。 同じ用途に使えるコマンドとしては、portupgrade付属のportscleanが有名だが、これらのコマンドはrubyが必要で、これだけのためにインストールするのも重い。 /usr/ports/distfiles/配下のすべてのファイルに対して検知を行うthoroughモードと、インストールされているportsだけに限り検知を行い、それ以外を削除するfastモードがある。 thoroughモードは時間がかかるので、portsビルド専用（つまりビルドだけしてインストールしない）マシンでもないかぎりfastモードで十分。 　-dで消されるファイルの確認、-iで消す前に聞くようになる、-qでメッセージ抑制、-vでverboseといったオプションがある。 実行例 $ distviper -d fast delete zsh-4.3.9.tar.bz2 （中略） $ sudo distviper fast delete zsh-4.3.9.tar.bz2 delete zsh-4.3.9-doc.tar.bz2 delete xorg/driver/xf86-video-ati-6.11.0.tar.bz2 delete xorg/driver/xf86-video-mach64-6.8.0.tar.bz2 delete xorg/driver/xf86-video-nv-2.1.12.tar.bz2 delete xorg/driver/xf86-video-r128-6.8.0.tar.bz2 delete xorg/driver/xf86-video-radeonhd-1.2.4.tar.bz2 delete xorg/driver/xf86-video-openchrome-0.2.903.tar.bz2 delete gnome2/gdm-2.24.1.tar.bz2 delete gnome/esound-0.2.41.tar.bz2 delete a2ps-4.13b.tar.gz delete libssh2-1.0.tar.gz delete xc/vnc-4_1_3-unixsrc.tar.gz delete xc/X430src-1.tgz delete audiofile-0.2.6.tar.gz delete samba-3.0.34.tar.gz delete thunderbird-2.0.0.19-source.tar.bz2 $ ということで、/usr/local/etc/periodic/weeklyというディレクトリを（無ければ）作って、998.deldist.shとか適当な名前で下記のスクリプトを置いて、週1で自動的に実行されるようにしておいた。 /etc/local/etc/periodic/weekly/998.deldist.sh #!/bin/sh DELCMD=&#39;/usr/local/sbin/distviper&#39; DELOPT=&#39;fast&#39; rc=0 if &#91; -x $DELCMD ]; then echo &#39;Searching and deleting outdated distfiles...&#39; $DELCMD $DELOPT || rc=$? echo &#39;Done.&#39; else echo &#34;$DELCMD is not installed and I gave up.&#34; rc=2 fi exit &#34;$rc&#34;","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2009/04/portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper/","headline":"portscleanの代替distviper","dateModified":"2009-04-17T01:00:00+09:00","datePublished":"2009-04-17T01:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2009/04/portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper/"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">portscleanの代替distviper</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2009-04-17T01:00:00+09:00" itemprop="datePublished">Apr 17, 2009
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="section">
+  <p>
+    sysutils/bsdadminscriptsには便利ツールがたくさん入っている。
+  </p>
+  
+  <p>
+    たとえばdistviper。
+  </p>
+  
+  <p>
+    portsの運用を続けると、/usr/ports/distfiles/配下には古いファイルがたまっていくが、これを自動的に検知して削除してくれる。
+  </p>
+  
+  <p>
+    同じ用途に使えるコマンドとしては、portupgrade付属のportscleanが有名だが、これらのコマンドはrubyが必要で、これだけのためにインストールするのも重い。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    /usr/ports/distfiles/配下のすべてのファイルに対して検知を行うthoroughモードと、インストールされているportsだけに限り検知を行い、それ以外を削除するfastモードがある。
+  </p>
+  
+  <p>
+    thoroughモードは時間がかかるので、portsビルド専用（つまりビルドだけしてインストールしない）マシンでもないかぎりfastモードで十分。
+  </p>
+  
+  <p>
+    　-dで消されるファイルの確認、-iで消す前に聞くようになる、-qでメッセージ抑制、-vでverboseといったオプションがある。
+  </p>
+  
+  <p>
+    実行例
+  </p>
+  
+  <pre>
+$ distviper -d fast
+delete zsh-4.3.9.tar.bz2
+（中略）
+$ sudo distviper fast
+delete zsh-4.3.9.tar.bz2
+delete zsh-4.3.9-doc.tar.bz2
+delete xorg/driver/xf86-video-ati-6.11.0.tar.bz2
+delete xorg/driver/xf86-video-mach64-6.8.0.tar.bz2
+delete xorg/driver/xf86-video-nv-2.1.12.tar.bz2
+delete xorg/driver/xf86-video-r128-6.8.0.tar.bz2
+delete xorg/driver/xf86-video-radeonhd-1.2.4.tar.bz2
+delete xorg/driver/xf86-video-openchrome-0.2.903.tar.bz2
+delete gnome2/gdm-2.24.1.tar.bz2
+delete gnome/esound-0.2.41.tar.bz2
+delete a2ps-4.13b.tar.gz
+delete libssh2-1.0.tar.gz
+delete xc/vnc-4_1_3-unixsrc.tar.gz
+delete xc/X430src-1.tgz
+delete audiofile-0.2.6.tar.gz
+delete samba-3.0.34.tar.gz
+delete thunderbird-2.0.0.19-source.tar.bz2
+$
+</pre>
+  
+  <p>
+    ということで、/usr/local/etc/periodic/weeklyというディレクトリを（無ければ）作って、998.deldist.shとか適当な名前で下記のスクリプトを置いて、週1で自動的に実行されるようにしておいた。
+  </p>
+  
+  <p>
+    /etc/local/etc/periodic/weekly/998.deldist.sh
+  </p>
+  
+  <pre>
+#!/bin/sh
+DELCMD=&#39;/usr/local/sbin/distviper&#39;
+DELOPT=&#39;fast&#39;
+rc=0
+if &#91; -x $DELCMD ]; then
+echo &#39;Searching and deleting outdated distfiles...&#39;
+$DELCMD $DELOPT || rc=$?
+echo &#39;Done.&#39;
+else
+echo &#34;$DELCMD is not installed and I gave up.&#34;
+rc=2
+fi
+exit &#34;$rc&#34;
+</pre>
+</div>
+
+  </div><a class="u-url" href="/2009/04/portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
