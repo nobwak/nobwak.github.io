@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>自前サーバのSSHログインにgoogleの2段階認証が使えて秋の夜長に感動した(追記あり)。 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="自前サーバのSSHログインにgoogleの2段階認証が使えて秋の夜長に感動した(追記あり)。" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content=" " />
+<meta property="og:description" content=" " />
+<link rel="canonical" href="https://nobwak.github.io/?p=2242" />
+<meta property="og:url" content="https://nobwak.github.io/?p=2242" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-09-30T23:39:39+09:00" />
+<script type="application/ld+json">
+{"description":" ","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/?p=2242","headline":"自前サーバのSSHログインにgoogleの2段階認証が使えて秋の夜長に感動した(追記あり)。","dateModified":"2013-09-30T23:39:39+09:00","datePublished":"2013-09-30T23:39:39+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/?p=2242"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">自前サーバのSSHログインにgoogleの2段階認証が使えて秋の夜長に感動した(追記あり)。</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-09-30T23:39:39+09:00" itemprop="datePublished">Sep 30, 2013
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p> </p>
+
+<p>タイトルそのままである。<br />
+たぶんGoogle様あたりが始めたのだと思うけど、何かの認証の際にスマートフォンをトークンキーとして使う仕組みはとても便利である。</p>
+
+<p>二要素認証、つまりパスワード/パスフレーズに加えトークンキーも必須にすることで、セキュリティは段違いに向上する。<br />
+しかし、ちょっと前までトークンキーと言えばRSAのハードウェアで、手軽に使えるとは言えない代物だった。<br />
+それがスマートフォンで出来るんだから問答無用で便利なんである。</p>
+
+<p>そんなgoogleの2段階認証を、自分のサーバのログインにも使えると聞いて驚愕して試して感動したので下記に顛末を記す。</p>
+
+<p>なお、FreeBSDで試しているが、Linuxでも大丈夫。Mintでの結果を末尾に追記。</p>
+
+<p> </p>
+
+<h2 id="事前準備スマートフォン側"><span style="text-decoration: underline;">事前準備（スマートフォン側）</span></h2>
+
+<p>Android、あるいはiOSにgoogle authenticatorをインストールし、2段階認証プロセスの準備をしておく。</p>
+
+<p>2段階認証プロセスについて<br />
+<a href="https://support.google.com/accounts/answer/180744?hl=ja" target="_blank">https://support.google.com/accounts/answer/180744?hl=ja</a></p>
+
+<p> </p>
+
+<h2 id="事前準備サーバ側"><span style="text-decoration: underline;">事前準備（サーバ側）</span></h2>
+
+<p>googleの2段階認証プロセス用のソフトウェアをインストールする。</p>
+
+<p>graphics/libqrencode<br />
+security/pam_google_authenticator</p>
+
+<p>以上二つ。<br />
+けっこう依存がありそうなのでpkgでインストールした方がよいかも。</p>
+
+<h2 id="2段階認証の設定の前に"><span style="text-decoration: underline;">2段階認証の設定…の前に。</span></h2>
+
+<p>さて今度はスマートフォンとサーバの括り付けを行う段。<br />
+なお、以下の作業はマシンの目の前で行うこと。<br />
+認証の設定を変えるわけだから、遠隔で作業して失敗した日にはログインできなくなって詰む。</p>
+
+<p> </p>
+
+<h2 id="2段階認証の設定"><span style="text-decoration: underline;">2段階認証の設定</span></h2>
+
+<p>google-authenticatorを実行する。<br />
+あらかじめ書いておくと、実行したらいきなり画面いっぱいにQRコードが表示される。<br />
+その巨大さに動揺しないで、手元のスマートフォンでgoogle authenticatorを起動し、QRコードを読み取ること。</p>
+
+<p>QRコードではなく手入力でももちろん出来るけれど、QRコードの方がはるかに楽。</p>
+
+<p>また、初回起動時にはいろいろと質問される。<br />
+以下に私訳も併記する。</p>
+
+<pre class="lang:default decode:true">$ google-authenticator
+
+Do you want authentication tokens to be time-based (y/n) y
+（俺訳: 認証トークンを時間ベースにしますか？他にはカウンタベースがあります。）</pre>
+
+<p>このあと、どーんと以下のようなQRコードが。</p>
+
+<p><a href="../../../wp-content/uploads/2013/09/googleqr.png"><img class="alignnone size-medium wp-image-2243" alt="googleqr" src="../../../wp-content/uploads/2013/09/googleqr-290x300.png" width="290" height="300" srcset="../../../wp-content/uploads/2013/09/googleqr-290x300.png 290w, ../../../wp-content/uploads/2013/09/googleqr-624x644.png 624w, ../../../wp-content/uploads/2013/09/googleqr.png 644w" sizes="(max-width: 290px) 100vw, 290px" /></a></p>
+
+<p>QRコードを、以下はiOSでの例だが、右上のペンをクリックしてから読み取ると、以下のようにコードが追加される。</p>
+
+<p><a href="../../../wp-content/uploads/2013/09/gAuth.png"><img class="alignnone size-medium wp-image-2244" alt="gAuth" src="../../../wp-content/uploads/2013/09/gAuth-208x300.png" width="208" height="300" srcset="../../../wp-content/uploads/2013/09/gAuth-208x300.png 208w, ../../../wp-content/uploads/2013/09/gAuth-624x896.png 624w, ../../../wp-content/uploads/2013/09/gAuth.png 640w" sizes="(max-width: 208px) 100vw, 208px" /></a></p>
+
+<pre class="lang:default decode:true">Your new secret key is: xxxxxxxxxxxx
+Your verification code is xxxx
+Your emergency scratch codes are:
+xxxxxxxx
+xxxxxxxx
+xxxxxxxx
+xxxxxxxx
+xxxxxxxx</pre>
+
+<p>スマートフォンで読み取ったら、続いて細かな設定。<br />
+質問に答えるだけでよい。</p>
+
+<p> </p>
+
+<h2 id="google-authenticatorの設定"><span style="text-decoration: underline;">google-authenticatorの設定</span></h2>
+
+<p>私訳を併記。<br />
+私の場合、有効時間を延ばすかどうかにだけNoと答えた。<br />
+なお、以下の最初の質問でyと答えて初めて先ほどのキーがサーバに登録される = ~/.google_authenticatorに登録される。<br />
+nと答えてしまったら、QRコード読み取りからやり直し。</p>
+
+<pre class="lang:default decode:true">Do you want me to update your "/home/vanilla/.google_authenticator" file (y/n) y
+（俺訳: google認証の設定を更新しますか？）
+
+Do you want to disallow multiple uses of the same authentication
+token? This restricts you to one login about every 30s, but it increases
+your chances to notice or even prevent man-in-the-middle attacks (y/n) y
+（俺訳: トークンを同時に使えるユーザの数を制限しますか？
+「あなた」も30秒に1回しかログインできなくなりますが、攻撃に
+気づいたり、防ぐことが出来るようになるでしょう。）
+
+By default, tokens are good for 30 seconds and in order to compensate for
+possible time-skew between the client and the server, we allow an extra
+token before and after the current time. If you experience problems with poor
+time synchronization, you can increase the window from its default
+size of 1:30min to about 4min. Do you want to do so (y/n) n
+（俺訳: デフォルトではトークンの有効時間は30秒ですが、サーバとクライアントの
+時刻ずれを考慮して、さらにその前後30秒の猶予を設けています。
+時刻ずれがひどいようであれば4分まで延長することができます。
+そうしますか？）
+
+If the computer that you are logging into isn't hardened against brute-force
+login attempts, you can enable rate-limiting for the authentication module.
+By default, this limits attackers to no more than 3 login attempts every 30s.
+Do you want to enable rate-limiting (y/n) y
+（俺訳: もしあなたのコンピュータが、ログインのブルートフォース攻撃に対して
+十分な防御が出来ないなら、時間当たりのログイン試行数を制限できます。
+デフォルトでは30秒につき3回までしかログイン試行できません。
+制限を有効にしますか？）</pre>
+
+<p> </p>
+
+<p>終わると~/.google-authenticatorというファイルができるはず。<br />
+パーミッションは400。まあ当然ですな。</p>
+
+<p> </p>
+
+<h2 id="sshdで二段階認証を有効にする"><span style="text-decoration: underline;">sshdで二段階認証を有効にする</span></h2>
+
+<p>/etc/pam.d/sshdの一番下に以下の行を追加する。<br />
+一番下だと、認証の際にパスワードを訊かれてからトークンキーの入力。<br />
+一番上にすると、トークンキーが先になる。</p>
+
+<pre class="lang:default decode:true" title="/etc/pam.d/sshd">auth    required    /usr/local/lib/pam_google_authenticator.so</pre>
+
+<p>sshdを再起動。<br />
+これ以降、sshログインで2段階認証が有効になるので注意。<br />
+くれぐれもマシンの目の前ですること。</p>
+
+<pre class="lang:default decode:true">$ sudo service sshd restart
+Performing sanity check on sshd configuration.
+Stopping sshd.
+Performing sanity check on sshd configuration.
+Starting sshd.
+$</pre>
+
+<p> </p>
+
+<h2 id="2段階認証を試してみよう"><span style="text-decoration: underline;">2段階認証を試してみよう</span></h2>
+
+<p>さっそく試してみると、パスワード認証のあとにトークンの入力を求められるようになった。<br />
+ああ…。なんだろうこの守られてる感。素敵だ。</p>
+
+<pre class="lang:default decode:true">login as: vanilla
+Using keyboard-interactive authentication.
+Password for vanilla@fireelement:
+Using keyboard-interactive authentication.
+Verification code:</pre>
+
+<p> </p>
+
+<h2 id="linuxでもok"><span style="text-decoration: underline;">LinuxでもOK</span></h2>
+
+<p>結局のところ、googleの2段階認証は、pamモジュールとして公開されているので、Linuxでだって動く。</p>
+
+<p>以下はlinux mint 15 Oliviaで試した結果。</p>
+
+<h2 id="authenticatorのインストール"><span style="text-decoration: underline;">authenticatorのインストール</span></h2>
+
+<p>libpam-google-authenticatorをインストールする。ソフトウェアマネジャーでもapt-getでも。<br />
+設定方法は上で述べたものと変わりないので割愛。</p>
+
+<h2 id="sshdの設定変更"><span style="text-decoration: underline;">sshdの設定変更</span></h2>
+
+<p>Linux Mintではsshdの設定に変更が必要だった。<br />
+/etc/ssh/sshd_configでChallengeResponseAuthenticationをyesにする。</p>
+
+<pre class="lang:default decode:true"># Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+ChallengeResponseAuthentication yes</pre>
+
+<p> </p>
+
+<h2 id="認証方法の変更"><span style="text-decoration: underline;">認証方法の変更</span></h2>
+
+<p>これもFreeBSDと同じ。/etc/pam.d/sshdを修正する。</p>
+
+<pre class="lang:default decode:true">auth       required     pam_google_authenticator.so</pre>
+
+<p> </p>
+
+<h2 id="sshdの再起動"><span style="text-decoration: underline;">sshdの再起動</span></h2>
+
+<p>Linux mintではsshdではなくsshなんだなあ。</p>
+
+<pre class="lang:default decode:true">sudo service ssh restart</pre>
+
+<p> </p>
+
+  </div><a class="u-url" href="/?p=2242" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

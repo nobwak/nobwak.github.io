@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>[FreeBSD] 無人でのユーザ追加 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="[FreeBSD] 無人でのユーザ追加" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content=" " />
+<meta property="og:description" content=" " />
+<link rel="canonical" href="https://nobwak.github.io/?p=2214" />
+<meta property="og:url" content="https://nobwak.github.io/?p=2214" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-09-09T22:00:00+09:00" />
+<script type="application/ld+json">
+{"description":" ","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/?p=2214","headline":"[FreeBSD] 無人でのユーザ追加","dateModified":"2013-09-09T22:00:00+09:00","datePublished":"2013-09-09T22:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/?p=2214"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[FreeBSD] 無人でのユーザ追加</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-09-09T22:00:00+09:00" itemprop="datePublished">Sep 9, 2013
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p> </p>
+
+<p>仮想化全盛のこの世の中、OSインストール直後の各種設定はなるだけ無人化したい。<br />
+そこでFreeBSDでのユーザ設定の無人化について。</p>
+
+<h2 id="pw8"><span style="text-decoration: underline;">pw(8)</span></h2>
+
+<p>pwを使う。<br />
+man pwすると画面いっぱいに広がるSYNOPSISにまずのけぞる。<br />
+そのくらい、たくさんのことができるpwコマンドであるが、使うのは二つだけ。</p>
+
+<pre class="lang:default decode:true">pw groupadd
+pw useradd</pre>
+
+<p>グループ追加とユーザ追加ですな。</p>
+
+<p> </p>
+
+<h2 id="pwでのグループ追加"><span style="text-decoration: underline;">pwでのグループ追加</span></h2>
+
+<p>書式は以下の通り</p>
+
+<pre class="lang:default decode:true ">pw groupadd -q -n &lt;グループ名&gt; -g &lt;GID&gt;</pre>
+
+<p> </p>
+
+<p>-qはエラーメッセージの抑制。<br />
+じゃ実際にエラーが発生したらどうすんだ、って話になるが、そこはステータスコードを使う。</p>
+
+<p>グループ:testgをgroup ID:10010で追加するなら、以下の通り。</p>
+
+<pre class="lang:default decode:true">pw groupadd -q -n testg -g 10010</pre>
+
+<p> </p>
+
+<h2 id="pwでのユーザ追加"><span style="text-decoration: underline;">pwでのユーザ追加</span></h2>
+
+<p>グループ追加に比べ、こちらはちょっと複雑。<br />
+書式は以下の通り。</p>
+
+<pre class="lang:default decode:true">pw useradd -n &lt;ユーザ名&gt; -u &lt;UID&gt; -s &lt;シェル&gt; \
+-m -d &lt;ホームディレクトリ&gt; -G &lt;グループ名&gt; \
+-c &lt;コメント&gt;</pre>
+
+<p>特に-mを除いて説明の必要はないと思う。<br />
+-mはホームディレクトリを新規に作る、という意味。</p>
+
+<p>しかしこれだけだとパスワードを訊かれてしまう。</p>
+
+<p> </p>
+
+<h2 id="パスワード設定も無人でしたい"><span style="text-decoration: underline;">パスワード設定も無人でしたい。</span></h2>
+
+<p>パスワード設定も自動化するには、以下のようにする。</p>
+
+<pre class="lang:default decode:true">echo -n '&lt;パスワード&gt;' |\
+pw useradd -n &lt;ユーザ名&gt; -u &lt;UID&gt; -s &lt;シェル&gt; \
+-m -d &lt;ホームディレクトリ&gt; -G &lt;グループ名&gt; \
+-c &lt;コメント&gt; \
+-h 0</pre>
+
+<p>-h 0をオプションとして与えると、pw はパスワード設定を標準入力から受け付けてくれる。<br />
+つまり、パスワードをechoし、その標準入力を-h 0オプションを与えたpw useraddにパイプすればよい。</p>
+
+<p>パスワードにtest, uidに10010, シェルに/bin/sh, ホームディレクトリは/home/test, グループ:testに所属するユーザtestを作成するには、以下のように。</p>
+
+<pre class="lang:default decode:true">echo -n 'test' |\
+pw useradd -n test -u 10010 -s /bin/sh \
+-m -d /home/test -G test -c 'test user' \
+-h 0</pre>
+
+<p> </p>
+
+<p>いや、でもさあ、パスワード丸見えじゃないか。<br />
+そう思ったあなたは正しい。<br />
+上記のスクリプトは使うべきでない。</p>
+
+<p> </p>
+
+<h2 id="暗号化済みのパスワードを無人で設定するには"><span style="text-decoration: underline;">暗号化済みのパスワードを無人で設定するには。</span></h2>
+
+<p>前章で追加した-hオプションを-Hにすれば、pwは暗号化済みのパスワードを受け付けてくれる。<br />
+こうしておけば、仮にスクリプトを覗かれたって、パスワードを平文で書いてあるよりははるかに危険度は少ない。</p>
+
+<p>パスワードにtest, uidに10010, シェルに/bin/sh, ホームディレクトリは/home/test, グループ:testに所属するユーザtestを作成するケースを考える。</p>
+
+<p><a href="../../../?p=2208">この記事</a>で触れた方法でパスワードを暗号化する。この例ではsaltは”SALTsalt”。</p>
+
+<pre>$ perl -e 'print crypt("test", "\$6\$SALTsalt");'
+$6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5ggew6RXLpl1eA72TpgX5pGDpr/.</pre>
+
+<p> </p>
+
+<p>得た文字列をechoしてpwに渡す。※文字列長いので省略してます。</p>
+
+<pre class="lang:default decode:true">echo -n '&lt;暗号化済みパスワード&gt;' |\
+pw useradd -n test -u 10010 -s /bin/sh \
+-m -d /home/test -G test -c 'test user' \
+-H 0</pre>
+
+<p> </p>
+
+<p>自分のシステムがどの方法でパスワードを暗号化しているか、確認するのを忘れないこと。<br />
+MD5ならまずどのシステムでも大丈夫だが、MD5は今じゃちょっと危ないからね。</p>
+
+<p>以上</p>
+
+<p> </p>
+
+  </div><a class="u-url" href="/?p=2214" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

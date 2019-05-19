@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>3Comと地雷 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="3Comと地雷" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="本日はLinux, FreeBSDのお話。 Linuxの認定試験も終わったので、勉強のため古いノートPCに入れていたFedoraをさっぱり消した。 短い間だったが、Fedoraに対しては、新しい技術を取り込むのに貪欲なLinuxの中にあっても、特に急進的な印象を受けた。 技術をRedHatに実装する前に、とりあえずFedoraでやってみるとか、そういう意味合いがあるとかないとか、その辺はよく知らない。 とにかく、何か調べ物があってインターネットを渉猟しても、Fedoraが新しすぎて役に立たない事が何度かあった。 逆に、大手ベンダーが配布しているバイナリがそのまま使えるという、Linuxであることの恩恵を身いっぱいに享受できたのは幸せだった。 FreeBSDを使っていた頃は、わざわざLinuxエミュレーション上で各種プログラムを動かしていたから、なんだか複雑な気分になった。 で、空いた古いノートPCに何を入れるか、であるが、Solaris i386はさすがにキツイので、FreeBSDを入れることにした。 知らない間に6.0-RELEASEが出ていたので、ちょっとウキウキしながら試す。 Floppyで起動してネットワークインストール可能なのが嬉しい。特に古いPCにあっては。 Fedora Core 4は起動ディスクがCDかDVDのみ（USBストレージもあったかな）に限られる。 そしてあろうことか、ネットワークインストールの際には、プロキシ経由が不可だった。 このせいで、会社の古いPCをサーバにしたくて、Fedoraのインストールを試みたのだが叶わず、仕方なくその辺に転がっていた付録CDからVineを入れた。俺はどうもブドウのマークを受け付けないので、いつかTurbo, Suse, Gentooあたりに変えてやりたい。 それはさておき、FreeBSDの、愛嬌の「あ」の字も感じられない殺伐としたインストールメニューからネットワークインストールを始める。 …が、どうも上手く行かない。 結論から言うと6.0-RELEASEのバグが原因だった。ガックリ。 FreeBSD bugs list &lt;freebsd-bugs@freebsd.org&gt;で報告があった。 kern/87114 [xl] xl0 : watchdog timeout on 6.0 (regression) kern/90441 [xl] xl driver watchdog timeout in 3Com 3c575B Fast Et 症状としては、NICに3Com 3c575を使用した場合において、下記メッセージがコンソールに表示され、ネットワークが異常に遅くなる。 xl0: watchdog timeout 5.4-RELEASE以前は問題なく動いていたそうなので、6.0-RELEASEに移る際に混入 したバグのようだ。 かといって、俺みたいな人間にはバグに対して何も出来ない。 家の中を探してみても、PCカードのNICなど今更どこにもない。 仕方ないので問題が解決されるまで5-STABLEを使うことにした。 ただ、現時点でこの部分に7件のバグがある。直してくれるか甚だ不安だ。 3Comとか、IntelのNICなら間違いないと大枚はたいて買ったのだが、地雷を踏んでしまったらしい。とほほ。" />
+<meta property="og:description" content="本日はLinux, FreeBSDのお話。 Linuxの認定試験も終わったので、勉強のため古いノートPCに入れていたFedoraをさっぱり消した。 短い間だったが、Fedoraに対しては、新しい技術を取り込むのに貪欲なLinuxの中にあっても、特に急進的な印象を受けた。 技術をRedHatに実装する前に、とりあえずFedoraでやってみるとか、そういう意味合いがあるとかないとか、その辺はよく知らない。 とにかく、何か調べ物があってインターネットを渉猟しても、Fedoraが新しすぎて役に立たない事が何度かあった。 逆に、大手ベンダーが配布しているバイナリがそのまま使えるという、Linuxであることの恩恵を身いっぱいに享受できたのは幸せだった。 FreeBSDを使っていた頃は、わざわざLinuxエミュレーション上で各種プログラムを動かしていたから、なんだか複雑な気分になった。 で、空いた古いノートPCに何を入れるか、であるが、Solaris i386はさすがにキツイので、FreeBSDを入れることにした。 知らない間に6.0-RELEASEが出ていたので、ちょっとウキウキしながら試す。 Floppyで起動してネットワークインストール可能なのが嬉しい。特に古いPCにあっては。 Fedora Core 4は起動ディスクがCDかDVDのみ（USBストレージもあったかな）に限られる。 そしてあろうことか、ネットワークインストールの際には、プロキシ経由が不可だった。 このせいで、会社の古いPCをサーバにしたくて、Fedoraのインストールを試みたのだが叶わず、仕方なくその辺に転がっていた付録CDからVineを入れた。俺はどうもブドウのマークを受け付けないので、いつかTurbo, Suse, Gentooあたりに変えてやりたい。 それはさておき、FreeBSDの、愛嬌の「あ」の字も感じられない殺伐としたインストールメニューからネットワークインストールを始める。 …が、どうも上手く行かない。 結論から言うと6.0-RELEASEのバグが原因だった。ガックリ。 FreeBSD bugs list &lt;freebsd-bugs@freebsd.org&gt;で報告があった。 kern/87114 [xl] xl0 : watchdog timeout on 6.0 (regression) kern/90441 [xl] xl driver watchdog timeout in 3Com 3c575B Fast Et 症状としては、NICに3Com 3c575を使用した場合において、下記メッセージがコンソールに表示され、ネットワークが異常に遅くなる。 xl0: watchdog timeout 5.4-RELEASE以前は問題なく動いていたそうなので、6.0-RELEASEに移る際に混入 したバグのようだ。 かといって、俺みたいな人間にはバグに対して何も出来ない。 家の中を探してみても、PCカードのNICなど今更どこにもない。 仕方ないので問題が解決されるまで5-STABLEを使うことにした。 ただ、現時点でこの部分に7件のバグがある。直してくれるか甚だ不安だ。 3Comとか、IntelのNICなら間違いないと大枚はたいて買ったのだが、地雷を踏んでしまったらしい。とほほ。" />
+<link rel="canonical" href="https://nobwak.github.io/?p=1601" />
+<meta property="og:url" content="https://nobwak.github.io/?p=1601" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2005-12-26T01:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"本日はLinux, FreeBSDのお話。 Linuxの認定試験も終わったので、勉強のため古いノートPCに入れていたFedoraをさっぱり消した。 短い間だったが、Fedoraに対しては、新しい技術を取り込むのに貪欲なLinuxの中にあっても、特に急進的な印象を受けた。 技術をRedHatに実装する前に、とりあえずFedoraでやってみるとか、そういう意味合いがあるとかないとか、その辺はよく知らない。 とにかく、何か調べ物があってインターネットを渉猟しても、Fedoraが新しすぎて役に立たない事が何度かあった。 逆に、大手ベンダーが配布しているバイナリがそのまま使えるという、Linuxであることの恩恵を身いっぱいに享受できたのは幸せだった。 FreeBSDを使っていた頃は、わざわざLinuxエミュレーション上で各種プログラムを動かしていたから、なんだか複雑な気分になった。 で、空いた古いノートPCに何を入れるか、であるが、Solaris i386はさすがにキツイので、FreeBSDを入れることにした。 知らない間に6.0-RELEASEが出ていたので、ちょっとウキウキしながら試す。 Floppyで起動してネットワークインストール可能なのが嬉しい。特に古いPCにあっては。 Fedora Core 4は起動ディスクがCDかDVDのみ（USBストレージもあったかな）に限られる。 そしてあろうことか、ネットワークインストールの際には、プロキシ経由が不可だった。 このせいで、会社の古いPCをサーバにしたくて、Fedoraのインストールを試みたのだが叶わず、仕方なくその辺に転がっていた付録CDからVineを入れた。俺はどうもブドウのマークを受け付けないので、いつかTurbo, Suse, Gentooあたりに変えてやりたい。 それはさておき、FreeBSDの、愛嬌の「あ」の字も感じられない殺伐としたインストールメニューからネットワークインストールを始める。 …が、どうも上手く行かない。 結論から言うと6.0-RELEASEのバグが原因だった。ガックリ。 FreeBSD bugs list &lt;freebsd-bugs@freebsd.org&gt;で報告があった。 kern/87114 [xl] xl0 : watchdog timeout on 6.0 (regression) kern/90441 [xl] xl driver watchdog timeout in 3Com 3c575B Fast Et 症状としては、NICに3Com 3c575を使用した場合において、下記メッセージがコンソールに表示され、ネットワークが異常に遅くなる。 xl0: watchdog timeout 5.4-RELEASE以前は問題なく動いていたそうなので、6.0-RELEASEに移る際に混入 したバグのようだ。 かといって、俺みたいな人間にはバグに対して何も出来ない。 家の中を探してみても、PCカードのNICなど今更どこにもない。 仕方ないので問題が解決されるまで5-STABLEを使うことにした。 ただ、現時点でこの部分に7件のバグがある。直してくれるか甚だ不安だ。 3Comとか、IntelのNICなら間違いないと大枚はたいて買ったのだが、地雷を踏んでしまったらしい。とほほ。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/?p=1601","headline":"3Comと地雷","dateModified":"2005-12-26T01:00:00+09:00","datePublished":"2005-12-26T01:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/?p=1601"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">3Comと地雷</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2005-12-26T01:00:00+09:00" itemprop="datePublished">Dec 26, 2005
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="section">
+  <p>
+    本日はLinux, FreeBSDのお話。
+  </p>
+  
+  <p>
+    Linuxの認定試験も終わったので、勉強のため古いノートPCに入れていたFedoraをさっぱり消した。
+  </p>
+  
+  <p>
+    短い間だったが、Fedoraに対しては、新しい技術を取り込むのに貪欲なLinuxの中にあっても、特に急進的な印象を受けた。
+  </p>
+  
+  <p>
+    技術をRedHatに実装する前に、とりあえずFedoraでやってみるとか、そういう意味合いがあるとかないとか、その辺はよく知らない。
+  </p>
+  
+  <p>
+    とにかく、何か調べ物があってインターネットを渉猟しても、Fedoraが新しすぎて役に立たない事が何度かあった。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    逆に、大手ベンダーが配布しているバイナリがそのまま使えるという、Linuxであることの恩恵を身いっぱいに享受できたのは幸せだった。
+  </p>
+  
+  <p>
+    FreeBSDを使っていた頃は、わざわざLinuxエミュレーション上で各種プログラムを動かしていたから、なんだか複雑な気分になった。
+  </p>
+  
+  <p>
+    で、空いた古いノートPCに何を入れるか、であるが、Solaris i386はさすがにキツイので、FreeBSDを入れることにした。
+  </p>
+  
+  <p>
+    知らない間に6.0-RELEASEが出ていたので、ちょっとウキウキしながら試す。
+  </p>
+  
+  <p>
+    Floppyで起動してネットワークインストール可能なのが嬉しい。特に古いPCにあっては。
+  </p>
+  
+  <p>
+    Fedora Core 4は起動ディスクがCDかDVDのみ（USBストレージもあったかな）に限られる。
+  </p>
+  
+  <p>
+    そしてあろうことか、ネットワークインストールの際には、プロキシ経由が不可だった。
+  </p>
+  
+  <p>
+    このせいで、会社の古いPCをサーバにしたくて、Fedoraのインストールを試みたのだが叶わず、仕方なくその辺に転がっていた付録CDからVineを入れた。俺はどうもブドウのマークを受け付けないので、いつかTurbo, Suse, Gentooあたりに変えてやりたい。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    それはさておき、FreeBSDの、愛嬌の「あ」の字も感じられない殺伐としたインストールメニューからネットワークインストールを始める。
+  </p>
+  
+  <p>
+    …が、どうも上手く行かない。
+  </p>
+  
+  <p>
+    結論から言うと6.0-RELEASEのバグが原因だった。ガックリ。
+  </p>
+  
+  <p>
+    FreeBSD bugs list &lt;freebsd-bugs@freebsd.org&gt;で報告があった。
+  </p>
+  
+  <p>
+    kern/87114 [xl] xl0 : watchdog timeout on 6.0 (regression)
+  </p>
+  
+  <p>
+    kern/90441 [xl] xl driver watchdog timeout in 3Com 3c575B Fast Et
+  </p>
+  
+  <p>
+    症状としては、NICに3Com 3c575を使用した場合において、下記メッセージがコンソールに表示され、ネットワークが異常に遅くなる。
+  </p>
+  
+  <p>
+    xl0: watchdog timeout
+  </p>
+  
+  <p>
+    5.4-RELEASE以前は問題なく動いていたそうなので、6.0-RELEASEに移る際に混入
+  </p>
+  
+  <p>
+    したバグのようだ。
+  </p>
+  
+  <p>
+    かといって、俺みたいな人間にはバグに対して何も出来ない。
+  </p>
+  
+  <p>
+    家の中を探してみても、PCカードのNICなど今更どこにもない。
+  </p>
+  
+  <p>
+    仕方ないので問題が解決されるまで5-STABLEを使うことにした。
+  </p>
+  
+  <p>
+    ただ、現時点でこの部分に7件のバグがある。直してくれるか甚だ不安だ。
+  </p>
+  
+  <p>
+    3Comとか、IntelのNICなら間違いないと大枚はたいて買ったのだが、地雷を踏んでしまったらしい。とほほ。
+  </p>
+</div>
+
+  </div><a class="u-url" href="/?p=1601" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

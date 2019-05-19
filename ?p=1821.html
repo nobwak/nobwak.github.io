@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>popサーバ、dovecot2のインストール | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="popサーバ、dovecot2のインストール" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネットワーク内をパスワードが平文で流れるのは勘弁。 わざわざMaildirにする必要もなく、mbox形式で結構。 FreeBSD handbook 29.2.4.1章を眺めて、dovecot2を選んだ。 http://en.wikipedia.org/wiki/Dovecot_%28software%29 インストールと設定 インストールはportsで、mail/dovecot2から。設定はそのままで。 後述するが、make cleanしないこと! 設定ファイルは下記だが。 /usr/local/etc/dovecot READMEがポツリ。 Configuration files go to this directory. See example configuration files in /usr/local/share/doc/dovecot/example-config/ ということでまるごとコピー。 # cd /usr/local/share/doc/dovecot/example-config/ # cp ./dovecot.conf /usr/local/etc/dovecot/ # cp -R ./conf.d /usr/local/etc/dovecot/ 設定ファイルの書き換え。 受け付けるプロトコルの設定。dovecot.confにて。 pop3だけにした。 # Protocols we want to be serving. #protocols = imap pop3 lmtp protocols = pop3 メールボックスの場所 http://wiki2.dovecot.org/MailLocation のTypical settingsに沿う。 mboxで結構。 vi conf.d/10-mail.conf 以下を追加 #mail_location = mail_location = mbox:~/mail:INBOX=/var/mail/%u SSL設定 LAN内なので、オレオレ証明書で十分。 http://wiki2.dovecot.org/SSL/DovecotConfiguration http://wiki2.dovecot.org/SSL/CertificateCreation 上記を読むと、dovecot2にはオレオレ証明書を作ってくれるスクリプト、mkcert.shがついてくるそうな。 これは便利。 しかしこのスクリプトはインストールされない。make cleanしてはいけないというのはそのため。もちろん、あとからでも取り出せるけど。 ただ、デフォルトでは/etc/sslの下に証明書を書き込むようだ。 FreeBSDを使っているんだし、/usr/local/etc/sslの下にしたい。 では設定と作成。 conf.d/10-ssl.confにて。 # PEM encoded X.509 SSL/TLS certificate and private key. They&#39;re opened before # dropping root privileges, so keep the key file unreadable by anyone but # root. Included doc/mkcert.sh can be used to easily generate self-signed # certificate, just make sure to update the domains in dovecot-openssl.cnf #ssl_cert = &#60;/etc/ssl/certs/dovecot.pem #ssl_key = &#60;/etc/ssl/private/dovecot.pem ssl_cert = &#60;/usr/local/etc/ssl/certs/dovecot.pem ssl_key = &#60;/usr/local/etc/ssl/private/dovecot.pem pem作成。 再び、http://wiki2.dovecot.org/SSL/CertificateCreation Self-signed certificate creation Dovecot includes a script to build self-signed SSL certificates using OpenSSL. In the source distribution this exists in doc/mkcert.sh. Binary installations usually create the certificate automatically when installing Dovecot and don&#8217;t include the script. 繰り返しになるが、doc/mkcert.shはインストールされない。 portsでdovecot2を作ったところに戻る。 make cleanしてしまった場合、portmaster等でインストールした場合には、慌てず/usr/ports/mail/dovecot2/で「make extract」すればOK。そして、 $ cd /usr/ports/mail/dovecot2/work/dovecot-2.0.16/doc/ ここでスクリプトを実行してもよいし、どこかにコピーしてもよい。 俺様は、なんだか別のことにも使えそうなので、ホームディレクトリにコピーしておいた。スクリプトはdovecot-openssl.cnfを参照するのでこれもコピー。 $ cp ./mkcert.sh ~/bin/ $ cp ./dovecot-openssl.cnf ~/bin/ 準備をして実行。以下はsh、あるいはbashでの例。 # mkdir /usr/local/etc/ssl # mkdir /usr/local/etc/ssl/private # mkdir /usr/local/etc/ssl/certs # SSLDIR=/usr/local/etc/ssl sh ./mkcert.sh Generating a 1024 bit RSA private key ..++++++ ..............++++++ writing new private key to &#39;/usr/local/etc/ssl/private/dovecot.pem&#39;&lt;/p&gt;" />
+<meta property="og:description" content="popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネットワーク内をパスワードが平文で流れるのは勘弁。 わざわざMaildirにする必要もなく、mbox形式で結構。 FreeBSD handbook 29.2.4.1章を眺めて、dovecot2を選んだ。 http://en.wikipedia.org/wiki/Dovecot_%28software%29 インストールと設定 インストールはportsで、mail/dovecot2から。設定はそのままで。 後述するが、make cleanしないこと! 設定ファイルは下記だが。 /usr/local/etc/dovecot READMEがポツリ。 Configuration files go to this directory. See example configuration files in /usr/local/share/doc/dovecot/example-config/ ということでまるごとコピー。 # cd /usr/local/share/doc/dovecot/example-config/ # cp ./dovecot.conf /usr/local/etc/dovecot/ # cp -R ./conf.d /usr/local/etc/dovecot/ 設定ファイルの書き換え。 受け付けるプロトコルの設定。dovecot.confにて。 pop3だけにした。 # Protocols we want to be serving. #protocols = imap pop3 lmtp protocols = pop3 メールボックスの場所 http://wiki2.dovecot.org/MailLocation のTypical settingsに沿う。 mboxで結構。 vi conf.d/10-mail.conf 以下を追加 #mail_location = mail_location = mbox:~/mail:INBOX=/var/mail/%u SSL設定 LAN内なので、オレオレ証明書で十分。 http://wiki2.dovecot.org/SSL/DovecotConfiguration http://wiki2.dovecot.org/SSL/CertificateCreation 上記を読むと、dovecot2にはオレオレ証明書を作ってくれるスクリプト、mkcert.shがついてくるそうな。 これは便利。 しかしこのスクリプトはインストールされない。make cleanしてはいけないというのはそのため。もちろん、あとからでも取り出せるけど。 ただ、デフォルトでは/etc/sslの下に証明書を書き込むようだ。 FreeBSDを使っているんだし、/usr/local/etc/sslの下にしたい。 では設定と作成。 conf.d/10-ssl.confにて。 # PEM encoded X.509 SSL/TLS certificate and private key. They&#39;re opened before # dropping root privileges, so keep the key file unreadable by anyone but # root. Included doc/mkcert.sh can be used to easily generate self-signed # certificate, just make sure to update the domains in dovecot-openssl.cnf #ssl_cert = &#60;/etc/ssl/certs/dovecot.pem #ssl_key = &#60;/etc/ssl/private/dovecot.pem ssl_cert = &#60;/usr/local/etc/ssl/certs/dovecot.pem ssl_key = &#60;/usr/local/etc/ssl/private/dovecot.pem pem作成。 再び、http://wiki2.dovecot.org/SSL/CertificateCreation Self-signed certificate creation Dovecot includes a script to build self-signed SSL certificates using OpenSSL. In the source distribution this exists in doc/mkcert.sh. Binary installations usually create the certificate automatically when installing Dovecot and don&#8217;t include the script. 繰り返しになるが、doc/mkcert.shはインストールされない。 portsでdovecot2を作ったところに戻る。 make cleanしてしまった場合、portmaster等でインストールした場合には、慌てず/usr/ports/mail/dovecot2/で「make extract」すればOK。そして、 $ cd /usr/ports/mail/dovecot2/work/dovecot-2.0.16/doc/ ここでスクリプトを実行してもよいし、どこかにコピーしてもよい。 俺様は、なんだか別のことにも使えそうなので、ホームディレクトリにコピーしておいた。スクリプトはdovecot-openssl.cnfを参照するのでこれもコピー。 $ cp ./mkcert.sh ~/bin/ $ cp ./dovecot-openssl.cnf ~/bin/ 準備をして実行。以下はsh、あるいはbashでの例。 # mkdir /usr/local/etc/ssl # mkdir /usr/local/etc/ssl/private # mkdir /usr/local/etc/ssl/certs # SSLDIR=/usr/local/etc/ssl sh ./mkcert.sh Generating a 1024 bit RSA private key ..++++++ ..............++++++ writing new private key to &#39;/usr/local/etc/ssl/private/dovecot.pem&#39;&lt;/p&gt;" />
+<link rel="canonical" href="https://nobwak.github.io/?p=1821" />
+<meta property="og:url" content="https://nobwak.github.io/?p=1821" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-03-02T01:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネットワーク内をパスワードが平文で流れるのは勘弁。 わざわざMaildirにする必要もなく、mbox形式で結構。 FreeBSD handbook 29.2.4.1章を眺めて、dovecot2を選んだ。 http://en.wikipedia.org/wiki/Dovecot_%28software%29 インストールと設定 インストールはportsで、mail/dovecot2から。設定はそのままで。 後述するが、make cleanしないこと! 設定ファイルは下記だが。 /usr/local/etc/dovecot READMEがポツリ。 Configuration files go to this directory. See example configuration files in /usr/local/share/doc/dovecot/example-config/ ということでまるごとコピー。 # cd /usr/local/share/doc/dovecot/example-config/ # cp ./dovecot.conf /usr/local/etc/dovecot/ # cp -R ./conf.d /usr/local/etc/dovecot/ 設定ファイルの書き換え。 受け付けるプロトコルの設定。dovecot.confにて。 pop3だけにした。 # Protocols we want to be serving. #protocols = imap pop3 lmtp protocols = pop3 メールボックスの場所 http://wiki2.dovecot.org/MailLocation のTypical settingsに沿う。 mboxで結構。 vi conf.d/10-mail.conf 以下を追加 #mail_location = mail_location = mbox:~/mail:INBOX=/var/mail/%u SSL設定 LAN内なので、オレオレ証明書で十分。 http://wiki2.dovecot.org/SSL/DovecotConfiguration http://wiki2.dovecot.org/SSL/CertificateCreation 上記を読むと、dovecot2にはオレオレ証明書を作ってくれるスクリプト、mkcert.shがついてくるそうな。 これは便利。 しかしこのスクリプトはインストールされない。make cleanしてはいけないというのはそのため。もちろん、あとからでも取り出せるけど。 ただ、デフォルトでは/etc/sslの下に証明書を書き込むようだ。 FreeBSDを使っているんだし、/usr/local/etc/sslの下にしたい。 では設定と作成。 conf.d/10-ssl.confにて。 # PEM encoded X.509 SSL/TLS certificate and private key. They&#39;re opened before # dropping root privileges, so keep the key file unreadable by anyone but # root. Included doc/mkcert.sh can be used to easily generate self-signed # certificate, just make sure to update the domains in dovecot-openssl.cnf #ssl_cert = &#60;/etc/ssl/certs/dovecot.pem #ssl_key = &#60;/etc/ssl/private/dovecot.pem ssl_cert = &#60;/usr/local/etc/ssl/certs/dovecot.pem ssl_key = &#60;/usr/local/etc/ssl/private/dovecot.pem pem作成。 再び、http://wiki2.dovecot.org/SSL/CertificateCreation Self-signed certificate creation Dovecot includes a script to build self-signed SSL certificates using OpenSSL. In the source distribution this exists in doc/mkcert.sh. Binary installations usually create the certificate automatically when installing Dovecot and don&#8217;t include the script. 繰り返しになるが、doc/mkcert.shはインストールされない。 portsでdovecot2を作ったところに戻る。 make cleanしてしまった場合、portmaster等でインストールした場合には、慌てず/usr/ports/mail/dovecot2/で「make extract」すればOK。そして、 $ cd /usr/ports/mail/dovecot2/work/dovecot-2.0.16/doc/ ここでスクリプトを実行してもよいし、どこかにコピーしてもよい。 俺様は、なんだか別のことにも使えそうなので、ホームディレクトリにコピーしておいた。スクリプトはdovecot-openssl.cnfを参照するのでこれもコピー。 $ cp ./mkcert.sh ~/bin/ $ cp ./dovecot-openssl.cnf ~/bin/ 準備をして実行。以下はsh、あるいはbashでの例。 # mkdir /usr/local/etc/ssl # mkdir /usr/local/etc/ssl/private # mkdir /usr/local/etc/ssl/certs # SSLDIR=/usr/local/etc/ssl sh ./mkcert.sh Generating a 1024 bit RSA private key ..++++++ ..............++++++ writing new private key to &#39;/usr/local/etc/ssl/private/dovecot.pem&#39;&lt;/p&gt;","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/?p=1821","headline":"popサーバ、dovecot2のインストール","dateModified":"2012-03-02T01:00:00+09:00","datePublished":"2012-03-02T01:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/?p=1821"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">popサーバ、dovecot2のインストール</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-03-02T01:00:00+09:00" itemprop="datePublished">Mar 2, 2012
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="section">
+  <p>
+    <span style="font-weight:bold;" class="deco">popサーバを構築する。</span>
+  </p>
+  
+  <p>
+    LAN内にゆるーく作るので、とにかく手軽に。
+  </p>
+  
+  <p>
+    手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネットワーク内をパスワードが平文で流れるのは勘弁。
+  </p>
+  
+  <p>
+    わざわざMaildirにする必要もなく、mbox形式で結構。
+  </p>
+  
+  <p>
+    FreeBSD handbook 29.2.4.1章を眺めて、dovecot2を選んだ。
+  </p>
+  
+  <p>
+    <a href="http://en.wikipedia.org/wiki/Dovecot_%28software%29" target="_blank">http://en.wikipedia.org/wiki/Dovecot_%28software%29</a>
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;" class="deco">インストールと設定</span>
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    インストールはportsで、mail/dovecot2から。設定はそのままで。
+  </p>
+  
+  <p>
+    後述するが、make cleanしないこと!
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    設定ファイルは下記だが。
+  </p>
+  
+  <pre>
+/usr/local/etc/dovecot
+</pre>
+  
+  <p>
+    READMEがポツリ。
+  </p>
+  
+  <pre>
+Configuration files go to this directory. See example configuration files in
+/usr/local/share/doc/dovecot/example-config/
+</pre>
+  
+  <p>
+    ということでまるごとコピー。
+  </p>
+  
+  <pre>
+# cd /usr/local/share/doc/dovecot/example-config/
+# cp ./dovecot.conf /usr/local/etc/dovecot/
+# cp -R ./conf.d /usr/local/etc/dovecot/
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    設定ファイルの書き換え。
+  </p>
+  
+  <p>
+    受け付けるプロトコルの設定。dovecot.confにて。
+  </p>
+  
+  <p>
+    pop3だけにした。
+  </p>
+  
+  <pre>
+# Protocols we want to be serving.
+#protocols = imap pop3 lmtp
+protocols = pop3
+</pre>
+  
+  <p>
+    メールボックスの場所
+  </p>
+  
+  <p>
+    <a href="http://wiki2.dovecot.org/MailLocation" target="_blank">http://wiki2.dovecot.org/MailLocation</a> のTypical settingsに沿う。
+  </p>
+  
+  <p>
+    mboxで結構。
+  </p>
+  
+  <pre>
+vi conf.d/10-mail.conf
+以下を追加
+#mail_location =
+mail_location = mbox:~/mail:INBOX=/var/mail/%u
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    SSL設定
+  </p>
+  
+  <p>
+    LAN内なので、オレオレ証明書で十分。
+  </p>
+  
+  <p>
+    <a href="http://wiki2.dovecot.org/SSL/DovecotConfiguration" target="_blank">http://wiki2.dovecot.org/SSL/DovecotConfiguration</a>
+  </p>
+  
+  <p>
+    <a href="http://wiki2.dovecot.org/SSL/CertificateCreation" target="_blank">http://wiki2.dovecot.org/SSL/CertificateCreation</a>
+  </p>
+  
+  <p>
+    上記を読むと、dovecot2にはオレオレ証明書を作ってくれるスクリプト、mkcert.shがついてくるそうな。
+  </p>
+  
+  <p>
+    これは便利。
+  </p>
+  
+  <p>
+    しかしこのスクリプトはインストールされない。make cleanしてはいけないというのはそのため。もちろん、あとからでも取り出せるけど。
+  </p>
+  
+  <p>
+    ただ、デフォルトでは/etc/sslの下に証明書を書き込むようだ。
+  </p>
+  
+  <p>
+    FreeBSDを使っているんだし、/usr/local/etc/sslの下にしたい。
+  </p>
+  
+  <p>
+    では設定と作成。
+  </p>
+  
+  <pre>
+conf.d/10-ssl.confにて。
+# PEM encoded X.509 SSL/TLS certificate and private key. They&#39;re opened before
+# dropping root privileges, so keep the key file unreadable by anyone but
+# root. Included doc/mkcert.sh can be used to easily generate self-signed
+# certificate, just make sure to update the domains in dovecot-openssl.cnf
+#ssl_cert = &#60;/etc/ssl/certs/dovecot.pem
+#ssl_key = &#60;/etc/ssl/private/dovecot.pem
+ssl_cert = &#60;/usr/local/etc/ssl/certs/dovecot.pem
+ssl_key = &#60;/usr/local/etc/ssl/private/dovecot.pem
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    pem作成。
+  </p>
+  
+  <p>
+    再び、<a href="http://wiki2.dovecot.org/SSL/CertificateCreation" target="_blank">http://wiki2.dovecot.org/SSL/CertificateCreation</a>
+  </p>
+  
+  <p>
+    Self-signed certificate creation
+  </p>
+  
+  <p>
+    Dovecot includes a script to build self-signed SSL certificates using OpenSSL. In the source distribution this exists in doc/mkcert.sh. Binary installations usually create the certificate automatically when installing Dovecot and don&#8217;t include the script.
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    繰り返しになるが、doc/mkcert.shはインストールされない。
+  </p>
+  
+  <p>
+    portsでdovecot2を作ったところに戻る。
+  </p>
+  
+  <p>
+    make cleanしてしまった場合、portmaster等でインストールした場合には、慌てず/usr/ports/mail/dovecot2/で「make extract」すればOK。そして、
+  </p>
+  
+  <pre>
+$ cd /usr/ports/mail/dovecot2/work/dovecot-2.0.16/doc/
+</pre>
+  
+  <p>
+    ここでスクリプトを実行してもよいし、どこかにコピーしてもよい。
+  </p>
+  
+  <p>
+    俺様は、なんだか別のことにも使えそうなので、ホームディレクトリにコピーしておいた。スクリプトはdovecot-openssl.cnfを参照するのでこれもコピー。
+  </p>
+  
+  <pre>
+$ cp ./mkcert.sh ~/bin/
+$ cp ./dovecot-openssl.cnf ~/bin/
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    準備をして実行。以下はsh、あるいはbashでの例。
+  </p>
+  
+  <pre>
+# mkdir /usr/local/etc/ssl<br />
+# mkdir /usr/local/etc/ssl/private<br />
+# mkdir /usr/local/etc/ssl/certs<br />
+# SSLDIR=/usr/local/etc/ssl sh ./mkcert.sh<br />
+Generating a 1024 bit RSA private key<br />
+..++++++<br />
+..............++++++<br />
+writing new private key to &#39;/usr/local/etc/ssl/private/dovecot.pem&#39;&lt;/p&gt;
+</pre></div>
+
+  </div><a class="u-url" href="/?p=1821" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

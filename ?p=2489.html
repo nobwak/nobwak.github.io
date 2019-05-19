@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>EasyBotterをFreeBSDで動かす | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="EasyBotterをFreeBSDで動かす" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content=" " />
+<meta property="og:description" content=" " />
+<link rel="canonical" href="https://nobwak.github.io/?p=2489" />
+<meta property="og:url" content="https://nobwak.github.io/?p=2489" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-01-13T20:19:01+09:00" />
+<script type="application/ld+json">
+{"description":" ","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/?p=2489","headline":"EasyBotterをFreeBSDで動かす","dateModified":"2014-01-13T20:19:01+09:00","datePublished":"2014-01-13T20:19:01+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/?p=2489"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">EasyBotterをFreeBSDで動かす</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-01-13T20:19:01+09:00" itemprop="datePublished">Jan 13, 2014
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p> </p>
+
+<p>EasyBotterとはTwitter Botツールで、<a href="http://d.hatena.ne.jp/pha/" target="_blank">pha氏</a>の手になるもの。<br />
+phpで作られている。</p>
+
+<p>設定は以下に沿うとして、このツールをFreeBSDで動かすために必要な事を記す。<br />
+<a href="http://pha22.net/twitterbot/" target="_blank">http://pha22.net/twitterbot/</a><br />
+<a href="http://www26.atwiki.jp/easybotter_wiki/pages/1.html" target="_blank">http://www26.atwiki.jp/easybotter_wiki/pages/1.html</a></p>
+
+<p>FreeBSD 10.0-RC1, pkgngで実施。</p>
+
+<h2 id="easybotterの展開"><span style="text-decoration: underline;">EasyBotterの展開</span></h2>
+
+<p>ダウンロードしたEasyBotterを展開する。<br />
+どこでもよい。</p>
+
+<pre class="lang:default decode:true">$ ls
+EasyBotter.php          bot.php                 license.txt
+PEAR                    data.txt                log.dat
+RCS                     path.txt                 reply_pattern.php
+__MACOSX                index.html              setting.php</pre>
+
+<p>設定は冒頭のリンクに沿ってどうぞ。</p>
+
+<h2 id="phpのインストール"><span style="text-decoration: underline;">phpのインストール</span></h2>
+
+<p>最低限必要なものは以下の三つ。2013/12/16現在。<br />
+php5-5.4.21                    PHP Scripting Language<br />
+php5-hash-5.4.21               The hash shared extension for php<br />
+php5-json-5.4.21               The json shared extension for php</p>
+
+<p>botの喋る内容はUTF-8で書くので、vimも入れておくとよいかも。</p>
+
+<h2 id="テスト"><span style="text-decoration: underline;">テスト</span></h2>
+
+<p>bot.phpを実行する。<br />
+以下のようになれば成功。</p>
+
+<pre class="lang:default decode:true">$ php ./bot.php
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-language" content="ja" /&gt;
+&lt;meta http-equiv="content-type" content="text/html; charset=UTF-8" /&gt;
+&lt;title&gt;EasyBotter&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;pre&gt;Twitterへの投稿に成功しました。
+&lt;br /&gt;@&lt;a href='http://twitter.com/samplebot' target='_blank'&gt;samplebot&lt;/a&gt;に投稿したメッセージ：....</pre>
+
+<p> </p>
+
+<h2 id="cronに設定"><span style="text-decoration: underline;">cronに設定</span></h2>
+
+<p>以下のようなどうってことないシェルスクリプトを作って;</p>
+
+<pre class="lang:default decode:true">#!/bin/sh
+
+cd /home/nobody/files/EasyBotter/
+/usr/local/bin/php ./bot.php</pre>
+
+<p>crontabに設定。</p>
+
+<pre class="lang:default decode:true">$ crontab -l
+10 * * * * /home/nobody/bin/bot.sh</pre>
+
+<p>以上</p>
+
+<p> </p>
+
+<p> </p>
+
+  </div><a class="u-url" href="/?p=2489" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

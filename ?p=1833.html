@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>宅鯖FreeBSDを節電しよう | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="宅鯖FreeBSDを節電しよう" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="はいはいはいドーモそういうわけでですね、自宅鯖の節電をやっていきたいわけですけれども。 9.0-RELEASEのIntelで実施しましたので共有。 AMDでも9.xならなんとかできそう。 しかし8.xかつAMD CPUの方は解散で。 ただ、MLなどをつらつら見ていると、以下の設定を行っても効果がでないケースもあるようなので各自調整のこと。（例: C2よりC3の方がなぜかCPU温度が上がるとか） やること。 やることをさっさと書く。 CPU throttlingを無効に。 /boot/loader.confで指定。 具体的にはp4tccを無効に。sysctlで調べて複数あればすべてつぶすこと。 以下の例では二つ。 $ sysctl -a|grep &#34;p4tcc&#34; dev.p4tcc.0.%desc: CPU Frequency Thermal Control dev.p4tcc.0.%driver: p4tcc dev.p4tcc.0.%parent: cpu0 dev.p4tcc.0.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1 dev.p4tcc.1.%desc: CPU Frequency Thermal Control dev.p4tcc.1.%driver: p4tcc dev.p4tcc.1.%parent: cpu1 dev.p4tcc.1.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1 以下のように。 /boot/loader.conf: hint.p4tcc.0.disabled=1 hint.acpi_throttle.0.disabled=1 hint.p4tcc.1.disabled=1 hint.acpi_throttle.1.disabled=1 C-states設定 /etc/rc.confに設定を加え、C3まで落ちるようにする。 RELEASE、CPUに応じて/boot/loader.confに追加の設定を加える。 9.x, intelの場合 /etc/rc.conf: performance_cx_lowest=&#34;C3&#34; economy_cx_lowest=&#34;C3&#34; 8.x, intelの場合 /etc/rc.conf: performance_cx_lowest=&#34;C3&#34; economy_cx_lowest=&#34;C3&#34; /boot/loader.conf: hint.apic.0.clock=0 kern.hz=100 hint.atrtc.0.clock=0 9.x、AMDの場合 /etc/rc.conf: performance_cx_lowest=&#34;C3&#34; economy_cx_lowest=&#34;C3&#34; /boot/loader.conf: hint.apic.0.clock=0 再起動。 sysctlで確認 p4tccが表示されない。 $ sysctl -a|grep p4tcc $ C3が有効になっていて、再起動直後ということもあるけど、システムがほとんどC3ステートにいることが分かる。 $ sysctl -a|grep cx hw.acpi.cpu.cx_lowest: C3 dev.cpu.0.cx_supported: C1/1 C2/1 C3/57 dev.cpu.0.cx_lowest: C3 dev.cpu.0.cx_usage: 0.00% 0.06% 99.93% last 432us dev.cpu.1.cx_supported: C1/1 C2/1 C3/57 dev.cpu.1.cx_lowest: C3 dev.cpu.1.cx_usage: 0.00% 0.10% 99.89% last 907us 上記設定の意味 ではその意味などを。 1: CPU throttlingの停止について powerdはCPUの周波数変更(CPU throttling)とEISTの組み合わせ。 周波数変更は単純に周波数だけ変更する。 EISTは周波数と電圧を変更する。 前者の周波数変更は、どうも周波数を実際に「落とす」わけではなく、周波数はそのままに「動作をするのはクロック8回に1度な」というように単に動作タイミングを間引いているだけらしい。 したがって、発熱を抑える効果はあっても（CPU Frequency Thermal Control）、電力消費を抑える効果は薄い。 効果のない選択肢があっても無駄なだけなのでバッサリ切る。 2: C-statesの設定 C-statesは以下の通り。 下に行けば行くほど節電できる。システムは低負荷時にあらかじめ設定されたC-states（C状態）まで動作を落とす。 デフォルトはC1。C2, C3まで落とすようにするには/etc/rc.confで指定する。 C1: CPUコアの一部のクロックを停止する。 C2: CPUコアのクロックを停止する。 C3: CPUの内部クロック停止、電圧を下げ、システムバスから切り離す。 2-1: AMDの制限 AMDの場合、詳細なC StatesはOSに対して隠蔽される。代わりにC1Eというstateがある。 OSからはマシンがC2にいようが、C3にいようが、C1Eとしてしか分からない。 後述するようにC3ではタイマーに関しての考慮が必要になるのだが、OSから見えないのではどうにもできない。したがってAMDとRELEASEの組み合わせにより、具体的には8.xとAMD CPUではC1Eへの移行が抑止される。 2-2: OS, RELEASEの組み合わせごとのC3の設定 節電の観点ではC3が一番良いが、この状態だとAPICタイマーも機能しなくなる。 APICタイマーが止まるとスケジューリングが出来ず、復帰もできなくなる。 したがって、APIC以外のタイマーを使う必要がある。 RELEASE、CPUにより回避策に違いが生まれる。 8.x intelにおいては、APICを使うこと自体を止めれば別タイマ（i8254, RTC）を使ってくれる。 ただ、C3からの復帰に時間がかかってしまうので（といってもusのレベル）、/boot/loader.confで調整を行う。 9.x intelにおいては、eventtimersという適切なタイマを選んでくれる仕組みがあるので特に考慮不要。 8.x amdにおいては、 OSから分からないところでC3に遷移してAPICタイマを止められてはかなわないので、OSレベルでC1E機能が抑止される。 つまりC-statesによる節電は無理。これが解散の理由。 9.x amdにおいては、 APICタイマが有効なときのみC1E機能が抑止される。 だからAPICタイマを無効にすればOK。 参考 CPU throttling http://en.wikipedia.org/wiki/Dynamic_frequency_scaling C-States http://okwave.jp/qa/q4539201.html EIST http://ja.wikipedia.org/wiki/Intel_SpeedStep_%E3%83%86%E3%82%AF%E3%83%8E%E3%83%AD%E3%82%B8" />
+<meta property="og:description" content="はいはいはいドーモそういうわけでですね、自宅鯖の節電をやっていきたいわけですけれども。 9.0-RELEASEのIntelで実施しましたので共有。 AMDでも9.xならなんとかできそう。 しかし8.xかつAMD CPUの方は解散で。 ただ、MLなどをつらつら見ていると、以下の設定を行っても効果がでないケースもあるようなので各自調整のこと。（例: C2よりC3の方がなぜかCPU温度が上がるとか） やること。 やることをさっさと書く。 CPU throttlingを無効に。 /boot/loader.confで指定。 具体的にはp4tccを無効に。sysctlで調べて複数あればすべてつぶすこと。 以下の例では二つ。 $ sysctl -a|grep &#34;p4tcc&#34; dev.p4tcc.0.%desc: CPU Frequency Thermal Control dev.p4tcc.0.%driver: p4tcc dev.p4tcc.0.%parent: cpu0 dev.p4tcc.0.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1 dev.p4tcc.1.%desc: CPU Frequency Thermal Control dev.p4tcc.1.%driver: p4tcc dev.p4tcc.1.%parent: cpu1 dev.p4tcc.1.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1 以下のように。 /boot/loader.conf: hint.p4tcc.0.disabled=1 hint.acpi_throttle.0.disabled=1 hint.p4tcc.1.disabled=1 hint.acpi_throttle.1.disabled=1 C-states設定 /etc/rc.confに設定を加え、C3まで落ちるようにする。 RELEASE、CPUに応じて/boot/loader.confに追加の設定を加える。 9.x, intelの場合 /etc/rc.conf: performance_cx_lowest=&#34;C3&#34; economy_cx_lowest=&#34;C3&#34; 8.x, intelの場合 /etc/rc.conf: performance_cx_lowest=&#34;C3&#34; economy_cx_lowest=&#34;C3&#34; /boot/loader.conf: hint.apic.0.clock=0 kern.hz=100 hint.atrtc.0.clock=0 9.x、AMDの場合 /etc/rc.conf: performance_cx_lowest=&#34;C3&#34; economy_cx_lowest=&#34;C3&#34; /boot/loader.conf: hint.apic.0.clock=0 再起動。 sysctlで確認 p4tccが表示されない。 $ sysctl -a|grep p4tcc $ C3が有効になっていて、再起動直後ということもあるけど、システムがほとんどC3ステートにいることが分かる。 $ sysctl -a|grep cx hw.acpi.cpu.cx_lowest: C3 dev.cpu.0.cx_supported: C1/1 C2/1 C3/57 dev.cpu.0.cx_lowest: C3 dev.cpu.0.cx_usage: 0.00% 0.06% 99.93% last 432us dev.cpu.1.cx_supported: C1/1 C2/1 C3/57 dev.cpu.1.cx_lowest: C3 dev.cpu.1.cx_usage: 0.00% 0.10% 99.89% last 907us 上記設定の意味 ではその意味などを。 1: CPU throttlingの停止について powerdはCPUの周波数変更(CPU throttling)とEISTの組み合わせ。 周波数変更は単純に周波数だけ変更する。 EISTは周波数と電圧を変更する。 前者の周波数変更は、どうも周波数を実際に「落とす」わけではなく、周波数はそのままに「動作をするのはクロック8回に1度な」というように単に動作タイミングを間引いているだけらしい。 したがって、発熱を抑える効果はあっても（CPU Frequency Thermal Control）、電力消費を抑える効果は薄い。 効果のない選択肢があっても無駄なだけなのでバッサリ切る。 2: C-statesの設定 C-statesは以下の通り。 下に行けば行くほど節電できる。システムは低負荷時にあらかじめ設定されたC-states（C状態）まで動作を落とす。 デフォルトはC1。C2, C3まで落とすようにするには/etc/rc.confで指定する。 C1: CPUコアの一部のクロックを停止する。 C2: CPUコアのクロックを停止する。 C3: CPUの内部クロック停止、電圧を下げ、システムバスから切り離す。 2-1: AMDの制限 AMDの場合、詳細なC StatesはOSに対して隠蔽される。代わりにC1Eというstateがある。 OSからはマシンがC2にいようが、C3にいようが、C1Eとしてしか分からない。 後述するようにC3ではタイマーに関しての考慮が必要になるのだが、OSから見えないのではどうにもできない。したがってAMDとRELEASEの組み合わせにより、具体的には8.xとAMD CPUではC1Eへの移行が抑止される。 2-2: OS, RELEASEの組み合わせごとのC3の設定 節電の観点ではC3が一番良いが、この状態だとAPICタイマーも機能しなくなる。 APICタイマーが止まるとスケジューリングが出来ず、復帰もできなくなる。 したがって、APIC以外のタイマーを使う必要がある。 RELEASE、CPUにより回避策に違いが生まれる。 8.x intelにおいては、APICを使うこと自体を止めれば別タイマ（i8254, RTC）を使ってくれる。 ただ、C3からの復帰に時間がかかってしまうので（といってもusのレベル）、/boot/loader.confで調整を行う。 9.x intelにおいては、eventtimersという適切なタイマを選んでくれる仕組みがあるので特に考慮不要。 8.x amdにおいては、 OSから分からないところでC3に遷移してAPICタイマを止められてはかなわないので、OSレベルでC1E機能が抑止される。 つまりC-statesによる節電は無理。これが解散の理由。 9.x amdにおいては、 APICタイマが有効なときのみC1E機能が抑止される。 だからAPICタイマを無効にすればOK。 参考 CPU throttling http://en.wikipedia.org/wiki/Dynamic_frequency_scaling C-States http://okwave.jp/qa/q4539201.html EIST http://ja.wikipedia.org/wiki/Intel_SpeedStep_%E3%83%86%E3%82%AF%E3%83%8E%E3%83%AD%E3%82%B8" />
+<link rel="canonical" href="https://nobwak.github.io/?p=1833" />
+<meta property="og:url" content="https://nobwak.github.io/?p=1833" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-03-22T01:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"はいはいはいドーモそういうわけでですね、自宅鯖の節電をやっていきたいわけですけれども。 9.0-RELEASEのIntelで実施しましたので共有。 AMDでも9.xならなんとかできそう。 しかし8.xかつAMD CPUの方は解散で。 ただ、MLなどをつらつら見ていると、以下の設定を行っても効果がでないケースもあるようなので各自調整のこと。（例: C2よりC3の方がなぜかCPU温度が上がるとか） やること。 やることをさっさと書く。 CPU throttlingを無効に。 /boot/loader.confで指定。 具体的にはp4tccを無効に。sysctlで調べて複数あればすべてつぶすこと。 以下の例では二つ。 $ sysctl -a|grep &#34;p4tcc&#34; dev.p4tcc.0.%desc: CPU Frequency Thermal Control dev.p4tcc.0.%driver: p4tcc dev.p4tcc.0.%parent: cpu0 dev.p4tcc.0.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1 dev.p4tcc.1.%desc: CPU Frequency Thermal Control dev.p4tcc.1.%driver: p4tcc dev.p4tcc.1.%parent: cpu1 dev.p4tcc.1.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1 以下のように。 /boot/loader.conf: hint.p4tcc.0.disabled=1 hint.acpi_throttle.0.disabled=1 hint.p4tcc.1.disabled=1 hint.acpi_throttle.1.disabled=1 C-states設定 /etc/rc.confに設定を加え、C3まで落ちるようにする。 RELEASE、CPUに応じて/boot/loader.confに追加の設定を加える。 9.x, intelの場合 /etc/rc.conf: performance_cx_lowest=&#34;C3&#34; economy_cx_lowest=&#34;C3&#34; 8.x, intelの場合 /etc/rc.conf: performance_cx_lowest=&#34;C3&#34; economy_cx_lowest=&#34;C3&#34; /boot/loader.conf: hint.apic.0.clock=0 kern.hz=100 hint.atrtc.0.clock=0 9.x、AMDの場合 /etc/rc.conf: performance_cx_lowest=&#34;C3&#34; economy_cx_lowest=&#34;C3&#34; /boot/loader.conf: hint.apic.0.clock=0 再起動。 sysctlで確認 p4tccが表示されない。 $ sysctl -a|grep p4tcc $ C3が有効になっていて、再起動直後ということもあるけど、システムがほとんどC3ステートにいることが分かる。 $ sysctl -a|grep cx hw.acpi.cpu.cx_lowest: C3 dev.cpu.0.cx_supported: C1/1 C2/1 C3/57 dev.cpu.0.cx_lowest: C3 dev.cpu.0.cx_usage: 0.00% 0.06% 99.93% last 432us dev.cpu.1.cx_supported: C1/1 C2/1 C3/57 dev.cpu.1.cx_lowest: C3 dev.cpu.1.cx_usage: 0.00% 0.10% 99.89% last 907us 上記設定の意味 ではその意味などを。 1: CPU throttlingの停止について powerdはCPUの周波数変更(CPU throttling)とEISTの組み合わせ。 周波数変更は単純に周波数だけ変更する。 EISTは周波数と電圧を変更する。 前者の周波数変更は、どうも周波数を実際に「落とす」わけではなく、周波数はそのままに「動作をするのはクロック8回に1度な」というように単に動作タイミングを間引いているだけらしい。 したがって、発熱を抑える効果はあっても（CPU Frequency Thermal Control）、電力消費を抑える効果は薄い。 効果のない選択肢があっても無駄なだけなのでバッサリ切る。 2: C-statesの設定 C-statesは以下の通り。 下に行けば行くほど節電できる。システムは低負荷時にあらかじめ設定されたC-states（C状態）まで動作を落とす。 デフォルトはC1。C2, C3まで落とすようにするには/etc/rc.confで指定する。 C1: CPUコアの一部のクロックを停止する。 C2: CPUコアのクロックを停止する。 C3: CPUの内部クロック停止、電圧を下げ、システムバスから切り離す。 2-1: AMDの制限 AMDの場合、詳細なC StatesはOSに対して隠蔽される。代わりにC1Eというstateがある。 OSからはマシンがC2にいようが、C3にいようが、C1Eとしてしか分からない。 後述するようにC3ではタイマーに関しての考慮が必要になるのだが、OSから見えないのではどうにもできない。したがってAMDとRELEASEの組み合わせにより、具体的には8.xとAMD CPUではC1Eへの移行が抑止される。 2-2: OS, RELEASEの組み合わせごとのC3の設定 節電の観点ではC3が一番良いが、この状態だとAPICタイマーも機能しなくなる。 APICタイマーが止まるとスケジューリングが出来ず、復帰もできなくなる。 したがって、APIC以外のタイマーを使う必要がある。 RELEASE、CPUにより回避策に違いが生まれる。 8.x intelにおいては、APICを使うこと自体を止めれば別タイマ（i8254, RTC）を使ってくれる。 ただ、C3からの復帰に時間がかかってしまうので（といってもusのレベル）、/boot/loader.confで調整を行う。 9.x intelにおいては、eventtimersという適切なタイマを選んでくれる仕組みがあるので特に考慮不要。 8.x amdにおいては、 OSから分からないところでC3に遷移してAPICタイマを止められてはかなわないので、OSレベルでC1E機能が抑止される。 つまりC-statesによる節電は無理。これが解散の理由。 9.x amdにおいては、 APICタイマが有効なときのみC1E機能が抑止される。 だからAPICタイマを無効にすればOK。 参考 CPU throttling http://en.wikipedia.org/wiki/Dynamic_frequency_scaling C-States http://okwave.jp/qa/q4539201.html EIST http://ja.wikipedia.org/wiki/Intel_SpeedStep_%E3%83%86%E3%82%AF%E3%83%8E%E3%83%AD%E3%82%B8","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/?p=1833","headline":"宅鯖FreeBSDを節電しよう","dateModified":"2012-03-22T01:00:00+09:00","datePublished":"2012-03-22T01:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/?p=1833"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">宅鯖FreeBSDを節電しよう</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-03-22T01:00:00+09:00" itemprop="datePublished">Mar 22, 2012
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="section">
+  <p>
+    はいはいはいドーモそういうわけでですね、自宅鯖の節電をやっていきたいわけですけれども。
+  </p>
+  
+  <p>
+    9.0-RELEASEのIntelで実施しましたので共有。
+  </p>
+  
+  <p>
+    AMDでも9.xならなんとかできそう。
+  </p>
+  
+  <p>
+    しかし8.xかつAMD CPUの方は解散で。
+  </p>
+  
+  <p>
+    ただ、MLなどをつらつら見ていると、以下の設定を行っても効果がでないケースもあるようなので各自調整のこと。（例: C2よりC3の方がなぜかCPU温度が上がるとか）
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;" class="deco">やること。</span>
+  </p>
+  
+  <p>
+    やることをさっさと書く。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;" class="deco">CPU throttlingを無効に。</span>
+  </p>
+  
+  <p>
+    /boot/loader.confで指定。
+  </p>
+  
+  <p>
+    具体的にはp4tccを無効に。sysctlで調べて複数あればすべてつぶすこと。
+  </p>
+  
+  <p>
+    以下の例では二つ。
+  </p>
+  
+  <pre>
+$ sysctl -a|grep &#34;p4tcc&#34;
+dev.p4tcc.0.%desc: CPU Frequency Thermal Control
+dev.p4tcc.0.%driver: p4tcc
+dev.p4tcc.0.%parent: cpu0
+dev.p4tcc.0.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1
+dev.p4tcc.1.%desc: CPU Frequency Thermal Control
+dev.p4tcc.1.%driver: p4tcc
+dev.p4tcc.1.%parent: cpu1
+dev.p4tcc.1.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    以下のように。
+  </p>
+  
+  <pre>
+/boot/loader.conf:
+hint.p4tcc.0.disabled=1
+hint.acpi_throttle.0.disabled=1
+hint.p4tcc.1.disabled=1
+hint.acpi_throttle.1.disabled=1
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;" class="deco">C-states設定</span>
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    /etc/rc.confに設定を加え、C3まで落ちるようにする。
+  </p>
+  
+  <p>
+    RELEASE、CPUに応じて/boot/loader.confに追加の設定を加える。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    9.x, intelの場合
+  </p>
+  
+  <pre>
+/etc/rc.conf:
+performance_cx_lowest=&#34;C3&#34;
+economy_cx_lowest=&#34;C3&#34;
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    8.x, intelの場合
+  </p>
+  
+  <pre>
+/etc/rc.conf:
+performance_cx_lowest=&#34;C3&#34;
+economy_cx_lowest=&#34;C3&#34;
+/boot/loader.conf:
+hint.apic.0.clock=0
+kern.hz=100
+hint.atrtc.0.clock=0
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    9.x、AMDの場合
+  </p>
+  
+  <pre>
+/etc/rc.conf:
+performance_cx_lowest=&#34;C3&#34;
+economy_cx_lowest=&#34;C3&#34;
+/boot/loader.conf:
+hint.apic.0.clock=0
+</pre>
+  
+  <p>
+    再起動。
+  </p>
+  
+  <p>
+    sysctlで確認
+  </p>
+  
+  <p>
+    p4tccが表示されない。
+  </p>
+  
+  <pre>
+$ sysctl -a|grep p4tcc
+$
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    C3が有効になっていて、再起動直後ということもあるけど、システムがほとんどC3ステートにいることが分かる。
+  </p>
+  
+  <pre>
+$ sysctl -a|grep cx
+hw.acpi.cpu.cx_lowest: C3
+dev.cpu.0.cx_supported: C1/1 C2/1 C3/57
+dev.cpu.0.cx_lowest: C3
+dev.cpu.0.cx_usage: 0.00% 0.06% 99.93% last 432us
+dev.cpu.1.cx_supported: C1/1 C2/1 C3/57
+dev.cpu.1.cx_lowest: C3
+dev.cpu.1.cx_usage: 0.00% 0.10% 99.89% last 907us
+</pre>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;" class="deco">上記設定の意味</span>
+  </p>
+  
+  <p>
+    ではその意味などを。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;" class="deco">1: CPU throttlingの停止について</span>
+  </p>
+  
+  <p>
+    powerdはCPUの周波数変更(CPU throttling)とEISTの組み合わせ。
+  </p>
+  
+  <p>
+    周波数変更は単純に周波数だけ変更する。
+  </p>
+  
+  <p>
+    EISTは周波数と電圧を変更する。
+  </p>
+  
+  <p>
+    前者の周波数変更は、どうも周波数を実際に「落とす」わけではなく、周波数はそのままに「動作をするのはクロック8回に1度な」というように単に動作タイミングを間引いているだけらしい。
+  </p>
+  
+  <p>
+    したがって、発熱を抑える効果はあっても（CPU Frequency Thermal Control）、電力消費を抑える効果は薄い。
+  </p>
+  
+  <p>
+    効果のない選択肢があっても無駄なだけなのでバッサリ切る。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;" class="deco">2: C-statesの設定</span>
+  </p>
+  
+  <p>
+    C-statesは以下の通り。
+  </p>
+  
+  <p>
+    下に行けば行くほど節電できる。システムは低負荷時にあらかじめ設定されたC-states（C状態）まで動作を落とす。
+  </p>
+  
+  <p>
+    デフォルトはC1。C2, C3まで落とすようにするには/etc/rc.confで指定する。
+  </p>
+  
+  <p>
+  </p>
+  
+  <blockquote>
+    <p>
+      C1: CPUコアの一部のクロックを停止する。
+    </p>
+    
+    <p>
+      C2: CPUコアのクロックを停止する。
+    </p>
+    
+    <p>
+      C3: CPUの内部クロック停止、電圧を下げ、システムバスから切り離す。
+    </p>
+  </blockquote>
+  
+  <p>
+    <span style="font-weight:bold;" class="deco">2-1: AMDの制限</span>
+  </p>
+  
+  <p>
+    AMDの場合、詳細なC StatesはOSに対して隠蔽される。代わりにC1Eというstateがある。
+  </p>
+  
+  <p>
+    OSからはマシンがC2にいようが、C3にいようが、C1Eとしてしか分からない。
+  </p>
+  
+  <p>
+    後述するようにC3ではタイマーに関しての考慮が必要になるのだが、OSから見えないのではどうにもできない。したがってAMDとRELEASEの組み合わせにより、具体的には8.xとAMD CPUではC1Eへの移行が抑止される。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;" class="deco">2-2: OS, RELEASEの組み合わせごとのC3の設定</span>
+  </p>
+  
+  <p>
+    節電の観点ではC3が一番良いが、この状態だとAPICタイマーも機能しなくなる。
+  </p>
+  
+  <p>
+    APICタイマーが止まるとスケジューリングが出来ず、復帰もできなくなる。
+  </p>
+  
+  <p>
+    したがって、APIC以外のタイマーを使う必要がある。
+  </p>
+  
+  <p>
+    RELEASE、CPUにより回避策に違いが生まれる。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    8.x intelにおいては、APICを使うこと自体を止めれば別タイマ（i8254, RTC）を使ってくれる。
+  </p>
+  
+  <p>
+    ただ、C3からの復帰に時間がかかってしまうので（といってもusのレベル）、/boot/loader.confで調整を行う。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    9.x intelにおいては、eventtimersという適切なタイマを選んでくれる仕組みがあるので特に考慮不要。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    8.x amdにおいては、
+  </p>
+  
+  <p>
+    OSから分からないところでC3に遷移してAPICタイマを止められてはかなわないので、OSレベルでC1E機能が抑止される。
+  </p>
+  
+  <p>
+    つまりC-statesによる節電は無理。これが解散の理由。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    9.x amdにおいては、
+  </p>
+  
+  <p>
+    APICタイマが有効なときのみC1E機能が抑止される。
+  </p>
+  
+  <p>
+    だからAPICタイマを無効にすればOK。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    <span style="font-weight:bold;" class="deco">参考</span>
+  </p>
+  
+  <p>
+    CPU throttling
+  </p>
+  
+  <p>
+    <a href="http://en.wikipedia.org/wiki/Dynamic_frequency_scaling" target="_blank">http://en.wikipedia.org/wiki/Dynamic_frequency_scaling</a>
+  </p>
+  
+  <p>
+    C-States
+  </p>
+  
+  <p>
+    <a href="http://okwave.jp/qa/q4539201.html" target="_blank">http://okwave.jp/qa/q4539201.html</a>
+  </p>
+  
+  <p>
+    EIST
+  </p>
+  
+  <p>
+    <a href="http://ja.wikipedia.org/wiki/Intel_SpeedStep_%E3%83%86%E3%82%AF%E3%83%8E%E3%83%AD%E3%82%B8" target="_blank">http://ja.wikipedia.org/wiki/Intel_SpeedStep_%E3%83%86%E3%82%AF%E3%83%8E%E3%83%AD%E3%82%B8</a>
+  </p>
+</div>
+
+  </div><a class="u-url" href="/?p=1833" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

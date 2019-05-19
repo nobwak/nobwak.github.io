@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし） | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に変更された。 さすがに色んなところが改善されていて使いやすくなっているのだが、なぜかSambaに置いてあるファイルが壊れたり、誰も開いていないはずなのに読み取り専用でしか開けない事象が頻発した。 特に共有設定したOfficeドキュメントで顕著。" />
+<meta property="og:description" content="昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に変更された。 さすがに色んなところが改善されていて使いやすくなっているのだが、なぜかSambaに置いてあるファイルが壊れたり、誰も開いていないはずなのに読み取り専用でしか開けない事象が頻発した。 特に共有設定したOfficeドキュメントで顕著。" />
+<link rel="canonical" href="https://nobwak.github.io/?p=2513" />
+<meta property="og:url" content="https://nobwak.github.io/?p=2513" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-01-26T20:19:00+09:00" />
+<script type="application/ld+json">
+{"description":"昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に変更された。 さすがに色んなところが改善されていて使いやすくなっているのだが、なぜかSambaに置いてあるファイルが壊れたり、誰も開いていないはずなのに読み取り専用でしか開けない事象が頻発した。 特に共有設定したOfficeドキュメントで顕著。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/?p=2513","headline":"Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）","dateModified":"2014-01-26T20:19:00+09:00","datePublished":"2014-01-26T20:19:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/?p=2513"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-01-26T20:19:00+09:00" itemprop="datePublished">Jan 26, 2014
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。<br />
+私の仕事PCも過日、ついに7に変更された。<br />
+さすがに色んなところが改善されていて使いやすくなっているのだが、なぜかSambaに置いてあるファイルが壊れたり、誰も開いていないはずなのに読み取り専用でしか開けない事象が頻発した。<br />
+特に共有設定したOfficeドキュメントで顕著。</p>
+
+<p>しばらく悩んでいたのだが、Sambaのログにoplocks failedという記録を見つけて（おそらく）対処方法が分かった。<br />
+以下に示す。<br />
+Sambaのバージョンは3.6.22である。</p>
+
+<h2 id="結論"><span style="text-decoration: underline;">結論</span></h2>
+
+<p>smb.confのglobalセクションに以下を書け。</p>
+
+<pre class="lang:default decode:true">oplocks = No
+blocking locks = No</pre>
+
+<p> </p>
+
+<h2 id="ネタ元"><span style="text-decoration: underline;">ネタ元</span></h2>
+
+<p>ネットを渉猟したところ、やはりOplocksの評判はあまりよくない。</p>
+
+<p>以下のホワイトペーパーが分かりやすかった。<br />
+Oplocksとread cachingが原因と断定している。</p>
+
+<p>Opportunistic Locking and Read Caching on Microsoft Windows Networks<br />
+ <a href=" http://www.dataaccess.com/whitepapers/opportunlockingreadcaching.html" target="_blank">http://www.dataaccess.com/whitepapers/opportunlockingreadcaching.html</a></p>
+
+<p>先に進む前にプロトコルとしてのSMBでいくつか確認を。</p>
+
+<p> </p>
+
+<h2 id="smbプロトコルのバージョンについて"><span style="text-decoration: underline;">SMB（プロトコル）のバージョンについて</span></h2>
+
+<p>Windowsファイル共有で使われるプロトコルSMBは、Vistaでバージョン2, 7でバージョン2.1になった。<br />
+Oplocksとread cachingもバージョン2以降で追加、あるいは強化されている。<br />
+詳細は以下。</p>
+
+<p>SMB の新機能<br />
+ <a href=" http://technet.microsoft.com/ja-jp/library/ff625695.aspx" target="_blank">http://technet.microsoft.com/ja-jp/library/ff625695.aspx</a><br />
+SMB1⇒2⇒2.1への変化と新機能<br />
+ <a href=" http://blog.goo.ne.jp/mito_and_tanu/e/10c47629fbb7e7d3d73cbd54a1a9f28d" target="_blank">http://blog.goo.ne.jp/mito_and_tanu/e/10c47629fbb7e7d3d73cbd54a1a9f28d</a></p>
+
+<h2 id="-oplocksとは"><span style="text-decoration: underline;"><br /> Oplocksとは</span></h2>
+
+<p>ネットワークの効率化を狙う、Windows固有の機能。<br />
+複数のプロセスが同じファイルをロックでき、なおかつクライアントがデータをキャッシュできる。</p>
+
+<p>Chapter 17. File and Record Locking<br />
+ <a href=" http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/locking.html" target="_blank">http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/locking.html</a><br />
+ <a href=" http://www.samba.gr.jp/project/translation/Samba3-HOWTO/locking.html" target="_blank">http://www.samba.gr.jp/project/translation/Samba3-HOWTO/locking.html</a></p>
+
+<h2 id="read-cachingとは"><span style="text-decoration: underline;">Read Cachingとは</span></h2>
+
+<p>Oplocksの一機能。クライアント側でのデータキャッシュ。<br />
+クライアントがローカルでデータをキャッシュする目的は、ネットワーク越しの書き込み回数を減らすこと、ひいてはネットワークの効率化のため。<br />
+ファイルの同じ部分（the same region）に対する書き込みをまとめて、一回で済ませる。</p>
+
+<h2 id="oplocksの危険性"><span style="text-decoration: underline;">Oplocksの危険性</span></h2>
+
+<p>Oplocksが狙い通りに動けば、目的通りネットワークの効率化が図られる。<br />
+問題なのはネットワークに何か問題が起こり、キャッシュが適切にフラッシュされない場合。ともするとファイルの破壊を引き起こす。<br />
+とくにデータベースが危険。<br />
+以下のリンクに詳細が。<br />
+本記事の末尾に私訳を付す。</p>
+
+<p>Locks and Oplocks<br />
+<a href="http://www.samba.org/samba/docs/using_samba/ch08.html" target="_blank">http://www.samba.org/samba/docs/using_samba/ch08.html</a></p>
+
+<h2 id="対策oplocksを無効にしろ"><span style="text-decoration: underline;">対策:Oplocksを無効にしろ</span></h2>
+
+<p>ここまで分かれば、対策は簡単。<br />
+Oplocksを無効にすればよい。<br />
+無効にする方法には、サーバ側での方法、クライアント側での方法がある。<br />
+クライアントと言っても、たいていはWindowsであろうが、Windowsで対処しようとするとレジストリの変更が必要になる。<br />
+さすがにそれは面倒だ。<br />
+そこでサーバ側、Sambaの設定でOplocksを無効にする。</p>
+
+<h2 id="smbconfでoplocksを無効にする"><span style="text-decoration: underline;">smb.confでOplocksを無効にする</span></h2>
+
+<p>oplocks = noとすればよい。<br />
+デフォルト無効にしたければ[global]セクションに、共有ごとに無効にしたければ共有のところに書けばよい。<br />
+smb.confのmanは一見、共有ごとにしか指定できないように見えるかもしれないが[global]にも使える。<br />
+また、oplocksはbooleanなのでnoでもfalseでも、はたまた0でも理解してもらえる。</p>
+
+<p>なお、ファイルごとに有効無効を指定したければveto oplock filesで指定できる。</p>
+
+<p>smb.confのmanより抜粋</p>
+
+<pre class="lang:default decode:true">oplocks (S)
+
+This boolean option tells smbd whether to issue oplocks
+(opportunistic locks) to file open requests on this share.
+（略）
+
+Default: oplocks = yes</pre>
+
+<p>smb.confのmanよりPARAMETERS抜粋</p>
+
+<pre class="lang:default decode:true">PARAMETERS
+（略）
+The letter G in parentheses indicates that a
+parameter is specific to the [global] section. The letter S indicates
+that a parameter can be specified in a service specific section. All S
+parameters can also be specified in the [global] section - in which
+case they will define the default behavior for all services.</pre>
+
+<p> </p>
+
+<h2 id="blocking-locks"><span style="text-decoration: underline;">blocking locks</span></h2>
+
+<p>Sambaはロックの方法を指定できる。<br />
+blocking locksというものである。<br />
+これは、ファイルをロックするときに、特定部分だけをロック（range lock）するか、ファイル全体をロックするか、というものである。<br />
+デフォルトで有効。<br />
+WindowsのRead Cachingに対応してそうな機能である。<br />
+加えてmanを見ると、「range lockに失敗すると、タイムアウトするまで何回かrange lockを再試行する」などと書いてある。<br />
+これも無効にしよう。</p>
+
+<pre class="lang:default decode:true">blocking locks (S)
+
+This parameter controls the behavior of smbd(8) when given a
+request by a client to obtain a byte range lock on a region of an
+open file, and the request has a time limit associated with it.
+
+If this parameter is set and the lock range requested cannot be
+immediately satisfied, samba will internally queue the lock
+request, and periodically attempt to obtain the lock until the
+timeout period expires.
+
+If this parameter is set to no, then samba will behave as previous
+versions of Samba would and will fail the lock request immediately
+if the lock range cannot be obtained.
+
+Default: blocking locks = yes</pre>
+
+<p> </p>
+
+<h2 id="設定例"><span style="text-decoration: underline;">設定例</span></h2>
+
+<p>以上を踏まえて、以下のように設定<br />
+しょぼい英文は勘弁しておくれ。</p>
+
+<pre class="lang:default decode:true">[global]
+(略)
+#
+# Disable oplock
+# It's supposed to improve network performance but causes problems
+#
+# See:
+# Opportunistic Locking and Read Caching on Microsoft Windows Networks
+# http://www.dataaccess.com/whitepapers/opportunlockingreadcaching.html
+#
+oplocks = no
+blocking locks = no</pre>
+
+<p> </p>
+
+<p>再起動しておしまい。</p>
+
+<pre class="lang:default decode:true">$ sudo service samba restart
+Performing sanity check on Samba configuration: OK
+Stopping winbindd.
+Waiting for PIDS: 667.
+Stopping smbd.
+Waiting for PIDS: 664, 664.
+Stopping nmbd.
+Waiting for PIDS: 661.
+Removing stale Samba tdb files: .. done
+Starting nmbd.
+Starting smbd.
+Starting winbindd.</pre>
+
+<p> </p>
+
+<h2 id="参考locks-and-oplocks-私訳"><span style="text-decoration: underline;">（参考）Locks and Oplocks 私訳</span></h2>
+
+<p>http://www.samba.org/samba/docs/using_samba/ch08.html<br />
+Locks and Oplocks</p>
+
+<p>oplocksの使用によって得られるパフォーマンス増は、大変に望ましいことがほとんどだ。<br />
+しかしながら、クライアントやネットワークのハードウェアの信頼性が怪しいような状況では、クライアントにデータをキャッシュさせることは大きなリスクになり得る。<br />
+クライアントが書き込みのためにファイルを開き、oplockを行う場合を考えてみよう。<br />
+そして他のクライアントが同じファイルを開こうとしたとき、”oplock break”要求が最初のクライアントに送られる。<br />
+もしこの要求が何らかの理由により失敗し、二番目のクライアントがファイルの書き込みをしたとする。<br />
+二つのプロセスが同時に書き込みをするわけだから、ファイルは簡単に壊れてしまうだろう。<br />
+残念なことに上記のケースは現実に起こりうる。<br />
+SMBネットワークにおける複数のWindowsクライアント環境では、このようなおかしな動きは頻繁にみられる。<br />
+たくさんのクライアントが同時に書き込みを行うデータベースファイルは特に影響を受けてしまう。</p>
+
+<p>oplocksの失敗するもっと具体的な例を挙げると、それはデータベースファイルが大変に大きい場合である。<br />
+クライアントがこのようなファイルを開き、oplockを許可されると、非常に大きな遅延が発生する。<br />
+その一部を修正するためだけであっても、クライアントがファイル全部をキャッシュするからである。<br />
+このファイルを別のクライアントが開こうとしたとき、状況はさらに悪くなる。<br />
+二番目のクライアントがファイルを開くためには、最初のクライアントがキャッシュをすべてサーバに書き戻す必要があるからだ。<br />
+このために、また別の遅延が発生する（しかも双方のクライアントで）。<br />
+結果として、タイムアウトにより二番目のクライアントがファイルオープンに失敗し、たぶんデータが壊れた旨のWarning messageも併せて表示されるだろう。</p>
+
+<p>In most cases, the extra performance resulting from the use of oplocks is highly desirable. However, allowing the client to cache data can be a big risk if either the client or network hardware are unreliable. Suppose a client opens a file for writing, creating an oplock on it. When another client also tries to open the file, an oplock break request is sent to the first client. If this request goes unfulfilled for any reason and the second client starts writing to the file, the file can be easily corrupted as a result of the two processes writing to it concurrently. Unfortunately, this scenario is very real. Uncoordinated behavior such as this has been observed many times among Windows clients in SMB networks (with files served by Windows NT/2000 or Samba). Typically, the affected files are database files, which multiple clients open concurrently for writing.</p>
+
+<p>A more concrete example of oplock failure occurs when database files are very large. If a client is allowed to oplock this kind of file, there can be a huge delay while the client copies the entire file from the server to cache it, even though it might need to update only one record. The situation goes from bad to worse when another client tries to open the oplocked file. The first client might need to write the entire file back to the server before the second client’s file open request can succeed. This results in another huge delay (for both clients), which in practice often results in a failed open due to a timeout on the second client, perhaps along with a message warning of possible database corruption!</p>
+
+  </div><a class="u-url" href="/?p=2513" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

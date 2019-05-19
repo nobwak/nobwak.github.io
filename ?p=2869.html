@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="自作PythonスクリプトをWindows実行バイナリに変換する場合、pyInstallerはとっても楽ちんなのであるが、問題もある。 実行ファイルがスタートされるまで、とても待たされることだ。" />
+<meta property="og:description" content="自作PythonスクリプトをWindows実行バイナリに変換する場合、pyInstallerはとっても楽ちんなのであるが、問題もある。 実行ファイルがスタートされるまで、とても待たされることだ。" />
+<link rel="canonical" href="https://nobwak.github.io/?p=2869" />
+<meta property="og:url" content="https://nobwak.github.io/?p=2869" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-10-23T22:52:37+09:00" />
+<script type="application/ld+json">
+{"description":"自作PythonスクリプトをWindows実行バイナリに変換する場合、pyInstallerはとっても楽ちんなのであるが、問題もある。 実行ファイルがスタートされるまで、とても待たされることだ。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/?p=2869","headline":"[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件","dateModified":"2014-10-23T22:52:37+09:00","datePublished":"2014-10-23T22:52:37+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/?p=2869"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-10-23T22:52:37+09:00" itemprop="datePublished">Oct 23, 2014
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>自作PythonスクリプトをWindows実行バイナリに変換する場合、pyInstallerはとっても楽ちんなのであるが、問題もある。<br />
+実行ファイルがスタートされるまで、とても待たされることだ。</p>
+
+<p>その遅さに耐えかねてpy2exeを試してみたところ、ビルドまでは面倒なものの、作成した実行ファイルはめっぽう速くて驚いた。<br />
+そういったわけで、py2exeでのWindows実行バイナリ作成方法について記す。</p>
+
+<p>まず最初に、pyInstallerとpy2exeで果たしてどの程度差があるかを示す。</p>
+
+<h2 id="実行速度の違い">実行速度の違い</h2>
+
+<p>UNIX系だと、time; ＜実行ファイル＞ とすると所要時間を計測してくれるが、Windowsだとどのようにするのであろうか。<br />
+よく分からない。<br />
+あんまり興味もないのでWindowsにもあるtimeコマンドで大まかに測ってみた。</p>
+
+<p>前提<br />
+・同じスクリプトを使用する<br />
+・バイナリは一つにまとめる<br />
+・バイナリの処理完了までを測る</p>
+
+<p>結果<br />
+・pyInstallerだと5秒<br />
+・py2exeだと2秒</p>
+
+<p>その差3秒。<br />
+たかだか3MBytesのプログラムでこの違いである。<br />
+ただ、py2exeを避けていたのには理由がある。</p>
+
+<h2 id="py2exeの制限">py2exeの制限</h2>
+
+<p>py2exeはバイナリ作成のために、別にsetup.pyを書かねばならない。<br />
+対するpyInstallerは、pyInstaller本体に自作スクリプトを引数として与えればいいだけ。こちらからすると面倒ではある。<br />
+また、pyInstallerを使っていた時には、特に意識しなかったMSVCR90.dllの考慮もしなければならない。<br />
+さらにさらに、エンコーディングにも注意が必要（後述）。</p>
+
+<p>が、これだけの弱点を差し引いても起動時間の差は魅力。<br />
+くわえて、setup.pyは一度書いてしまえば使い回しもできるんである。<br />
+というわけで、py2exeに宗旨替えを決意した。</p>
+
+<h2 id="py2exe-インストール">py2exe: インストール</h2>
+
+<p><a href="http://www.py2exe.org/" target="_blank">http://www.py2exe.org/</a> から。<br />
+ActivePythonであれば、pypm install py2exeでインストールできる。</p>
+
+<h2 id="py2exe-msvcr90dllの準備">py2exe: MSVCR90.dllの準備</h2>
+
+<p>py2exeでのバイナリ作成、およびバイナリの実行にはMSVCR90.dllが必要。</p>
+
+<p>MSVCR90.dllはファイル名が同じでも複数バージョンが存在する。<br />
+悪いことにpy2exeは特定のバージョンを要求する。<br />
+そのバージョンが9.0.21022.8。<br />
+VisualStudioであれば「SP1でない」2008、あるいはこちらも「SP1でない」Microsoft Visual C++ 2008 Redistributable Package に含まれている。</p>
+
+<p>x86向け<br />
+<a href="http://www.microsoft.com/ja-JP/download/details.aspx?id=29" target="_blank">http://www.microsoft.com/ja-JP/download/details.aspx?id=29</a><br />
+x64向け<br />
+<a href="http://www.microsoft.com/ja-JP/download/details.aspx?id=15336" target="_blank">http://www.microsoft.com/ja-JP/download/details.aspx?id=15336</a></p>
+
+<p>以下はあくまで参考<br />
+x86向けSP1<br />
+<a href="http://www.microsoft.com/ja-JP/download/details.aspx?id=5582" target="_blank">http://www.microsoft.com/ja-JP/download/details.aspx?id=5582</a><br />
+x64向けSP1<br />
+<a href="http://www.microsoft.com/ja-JP/download/details.aspx?id=2092" target="_blank">http://www.microsoft.com/ja-JP/download/details.aspx?id=2092</a></p>
+
+<p>MSVCR90.dll、Microsoft Visual C++ 2008 Redistributable Packageのインストーラ（vcredist_x86.exe）ともに、プロパティからバージョンを確認することができる。</p>
+
+<p>バイナリ作成者がDLL再配布の権利を持っている場合、DLLも含めて自作プログラムを配布できる。<br />
+権利がなければ、ユーザには上記のMicrosoft Visual C++ 2008 Redistributable Packageをインストールしてもらうこと。</p>
+
+<h2 id="py2exesetuppyって何よ">py2exe:setup.pyって何よ。</h2>
+
+<p>py2exeは、バイナリ化じたいの処理を、pythonスクリプトで書く。<br />
+自作スクリプトのほかに、setup.pyを書く必要があるのはそのため。</p>
+
+<h2 id="py2exe-setuppyの書きかた">py2exe: setup.pyの書きかた</h2>
+
+<p><a href="http://www.py2exe.org/index.cgi/Tutorial" target="_blank">http://www.py2exe.org/index.cgi/Tutorial</a></p>
+
+<p>上記チュートリアルに沿って進める。</p>
+
+<p>以下の通りのsetup.pyを作る。<br />
+ひとまず自作スクリプトと同じディレクトリが良いでしょう。<br />
+もちろん、jisaku.pyは自作スクリプト名に変更。</p>
+
+<pre>from distutils.core import setup
+import py2exe
+
+setup(console=['jisaku.py'])</pre>
+
+<p>そうしたら、setup.py, 自作スクリプトのあるディレクトリで、以下のように実行するだけ。</p>
+
+<pre>python setup.py py2exe</pre>
+
+<p>そうすると、同じディレクトリにdistというディレクトリが作られ、その下に実行ファイルができあがる。<br />
+簡単である。</p>
+
+<p>あとはこのsetup.pyをベースに、いろいろと加えていけばよい。<br />
+py2exeのオプションは以下を参照のこと。<br />
+<a href="http://www.py2exe.org/index.cgi/ListOfOptions" target="_blank">http://www.py2exe.org/index.cgi/ListOfOptions</a></p>
+
+<h2 id="python-setuppy-py2exeとタイプするのが面倒">python setup.py py2exeとタイプするのが面倒</h2>
+
+<p>sys.argv.append(‘py2exe’)を加えてあげれば、それ以降”python setup.py”だけでよくなる。</p>
+
+<pre>from distutils.core import setup
+import py2exe, sys, os
+
+sys.argv.append('py2exe')
+
+setup(console=['jisaku.py'])</pre>
+
+<p> </p>
+
+<h2 id="実行ファイルを一つにまとめるには">実行ファイルを一つにまとめるには</h2>
+
+<p><a href="http://www.py2exe.org/index.cgi/SingleFileExecutable" target="_blank">http://www.py2exe.org/index.cgi/SingleFileExecutable</a></p>
+
+<p>前章で作成したsetup.pyをベースに、といいつつガラッと変わる。<br />
+とはいえ、基本的な書式は変わっていない。</p>
+
+<pre>from distutils.core import setup
+import py2exe, sys, os
+
+sys.argv.append('py2exe')
+
+setup(
+	options = {'py2exe': {'bundle_files':1}},
+	zipfile = None,
+	console = [{'script': "jisaku.py"}]
+)</pre>
+
+<p>bundle_filesでファイルのまとめ方を指定する。<br />
+値は1でよい。<br />
+1は、とにかく一つにまとめる。<br />
+2だと、本体とPython.dllが分かれる。<br />
+zipfileもNoneでよい。<br />
+ここにファイル名を指定すると、各種DLLがそのファイル名でzipされる。<br />
+Noneであれば本体にマージされる。</p>
+
+<h2 id="本体を圧縮するには">本体を圧縮するには</h2>
+
+<p>速度でpy2exeを選択した私としては、あまり使おうという気にならないのだが。<br />
+手元の自作スクリプトから作成した5MBの実行バイナリが3.5MBになった。</p>
+
+<pre>from distutils.core import setup
+import py2exe, sys, os
+
+sys.argv.append('py2exe')
+
+setup(
+	options = {'py2exe': {'bundle_files':1, 'compressed': True}},
+	zipfile = None,
+	console = [{'script': "jisaku.py"}]
+)</pre>
+
+<p> </p>
+
+<h2 id="アイコンを追加するには">アイコンを追加するには</h2>
+
+<p>icon_resourcesで指定する。<br />
+<a href="http://www.py2exe.org/index.cgi/CustomIcons" target="_blank">http://www.py2exe.org/index.cgi/CustomIcons</a></p>
+
+<pre>from distutils.core import setup
+import py2exe, sys
+
+
+sys.argv.append('py2exe')
+
+setup(
+	options = {'py2exe': {'bundle_files':1}},
+	zipfile = None,
+	console = [{
+			'script': "jisaku.py",
+			'icon_resources': [(1, "jisaku.ico")]
+			,}]
+)</pre>
+
+<p> </p>
+
+<h2 id="実行時にコマンドプロンプトウインドウを開かないようにするには">実行時にコマンドプロンプトウインドウを開かないようにするには</h2>
+
+<p>consoleではなくwindowsにする。</p>
+
+<pre>from distutils.core import setup
+import py2exe, sys
+
+
+sys.argv.append('py2exe')
+
+setup(
+	options = {'py2exe': {'bundle_files':1}},
+	zipfile = None,
+	windows = [{
+			'script': "tsuboneChecker.py",
+			'icon_resources': [(1, "Artcore-Illustrations-Artcore-4-Terminal.ico")]
+			,}]
+)</pre>
+
+<p> </p>
+
+<h2 id="py2exeでのエンコーディング">py2exeでのエンコーディング</h2>
+
+<p>py2exeでホクホクしていたら、スクリプトの実行は問題ないのに、ひとたびpy2exeでバイナリにすると、途端にエンコーディングエラーが出る、という症状に悩まされた。<br />
+結論としては、以下を加えれば解決。</p>
+
+<pre>if hasattr(sys, 'setdefaultencoding'):
+    import locale
+    lang, enc = locale.getdefaultlocale()
+    sys.setdefaultencoding(enc or 'cp932')
+    del sys.setdefaultencoding</pre>
+
+<p><a href="http://www.py2exe.org/index.cgi/EvenMoreEncodings" target="_blank">http://www.py2exe.org/index.cgi/EvenMoreEncodings</a><br />
+<a href="http://d.hatena.ne.jp/shive/20110626/1309061690" target="_blank">http://d.hatena.ne.jp/shive/20110626/1309061690</a></p>
+
+  </div><a class="u-url" href="/?p=2869" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
