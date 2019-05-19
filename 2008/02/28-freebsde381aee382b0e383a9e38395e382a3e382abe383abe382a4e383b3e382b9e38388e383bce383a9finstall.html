@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>FreeBSDのグラフィカルインストーラ”finstall” | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="FreeBSDのグラフィカルインストーラ”finstall”" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="FreeBSDのインストーラは、「殺風景すぐる」と言われ、「ちょっとFreeBSDをインストールしてみようかな？」と思い立った人々の心を折ってきた。そんなFreeBSDにおいて非常に期待されているのが、XFce4を利用したグラフィカルインストーラfinstall。 結局、当初の予定とは異なり、7.0-RELEASEには間に合わなかったのだが、FreeBSD-stableメーリングリストをつらつらと眺めていたところ、alphaバージョンとしてCDイメージを公開した、というアナウンスを見つけた。 ・・・のが、2月の頭で、やっとVMWare Playerで試してみることができた。といってもさわりだけだけど。とりあえず顛末を書く。末尾にCDイメージのありか、アナウンスメールの抄訳をつけておきます。 このCDイメージからは7.0-RC1がインストール出来る。 7.0-RELEASEが公開されたところだが、まあ、FreeBSDにはマイナーバージョンの差なんて気にするほどのものでもない。 と書こうと思ったが、RC1からRC2になるところで確かライブラリがガラッと変わってたような気がするので、少し注意が必要ですな。 それから、ちょっと興味を惹くのが、インストールの際にファイルシステムにZFSも選べること。 いまのところ、通常のインストールではZFSを選べず、いろいろと面倒な手続きを踏む必要があるのでこれは楽。 CDから起動し、ユーザ&#8221;install&#8221;としてログイン。 と、いきなり懐かしのインストーラ画面になり「げえっ！sysinstall！」と青くなるが、キーボードおよびタイムゾーンの選択をしたあとは無事XFce4が立ち上がり、さらにデスクトップ上にある&#8221;FreeBSD Installer&#8221;アイコンをダブルクリックすれば今度こそインストーラが起動する。 そこで、いそいそとファイルシステムにZFSを選んでみたが、メモリが768MBに満たないと許可してくれない。よんどころない事情によりVMWareへの割り当てメモリはちょっと増やせなかったので、仕方なしとUFSを選んでインストール。 rootのパスワードの設定、ユーザの追加、シェルの選択、ホスト名とネットワークの設定を行い、powerd, ssh, BSDStatsなどのサービスを有効にするか聞かれる。ちなみに、BSDStatsはデフォルトで有効であった。 あとはシステムをリブートすれば完了。 特にxdmなどは立ち上がってこず、いわゆるCUIでのログインだが、X、xfce4はしっかりインストールされている。後述するがFirefoxやThunderbirdもインストールされる。そのほか、perl、sudoなどもインストールされていて、むむむこれはと調べてみると、 $ ls /var/db/pkg|wc -l 326 というように、300個以上のパッケージがインストールされていた。将来的にはインストールできるパッケージを選択できるようになればいいな。 インストール後、少し触ってみたのだが、うーん、まだ色々と問題がある様子。 じつはインストール自体も謎のエラーで一回失敗している。あまり時間がなかったので、じっくり対処もせず消してしまった。正直インストールそのものが目的だったし。 なお、既存のインストーラであるsysinstallはその愛想の無さで嫌われがちだが、たとえばシリアルコンソールからでも操作できたりと、これはこれで便利である。念のため。 そんなわけで、alphaバージョンのfinstallについて、詳しくはFreeBSD-stableに流れたメールを参照のこと。 イメージのサイズがCD1枚分になるまでには余裕があるので、何か入れてほしい物があれば言え、と別メールで書いてます。 イメージは下記からダウンロード出来るが、バージョンアップによりいつなくなるか分かりません。なおi386のみ。 http://ivoras.sharanet.org/stuff/freebsd7-finstall-alpha3.iso.bz2 以下、アナウンスメールを抄訳。 ◎前提 　あくまでもアルファバージョン。 ◎できないこと 　すでにパーティションの切られたディスクに対しては実行出来ません。 　RAID, X11, サウンド関連の、ちょっと複雑な設定は出来ません。 　システムロケールの設定は出来ません。 ◎できること 　LiveCDとして動作します。 　7.0-RC1のインストールと、X.Org7.3, XFce desktop 4.4 Firefox,Thunderbirdなどの、こちらで選んでおいたパッケージのインストールが出来ます。 　ファイルシステムとしては、UFS+Softupdate, UFS+Gjornal, ZFS, Ext2を選べます。ただしUFSしかしっかりテストしてません。 　ssh, ntpdate, bsdstatsなどのサービスの設定が出来ます。 ◎この先の予定 　近いうちに下記の機能を入れてみたいなと考えている。 　パーティションの切られたディスクへのインストール。 　リモートインストールをちょっとだけ。 以上。" />
+<meta property="og:description" content="FreeBSDのインストーラは、「殺風景すぐる」と言われ、「ちょっとFreeBSDをインストールしてみようかな？」と思い立った人々の心を折ってきた。そんなFreeBSDにおいて非常に期待されているのが、XFce4を利用したグラフィカルインストーラfinstall。 結局、当初の予定とは異なり、7.0-RELEASEには間に合わなかったのだが、FreeBSD-stableメーリングリストをつらつらと眺めていたところ、alphaバージョンとしてCDイメージを公開した、というアナウンスを見つけた。 ・・・のが、2月の頭で、やっとVMWare Playerで試してみることができた。といってもさわりだけだけど。とりあえず顛末を書く。末尾にCDイメージのありか、アナウンスメールの抄訳をつけておきます。 このCDイメージからは7.0-RC1がインストール出来る。 7.0-RELEASEが公開されたところだが、まあ、FreeBSDにはマイナーバージョンの差なんて気にするほどのものでもない。 と書こうと思ったが、RC1からRC2になるところで確かライブラリがガラッと変わってたような気がするので、少し注意が必要ですな。 それから、ちょっと興味を惹くのが、インストールの際にファイルシステムにZFSも選べること。 いまのところ、通常のインストールではZFSを選べず、いろいろと面倒な手続きを踏む必要があるのでこれは楽。 CDから起動し、ユーザ&#8221;install&#8221;としてログイン。 と、いきなり懐かしのインストーラ画面になり「げえっ！sysinstall！」と青くなるが、キーボードおよびタイムゾーンの選択をしたあとは無事XFce4が立ち上がり、さらにデスクトップ上にある&#8221;FreeBSD Installer&#8221;アイコンをダブルクリックすれば今度こそインストーラが起動する。 そこで、いそいそとファイルシステムにZFSを選んでみたが、メモリが768MBに満たないと許可してくれない。よんどころない事情によりVMWareへの割り当てメモリはちょっと増やせなかったので、仕方なしとUFSを選んでインストール。 rootのパスワードの設定、ユーザの追加、シェルの選択、ホスト名とネットワークの設定を行い、powerd, ssh, BSDStatsなどのサービスを有効にするか聞かれる。ちなみに、BSDStatsはデフォルトで有効であった。 あとはシステムをリブートすれば完了。 特にxdmなどは立ち上がってこず、いわゆるCUIでのログインだが、X、xfce4はしっかりインストールされている。後述するがFirefoxやThunderbirdもインストールされる。そのほか、perl、sudoなどもインストールされていて、むむむこれはと調べてみると、 $ ls /var/db/pkg|wc -l 326 というように、300個以上のパッケージがインストールされていた。将来的にはインストールできるパッケージを選択できるようになればいいな。 インストール後、少し触ってみたのだが、うーん、まだ色々と問題がある様子。 じつはインストール自体も謎のエラーで一回失敗している。あまり時間がなかったので、じっくり対処もせず消してしまった。正直インストールそのものが目的だったし。 なお、既存のインストーラであるsysinstallはその愛想の無さで嫌われがちだが、たとえばシリアルコンソールからでも操作できたりと、これはこれで便利である。念のため。 そんなわけで、alphaバージョンのfinstallについて、詳しくはFreeBSD-stableに流れたメールを参照のこと。 イメージのサイズがCD1枚分になるまでには余裕があるので、何か入れてほしい物があれば言え、と別メールで書いてます。 イメージは下記からダウンロード出来るが、バージョンアップによりいつなくなるか分かりません。なおi386のみ。 http://ivoras.sharanet.org/stuff/freebsd7-finstall-alpha3.iso.bz2 以下、アナウンスメールを抄訳。 ◎前提 　あくまでもアルファバージョン。 ◎できないこと 　すでにパーティションの切られたディスクに対しては実行出来ません。 　RAID, X11, サウンド関連の、ちょっと複雑な設定は出来ません。 　システムロケールの設定は出来ません。 ◎できること 　LiveCDとして動作します。 　7.0-RC1のインストールと、X.Org7.3, XFce desktop 4.4 Firefox,Thunderbirdなどの、こちらで選んでおいたパッケージのインストールが出来ます。 　ファイルシステムとしては、UFS+Softupdate, UFS+Gjornal, ZFS, Ext2を選べます。ただしUFSしかしっかりテストしてません。 　ssh, ntpdate, bsdstatsなどのサービスの設定が出来ます。 ◎この先の予定 　近いうちに下記の機能を入れてみたいなと考えている。 　パーティションの切られたディスクへのインストール。 　リモートインストールをちょっとだけ。 以上。" />
+<link rel="canonical" href="https://nobwak.github.io/2008/02/28-freebsde381aee382b0e383a9e38395e382a3e382abe383abe382a4e383b3e382b9e38388e383bce383a9finstall.html" />
+<meta property="og:url" content="https://nobwak.github.io/2008/02/28-freebsde381aee382b0e383a9e38395e382a3e382abe383abe382a4e383b3e382b9e38388e383bce383a9finstall.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2008-02-28T01:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"FreeBSDのインストーラは、「殺風景すぐる」と言われ、「ちょっとFreeBSDをインストールしてみようかな？」と思い立った人々の心を折ってきた。そんなFreeBSDにおいて非常に期待されているのが、XFce4を利用したグラフィカルインストーラfinstall。 結局、当初の予定とは異なり、7.0-RELEASEには間に合わなかったのだが、FreeBSD-stableメーリングリストをつらつらと眺めていたところ、alphaバージョンとしてCDイメージを公開した、というアナウンスを見つけた。 ・・・のが、2月の頭で、やっとVMWare Playerで試してみることができた。といってもさわりだけだけど。とりあえず顛末を書く。末尾にCDイメージのありか、アナウンスメールの抄訳をつけておきます。 このCDイメージからは7.0-RC1がインストール出来る。 7.0-RELEASEが公開されたところだが、まあ、FreeBSDにはマイナーバージョンの差なんて気にするほどのものでもない。 と書こうと思ったが、RC1からRC2になるところで確かライブラリがガラッと変わってたような気がするので、少し注意が必要ですな。 それから、ちょっと興味を惹くのが、インストールの際にファイルシステムにZFSも選べること。 いまのところ、通常のインストールではZFSを選べず、いろいろと面倒な手続きを踏む必要があるのでこれは楽。 CDから起動し、ユーザ&#8221;install&#8221;としてログイン。 と、いきなり懐かしのインストーラ画面になり「げえっ！sysinstall！」と青くなるが、キーボードおよびタイムゾーンの選択をしたあとは無事XFce4が立ち上がり、さらにデスクトップ上にある&#8221;FreeBSD Installer&#8221;アイコンをダブルクリックすれば今度こそインストーラが起動する。 そこで、いそいそとファイルシステムにZFSを選んでみたが、メモリが768MBに満たないと許可してくれない。よんどころない事情によりVMWareへの割り当てメモリはちょっと増やせなかったので、仕方なしとUFSを選んでインストール。 rootのパスワードの設定、ユーザの追加、シェルの選択、ホスト名とネットワークの設定を行い、powerd, ssh, BSDStatsなどのサービスを有効にするか聞かれる。ちなみに、BSDStatsはデフォルトで有効であった。 あとはシステムをリブートすれば完了。 特にxdmなどは立ち上がってこず、いわゆるCUIでのログインだが、X、xfce4はしっかりインストールされている。後述するがFirefoxやThunderbirdもインストールされる。そのほか、perl、sudoなどもインストールされていて、むむむこれはと調べてみると、 $ ls /var/db/pkg|wc -l 326 というように、300個以上のパッケージがインストールされていた。将来的にはインストールできるパッケージを選択できるようになればいいな。 インストール後、少し触ってみたのだが、うーん、まだ色々と問題がある様子。 じつはインストール自体も謎のエラーで一回失敗している。あまり時間がなかったので、じっくり対処もせず消してしまった。正直インストールそのものが目的だったし。 なお、既存のインストーラであるsysinstallはその愛想の無さで嫌われがちだが、たとえばシリアルコンソールからでも操作できたりと、これはこれで便利である。念のため。 そんなわけで、alphaバージョンのfinstallについて、詳しくはFreeBSD-stableに流れたメールを参照のこと。 イメージのサイズがCD1枚分になるまでには余裕があるので、何か入れてほしい物があれば言え、と別メールで書いてます。 イメージは下記からダウンロード出来るが、バージョンアップによりいつなくなるか分かりません。なおi386のみ。 http://ivoras.sharanet.org/stuff/freebsd7-finstall-alpha3.iso.bz2 以下、アナウンスメールを抄訳。 ◎前提 　あくまでもアルファバージョン。 ◎できないこと 　すでにパーティションの切られたディスクに対しては実行出来ません。 　RAID, X11, サウンド関連の、ちょっと複雑な設定は出来ません。 　システムロケールの設定は出来ません。 ◎できること 　LiveCDとして動作します。 　7.0-RC1のインストールと、X.Org7.3, XFce desktop 4.4 Firefox,Thunderbirdなどの、こちらで選んでおいたパッケージのインストールが出来ます。 　ファイルシステムとしては、UFS+Softupdate, UFS+Gjornal, ZFS, Ext2を選べます。ただしUFSしかしっかりテストしてません。 　ssh, ntpdate, bsdstatsなどのサービスの設定が出来ます。 ◎この先の予定 　近いうちに下記の機能を入れてみたいなと考えている。 　パーティションの切られたディスクへのインストール。 　リモートインストールをちょっとだけ。 以上。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2008/02/28-freebsde381aee382b0e383a9e38395e382a3e382abe383abe382a4e383b3e382b9e38388e383bce383a9finstall.html","headline":"FreeBSDのグラフィカルインストーラ”finstall”","dateModified":"2008-02-28T01:00:00+09:00","datePublished":"2008-02-28T01:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2008/02/28-freebsde381aee382b0e383a9e38395e382a3e382abe383abe382a4e383b3e382b9e38388e383bce383a9finstall.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">FreeBSDのグラフィカルインストーラ”finstall”</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2008-02-28T01:00:00+09:00" itemprop="datePublished">Feb 28, 2008
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="section">
+  <p>
+    FreeBSDのインストーラは、「殺風景すぐる」と言われ、「ちょっとFreeBSDをインストールしてみようかな？」と思い立った人々の心を折ってきた。そんなFreeBSDにおいて非常に期待されているのが、XFce4を利用したグラフィカルインストーラ<a href="http://journal.mycom.co.jp/articles/2007/05/18/badcan2/index.html" target="_blank">finstall</a>。
+  </p>
+  
+  <p>
+    結局、当初の予定とは異なり、7.0-RELEASEには間に合わなかったのだが、FreeBSD-stableメーリングリストをつらつらと眺めていたところ、alphaバージョンとしてCDイメージを公開した、というアナウンスを見つけた。
+  </p>
+  
+  <p>
+    ・・・のが、2月の頭で、やっとVMWare Playerで試してみることができた。といってもさわりだけだけど。とりあえず顛末を書く。末尾にCDイメージのありか、アナウンスメールの抄訳をつけておきます。
+  </p>
+  
+  <p>
+    このCDイメージからは7.0-RC1がインストール出来る。
+  </p>
+  
+  <p>
+    7.0-RELEASEが公開されたところだが、まあ、FreeBSDにはマイナーバージョンの差なんて気にするほどのものでもない。
+  </p>
+  
+  <p>
+    と書こうと思ったが、RC1からRC2になるところで確かライブラリがガラッと変わってたような気がするので、少し注意が必要ですな。
+  </p>
+  
+  <p>
+    それから、ちょっと興味を惹くのが、インストールの際にファイルシステムにZFSも選べること。
+  </p>
+  
+  <p>
+    いまのところ、通常のインストールではZFSを選べず、いろいろと面倒な手続きを踏む必要があるのでこれは楽。
+  </p>
+  
+  <p>
+    CDから起動し、ユーザ&#8221;install&#8221;としてログイン。
+  </p>
+  
+  <p>
+    と、いきなり懐かしのインストーラ画面になり「げえっ！sysinstall！」と青くなるが、キーボードおよびタイムゾーンの選択をしたあとは無事XFce4が立ち上がり、さらにデスクトップ上にある&#8221;FreeBSD Installer&#8221;アイコンをダブルクリックすれば今度こそインストーラが起動する。
+  </p>
+  
+  <p>
+    そこで、いそいそとファイルシステムにZFSを選んでみたが、メモリが768MBに満たないと許可してくれない。よんどころない事情によりVMWareへの割り当てメモリはちょっと増やせなかったので、仕方なしとUFSを選んでインストール。
+  </p>
+  
+  <p>
+    rootのパスワードの設定、ユーザの追加、シェルの選択、ホスト名とネットワークの設定を行い、powerd, ssh, BSDStatsなどのサービスを有効にするか聞かれる。ちなみに、BSDStatsはデフォルトで有効であった。
+  </p>
+  
+  <p>
+    あとはシステムをリブートすれば完了。
+  </p>
+  
+  <p>
+    特にxdmなどは立ち上がってこず、いわゆるCUIでのログインだが、X、xfce4はしっかりインストールされている。後述するがFirefoxやThunderbirdもインストールされる。そのほか、perl、sudoなどもインストールされていて、むむむこれはと調べてみると、
+  </p>
+  
+  <pre>
+$ ls /var/db/pkg|wc -l
+326
+</pre>
+  
+  <p>
+    というように、300個以上のパッケージがインストールされていた。将来的にはインストールできるパッケージを選択できるようになればいいな。
+  </p>
+  
+  <p>
+    インストール後、少し触ってみたのだが、うーん、まだ色々と問題がある様子。
+  </p>
+  
+  <p>
+    じつはインストール自体も謎のエラーで一回失敗している。あまり時間がなかったので、じっくり対処もせず消してしまった。正直インストールそのものが目的だったし。
+  </p>
+  
+  <p>
+    なお、既存のインストーラであるsysinstallはその愛想の無さで嫌われがちだが、たとえばシリアルコンソールからでも操作できたりと、これはこれで便利である。念のため。
+  </p>
+  
+  <p>
+    そんなわけで、alphaバージョンのfinstallについて、詳しくはFreeBSD-stableに流れた<a href="http://docs.freebsd.org/cgi/getmsg.cgi?fetch=441708+0+archive/2008/freebsd-stable/20080210.freebsd-stable" target="_blank">メール</a>を参照のこと。
+  </p>
+  
+  <p>
+    イメージのサイズがCD1枚分になるまでには余裕があるので、何か入れてほしい物があれば言え、と別メールで書いてます。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    イメージは下記からダウンロード出来るが、バージョンアップによりいつなくなるか分かりません。なおi386のみ。
+  </p>
+  
+  <p>
+    http://ivoras.sharanet.org/stuff/freebsd7-finstall-alpha3.iso.bz2
+  </p>
+  
+  <p>
+    以下、アナウンスメールを抄訳。
+  </p>
+  
+  <p>
+    ◎前提
+  </p>
+  
+  <p>
+    　あくまでもアルファバージョン。
+  </p>
+  
+  <p>
+    ◎できないこと
+  </p>
+  
+  <p>
+    　すでにパーティションの切られたディスクに対しては実行出来ません。
+  </p>
+  
+  <p>
+    　RAID, X11, サウンド関連の、ちょっと複雑な設定は出来ません。
+  </p>
+  
+  <p>
+    　システムロケールの設定は出来ません。
+  </p>
+  
+  <p>
+    ◎できること
+  </p>
+  
+  <p>
+    　LiveCDとして動作します。
+  </p>
+  
+  <p>
+    　7.0-RC1のインストールと、X.Org7.3, XFce desktop 4.4 Firefox,Thunderbirdなどの、こちらで選んでおいたパッケージのインストールが出来ます。
+  </p>
+  
+  <p>
+    　ファイルシステムとしては、UFS+Softupdate, UFS+Gjornal, ZFS, Ext2を選べます。ただしUFSしかしっかりテストしてません。
+  </p>
+  
+  <p>
+    　ssh, ntpdate, bsdstatsなどのサービスの設定が出来ます。
+  </p>
+  
+  <p>
+    ◎この先の予定
+  </p>
+  
+  <p>
+    　近いうちに下記の機能を入れてみたいなと考えている。
+  </p>
+  
+  <p>
+    　パーティションの切られたディスクへのインストール。
+  </p>
+  
+  <p>
+    　リモートインストールをちょっとだけ。
+  </p>
+  
+  <p>
+    以上。
+  </p>
+</div>
+
+  </div><a class="u-url" href="/2008/02/28-freebsde381aee382b0e383a9e38395e382a3e382abe383abe382a4e383b3e382b9e38388e383bce383a9finstall.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

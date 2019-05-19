@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Windowsでcurlを使おう。あるいはMicrosoft Security Essentialの定義ファイルをcurlでダウンロード。 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Windowsでcurlを使おう。あるいはMicrosoft Security Essentialの定義ファイルをcurlでダウンロード。" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Windowsでもバッチファイルでファイルのダウンロードをしたい事がある。 そうすると、たとえばIEにURLを渡して起動するといったような事が考えられるが、いちいち保存を選ばないといけないとか、何かの操作が必要になってしまう。 これではバッチファイルの意味がない。 無人で行う方法にはいくつかあるだろうが、ここではcurlを使ってみる。" />
+<meta property="og:description" content="Windowsでもバッチファイルでファイルのダウンロードをしたい事がある。 そうすると、たとえばIEにURLを渡して起動するといったような事が考えられるが、いちいち保存を選ばないといけないとか、何かの操作が必要になってしまう。 これではバッチファイルの意味がない。 無人で行う方法にはいくつかあるだろうが、ここではcurlを使ってみる。" />
+<link rel="canonical" href="https://nobwak.github.io/2014/02/02-windowse381a7curle38292e4bdbfe3818ae38186e38082e38182e3828be38184e381afmicrosoft-security-essentiale381aee5ae9ae7bea9e38395e382a1e382a4e383ab.html" />
+<meta property="og:url" content="https://nobwak.github.io/2014/02/02-windowse381a7curle38292e4bdbfe3818ae38186e38082e38182e3828be38184e381afmicrosoft-security-essentiale381aee5ae9ae7bea9e38395e382a1e382a4e383ab.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-02-02T20:00:47+09:00" />
+<script type="application/ld+json">
+{"description":"Windowsでもバッチファイルでファイルのダウンロードをしたい事がある。 そうすると、たとえばIEにURLを渡して起動するといったような事が考えられるが、いちいち保存を選ばないといけないとか、何かの操作が必要になってしまう。 これではバッチファイルの意味がない。 無人で行う方法にはいくつかあるだろうが、ここではcurlを使ってみる。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2014/02/02-windowse381a7curle38292e4bdbfe3818ae38186e38082e38182e3828be38184e381afmicrosoft-security-essentiale381aee5ae9ae7bea9e38395e382a1e382a4e383ab.html","headline":"Windowsでcurlを使おう。あるいはMicrosoft Security Essentialの定義ファイルをcurlでダウンロード。","dateModified":"2014-02-02T20:00:47+09:00","datePublished":"2014-02-02T20:00:47+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2014/02/02-windowse381a7curle38292e4bdbfe3818ae38186e38082e38182e3828be38184e381afmicrosoft-security-essentiale381aee5ae9ae7bea9e38395e382a1e382a4e383ab.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Windowsでcurlを使おう。あるいはMicrosoft Security Essentialの定義ファイルをcurlでダウンロード。</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-02-02T20:00:47+09:00" itemprop="datePublished">Feb 2, 2014
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Windowsでもバッチファイルでファイルのダウンロードをしたい事がある。<br />
+そうすると、たとえばIEにURLを渡して起動するといったような事が考えられるが、いちいち保存を選ばないといけないとか、何かの操作が必要になってしまう。<br />
+これではバッチファイルの意味がない。<br />
+無人で行う方法にはいくつかあるだろうが、ここではcurlを使ってみる。</p>
+
+<h2 id="curlとは"><span style="text-decoration: underline;">curlとは</span></h2>
+
+<p>curlとは、URLを使った、データ送受信コマンドである。<br />
+<span style="line-height: 1.5em;">UNIX/Linux系では有名なコマンドだけれども、実はWindows向けバイナリも配布されている。</span></p>
+
+<p>公式サイト<br />
+<a href="http://curl.haxx.se/" target="_blank">http://curl.haxx.se/</a><br />
+Wikipedia<br />
+<a href="http://curl.haxx.se/" target="_blank">http://ja.wikipedia.org/wiki/CURL</a></p>
+
+<h2 id="インストール"><span style="text-decoration: underline;">インストール</span></h2>
+
+<p>上記サイトのダウンロードページから取得。<br />
+<a href="http://curl.haxx.se/download.html" target="_blank">http://curl.haxx.se/download.html</a></p>
+
+<p>Windows向けには32bit版, 64bit版のほか、Generic版, MSVC版がある。<br />
+さらにMSIとzipが選べる。</p>
+
+<p>Genericの方が最新なのでこちらを使った。2014/1/7現在のバージョンは7.34.0。<br />
+Windows7だけど2000/XPのもので問題なし。</p>
+
+<p>インストーラは使いたくないのであれば、MSIではなくzipの方でどうぞ。<br />
+ただしzipの場合は、PATHを通すなどの作業は自分でしないといけないよう。</p>
+
+<h2 id="curlの使い方"><span style="text-decoration: underline;">curlの使い方</span></h2>
+
+<p>curlはオプションが多くてウンザリする。<br />
+以下のサイトが適切な量にまとまっていると思う。</p>
+
+<p><a href="http://d.hatena.ne.jp/hogem/20091122/1258863440" target="_blank">http://d.hatena.ne.jp/hogem/20091122/1258863440</a></p>
+
+<h2 id="curlの使い方例"><span style="text-decoration: underline;">curlの使い方例</span></h2>
+
+<p>proxy越しにMicrosoft Security Essential定義ファイルのダウンロードをする例。</p>
+
+<pre class="lang:default decode:true">C:¥home¥tools¥curl&gt;curl -O -x this.is.sample.proxyserver.com:8080 "http://download.microsoft.com/download/DefinitionUpdates/mpam-fe.exe"</pre>
+
+<p>curlは、そのままだとダウンロードした内容を標準出力に表示する。<br />
+-Oを付けると、ダウンロード先のファイル名で保存する。<br />
+この場合だとmpam-fe.exeとして保存する。</p>
+
+<p>proxyサーバは、-xあるいは–proxyで指定する。<br />
+書式は&lt;[protocol://][user:password@]proxyhost[:port]&gt;</p>
+
+<p>プロトコル指定がなければHTTP proxyとして扱われる。<br />
+ポート番号については、指定がなければ1080として扱われる。</p>
+
+<p>例ではproxyサーバとしてthis.is.sample.proxyserver.com:8080を指定。<br />
+定義ファイルのダイレクトリンクとして http://download.microsoft.com/download/DefinitionUpdates/mpam-fe.exe を指定している（いつまで使えるかは分からない）</p>
+
+<h2 id="追記-リトライ数リトライ感覚の指定">追記: リトライ数、リトライ感覚の指定</h2>
+
+<p>サーバの反応が悪く、ダウンロード途中で失敗してしまうことがある。<br />
+そういう場合には、–retry <num> &#8211;retry-delay <sec>を指定しておこう。</sec></num></p>
+
+<p> </p>
+
+<h2 id="curlのman抜粋"><span style="text-decoration: underline;">curlのman抜粋</span></h2>
+
+<p>以下、-xと-Oのマニュアルを抜粋。</p>
+
+<pre class="lang:default decode:true">-x, --proxy &lt;[protocol://][user:password@]proxyhost[:port]&gt;
+
+Use the specified proxy. 
+
+The proxy string can be specified with a protocol:// prefix to specify alternative proxy protocols. Use socks4://, socks4a://, socks5:// or socks5h:// to request the specific SOCKS version to be used. No protocol specified, http:// and all others will be treated as HTTP proxies. (The protocol support was added in curl 7.21.7)
+
+If the port number is not specified in the proxy string, it is assumed to be 1080.
+
+This option overrides existing environment variables that set the proxy to use. If there's an environment variable setting a proxy, you can set proxy to "" to override it.
+
+All operations that are performed over an HTTP proxy will transparently be converted to HTTP. It means that certain protocol specific operations might not be available. This is not the case if you can tunnel through the proxy, as one with the -p, --proxytunnel option.
+
+User and password that might be provided in the proxy string are URL decoded by curl. This allows you to pass in special characters such as @ by using %40 or pass in a colon with %3a.
+
+The proxy host can be specified the exact same way as the proxy environment variables, including the protocol prefix (http://) and the embedded user + password.
+
+If this option is used several times, the last one will be used.</pre>
+
+<pre class="lang:default decode:true">-O, --remote-name
+
+Write output to a local file named like the remote file we get. (Only the file part of the remote file is used, the path is cut off.)
+
+The remote file name to use for saving is extracted from the given URL, nothing else.
+
+Consequentially, the file will be saved in the current working directory. If you want the file saved in a different directory, make sure you change current working directory before you invoke curl with the -O, --remote-name flag!
+
+There is no URL decoding done on the file name. If it has %20 or other URL encoded parts of the name, they will end up as-is as file name.
+
+You may use this option as many times as the number of URLs you have.</pre>
+
+  </div><a class="u-url" href="/2014/02/02-windowse381a7curle38292e4bdbfe3818ae38186e38082e38182e3828be38184e381afmicrosoft-security-essentiale381aee5ae9ae7bea9e38395e382a1e382a4e383ab.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>[Python] wxGladeでGUIのデザインを | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="[Python] wxGladeでGUIのデザインを" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素晴らしい。 さらにそのコードがGUIで動くようになるのなら、もっと素晴らしい。 wxGladeでそれができる。wxGladeでGUIを作ってみたので記す。" />
+<meta property="og:description" content="Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素晴らしい。 さらにそのコードがGUIで動くようになるのなら、もっと素晴らしい。 wxGladeでそれができる。wxGladeでGUIを作ってみたので記す。" />
+<link rel="canonical" href="https://nobwak.github.io/2014/12/29-python-wxgladee381a7guie381aee38387e382b6e382a4e383b3e38292.html" />
+<meta property="og:url" content="https://nobwak.github.io/2014/12/29-python-wxgladee381a7guie381aee38387e382b6e382a4e383b3e38292.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-12-29T13:39:02+09:00" />
+<script type="application/ld+json">
+{"description":"Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素晴らしい。 さらにそのコードがGUIで動くようになるのなら、もっと素晴らしい。 wxGladeでそれができる。wxGladeでGUIを作ってみたので記す。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2014/12/29-python-wxgladee381a7guie381aee38387e382b6e382a4e383b3e38292.html","headline":"[Python] wxGladeでGUIのデザインを","dateModified":"2014-12-29T13:39:02+09:00","datePublished":"2014-12-29T13:39:02+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2014/12/29-python-wxgladee381a7guie381aee38387e382b6e382a4e383b3e38292.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[Python] wxGladeでGUIのデザインを</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-12-29T13:39:02+09:00" itemprop="datePublished">Dec 29, 2014
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素晴らしい。<br />
+さらにそのコードがGUIで動くようになるのなら、もっと素晴らしい。<br />
+wxGladeでそれができる。wxGladeでGUIを作ってみたので記す。</p>
+
+<h2 id="wxgladeとは"><span style="text-decoration: underline;">wxGladeとは</span></h2>
+
+<p><a href="http://wxglade.sourceforge.net/index.php" target="_blank">http://wxglade.sourceforge.net/index.php</a><br />
+wxPython向けのGUIデザイナーである。<br />
+<a href="http://wxpython.org/" target="_blank">wxPython</a>とはPythonのGUIツールキット。<br />
+また、GNOMEのGUIツールキットである<a href="https://glade.gnome.org/" target="_blank">Glade</a>が名前に入っている通り、wxGladeの設計思想はGladeに沿っている。</p>
+
+<h2 id="インストール"><span style="text-decoration: underline;">インストール</span></h2>
+
+<p><a href="http://sourceforge.net/projects/wxglade/" target="_blank">こちら</a>からどうぞ。<br />
+以下の例ではWindowsを使っている。</p>
+
+<h2 id="最初の一歩"><span style="text-decoration: underline;">最初の一歩</span></h2>
+
+<p>どんなGUIを作るにしても、まず最初にすべきことがある。</p>
+
+<p>起動すると以下のような画面。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyatstart.png"><img class="alignnone size-thumbnail wp-image-2895" src="../../../wp-content/uploads/2014/12/wxpyatstart-150x150.png" alt="wxpyatstart" width="150" height="150" /></a><br />
+何のとっかかりもなく、いきなり途方に暮れるわけだが、慌てず騒がず、左上ウインドウのさらに左上にあるアイコンをクリック。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyaddflame.jpg"><img class="alignnone size-thumbnail wp-image-2896" src="../../../wp-content/uploads/2014/12/wxpyaddflame-150x150.jpg" alt="wxpyaddflame" width="150" height="150" /></a><br />
+そのままOK。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyMyframe.jpg"><img class="alignnone size-thumbnail wp-image-2898" src="../../../wp-content/uploads/2014/12/wxpyMyframe-150x150.jpg" alt="wxpyMyframe" width="150" height="150" /></a><br />
+<a href="../../../wp-content/uploads/2014/12/wxpyaddframedone.jpg"><img class="alignnone size-thumbnail wp-image-2899" src="../../../wp-content/uploads/2014/12/wxpyaddframedone-150x150.jpg" alt="wxpyaddframedone" width="150" height="150" srcset="../../../wp-content/uploads/2014/12/wxpyaddframedone-150x150.jpg 150w, ../../../wp-content/uploads/2014/12/wxpyaddframedone.jpg 300w" sizes="(max-width: 150px) 100vw, 150px" /></a><br />
+なんか枠ができた。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyframewin.jpg"><img class="alignnone size-thumbnail wp-image-2900" src="../../../wp-content/uploads/2014/12/wxpyframewin-150x150.jpg" alt="wxpyframewin" width="150" height="150" /></a><br />
+そしてこちらを選んで、先ほどの枠に追加。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpaneladd.jpg"><img class="alignnone size-thumbnail wp-image-2901" src="../../../wp-content/uploads/2014/12/wxpaneladd-150x150.jpg" alt="wxpaneladd" width="150" height="150" /></a><br />
+するとこのようなのっぺりした画面に。<br />
+<a href="../../../wp-content/uploads/2014/12/basepanel01.jpg"><img class="alignnone size-thumbnail wp-image-2905" src="../../../wp-content/uploads/2014/12/basepanel01-150x150.jpg" alt="basepanel01" width="150" height="150" /><br />
+</a> あとは分かりやすいように名前を変更。<br />
+<a href="../../../wp-content/uploads/2014/12/rootpanel.jpg"><img class="alignnone size-thumbnail wp-image-2906" src="../../../wp-content/uploads/2014/12/rootpanel-150x150.jpg" alt="rootpanel" width="150" height="150" srcset="../../../wp-content/uploads/2014/12/rootpanel-150x150.jpg 150w, ../../../wp-content/uploads/2014/12/rootpanel.jpg 300w" sizes="(max-width: 150px) 100vw, 150px" /></a><br />
+これで最初の一歩が終了。<br />
+ここから、作りたいGUIに合わせて作業をしていく。</p>
+
+<h2 id="作業の前に日本語は使わないでおこう"><span style="text-decoration: underline;">作業の前に（日本語は使わないでおこう…）</span></h2>
+
+<p>超絶分かりやすいPythonにも弱点がある。<br />
+それは文字コードの扱い。<br />
+wxGladeで日本語を書き込むことはできるが、UTF-8なのかShift-JIS(CP932)なのかの扱いが大変に面倒である。<br />
+だから、GUI作成時のテキスト、注釈、ボタンは適当な英語で書いておき、実際の処理を書くときに日本語に変えるのがよいと思う。</p>
+
+<h2 id="画面の分割と配置"><span style="text-decoration: underline;">画面の分割と配置</span></h2>
+
+<p>最終的に以下のようなGUIを作りたいとする。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpylast.jpg"><img class="alignnone size-thumbnail wp-image-2907" src="../../../wp-content/uploads/2014/12/wxpylast-150x108.jpg" alt="wxpylast" width="150" height="108" /></a><br />
+このGUIは、まず画面を縦に三分割する。さらに1行目、3行目を横に三分割する。<br />
+分割にはパレット上の以下のツールで行う。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpybunkatsu.jpg"><img class="alignnone size-thumbnail wp-image-2908" src="../../../wp-content/uploads/2014/12/wxpybunkatsu-150x150.jpg" alt="wxpybunkatsu" width="150" height="150" /></a><br />
+ざくざくと分割して以下のように。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyseparate.jpg"><img class="alignnone size-thumbnail wp-image-2909" src="../../../wp-content/uploads/2014/12/wxpyseparate-150x150.jpg" alt="wxpyseparate" width="150" height="150" /></a><br />
+以下のように便宜的に番号を振って、<br />
+<a href="../../../wp-content/uploads/2014/12/wxpynumbers.jpg"><img class="alignnone size-thumbnail wp-image-2910" src="../../../wp-content/uploads/2014/12/wxpynumbers-150x150.jpg" alt="wxpynumbers" width="150" height="150" /></a><br />
+①にはテキストを、②にはテキストの枠を、③にはボタン、④には横棒、⑤にはスペース、⑥、⑦にはボタンを置く。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyzakkuri.jpg"><img class="alignnone size-thumbnail wp-image-2911" src="../../../wp-content/uploads/2014/12/wxpyzakkuri-150x112.jpg" alt="wxpyzakkuri" width="150" height="112" /></a><br />
+ツリーはこんなかんじ。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyhidarigawa.jpg"><img class="alignnone size-thumbnail wp-image-2912" src="../../../wp-content/uploads/2014/12/wxpyhidarigawa-150x150.jpg" alt="wxpyhidarigawa" width="150" height="150" srcset="../../../wp-content/uploads/2014/12/wxpyhidarigawa-150x150.jpg 150w, ../../../wp-content/uploads/2014/12/wxpyhidarigawa.jpg 300w" sizes="(max-width: 150px) 100vw, 150px" /></a><br />
+名前を変更し、空白（スペーサー）は適当に横に伸ばす。<br />
+あとは、経験上、各要素を以下のようにするといいかも。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpybityousei.jpg"><img class="alignnone size-thumbnail wp-image-2913" src="../../../wp-content/uploads/2014/12/wxpybityousei-150x150.jpg" alt="wxpybityousei" width="150" height="150" /></a><br />
+<a href="../../../wp-content/uploads/2014/12/wxpylast.jpg"><img class="alignnone size-thumbnail wp-image-2907" src="../../../wp-content/uploads/2014/12/wxpylast-150x108.jpg" alt="wxpylast" width="150" height="108" /></a></p>
+
+<h2 id="書き出し"><span style="text-decoration: underline;">書き出し</span></h2>
+
+<p><a href="../../../wp-content/uploads/2014/12/wxpyapp.jpg"><img class="alignnone size-thumbnail wp-image-2914" src="../../../wp-content/uploads/2014/12/wxpyapp-150x150.jpg" alt="wxpyapp" width="150" height="150" /></a><br />
+Appのプロパティから、LanguageにPython、Output Pathでファイルを指定し、Generate Codeでコード生成。</p>
+
+<p>以下が例。</p>
+
+<pre>#!/usr/bin/env python
+# -*- coding: CP932 -*-
+#
+# generated by wxGlade 0.6.8 (standalone edition) on Sun Dec 28 07:13:39 2014
+#
+
+import wx
+
+# begin wxGlade: dependencies
+import gettext
+# end wxGlade
+
+# begin wxGlade: extracode
+# end wxGlade
+
+
+class MyFrame(wx.Frame):
+    def __init__(self, *args, **kwds):
+        # begin wxGlade: MyFrame.__init__
+        kwds["style"] = wx.DEFAULT_FRAME_STYLE
+        wx.Frame.__init__(self, *args, **kwds)
+        self.panel_1 = wx.Panel(self, wx.ID_ANY)
+        self.label_1 = wx.StaticText(self.panel_1, wx.ID_ANY, _("input : "))
+        self.inputfile = wx.TextCtrl(self.panel_1, wx.ID_ANY, "")
+        self.ChooseButton = wx.Button(self.panel_1, wx.ID_ANY, _("Choose"))
+        self.static_line_1 = wx.StaticLine(self.panel_1, wx.ID_ANY)
+        self.go = wx.Button(self.panel_1, wx.ID_ANY, _("Run"))
+        self.exit = wx.Button(self.panel_1, wx.ID_ANY, _("Cancel"))
+
+        self.__set_properties()
+        self.__do_layout()
+
+        self.Bind(wx.EVT_BUTTON, self.choosefile, self.ChooseButton)
+        self.Bind(wx.EVT_BUTTON, self.goclicked, self.go)
+        self.Bind(wx.EVT_BUTTON, self.exitclicked, self.exit)
+        # end wxGlade
+
+    def __set_properties(self):
+        # begin wxGlade: MyFrame.__set_properties
+        self.SetTitle(_("frame_1"))
+        self.ChooseButton.SetToolTipString(_("choose a file "))
+        # end wxGlade
+
+    def __do_layout(self):
+        # begin wxGlade: MyFrame.__do_layout
+        sizer_1 = wx.BoxSizer(wx.VERTICAL)
+        sizer_2 = wx.BoxSizer(wx.VERTICAL)
+        sizer_4 = wx.BoxSizer(wx.HORIZONTAL)
+        sizer_3 = wx.BoxSizer(wx.HORIZONTAL)
+        sizer_3.Add(self.label_1, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_3.Add(self.inputfile, 1, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_3.Add(self.ChooseButton, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_2.Add(sizer_3, 1, wx.EXPAND, 5)
+        sizer_2.Add(self.static_line_1, 0, wx.EXPAND, 5)
+        sizer_4.Add((200, 20), 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_4.Add(self.go, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_4.Add(self.exit, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_2.Add(sizer_4, 1, wx.EXPAND, 0)
+        self.panel_1.SetSizer(sizer_2)
+        sizer_1.Add(self.panel_1, 1, wx.EXPAND, 0)
+        self.SetSizer(sizer_1)
+        sizer_1.Fit(self)
+        self.Layout()
+        # end wxGlade
+
+    def choosefile(self, event):  # wxGlade: MyFrame.
+        print "Event handler 'choosefile' not implemented!"
+        event.Skip()
+
+    def goclicked(self, event):  # wxGlade: MyFrame.
+        print "Event handler 'goclicked' not implemented!"
+        event.Skip()
+
+    def exitclicked(self, event):  # wxGlade: MyFrame.
+        print "Event handler 'exitclicked' not implemented!"
+        event.Skip()
+
+# end of class MyFrame
+if __name__ == "__main__":
+    gettext.install("app") # replace with the appropriate catalog name
+
+    app = wx.PySimpleApp(0)
+    wx.InitAllImageHandlers()
+    frame_1 = MyFrame(None, wx.ID_ANY, "")
+    app.SetTopWindow(frame_1)
+    frame_1.Show()
+    app.MainLoop()
+</pre>
+
+  </div><a class="u-url" href="/2014/12/29-python-wxgladee381a7guie381aee38387e382b6e382a4e383b3e38292.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
