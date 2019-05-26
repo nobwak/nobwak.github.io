@@ -1,4 +1,766 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://nobwak.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://nobwak.github.io/" rel="alternate" type="text/html" /><updated>2019-05-26T23:02:29+09:00</updated><id>https://nobwak.github.io/feed.xml</id><title type="html">nobwak’s Lair</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）</title><link href="https://nobwak.github.io/2019/05/12-freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae2efbc88vm-bhyvee4bdbfe794a8efbc89.html" rel="alternate" type="text/html" title="FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）" /><published>2019-05-12T20:30:48+09:00</published><updated>2019-05-12T20:30:48+09:00</updated><id>https://nobwak.github.io/2019/05/freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae2efbc88vm-bhyvee4bdbfe794a8efbc89</id><content type="html" xml:base="https://nobwak.github.io/2019/05/12-freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae2efbc88vm-bhyvee4bdbfe794a8efbc89.html">&lt;p&gt;&lt;a href=&quot;../../../2019/05/freebsd-12%e3%81%aebhyve%e3%81%abwindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89/&quot;&gt;前回&lt;/a&gt;までで仮想マシンをインストールする準備が整った。&lt;br /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://nobwak.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://nobwak.github.io/" rel="alternate" type="text/html" /><updated>2019-05-26T23:57:48+09:00</updated><id>https://nobwak.github.io/feed.xml</id><title type="html">nobwak’s Lair</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Jekyllセットアップ</title><link href="https://nobwak.github.io/2019/05/22-jekyll%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97.html" rel="alternate" type="text/html" title="Jekyllセットアップ" /><published>2019-05-22T00:00:00+09:00</published><updated>2019-05-22T00:00:00+09:00</updated><id>https://nobwak.github.io/2019/05/Jekyll%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97</id><content type="html" xml:base="https://nobwak.github.io/2019/05/22-jekyll%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97.html">&lt;h1 id=&quot;jekyllのセットアップ&quot;&gt;Jekyllのセットアップ&lt;/h1&gt;
+
+&lt;p&gt;GitHub pagesに記事を投稿するためにJekyllをセットアップした。
+その記録。&lt;/p&gt;
+
+&lt;p&gt;FreeBSD上で実施しているが、記事中、FreeBSD依存なところはほとんどない。&lt;/p&gt;
+
+&lt;h2 id=&quot;jekyllとは&quot;&gt;Jekyllとは&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/&quot;&gt;公式サイト&lt;/a&gt;にあるように、Jekyllはプレーンテキストをウェブサイトやブログに変換してくれるツール。Rubyで書かれている。&lt;/p&gt;
+
+&lt;p&gt;突然だが。リッチだけど巨大で、しかも動かすにはXAMPPが必要なブログはもう疲れた。&lt;/p&gt;
+
+&lt;p&gt;Jekyllはマークダウン形式で記事を作っておけば、コマンド一発でhtmlに変換し、サイトのディレクトリ構造まで作ってくれる。
+あとは出来上がったものをwebサーバに丸々アップロードすればよい。&lt;/p&gt;
+
+&lt;p&gt;githubにアップロードすれば＜ユーザ名＞.github.ioとしてブログを運営できる。相手はgithubだから「アップロード」というよりもgit pushでできる。プログラムをレポジトリにpushするのと同じ感覚でブログができるのである。&lt;/p&gt;
+
+&lt;p&gt;今回はgithub pagesで使う前提のJekyllのセットアップまでを扱うが、そのまえにJekyllの仕組みを確認する。&lt;/p&gt;
+
+&lt;h2 id=&quot;jekyllによるブログ作成の流れ&quot;&gt;Jekyllによるブログ作成の流れ&lt;/h2&gt;
+
+&lt;p&gt;Jekyllは前項で書いた通り、マークダウン形式のテキストファイルをhtmlに変換し、ディレクトリ構成を作る。
+具体的には;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Jekyllの作業ディレクトリを作る&lt;/li&gt;
+  &lt;li&gt;そこにマークダウン形式のテキストファイルを入れていく。&lt;/li&gt;
+  &lt;li&gt;変換コマンドを実行&lt;/li&gt;
+  &lt;li&gt;変換後ファイルの入ったディレクトリが作られる&lt;/li&gt;
+  &lt;li&gt;ディレクトリをそのままアップロードしてもよいが;&lt;/li&gt;
+  &lt;li&gt;確認コマンドを実行すると、ローカルホストでウェブサーバが立ち上がり見た目を確認できる。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;というものである。
+ではさっそく。&lt;/p&gt;
+
+&lt;h2 id=&quot;jekyll-bundlerのインストール&quot;&gt;jekyll, bundlerのインストール&lt;/h2&gt;
+
+&lt;p&gt;jekyllはRubyで動く。また、記事中にもあるとおりjekyllの構成を変えるのでbundlerも必要。&lt;/p&gt;
+
+&lt;p&gt;インストールはpkgでどうぞ。
+Rubyやらなにやら、いっぱい友達を連れてくるので、コンテナ等、隔離した環境で作るのオススメ。私はJail上に作った。&lt;/p&gt;
+
+&lt;h2 id=&quot;記事を置く作業フォルダを作る&quot;&gt;記事を置く作業フォルダを作る。&lt;/h2&gt;
+
+&lt;p&gt;jekyll new &amp;lt;path&amp;gt; でJekyllのフォルダを作る。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll new article/
+Running bundle install &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /usr/home/bot/article...
+  Bundler: Don&lt;span class=&quot;s1&quot;&gt;'t run Bundler as root. Bundler can ask for sudo if it is needed, and
+  Bundler: installing your bundle as root will break this application for all non-root
+  Bundler: users on this machine.
+  Bundler: The dependency tzinfo-data (&amp;gt;= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`.
+  Bundler: Fetching gem metadata from https://rubygems.org/...........
+  Bundler: Fetching gem metadata from https://rubygems.org/.
+  Bundler: Resolving dependencies...
+  Bundler: Using public_suffix 3.0.3
+  Bundler: Using addressable 2.6.0
+  Bundler: Using bundler 1.17.1
+  Bundler: Using colorator 1.1.0
+  Bundler: Using concurrent-ruby 1.1.5
+  Bundler: Using eventmachine 1.2.7
+  Bundler: Using http_parser.rb 0.6.0
+  Bundler: Using em-websocket 0.5.1
+  Bundler: Fetching ffi 1.11.1
+  Bundler: Installing ffi 1.11.1 with native extensions
+  Bundler: Using forwardable-extended 2.6.0
+  Bundler: Using i18n 1.6.0
+  Bundler: Using rb-fsevent 0.10.3
+  Bundler: Using rb-inotify 0.10.0
+  Bundler: Using sass-listen 4.0.0
+  Bundler: Using sass 3.7.4
+  Bundler: Using jekyll-sass-converter 1.5.2
+  Bundler: Using ruby_dep 1.5.0
+  Bundler: Using listen 3.1.5
+  Bundler: Using jekyll-watch 2.2.1
+  Bundler: Using kramdown 1.17.0
+  Bundler: Using liquid 4.0.3
+  Bundler: Using mercenary 0.3.6
+  Bundler: Using pathutil 0.16.2
+  Bundler: Using rouge 3.3.0
+  Bundler: Using safe_yaml 1.0.5
+  Bundler: Using jekyll 3.8.5
+  Bundler: Using jekyll-feed 0.12.1
+  Bundler: Using jekyll-seo-tag 2.6.1
+  Bundler: Using minima 2.5.0
+  Bundler: Bundle complete! 4 Gemfile dependencies, 29 gems now installed.
+  Bundler: Use `bundle info [gemname]` to see where a bundled gem is installed.
+New jekyll site installed in /usr/home/bot/article.
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;できあがったディレクトリ構成は以下の通り。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+├── _config.yml
+├── _posts
+├── 404.html
+├── about.md
+├── Gemfile
+├── Gemfile.lock
+└── index.md
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;_config.ymlは設定ファイル。記事を入れていくのは_posts。&lt;/p&gt;
+
+&lt;p&gt;_postsの中を眺めれば2019-05-22-welcome-to-jekyll.markdownというような名前でサンプルファイルが一つ入っているはずである。
+記事を作る場合には、このサンプルのようなファイル名の形式でファイルを置く。
+ファイルの内容についてはまた後で。&lt;/p&gt;
+
+&lt;h2 id=&quot;初期設定&quot;&gt;初期設定&lt;/h2&gt;
+
+&lt;h3 id=&quot;_configymlを更新&quot;&gt;_config.ymlを更新&lt;/h3&gt;
+
+&lt;p&gt;最後の4行以外を適当に。基本情報を決める。&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;nobwak's&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Lair&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;your-email@example.com&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;-&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# this means to ignore newlines until &quot;baseurl:&quot;&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;nobwakの七転八倒log&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;aseurl: &quot;&quot; # the subpath of your site, e.g. /blog&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rl: &quot;https://nobwak.github.io&quot; # the base hostname &amp;amp; protocol for your site, e.g. http://example.com&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;witter_username: nobwak&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ithub_username: nobwak&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;arkdown: kramdown&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;heme: minima&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;lugins:&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;- jekyll-feed&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;gemfileを更新しbundle-update&quot;&gt;Gemfileを更新し、bundle update&lt;/h3&gt;
+
+&lt;p&gt;「GitHub pageを使いたいなら」との指示通りに更新。&lt;/p&gt;
+
+&lt;p&gt;gem jekyllの行をコメントアウト、github-pagesの行をアンコメント。&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# This will help ensure the proper Jekyll version is running.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Happy Jekylling!&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# gem &quot;jekyll&quot;, &quot;~&amp;gt; 3.8.5&quot; (この行をコメントアウト)&lt;/span&gt;
+&amp;lt;略&amp;gt;
+&lt;span class=&quot;c&quot;&gt;# If you want to use GitHub Pages, remove the &quot;gem &quot;jekyll&quot;&quot; above and&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# uncomment the line below. To upgrade, run `bundle update github-pages`.&lt;/span&gt;
+gem &lt;span class=&quot;s2&quot;&gt;&quot;github-pages&quot;&lt;/span&gt;, group: :jekyll_plugins &lt;span class=&quot;c&quot;&gt;# この行を生かす&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;更新したらこちらも指示通りにbundle update&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;bundle update
+The dependency tzinfo-data &lt;span class=&quot;o&quot;&gt;(&amp;gt;=&lt;/span&gt; 0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; will be unused by any of the platforms Bundler is installing &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; Bundler is installing &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;ruby but the dependency is only &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;bundle lock &lt;span class=&quot;nt&quot;&gt;--add-platform&lt;/span&gt; x86-mingw32 x86-mswin32 x64-mingw32 java&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+Fetching gem metadata from https://rubygems.org/...........
+Fetching gem metadata from https://rubygems.org/.
+Resolving dependencies................................
+Using concurrent-ruby 1.1.5
+Using i18n 0.9.5 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;was 1.6.0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;略&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Using github-pages 198
+Bundle updated!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;準備完了。&lt;/p&gt;
+
+&lt;h2 id=&quot;ビルド変換のテスト&quot;&gt;ビルド（変換）のテスト&lt;/h2&gt;
+
+&lt;p&gt;ではビルド。
+bundle exec jekyll buildとする。これでhtmlに変換する。&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;jekyll build
+Configuration file: /usr/home/bot/files/temp/tryout/_config.yml
+            Source: /usr/home/bot/files/temp/tryout
+       Destination: /usr/home/bot/files/temp/tryout/_site
+ Incremental build: disabled. Enable with &lt;span class=&quot;nt&quot;&gt;--incremental&lt;/span&gt;
+      Generating...
+       Jekyll Feed: Generating feed &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;posts
+                    &lt;span class=&quot;k&quot;&gt;done in &lt;/span&gt;1.344 seconds.
+ Auto-regeneration: disabled. Use &lt;span class=&quot;nt&quot;&gt;--watch&lt;/span&gt; to enable.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;メッセージの通り新しく_siteというディレクトリができる。これが変換後の公開用ディレクトリ。&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+├── _config.yml
+├── _posts
+├── _site
+├── 404.html
+├── about.md
+├── Gemfile
+├── Gemfile.lock
+└── index.md
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;_siteの中身はこうなっている。&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+├── 404.html
+├── about
+│   └── index.html
+├── assets
+│   ├── main.css
+│   └── minima-social-icons.svg
+├── feed.xml
+├── index.html
+└── jekyll
+   └── update
+       └── 2019
+           └── 05
+               └── 22
+                   └── welcome-to-jekyll.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;_postsの中にあったサンプルファイルがhtmlに変換され、年・月・日のディレクトリに置かれているのが分かる。&lt;/p&gt;
+
+&lt;p&gt;さらにindex.htmlの中身を見ると、以下のようにサンプルファイルへのリンクも書かれている。&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-list&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;li&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-meta&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;May 22, 2019&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;
+          &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;post-link&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/jekyll/update/2019/05/22/welcome-to-jekyll.html&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            Welcome to Jekyll!
+          &lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/h3&amp;gt;&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;つまりJekyllは、_postsの中にあるファイルをhtmlに変換し、インデックスページとリンク構造も作ったうえで_site下に配置してくれる、ということ。
+GitHub Pagesにアップロードするときには、ここの_siteから下をgit pushすれば良い。&lt;/p&gt;
+
+&lt;p&gt;ただ、git pushするといきなり公開されるので、その前に実際の見た目を確認したいということなら、そのための仕組みも用意されている。
+Jekyllのトップディレクトリでjekyll serveとすればよい。&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bundle&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jekyll&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serve&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Configuration&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;file: &lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/usr/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;home&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;files&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tryout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;yml&lt;/span&gt;
+            &lt;span class=&quot;no&quot;&gt;Source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/usr/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;home&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;files&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tryout&lt;/span&gt;
+       &lt;span class=&quot;no&quot;&gt;Destination&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/usr/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;home&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;files&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tryout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_site&lt;/span&gt;
+ &lt;span class=&quot;no&quot;&gt;Incremental&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;build: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;disabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Enable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;incremental&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;Generating&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+       &lt;span class=&quot;no&quot;&gt;Jekyll&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Feed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Generating&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feed&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;posts&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;done&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.435&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Please&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;following&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;your&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Gemfile&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;avoid&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;polling&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;changes:
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'rbconfig'&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;RbConfig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;CONFIG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'target_os'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/(?i-mx:bsd|dragonfly)/&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'rb-kqueue'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;gt;= 0.2'&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+ &lt;span class=&quot;no&quot;&gt;Auto&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;regeneration: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enabled&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/usr/home/bot/files/temp/tryout'&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Server&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;address: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;127.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;running&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;press&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ctrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;この状態でローカルホストの4000に繋げば、見た目を確認できる。
+画像あり　36
+画像あり　37&lt;/p&gt;
+
+&lt;p&gt;これでJekyllのセットアップはおしまい。&lt;/p&gt;</content><author><name></name></author><summary type="html">Jekyllのセットアップ GitHub pagesに記事を投稿するためにJekyllをセットアップした。 その記録。 FreeBSD上で実施しているが、記事中、FreeBSD依存なところはほとんどない。 Jekyllとは 公式サイトにあるように、Jekyllはプレーンテキストをウェブサイトやブログに変換してくれるツール。Rubyで書かれている。 突然だが。リッチだけど巨大で、しかも動かすにはXAMPPが必要なブログはもう疲れた。 Jekyllはマークダウン形式で記事を作っておけば、コマンド一発でhtmlに変換し、サイトのディレクトリ構造まで作ってくれる。 あとは出来上がったものをwebサーバに丸々アップロードすればよい。 githubにアップロードすれば＜ユーザ名＞.github.ioとしてブログを運営できる。相手はgithubだから「アップロード」というよりもgit pushでできる。プログラムをレポジトリにpushするのと同じ感覚でブログができるのである。 今回はgithub pagesで使う前提のJekyllのセットアップまでを扱うが、そのまえにJekyllの仕組みを確認する。 Jekyllによるブログ作成の流れ Jekyllは前項で書いた通り、マークダウン形式のテキストファイルをhtmlに変換し、ディレクトリ構成を作る。 具体的には; Jekyllの作業ディレクトリを作る そこにマークダウン形式のテキストファイルを入れていく。 変換コマンドを実行 変換後ファイルの入ったディレクトリが作られる ディレクトリをそのままアップロードしてもよいが; 確認コマンドを実行すると、ローカルホストでウェブサーバが立ち上がり見た目を確認できる。 というものである。 ではさっそく。 jekyll, bundlerのインストール jekyllはRubyで動く。また、記事中にもあるとおりjekyllの構成を変えるのでbundlerも必要。 インストールはpkgでどうぞ。 Rubyやらなにやら、いっぱい友達を連れてくるので、コンテナ等、隔離した環境で作るのオススメ。私はJail上に作った。 記事を置く作業フォルダを作る。 jekyll new &amp;lt;path&amp;gt; でJekyllのフォルダを作る。 $ jekyll new article/ Running bundle install in /usr/home/bot/article... Bundler: Don't run Bundler as root. Bundler can ask for sudo if it is needed, and Bundler: installing your bundle as root will break this application for all non-root Bundler: users on this machine. Bundler: The dependency tzinfo-data (&amp;gt;= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`. Bundler: Fetching gem metadata from https://rubygems.org/........... Bundler: Fetching gem metadata from https://rubygems.org/. Bundler: Resolving dependencies... Bundler: Using public_suffix 3.0.3 Bundler: Using addressable 2.6.0 Bundler: Using bundler 1.17.1 Bundler: Using colorator 1.1.0 Bundler: Using concurrent-ruby 1.1.5 Bundler: Using eventmachine 1.2.7 Bundler: Using http_parser.rb 0.6.0 Bundler: Using em-websocket 0.5.1 Bundler: Fetching ffi 1.11.1 Bundler: Installing ffi 1.11.1 with native extensions Bundler: Using forwardable-extended 2.6.0 Bundler: Using i18n 1.6.0 Bundler: Using rb-fsevent 0.10.3 Bundler: Using rb-inotify 0.10.0 Bundler: Using sass-listen 4.0.0 Bundler: Using sass 3.7.4 Bundler: Using jekyll-sass-converter 1.5.2 Bundler: Using ruby_dep 1.5.0 Bundler: Using listen 3.1.5 Bundler: Using jekyll-watch 2.2.1 Bundler: Using kramdown 1.17.0 Bundler: Using liquid 4.0.3 Bundler: Using mercenary 0.3.6 Bundler: Using pathutil 0.16.2 Bundler: Using rouge 3.3.0 Bundler: Using safe_yaml 1.0.5 Bundler: Using jekyll 3.8.5 Bundler: Using jekyll-feed 0.12.1 Bundler: Using jekyll-seo-tag 2.6.1 Bundler: Using minima 2.5.0 Bundler: Bundle complete! 4 Gemfile dependencies, 29 gems now installed. Bundler: Use `bundle info [gemname]` to see where a bundled gem is installed. New jekyll site installed in /usr/home/bot/article. できあがったディレクトリ構成は以下の通り。 . ├── _config.yml ├── _posts ├── 404.html ├── about.md ├── Gemfile ├── Gemfile.lock └── index.md _config.ymlは設定ファイル。記事を入れていくのは_posts。 _postsの中を眺めれば2019-05-22-welcome-to-jekyll.markdownというような名前でサンプルファイルが一つ入っているはずである。 記事を作る場合には、このサンプルのようなファイル名の形式でファイルを置く。 ファイルの内容についてはまた後で。 初期設定 _config.ymlを更新 最後の4行以外を適当に。基本情報を決める。 title: &quot;nobwak's Lair&quot; email: your-email@example.com description: &amp;gt;- # this means to ignore newlines until &quot;baseurl:&quot; nobwakの七転八倒log baseurl: &quot;&quot; # the subpath of your site, e.g. /blog url: &quot;https://nobwak.github.io&quot; # the base hostname &amp;amp; protocol for your site, e.g. http://example.com twitter_username: nobwak github_username: nobwak markdown: kramdown theme: minima plugins: - jekyll-feed Gemfileを更新し、bundle update 「GitHub pageを使いたいなら」との指示通りに更新。 gem jekyllの行をコメントアウト、github-pagesの行をアンコメント。 # This will help ensure the proper Jekyll version is running. # Happy Jekylling! # gem &quot;jekyll&quot;, &quot;~&amp;gt; 3.8.5&quot; (この行をコメントアウト) &amp;lt;略&amp;gt; # If you want to use GitHub Pages, remove the &quot;gem &quot;jekyll&quot;&quot; above and # uncomment the line below. To upgrade, run `bundle update github-pages`. gem &quot;github-pages&quot;, group: :jekyll_plugins # この行を生かす 更新したらこちらも指示通りにbundle update $ bundle update The dependency tzinfo-data (&amp;gt;= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`. Fetching gem metadata from https://rubygems.org/........... Fetching gem metadata from https://rubygems.org/. Resolving dependencies................................ Using concurrent-ruby 1.1.5 Using i18n 0.9.5 (was 1.6.0) (略) Using github-pages 198 Bundle updated! 準備完了。 ビルド（変換）のテスト ではビルド。 bundle exec jekyll buildとする。これでhtmlに変換する。 $ bundle exec jekyll build Configuration file: /usr/home/bot/files/temp/tryout/_config.yml Source: /usr/home/bot/files/temp/tryout Destination: /usr/home/bot/files/temp/tryout/_site Incremental build: disabled. Enable with --incremental Generating... Jekyll Feed: Generating feed for posts done in 1.344 seconds. Auto-regeneration: disabled. Use --watch to enable. メッセージの通り新しく_siteというディレクトリができる。これが変換後の公開用ディレクトリ。 . ├── _config.yml ├── _posts ├── _site ├── 404.html ├── about.md ├── Gemfile ├── Gemfile.lock └── index.md _siteの中身はこうなっている。 . ├── 404.html ├── about │   └── index.html ├── assets │   ├── main.css │   └── minima-social-icons.svg ├── feed.xml ├── index.html └── jekyll    └── update    └── 2019    └── 05    └── 22    └── welcome-to-jekyll.html _postsの中にあったサンプルファイルがhtmlに変換され、年・月・日のディレクトリに置かれているのが分かる。 さらにindex.htmlの中身を見ると、以下のようにサンプルファイルへのリンクも書かれている。 &amp;lt;ul class=&quot;post-list&quot;&amp;gt;&amp;lt;li&amp;gt;&amp;lt;span class=&quot;post-meta&quot;&amp;gt;May 22, 2019&amp;lt;/span&amp;gt; &amp;lt;h3&amp;gt; &amp;lt;a class=&quot;post-link&quot; href=&quot;/jekyll/update/2019/05/22/welcome-to-jekyll.html&quot;&amp;gt; Welcome to Jekyll! &amp;lt;/a&amp;gt; &amp;lt;/h3&amp;gt;&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt; つまりJekyllは、_postsの中にあるファイルをhtmlに変換し、インデックスページとリンク構造も作ったうえで_site下に配置してくれる、ということ。 GitHub Pagesにアップロードするときには、ここの_siteから下をgit pushすれば良い。 ただ、git pushするといきなり公開されるので、その前に実際の見た目を確認したいということなら、そのための仕組みも用意されている。 Jekyllのトップディレクトリでjekyll serveとすればよい。 $ bundle exec jekyll serve Configuration file: /usr/home/bot/files/temp/tryout/_config.yml Source: /usr/home/bot/files/temp/tryout Destination: /usr/home/bot/files/temp/tryout/_site Incremental build: disabled. Enable with --incremental Generating... Jekyll Feed: Generating feed for posts done in 1.435 seconds. Please add the following to your Gemfile to avoid polling for changes: require 'rbconfig' if RbConfig::CONFIG['target_os'] =~ /(?i-mx:bsd|dragonfly)/ gem 'rb-kqueue', '&amp;gt;= 0.2' end Auto-regeneration: enabled for '/usr/home/bot/files/temp/tryout' Server address: http://127.0.0.1:4000/ Server running... press ctrl-c to stop. この状態でローカルホストの4000に繋げば、見た目を確認できる。 画像あり　36 画像あり　37 これでJekyllのセットアップはおしまい。</summary></entry><entry><title type="html">Wordpressからjekyllへの移行するためのデータ作成</title><link href="https://nobwak.github.io/2019/05/20-wordpress%E3%81%8B%E3%82%89jekyll%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E4%BD%9C%E6%88%90.html" rel="alternate" type="text/html" title="Wordpressからjekyllへの移行するためのデータ作成" /><published>2019-05-20T00:00:00+09:00</published><updated>2019-05-20T00:00:00+09:00</updated><id>https://nobwak.github.io/2019/05/wordpress%E3%81%8B%E3%82%89jekyll%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E4%BD%9C%E6%88%90</id><content type="html" xml:base="https://nobwak.github.io/2019/05/20-wordpress%E3%81%8B%E3%82%89jekyll%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E4%BD%9C%E6%88%90.html">&lt;h1 id=&quot;wordpressからjekyllへ移行するためのデータ作成&quot;&gt;WordpressからJekyllへ移行するためのデータ作成&lt;/h1&gt;
+
+&lt;h2 id=&quot;レンタルサーバにさよならを&quot;&gt;レンタルサーバにさよならを&lt;/h2&gt;
+
+&lt;p&gt;ブログをあるレンタルサーバに置いていた。
+値段もそこそこで、Wordpressも一発で構築できるので重宝していたのだが、SSL対応をすると素の時とは違うアドレスでアクセスしないとダメ、という不条理な仕様のせいで引っ越しをする。&lt;/p&gt;
+
+&lt;p&gt;引っ越しはgithub pagesに決めているのだが、その経緯は別の項に譲り、本稿ではWordpressからJekyllに移行–正しくはJekyllへインポートできるデータの作成について備忘のため記す。&lt;/p&gt;
+
+&lt;h2 id=&quot;プラグインのwordpress-to-jekyll-exporterを使う&quot;&gt;プラグインのWordPress to Jekyll Exporterを使う&lt;/h2&gt;
+
+&lt;p&gt;これはもう定番で、WordpressのプラグインであるWordPress to Jekyll Exporterを使う。あとはJekyllで読めばよい。&lt;/p&gt;
+
+&lt;p&gt;それだけで終了といえば終了なのだが、いろいろと苦労があったのでこの記事を書いている。&lt;/p&gt;
+
+&lt;h2 id=&quot;jekyll-exporterとは&quot;&gt;Jekyll Exporterとは&lt;/h2&gt;
+
+&lt;p&gt;このプラグインを使うと、Wordpressのデータを根こそぎzipファイルにまとめてくれる。&lt;/p&gt;
+
+&lt;p&gt;Wordpress自体にもエクスポート機能はあるが、こちらは記事をマークダウン形式に変換してくれるし、画像もまとめてくれるのが大きな違い。&lt;/p&gt;
+
+&lt;p&gt;インストールするとダッシュボードの「ツール」に「Export to Jekyll」というメニューが生まれるので、これをクリックするだけ、なのだが。&lt;/p&gt;
+
+&lt;p&gt;いくつか注意点がある。みんなあまりこの辺のことを書かないんだよな。&lt;/p&gt;
+
+&lt;h2 id=&quot;export-to-jekyllするときの注意&quot;&gt;Export to Jekyllするときの注意&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;データが多いと失敗する&lt;/p&gt;
+
+    &lt;p&gt;wordpress（あるいはそれを動かしているphp）では、プロセスの実行にタイムアウト時間を設けている。データがあまりに多いと作業がこのタイムアウト時間を超えてしまい、強制終了されてしまう。エクスポートが失敗し、エラーメッセージが”Maximum execution time of 30 seconds exceeded”であるなら、まさにこれ。（もちろん、数字は設定によって異なる）&lt;/p&gt;
+
+    &lt;p&gt;対処方法としては、wordpressのwp-config.phpで以下の一行を加える。&lt;/p&gt;
+
+    &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;set_time_limit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;300&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;値は秒なので心ゆくまで延ばせ。&lt;/p&gt;
+
+    &lt;p&gt;あるいは以下にあるように、.htaccessやphp.iniで対応する手もある。
+&lt;a href=&quot;https://codex.wordpress.org/Common_WordPress_Errors#Maximum_execution_time_exceeded&quot;&gt;https://codex.wordpress.org/Common_WordPress_Errors#Maximum_execution_time_exceeded&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;プラグインは無効化を&lt;/p&gt;
+
+    &lt;p&gt;プラグインを使って記事内に「いいね」ボタン等を自動挿入している場合。
+そのままにしていると、Jekyllに書き出したときに以下のようなタグが大量に含まれる。&lt;/p&gt;
+
+    &lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;wsbl_facebook_like&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;私の場合、このほかにも記事内の目次を自動生成するプラグインを使っている。
+エクスポートするのは記事内容なので、こういった付加情報は無いほうがいいだろう。&lt;/p&gt;
+
+    &lt;p&gt;というわけで、エクスポートにあたっては、Export to Jekyll以外のプラグインは無効化する。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;permalinkは「基本」がいいでしょう（未検証）&lt;/p&gt;
+
+    &lt;p&gt;SEO目的等でpermalinkに投稿名を含める設定にしていると、Jekyllがうまく処理できない。&lt;/p&gt;
+
+    &lt;p&gt;日本語permalinkのままJekyllでhtml化すると、なぜかhtmlリンクが働かない記事がいくつか発生した。いろいろ調べたものの原因が分からず、後の工程でpermalinkを無視して進めた。「基本」、つまり記事のアドレスが「?p=記事番号」になる設定にすれば、あるいは道が見つかるかもしれないが…未検証。もうやりとうない。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;作成したzipファイルは7-zip等で伸張を&lt;/p&gt;
+
+    &lt;p&gt;Export to Jekyllで作成したzipファイルは、なぜかWindows10で伸張できない。7-zip等のアーカイバを使うこと。FreeBSDのunzipでも伸張できた。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;export-to-jekyllで得たデータの整形&quot;&gt;Export to Jekyllで得たデータの整形&lt;/h2&gt;
+
+&lt;p&gt;前述のような注意点を踏まえても、出力したデータにはさらに手を加える必要がある。&lt;/p&gt;
+
+&lt;h3 id=&quot;画像リンク修正&quot;&gt;画像リンク修正&lt;/h3&gt;
+
+&lt;p&gt;Export to Jekyllで出力したzipを展開するとおおよそ以下のようなディレクトリ構成になる。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+├── _config.yml
+├── _drafts
+├── _posts
+└── wp-content
+    └── uploads
+        ├── 2017
+        ├── 2018
+        └── 2019
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Wordpressでせっせと書きためた記事は_postsの直下に置かれる（なお拡張子はすべて”.md”（markdown）になっている）&lt;/p&gt;
+
+&lt;p&gt;wp-content/uploadsの下には、年に加え、さらに月ごとにディレクトリがあって、そこに画像が格納されている。&lt;/p&gt;
+
+&lt;p&gt;Wordpressの設定によるかもしれないが、画像リンクは絶対アドレスで書かれているので、そのまま使うと画像だけは引っ越し元から読み込むことになってしまう。これはマズいのでリンクを書き換える必要がある。&lt;/p&gt;
+
+&lt;p&gt;手っ取り早いのは相対パスにしてしまうことだ。&lt;/p&gt;
+
+&lt;p&gt;Jekyllで処理をすると最終的なディレクトリ構成は以下のようになる。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;_site
+├── 2019
+│   ├── 01 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;記事がある&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+│   └── 05 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;記事がある&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+├── about
+├── assets
+│   ├── main.css
+│   └── minima-social-icons.svg
+├── feed.xml
+└── wp-content
+    └── uploads
+        └── 2019
+            ├── 01 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;画像がある&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            └── 05 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;画像がある&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;記事はたとえば2019/05の下に置かれ、画像はwp-content/uploadsの下に置かれるわけだから、以下の通りリンクを書き換えればよい。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   変更前: http://hogehoge.hoge/blogs/wp-content/uploads/2019/05/hoge.jpg
+   変更後: ../../wp-content/uploads/2019/05/hoge.jpg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;ということで、_postsディレクトリに降りてsedすればよい。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;.bak &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'s#http\://hogehoge.hoge/blogs/#\.\./\.\./#g'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.md
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;そのままだとスラッシュ、コロン、ドットすべてをエスケープしないといけないので、デリミタを#にして、せめてスラッシュくらいは使えるようにしている&lt;/p&gt;
+
+&lt;h2 id=&quot;front-matterにあるpermalinkの削除&quot;&gt;front matterにあるpermalinkの削除&lt;/h2&gt;
+
+&lt;p&gt;Jekyllで記事を書く時には、冒頭にfront matterというエリアを設け、そこに設定を書き込むようになっている。
+例えば以下のようなものだ。&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;3201&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;2019-05-12T20:30:48+09:00&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;author&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;nobwak&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;layout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;post&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;guid&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;../../?p=3201&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;permalink&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/?p=3201&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/wp-content/uploads/2019/05/18-620x483.jpg&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;categories&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;bhyve&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;ここに「permalink」という行がある。
+これはJekyllがhtmlのリンク構成を作るときに、どうpermalinkを設定するかを制御する。
+参考:&lt;a href=&quot;https://jekyllrb.com/docs/front-matter/&quot;&gt;https://jekyllrb.com/docs/front-matter/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;デフォルトだと年/月/日/タイトル.htmlだが、front matterにこう書かれてしまうとpermalinkが滅茶苦茶になる。
+（記事名で作ればよいが先述の通り日本語記事だとどうもうまくいかない）&lt;/p&gt;
+
+&lt;p&gt;そこでfront matterから一律でpermalinkを削る。&lt;/p&gt;
+
+&lt;p&gt;前項と同様、_postsでsed。permalinkは8行目だから;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sed &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;.bak2 &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'8d'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.md
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;無事に削除された。&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;3201&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;2019-05-12T20:30:48+09:00&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;author&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;nobwak&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;layout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;post&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;guid&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;../../?p=3201&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/wp-content/uploads/2019/05/18-620x483.jpg&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;categories&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;bhyve&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;これでやっと、Jekyllに移せるデータができた。
+（なおJekyllでも追加の対応が必要な模様）&lt;/p&gt;</content><author><name></name></author><summary type="html">WordpressからJekyllへ移行するためのデータ作成 レンタルサーバにさよならを ブログをあるレンタルサーバに置いていた。 値段もそこそこで、Wordpressも一発で構築できるので重宝していたのだが、SSL対応をすると素の時とは違うアドレスでアクセスしないとダメ、という不条理な仕様のせいで引っ越しをする。 引っ越しはgithub pagesに決めているのだが、その経緯は別の項に譲り、本稿ではWordpressからJekyllに移行–正しくはJekyllへインポートできるデータの作成について備忘のため記す。 プラグインのWordPress to Jekyll Exporterを使う これはもう定番で、WordpressのプラグインであるWordPress to Jekyll Exporterを使う。あとはJekyllで読めばよい。 それだけで終了といえば終了なのだが、いろいろと苦労があったのでこの記事を書いている。 Jekyll Exporterとは このプラグインを使うと、Wordpressのデータを根こそぎzipファイルにまとめてくれる。 Wordpress自体にもエクスポート機能はあるが、こちらは記事をマークダウン形式に変換してくれるし、画像もまとめてくれるのが大きな違い。 インストールするとダッシュボードの「ツール」に「Export to Jekyll」というメニューが生まれるので、これをクリックするだけ、なのだが。 いくつか注意点がある。みんなあまりこの辺のことを書かないんだよな。 Export to Jekyllするときの注意 データが多いと失敗する wordpress（あるいはそれを動かしているphp）では、プロセスの実行にタイムアウト時間を設けている。データがあまりに多いと作業がこのタイムアウト時間を超えてしまい、強制終了されてしまう。エクスポートが失敗し、エラーメッセージが”Maximum execution time of 30 seconds exceeded”であるなら、まさにこれ。（もちろん、数字は設定によって異なる） 対処方法としては、wordpressのwp-config.phpで以下の一行を加える。 set_time_limit(300); 値は秒なので心ゆくまで延ばせ。 あるいは以下にあるように、.htaccessやphp.iniで対応する手もある。 https://codex.wordpress.org/Common_WordPress_Errors#Maximum_execution_time_exceeded プラグインは無効化を プラグインを使って記事内に「いいね」ボタン等を自動挿入している場合。 そのままにしていると、Jekyllに書き出したときに以下のようなタグが大量に含まれる。 &amp;lt;div class=&quot;wsbl_facebook_like&quot;&amp;gt; 私の場合、このほかにも記事内の目次を自動生成するプラグインを使っている。 エクスポートするのは記事内容なので、こういった付加情報は無いほうがいいだろう。 というわけで、エクスポートにあたっては、Export to Jekyll以外のプラグインは無効化する。 permalinkは「基本」がいいでしょう（未検証） SEO目的等でpermalinkに投稿名を含める設定にしていると、Jekyllがうまく処理できない。 日本語permalinkのままJekyllでhtml化すると、なぜかhtmlリンクが働かない記事がいくつか発生した。いろいろ調べたものの原因が分からず、後の工程でpermalinkを無視して進めた。「基本」、つまり記事のアドレスが「?p=記事番号」になる設定にすれば、あるいは道が見つかるかもしれないが…未検証。もうやりとうない。 作成したzipファイルは7-zip等で伸張を Export to Jekyllで作成したzipファイルは、なぜかWindows10で伸張できない。7-zip等のアーカイバを使うこと。FreeBSDのunzipでも伸張できた。 Export to Jekyllで得たデータの整形 前述のような注意点を踏まえても、出力したデータにはさらに手を加える必要がある。 画像リンク修正 Export to Jekyllで出力したzipを展開するとおおよそ以下のようなディレクトリ構成になる。 . ├── _config.yml ├── _drafts ├── _posts └── wp-content └── uploads ├── 2017 ├── 2018 └── 2019 Wordpressでせっせと書きためた記事は_postsの直下に置かれる（なお拡張子はすべて”.md”（markdown）になっている） wp-content/uploadsの下には、年に加え、さらに月ごとにディレクトリがあって、そこに画像が格納されている。 Wordpressの設定によるかもしれないが、画像リンクは絶対アドレスで書かれているので、そのまま使うと画像だけは引っ越し元から読み込むことになってしまう。これはマズいのでリンクを書き換える必要がある。 手っ取り早いのは相対パスにしてしまうことだ。 Jekyllで処理をすると最終的なディレクトリ構成は以下のようになる。 _site ├── 2019 │   ├── 01 (記事がある) │   └── 05 (記事がある) ├── about ├── assets │   ├── main.css │   └── minima-social-icons.svg ├── feed.xml └── wp-content └── uploads └── 2019 ├── 01 (画像がある) └── 05 (画像がある) 記事はたとえば2019/05の下に置かれ、画像はwp-content/uploadsの下に置かれるわけだから、以下の通りリンクを書き換えればよい。 変更前: http://hogehoge.hoge/blogs/wp-content/uploads/2019/05/hoge.jpg 変更後: ../../wp-content/uploads/2019/05/hoge.jpg ということで、_postsディレクトリに降りてsedすればよい。 sed -i.bak -e 's#http\://hogehoge.hoge/blogs/#\.\./\.\./#g' *.md そのままだとスラッシュ、コロン、ドットすべてをエスケープしないといけないので、デリミタを#にして、せめてスラッシュくらいは使えるようにしている front matterにあるpermalinkの削除 Jekyllで記事を書く時には、冒頭にfront matterというエリアを設け、そこに設定を書き込むようになっている。 例えば以下のようなものだ。 --- id: 3201 title: FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用） date: 2019-05-12T20:30:48+09:00 author: nobwak layout: post guid: ../../?p=3201 permalink: /?p=3201 image: /wp-content/uploads/2019/05/18-620x483.jpg categories: - bhyve --- ここに「permalink」という行がある。 これはJekyllがhtmlのリンク構成を作るときに、どうpermalinkを設定するかを制御する。 参考:https://jekyllrb.com/docs/front-matter/ デフォルトだと年/月/日/タイトル.htmlだが、front matterにこう書かれてしまうとpermalinkが滅茶苦茶になる。 （記事名で作ればよいが先述の通り日本語記事だとどうもうまくいかない） そこでfront matterから一律でpermalinkを削る。 前項と同様、_postsでsed。permalinkは8行目だから; sed -i.bak2 -e '8d' *.md 無事に削除された。 --- id: 3201 title: FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用） date: 2019-05-12T20:30:48+09:00 author: nobwak layout: post guid: ../../?p=3201 image: /wp-content/uploads/2019/05/18-620x483.jpg categories: - bhyve --- これでやっと、Jekyllに移せるデータができた。 （なおJekyllでも追加の対応が必要な模様）</summary></entry><entry><title type="html">【備忘】windowsセットアップ</title><link href="https://nobwak.github.io/2019/05/19-%E5%82%99%E5%BF%98-windows%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97.html" rel="alternate" type="text/html" title="【備忘】windowsセットアップ" /><published>2019-05-19T00:00:00+09:00</published><updated>2019-05-19T00:00:00+09:00</updated><id>https://nobwak.github.io/2019/05/%E3%80%90%E5%82%99%E5%BF%98%E3%80%91Windows%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97</id><content type="html" xml:base="https://nobwak.github.io/2019/05/19-%E5%82%99%E5%BF%98-windows%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97.html">&lt;h1 id=&quot;備忘windowsセットアップ&quot;&gt;備忘Windowsセットアップ&lt;/h1&gt;
+
+&lt;p&gt;Windows再インストール時にすることをまとめる。
+まず各種ソフトウェアをインストールしたのち、Windowsの設定を行う。&lt;/p&gt;
+
+&lt;h2 id=&quot;インストールするソフト&quot;&gt;インストールするソフト&lt;/h2&gt;
+
+&lt;h3 id=&quot;方針&quot;&gt;方針&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;レジストリを汚したくないので、なるべくportable版を選び、それらは特定のフォルダ、例えばc:\localなどに入れる。設定については後述&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;システムユーティリティ&quot;&gt;システム、ユーティリティ&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ランチャー
+    &lt;ul&gt;
+      &lt;li&gt;インストールしない。後述のWindows設定を参照。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;IME, FEP
+    &lt;ul&gt;
+      &lt;li&gt;Google IME &lt;a href=&quot;https://www.google.co.jp/ime/&quot;&gt;https://www.google.co.jp/ime/&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;等幅フォント
+    &lt;ul&gt;
+      &lt;li&gt;VLGothic &lt;a href=&quot;https://ja.osdn.net/projects/vlgothic/&quot;&gt;https://ja.osdn.net/projects/vlgothic/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;コードを書くには必須。&lt;/li&gt;
+      &lt;li&gt;結局VLGothicが見やすいような&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;クリップボード管理
+    &lt;ul&gt;
+      &lt;li&gt;clibor &lt;a href=&quot;https://chigusa-web.com/clibor/feature/&quot;&gt;https://chigusa-web.com/clibor/feature/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;クリップボード履歴等を管理。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;スクリーンショット
+    &lt;ul&gt;
+      &lt;li&gt;screenshoter &lt;a href=&quot;https://www.inspire-soft.net/software/screenshoter&quot;&gt;https://www.inspire-soft.net/software/screenshoter&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;PrintScreenを押すと指定のフォルダに画像として保存してくれる&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;PC内検索
+    &lt;ul&gt;
+      &lt;li&gt;everything &lt;a href=&quot;https://www.voidtools.com/&quot;&gt;https://www.voidtools.com/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;速いうえにインクリメンタルサーチしてくれるから好き&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ファイル名一括変更
+    &lt;ul&gt;
+      &lt;li&gt;LiName &lt;a href=&quot;http://snca.net/&quot;&gt;http://snca.net/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;窓の杜の記事 &lt;a href=&quot;https://forest.watch.impress.co.jp/library/software/liname/&quot;&gt;https://forest.watch.impress.co.jp/library/software/liname/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;複数ファイルのファイル名を、好みのエディタ上で操作できる。超便利。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ハッシュ確認
+    &lt;ul&gt;
+      &lt;li&gt;wMD5sum &lt;a href=&quot;http://kkkon.sakura.ne.jp/software/wMD5sum/index_x64.shtml&quot;&gt;http://kkkon.sakura.ne.jp/software/wMD5sum/index_x64.shtml&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;このくらいシンプルなほうが使いやすい&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;アーカイバ
+    &lt;ul&gt;
+      &lt;li&gt;7-zipかなあ。満足できるアーカイバがまだない。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;コピー
+    &lt;ul&gt;
+      &lt;li&gt;定番のFastCopy &lt;a href=&quot;https://fastcopy.jp/&quot;&gt;https://fastcopy.jp/&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;仮想化
+    &lt;ul&gt;
+      &lt;li&gt;VirtualBox
+        &lt;ul&gt;
+          &lt;li&gt;Oracleなのでいつ何があるかわからないよね。&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;docker
+        &lt;ul&gt;
+          &lt;li&gt;入れようかどうしようか&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ネットワーク系&quot;&gt;ネットワーク系&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ファイル転送
+    &lt;ul&gt;
+      &lt;li&gt;WinSCP
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;https://winscp.net/eng/downloads.php&quot;&gt;https://winscp.net/eng/downloads.php&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;もちろん、脆弱性のあるSCPは使わずにSFTPを使う&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ターミナル
+    &lt;ul&gt;
+      &lt;li&gt;rloginかPutty
+        &lt;ul&gt;
+          &lt;li&gt;putty &lt;a href=&quot;https://www.putty.org/&quot;&gt;https://www.putty.org/&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;rlogin &lt;a href=&quot;http://nanno.dip.jp/softlib/man/rlogin/&quot;&gt;http://nanno.dip.jp/softlib/man/rlogin/&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;同期関連、つまりrsync相当
+    &lt;ul&gt;
+      &lt;li&gt;realsync
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;http://www.takenet.or.jp/~ryuuji/realsync/&quot;&gt;http://www.takenet.or.jp/~ryuuji/realsync/&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;VNC
+    &lt;ul&gt;
+      &lt;li&gt;TigerVNC
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;https://github.com/TigerVNC/tigervnc/releases&quot;&gt;https://github.com/TigerVNC/tigervnc/releases&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;Viewerだけならvncviewer64-X.X.X.exeでよい&lt;/li&gt;
+          &lt;li&gt;FreeBSDのbhyveで使うならこれ。&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;UltraVNC
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;http://www.uvnc.com/home.html&quot;&gt;http://www.uvnc.com/home.html&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ブラウザと拡張機能&quot;&gt;ブラウザと拡張機能&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;メモリ食いのChromeよりはFirefoxかなあ。
+    &lt;ul&gt;
+      &lt;li&gt;Firefox &lt;a href=&quot;https://www.mozilla.org/ja/firefox/new/&quot;&gt;https://www.mozilla.org/ja/firefox/new/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Chrome &lt;a href=&quot;https://www.google.com/intl/ja_ALL/chrome/&quot;&gt;https://www.google.com/intl/ja_ALL/chrome/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;頻繁に更新があるのでPortable版にはせずインストール。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;拡張機能
+    &lt;ul&gt;
+      &lt;li&gt;パスワードマネジャー
+        &lt;ul&gt;
+          &lt;li&gt;Lastpass
+            &lt;ul&gt;
+              &lt;li&gt;Firefox &lt;a href=&quot;https://addons.mozilla.org/ja/firefox/addon/lastpass-password-manager/&quot;&gt;https://addons.mozilla.org/ja/firefox/addon/lastpass-password-manager/&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;Chrome &lt;a href=&quot;https://chrome.google.com/webstore/detail/lastpass-free-password-ma/hdokiejnpimakedhajhdlcegeplioahd?hl=ja&quot;&gt;https://chrome.google.com/webstore/detail/lastpass-free-password-ma/hdokiejnpimakedhajhdlcegeplioahd?hl=ja&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;広告ブロック
+        &lt;ul&gt;
+          &lt;li&gt;uBlockが好き
+            &lt;ul&gt;
+              &lt;li&gt;Firefox &lt;a href=&quot;https://addons.mozilla.org/ja/firefox/addon/ublock-origin/&quot;&gt;https://addons.mozilla.org/ja/firefox/addon/ublock-origin/&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;Chrome &lt;a href=&quot;https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=ja&quot;&gt;https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=ja&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;アマゾン価格トラッカー
+        &lt;ul&gt;
+          &lt;li&gt;Keepa &lt;a href=&quot;https://keepa.com/&quot;&gt;https://keepa.com/&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;エディタ&quot;&gt;エディタ&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;テキストエディタ
+    &lt;ul&gt;
+      &lt;li&gt;EmEditor &lt;a href=&quot;https://jp.emeditor.com/text-editor-features/history/emeditor-free/&quot;&gt;https://jp.emeditor.com/text-editor-features/history/emeditor-free/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;EmEditorが好き。Free版を使わせてもらってます。ポータブル版で。&lt;/li&gt;
+      &lt;li&gt;Free版にするには「[ツール] メニューの [クイック起動] (Ctrl+Q) を選択し、[ダウングレード] と入力して Enter を 2 回押してください。」&lt;/li&gt;
+      &lt;li&gt;どうもデフォルトだと文字コードがShift-JISになってることに注意&lt;/li&gt;
+      &lt;li&gt;フォントは等幅フォントに変更。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;コードエディタ
+    &lt;ul&gt;
+      &lt;li&gt;Visual Studio Code　&lt;a href=&quot;https://code.visualstudio.com/downloadhttps://code.visualstudio.com/download&quot;&gt;https://code.visualstudio.com/downloadhttps://code.visualstudio.com/download&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;マークダウンエディタとしても使用
+            &lt;ul&gt;
+              &lt;li&gt;markdownlintを入れておく。&lt;/li&gt;
+              &lt;li&gt;マークダウンエディタとしてはTyporaも気になるがportable版がないのでなあ。。&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;ポータブル版はzip版をダウンロードすればよい。File-&amp;gt;Preference-&amp;gt;Extensionsと進むか、Ctrl+Shift+X。Japaneseで検索してJapanese Language Pack for Visual Studio Codeをインストール&lt;/li&gt;
+          &lt;li&gt;「Ctrl+Shift+P を押してコマンド パレットを表示させ、”config” と入力し、利用できるコマンドのリストをフィルター処理してから Configure Language コマンドを選択します。」とあるが、configで検索したあとConfigure Display Languageを選択し、jaを選ぶ&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;PyCharm
+        &lt;ul&gt;
+          &lt;li&gt;Pythonをよく書くので…。&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;フォトレタッチ&quot;&gt;フォトレタッチ&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;JTrim
+    &lt;ul&gt;
+      &lt;li&gt;JTrimが軽くてシンプルで好き&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://forest.watch.impress.co.jp/library/software/jtrim/&quot;&gt;https://forest.watch.impress.co.jp/library/software/jtrim/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.vector.co.jp/soft/win95/art/se108932.html&quot;&gt;https://www.vector.co.jp/soft/win95/art/se108932.html&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Paint . Net
+    &lt;ul&gt;
+      &lt;li&gt;レイヤー操作が必要なときはpaint dot net&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.getpaint.net/&quot;&gt;https://www.getpaint.net/&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;一回はインストールが必要だが、設定を変えればポータブルバージョンに変更できる。
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;https://blog.getpaint.net/2017/07/21/portable-mode-in-paint-net-4-0-17/&quot;&gt;https://blog.getpaint.net/2017/07/21/portable-mode-in-paint-net-4-0-17/&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;PaintDotNet.exe.configの&amp;lt;appSettings&amp;gt;に以下の行を加える。あとはフォルダごとUSBメモリにコピーするなり、他のPCにコピーするなりしてもOK&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;その他&quot;&gt;その他&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;年賀状ソフト
+    &lt;ul&gt;
+      &lt;li&gt;aprint（ポータブル版あり） &lt;a href=&quot;http://hp.vector.co.jp/authors/VA018451/aprint.htm&quot;&gt;http://hp.vector.co.jp/authors/VA018451/aprint.htm&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;windows設定&quot;&gt;Windows設定&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;タスクバー
+    &lt;ul&gt;
+      &lt;li&gt;People関連をすべてOFF&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;スタートメニュー
+    &lt;ul&gt;
+      &lt;li&gt;不要なものをOFFまたは右クリックでアンインストール&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;設定で「色」を検索
+    &lt;ul&gt;
+      &lt;li&gt;既定のアプリモードを黒にするとダークモード。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;設定で「マルチタスク」を検索
+    &lt;ul&gt;
+      &lt;li&gt;Windowsキー＋矢印キーで画面スナップするための設定&lt;/li&gt;
+      &lt;li&gt;「ウインドウを画面の横または隅にドラッグしたときに自動的に整列する」は オンのままにしておくこと&lt;/li&gt;
+      &lt;li&gt;「ウィンドウをスナップしたときに横に配置できるものを表示する」をオフ
+        &lt;ul&gt;
+          &lt;li&gt;これをしないとスナップしたときに「隣にどのウインドウを表示しますか」と毎回、聞かれることになる。&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;タイムライン
+        &lt;ul&gt;
+          &lt;li&gt;オフ&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;エクスプローラ
+    &lt;ul&gt;
+      &lt;li&gt;拡張子の表示
+        &lt;ul&gt;
+          &lt;li&gt;エクスプローラー画面でAlt→V→HF&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;詳細表示、一覧表示はCtrl+Shift+5, Ctrl+Shift+6で切り替え&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;右クリックの「送る」
+    &lt;ul&gt;
+      &lt;li&gt;Win+Rで”shell:sendto”とタイプ&lt;/li&gt;
+      &lt;li&gt;開いたフォルダに、「右クリック→送る」で渡したいアプリのショートカットを登録する。EmEditorとか。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Caps LockをCtrlキーに
+    &lt;ul&gt;
+      &lt;li&gt;テキストファイルに以下を書き込み、拡張子.regで保存。ダブルクリックで実行、再起動でOK&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://capm-network.com/?tag=Windows7-CapsLock%E3%82%92Ctrl%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B&quot;&gt;http://capm-network.com/?tag=Windows7-CapsLock%E3%82%92Ctrl%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;===================&lt;/span&gt;
+Windows Registry Editor Version 5.00
+
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;HKEY_LOCAL_MACHINE&lt;span class=&quot;se&quot;&gt;\S&lt;/span&gt;YSTEM&lt;span class=&quot;se&quot;&gt;\C&lt;/span&gt;urrentControlSet&lt;span class=&quot;se&quot;&gt;\C&lt;/span&gt;ontrol&lt;span class=&quot;se&quot;&gt;\K&lt;/span&gt;eyboard Layout]
+&lt;span class=&quot;s2&quot;&gt;&quot;Scancode Map&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;hex:00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00
+&lt;span class=&quot;o&quot;&gt;===================&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ランチャー（相当）の設定
+    &lt;ul&gt;
+      &lt;li&gt;pathを通すために環境変数を編集する
+        &lt;ol&gt;
+          &lt;li&gt;c:\binを作り（どこでもよい）、環境変数Pathに追加する。&lt;/li&gt;
+          &lt;li&gt;設定→「環境変数の編集」で検索&lt;/li&gt;
+          &lt;li&gt;Pathを選択、編集→新規、c:\binを追加&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+      &lt;li&gt;ここまでしたら、binフォルダにたとえばFirefoxのショートカットを置き、”firefox”とリネームする。&lt;/li&gt;
+      &lt;li&gt;この状態で、Win+R→firefoxとタイプ、Enterキーを押せばfirefoxを起動できる。&lt;/li&gt;
+      &lt;li&gt;ショートカットは実行ファイルだけでなく、フォルダのショートカットでも可。&lt;/li&gt;
+      &lt;li&gt;ダウンロードフォルダのショートカットをコピーし、”dl”とリネームしておくとか。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;最終更新: 2019-5-19&lt;/p&gt;</content><author><name></name></author><summary type="html">備忘Windowsセットアップ Windows再インストール時にすることをまとめる。 まず各種ソフトウェアをインストールしたのち、Windowsの設定を行う。 インストールするソフト 方針 レジストリを汚したくないので、なるべくportable版を選び、それらは特定のフォルダ、例えばc:\localなどに入れる。設定については後述 システム、ユーティリティ ランチャー インストールしない。後述のWindows設定を参照。 IME, FEP Google IME https://www.google.co.jp/ime/ 等幅フォント VLGothic https://ja.osdn.net/projects/vlgothic/ コードを書くには必須。 結局VLGothicが見やすいような クリップボード管理 clibor https://chigusa-web.com/clibor/feature/ クリップボード履歴等を管理。 スクリーンショット screenshoter https://www.inspire-soft.net/software/screenshoter PrintScreenを押すと指定のフォルダに画像として保存してくれる PC内検索 everything https://www.voidtools.com/ 速いうえにインクリメンタルサーチしてくれるから好き ファイル名一括変更 LiName http://snca.net/ 窓の杜の記事 https://forest.watch.impress.co.jp/library/software/liname/ 複数ファイルのファイル名を、好みのエディタ上で操作できる。超便利。 ハッシュ確認 wMD5sum http://kkkon.sakura.ne.jp/software/wMD5sum/index_x64.shtml このくらいシンプルなほうが使いやすい アーカイバ 7-zipかなあ。満足できるアーカイバがまだない。 コピー 定番のFastCopy https://fastcopy.jp/ 仮想化 VirtualBox Oracleなのでいつ何があるかわからないよね。 docker 入れようかどうしようか ネットワーク系 ファイル転送 WinSCP https://winscp.net/eng/downloads.php もちろん、脆弱性のあるSCPは使わずにSFTPを使う ターミナル rloginかPutty putty https://www.putty.org/ rlogin http://nanno.dip.jp/softlib/man/rlogin/ 同期関連、つまりrsync相当 realsync http://www.takenet.or.jp/~ryuuji/realsync/ VNC TigerVNC https://github.com/TigerVNC/tigervnc/releases Viewerだけならvncviewer64-X.X.X.exeでよい FreeBSDのbhyveで使うならこれ。 UltraVNC http://www.uvnc.com/home.html ブラウザと拡張機能 メモリ食いのChromeよりはFirefoxかなあ。 Firefox https://www.mozilla.org/ja/firefox/new/ Chrome https://www.google.com/intl/ja_ALL/chrome/ 頻繁に更新があるのでPortable版にはせずインストール。 拡張機能 パスワードマネジャー Lastpass Firefox https://addons.mozilla.org/ja/firefox/addon/lastpass-password-manager/ Chrome https://chrome.google.com/webstore/detail/lastpass-free-password-ma/hdokiejnpimakedhajhdlcegeplioahd?hl=ja 広告ブロック uBlockが好き Firefox https://addons.mozilla.org/ja/firefox/addon/ublock-origin/ Chrome https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=ja アマゾン価格トラッカー Keepa https://keepa.com/ エディタ テキストエディタ EmEditor https://jp.emeditor.com/text-editor-features/history/emeditor-free/ EmEditorが好き。Free版を使わせてもらってます。ポータブル版で。 Free版にするには「[ツール] メニューの [クイック起動] (Ctrl+Q) を選択し、[ダウングレード] と入力して Enter を 2 回押してください。」 どうもデフォルトだと文字コードがShift-JISになってることに注意 フォントは等幅フォントに変更。 コードエディタ Visual Studio Code　https://code.visualstudio.com/downloadhttps://code.visualstudio.com/download マークダウンエディタとしても使用 markdownlintを入れておく。 マークダウンエディタとしてはTyporaも気になるがportable版がないのでなあ。。 ポータブル版はzip版をダウンロードすればよい。File-&amp;gt;Preference-&amp;gt;Extensionsと進むか、Ctrl+Shift+X。Japaneseで検索してJapanese Language Pack for Visual Studio Codeをインストール 「Ctrl+Shift+P を押してコマンド パレットを表示させ、”config” と入力し、利用できるコマンドのリストをフィルター処理してから Configure Language コマンドを選択します。」とあるが、configで検索したあとConfigure Display Languageを選択し、jaを選ぶ PyCharm Pythonをよく書くので…。 フォトレタッチ JTrim JTrimが軽くてシンプルで好き https://forest.watch.impress.co.jp/library/software/jtrim/ https://www.vector.co.jp/soft/win95/art/se108932.html Paint . Net レイヤー操作が必要なときはpaint dot net https://www.getpaint.net/ 一回はインストールが必要だが、設定を変えればポータブルバージョンに変更できる。 https://blog.getpaint.net/2017/07/21/portable-mode-in-paint-net-4-0-17/ PaintDotNet.exe.configの&amp;lt;appSettings&amp;gt;に以下の行を加える。あとはフォルダごとUSBメモリにコピーするなり、他のPCにコピーするなりしてもOK その他 年賀状ソフト aprint（ポータブル版あり） http://hp.vector.co.jp/authors/VA018451/aprint.htm Windows設定 タスクバー People関連をすべてOFF スタートメニュー 不要なものをOFFまたは右クリックでアンインストール 設定で「色」を検索 既定のアプリモードを黒にするとダークモード。 設定で「マルチタスク」を検索 Windowsキー＋矢印キーで画面スナップするための設定 「ウインドウを画面の横または隅にドラッグしたときに自動的に整列する」は オンのままにしておくこと 「ウィンドウをスナップしたときに横に配置できるものを表示する」をオフ これをしないとスナップしたときに「隣にどのウインドウを表示しますか」と毎回、聞かれることになる。 タイムライン オフ エクスプローラ 拡張子の表示 エクスプローラー画面でAlt→V→HF 詳細表示、一覧表示はCtrl+Shift+5, Ctrl+Shift+6で切り替え 右クリックの「送る」 Win+Rで”shell:sendto”とタイプ 開いたフォルダに、「右クリック→送る」で渡したいアプリのショートカットを登録する。EmEditorとか。 Caps LockをCtrlキーに テキストファイルに以下を書き込み、拡張子.regで保存。ダブルクリックで実行、再起動でOK http://capm-network.com/?tag=Windows7-CapsLock%E3%82%92Ctrl%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B =================== Windows Registry Editor Version 5.00 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout] &quot;Scancode Map&quot;=hex:00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00 =================== ランチャー（相当）の設定 pathを通すために環境変数を編集する c:\binを作り（どこでもよい）、環境変数Pathに追加する。 設定→「環境変数の編集」で検索 Pathを選択、編集→新規、c:\binを追加 ここまでしたら、binフォルダにたとえばFirefoxのショートカットを置き、”firefox”とリネームする。 この状態で、Win+R→firefoxとタイプ、Enterキーを押せばfirefoxを起動できる。 ショートカットは実行ファイルだけでなく、フォルダのショートカットでも可。 ダウンロードフォルダのショートカットをコピーし、”dl”とリネームしておくとか。 最終更新: 2019-5-19</summary></entry><entry><title type="html">FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）</title><link href="https://nobwak.github.io/2019/05/12-freebsd-12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B-%E3%81%9D%E3%81%AE2-vm-bhyve%E4%BD%BF%E7%94%A8.html" rel="alternate" type="text/html" title="FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）" /><published>2019-05-12T20:30:48+09:00</published><updated>2019-05-12T20:30:48+09:00</updated><id>https://nobwak.github.io/2019/05/FreeBSD%2012%E3%81%AEbhyve%E3%81%ABWindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B:%E3%81%9D%E3%81%AE2(vm-bhyve%E4%BD%BF%E7%94%A8)</id><content type="html" xml:base="https://nobwak.github.io/2019/05/12-freebsd-12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B-%E3%81%9D%E3%81%AE2-vm-bhyve%E4%BD%BF%E7%94%A8.html">&lt;p&gt;&lt;a href=&quot;../../../2019/05/freebsd-12%e3%81%aebhyve%e3%81%abwindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89/&quot;&gt;前回&lt;/a&gt;までで仮想マシンをインストールする準備が整った。&lt;br /&gt;
 さっそくWindows10のインストールに取り掛かるが、準備すべきものがある。&lt;/p&gt;
 
 &lt;ol&gt;
@@ -214,7 +976,7 @@ vm_delayは、複数の仮想マシンを起動する場合のインターバル
 
 &lt;pre&gt;vm_list=&quot;win10&quot;
 vm_delay=&quot;5&quot;
-&lt;/pre&gt;</content><author><name>nobwak</name></author><summary type="html">前回までで仮想マシンをインストールする準備が整った。 さっそくWindows10のインストールに取り掛かるが、準備すべきものがある。</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://nobwak.github.io/wp-content/uploads/2019/05/18-620x483.jpg" /></entry><entry><title type="html">FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）</title><link href="https://nobwak.github.io/2019/05/12-freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae1efbc88vm-bhyvee4bdbfe794a8efbc89.html" rel="alternate" type="text/html" title="FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）" /><published>2019-05-12T17:17:30+09:00</published><updated>2019-05-12T17:17:30+09:00</updated><id>https://nobwak.github.io/2019/05/freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae1efbc88vm-bhyvee4bdbfe794a8efbc89</id><content type="html" xml:base="https://nobwak.github.io/2019/05/12-freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae1efbc88vm-bhyvee4bdbfe794a8efbc89.html">&lt;p&gt;bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。&lt;/p&gt;
+&lt;/pre&gt;</content><author><name>nobwak</name></author><summary type="html">前回までで仮想マシンをインストールする準備が整った。 さっそくWindows10のインストールに取り掛かるが、準備すべきものがある。</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://nobwak.github.io/wp-content/uploads/2019/05/18-620x483.jpg" /></entry><entry><title type="html">FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）</title><link href="https://nobwak.github.io/2019/05/12-freebsd-12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B-%E3%81%9D%E3%81%AE1-vm-bhyve%E4%BD%BF%E7%94%A8.html" rel="alternate" type="text/html" title="FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）" /><published>2019-05-12T17:17:30+09:00</published><updated>2019-05-12T17:17:30+09:00</updated><id>https://nobwak.github.io/2019/05/FreeBSD%2012%E3%81%AEbhyve%E3%81%ABWindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B:%E3%81%9D%E3%81%AE1(vm-bhyve%E4%BD%BF%E7%94%A8)</id><content type="html" xml:base="https://nobwak.github.io/2019/05/12-freebsd-12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B-%E3%81%9D%E3%81%AE1-vm-bhyve%E4%BD%BF%E7%94%A8.html">&lt;p&gt;bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。&lt;/p&gt;
 
 &lt;p&gt;FreeBSDにはjailがある。&lt;br /&gt;
 jailのいいところは、カーネルを共有しつつユーザランドだけ分けることで、オーバーヘッドを抑えられるところ。&lt;br /&gt;
@@ -499,7 +1261,7 @@ vm-public: flags=8843&amp;lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; metr
 &lt;p&gt;これで以下のようなネットワーク構成になった。&lt;br /&gt;
 外界 &amp;lt;–&amp;gt; ホストのインタフェース（re0） &amp;lt;–&amp;gt; 仮想スイッチ（vm-public）&lt;/p&gt;
 
-&lt;p&gt;これですべての初期設定が完了。&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://nobwak.github.io/wp-content/uploads/2019/05/win10-620x551.png" /></entry><entry><title type="html">【メモ】Visual Studio Code + Pythonのセットアップ</title><link href="https://nobwak.github.io/2019/01/05-e38090e383a1e383a2e38091visual-studio-code-pythone381aee382bbe38383e38388e382a2e38383e38397.html" rel="alternate" type="text/html" title="【メモ】Visual Studio Code + Pythonのセットアップ" /><published>2019-01-05T18:36:51+09:00</published><updated>2019-01-05T18:36:51+09:00</updated><id>https://nobwak.github.io/2019/01/e38090e383a1e383a2e38091visual-studio-code-pythone381aee382bbe38383e38388e382a2e38383e38397</id><content type="html" xml:base="https://nobwak.github.io/2019/01/05-e38090e383a1e383a2e38091visual-studio-code-pythone381aee382bbe38383e38388e382a2e38383e38397.html">&lt;p&gt;いまさらVisual  Studio Code（以降、VSC）をインストールしたのでメモ&lt;br /&gt;
+&lt;p&gt;これですべての初期設定が完了。&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://nobwak.github.io/wp-content/uploads/2019/05/win10-620x551.png" /></entry><entry><title type="html">【メモ】Visual Studio Code + Pythonのセットアップ</title><link href="https://nobwak.github.io/2019/01/05-%E3%83%A1%E3%83%A2-visual-studio-code-python%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97.html" rel="alternate" type="text/html" title="【メモ】Visual Studio Code + Pythonのセットアップ" /><published>2019-01-05T18:36:51+09:00</published><updated>2019-01-05T18:36:51+09:00</updated><id>https://nobwak.github.io/2019/01/%E3%80%90%E3%83%A1%E3%83%A2%E3%80%91Visual%20Studio%20Code%20+%20Python%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97</id><content type="html" xml:base="https://nobwak.github.io/2019/01/05-%E3%83%A1%E3%83%A2-visual-studio-code-python%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97.html">&lt;p&gt;いまさらVisual  Studio Code（以降、VSC）をインストールしたのでメモ&lt;br /&gt;
 Windows10。Python。&lt;br /&gt;
 以下の手順に沿う。&lt;/p&gt;
 
@@ -573,7 +1335,7 @@ error: Microsoft Visual C++ 14.0 is required. Get it with “Microsoft Visual C+
 &lt;a href=&quot;https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe&quot;&gt;https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;MD5ハッシュは 8d4afd3b226babecaa4effb10d69eb2e&lt;br /&gt;
-以上&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">いまさらVisual  Studio Code（以降、VSC）をインストールしたのでメモ Windows10。Python。 以下の手順に沿う。</summary></entry><entry><title type="html">[zfs] zfsnap2を使った日々のzfs snapshot（削除編）</title><link href="https://nobwak.github.io/2018/12/29-zfs-zfsnap2e38292e4bdbfe381a3e3819fe697a5e38085e381aezfs-snapshotefbc88e5898ae999a4e7b7a8efbc89.html" rel="alternate" type="text/html" title="[zfs] zfsnap2を使った日々のzfs snapshot（削除編）" /><published>2018-12-29T13:44:00+09:00</published><updated>2018-12-29T13:44:00+09:00</updated><id>https://nobwak.github.io/2018/12/zfs-zfsnap2e38292e4bdbfe381a3e3819fe697a5e38085e381aezfs-snapshotefbc88e5898ae999a4e7b7a8efbc89</id><content type="html" xml:base="https://nobwak.github.io/2018/12/29-zfs-zfsnap2e38292e4bdbfe381a3e3819fe697a5e38085e381aezfs-snapshotefbc88e5898ae999a4e7b7a8efbc89.html">&lt;p&gt;zfsnap2（以降、zfsnap）をperiodicで自動取得する方法は&lt;a href=&quot;../../../2018/12/zfs-zfsnap2%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%9f%e6%97%a5%e3%80%85%e3%81%aezfs-snapshot/&quot;&gt;こちら&lt;/a&gt;で触れた。&lt;br /&gt;
+以上&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">いまさらVisual  Studio Code（以降、VSC）をインストールしたのでメモ Windows10。Python。 以下の手順に沿う。</summary></entry><entry><title type="html">[zfs] zfsnap2を使った日々のzfs snapshot（削除編）</title><link href="https://nobwak.github.io/2018/12/29-zfs-zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs-snapshot-%E5%89%8A%E9%99%A4%E7%B7%A8.html" rel="alternate" type="text/html" title="[zfs] zfsnap2を使った日々のzfs snapshot（削除編）" /><published>2018-12-29T13:44:00+09:00</published><updated>2018-12-29T13:44:00+09:00</updated><id>https://nobwak.github.io/2018/12/%5Bzfs%5D%20zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs%20snapshot(%E5%89%8A%E9%99%A4%E7%B7%A8)</id><content type="html" xml:base="https://nobwak.github.io/2018/12/29-zfs-zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs-snapshot-%E5%89%8A%E9%99%A4%E7%B7%A8.html">&lt;p&gt;zfsnap2（以降、zfsnap）をperiodicで自動取得する方法は&lt;a href=&quot;../../../2018/12/zfs-zfsnap2%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%9f%e6%97%a5%e3%80%85%e3%81%aezfs-snapshot/&quot;&gt;こちら&lt;/a&gt;で触れた。&lt;br /&gt;
 同期時でも触れた通り、zfsnapには自動削除するperiodic scriptもある。&lt;br /&gt;
 が、実はそのままでは動かない。&lt;br /&gt;
 変更内容を本記事で示す。&lt;/p&gt;
@@ -658,7 +1420,7 @@ daily_zfsnap_delete_recursive_fs=”vault”[/bash]&lt;/p&gt;
 &lt;p&gt;[bash]&lt;br /&gt;
 /sbin/zfs destroy vault/chamber@daily-2018-12-21_04.00.00–1w1d … DONE&lt;br /&gt;
 /sbin/zfs destroy vault/itunes@daily-2018-12-21_04.00.00–1w1d … DONE&lt;br /&gt;
-/sbin/zfs destroy vault@daily-2018-12-21_04.00.00–1w1d … DONE[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">zfsnap2（以降、zfsnap）をperiodicで自動取得する方法はこちらで触れた。 同期時でも触れた通り、zfsnapには自動削除するperiodic scriptもある。 が、実はそのままでは動かない。 変更内容を本記事で示す。</summary></entry><entry><title type="html">[zfs]ディスク交換、zpool容量の拡張</title><link href="https://nobwak.github.io/2018/12/22-3159.html" rel="alternate" type="text/html" title="[zfs]ディスク交換、zpool容量の拡張" /><published>2018-12-22T12:59:38+09:00</published><updated>2018-12-22T12:59:38+09:00</updated><id>https://nobwak.github.io/2018/12/3159</id><content type="html" xml:base="https://nobwak.github.io/2018/12/22-3159.html">&lt;p&gt;HDDがいっぱいになってきたので容量の大きい別のHDDに移した。&lt;br /&gt;
+/sbin/zfs destroy vault@daily-2018-12-21_04.00.00–1w1d … DONE[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">zfsnap2（以降、zfsnap）をperiodicで自動取得する方法はこちらで触れた。 同期時でも触れた通り、zfsnapには自動削除するperiodic scriptもある。 が、実はそのままでは動かない。 変更内容を本記事で示す。</summary></entry><entry><title type="html">[zfs]ディスク交換、zpool容量の拡張</title><link href="https://nobwak.github.io/2018/12/22-zfs-%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E4%BA%A4%E6%8F%9B-zpool%E5%AE%B9%E9%87%8F%E3%81%AE%E6%8B%A1%E5%BC%B5.html" rel="alternate" type="text/html" title="[zfs]ディスク交換、zpool容量の拡張" /><published>2018-12-22T12:59:38+09:00</published><updated>2018-12-22T12:59:38+09:00</updated><id>https://nobwak.github.io/2018/12/%5Bzfs%5D%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E4%BA%A4%E6%8F%9B%E3%80%81zpool%E5%AE%B9%E9%87%8F%E3%81%AE%E6%8B%A1%E5%BC%B5</id><content type="html" xml:base="https://nobwak.github.io/2018/12/22-zfs-%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E4%BA%A4%E6%8F%9B-zpool%E5%AE%B9%E9%87%8F%E3%81%AE%E6%8B%A1%E5%BC%B5.html">&lt;p&gt;HDDがいっぱいになってきたので容量の大きい別のHDDに移した。&lt;br /&gt;
 zfsなのでmirrorをしつつ入れ替えができる。&lt;br /&gt;
 その時のメモ。&lt;/p&gt;
 
@@ -828,7 +1590,7 @@ vault 2.05T 599G 88K /vault&lt;br /&gt;
 vault/chamber 1017G 599G 1017G /chamber&lt;br /&gt;
 vault/itunes 1.06T 599G 1.05T /itunes&lt;/p&gt;
 
-&lt;p&gt;[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">HDDがいっぱいになってきたので容量の大きい別のHDDに移した。 zfsなのでmirrorをしつつ入れ替えができる。 その時のメモ。</summary></entry><entry><title type="html">[zfs] zfsnap2を使った日々のzfs snapshot（取得編）</title><link href="https://nobwak.github.io/2018/12/02-zfs-zfsnap2e38292e4bdbfe381a3e3819fe697a5e38085e381aezfs-snapshot.html" rel="alternate" type="text/html" title="[zfs] zfsnap2を使った日々のzfs snapshot（取得編）" /><published>2018-12-02T17:54:52+09:00</published><updated>2018-12-02T17:54:52+09:00</updated><id>https://nobwak.github.io/2018/12/zfs-zfsnap2e38292e4bdbfe381a3e3819fe697a5e38085e381aezfs-snapshot</id><content type="html" xml:base="https://nobwak.github.io/2018/12/02-zfs-zfsnap2e38292e4bdbfe381a3e3819fe697a5e38085e381aezfs-snapshot.html">&lt;p&gt;&lt;a href=&quot;../../../2018/12/zfszpool-%e3%82%89%e3%81%8f%e3%82%89%e3%81%8f%e3%82%b9%e3%83%8a%e3%83%83%e3%83%97%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88zfsnap2/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;zfsnap2&lt;/a&gt;（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。&lt;br /&gt;
+&lt;p&gt;[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">HDDがいっぱいになってきたので容量の大きい別のHDDに移した。 zfsなのでmirrorをしつつ入れ替えができる。 その時のメモ。</summary></entry><entry><title type="html">[zfs] zfsnap2を使った日々のzfs snapshot（取得編）</title><link href="https://nobwak.github.io/2018/12/02-zfs-zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs-snapshot-%E5%8F%96%E5%BE%97%E7%B7%A8.html" rel="alternate" type="text/html" title="[zfs] zfsnap2を使った日々のzfs snapshot（取得編）" /><published>2018-12-02T17:54:52+09:00</published><updated>2018-12-02T17:54:52+09:00</updated><id>https://nobwak.github.io/2018/12/%5Bzfs%5D%20zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs%20snapshot(%E5%8F%96%E5%BE%97%E7%B7%A8)</id><content type="html" xml:base="https://nobwak.github.io/2018/12/02-zfs-zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs-snapshot-%E5%8F%96%E5%BE%97%E7%B7%A8.html">&lt;p&gt;&lt;a href=&quot;../../../2018/12/zfszpool-%e3%82%89%e3%81%8f%e3%82%89%e3%81%8f%e3%82%b9%e3%83%8a%e3%83%83%e3%83%97%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88zfsnap2/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;zfsnap2&lt;/a&gt;（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。&lt;br /&gt;
 あとはこれをcronに仕込んで日々、snapshotを取得、削除するだけである。&lt;/p&gt;
 
 &lt;p&gt;zfsnapをpkg、あるいはportsからインストールすると、cron用のシェルスクリプトも付いてくる。&lt;br /&gt;
@@ -1185,7 +1947,7 @@ monthly_zfsnap_ttl=”1y1d”&lt;br /&gt;
 
 &lt;p&gt;[bash]&lt;br /&gt;
 /sbin/zfs snapshot -r vault@daily-2018-12-02_04.47.0&lt;wbr /&gt;0–1w1d … DONE&lt;br /&gt;
-[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">zfsnap2（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。 あとはこれをcronに仕込んで日々、snapshotを取得、削除するだけである。</summary></entry><entry><title type="html">[zfs][zpool] らくらくスナップショットzfsnap2</title><link href="https://nobwak.github.io/2018/12/01-zfszpool-e38289e3818fe38289e3818fe382b9e3838ae38383e38397e382b7e383a7e38383e38388zfsnap2.html" rel="alternate" type="text/html" title="[zfs][zpool] らくらくスナップショットzfsnap2" /><published>2018-12-01T15:53:49+09:00</published><updated>2018-12-01T15:53:49+09:00</updated><id>https://nobwak.github.io/2018/12/zfszpool-e38289e3818fe38289e3818fe382b9e3838ae38383e38397e382b7e383a7e38383e38388zfsnap2</id><content type="html" xml:base="https://nobwak.github.io/2018/12/01-zfszpool-e38289e3818fe38289e3818fe382b9e3838ae38383e38397e382b7e383a7e38383e38388zfsnap2.html">&lt;p&gt;zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。&lt;br /&gt;
+[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">zfsnap2（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。 あとはこれをcronに仕込んで日々、snapshotを取得、削除するだけである。</summary></entry><entry><title type="html">[zfs][zpool] らくらくスナップショットzfsnap2</title><link href="https://nobwak.github.io/2018/12/01-zfs-zpool-%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E3%82%B9%E3%83%8A%E3%83%83%E3%83%97%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88zfsnap2.html" rel="alternate" type="text/html" title="[zfs][zpool] らくらくスナップショットzfsnap2" /><published>2018-12-01T15:53:49+09:00</published><updated>2018-12-01T15:53:49+09:00</updated><id>https://nobwak.github.io/2018/12/%5Bzfs%5D%5Bzpool%5D%20%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E3%82%B9%E3%83%8A%E3%83%83%E3%83%97%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88zfsnap2</id><content type="html" xml:base="https://nobwak.github.io/2018/12/01-zfs-zpool-%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E3%82%B9%E3%83%8A%E3%83%83%E3%83%97%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88zfsnap2.html">&lt;p&gt;zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。&lt;br /&gt;
 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送である。&lt;/p&gt;
 
 &lt;p&gt;スナップショットの簡素化について。&lt;br /&gt;
@@ -1360,532 +2122,4 @@ zroot/ROOT、zroot/usr配下のTTL切れsnapshotを削除&lt;br /&gt;
 /sbin/zfs destroy zroot/ROOT@2018-12-01_22.34.00–1M … DONE&lt;br /&gt;
 [/bash]&lt;/p&gt;
 
-&lt;p&gt;以上。&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送である。</summary></entry><entry><title type="html">[ZFS][zpool]zpoolのHDDをスタンバイモードにして消費電力を減らそう</title><link href="https://nobwak.github.io/2018/11/18-zfszpoolzpoole381aehdde38292e382b9e382bfe383b3e38390e382a4e383a2e383bce38389e381abe38197e381a6e6b688e8b2bbe99bbbe58a9be38292e6b89be38289.html" rel="alternate" type="text/html" title="[ZFS][zpool]zpoolのHDDをスタンバイモードにして消費電力を減らそう" /><published>2018-11-18T18:36:33+09:00</published><updated>2018-11-18T18:36:33+09:00</updated><id>https://nobwak.github.io/2018/11/zfszpoolzpoole381aehdde38292e382b9e382bfe383b3e38390e382a4e383a2e383bce38389e381abe38197e381a6e6b688e8b2bbe99bbbe58a9be38292e6b89be38289</id><content type="html" xml:base="https://nobwak.github.io/2018/11/18-zfszpoolzpoole381aehdde38292e382b9e382bfe383b3e38390e382a4e383a2e383bce38389e381abe38197e381a6e6b688e8b2bbe99bbbe58a9be38292e6b89be38289.html">&lt;p&gt;我が家のNASサーバーはFreeBSDの入ったHP microserverである。&lt;br /&gt;
-HP microserverにはHDDを4つ入れることができる。&lt;br /&gt;
-たいへん便利なのだが、HDDが4つとも24時間動きっぱなしというのは精神衛生上、よろしくない。&lt;/p&gt;
-
-&lt;p&gt;実は、HDD4つのうちメインで使っているのはOSの入っているものと、Samba共有しているものの2つだけで、残りの2つはバックアップ用である。&lt;br /&gt;
-少なくとも、残りの2本はバックアップを取得するときだけ動いてくれればよいので、それ以外の間は、HDD内円盤の回転を止めておきたい（スピンダウン）。&lt;/p&gt;
-
-&lt;p&gt;しかしSamba共有しているもの、バックアップ用のHDD（要するにOSの入っているHDD）以外はすべてzfsのzpoolを構成しているものである。&lt;br /&gt;
-気軽にスピンダウンしてしまってよいものだろうか。&lt;/p&gt;
-
-&lt;p&gt;というのが調査を始めたきっかけである。&lt;/p&gt;
-
-&lt;p&gt;ああ、それと、頻繁に止めたり動かしたりすることがHDDに悪い、というのは重々承知の上。&lt;/p&gt;
-
-&lt;h3 id=&quot;結論camcontrol-standbyしろ&quot;&gt;結論（camcontrol standbyしろ）&lt;/h3&gt;
-
-&lt;p&gt;結論から言うと、camcontrolでディスクを止めろ。&lt;br /&gt;
-ディスク停止には、”standby”で。”idle”はやめておけ。&lt;/p&gt;
-
-&lt;h3 id=&quot;ataデバイスのモード&quot;&gt;ATAデバイスのモード&lt;/h3&gt;
-
-&lt;p&gt;ATAデバイスには4つのPower Modeがあり、条件によりそれぞれを行き来する。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Active&lt;/li&gt;
-  &lt;li&gt;Idle&lt;/li&gt;
-  &lt;li&gt;Standby&lt;/li&gt;
-  &lt;li&gt;Sleep&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Activeモードは、通常のデータのやり取りができる状態のこと。&lt;br /&gt;
-それ以外は、Idle &amp;gt; Standby &amp;gt; Sleep の順に消費電力が下がり、反応速度も遅くなる。&lt;br /&gt;
-詳細は以下書類（PDF注意）の4.18.3 Power modesを参照されたし。&lt;br /&gt;
-&lt;a href=&quot;http://www.t13.org/Documents/UploadedDocuments/docs2007/e07163r2-Comments_on_ATA8-ACS_revision_4a.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.t13.org/Documents/UploadedDocuments/docs2007/e07163r2-Comments_on_ATA8-ACS_revision_4a.pdf&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;これを踏まえて、任意のタイミング、あるいは、一定時間アクセスがないタイミングでIdle/Standby/Sleepに遷移させられれば目的が達成できる。&lt;br /&gt;
-FreeBSDにおいて、Power modeの遷移にはcamcontrolコマンドを使う。&lt;br /&gt;
-しかしその前に、zfs/zpoolで使えるPower Modeを調べねばならない。&lt;/p&gt;
-
-&lt;h3 id=&quot;zfsにはstandby&quot;&gt;zfsにはStandby&lt;/h3&gt;
-
-&lt;p&gt;FreeBSD Forumにある&lt;a href=&quot;https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;camcontrol standby weirdness&lt;/a&gt;というスレッドを見ると、以下のような記述がある。要するにStandbyを使えと。Idleだとzfsは当該ディスクをlost/defect/detachedと判断し、zpoolはdegradedになるか、unavailableになるという。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;First of all: ZFS is fine with disks that go into STANDBY (accessing a zpool with disks in STANDBY will wake them up and ZFS will wait for it). ZFS cannot handle disks that are in IDLE mode (it considers the disks lost/defect/detached and the zpool will go degraded or even unavailable).&lt;/p&gt;
-
-  &lt;p&gt;&lt;a href=&quot;https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-340121&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-340121&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;自分で試す気にはならないので、そのまま受け取る。&lt;/p&gt;
-
-&lt;h3 id=&quot;camcontrolによるstabdby操作&quot;&gt;camcontrolによるstabdby操作&lt;/h3&gt;
-
-&lt;p&gt;再びFreeBSD Forum。[AHCI] Spinning down ada(4) disksというスレッドの以下のポストを参照&lt;br /&gt;
-&lt;a href=&quot;https://forums.freebsd.org/threads/ahci-spinning-down-ada-4-disks.8841/page-2#post-98640&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://forums.freebsd.org/threads/ahci-spinning-down-ada-4-disks.8841/page-2#post-98640&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;camcontrol standby adaXとすればよい。&lt;br /&gt;
-またcamcontrol standby adaX -T sssとすれば、ただちにstandbyモードに移行し、その後もsss秒、アクセスがなければstandbyモードに移行することができる。&lt;br /&gt;
-以下なら/dev/ada3をすぐにstandbyモードに移行させるとともに、20分の間アクセスがなければやはりstandbyモードに遷移するようタイマー設定している。今すぐはstandbyモードにしなくてもいいけど、タイマーだけ設定したい、という方法はないみたいだ。&lt;br /&gt;
-[bash]# camcontrol standby ada3 -T 12000[/bash]&lt;br /&gt;
-しかし上記のコマンドを実行したとしても、応答はない。なしのつぶてである。&lt;br /&gt;
-standbyモードに移ったのか。かくなる上はHDDの回転数はいかほどか、耳を澄ますほかはない。&lt;br /&gt;
-そんなご無体な、とgoogle先生に訴えたところ、FreeNASのフォーラムに以下のポストを発見。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://forums.freenas.org/index.php?threads/spinning-down-your-drives-and-checking-power-states-new-script.41559/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Spinning Down your Drives and Checking Power States. (New Script)&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;上記にあるスクリプトを使えば、power modeを知ることができる。&lt;br /&gt;
-本記事の末尾に転載しておく。&lt;br /&gt;
-get_drive_status.shとして保存しておいた。&lt;br /&gt;
-実行してみると;&lt;br /&gt;
-[bash]$ sudo drivestatus.sh&lt;br /&gt;
-ada0: FF&lt;br /&gt;
-ada0: Running&lt;br /&gt;
-ada1: FF&lt;br /&gt;
-ada1: Running&lt;br /&gt;
-ada2: FF&lt;br /&gt;
-ada2: Running&lt;br /&gt;
-ada3: FF&lt;br /&gt;
-ada3: Running[/bash]&lt;br /&gt;
-camcontrolでstandbyにしておいて再実行。&lt;br /&gt;
-[bash]$ sudo drivestatus.sh&lt;br /&gt;
-ada0: FF&lt;br /&gt;
-ada0: Running&lt;br /&gt;
-ada1: 00&lt;br /&gt;
-ada1: Standby&lt;br /&gt;
-ada2: 00&lt;br /&gt;
-ada2: Standby&lt;br /&gt;
-ada3: 00&lt;br /&gt;
-ada3: Standby[/bash]&lt;br /&gt;
-/dev/ada0はOSのあるHDDだからActiveですな。&lt;/p&gt;
-
-&lt;h3 id=&quot;運用方法なにかが変&quot;&gt;運用方法（なにかが変）&lt;/h3&gt;
-
-&lt;p&gt;よしこれで解決。&lt;br /&gt;
-と思ったのだが、タイマー満了してもpower modeがstandbyに移らないのである。&lt;br /&gt;
-その割に、そのディスクのディレクトリにアクセスすると、ファイル一覧の表示に待たされたりするのである。&lt;/p&gt;
-
-&lt;p&gt;先に引用した彼も同じことに悩んでいる。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;But, then, when the disk is idle for &amp;gt; 1800sec (monitor with “zpool iostat 60”), it will not spin down. Huh?&lt;/p&gt;
-
-  &lt;p&gt;&lt;a href=&quot;https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-339820&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-339820&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;この彼は、zpool iostat でディスクへの読み書きをモニターできるので、何分かアクセスがなければidleモードに移すスクリプトを書いた、と言っている。&lt;br /&gt;
-常駐スクリプトを運用するのが面倒なので、cronジョブでstandbyさせるようにした。&lt;/p&gt;
-
-&lt;h3 id=&quot;結果&quot;&gt;結果&lt;/h3&gt;
-
-&lt;p&gt;ワットチェッカーなんてものは持っていないので、単純に温度で確認した。&lt;br /&gt;
-以下がそのグラフ。&lt;br /&gt;
-ある日を境に、（OSのある/dev/ada0を除いて）温度が劇的に下がっていて、現時点ではまあ満足。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;../../../wp-content/uploads/2018/11/disk01z.1month.png&quot;&gt;&lt;img class=&quot;alignnone size-thumbnail wp-image-3127&quot; src=&quot;../../../wp-content/uploads/2018/11/disk01z.1month-150x150.png&quot; alt=&quot;&quot; width=&quot;150&quot; height=&quot;150&quot; srcset=&quot;../../../wp-content/uploads/2018/11/disk01z.1month-150x150.png 150w, ../../../wp-content/uploads/2018/11/disk01z.1month-144x144.png 144w&quot; sizes=&quot;(max-width: 150px) 100vw, 150px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;power-mode確認スクリプト&quot;&gt;power mode確認スクリプト&lt;/h3&gt;
-
-&lt;p&gt;[bash]#!/bin/bash&lt;br /&gt;
-#&lt;br /&gt;
-# Created by: Motorahead&lt;br /&gt;
-# Date: 02/19/2016&lt;br /&gt;
-# Checks For Running Status of Connected ADA Devices&lt;/p&gt;
-
-&lt;p&gt;# Look for Connected Devices&lt;br /&gt;
-DEVICELIST=($( camcontrol devlist | grep -o ‘ada[0-9]’ ))&lt;/p&gt;
-
-&lt;p&gt;# Checks Drive Status, but only outputs relative field $10&lt;br /&gt;
-STATUS(){&lt;br /&gt;
-camcontrol cmd ${LIST} -a “E5 00 00 00 00 00 00 00 00 00 00 00” -r – | awk ‘{print $10}’&lt;br /&gt;
-}&lt;/p&gt;
-
-&lt;p&gt;# Loop through each device found in ${DEVICELIST}&lt;br /&gt;
-for LIST in ${DEVICELIST[@]}; do&lt;br /&gt;
-echo -n “${LIST}: “&lt;br /&gt;
-STATUS&lt;br /&gt;
-# If the Output is 00, then the drive is in Standby. If it’s FF, then it’s active.&lt;br /&gt;
-if [[ “$(STATUS)” == “FF” ]]; then&lt;br /&gt;
-echo “${LIST}: Running”&lt;br /&gt;
-elif [[ “$(STATUS)” -eq “00” ]]; then&lt;br /&gt;
-echo “${LIST}: Standby”&lt;br /&gt;
-else&lt;br /&gt;
-echo “${LIST} is in a unrecognized state.”&lt;br /&gt;
-fi&lt;br /&gt;
-done&lt;/p&gt;
-
-&lt;p&gt;[/bash]&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">我が家のNASサーバーはFreeBSDの入ったHP microserverである。 HP microserverにはHDDを4つ入れることができる。 たいへん便利なのだが、HDDが4つとも24時間動きっぱなしというのは精神衛生上、よろしくない。</summary></entry><entry><title type="html">[zfs][zpool] zfsの別ディスクへの移行</title><link href="https://nobwak.github.io/2018/11/18-zfszpool-zfse381aee588a5e38387e382a3e382b9e382afe381b8e381aee7a7bbe8a18c.html" rel="alternate" type="text/html" title="[zfs][zpool] zfsの別ディスクへの移行" /><published>2018-11-18T11:58:47+09:00</published><updated>2018-11-18T11:58:47+09:00</updated><id>https://nobwak.github.io/2018/11/zfszpool-zfse381aee588a5e38387e382a3e382b9e382afe381b8e381aee7a7bbe8a18c</id><content type="html" xml:base="https://nobwak.github.io/2018/11/18-zfszpool-zfse381aee588a5e38387e382a3e382b9e382afe381b8e381aee7a7bbe8a18c.html">&lt;p&gt;zpoolを容量の多い別HDDに移したのでメモ。&lt;br /&gt;
-一度、同じようなことはやっているが、時間も経っているので。&lt;br /&gt;
-最初に書いておくが移行元でまずscrubしておくこと。&lt;/p&gt;
-
-&lt;p&gt;流れとしては以下の通り。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;移行元HDD
-    &lt;ol&gt;
-      &lt;li&gt;scrubしておく&lt;/li&gt;
-      &lt;li&gt;snapshot&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;移行先HDD
-    &lt;ol&gt;
-      &lt;li&gt;GPTでzfsのパーティションを作成&lt;/li&gt;
-      &lt;li&gt;zpool作成&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;zfs send, recvで丸々コピー&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;以下、実作業に触れる前に補足。&lt;/p&gt;
-
-&lt;h3 id=&quot;方針についての補足&quot;&gt;方針についての補足&lt;/h3&gt;
-
-&lt;h4 id=&quot;なぜmirrorにしないのか&quot;&gt;なぜmirrorにしないのか&lt;/h4&gt;
-
-&lt;p&gt;上記の方法のほかには、追加のディスクをmirrorとしてzpoolに追加し、resilveringが終わったら旧ディスクを外してexpandという手がある。&lt;br /&gt;
-が、その手は採らない。&lt;br /&gt;
-実は、zpool statusをする都度、以下のメッセージが表示されていた。&lt;br /&gt;
-旧ディスクは512Bセクタになっていると文句を言っているのである。&lt;br /&gt;
-ディスクを交換するか、新Poolに移せ、と。&lt;br /&gt;
-[bash] pool: vault&lt;br /&gt;
-state: ONLINE&lt;br /&gt;
-status: One or more devices are configured to use a non-native block size.&lt;br /&gt;
-Expect reduced performance.&lt;br /&gt;
-action: Replace affected devices with devices that support the&lt;br /&gt;
-configured block size, or migrate data to a properly configured&lt;br /&gt;
-pool.&lt;br /&gt;
-scan: scrub repaired 0 in 8h3m with 0 errors on Sun Nov 4 04:16:39 2018&lt;br /&gt;
-config:&lt;/p&gt;
-
-&lt;p&gt;NAME STATE READ WRITE CKSUM&lt;br /&gt;
-vault ONLINE 0 0 0&lt;br /&gt;
-ada1 ONLINE 0 0 0 block size: 512B configured, 4096B native&lt;br /&gt;
-[/bash]&lt;br /&gt;
- &lt;/p&gt;
-
-&lt;p&gt;512Bセクタのpoolにmirrorを追加したら、やっぱり512Bになるんではと心配になったので、mirrorではなく新規ディスクの新規Poolに移す。&lt;/p&gt;
-
-&lt;h4 id=&quot;なぜディスクをまるっと使わずgptでパーティションを切るのか&quot;&gt;なぜディスクをまるっと使わずgptでパーティションを切るのか&lt;/h4&gt;
-
-&lt;p&gt;zpoolは、わざわざgptパーティションにしなくても、ディスクをまるっと使ってzpoolに指定できる。&lt;br /&gt;
-できるのだが、/dev/ada2なんて名前よりも、gptラベルでpoolを作成したいのである。&lt;br /&gt;
-これの有利な点は、例えば当該ディスクの物理的な位置で名前を付けることができる点である。&lt;br /&gt;
-具体的には、slot_1とか名前を付けておくと、ディスク交換の時に楽。&lt;br /&gt;
-幸いにもFreeBSDにおいては、gptパーティションを切ってもディスクをそのまま使っても、いずれもパフォーマンスに違いはない。&lt;br /&gt;
-それならgptにしましょう。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.freebsd.org/doc/handbook/zfs-zpool.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.freebsd.org/doc/handbook/zfs-zpool.html&lt;/a&gt;&lt;br /&gt;
-There is no performance penalty on FreeBSD when using a partition rather than a whole disk.&lt;br /&gt;
-(2018/11/09)&lt;/p&gt;
-
-&lt;p&gt;ではさっそく作業を。&lt;/p&gt;
-
-&lt;h3 id=&quot;実作業移行元ディスクの準備&quot;&gt;実作業（移行元ディスクの準備）&lt;/h3&gt;
-
-&lt;h4 id=&quot;scrubをしておく&quot;&gt;scrubをしておく。&lt;/h4&gt;
-
-&lt;p&gt;zpool scrub で。&lt;br /&gt;
-かなり時間がかかるので覚悟しておくように。&lt;br /&gt;
-なおscrubは最低3か月に一回が推奨&lt;br /&gt;
-&lt;a href=&quot;https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub&lt;/a&gt;&lt;br /&gt;
-recommended at least once every three months&lt;/p&gt;
-
-&lt;h4 id=&quot;作業直前にsnapshot&quot;&gt;作業直前にsnapshot。&lt;/h4&gt;
-
-&lt;p&gt;pool内に複数のディレクトリがある場合、最上階層でsnapshot -r（recursive）すればよい。&lt;br /&gt;
-たとえばvaultというpoolにchamber, itunesがある場合に;&lt;br /&gt;
-[bash]vault&lt;br /&gt;
-vault/chamber&lt;br /&gt;
-vault/chamber@20170503&lt;br /&gt;
-vault/itunes&lt;br /&gt;
-vault/itunes@20170503[/bash]&lt;br /&gt;
-※zfs list -t allの出力を一部削除したもの&lt;/p&gt;
-
-&lt;p&gt;zfs snapshot vault@20181109とすれば;&lt;br /&gt;
-[bash]vault&lt;br /&gt;
-vault@20181109&lt;br /&gt;
-vault/chamber&lt;br /&gt;
-vault/chamber@20180503&lt;br /&gt;
-vault/chamber@20181109&lt;br /&gt;
-vault/itunes&lt;br /&gt;
-vault/itunes@20180503&lt;br /&gt;
-vault/itunes@20181109[/bash]&lt;br /&gt;
-※zfs list -t allの出力を一部削除したもの&lt;/p&gt;
-
-&lt;p&gt;となる。いちいち各ディレクトリ配下でコマンドを叩かなくてよい。&lt;/p&gt;
-
-&lt;p&gt; &lt;/p&gt;
-
-&lt;h3 id=&quot;移行先作業&quot;&gt;移行先作業&lt;/h3&gt;
-
-&lt;h4 id=&quot;gptパーティションの作成&quot;&gt;GPTパーティションの作成&lt;/h4&gt;
-
-&lt;p&gt;以下のようなディスク&lt;br /&gt;
-[bash]ada3 at ahcich3 bus 0 scbus3 target 0 lun 0&lt;br /&gt;
-ada3: ACS-3 ATA SATA 3.x device&lt;br /&gt;
-ada3: Serial Number WD-WCC7K3PU64NE&lt;br /&gt;
-ada3: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)&lt;br /&gt;
-ada3: Command Queueing enabled&lt;br /&gt;
-ada3: 3815447MB (7814037168 512 byte sectors)[/bash]&lt;br /&gt;
-GPTスキームをcreateし、全領域をfreebsd-zfsに割り当てる。&lt;br /&gt;
-このとき、-lオプションでラベルを付ける。&lt;br /&gt;
-同じくgpart showに-lオプションを付ければ名前を確認できる。&lt;br /&gt;
-[bash]# gpart create -s GPT ada3&lt;br /&gt;
-ada3 created&lt;br /&gt;
-# gpart add -l slot_4 -t freebsd-zfs /dev/ada3&lt;br /&gt;
-ada3p1 added&lt;br /&gt;
-$ gpart show ada3&lt;br /&gt;
-40 7814037088 ada3 GPT (3.6T)&lt;br /&gt;
-40 7814037088 1 freebsd-zfs (3.6T)&lt;/p&gt;
-
-&lt;p&gt;$ gpart show -l /dev/ada3&lt;br /&gt;
-40 7814037088 ada3 GPT (3.6T)&lt;br /&gt;
-40 7814037088 1 slot_4 (3.6T)&lt;br /&gt;
-[/bash]&lt;/p&gt;
-
-&lt;h4 id=&quot;zpoolの作成&quot;&gt;zpoolの作成&lt;/h4&gt;
-
-&lt;p&gt;/dev/ada3ではなくGPTラベルで指定する。&lt;br /&gt;
-GPTラベルで指定するときは、gpt/＜GPTラベル＞というように指定する。&lt;br /&gt;
-[bash]# zpool create warehouse gpt/slot_4&lt;br /&gt;
-# zpool status warehouse&lt;br /&gt;
-pool: warehouse&lt;br /&gt;
-state: ONLINE&lt;br /&gt;
-scan: none requested&lt;br /&gt;
-config:&lt;br /&gt;
-NAME STATE READ WRITE CKSUM&lt;br /&gt;
-warehouse ONLINE 0 0 0&lt;br /&gt;
-gpt/slot_4 ONLINE 0 0 0&lt;br /&gt;
-[/bash]&lt;/p&gt;
-
-&lt;h4 id=&quot;プロパティの変更&quot;&gt;プロパティの変更&lt;/h4&gt;
-
-&lt;p&gt;zfsを作成する前に。&lt;br /&gt;
-圧縮モードをlz4にする。lz4は&lt;a href=&quot;../../../2013/02/%e3%82%a2%e3%83%bc%e3%82%ab%e3%82%a4%e3%83%90lz4%e3%82%92%e8%a9%a6%e3%81%97%e3%81%a6%e3%81%bf%e3%81%9f%e3%82%89%ef%bc%88%e5%9c%a7%e7%b8%ae%e3%81%af%ef%bc%89%e9%80%9f%e3%81%99%e3%81%8e%e7%ac%91/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CPU負荷の割には非常に効率が良い&lt;/a&gt;ので積極的に有効にしたい。&lt;br /&gt;
-また、atime（アクセスタイムの記録）もoffに。これがonだと差分snapshotが失敗するから、というのが一つと、これをoffにするとパフォーマンスが上がる（can result in significant performance gains）から。&lt;br /&gt;
-zfs get &lt;プロパティ名&gt; で現在の値を取得。  
-zfs set &lt;プロパティ名&gt;=&lt;値&gt; で値のセット。  
-圧縮モードのプロパティ名はcompression、atimeはatime。  
-[bash]$ zfs get compression warehouse  
-NAME PROPERTY VALUE SOURCE  
-warehouse compression off default  
-$ zfs get atime warehouse  
-NAME PROPERTY VALUE SOURCE  
-warehouse atime on default&lt;/値&gt;&lt;/プロパティ名&gt;&lt;/プロパティ名&gt;&lt;/p&gt;
-
-&lt;p&gt;# zfs set compression=lz4 warehouse&lt;br /&gt;
-# zfs set atime=off warehouse&lt;br /&gt;
-$ zfs get compression warehouse&lt;br /&gt;
-NAME PROPERTY VALUE SOURCE&lt;br /&gt;
-warehouse compression lz4 local&lt;br /&gt;
-$ zfs get atime warehouse&lt;br /&gt;
-NAME PROPERTY VALUE SOURCE&lt;br /&gt;
-warehouse atime off local&lt;br /&gt;
-[/bash]&lt;/p&gt;
-
-&lt;h4 id=&quot;ディレクトリの用意とsendrecv&quot;&gt;ディレクトリの用意とsend/recv&lt;/h4&gt;
-
-&lt;p&gt;[bash]# zfs create warehouse/itunes&lt;br /&gt;
-# zfs create warehouse/chamber&lt;br /&gt;
-[/bash]&lt;br /&gt;
-このとき、勝手にマウントされないようにすべきだった。-uを付ければよかったかな。&lt;br /&gt;
-いずれにせよzfs set mountpointで後から変えられる。&lt;/p&gt;
-
-&lt;p&gt;sendに-Rを付けると、子孫やスナップショットもまとめてsendされる。&lt;br /&gt;
-[bash]# zfs send -R vault/chamber@20181109 | zfs receive warehouse/chamber&lt;br /&gt;
-# zfs send -R vault/itunes@20181109 | zfs receive warehouse/itunes&lt;br /&gt;
-[/bash]&lt;br /&gt;
-かかった時間、容量は以下の通り。うーむ。ちょっとかかったかな。&lt;br /&gt;
-[bash] 991GiB 3:09:00 [89.5MiB/s]&lt;br /&gt;
-1.10TiB 3:58:24 [80.3MiB/s]&lt;br /&gt;
-[/bash]&lt;br /&gt;
-このとき適当にhtopを叩いた結果。CPU負荷はそんなんでもないので、ボトルネックは別のところにあるように思われる。&lt;br /&gt;
-[bash] 1 [||||||||||||||||||||| 47.6%] Tasks: 43, 0 thr; 2 running&lt;br /&gt;
-2 [||||||||||||||||| 37.7%] Load average: 0.91 1.77 1.86&lt;br /&gt;
-Mem[||||||||||||||||||||||||||||||||642M/1.84G] Uptime: 12:03:30&lt;br /&gt;
-Swp[||||||||| 176M/907M]&lt;br /&gt;
-[/bash]&lt;br /&gt;
-なおCPUはAMDのTurionである。&lt;/p&gt;
-
-&lt;p&gt;compression=lz4の結果は.&lt;br /&gt;
-プロパティused（HDD上の容量）とlogicalused（圧縮前容量）で調べられる。&lt;br /&gt;
-[bash]warehouse used 2.00T –&lt;br /&gt;
-warehouse logicalused 2.02T –&lt;br /&gt;
-[/bash]&lt;br /&gt;
-本来なら2.02Tのところ、2.00Tで済んでる。&lt;/p&gt;
-
-&lt;p&gt;これで引っ越し完了。&lt;/p&gt;
-
-&lt;p&gt;以上&lt;/p&gt;</content><author><name>nobwak</name></author><category term="FreeBSD" /><category term="zfs" /><category term="zpool" /><summary type="html">zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずscrubしておくこと。</summary></entry><entry><title type="html">Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）</title><link href="https://nobwak.github.io/2018/03/21-linuxe381abe6b3a8e69687e381aee5a49ae38184e69699e79086e5ba97e38292e38197e38283e381b9e38289e3819de38186efbc88open-jtalkefbc89.html" rel="alternate" type="text/html" title="Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）" /><published>2018-03-21T20:13:48+09:00</published><updated>2018-03-21T20:13:48+09:00</updated><id>https://nobwak.github.io/2018/03/linuxe381abe6b3a8e69687e381aee5a49ae38184e69699e79086e5ba97e38292e38197e38283e381b9e38289e3819de38186efbc88open-jtalkefbc89</id><content type="html" xml:base="https://nobwak.github.io/2018/03/21-linuxe381abe6b3a8e69687e381aee5a49ae38184e69699e79086e5ba97e38292e38197e38283e381b9e38289e3819de38186efbc88open-jtalkefbc89.html">&lt;p&gt;Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。&lt;/p&gt;
-
-&lt;p&gt;Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト音声合成システム」とのこと。&lt;br /&gt;
-&lt;a href=&quot;http://open-jtalk.sp.nitech.ac.jp/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://open-jtalk.sp.nitech.ac.jp/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;open-jtalk、辞書をインストールする。&lt;br /&gt;
-open-jtalkをインストールすれば辞書もついてくる。&lt;/p&gt;
-
-&lt;p&gt;[bash]$ apt search open-jtalk&lt;br /&gt;
-ソート中… 完了&lt;br /&gt;
-全文検索… 完了&lt;br /&gt;
-open-jtalk/artful 1.10-1 amd64&lt;br /&gt;
-日本語音声合成システム&lt;/p&gt;
-
-&lt;p&gt;open-jtalk-mecab-naist-jdic/artful,artful,now 1.10-1 all&lt;br /&gt;
-NAIST Japanese Dictionary for Open JTalk&lt;/p&gt;
-
-&lt;p&gt;$ sudo apt-get install open-jtalk&lt;br /&gt;
-パッケージリストを読み込んでいます… 完了&lt;br /&gt;
-依存関係ツリーを作成しています&lt;br /&gt;
-状態情報を読み取っています… 完了&lt;br /&gt;
-提案パッケージ:&lt;br /&gt;
-hts-voice-nitech-jp-atr503-m001&lt;br /&gt;
-以下のパッケージが新たにインストールされます:&lt;br /&gt;
-open-jtalk　open-jtalk-mecab-naist-jdic&lt;br /&gt;
-(略)&lt;br /&gt;
-[/bash]&lt;/p&gt;
-
-&lt;p&gt;提案パッケージであるhts-voice-nitech-jp-atr503-m001も。&lt;br /&gt;
-これは音声データ。男性の声。&lt;/p&gt;
-
-&lt;p&gt;[bash]hts-voice-nitech-jp-atr503-m001 – Japanese male voice data for Open JTalk[/bash]&lt;/p&gt;
-
-&lt;p&gt;open-jtalkのコマンドはopen_jtalk（間はアンダースコア）として、open_jtalkの辞書は/var/lib/mecab/dic/open-jtalk/naist-jdicに、音声データは/usr/share/hts-voice/にインストールされる。&lt;br /&gt;
-「こんにちは」と書いたvoice.txtを作り、open_jtalkに食わす。&lt;/p&gt;
-
-&lt;p&gt;[bash]$ cat ./voice.txt&lt;br /&gt;
-こんにちは&lt;/p&gt;
-
-&lt;p&gt;$ open_jtalk -m /usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice -x /var/lib/mecab/dic/open-jtalk/naist-jdic -ow test.wav ./voice.txt [/bash]&lt;/p&gt;
-
-&lt;p&gt;喋ってくれるはず。&lt;br /&gt;
-やはり女性の声のほうが良いので、名工大のMMDAgentを使う。&lt;br /&gt;
-&lt;a href=&quot;http://share.udialogue.org/meissen/login.htm&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://share.udialogue.org/meissen/login.htm&lt;/a&gt;&lt;br /&gt;
-2018/3/21時点で1.7が最新&lt;br /&gt;
-ダウンロードして展開し、/usr/share/hts-voice/に格納する。&lt;br /&gt;
-使うのは中身の「mei」ディレクトリ配下のみ。&lt;br /&gt;
-Meiさんは名工大キャラクターだそうな。&lt;/p&gt;
-
-&lt;p&gt;[bash]$ wget https://sourceforge.net/projects/mmdagent/files/MMDAgent_Example/MMDAgent_Example-1.7/MMDAgent_Example-1.7.zip&lt;br /&gt;
-$ unzip ./MMDAgent_Example-1.7.zip&lt;br /&gt;
-$ sudo cp -R ./MMDAgent_Example-1.7/Voice/mei /usr/share/hts-voice/[/bash]&lt;/p&gt;
-
-&lt;p&gt;声には以下の5種類がある。実際に発声させる際に選ぶ。&lt;br /&gt;
-mei_angry.htsvoice mei_happy.htsvoice mei_sad.htsvoice&lt;br /&gt;
-mei_bashful.htsvoice mei_normal.htsvoice&lt;/p&gt;
-
-&lt;p&gt;以下のスクリプトを用意する。&lt;br /&gt;
-どこかのサイトから持ってきたんですが、どのサイトからだったか忘れてしもうた…。&lt;br /&gt;
-これをjtalk.pyとして保存する。1行目は環境に応じて変えること。&lt;br /&gt;
-htsvoiceは上記の通り喜怒哀通常から選べる。&lt;br /&gt;
-speedも選べる。&lt;br /&gt;
-このあたりは試行錯誤。&lt;/p&gt;
-
-&lt;p&gt;あとはこれをimportして使う。&lt;/p&gt;
-
-&lt;p&gt;[python]#!/usr/bin/python&lt;/p&gt;
-
-&lt;p&gt;#coding: utf-8&lt;br /&gt;
-import subprocess&lt;br /&gt;
-from datetime import datetime&lt;/p&gt;
-
-&lt;p&gt;def jtalk(t):&lt;br /&gt;
-open_jtalk=[‘/usr/bin/open_jtalk’]&lt;br /&gt;
-mech=[‘-x’,’/var/lib/mecab/dic/open-jtalk/naist-jdic’]&lt;br /&gt;
-htsvoice=[‘-m’,’/usr/share/hts-voice/mei/mei_normal.htsvoice’]&lt;br /&gt;
-speed=[‘-r’,’1.0′]&lt;br /&gt;
-outwav=[‘-ow’,’/tmp/open_jtalk.wav’]&lt;br /&gt;
-cmd=open_jtalk+mech+htsvoice+speed+outwav&lt;br /&gt;
-c = subprocess.Popen(cmd,stdin=subprocess.PIPE)&lt;br /&gt;
-c.stdin.write(t.encode(‘utf-8’))&lt;br /&gt;
-c.stdin.close()&lt;br /&gt;
-c.wait()&lt;br /&gt;
-aplay = [‘aplay’,’-q’,’/tmp/open_jtalk.wav’]&lt;br /&gt;
-wr = subprocess.Popen(aplay)&lt;/p&gt;
-
-&lt;p&gt;def say_datetime():&lt;br /&gt;
-d = datetime.now()&lt;br /&gt;
-text = ‘%s月%s日、%s時%s分%s秒’ % (d.month, d.day, d.hour, d.minute, d.second)&lt;br /&gt;
-jtalk(text)&lt;/p&gt;
-
-&lt;p&gt;if __name__ == ‘__main__’:&lt;br /&gt;
-say_datetime()[/python]&lt;/p&gt;
-
-&lt;p&gt;先ほどのファイルをimportして、jtalk.jtalk(string)で、発話させたい文章を渡せばOK。&lt;/p&gt;
-
-&lt;p&gt;[python]#!/usr/bin/python&lt;/p&gt;
-
-&lt;p&gt;#coding: utf-8&lt;br /&gt;
-import jtalk&lt;/p&gt;
-
-&lt;p&gt;jtalk.jtalk(‘何か話してください’)[/python]&lt;/p&gt;
-
-&lt;p&gt;さあテストである。&lt;br /&gt;
-青空文庫「注文の多い料理店」を朗読させてみる。&lt;br /&gt;
-「新字新仮名」版をダウンロード。&lt;br /&gt;
-http://www.aozora.gr.jp/cards/000081/card43754.html&lt;/p&gt;
-
-&lt;p&gt;そのままではOpen Jtalkに渡せないので、以下の変更を加える。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;文字コードをShift-JISからUTF-8へ&lt;/li&gt;
-  &lt;li&gt;ルビを削除（正規表現パターンは”《.*?》”。）&lt;/li&gt;
-  &lt;li&gt;ルビの個所を示す区切り記号を削除（”｜”）&lt;/li&gt;
-  &lt;li&gt;構成を示す注釈を削る（正規表現パターンは”\［.*?\］”。）&lt;/li&gt;
-  &lt;li&gt;改行コードをCR+LFをLFのみに。（\rを削る）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;できれば以下も。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;行頭字下げ、要するに行頭の全角スペースを削除（正規表現パターンは”^　”。）&lt;/li&gt;
-  &lt;li&gt;セリフのカギかっこを削る。行頭のものだけでよい。（正規表現パターンは”^「”。）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;以下までできれば完璧&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;改行をいったん全て削り、句点のあとに改行コード（\n）を挿入&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;neko.txtとでも保存し、以下のPythonスクリプトを実行。&lt;/p&gt;
-
-&lt;p&gt;[python]#!/usr/bin/python&lt;/p&gt;
-
-&lt;p&gt;import jtalk&lt;/p&gt;
-
-&lt;p&gt;for line in open(‘neko.txt’,’r’):&lt;br /&gt;
-print(line)&lt;br /&gt;
-jtalk.jtalk(line)[/python]&lt;/p&gt;
-
-&lt;p&gt;こんな感じ。&lt;/p&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; data-width=&quot;550&quot; data-dnt=&quot;true&quot;&gt;
-  &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;
-    Open JTalk、面白いので注文の多い料理店を朗読していただいた。 &lt;a href=&quot;https://t.co/DknzkTiIHk&quot;&gt;pic.twitter.com/DknzkTiIHk&lt;/a&gt;
-  &lt;/p&gt;
-  
-  &lt;p&gt;
-    &amp;mdash; nobwak (@nobwak) &lt;a href=&quot;https://twitter.com/nobwak/status/950304091338547200?ref_src=twsrc%5Etfw&quot;&gt;January 8, 2018&lt;/a&gt;
-  &lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;試してみるとわかるが、漢字の読み方が変だったり（山猫軒を「やまねこのき」と読んだり）、読めない漢字があったりする。&lt;br /&gt;
-そりゃまあ仕方ないよね。&lt;/p&gt;
-
-&lt;p&gt; &lt;br /&gt;
-それはさておき。&lt;br /&gt;
-十分なスペックがあるときに複数行の文章を読ませると、発話が終わっていないのに次の行の処理を始めてしまって困ることがある。&lt;br /&gt;
-そういうときは発話の終了を待つよう、wait()を入れればよい。&lt;br /&gt;
-関数jtalk()の最後に一行追加。&lt;br /&gt;
-[python]&lt;br /&gt;
-def jtalk(t):&lt;br /&gt;
-open_jtalk=[‘/usr/bin/open_jtalk’]&lt;br /&gt;
-mech=[‘-x’,’/var/lib/mecab/dic/open-jtalk/naist-jdic’]&lt;br /&gt;
-htsvoice=[‘-m’,’/usr/share/hts-voice/mei/mei_normal.htsvoice’]&lt;br /&gt;
-speed=[‘-r’,’1.0′]&lt;br /&gt;
-outwav=[‘-ow’,’/tmp/open_jtalk.wav’]&lt;br /&gt;
-cmd=open_jtalk+mech+htsvoice+speed+outwav&lt;br /&gt;
-c = subprocess.Popen(cmd,stdin=subprocess.PIPE)&lt;br /&gt;
-c.stdin.write(t.encode(‘utf-8’))&lt;br /&gt;
-c.stdin.close()&lt;br /&gt;
-c.wait()&lt;br /&gt;
-aplay = [‘aplay’,’-q’,’/tmp/open_jtalk.wav’]&lt;br /&gt;
-wr = subprocess.Popen(aplay)&lt;br /&gt;
-wr.wait()&lt;br /&gt;
-[/python]&lt;br /&gt;
- &lt;/p&gt;
-
-&lt;p&gt;参考サイト&lt;br /&gt;
-&lt;a href=&quot;https://qiita.com/lutecia16v/items/8d220885082e40ace252#%E5%A5%B3%E6%80%A7%E3%81%AE%E5%A3%B0%E3%81%AB%E5%A4%89%E3%81%88%E3%81%A6%E3%81%BF%E3%82%8B&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Raspberry piで日本語音声合成(Open JTalk)を試してみる。&lt;/a&gt;&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。</summary></entry></feed>
+&lt;p&gt;以上。&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送である。</summary></entry></feed>

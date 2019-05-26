@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>認証の必要なPROXY越しのportsnap | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="認証の必要なPROXY越しのportsnap" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが、自宅からだと認証は必要ないものの100%成功する。これは明らかにおかしいと調べたところ、何とか解決した。 先に結論: 　portsnapで認証要のPROXYを突破するときは、下記環境変数を設定すること。 　　HTTP_PROXY=&#8221;http://URL:port/&#8221; 　　HTTP_PROXY_AUTH=&#8221;basic:*:username:pass&#8221; 以下、顛末 このFreeBSDマシンは認証の必要なPROXYの内側にあるわけだが、もともと俺はfetchおよびwget用に環境変数HTTP_PROXYを&#8221;http://username:pass@URL:port/&#8221;という書式で設定しており、fetchとwgetの動作に特に問題は無かった。 が、portsnapだけが失敗するので今回調べてみた。 portsnapはファイルの取得にfetch等を使用せず、独自のphttpgetというプログラムを使用している。 詳しくはPipelined HTTP GET utilityを参照。 ここを見ると、作者はphttpgetに自信を持っているようだが、使う側の率直な意見として、好きなのを使わせてくれてもと思う。 phttpgetはportsnapとともにFreeBSDに取り込まれているので、ソースは下記の場所にある。 /usr/src/usr/sbin/portsnap/phttpget/phttpget.c 中をのぞいて見ると、環境変数HTTP_PROXY内にユーザネーム、パスワードを入れる方法は受け付けない事が分かる。 HTTP_PROXY_AUTHに書かないといけない。また、&#8221;basic:*:username:pass&#8221;という書式を想定しているようだ。こういった環境変数の一覧どっかにないものか。 下記が該当部分 /usr/src/usr/sbin/portsnap/phttpget/phttpget.c __FBSDID(&#8220;$FreeBSD: /repoman/r/ncvs/src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $&#8221;); &lt;/p&gt; env_HTTP_PROXY_AUTH = getenv(&#8220;HTTP_PROXY_AUTH&#8221;); if ((env_HTTP_PROXY != NULL) &amp;&amp; (env_HTTP_PROXY_AUTH != NULL) &amp;&amp; (strncasecmp(env_HTTP_PROXY_AUTH, &#8220;basic:&#8221; , 6) == 0)) { /* Ignore authentication scheme */ (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;); /* Ignore realm */ (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;); /* Obtain username and password */ proxy_auth_user = strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;); proxy_auth_pass = env_HTTP_PROXY_AUTH; } &lt;/blockquote&gt; &lt;/div&gt;" />
+<meta property="og:description" content="認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが、自宅からだと認証は必要ないものの100%成功する。これは明らかにおかしいと調べたところ、何とか解決した。 先に結論: 　portsnapで認証要のPROXYを突破するときは、下記環境変数を設定すること。 　　HTTP_PROXY=&#8221;http://URL:port/&#8221; 　　HTTP_PROXY_AUTH=&#8221;basic:*:username:pass&#8221; 以下、顛末 このFreeBSDマシンは認証の必要なPROXYの内側にあるわけだが、もともと俺はfetchおよびwget用に環境変数HTTP_PROXYを&#8221;http://username:pass@URL:port/&#8221;という書式で設定しており、fetchとwgetの動作に特に問題は無かった。 が、portsnapだけが失敗するので今回調べてみた。 portsnapはファイルの取得にfetch等を使用せず、独自のphttpgetというプログラムを使用している。 詳しくはPipelined HTTP GET utilityを参照。 ここを見ると、作者はphttpgetに自信を持っているようだが、使う側の率直な意見として、好きなのを使わせてくれてもと思う。 phttpgetはportsnapとともにFreeBSDに取り込まれているので、ソースは下記の場所にある。 /usr/src/usr/sbin/portsnap/phttpget/phttpget.c 中をのぞいて見ると、環境変数HTTP_PROXY内にユーザネーム、パスワードを入れる方法は受け付けない事が分かる。 HTTP_PROXY_AUTHに書かないといけない。また、&#8221;basic:*:username:pass&#8221;という書式を想定しているようだ。こういった環境変数の一覧どっかにないものか。 下記が該当部分 /usr/src/usr/sbin/portsnap/phttpget/phttpget.c __FBSDID(&#8220;$FreeBSD: /repoman/r/ncvs/src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $&#8221;); &lt;/p&gt; env_HTTP_PROXY_AUTH = getenv(&#8220;HTTP_PROXY_AUTH&#8221;); if ((env_HTTP_PROXY != NULL) &amp;&amp; (env_HTTP_PROXY_AUTH != NULL) &amp;&amp; (strncasecmp(env_HTTP_PROXY_AUTH, &#8220;basic:&#8221; , 6) == 0)) { /* Ignore authentication scheme */ (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;); /* Ignore realm */ (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;); /* Obtain username and password */ proxy_auth_user = strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;); proxy_auth_pass = env_HTTP_PROXY_AUTH; } &lt;/blockquote&gt; &lt;/div&gt;" />
+<link rel="canonical" href="https://nobwak.github.io/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html" />
+<meta property="og:url" content="https://nobwak.github.io/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2006-05-01T01:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが、自宅からだと認証は必要ないものの100%成功する。これは明らかにおかしいと調べたところ、何とか解決した。 先に結論: 　portsnapで認証要のPROXYを突破するときは、下記環境変数を設定すること。 　　HTTP_PROXY=&#8221;http://URL:port/&#8221; 　　HTTP_PROXY_AUTH=&#8221;basic:*:username:pass&#8221; 以下、顛末 このFreeBSDマシンは認証の必要なPROXYの内側にあるわけだが、もともと俺はfetchおよびwget用に環境変数HTTP_PROXYを&#8221;http://username:pass@URL:port/&#8221;という書式で設定しており、fetchとwgetの動作に特に問題は無かった。 が、portsnapだけが失敗するので今回調べてみた。 portsnapはファイルの取得にfetch等を使用せず、独自のphttpgetというプログラムを使用している。 詳しくはPipelined HTTP GET utilityを参照。 ここを見ると、作者はphttpgetに自信を持っているようだが、使う側の率直な意見として、好きなのを使わせてくれてもと思う。 phttpgetはportsnapとともにFreeBSDに取り込まれているので、ソースは下記の場所にある。 /usr/src/usr/sbin/portsnap/phttpget/phttpget.c 中をのぞいて見ると、環境変数HTTP_PROXY内にユーザネーム、パスワードを入れる方法は受け付けない事が分かる。 HTTP_PROXY_AUTHに書かないといけない。また、&#8221;basic:*:username:pass&#8221;という書式を想定しているようだ。こういった環境変数の一覧どっかにないものか。 下記が該当部分 /usr/src/usr/sbin/portsnap/phttpget/phttpget.c __FBSDID(&#8220;$FreeBSD: /repoman/r/ncvs/src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $&#8221;); &lt;/p&gt; env_HTTP_PROXY_AUTH = getenv(&#8220;HTTP_PROXY_AUTH&#8221;); if ((env_HTTP_PROXY != NULL) &amp;&amp; (env_HTTP_PROXY_AUTH != NULL) &amp;&amp; (strncasecmp(env_HTTP_PROXY_AUTH, &#8220;basic:&#8221; , 6) == 0)) { /* Ignore authentication scheme */ (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;); /* Ignore realm */ (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;); /* Obtain username and password */ proxy_auth_user = strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;); proxy_auth_pass = env_HTTP_PROXY_AUTH; } &lt;/blockquote&gt; &lt;/div&gt;","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html","headline":"認証の必要なPROXY越しのportsnap","dateModified":"2006-05-01T01:00:00+09:00","datePublished":"2006-05-01T01:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">認証の必要なPROXY越しのportsnap</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2006-05-01T01:00:00+09:00" itemprop="datePublished">May 1, 2006
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <div class="section">
+  <p>
+    認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。
+  </p>
+  
+  <p>
+    最初はportsnapサーバの調子が悪いだけかと思っていたのだが、自宅からだと認証は必要ないものの100%成功する。これは明らかにおかしいと調べたところ、何とか解決した。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    先に結論:
+  </p>
+  
+  <blockquote>
+    <p>
+      　portsnapで認証要のPROXYを突破するときは、下記環境変数を設定すること。
+    </p>
+    
+    <p>
+      　　HTTP_PROXY=&#8221;http://URL:port/&#8221;
+    </p>
+    
+    <p>
+      　　HTTP_PROXY_AUTH=&#8221;basic:*:username:pass&#8221;
+    </p>
+  </blockquote>
+  
+  <p>
+  </p>
+  
+  <p>
+    以下、顛末
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    このFreeBSDマシンは認証の必要なPROXYの内側にあるわけだが、もともと俺はfetchおよびwget用に環境変数HTTP_PROXYを&#8221;http://username:pass@URL:port/&#8221;という書式で設定しており、fetchとwgetの動作に特に問題は無かった。
+  </p>
+  
+  <p>
+    が、portsnapだけが失敗するので今回調べてみた。
+  </p>
+  
+  <p>
+    portsnapはファイルの取得にfetch等を使用せず、独自のphttpgetというプログラムを使用している。
+  </p>
+  
+  <p>
+    詳しくは<a href="http://www.daemonology.net/phttpget/" target="_blank">Pipelined HTTP GET utility</a>を参照。
+  </p>
+  
+  <p>
+    ここを見ると、作者はphttpgetに自信を持っているようだが、使う側の率直な意見として、好きなのを使わせてくれてもと思う。
+  </p>
+  
+  <p>
+    phttpgetはportsnapとともにFreeBSDに取り込まれているので、ソースは下記の場所にある。
+  </p>
+  
+  <blockquote>
+    <p>
+      /usr/src/usr/sbin/portsnap/phttpget/phttpget.c
+    </p>
+  </blockquote>
+  
+  <p>
+    中をのぞいて見ると、環境変数HTTP_PROXY内にユーザネーム、パスワードを入れる方法は受け付けない事が分かる。
+  </p>
+  
+  <p>
+    HTTP_PROXY_AUTHに書かないといけない。また、&#8221;basic:*:username:pass&#8221;という書式を想定しているようだ。こういった環境変数の一覧どっかにないものか。
+  </p>
+  
+  <p>
+  </p>
+  
+  <p>
+    下記が該当部分
+  </p>
+  
+  <blockquote>
+    <p>
+      /usr/src/usr/sbin/portsnap/phttpget/phttpget.c
+    </p>
+    
+    <p>
+      __FBSDID(&#8220;$FreeBSD: /repoman/r/ncvs/src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $&#8221;);
+    </p>
+    
+    <p>
+      <snip>
+    &lt;/p&gt;
+    
+    <p>
+      env_HTTP_PROXY_AUTH = getenv(&#8220;HTTP_PROXY_AUTH&#8221;);
+    </p>
+    
+    <p>
+      if ((env_HTTP_PROXY != NULL) &amp;&amp;
+    </p>
+    
+    <p>
+      (env_HTTP_PROXY_AUTH != NULL) &amp;&amp;
+    </p>
+    
+    <p>
+      (strncasecmp(env_HTTP_PROXY_AUTH, &#8220;basic:&#8221; , 6) == 0)) {
+    </p>
+    
+    <p>
+      /* Ignore authentication scheme */
+    </p>
+    
+    <p>
+      (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;);
+    </p>
+    
+    <p>
+      /* Ignore realm */
+    </p>
+    
+    <p>
+      (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;);
+    </p>
+    
+    <p>
+      /* Obtain username and password */
+    </p>
+    
+    <p>
+      proxy_auth_user = strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;);
+    </p>
+    
+    <p>
+      proxy_auth_pass = env_HTTP_PROXY_AUTH;
+    </p>
+    
+    <p>
+      }
+    </p>
+  &lt;/blockquote&gt;
+&lt;/div&gt;
+</snip></p></blockquote></div>
+
+  </div><a class="u-url" href="/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>10.0-BETA1でezjailが息してない→qjailに乗り換えた。 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="10.0-BETA1でezjailが息してない→qjailに乗り換えた。" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content=" " />
+<meta property="og:description" content=" " />
+<link rel="canonical" href="https://nobwak.github.io/2013/10/19-10-0-beta1%E3%81%A7ezjail%E3%81%8C%E6%81%AF%E3%81%97%E3%81%A6%E3%81%AA%E3%81%84-qjail%E3%81%AB%E4%B9%97%E3%82%8A%E6%8F%9B%E3%81%88%E3%81%9F.html" />
+<meta property="og:url" content="https://nobwak.github.io/2013/10/19-10-0-beta1%E3%81%A7ezjail%E3%81%8C%E6%81%AF%E3%81%97%E3%81%A6%E3%81%AA%E3%81%84-qjail%E3%81%AB%E4%B9%97%E3%82%8A%E6%8F%9B%E3%81%88%E3%81%9F.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-10-19T20:48:00+09:00" />
+<script type="application/ld+json">
+{"description":" ","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2013/10/19-10-0-beta1%E3%81%A7ezjail%E3%81%8C%E6%81%AF%E3%81%97%E3%81%A6%E3%81%AA%E3%81%84-qjail%E3%81%AB%E4%B9%97%E3%82%8A%E6%8F%9B%E3%81%88%E3%81%9F.html","headline":"10.0-BETA1でezjailが息してない→qjailに乗り換えた。","dateModified":"2013-10-19T20:48:00+09:00","datePublished":"2013-10-19T20:48:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2013/10/19-10-0-beta1%E3%81%A7ezjail%E3%81%8C%E6%81%AF%E3%81%97%E3%81%A6%E3%81%AA%E3%81%84-qjail%E3%81%AB%E4%B9%97%E3%82%8A%E6%8F%9B%E3%81%88%E3%81%9F.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">10.0-BETA1でezjailが息してない→qjailに乗り換えた。</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-10-19T20:48:00+09:00" itemprop="datePublished">Oct 19, 2013
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p> </p>
+
+<h2 id="せっかく覚えたezjailが息してない"><span style="text-decoration: underline;">せっかく覚えたezjailが息してない</span></h2>
+
+<p>jailの設定ファイルが、rc.conf,/etc/rc.d/jailからjail.confに変わる。</p>
+
+<p><a href="https://twitter.com/m_bird/status/386369822751076352" target="_blank">https://twitter.com/m_bird/status/386369822751076352</a></p>
+
+<p>そのせいか10.0-BETA1にしたら、ezjail使うたび怒られるようになった。<br />
+具体的にはezjail-adminでjailをうまく起動できない。<br />
+ezjail覚えたばっかなのに…。</p>
+
+<p>「手動でなんとかしろよ」とエラーメッセージが出るのだが、jailの仕組みはとても複雑で、jail.confの書式も良くわからないしsampleもない。<br />
+「rc.d, rc.confをそのままコピー&amp;ペーストしたらいいんだよ」とは言うのだけど、そもそもrc.d, rc.confを自分で書くのが嫌でezjail使ってたのに。</p>
+
+<p>しょうがないんで、あんまり深く追いかけずに別のラッパーであるqjailを試した。</p>
+
+<p>なかなか独特のテイストが感じられるのだが、思ったより手軽で、ドキュメントも（時にはウンザリするくらい）充実している。<br />
+もちろんjail.confにも安心対応。</p>
+
+<p>数十個ものjailを作ることも出来たり、一度作成したjailをテンプレートにする機能もあったりして驚く。</p>
+
+<p>ググった感触でいうとあんまり人気ないみたいだけど、結構いい。<br />
+細けえ事はどうでもいいからjailを使わせろという諸兄にはおすすめである。</p>
+
+<h2 id="qjailのインストール"><span style="text-decoration: underline;">qjailのインストール</span></h2>
+
+<p>2013/10/18時点で2.2と3.2がある。<br />
+jail.confに対応しているのは3.2。</p>
+
+<p>話は前後するが、qjail3.2のman qjail(8)から抜粋すると;</p>
+
+<blockquote>
+  <p>This version of qjail has been converted from using the legacy rc.d<br />
+rc.conf method of jail definition as used in all pervious versions of<br />
+qjail, to using the jail(8) jail.conf method which became available in<br />
+9.1-RELEASE.</p>
+</blockquote>
+
+<p>よって3.2をインストール。<br />
+なお、以下でqjailをインストールするFreeBSDは10.0-BETA1でございますので、pkgngを使います。</p>
+
+<pre class="lang:default decode:true">$ pkg search qjail
+qjail-2.2
+qjail-3.2
+$ sudo pkg install qjail-3.2
+Password:
+Updating repository catalogue
+The following 1 packages will be installed:
+
+        Installing qjail: 3.2
+
+The installation will require 416 KB more space
+
+116 KB to be downloaded
+
+Proceed with installing packages [y/N]: y
+qjail-3.2.txz                       100%  116KB 115.9KB/s 115.9KB/s   00:01
+Checking integrity... done
+[1/1] Installing qjail-3.2... done
+########################################################################
+Use the qjail utility to deploy small or large numbers of jails quickly.
+
+First issue "rehash" command to enable the qjail command (if using csh).
+Then issue "man qjail-intro" to read the qjail introduction.
+After reading that do "man qjail" for the usage details.
+For the BIG PICTURE issue "man qjail-howto".
+
+########################################################################
+For instructions on upgrading jail filesystems
+Read /usr/local/share/examples/qjail/upgrade-info.txt
+$</pre>
+
+<p> </p>
+
+<h2 id="qjailでの初期設定"><span style="text-decoration: underline;">qjailでの初期設定</span></h2>
+
+<p>まずはjailのひな形、ベース環境を作る。<br />
+qjail installでよい。<br />
+ひな形取得先のftpサーバを変更するならオプションで指定する。<br />
+書式は以下。</p>
+
+<pre class="lang:default decode:true">qjail install -h ftp2.jp.freebsd.org</pre>
+
+<p> </p>
+
+<h2 id="release以外でのqjail-install"><span style="text-decoration: underline;">RELEASE以外でのqjail install</span></h2>
+
+<p>しかし、ftpサーバからダウンロードできるのはRELEASEのみ。<br />
+BETA, RC, ALPHA, STABLE等々だとダメ。<br />
+回避方法は二つ。</p>
+
+<p>①なんでもいいのでRELEASEで作っておいてアップグレードする<br />
+②ダウンロードしたディスクイメージを使う。</p>
+
+<p>今回は②にした。<br />
+①はman qjail参照。<br />
+②をもう少し細かく書くと、ディスクイメージをマウントし、base.txzなどのある「ディレクトリ」をqjail install -fに続けて指定する。</p>
+
+<p>「ディレクトリ」とわざわざ書いたのは、cdで行けるところ、というのを強調したかったから。<br />
+ディスクイメージの直接指定はできないし、ftpサーバのディレクトリ指定もダメ。<br />
+ガッカリ。</p>
+
+<h2 id="追記release以外でのqjail-install"><span style="text-decoration: underline;">(追記)RELEASE以外でのqjail install</span></h2>
+
+<p>「RELEASE以外」というのは、実はRELEASE-p2といったような、パッチレベルが0以外の場合も該当する。<br />
+つまりfreebsd-updateでパッチを当てた状態でqjail installすると失敗する。<br />
+これは、qjailは自ホストのOSバージョンをもとにディレクトリを移動するから。<br />
+OSバージョンが10.1-RELEASE-p16だったら、ftpサーバの10.1-RELEASE-p16などを見に行ってしまう。<br />
+しかし、ftpサーバはパッチレベルごとにはディレクトリが作られないので、参照先がなく失敗する。</p>
+
+<p>ところで、ここでのOSバージョンとは、具体的には環境変数UNAME_rである。<br />
+ということは、qjail installのときだけUNAME_rを変更すればパッチレベルが変わっていようがよいのである。<br />
+以下、10.1-RELEASE-p16で実行した例。</p>
+
+<pre>root@kraken:/usr/local # setenv UNAME_r "10.1-RELEASE"
+root@kraken:/usr/local # qjail install -h ftp2.jp.freebsd.org
+Trying 202.232.140.170:21 ...
+Connected to ftp.iij.ad.jp.
+220 IIJ FTP server ready (IPv4 client).
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+200 Switching to Binary mode.
+250 Directory successfully changed.
+local: base.txz remote: base.txz
+229 Entering Extended Passive Mode (|||52115|).
+150 Opening BINARY mode data connection for base.txz (66173780 bytes).
+ 85% |*****************************      | 54994 KiB  999.68 KiB/s    00:09 ETA
+226 Transfer complete.
+66173780 bytes received in 01:03 (0.99 MiB/s)
+221 Goodbye.
+
+The RELEASE distribution files are populating template.
+Est LT 1 minute elapse time for this to complete.
+
+Successfully installed qjail system.</pre>
+
+<p>追記ここまで</p>
+
+<h2 id="ダウンロードしたディスクイメージからqjail-install"><span style="text-decoration: underline;">ダウンロードしたディスクイメージからqjail install</span></h2>
+
+<p>仕方がないので淡々と進める。<br />
+10.0-BETA1のイメージダウンロードして、ローカルでマウント。</p>
+
+<pre class="lang:default decode:true">$ fetch ftp://ftp.iij.ad.jp/pub/FreeBSD/releases/ISO-IMAGES/10.0/FreeBSD-10.0-BETA1-amd64-disc1.iso
+FreeBSD-10.0-BETA1-amd64-disc1.iso            100% of  693 MB 8138 kBps 01m27s
+$
+$ sudo mdconfig -a -t vnode -f ./FreeBSD-10.0-BETA1-amd64-disc1.iso -u 0
+$ sudo mount -t cd9660 /dev/md0 /mnt</pre>
+
+<p>/mntにマウントしたとすると、/mnt/usr/freebsd-dist/が目的の場所。</p>
+
+<pre class="lang:default decode:true">$ ls /mnt
+COPYRIGHT       etc             mnt             sbin            var
+bin             lib             proc            sys
+boot            libexec         rescue          tmp
+dev             media           root            usr
+$ ls /mnt/usr
+bin             include         libdata         obj             src
+freebsd-dist    lib             libexec         sbin            tests
+games           lib32           local           share
+$ ls /mnt/usr/freebsd-dist/
+MANIFEST        doc.txz         kernel.txz      src.txz
+base.txz        games.txz       lib32.txz
+$</pre>
+
+<p>qjail install -fで実行。<br />
+終わったらマウントも外そう。</p>
+
+<pre class="lang:default decode:true">$ sudo qjail install -f /mnt/usr/freebsd-dist/                  
+The RELEASE distribution files are populating template.
+Est LT 1 minute elapse time for this to complete.
+
+sharedfs is being populated.
+Est LT 1 minute elapse time for this to complete.
+
+Successfully installed qjail system.
+$
+$ sudo umount /mnt
+$ sudo mdconfig -d -u 0</pre>
+
+<p> </p>
+
+<h2 id="qjailの構成"><span style="text-decoration: underline;">qjailの構成</span></h2>
+
+<p>/usr/jailsにいくつかのディレクトリが生まれる。<br />
+また、設定ファイルが/usr/local/etc/に格納される。</p>
+
+<p>/usr/jails下は以下の通り。</p>
+
+<pre class="lang:default decode:true">$ ls /usr/jails
+archive         flavors         sharedfs        template</pre>
+
+<p><span style="text-decoration: underline;">sharedfs:</span><br />
+OSの実行ファイル、ライブラリ。全Jailで共有される。</p>
+
+<pre class="lang:default decode:true">$ ls /usr/jails/sharedfs/
+bin     lib     libexec sbin    sys     usr</pre>
+
+<p><span style="text-decoration: underline;">template:</span><br />
+OS configuration fileがある。設定変えようと思ったらここかな。</p>
+
+<pre class="lang:default decode:true">$ ls /usr/jails/template/
+COPYRIGHT       home            mnt             sharedfs        var
+bin             lib             proc            sys
+dev             libexec         root            tmp
+etc             media           sbin            usr</pre>
+
+<p><span style="text-decoration: underline;">archive:</span><br />
+初期状態では空。<br />
+qjail archiveコマンドで作成されるアーカイブが格納される。</p>
+
+<p><span style="text-decoration: underline;">flavors:</span><br />
+flavorですな。defaultとssh-defaultの二つがある。</p>
+
+<pre class="lang:default decode:true">$ ls /usr/jails/flavors/
+default         ssh-default</pre>
+
+<p>そのほか、/usr/local/etc/下に以下のようなファイル、ディレクトリがたくさん出来る。<br />
+jailを作ると今度はこのディレクトリの下にjail名でファイルができる。<br />
+global, local, vnetの意味が、想像はできるもののよく分からない。</p>
+
+<pre class="lang:default decode:true">$ ls /usr/local/etc/qjail*
+/usr/local/etc/qjail.portsnap.conf
+/usr/local/etc/qjail.fstab:
+/usr/local/etc/qjail.global:
+/usr/local/etc/qjail.local:
+/usr/local/etc/qjail.vnet:</pre>
+
+<p> </p>
+
+<h2 id="jailの作成"><span style="text-decoration: underline;">jailの作成</span></h2>
+
+<p>書式。代表的なもののみ。</p>
+
+<pre class="lang:default decode:true">qjail create -n &lt;NIC name&gt;  -f &lt;flavor&gt; -a &lt;アーカイブ&gt; \
+ -4 &lt;割り当てるIPアドレス&gt;  jailname</pre>
+
+<p>-fと-aは一緒に使えない。</p>
+
+<p>実際に作ってみる。<br />
+あっさりと出来上がる。<br />
+あっさりしすぎて逆に不安なくらい。</p>
+
+<pre class="lang:default decode:true">$ sudo qjail create -n em0 -4 192.168.100.240 example01
+Successfully created  example01</pre>
+
+<p>気がつくと、/etc/jail.confが生まれている!</p>
+
+<pre class="lang:default decode:true">example01 {
+host.hostname       =  "exmaple01";
+path                =  "/usr/jails/exmaple01";
+mount.fstab         =  "/usr/local/etc/qjail.fstab/exmaple01";
+exec.start          =  "/bin/sh /etc/rc";
+exec.stop           =  "/bin/sh /etc/rc.shutdown";
+exec.consolelog     =  "/var/log/qjail.exmaple01.console.log";
+devfs_ruleset       =  "4";
+allow.mount.devfs;
+mount.devfs         =  "1";
+ip4.addr            =  192.168.100.240;
+interface           =  "em0";
+}</pre>
+
+<p>jail起動…の前に、qjail listで確認。</p>
+
+<h2 id="qjail-list"><span style="text-decoration: underline;">qjail list</span></h2>
+
+<p>作成済みのjailはqjail listで確認できる。</p>
+
+<pre class="lang:default decode:true">$ sudo qjail list
+STA JID  NIC IP              Jailname
+--- ---- --- --------------- --------------------------------------------------
+DS  N/A  em0 192.168.100.240 example01</pre>
+
+<p>最初のカラムのSTAはStatusの略。</p>
+
+<pre class="lang:default decode:true">一文字め:Jailの種別
+    D: ディレクトリベースのjail.
+    I: イメージベースのjail.
+二文字め:状態
+    R: 実行中
+    S: 停止中</pre>
+
+<p>JIDはjail IDのこと。そのほかは見たまま。</p>
+
+<h2 id="qjail-start"><span style="text-decoration: underline;">qjail start</span></h2>
+
+<p>qjail startでjailを起動。<br />
+qjail listの表示も変わり、ネットワークインタフェースへのaliasも実行してくれている。</p>
+
+<pre class="lang:default decode:true">$ sudo qjail start example01
+Jail successfully started  example01
+$
+$ sudo qjail list
+STA JID  NIC IP              Jailname
+--- ---- --- --------------- --------------------------------------------------
+DR  N/A  em0 192.168.100.240 example01
+
+$ ifconfig em0
+em0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
+        options=9b&lt;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&gt;
+        ether 08:00:27:a1:d7:05
+        inet 192.168.100.110 netmask 0xffffff00 broadcast 192.168.100.255
+        inet 192.168.100.240 netmask 0xffffffff broadcast 192.168.100.240
+        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
+        media: Ethernet autoselect (1000baseT &lt;full-duplex&gt;)
+        status: active</pre>
+
+<p> </p>
+
+<h2 id="qjail-consoleでjailの中へ"><span style="text-decoration: underline;">qjail consoleでjailの中へ</span></h2>
+
+<p>qjail consoleでコンソールにアクセスできる。</p>
+
+<pre class="lang:default decode:true">$ sudo qjail console example01
+FreeBSD 10.0-BETA1 (GENERIC) #0 r256420: Sun Oct 13 01:43:07 UTC 2013
+
+Welcome to your FreeBSD jail.
+example01 /root &gt;</pre>
+
+<p>特に何もしていないけど、/etc/localtimeと/etc/resolv.confは作ってくれた。wall_cmos_clockはなかった。</p>
+
+<pre class="lang:default decode:true">exmaple01 /root &gt;ls /etc | egrep "resolv|clock|localtime"
+localtime
+resolv.conf</pre>
+
+<p> </p>
+
+<h2 id="qjail-stopで止めてarchiveでアーカイブdeleteで削除完了"><span style="text-decoration: underline;">qjail stopで止めて、archiveでアーカイブ、deleteで削除完了</span></h2>
+
+<p>単純にstopしてdeleteするのは面白くないから、deleteの前にarchiveしてみた。<br />
+/usr/jails/archiveの下に<jail名>@日付秒.tarというファイルが出来ている。  
+また、deleteしてもjail.confには記載が残っているようだ。</jail名></p>
+
+<pre class="lang:default decode:true">$ sudo qjail stop example01
+Jail successfully stopped  example01
+$ sudo qjail archive example01
+Successfully archived example01
+$ ls /usr/jails/archive/
+example01@201310182327.36.tar
+$ sudo qjail delete example01
+Successfully deleted  example01
+$ sudo qjail list
+STA JID  NIC IP              Jailname
+--- ---- --- --------------- --------------------------------------------------
+
+$
+$ cat /etc/jail.conf
+example01 {
+host.hostname       =  "example01";
+（後略）</pre>
+
+<p> </p>
+
+<h2 id="qjail-restoreでarchive済みのjailを復活可能ッ"><span style="text-decoration: underline;">qjail restoreでarchive済みのjailを復活可能ッ！</span></h2>
+
+<p>ためしにrestoreしてみたら何事もなかったかのように復活して驚いた。<br />
+これはスナップショット的に使えますね。</p>
+
+<pre class="lang:default decode:true">$ sudo qjail restore example01
+Successfully restored example01
+$ sudo qjail list
+STA JID  NIC IP              Jailname
+--- ---- --- --------------- --------------------------------------------------
+DS  N/A  em0 192.168.100.240 example01
+$
+$ sudo qjail start example01
+Jail successfully started  example01
+[vanilla@yaryka ~]$ sudo qjail console example01
+Last login: Thu Oct 17 23:50:08 on pts/3
+FreeBSD 10.0-BETA1 (GENERIC) #0 r256420: Sun Oct 13 01:43:07 UTC 2013
+
+Welcome to your FreeBSD jail.
+example01 /root &gt;</pre>
+
+<p> </p>
+
+<h2 id="qjail便利だよね"><span style="text-decoration: underline;">qjail、便利だよね？</span></h2>
+
+<p>ご覧の通り、qjailはjailをマクロなレベルで扱うことに長けているようで、とても便利に感じる。<br />
+qjailにはほかにもqjail configというコマンドがあり、既存のjailの設定（たとえばIPアドレスとか）を変えたりできるし、jailのOSアップデートも手軽にできるようだ。<br />
+そのあたりはまた試すとして、しばらくjailはqjailでメンテしようと思った。</p>
+
+<p> </p>
+
+  </div><a class="u-url" href="/2013/10/19-10-0-beta1%E3%81%A7ezjail%E3%81%8C%E6%81%AF%E3%81%97%E3%81%A6%E3%81%AA%E3%81%84-qjail%E3%81%AB%E4%B9%97%E3%82%8A%E6%8F%9B%E3%81%88%E3%81%9F.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

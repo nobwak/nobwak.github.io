@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="件名の通り。 FreeBSDホストに格納してある写真、動画を各種メディアプレイヤー向けに公開したいが、オリジナルのホストを直接は公開したくないな、というときのため。 jailなら物理的に同じマシンを使いつつ、論理的には別マシンとして振る舞えるので適任である。" />
+<meta property="og:description" content="件名の通り。 FreeBSDホストに格納してある写真、動画を各種メディアプレイヤー向けに公開したいが、オリジナルのホストを直接は公開したくないな、というときのため。 jailなら物理的に同じマシンを使いつつ、論理的には別マシンとして振る舞えるので適任である。" />
+<link rel="canonical" href="https://nobwak.github.io/2015/08/25-%E3%83%A1%E3%83%A2-%E5%86%99%E7%9C%9F-%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex-media-server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html" />
+<meta property="og:url" content="https://nobwak.github.io/2015/08/25-%E3%83%A1%E3%83%A2-%E5%86%99%E7%9C%9F-%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex-media-server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-08-25T23:42:59+09:00" />
+<script type="application/ld+json">
+{"description":"件名の通り。 FreeBSDホストに格納してある写真、動画を各種メディアプレイヤー向けに公開したいが、オリジナルのホストを直接は公開したくないな、というときのため。 jailなら物理的に同じマシンを使いつつ、論理的には別マシンとして振る舞えるので適任である。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2015/08/25-%E3%83%A1%E3%83%A2-%E5%86%99%E7%9C%9F-%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex-media-server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html","headline":"[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール","dateModified":"2015-08-25T23:42:59+09:00","datePublished":"2015-08-25T23:42:59+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2015/08/25-%E3%83%A1%E3%83%A2-%E5%86%99%E7%9C%9F-%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex-media-server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2015-08-25T23:42:59+09:00" itemprop="datePublished">Aug 25, 2015
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>件名の通り。<br />
+FreeBSDホストに格納してある写真、動画を各種メディアプレイヤー向けに公開したいが、オリジナルのホストを直接は公開したくないな、というときのため。<br />
+jailなら物理的に同じマシンを使いつつ、論理的には別マシンとして振る舞えるので適任である。</p>
+
+<h2 id="jailの作成">jailの作成</h2>
+
+<p>jailとくればezjailが定番だが、私はqjailが好き。<br />
+qjailについては<a href="../../../2013/10/qjail%e3%81%8c%e9%9b%a3%e8%a7%a3%e9%81%8e%e3%81%8e%e3%82%8bjail%e3%81%ae%e9%9d%a2%e5%80%92%e3%82%92%e8%a6%8b%e3%81%a6%e3%81%8f%e3%82%8c%e3%81%a6%e6%84%9f%e8%ac%9d%e3%81%97%e3%81%9f%e4%bb%b6%e3%81%ab/">こちら</a>を。</p>
+
+<p>以下、qjail installまで終わっている前提で勧める。</p>
+
+<p>flavorにssh-defaultを選んでplexという名前で作成。</p>
+
+<pre>$ sudo qjail create -f ssh-default -4 192.168.200.19 plex
+Successfully created  plex
+$ sudo qjail list
+
+STA JID  NIC IP              Jailname
+--- ---- --- --------------- --------------------------------------------------
+DS  N/A  bge0 192.168.200.19     plex</pre>
+
+<p>jail plexをスタートし、pkgをインストール<br />
+インストールはとにかくpkgコマンドを叩けばOK。</p>
+
+<pre>$ sudo qjail start plex
+Jail successfully started  plex
+$ sudo qjail console plex
+FreeBSD 10.2-RELEASE (GENERIC) #0 r286666: Wed Aug 12 15:26:37 UTC 2015
+
+Welcome to your FreeBSD jail.
+plex /root &gt;
+plex /root &gt; pkg info
+Bootstrapping pkg from pkg+http://pkg.FreeBSD.org/freebsd:10:x86:64/latest, please wait...
+Verifying signature with trusted certificate pkg.freebsd.org.2013102301... done
+[plex] Installing pkg-1.5.6...
+[plex] Extracting pkg-1.5.6: 100%
+Message for pkg-1.5.6:
+If you are upgrading from the old package format, first run:
+
+  # pkg2ng
+（略）</pre>
+
+<h2 id="plexmediaserverインストール">plexmediaserverインストール</h2>
+
+<p>そのままplexmediaserverをインストール。<br />
+もちろん、マシンは64bitです。</p>
+
+<pre>plex /root &gt;uname -a
+FreeBSD plex 10.2-RELEASE FreeBSD 10.2-RELEASE #0 r286666: Wed Aug 12 15:26:37 UTC 2015     root@releng1.nyi.freebsd.org:/usr/obj/usr/src/sys/GENERIC  amd64
+plex /root &gt;pkg install plexmediaserver
+（略）
+The following 2 package(s) will be affected (of 0 checked):
+
+New packages to be INSTALLED:
+        plexmediaserver: 0.9.12.8.1362
+        compat9x-amd64: 9.2.902000.201310
+（略）
+[plex] [1/2] Installing compat9x-amd64-9.2.902000.201310...
+[plex] [1/2] Extracting compat9x-amd64-9.2.902000.201310: 100%
+[plex] [2/2] Installing plexmediaserver-0.9.12.8.1362...
+===&gt; Creating users and/or groups.
+Creating group 'plex' with gid '972'.
+Creating user 'plex' with uid '972'.
+[plex] [2/2] Extracting plexmediaserver-0.9.12.8.1362: 100%
+Message for plexmediaserver-0.9.12.8.1362:
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+multimedia/plexmediaserver includes an RC script:
+/usr/local/etc/rc.d/plexmediaserver
+
+TO START PLEXMEDIASERVER ON BOOT:
+sysrc plexmediaserver_enable=YES
+
+START MANUALLY:
+service plexmediaserver start
+
+Once started, visit the following to configure:
+http://localhost:32400/web
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+plex /root &gt;</pre>
+
+<h2 id="plexmediaserver起動">plexmediaserver起動</h2>
+
+<p>rc.confに一行加えてさっさと起動。</p>
+
+<pre>plex /root &gt;sysrc plexmediaserver_enable=YES
+plexmediaserver_enable:  -&gt; YES
+plex /root &gt;service plexmediaserver start
+Starting plexmediaserver.
+plex /root &gt;</pre>
+
+<p>ブラウザからhttp://＜IPアドレス＞:32400/webに繋ぐ。<br />
+もし「このサーバに権限（permission）がない」というようなことを言われたなら、以下のファイルを変更するといいかもしれない。<br />
+「かもしれない」というのは、以下の通り変更したら症状が改善したので、確認のために戻してみたら、二度と症状が再現しないから。<br />
+うーん…。</p>
+
+<pre>/usr/local/plexdata/Plex Media Server/Preferences.xml
+
+Preferences （略）allowedNetworks="192.168.1.0/255.255.255.0"</pre>
+
+<p>いったんそのままにしておく。</p>
+
+<h2 id="plexmediaserver向けにディレクトリをマウント">plexmediaserver向けにディレクトリをマウント</h2>
+
+<p>jailから抜けてホスト側で作業<br />
+jailであるplexのファイルシステムは、ホスト側では/usr/jails/plexにある。<br />
+/usr/jails/plex/がjail plexのルートディレクトリ。<br />
+だからホストの/warehouseにデータがあるとして、/usr/jails/plex/mediaにマウントすれば、jail plexでは/mediaとして見える。</p>
+
+<p>せっかくだからread onlyでね。</p>
+
+<pre>$ sudo mount_nullfs -o ro /warehouse /usr/jails/plex/media</pre>
+
+<p>jail plexから見えるのを確認したら、ホスト側のfstabに書き込み。</p>
+
+<pre>$ sudo sh -c "mount -p|grep /usr/jails/plex/media &gt;&gt; /etc/fstab"</pre>
+
+<p>あとはブラウザからplex media serverにつないで、メディアの追加で/mediaを選ぶだけ</p>
+
+<p>以上</p>
+
+  </div><a class="u-url" href="/2015/08/25-%E3%83%A1%E3%83%A2-%E5%86%99%E7%9C%9F-%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex-media-server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

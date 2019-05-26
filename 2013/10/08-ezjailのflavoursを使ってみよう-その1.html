@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>ezjailのflavoursを使ってみよう その1 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="ezjailのflavoursを使ってみよう その1" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き" />
+<meta property="og:description" content="[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き" />
+<link rel="canonical" href="https://nobwak.github.io/2013/10/08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86-%E3%81%9D%E3%81%AE1.html" />
+<meta property="og:url" content="https://nobwak.github.io/2013/10/08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86-%E3%81%9D%E3%81%AE1.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-10-08T22:43:13+09:00" />
+<script type="application/ld+json">
+{"description":"[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2013/10/08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86-%E3%81%9D%E3%81%AE1.html","headline":"ezjailのflavoursを使ってみよう その1","dateModified":"2013-10-08T22:43:13+09:00","datePublished":"2013-10-08T22:43:13+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2013/10/08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86-%E3%81%9D%E3%81%AE1.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">ezjailのflavoursを使ってみよう その1</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-10-08T22:43:13+09:00" itemprop="datePublished">Oct 8, 2013
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="../../../?p=2229">[FreeBSD] ezjailを試そう</a><br />
+<a href="../../../?p=2248">ezjailで作るjailの基本設定を変えよう</a><br />
+からの続き</p>
+
+<p>以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。<br />
+「Jailホスト」はjail環境で動くホストを表す。子。</p>
+
+<h2 id="ezjailのflavoursとは"><span style="text-decoration: underline;">ezjailのflavoursとは。</span></h2>
+
+<p>新しいJailは、真っ新（まっさら）のFreeBSDで作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。<br />
+flavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。<br />
+たとえば、rc.conf, make.conf, periodic.confやsudoersなどである。</p>
+
+<p>以下より意訳。<br />
+ <a href="http://erdgeist.org/arts/software/ezjail/#Flavours" target="_blank">http://erdgeist.org/arts/software/ezjail/#Flavours</a></p>
+
+<h2 id="flavoursの場所"><span style="text-decoration: underline;">「flavours」の場所</span></h2>
+
+<p>特に指定をしなければ、ezjail-admin installで/usr/jails/flavoursに格納される。<br />
+初期状態では、サンプルとして/usr/jails/flavours/exampleが用意されている。<br />
+これを参考に自分用のflavoursを作ればよい。</p>
+
+<h2 id="flavoursの中身"><span style="text-decoration: underline;">「flavours」の中身</span></h2>
+
+<p>exampleの中をのぞくと、/usr/jails/flavours/exampleを起点に、以下のファイルがある。</p>
+
+<pre class="lang:default decode:true">./usr/local/etc/sudoers
+./etc/make.conf
+./etc/periodic.conf
+./etc/rc.conf
+./etc/rc.d/ezjail.flavour.example</pre>
+
+<p> </p>
+
+<p>./etcや./usr/local/etcに必要なファイルを入れておけばよいというわけ。<br />
+ところでezjail.flavour.exampleだけは特殊。</p>
+
+<p> </p>
+
+<h2 id="ezjailflavourexampleとは"><span style="text-decoration: underline;">「ezjail.flavour.example」とは</span></h2>
+
+<p>jailホストが初めて起動する際に実行されるスクリプト。<br />
+ここに初期設定で必要なこと、たとえばユーザ・グループの追加やら、パッケージの追加やら、つらつら書いておけばよい。<br />
+（中身を見ればわかるがezjail.flavour.example自体を消す処理も入っている）</p>
+
+<p> </p>
+
+<h2 id="jailホストの仕様検討"><span style="text-decoration: underline;">jailホストの仕様検討</span></h2>
+
+<p>実際にflavousの作成に入る前に。<br />
+同じHW上で複数のサービスを行うため、jailホストを稼働させるまえに何点か考えておかないといけないことがある。<br />
+仕様検討というのは仰々しいが、あとあと効いてくるので真面目にやる。<br />
+とりあえず以下を決めておけばよいかな、と。</p>
+
+<ol>
+  <li>ホストで動かしたいサービス</li>
+  <li>Jailホストで動かしたいサービス</li>
+  <li>Jailホストに追加するユーザ/グループ</li>
+  <li>Jailホストで使用するソフトウェア</li>
+</ol>
+
+<p>一番注意すべきことは、ポートのListenである。<br />
+ホストとJailホストには別々のIPアドレスを付与するものの、サーバソフトウェアが個々のIPアドレスを意識するとは限らない。<br />
+だからして「動かしたいサービス」はJailホストだけでなく、ホストも含めて考えることが必要だし、それぞれで動かすサーバソフトウェアには、ListenするIPアドレスを明示する必要がある。</p>
+
+<p>以下のように設定した。</p>
+
+<ol>
+  <li>ホストで動かしたいサービス<br />
+    →sshdのみ。</li>
+  <li>Jailホストで動かしたいサービス<br />
+    →apache, sshd</li>
+  <li>Jailホストに追加するユーザ/グループ<br />
+    →vanilla:vanilla</li>
+  <li>Jailホストで使用するソフトウェア<br />
+    →apache22, sudo, bash, portaudit, portmaster, tmux</li>
+</ol>
+
+<p>このうち、最初の件を除いた残りの三つは、すべてflavoursで設定する。<br />
+ではひとつずつ。</p>
+
+<h2 id="ホストで動かしたいサービス"><span style="text-decoration: underline;">ホストで動かしたいサービス</span></h2>
+
+<p>sshdだけで良いとした。<br />
+ではホストで動いているサービスはなんだろうか。sockstat -l4でリストできる。</p>
+
+<pre class="lang:default decode:true">$ sockstat -l4
+USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+root sendmail 1002 3 tcp4 127.0.0.1:25 *:*
+root sshd 992 4 tcp4 *:22 *:*
+root syslogd 904 7 udp4 *:514 *:*</pre>
+
+<p> </p>
+
+<p>sendmailが動いている。これは不要。<br />
+sshdは動いてても構わないが、Local Addressが<em>:22になっている。<br />
+これはIPアドレスを意識せず、ポート22に届いたものはすべて自分宛と認識するということ。Jailホストに来た接続もこちらに繋がってしまう。これはまずい。<br />
+syslogdも</em>:514で動いている。これも何らかの対応が必要。</p>
+
+<h2 id="ホストのサービスの調整sshd"><span style="text-decoration: underline;">ホストのサービスの調整（sshd）</span></h2>
+
+<p>sshdはsshd_configで以下の行を追加し、ホストのIPアドレスでのみListenするように。</p>
+
+<pre class="lang:default decode:true">ListenAddress ＜ホストのIPアドレス＞</pre>
+
+<p> </p>
+
+<p>sshdを再起動するとsockstat -l4の表示が変わる。</p>
+
+<pre class="lang:default decode:true">$ sudo service sshd restart
+Stopping sshd.
+Starting sshd.
+$ sockstat -l4
+USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+root sshd 1845 3 tcp4 192.168.154.128:22 *:*
+root sendmail 1002 3 tcp4 127.0.0.1:25 *:*
+root syslogd 904 7 udp4 *:514 *:*</pre>
+
+<p> </p>
+
+<h2 id="ホストのサービスの調整sendmail"><span style="text-decoration: underline;">ホストのサービスの調整（sendmail）</span></h2>
+
+<p>sendmailの停止は<a href="../../../?p=1823" target="_blank">こちら</a>を参照。<br />
+再起動、あるいはservice sendmail stopでよい。</p>
+
+<pre class="lang:default decode:true">$ sudo service sendmail stop
+Stopping sendmail.
+Stopping sendmail_clientmqueue.
+$ sockstat -l4
+USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+root sshd 1845 3 tcp4 192.168.154.128:22 *:*
+root syslogd 904 7 udp4 *:514 *:*
+$</pre>
+
+<p> </p>
+
+<h2 id="ホストのサービスの調整syslogd"><span style="text-decoration: underline;">ホストのサービスの調整（syslogd）</span></h2>
+
+<p>syslogdは、デフォルトだと”-s”オプションで動いているはず。<br />
+“-s”は、「リモートマシンからのログを受け取らない」というもの。<br />
+これで不自由してないのなら、”-ss”にしてポートすら開けないようにしてもいい。<br />
+“-ss”にしないのなら、念のため”-b”オプションでホストのIPアドレスを明示しておくとよい。</p>
+
+<pre class="lang:default decode:true">SYSLOGD(8) FreeBSD System Manager's Manual SYSLOGD(8)
+
+NAME
+syslogd -- log systems messages
+
+-s Operate in secure mode. Do not log messages from remote
+machines. If specified twice, no network socket will be opened
+at all, which also disables logging to remote machines.
+
+-b :service
+Bind to a specific address and/or port. The address can be spec-
+ified as a hostname, and the port as a service name. If an IPv6
+address is specified, it should be enclosed with `[' and `]'.
+The default service is `syslog'.</pre>
+
+<p> </p>
+
+<p><span style="text-decoration: underline;">/etc/rc.confに以下を追記する場合</span></p>
+
+<pre class="lang:default decode:true">syslogd_flags="-ss"</pre>
+
+<p> </p>
+
+<pre class="lang:default decode:true">$ sudo service syslogd restart
+Stopping syslogd.
+Starting syslogd.
+$ sockstat -l4
+USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+root sshd 992 3 tcp4 192.168.154.128:22 *:*
+$</pre>
+
+<p> </p>
+
+<p><span style="text-decoration: underline;">以下を追記した場合</span></p>
+
+<pre class="lang:default decode:true">syslogd_flags="-b 192.168.154.128"</pre>
+
+<p> </p>
+
+<pre class="lang:default decode:true">$ sockstat -l4
+USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+root syslogd 1540 6 udp4 192.168.154.128:514 *:*
+root sshd 992 3 tcp4 192.168.154.128:22 *:*</pre>
+
+<p> </p>
+
+<h2 id="ホストのサービスの調整inetdconf"><span style="text-decoration: underline;">ホストのサービスの調整（inetd.conf）</span></h2>
+
+<p>もしホストでinetd.confを動かしているのなら、-aオプションでホストのIPアドレスを与えること。</p>
+
+<pre class="lang:default decode:true">INETD(8) FreeBSD System Manager's Manual INETD(8)
+
+NAME
+inetd -- internet ``super-server''
+
+-a Specify one specific IP address to bind to. Alternatively, a
+hostname can be specified, in which case the IPv4 or IPv6 address
+which corresponds to that hostname is used. Usually a hostname
+is specified when inetd is run inside a jail(8), in which case
+the hostname corresponds to that of the jail(8) environment.</pre>
+
+<p> </p>
+
+<p> </p>
+
+<p>inetdのデフォルトオプションは”-wW -C 60″なので、以下のようにして/etc/rc.confに追加</p>
+
+<pre class="lang:default decode:true">inetd_flags="-wW -C 60 -a ＜ホストのIPアドレス＞"</pre>
+
+<p> </p>
+
+<h2 id="サンプルrcconf"><span style="text-decoration: underline;">サンプルrc.conf</span></h2>
+
+<pre class="lang:default decode:true "># kill sendmail
+sendmail_enable="NO"    # Run the sendmail inbound daemon (YES/NO).
+sendmail_submit_enable="NO"     # Start a localhost-only MTA for mail submission
+sendmail_outbound_enable="NO"   # Dequeue stuck mail (YES/NO).
+sendmail_msp_queue_enable="NO"  # Dequeue stuck clientmqueue mail (YES/NO).
+
+# prohibit syslog to open a socket
+syslogd_flags="-ss"
+# make syslog listen on specific ip address
+# syslogd_flags="-b x.x.x.x"
+
+# make inetd listen on specific ip address
+# inetd_flags="-wW -C 60 -a x.x.x.x"</pre>
+
+<p> </p>
+
+<p>意外に長くなったのでここまで。<br />
+続きは以下。</p>
+
+<p><a href="../../../?p=2254">ezjailのflavoursを使ってみよう その2</a></p>
+
+  </div><a class="u-url" href="/2013/10/08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86-%E3%81%9D%E3%81%AE1.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

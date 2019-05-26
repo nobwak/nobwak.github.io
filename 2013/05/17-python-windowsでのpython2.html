@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>[python] WindowsでのPython2 | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="[python] WindowsでのPython2" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Pythonが面白くてしょうがいない。 のだが、Windowsで使った場合、文字コードとか改行コードとかパスのデリミタのせいでいろいろと手間がかかる。 Windows固有の手間をここにまとめる。" />
+<meta property="og:description" content="Pythonが面白くてしょうがいない。 のだが、Windowsで使った場合、文字コードとか改行コードとかパスのデリミタのせいでいろいろと手間がかかる。 Windows固有の手間をここにまとめる。" />
+<link rel="canonical" href="https://nobwak.github.io/2013/05/17-python-windows%E3%81%A7%E3%81%AEpython2.html" />
+<meta property="og:url" content="https://nobwak.github.io/2013/05/17-python-windows%E3%81%A7%E3%81%AEpython2.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-05-17T22:42:14+09:00" />
+<script type="application/ld+json">
+{"description":"Pythonが面白くてしょうがいない。 のだが、Windowsで使った場合、文字コードとか改行コードとかパスのデリミタのせいでいろいろと手間がかかる。 Windows固有の手間をここにまとめる。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2013/05/17-python-windows%E3%81%A7%E3%81%AEpython2.html","headline":"[python] WindowsでのPython2","dateModified":"2013-05-17T22:42:14+09:00","datePublished":"2013-05-17T22:42:14+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2013/05/17-python-windows%E3%81%A7%E3%81%AEpython2.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[python] WindowsでのPython2</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-05-17T22:42:14+09:00" itemprop="datePublished">May 17, 2013
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Pythonが面白くてしょうがいない。<br />
+のだが、Windowsで使った場合、文字コードとか改行コードとかパスのデリミタのせいでいろいろと手間がかかる。<br />
+Windows固有の手間をここにまとめる。</p>
+
+<p>なお、私の使っているのはPython2。<br />
+<code class="highlighter-rouge">&lt;br /&gt;
+ActivePython 2.7.2.5 (ActiveState Software Inc.) based on&lt;br /&gt;
+Python 2.7.2 (default, Jun 24 2011, 12:22:14) [MSC v.1500 64 bit (AMD64)] on win32</code></p>
+
+<h3 id="文字コード設定"><span style="text-decoration: underline;">文字コード設定</span></h3>
+
+<p>Python2を使っていて扱うファイルがShift-JISばかりなら、PythonもShift-JISで通したほうが楽。<br />
+だってほら、いちいち変換とか面倒ですよ。</p>
+
+<p>Pythonスクリプトファイルの1行目あるいは2行目には以下を記載する。</p>
+
+<p><code class="highlighter-rouge"># coding: ms932</code></p>
+
+<p># -*- coding:という書式もあるがemacsを使わないならこれでよい。<br />
+詳細は下記リンク<br />
+ <a href=" http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations" target="_blank">http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations</a></p>
+
+<h2 id="default-encodingの設定"><span style="text-decoration: underline;">default encodingの設定</span></h2>
+
+<p>デフォルトのencodingもms932にしておく。<br />
+いま現在のencodingを確かめるにはimport sysしてからsys.getdefaultencoding()する。<br />
+何もしていなければasciiのはず。</p>
+
+<pre class="lang:default decode:true">&gt;&gt;&gt; import sys
+&gt;&gt;&gt; sys.getdefaultencoding()
+'ascii'
+&gt;&gt;&gt;</pre>
+
+<p>C:\Python27\Lib\の下にsitecustomize.pyを作って以下の内容を書き込む。</p>
+
+<pre class="lang:default decode:true" title="C:\Python27\Lib\sitecustomize.py">import sys
+sys.setdefaultencoding('cp932')</pre>
+
+<p>もう一度確かめればデフォルトのencodingが変わっていると分かる。</p>
+
+<pre class="lang:default decode:true">&gt;&gt;&gt; import sys
+&gt;&gt;&gt; sys.getdefaultencoding()
+'cp932'
+&gt;&gt;&gt;</pre>
+
+<p> </p>
+
+<h3 id="パスの扱い方頭にrを付ける"><span style="text-decoration: underline;">パスの扱い方（頭にrを付ける）</span></h3>
+
+<p>Windowsのパス表記はバックスラッシュを使うが、これをそのまま使うとエスケープシーケンスとして扱われてしまう。<br />
+そこでrを頭につける。<br />
+するとrawリテラルとして扱ってくれる。</p>
+
+<p>`»&gt; print ‘c:\nowhere’<br />
+c:<br />
+owhere<br /></p>
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <p>print r’c:\nowhere’<br />
+c:\nowhere<br />
+`</p>
+    </blockquote>
+  </blockquote>
+</blockquote>
+
+<p><a href="http://docs.python.org/2/reference/lexical_analysis.html#string-literals" target="_blank">http://docs.python.org/2/reference/lexical_analysis.html#string-literals</a></p>
+
+<h3 id="windowsでのcsv書き込み改行コードに注意"><span style="text-decoration: underline;">WindowsでのCSV書き込み。改行コードに注意。</span></h3>
+
+<p>Windows上PythonからCSV書き出し→ExcelなどWindowsの各種プログラムで開く→一行ごとに空行ができている＼(^o^)／<br />
+CSV書き出し時改行コードのデフォルトが\r\nになっているせい。<br />
+下記のように改行コードを指定すればOK。<br />
+なお読み込みのときは指定不要。<br />
+ <a href=" http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator" target="_blank">http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator</a></p>
+
+<p><code class="highlighter-rouge">import csv&lt;br /&gt;
+csvhandler = csv.writer(open(r'C:\nowhere\output.csv','w'),delimiter=',',lineterminator="\n")</code></p>
+
+<h3 id="shift-jisでのsqlite3"><span style="text-decoration: underline;">Shift-JISでのsqlite3</span></h3>
+
+<p>SQLite3のTEXTデータタイプはデフォルトでUTF-8。<br />
+SQLite3コネクションオブジェクトの.text_factoryアトリビュートをstrにすると、バイトストリングとして扱ってくれる。<br />
+ <a href=" http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory" target="_blank">http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory</a></p>
+
+<p><code class="highlighter-rouge">import sqlite&lt;br /&gt;
+conn = sqlite3.connect(dbfile)&lt;br /&gt;
+conn.text_factory = str</code></p>
+
+<p> </p>
+
+<h3 id="pylabmatplotlibのグラフで日本語表示"><span style="text-decoration: underline;">pylab(Matplotlib)のグラフで日本語表示</span></h3>
+
+<p>pylabで作ったグラフは、UTF-8でないとダメなようだ。<br />
+こればかりはunicodeにエンコードしてpylabに入力する。<br />
+しかしUTF-８であっても、そのままでは日本語を表示してくれない。<br />
+下記のようにフォントを指定する。</p>
+
+<p><code class="highlighter-rouge">import pylab&lt;br /&gt;
+pylab.rcParams['font.family'] = 'VL Gothic'&lt;br /&gt;
+pylab.rcParams['font.size'] = 12</code></p>
+
+<p> </p>
+
+<p><span style="text-decoration: underline;">更新履歴</span></p>
+
+<p>2013/5/17 初版<br />
+2013/5/10 sqlite3のtextでUTF-8でなくバイトストリングを扱う方法を追記<br />
+2013/5/24 pylabグラフで日本語使うときの注意を追記<br />
+2013/9/12 default encodingの件を追加</p>
+
+  </div><a class="u-url" href="/2013/05/17-python-windows%E3%81%A7%E3%81%AEpython2.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

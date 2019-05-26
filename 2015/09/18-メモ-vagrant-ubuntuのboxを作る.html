@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>[メモ][Vagrant] Ubuntuのboxを作る | nobwak’s Lair</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="[メモ][Vagrant] Ubuntuのboxを作る" />
+<meta name="author" content="nobwak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でUbuntuのboxを作る。" />
+<meta property="og:description" content="Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でUbuntuのboxを作る。" />
+<link rel="canonical" href="https://nobwak.github.io/2015/09/18-%E3%83%A1%E3%83%A2-vagrant-ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B.html" />
+<meta property="og:url" content="https://nobwak.github.io/2015/09/18-%E3%83%A1%E3%83%A2-vagrant-ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B.html" />
+<meta property="og:site_name" content="nobwak’s Lair" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-09-18T23:07:12+09:00" />
+<script type="application/ld+json">
+{"description":"Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でUbuntuのboxを作る。","author":{"@type":"Person","name":"nobwak"},"@type":"BlogPosting","url":"https://nobwak.github.io/2015/09/18-%E3%83%A1%E3%83%A2-vagrant-ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B.html","headline":"[メモ][Vagrant] Ubuntuのboxを作る","dateModified":"2015-09-18T23:07:12+09:00","datePublished":"2015-09-18T23:07:12+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/2015/09/18-%E3%83%A1%E3%83%A2-vagrant-ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://nobwak.github.io/feed.xml" title="nobwak's Lair" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">nobwak&#39;s Lair</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[メモ][Vagrant] Ubuntuのboxを作る</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2015-09-18T23:07:12+09:00" itemprop="datePublished">Sep 18, 2015
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">nobwak</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。<br />
+torrentに流してくれればいいのに…。<br />
+しかたないので自分でUbuntuのboxを作る。</p>
+
+<p>参照ドキュメントは公式の以下のもの。<br />
+ <a href="https://docs.vagrantup.com/v2/boxes/base.html" target="_blank">https://docs.vagrantup.com/v2/boxes/base.html</a></p>
+
+<p>VirtualBox上でUbuntu14.04をインストール後、apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgradeまで済ませた前提。<br />
+providerはVirtualBox。<br />
+まずVirtualBox特有の注意点を先に。</p>
+
+<h2 id="virtualbox向けにboxを作るときの注意点">VirtualBox向けにBoxを作るときの注意点</h2>
+
+<p><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html" target="_blank">https://docs.vagrantup.com/v2/virtualbox/boxes.html</a></p>
+
+<ol>
+  <li>ネットワークインタフェースはNATにしておくこと。</li>
+  <li>MACアドレスをメモしておくこと。</li>
+  <li>VirtualBox Guest Additionsをインストールしてあること。</li>
+</ol>
+
+<p>一つ目の理由は、VirtualBoxが決め打ちで接続してくるから。<br />
+二つ目の理由は、Vagrantfileのconfig.vm.base_macに書く必要があるから。<br />
+MACアドレスはVirtualBoxのGUIから確認できる。<br />
+三つめの条件を満たすには、あらかじめlinux kernel headersとbasic developer toolsをインストールしておく必要がある。<br />
+手順は後述。<br />
+ではさっそく。</p>
+
+<h2 id="不要なハードウェアの無効化">不要なハードウェアの無効化</h2>
+
+<p>USB, オーディオなどを無効化する。<br />
+特にUSBが有効になっていると、無用なバグを引いたりするので、無効化しておくことを強く勧める。</p>
+
+<h2 id="デフォルトユーザvagrantの作成">デフォルトユーザ（vagrant）の作成</h2>
+
+<p>Vagrantの作業用アカウントを作る。<br />
+Vagrantはデフォルトでユーザ”vagrant”として仮想マシンにSSH接続する。<br />
+vagrantというユーザのいることが明らかだと、それはそれでセキュリティ上のリスクになるのだが、それはVagrantに慣れてから考える。</p>
+
+<p>vagratを追加し、パスワードもvagrantに。<br />
+パスワードを設定しておくのは、万が一、手動で仮想マシンに接続する必要が生まれたときのため。</p>
+
+<pre># useradd -m vagrant
+# passwd vagrant</pre>
+
+<p>SSH接続用に鍵を作成する。<br />
+鍵はインターネットからダウンロードする。そんな鍵なんて危ないように見えるが、これはあくまでも初回ブート用。Vagrantが自動的に書き換えてくれる。</p>
+
+<pre># mkdir -p /home/vagrant/.ssh
+# cd /home/vagrant/.ssh 
+# curl -k -L -o authorized_keys 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub'
+# chmod 700 /home/vagrant/.ssh
+# chmod 600 /home/vagrant/.ssh/authorized_keys
+# chown -R vagrant:vagrant /home/vagrant/</pre>
+
+<h2 id="ユーザvagrant向けsudo設定">ユーザvagrant向けsudo設定</h2>
+
+<p>ユーザvagrantがパスワードなしでsudoできるように。<br />
+visudoで以下の行を追加。</p>
+
+<pre># visudo
+vagrant ALL=(ALL)       NOPASSWD: ALL</pre>
+
+<p>さらにrequirettyという記述があればコメントアウト</p>
+
+<pre># requiretty # コメントアウトでttyなくsudoできる。</pre>
+
+<h2 id="rootのパスワードも変える">rootのパスワードも変える。</h2>
+
+<p>rootのパスワードも”vagrant”に。</p>
+
+<pre># passwd</pre>
+
+<h2 id="sshd設定">sshd設定</h2>
+
+<p>sshdがなければインストール。</p>
+
+<pre># apt-get install openssh-server</pre>
+
+<p>sshdの設定ファイルを書き換え</p>
+
+<pre># vi /etc/ssh/sshd_config</pre>
+
+<p>以下の行があることを確認。なければ書く。</p>
+
+<pre>Port 22
+    PubKeyAuthentication yes
+    AuthorizedKeysFile %h/.ssh/authorized_keys
+    PermitEmptyPasswords no
+    UseDNS no</pre>
+
+<h2 id="virtualbox-guest-additionsのインストール">VirtualBox Guest Additionsのインストール</h2>
+
+<p>再掲だが以下のドキュメントに沿って。<br />
+ <a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html" target="_blank">https://docs.vagrantup.com/v2/virtualbox/boxes.html</a></p>
+
+<pre># apt-get install dkms
+# /etc/init.d/vboxadd setup
+# apt-get install -y build-essential linux-headers-server</pre>
+
+<p>その後、VirtualBox Guest Additionsのインストール<br />
+VitualBoxのGUIからCDを挿入し、以下を実行。</p>
+
+<pre># mount /dev/cdrom /media/cdrom
+# sh /media/cdrom/VBoxLinuxAdditions.run
+# umount /media/cdrom
+# apt-get clean</pre>
+
+<p>後は<a href="../../../2015/09/%e3%83%a1%e3%83%a2windows-virtualbox%e3%81%ae%e4%bb%ae%e6%83%b3%e3%83%9e%e3%82%b7%e3%83%b3%e3%81%8b%e3%82%89vagrant%e3%81%aebox%e3%82%92%e4%bd%9c%e3%82%8b/">こちら</a>の通り。</p>
+
+  </div><a class="u-url" href="/2015/09/18-%E3%83%A1%E3%83%A2-vagrant-ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">nobwak&#39;s Lair</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">nobwak&#39;s Lair</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
