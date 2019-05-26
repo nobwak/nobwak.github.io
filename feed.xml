@@ -1,16 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://nobwak.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://nobwak.github.io/" rel="alternate" type="text/html" /><updated>2019-05-19T22:32:04+09:00</updated><id>https://nobwak.github.io/feed.xml</id><title type="html">nobwak’s Lair</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="https://nobwak.github.io/2019/05/19-welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2019-05-19T19:18:51+09:00</published><updated>2019-05-19T19:18:51+09:00</updated><id>https://nobwak.github.io/2019/05/welcome-to-jekyll</id><content type="html" xml:base="https://nobwak.github.io/2019/05/19-welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
-
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）</title><link href="https://nobwak.github.io/2019/05/12-freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae2efbc88vm-bhyvee4bdbfe794a8efbc89.html" rel="alternate" type="text/html" title="FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）" /><published>2019-05-12T20:30:48+09:00</published><updated>2019-05-12T20:30:48+09:00</updated><id>https://nobwak.github.io/2019/05/freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae2efbc88vm-bhyvee4bdbfe794a8efbc89</id><content type="html" xml:base="https://nobwak.github.io/2019/05/12-freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae2efbc88vm-bhyvee4bdbfe794a8efbc89.html">&lt;p&gt;&lt;a href=&quot;../../../2019/05/freebsd-12%e3%81%aebhyve%e3%81%abwindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89/&quot;&gt;前回&lt;/a&gt;までで仮想マシンをインストールする準備が整った。&lt;br /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://nobwak.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://nobwak.github.io/" rel="alternate" type="text/html" /><updated>2019-05-26T23:02:29+09:00</updated><id>https://nobwak.github.io/feed.xml</id><title type="html">nobwak’s Lair</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）</title><link href="https://nobwak.github.io/2019/05/12-freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae2efbc88vm-bhyvee4bdbfe794a8efbc89.html" rel="alternate" type="text/html" title="FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）" /><published>2019-05-12T20:30:48+09:00</published><updated>2019-05-12T20:30:48+09:00</updated><id>https://nobwak.github.io/2019/05/freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae2efbc88vm-bhyvee4bdbfe794a8efbc89</id><content type="html" xml:base="https://nobwak.github.io/2019/05/12-freebsd-12e381aebhyvee381abwindows10e38292e382a4e383b3e382b9e38388e383bce383abe38199e3828befbc9ae3819de381ae2efbc88vm-bhyvee4bdbfe794a8efbc89.html">&lt;p&gt;&lt;a href=&quot;../../../2019/05/freebsd-12%e3%81%aebhyve%e3%81%abwindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89/&quot;&gt;前回&lt;/a&gt;までで仮想マシンをインストールする準備が整った。&lt;br /&gt;
 さっそくWindows10のインストールに取り掛かるが、準備すべきものがある。&lt;/p&gt;
 
 &lt;ol&gt;
@@ -1720,4 +1708,184 @@ warehouse logicalused 2.02T –&lt;br /&gt;
 
 &lt;p&gt;これで引っ越し完了。&lt;/p&gt;
 
-&lt;p&gt;以上&lt;/p&gt;</content><author><name>nobwak</name></author><category term="FreeBSD" /><category term="zfs" /><category term="zpool" /><summary type="html">zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずscrubしておくこと。</summary></entry></feed>
+&lt;p&gt;以上&lt;/p&gt;</content><author><name>nobwak</name></author><category term="FreeBSD" /><category term="zfs" /><category term="zpool" /><summary type="html">zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずscrubしておくこと。</summary></entry><entry><title type="html">Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）</title><link href="https://nobwak.github.io/2018/03/21-linuxe381abe6b3a8e69687e381aee5a49ae38184e69699e79086e5ba97e38292e38197e38283e381b9e38289e3819de38186efbc88open-jtalkefbc89.html" rel="alternate" type="text/html" title="Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）" /><published>2018-03-21T20:13:48+09:00</published><updated>2018-03-21T20:13:48+09:00</updated><id>https://nobwak.github.io/2018/03/linuxe381abe6b3a8e69687e381aee5a49ae38184e69699e79086e5ba97e38292e38197e38283e381b9e38289e3819de38186efbc88open-jtalkefbc89</id><content type="html" xml:base="https://nobwak.github.io/2018/03/21-linuxe381abe6b3a8e69687e381aee5a49ae38184e69699e79086e5ba97e38292e38197e38283e381b9e38289e3819de38186efbc88open-jtalkefbc89.html">&lt;p&gt;Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。&lt;/p&gt;
+
+&lt;p&gt;Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト音声合成システム」とのこと。&lt;br /&gt;
+&lt;a href=&quot;http://open-jtalk.sp.nitech.ac.jp/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://open-jtalk.sp.nitech.ac.jp/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;open-jtalk、辞書をインストールする。&lt;br /&gt;
+open-jtalkをインストールすれば辞書もついてくる。&lt;/p&gt;
+
+&lt;p&gt;[bash]$ apt search open-jtalk&lt;br /&gt;
+ソート中… 完了&lt;br /&gt;
+全文検索… 完了&lt;br /&gt;
+open-jtalk/artful 1.10-1 amd64&lt;br /&gt;
+日本語音声合成システム&lt;/p&gt;
+
+&lt;p&gt;open-jtalk-mecab-naist-jdic/artful,artful,now 1.10-1 all&lt;br /&gt;
+NAIST Japanese Dictionary for Open JTalk&lt;/p&gt;
+
+&lt;p&gt;$ sudo apt-get install open-jtalk&lt;br /&gt;
+パッケージリストを読み込んでいます… 完了&lt;br /&gt;
+依存関係ツリーを作成しています&lt;br /&gt;
+状態情報を読み取っています… 完了&lt;br /&gt;
+提案パッケージ:&lt;br /&gt;
+hts-voice-nitech-jp-atr503-m001&lt;br /&gt;
+以下のパッケージが新たにインストールされます:&lt;br /&gt;
+open-jtalk　open-jtalk-mecab-naist-jdic&lt;br /&gt;
+(略)&lt;br /&gt;
+[/bash]&lt;/p&gt;
+
+&lt;p&gt;提案パッケージであるhts-voice-nitech-jp-atr503-m001も。&lt;br /&gt;
+これは音声データ。男性の声。&lt;/p&gt;
+
+&lt;p&gt;[bash]hts-voice-nitech-jp-atr503-m001 – Japanese male voice data for Open JTalk[/bash]&lt;/p&gt;
+
+&lt;p&gt;open-jtalkのコマンドはopen_jtalk（間はアンダースコア）として、open_jtalkの辞書は/var/lib/mecab/dic/open-jtalk/naist-jdicに、音声データは/usr/share/hts-voice/にインストールされる。&lt;br /&gt;
+「こんにちは」と書いたvoice.txtを作り、open_jtalkに食わす。&lt;/p&gt;
+
+&lt;p&gt;[bash]$ cat ./voice.txt&lt;br /&gt;
+こんにちは&lt;/p&gt;
+
+&lt;p&gt;$ open_jtalk -m /usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice -x /var/lib/mecab/dic/open-jtalk/naist-jdic -ow test.wav ./voice.txt [/bash]&lt;/p&gt;
+
+&lt;p&gt;喋ってくれるはず。&lt;br /&gt;
+やはり女性の声のほうが良いので、名工大のMMDAgentを使う。&lt;br /&gt;
+&lt;a href=&quot;http://share.udialogue.org/meissen/login.htm&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://share.udialogue.org/meissen/login.htm&lt;/a&gt;&lt;br /&gt;
+2018/3/21時点で1.7が最新&lt;br /&gt;
+ダウンロードして展開し、/usr/share/hts-voice/に格納する。&lt;br /&gt;
+使うのは中身の「mei」ディレクトリ配下のみ。&lt;br /&gt;
+Meiさんは名工大キャラクターだそうな。&lt;/p&gt;
+
+&lt;p&gt;[bash]$ wget https://sourceforge.net/projects/mmdagent/files/MMDAgent_Example/MMDAgent_Example-1.7/MMDAgent_Example-1.7.zip&lt;br /&gt;
+$ unzip ./MMDAgent_Example-1.7.zip&lt;br /&gt;
+$ sudo cp -R ./MMDAgent_Example-1.7/Voice/mei /usr/share/hts-voice/[/bash]&lt;/p&gt;
+
+&lt;p&gt;声には以下の5種類がある。実際に発声させる際に選ぶ。&lt;br /&gt;
+mei_angry.htsvoice mei_happy.htsvoice mei_sad.htsvoice&lt;br /&gt;
+mei_bashful.htsvoice mei_normal.htsvoice&lt;/p&gt;
+
+&lt;p&gt;以下のスクリプトを用意する。&lt;br /&gt;
+どこかのサイトから持ってきたんですが、どのサイトからだったか忘れてしもうた…。&lt;br /&gt;
+これをjtalk.pyとして保存する。1行目は環境に応じて変えること。&lt;br /&gt;
+htsvoiceは上記の通り喜怒哀通常から選べる。&lt;br /&gt;
+speedも選べる。&lt;br /&gt;
+このあたりは試行錯誤。&lt;/p&gt;
+
+&lt;p&gt;あとはこれをimportして使う。&lt;/p&gt;
+
+&lt;p&gt;[python]#!/usr/bin/python&lt;/p&gt;
+
+&lt;p&gt;#coding: utf-8&lt;br /&gt;
+import subprocess&lt;br /&gt;
+from datetime import datetime&lt;/p&gt;
+
+&lt;p&gt;def jtalk(t):&lt;br /&gt;
+open_jtalk=[‘/usr/bin/open_jtalk’]&lt;br /&gt;
+mech=[‘-x’,’/var/lib/mecab/dic/open-jtalk/naist-jdic’]&lt;br /&gt;
+htsvoice=[‘-m’,’/usr/share/hts-voice/mei/mei_normal.htsvoice’]&lt;br /&gt;
+speed=[‘-r’,’1.0′]&lt;br /&gt;
+outwav=[‘-ow’,’/tmp/open_jtalk.wav’]&lt;br /&gt;
+cmd=open_jtalk+mech+htsvoice+speed+outwav&lt;br /&gt;
+c = subprocess.Popen(cmd,stdin=subprocess.PIPE)&lt;br /&gt;
+c.stdin.write(t.encode(‘utf-8’))&lt;br /&gt;
+c.stdin.close()&lt;br /&gt;
+c.wait()&lt;br /&gt;
+aplay = [‘aplay’,’-q’,’/tmp/open_jtalk.wav’]&lt;br /&gt;
+wr = subprocess.Popen(aplay)&lt;/p&gt;
+
+&lt;p&gt;def say_datetime():&lt;br /&gt;
+d = datetime.now()&lt;br /&gt;
+text = ‘%s月%s日、%s時%s分%s秒’ % (d.month, d.day, d.hour, d.minute, d.second)&lt;br /&gt;
+jtalk(text)&lt;/p&gt;
+
+&lt;p&gt;if __name__ == ‘__main__’:&lt;br /&gt;
+say_datetime()[/python]&lt;/p&gt;
+
+&lt;p&gt;先ほどのファイルをimportして、jtalk.jtalk(string)で、発話させたい文章を渡せばOK。&lt;/p&gt;
+
+&lt;p&gt;[python]#!/usr/bin/python&lt;/p&gt;
+
+&lt;p&gt;#coding: utf-8&lt;br /&gt;
+import jtalk&lt;/p&gt;
+
+&lt;p&gt;jtalk.jtalk(‘何か話してください’)[/python]&lt;/p&gt;
+
+&lt;p&gt;さあテストである。&lt;br /&gt;
+青空文庫「注文の多い料理店」を朗読させてみる。&lt;br /&gt;
+「新字新仮名」版をダウンロード。&lt;br /&gt;
+http://www.aozora.gr.jp/cards/000081/card43754.html&lt;/p&gt;
+
+&lt;p&gt;そのままではOpen Jtalkに渡せないので、以下の変更を加える。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;文字コードをShift-JISからUTF-8へ&lt;/li&gt;
+  &lt;li&gt;ルビを削除（正規表現パターンは”《.*?》”。）&lt;/li&gt;
+  &lt;li&gt;ルビの個所を示す区切り記号を削除（”｜”）&lt;/li&gt;
+  &lt;li&gt;構成を示す注釈を削る（正規表現パターンは”\［.*?\］”。）&lt;/li&gt;
+  &lt;li&gt;改行コードをCR+LFをLFのみに。（\rを削る）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;できれば以下も。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;行頭字下げ、要するに行頭の全角スペースを削除（正規表現パターンは”^　”。）&lt;/li&gt;
+  &lt;li&gt;セリフのカギかっこを削る。行頭のものだけでよい。（正規表現パターンは”^「”。）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以下までできれば完璧&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;改行をいったん全て削り、句点のあとに改行コード（\n）を挿入&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;neko.txtとでも保存し、以下のPythonスクリプトを実行。&lt;/p&gt;
+
+&lt;p&gt;[python]#!/usr/bin/python&lt;/p&gt;
+
+&lt;p&gt;import jtalk&lt;/p&gt;
+
+&lt;p&gt;for line in open(‘neko.txt’,’r’):&lt;br /&gt;
+print(line)&lt;br /&gt;
+jtalk.jtalk(line)[/python]&lt;/p&gt;
+
+&lt;p&gt;こんな感じ。&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-width=&quot;550&quot; data-dnt=&quot;true&quot;&gt;
+  &lt;p lang=&quot;ja&quot; dir=&quot;ltr&quot;&gt;
+    Open JTalk、面白いので注文の多い料理店を朗読していただいた。 &lt;a href=&quot;https://t.co/DknzkTiIHk&quot;&gt;pic.twitter.com/DknzkTiIHk&lt;/a&gt;
+  &lt;/p&gt;
+  
+  &lt;p&gt;
+    &amp;mdash; nobwak (@nobwak) &lt;a href=&quot;https://twitter.com/nobwak/status/950304091338547200?ref_src=twsrc%5Etfw&quot;&gt;January 8, 2018&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;試してみるとわかるが、漢字の読み方が変だったり（山猫軒を「やまねこのき」と読んだり）、読めない漢字があったりする。&lt;br /&gt;
+そりゃまあ仕方ないよね。&lt;/p&gt;
+
+&lt;p&gt; &lt;br /&gt;
+それはさておき。&lt;br /&gt;
+十分なスペックがあるときに複数行の文章を読ませると、発話が終わっていないのに次の行の処理を始めてしまって困ることがある。&lt;br /&gt;
+そういうときは発話の終了を待つよう、wait()を入れればよい。&lt;br /&gt;
+関数jtalk()の最後に一行追加。&lt;br /&gt;
+[python]&lt;br /&gt;
+def jtalk(t):&lt;br /&gt;
+open_jtalk=[‘/usr/bin/open_jtalk’]&lt;br /&gt;
+mech=[‘-x’,’/var/lib/mecab/dic/open-jtalk/naist-jdic’]&lt;br /&gt;
+htsvoice=[‘-m’,’/usr/share/hts-voice/mei/mei_normal.htsvoice’]&lt;br /&gt;
+speed=[‘-r’,’1.0′]&lt;br /&gt;
+outwav=[‘-ow’,’/tmp/open_jtalk.wav’]&lt;br /&gt;
+cmd=open_jtalk+mech+htsvoice+speed+outwav&lt;br /&gt;
+c = subprocess.Popen(cmd,stdin=subprocess.PIPE)&lt;br /&gt;
+c.stdin.write(t.encode(‘utf-8’))&lt;br /&gt;
+c.stdin.close()&lt;br /&gt;
+c.wait()&lt;br /&gt;
+aplay = [‘aplay’,’-q’,’/tmp/open_jtalk.wav’]&lt;br /&gt;
+wr = subprocess.Popen(aplay)&lt;br /&gt;
+wr.wait()&lt;br /&gt;
+[/python]&lt;br /&gt;
+ &lt;/p&gt;
+
+&lt;p&gt;参考サイト&lt;br /&gt;
+&lt;a href=&quot;https://qiita.com/lutecia16v/items/8d220885082e40ace252#%E5%A5%B3%E6%80%A7%E3%81%AE%E5%A3%B0%E3%81%AB%E5%A4%89%E3%81%88%E3%81%A6%E3%81%BF%E3%82%8B&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Raspberry piで日本語音声合成(Open JTalk)を試してみる。&lt;/a&gt;&lt;/p&gt;</content><author><name>nobwak</name></author><summary type="html">Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。</summary></entry></feed>
