@@ -132,6 +132,13 @@
         <a class="site-title" href="/">nobwak's lair</a>
         <ul class="visible-links"></ul>
         
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
         <button class="greedy-nav__toggle hidden" type="button">
           <span class="visually-hidden">Toggle menu</span>
           <div class="navicon"></div>
@@ -269,6 +276,41 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/2009/07/22-freebsd%E3%81%A7broadcom%E3%81%AEgbe%E3%82%AB%E3%83%BC%E3%83%89%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E4%BB%B6.html" rel="permalink">FreeBSDでbroadcomのGbEカードが動かない件
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">あるマシンにFreeBSDをインストールしたのだが、BroadcomのGbEカードで通信ができない。
+  
+  
+  
+DHCPに設定してもIPアドレスを取得できないし、固定で設定しても通信できない。7.2-STABLEと8.0-BETA2で確認した。
+  
+  
+  
+&lt;a href="http://li...</p>
+  </article>
+</div>
+
+
+  
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/2009/07/19-mca-master.html" rel="permalink">MCA master
 </a>
       
@@ -282,20 +324,18 @@
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    MCA databaseとMCA applicationを取った。
+    <p class="archive__item-excerpt" itemprop="description">MCA databaseとMCA applicationを取った。
   
   
   
-    体系的な知識がなかったのでdatabaseの勉強には手こずって、こればかりは会社から借りてきた赤本をたびたび参照した。
+体系的な知識がなかったのでdatabaseの勉強には手こずって、こればかりは会社から借りてきた赤本をたびたび参照した。
   
   
   
   
   
   
-    一方でapplicationは、オブジェ...</p>
+一方でapplicationは、オブジェクト指向とかコンポーネントとか、...</p>
   </article>
 </div>
 
@@ -319,22 +359,25 @@
 
 
 
-  less than 1 minute read
+  1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    件名の通り。
+    <p class="archive__item-excerpt" itemprop="description">件名の通り。
   
   
   
-    まだ8.0にはデバッグ用の設定が残っていて、そのせいで遅いのかと思ったら、haldがCPU時間を食いまくってたでござる。
+まだ8.0にはデバッグ用の設定が残っていて、そのせいで遅いのかと思ったら、haldがCPU時間を食いまくってたでござる。
   
   
   
-    haldを作り直したら直った。やっぱり横着せずportsは作り直した方がいいんだな。大変だけど・・・。
+haldを作り直したら直った。やっぱり横着せずportsは作り直した方がいいんだな。大変だけど・・・。
   
-...</p>
+  
+  
+  
+  
+  
+シ...</p>
   </article>
 </div>
 
@@ -361,21 +404,11 @@
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    http://pub.allbsd.org/FreeBSD-snapshots/
+    <p class="archive__item-excerpt" itemprop="description">&lt;a href="http://pub.allbsd.org/FreeBSD-snapshots/" target="_blank"&gt;http://pub.allbsd.org/FreeBSD-snapshots/&lt;/a&gt;
   
   
   
-    ここで（ソースがアップデートされたら）毎日ビルドしてISOイメージまで作ってくれる!
-  
-  
-  
-    すごい!
-  
-  
-  
-    FreeBSDは日々刻々とアップデートされ...</p>
+ここで（ソースがアップデートされたら）毎日ビルド...</p>
   </article>
 </div>
 
@@ -402,57 +435,18 @@
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    システムコンソールからログアウトしたときに画面をクリアすることで、画面に残った作業ログを漁られないようにしよう、という話。
+    <p class="archive__item-excerpt" itemprop="description">システムコンソールからログアウトしたときに画面をクリアすることで、画面に残った作業ログを漁られないようにしよう、という話。
   
   
   
   
   
   
-    以下のコマンドを~/.logoutなど、ログアウト時に実行されるファイルに書く。
+以下のコマンドを~/.logoutなど、ログアウト時に実行されるファイルに書く。
   
   
   
-    shなら~/.logo...</p>
-  </article>
-</div>
-
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/2009/05/19-mergemaster%E3%81%AB%E3%83%90%E3%82%B0%E3%81%8C%E3%81%82%E3%82%8A-etc%E9%85%8D%E4%B8%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E6%B6%88%E3%81%88%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html" rel="permalink">mergemasterにバグがあり、/etc配下ファイルが消える件について
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    7.2-RELEASE,6.4-RELEASEあたりのmergemasterにはバグがあるらしく、修正しているファイルであってもAUTOUPGRADEで上書きされてしまう事があるそうな。
-  
-  
-  
-    最悪の場合/etc/passwdが破壊される。結構きびしい。
-  
-  
-  
-  ...</p>
+shなら~/.logout、bashなら~/.bash...</p>
   </article>
 </div>
 
@@ -542,6 +536,12 @@
     </div>
 
     
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="search" id="search" aria-placeholder="Enter your search term..." class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
 
     <div class="page__footer">
       <footer>
@@ -575,6 +575,10 @@
 
 
 
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
 
 
 

@@ -132,6 +132,13 @@
         <a class="site-title" href="/">nobwak's lair</a>
         <ul class="visible-links"></ul>
         
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
         <button class="greedy-nav__toggle hidden" type="button">
           <span class="visually-hidden">Toggle menu</span>
           <div class="navicon"></div>
@@ -269,6 +276,41 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/2012/03/10-zfs%E5%84%AA%E3%81%97%E3%81%99%E3%81%8E%E6%B6%99%E3%81%8C%E3%81%A7%E3%81%9F.html" rel="permalink">ZFS優しすぎ涙がでた。
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+    前口上
+  
+
+試しにZFSを使ってみて（VMware Playerで気軽に試せるようになったとは、なんと便利な世の中か）本当に驚いた。
+  
+  
+  
+ディスク繋いでzpoolコマンド一発ですぐ使える。パーティションに頭を悩ませる必要もない。RAIDだって楽勝。ディレクトリごとに圧縮することもできる...</p>
+  </article>
+</div>
+
+
+  
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/2012/03/06-freebsd%E3%81%ABmac%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%ABafp%E3%82%92%E5%96%8B%E3%82%89%E3%81%99-%E8%BF%BD%E8%A8%98%E3%81%82%E3%82%8A.html" rel="permalink">FreeBSDにMacのファイル共有プロトコルAFPを喋らす。（追記あり）
 </a>
       
@@ -279,20 +321,19 @@
 
 
 
-  1 minute read
+  2 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    AFP(Apple Filing Protocol)。
+    <p class="archive__item-excerpt" itemprop="description">AFP(Apple Filing Protocol)。
   
   
   
-    Macのファイル共有はOSXからSMB/CIFSになったと勝手に思いこんでたから驚いた。AppleTalkが今に生きてるとは。
+Macのファイル共有はOSXからSMB/CIFSになったと勝手に思いこんでたから驚いた。AppleTalkが今に生きてるとは。
   
   
   
-    ただ、AFPは下位レイヤにAppletalkじゃなくTCPを使...</p>
+ただ、AFPは下位レイヤにAppletalkじゃなくTCPを使うことができるそうなので納得。
+...</p>
   </article>
 </div>
 
@@ -316,21 +357,22 @@
 
 
 
-  less than 1 minute read
+  1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    ssmtpとは。
+    <p class="archive__item-excerpt" itemprop="description">ssmtpとは。
   
   
   
-    Extremely simple MTA to get mail off the system to a mail hub
+Extremely simple MTA to get mail off the system to a mail hub
   
   
   
-    なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。
-  ...</p>
+なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。
+  
+  
+  
+だからqmailと...</p>
   </article>
 </div>
 
@@ -382,62 +424,17 @@
 
 
 
-  less than 1 minute read
+  1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    自宅サーバのsendmailは正直不要です。と思うことはしばしば。
+    <p class="archive__item-excerpt" itemprop="description">自宅サーバのsendmailは正直不要です。と思うことはしばしば。
   
   
   
-    てっとり早く結論を言えば、以下を/etc/rc.confに追記すればよい。なお、「sendmail_enable = &#8220;NONE&#8221;」はもう使われていないので注意。詳細は後述。
-  ...</p>
-  </article>
-</div>
-
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/2012/03/03-movabletype.html" rel="permalink">MovableType
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    おなごもすなるMovableTypeを。
+てっとり早く結論を言えば、以下を/etc/rc.confに追記すればよい。なお、「sendmail_enable = &amp;#8220;NONE&amp;#8221;」はもう使われていないので注意。詳細は後述。
   
   
-  
-    まず注意。
-  
-  
-  
-    Xの入っていないサーバにインストールするときには、あらかじめImageMagick-nox11-6.7.4.4_1 を入れておく!
-  
-  
-  
-  
-  
-  
-    インストール
- ...</p>
+...</p>
   </article>
 </div>
 
@@ -527,6 +524,12 @@
     </div>
 
     
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="search" id="search" aria-placeholder="Enter your search term..." class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
 
     <div class="page__footer">
       <footer>
@@ -560,6 +563,10 @@
 
 
 
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
 
 
 

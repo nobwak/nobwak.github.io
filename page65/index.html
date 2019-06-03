@@ -132,6 +132,13 @@
         <a class="site-title" href="/">nobwak's lair</a>
         <ul class="visible-links"></ul>
         
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
         <button class="greedy-nav__toggle hidden" type="button">
           <span class="visually-hidden">Toggle menu</span>
           <div class="navicon"></div>
@@ -269,6 +276,49 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/2008/12/20-yum%E3%81%AEproxy%E8%A8%AD%E5%AE%9A.html" rel="permalink">yumのproxy設定
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">CentOSをインストールした。
+  
+  
+  
+DISCイメージが何枚かあってよくわからない。雑誌付録のDVDを借りた。
+  
+  
+  
+特に問題なくインストールは完了したが、yumのproxy設定でちょっとつまずいたのでメモ
+  
+  
+  
+yumのproxy設定
+  
+  
+  
+&lt;a href...</p>
+  </article>
+</div>
+
+
+  
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/2008/12/19-vsftpd%E3%81%A7chroot%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A1%8C%E3%81%86%E3%81%AB%E3%81%AF.html" rel="permalink">vsftpdでchrootの設定を行うには。
 </a>
       
@@ -282,17 +332,15 @@
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    ローカルユーザの場合と、anonymousユーザの場合で対応が異なる。
+    <p class="archive__item-excerpt" itemprop="description">ローカルユーザの場合と、anonymousユーザの場合で対応が異なる。
   
   
   
-    anonymousユーザ向けには、anon_rootでchroot先のディレクトリを設定するだけで終了。
-  
-  
-  
-# grep anon_root /etc/vsftpd/vsftpd.co...</p>
+anonymousユーザ向けには、anon_rootでchroot先のディレクトリを設定するだけで終了。
+
+
+# grep anon_root /etc/vsftpd/vsftpd.conf
+anon_root=/var/f...</p>
   </article>
 </div>
 
@@ -319,20 +367,18 @@
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    仕事でvsftpdを入れたのでメモ。
+    <p class="archive__item-excerpt" itemprop="description">仕事でvsftpdを入れたのでメモ。
   
   
   
-    ホワイトリスト/ブラックリストの設定
+ホワイトリスト/ブラックリストの設定
   
   
   
   
   
   
-    userlist_fileで指定するファイル（以降、userlist_file）には、ユーザをリストするのだが、このファイルの扱いは、vfstpd.co...</p>
+userlist_fileで指定するファイル（以降、userlist_file）には、ユーザをリストするのだが、このファイルの扱いは、vfstpd.confの設定により180度変わる。...</p>
   </article>
 </div>
 
@@ -359,17 +405,11 @@
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    proflibsが何だか分からなかったんだが。
+    <p class="archive__item-excerpt" itemprop="description">proflibsが何だか分からなかったんだが。
   
   
   
-    http://lists.freebsd.org/pipermail/freebsd-questions/2008-October/184180.html
-  
-  
-  
-Re: proflibs by Jeremy Ch...</p>
+&lt;a href="http://lists.freebsd.org/pipermail/freebsd-questions/2008-October/184180.html" target="_blank"&gt;http://lists.f...</p>
   </article>
 </div>
 
@@ -396,53 +436,7 @@ Re: proflibs by Jeremy Ch...</p>
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    mergemasterについて、FreeBSD-questionsに面白い投稿（http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html）があった。
-  
-  
-  
-    もし結論を早く知りた...</p>
-  </article>
-</div>
-
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/2008/12/06-grip%E3%81%A7rip-amp-%E3%82%A8%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89.html" rel="permalink">gripでrip &amp; エンコード
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    CDのrippingとmp3エンコードを一緒にやってくれるツールとしてgripをインストールした。
-  
-  
-  
-    非常に手軽で良い。夕飯を作りながら215曲、2.2Gのライブラリができた。
-  
-  
-  
-  
-  
-  
-    FreeBSDであればportsのaudio/gri...</p>
+    <p class="archive__item-excerpt" itemprop="description">mergemasterについて、FreeBSD-questionsに面白い投稿（&lt;a href="http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html" target="_blank"&gt;http:...</p>
   </article>
 </div>
 
@@ -532,6 +526,12 @@ Re: proflibs by Jeremy Ch...</p>
     </div>
 
     
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="search" id="search" aria-placeholder="Enter your search term..." class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
 
     <div class="page__footer">
       <footer>
@@ -565,6 +565,10 @@ Re: proflibs by Jeremy Ch...</p>
 
 
 
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
 
 
 

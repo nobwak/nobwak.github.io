@@ -132,6 +132,13 @@
         <a class="site-title" href="/">nobwak's lair</a>
         <ul class="visible-links"></ul>
         
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
         <button class="greedy-nav__toggle hidden" type="button">
           <span class="visually-hidden">Toggle menu</span>
           <div class="navicon"></div>
@@ -269,6 +276,35 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/2016/01/16-docker-docker%E3%81%AEimage%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%97-%E4%B8%8D%E8%A6%81%E3%81%AAimage%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B.html" rel="permalink">[docker]dockerのimageを更新し、不要なimageを削除する
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">docker pullしてimageを更新し、結果として山ほどできるnoneなimageを削除するのが面倒くさいのでシェルスクリプトにした。
+
+</p>
+  </article>
+</div>
+
+
+  
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/2016/01/02-%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABwekan-trello%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3-virtualbox-coreos-docker.html" rel="permalink">タスク管理ツールWekan（Trelloクローン）+VirtualBox+CoreOS+docker
 </a>
       
@@ -279,7 +315,7 @@
 
 
 
-  1 minute read
+  3 minute read
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">WekanとはTrelloクローン。
@@ -309,7 +345,7 @@ Trelloのalternativeで見つけたのがWekan。
 
 
 
-  less than 1 minute read
+  2 minute read
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">CoreOSを自分でインストールする。
@@ -339,13 +375,19 @@ Trelloのalternativeで見つけたのがWekan。
 
 
 
-  2 minute read
+  5 minute read
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">owncloudは自家製dropboxのようなもの。
 以下、メモ。
 
-</p>
+owncloudの構成
+
+owncloudはphpで作られている。
+そしてインタフェースはhttps。
+したがって、動作にはowncloudのほかに、php, webサーバが必要。
+さらにバックエンド用のデータベースソフトウェアも必要である。
+...</p>
   </article>
 </div>
 
@@ -369,41 +411,14 @@ Trelloのalternativeで見つけたのがWekan。
 
 
 
-  1 minute read
+  3 minute read
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">https://dev.mysql.com/doc/refman/5.6/en/mysql-secure-installation.html
 
-</p>
-  </article>
-</div>
-
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/2015/09/28-freebsd-%E3%83%A1%E3%83%A2-ports%E3%81%A7make-clean%E3%82%92%E4%BE%9D%E5%AD%98ports%E3%82%82%E5%90%AB%E3%82%81%E3%81%A6%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html" rel="permalink">[FreeBSD][メモ] portsでmake cleanを依存portsも含めて実行するには
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">さきにメモ。
-
-</p>
+mysql_secure_installationは、perlで書かれたスクリプトで、MySQLのセキュリティを向上させることができる。
+具体的には;
+（MySQLの）r...</p>
   </article>
 </div>
 
@@ -493,6 +508,12 @@ Trelloのalternativeで見つけたのがWekan。
     </div>
 
     
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="search" id="search" aria-placeholder="Enter your search term..." class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
 
     <div class="page__footer">
       <footer>
@@ -526,6 +547,10 @@ Trelloのalternativeで見つけたのがWekan。
 
 
 
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
 
 
 

@@ -132,6 +132,13 @@
         <a class="site-title" href="/">nobwak's lair</a>
         <ul class="visible-links"></ul>
         
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
         <button class="greedy-nav__toggle hidden" type="button">
           <span class="visually-hidden">Toggle menu</span>
           <div class="navicon"></div>
@@ -269,6 +276,34 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/2010/02/28-%E3%83%96%E3%82%AF%E3%83%AD%E3%82%B02%E6%9C%88%E5%88%86%E3%81%BE%E3%81%A8%E3%82%81.html" rel="permalink">ブクログ2月分まとめ
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">&lt;div style="margin-bottom:15px;"&gt;
+  &lt;a target="_blank" href="http://booklog.jp/users/harukiya"&gt;harukiyaさんの本棚&lt;/a&gt;&lt;br /&gt;2010年02月&lt;br ...</p>
+  </article>
+</div>
+
+
+  
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/2010/02/26-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E6%99%82%E3%81%ABpassword%E3%81%8C%E3%81%AA%E3%81%8B%E3%81%AA%E3%81%8B%E8%BF%94%E3%81%A3%E3%81%A6%E3%81%93%E3%81%AA%E3%81%84%E4%BB%B6.html" rel="permalink">sshログイン時にpasswordがなかなか返ってこない件
 </a>
       
@@ -282,21 +317,20 @@
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    まあこんなのsshdが逆引きしているだけなので、sshd_config以下の一文を追加して解決。
+    <p class="archive__item-excerpt" itemprop="description">まあこんなのsshdが逆引きしているだけなので、sshd_config以下の一文を追加して解決。
   
   
   
-    /etc/ssh/sshd_config
-  
-  
-  
+/etc/ssh/sshd_config
+
+
 UseDNS no
 
-  
-  
-    もちろん、逆引きはsecurity上有効なんだが、このマシンはインターネ...</p>
+
+もちろん、逆引きはsecurity上有効なんだが、このマシンはインターネットには公開してないので。
+
+
+</p>
   </article>
 </div>
 
@@ -320,22 +354,22 @@ UseDNS no
 
 
 
-  less than 1 minute read
+  2 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    米AmazonにBooks of the Decadeて愉快なページがあった。
+    <p class="archive__item-excerpt" itemprop="description">米AmazonにBooks of the Decadeて愉快なページがあった。
   
   
   
-    2000年から2009年まで通して売り上げ上位100冊を一覧にしたものだ。
+2000年から2009年まで通して売り上げ上位100冊を一覧にしたものだ。
   
   
   
-    このうち、とりあえず上位12冊を、邦訳されていればそれを併せてリストしてみる。
+このうち、とりあえず上位12冊を、邦訳されていればそれを併せてリストしてみる。
   
-  ...</p>
+  
+  
+とはいえ、ハリーばっかり...</p>
   </article>
 </div>
 
@@ -359,20 +393,14 @@ UseDNS no
 
 
 
-  less than 1 minute read
+  1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    FreeBSDにRoundcubeを再インストールしたのでメモ。
+    <p class="archive__item-excerpt" itemprop="description">FreeBSDに&lt;a href="http://roundcube.net/" target="_blank"&gt;Roundcube&lt;/a&gt;を再インストールしたのでメモ。
   
   
   
-    RoundcubeとはIMAPサーバへのwebインタフェース。まあ、Gmailへのインタフェースと思えば。
-  
-  
-  
-    いわゆるLAMPサーバ上で動くが、FreeBSD, Apache, SQ...</p>
+RoundcubeとはIMAPサーバへのwebインタフェース。まあ、Gmailへのインタフェースと思え...</p>
   </article>
 </div>
 
@@ -399,57 +427,21 @@ UseDNS no
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    CtrlキーはAの隣じゃないと嫌なので設定。
+    <p class="archive__item-excerpt" itemprop="description">CtrlキーはAの隣じゃないと嫌なので設定。
   
   
   
-    以下のファイルを適当な名前で適当に保存。
+以下のファイルを適当な名前で適当に保存。
   
   
   
-    俺の場合はhomeディレクトリに.swapcapsctlとして保存。
-  
-  
-  
+俺の場合はhomeディレクトリに.swapcapsctlとして保存。
+
+
 !
 ! Swap Caps_Lock and Control_L
 !
-...</p>
-  </article>
-</div>
-
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/2010/02/10-thunar%E3%81%ABwindows-network%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html" rel="permalink">ThunarにWindows Networkをブラウズさせるには。
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">
-  
-    Xubuntuは、Linuxの便利さを堪能できる割に軽いので素敵だ。
-  
-  
-  
-    ThunarがWindows Networkを見にいけないのだけが残念だったが、http://ubuntuforums.org/showthread.php?t=304131にHow toがあったので解...</p>
+remove Lock = Caps_Lock...</p>
   </article>
 </div>
 
@@ -539,6 +531,12 @@ UseDNS no
     </div>
 
     
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="search" id="search" aria-placeholder="Enter your search term..." class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
 
     <div class="page__footer">
       <footer>
@@ -572,6 +570,10 @@ UseDNS no
 
 
 
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
 
 
 

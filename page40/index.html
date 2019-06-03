@@ -132,6 +132,13 @@
         <a class="site-title" href="/">nobwak's lair</a>
         <ul class="visible-links"></ul>
         
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
         <button class="greedy-nav__toggle hidden" type="button">
           <span class="visually-hidden">Toggle menu</span>
           <div class="navicon"></div>
@@ -269,6 +276,36 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/2013/02/19-freebsd%E3%81%AEsecurity-advisory%E5%AF%BE%E5%BF%9C%E6%96%B9%E6%B3%95.html" rel="permalink">FreeBSDのSecurity Advisory対応方法
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">FreeBSDのSecurity Advisory（以降, SA）。bind, libcに問題あり。
+せっかくなので久しぶりにメモっておく。
+
+</p>
+  </article>
+</div>
+
+
+  
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/2013/02/16-qc%E3%82%B5%E3%83%BC%E3%82%AF%E3%83%AB%E3%81%A8%E7%A5%9E%E8%A9%B1.html" rel="permalink">QCサークルと神話
 </a>
       
@@ -337,7 +374,7 @@
 
 
 
-  1 minute read
+  2 minute read
 </p>
     
     <p class="archive__item-excerpt" itemprop="description"> 
@@ -370,35 +407,6 @@
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">先日もTwitterをつらつらと眺めておりましたら立て続けに二つのTweetが。
-
-</p>
-  </article>
-</div>
-
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/2013/02/04-telecom-%E6%90%BA%E5%B8%AF%E9%9B%BB%E8%A9%B1%E3%81%A7%E3%81%AE%E9%9F%B3%E5%A3%B0%E9%80%9A%E8%A9%B1%E3%81%AF%E9%AB%98%E3%81%8F%E3%81%AA%E3%82%8B%E3%81%AE%E3%81%8B%E3%81%97%E3%82%89%E3%82%93.html" rel="permalink">[telecom] 携帯電話での音声通話は高くなるのかしらん
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">数日前、こんなニュースが見かけて個人として思ったことをつらつらと書く。
 
 </p>
   </article>
@@ -490,6 +498,12 @@
     </div>
 
     
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="search" id="search" aria-placeholder="Enter your search term..." class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
 
     <div class="page__footer">
       <footer>
@@ -523,6 +537,10 @@
 
 
 
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
 
 
 

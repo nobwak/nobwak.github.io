@@ -132,6 +132,13 @@
         <a class="site-title" href="/">nobwak's lair</a>
         <ul class="visible-links"></ul>
         
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
         <button class="greedy-nav__toggle hidden" type="button">
           <span class="visually-hidden">Toggle menu</span>
           <div class="navicon"></div>
@@ -269,7 +276,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/2015/09/25-sh-%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88.html" rel="permalink">[sh] オレオレ証明書作成シェルスクリプト
+        <a href="/2015/09/28-freebsd-%E3%83%A1%E3%83%A2-ports%E3%81%A7make-clean%E3%82%92%E4%BE%9D%E5%AD%98ports%E3%82%82%E5%90%AB%E3%82%81%E3%81%A6%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html" rel="permalink">[FreeBSD][メモ] portsでmake cleanを依存portsも含めて実行するには
 </a>
       
     </h2>
@@ -282,12 +289,42 @@
   less than 1 minute read
 </p>
     
+    <p class="archive__item-excerpt" itemprop="description">さきにメモ。
+
+</p>
+  </article>
+</div>
+
+
+  
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/2015/09/25-sh-%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88.html" rel="permalink">[sh] オレオレ証明書作成シェルスクリプト
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
     <p class="archive__item-excerpt" itemprop="description">すぐに作り方を忘れるので、シェルスクリプトを記録しておく。
 変数OPENSSLにopensslをフルパスで与えること。
 あとはchmod 755して実行すればカレントディレクトリにserver.crtとserver.keyができる。
 おまけでDHパラメータ、dhparam.pemもできる。
 
-</p>
+
+# Generat...</p>
   </article>
 </div>
 
@@ -311,7 +348,7 @@
 
 
 
-  1 minute read
+  2 minute read
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">インストール時設定
@@ -340,7 +377,7 @@
 
 
 
-  less than 1 minute read
+  1 minute read
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。
@@ -371,39 +408,10 @@ torrentに流してくれればいいのに…。
 
 
 
-  1 minute read
+  2 minute read
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">VirtualBox上の仮想マシンをvagrantのboxにする方法はありきたりだが、たいていはLinux、OS Xでの話で、Windowsでのメモはあまりない。そこでメモ。
-
-</p>
-  </article>
-</div>
-
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/2015/09/03-memo-virtualbox%E3%81%AEnat%E3%81%A7%E3%83%9B%E3%82%B9%E3%83%88%E3%81%8B%E3%82%89%E3%82%B2%E3%82%B9%E3%83%88%E3%81%B8%E3%81%AE%E6%8E%A5%E7%B6%9A%E3%82%92%E8%A8%B1%E5%8F%AF-%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AF%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0.html" rel="permalink">[memo] VirtualBoxのNATでホストからゲストへの接続を許可（ポートフォワーディング）
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">ほんとにメモ。
 
 </p>
   </article>
@@ -495,6 +503,12 @@ torrentに流してくれればいいのに…。
     </div>
 
     
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="search" id="search" aria-placeholder="Enter your search term..." class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
 
     <div class="page__footer">
       <footer>
@@ -528,6 +542,10 @@ torrentに流してくれればいいのに…。
 
 
 
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
 
 
 
