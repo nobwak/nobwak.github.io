@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="FreeBSDで最新のOpenSSLを使うには。">
-<meta property="og:url" content="http://localhost:4000/2009/03/10-freebsd%E3%81%A7%E6%9C%80%E6%96%B0%E3%81%AEopenssl%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2009/03/10-freebsd%E3%81%A7%E6%9C%80%E6%96%B0%E3%81%AEopenssl%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="本家FreeBSD-QA-MLよりメモ。      OpenSSLはFreeBSDのベースシステムに含まれている。      したがって、公式にセキュリティフィックスなどのサポートがされるわけだが、引き換えに最新バージョンへの追随は遅めになる。      OpenSSH本家（&lt;a href=&quot;http://www.openssl.org/&quot; target=&quot;_blank&quot;&gt;http://www.openssl.org/&lt;/a&gt;）では、1/7にOpenSSL 0.9.8jがリリースされているが、FreeBSDでは以下の通りの状況だ。$ uname -srFreeBSD 7.1-RELEASE$ openssl versionOpenSSL 0.9.8e 23 Feb 2007上述のとおり、ベースシステムに取り込まれている以上、セキュリティ等のサポートには問題ないが、機能の点で最新版を使いたいケースもある。      そういった場合、OpenSSLはports（security/openssl）にもあるので、ここからインストールして、最新のopensslを使うよう下記の通りmake.confを修正する。      もちろんこれはコンパイル時に新しいopensslを参照するための設定なので、こうしてから最新opensslを使いたいportsやらベースシステムのコマンドやらを作り直す。# echo &amp;#34;WITH_OPENSSL_PORT=yes&amp;#34; &amp;#62;&amp;#62; /etc/make.confこれだけでOKだが、ベースシステムのOpenSSLを削除したい場合には、下記のようにする。      ただ、これに先立ってportsの全作り直しをしていればともかく、make delete-old-libsはいろいろと面倒なうえに危険なので、この手順はやってない。# echo &amp;#34;WITHOUT_OPENSSL=yes&amp;#34; &amp;#62;&amp;#62; /etc/src.conf# cd /usr/src &amp;#38;&amp;#38; make check-old# make delete-old# make delete-old-libs">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="FreeBSDで最新のOpenSSLを使うには。">
   <meta name="twitter:description" content="本家FreeBSD-QA-MLよりメモ。      OpenSSLはFreeBSDのベースシステムに含まれている。      したがって、公式にセキュリティフィックスなどのサポートがされるわけだが、引き換えに最新バージョンへの追随は遅めになる。      OpenSSH本家（&lt;a href=&quot;http://www.openssl.org/&quot; target=&quot;_blank&quot;&gt;http://www.openssl.org/&lt;/a&gt;）では、1/7にOpenSSL 0.9.8jがリリースされているが、FreeBSDでは以下の通りの状況だ。$ uname -srFreeBSD 7.1-RELEASE$ openssl versionOpenSSL 0.9.8e 23 Feb 2007上述のとおり、ベースシステムに取り込まれている以上、セキュリティ等のサポートには問題ないが、機能の点で最新版を使いたいケースもある。      そういった場合、OpenSSLはports（security/openssl）にもあるので、ここからインストールして、最新のopensslを使うよう下記の通りmake.confを修正する。      もちろんこれはコンパイル時に新しいopensslを参照するための設定なので、こうしてから最新opensslを使いたいportsやらベースシステムのコマンドやらを作り直す。# echo &amp;#34;WITH_OPENSSL_PORT=yes&amp;#34; &amp;#62;&amp;#62; /etc/make.confこれだけでOKだが、ベースシステムのOpenSSLを削除したい場合には、下記のようにする。      ただ、これに先立ってportsの全作り直しをしていればともかく、make delete-old-libsはいろいろと面倒なうえに危険なので、この手順はやってない。# echo &amp;#34;WITHOUT_OPENSSL=yes&amp;#34; &amp;#62;&amp;#62; /etc/src.conf# cd /usr/src &amp;#38;&amp;#38; make check-old# make delete-old# make delete-old-libs">
-  <meta name="twitter:url" content="http://localhost:4000/2009/03/10-freebsd%E3%81%A7%E6%9C%80%E6%96%B0%E3%81%AEopenssl%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2009/03/10-freebsd%E3%81%A7%E6%9C%80%E6%96%B0%E3%81%AEopenssl%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/03/10-freebsd%E3%81%A7%E6%9C%80%E6%96%B0%E3%81%AEopenssl%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2009/03/10-freebsd%E3%81%A7%E6%9C%80%E6%96%B0%E3%81%AEopenssl%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

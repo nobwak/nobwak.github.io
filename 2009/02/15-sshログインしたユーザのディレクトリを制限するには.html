@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="sshログインしたユーザのディレクトリを制限するには。">
-<meta property="og:url" content="http://localhost:4000/2009/02/15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2009/02/15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="要するにchroot。      リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使う。            OpenSSH 4.9以降であればデフォルトで機能が入っている。      sshd_configのChrootDirectoryに続けてディレクトリを指定すれば、そこにchrootされる。      ただ、このままだと自分もchroot環境へログインしてしまうことになるので、chroot環境下にログインさせるユーザをMatch Userで指定する。複数ユーザの場合はカンマ( , )で羅列する。      ユーザ「someone」がsshログインした際、ディレクトリ/chroot/をルートディレクトリになるよう設定した例。# Example of overriding settings on a per-user basisMatch User someoneChrootDirectory /chroot/#ChrootDirectory %hX11Forwarding noAllowTcpForwarding no# override default of no subsystems#Subsystem      sftp    /usr/local/libexec/sftp-serverSubsystem       sftp    internal-sftpなお、上記の例でユーザsomeoneがログインした場合、/chroot/etc/passwdのsomeoneレコードに示すホームディレクトリへ移動することになる。someoneのホームディレクトリが/home/someoneとなっていた場合には、/chroot/home/someoneへと移動する。/chroot/直下へ移動するわけではない。      また、/chrootのパーミッションが775とか、ちょっと変わった値になっているとエラーになる。755にしたところ問題なし。      さらに、sftpを使わせたい場合には、上記のようにinternal-sftpにしておくこと。            そのほか、chrootした先に/etc/passwdやら、シェルやら、必要なファイルを揃えないといけないのだが、適当にググれば出てくるので割愛。      とはいっても、ググって出てくるのは孫引きした情報を並べたサイトばかりで閉口するが（その意味では当ブログだって同じだが）、下記サイトはとても参考になった。      straceなんて初めて使った。      &lt;a href=&quot;http://www.gentei.org/~yuuji/support/uu/200310/part2.html&quot; target=&quot;_blank&quot;&gt;http://www.gentei.org/~yuuji/support/uu/200310/part2.html&lt;/a&gt;">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="sshログインしたユーザのディレクトリを制限するには。">
   <meta name="twitter:description" content="要するにchroot。      リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使う。            OpenSSH 4.9以降であればデフォルトで機能が入っている。      sshd_configのChrootDirectoryに続けてディレクトリを指定すれば、そこにchrootされる。      ただ、このままだと自分もchroot環境へログインしてしまうことになるので、chroot環境下にログインさせるユーザをMatch Userで指定する。複数ユーザの場合はカンマ( , )で羅列する。      ユーザ「someone」がsshログインした際、ディレクトリ/chroot/をルートディレクトリになるよう設定した例。# Example of overriding settings on a per-user basisMatch User someoneChrootDirectory /chroot/#ChrootDirectory %hX11Forwarding noAllowTcpForwarding no# override default of no subsystems#Subsystem      sftp    /usr/local/libexec/sftp-serverSubsystem       sftp    internal-sftpなお、上記の例でユーザsomeoneがログインした場合、/chroot/etc/passwdのsomeoneレコードに示すホームディレクトリへ移動することになる。someoneのホームディレクトリが/home/someoneとなっていた場合には、/chroot/home/someoneへと移動する。/chroot/直下へ移動するわけではない。      また、/chrootのパーミッションが775とか、ちょっと変わった値になっているとエラーになる。755にしたところ問題なし。      さらに、sftpを使わせたい場合には、上記のようにinternal-sftpにしておくこと。            そのほか、chrootした先に/etc/passwdやら、シェルやら、必要なファイルを揃えないといけないのだが、適当にググれば出てくるので割愛。      とはいっても、ググって出てくるのは孫引きした情報を並べたサイトばかりで閉口するが（その意味では当ブログだって同じだが）、下記サイトはとても参考になった。      straceなんて初めて使った。      &lt;a href=&quot;http://www.gentei.org/~yuuji/support/uu/200310/part2.html&quot; target=&quot;_blank&quot;&gt;http://www.gentei.org/~yuuji/support/uu/200310/part2.html&lt;/a&gt;">
-  <meta name="twitter:url" content="http://localhost:4000/2009/02/15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2009/02/15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/02/15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2009/02/15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="USBキーボードからアンダースコア(_)が入力できない件">
-<meta property="og:url" content="http://localhost:4000/2009/07/27-usb%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%82%B3%E3%82%A2-%E3%81%8C%E5%85%A5%E5%8A%9B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
+<meta property="og:url" content="/2009/07/27-usb%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%82%B3%E3%82%A2-%E3%81%8C%E5%85%A5%E5%8A%9B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
 
   <meta property="og:description" content="8.0-BETA2、xorg-server1.6.1、（xkeyboad-config-1.6_1）でUSBキーボード(日本語配列)からアンダースコア(_)が入力できない。      ひょんな事から会社のPCにFreeBSDをインストールする羽目になったのだが、そこで遭遇。      調べてみたら昔からある事象のようだが、自宅のFreeBSDを入れているPCは、すべてUS配列のキーボードだったので気がつかなかった。      通常のコンソールなら大丈夫。      キーボード関係ということで、HALのfdiで解決できないかググってみたけど解決せず…。      結局、X起動時にxmodmapで設定することにした。      startxでX起動してるので、.xinitrcに細工。      問題は解消されたけど、キーボードの設定がxmodmapとfdiの二つに分散してるのが、どうも納得いかない。$ cat ~/.xinitrcxmodmap $HOME/.xmodmap(後略)$ cat ./.xmodmapkeycode 151 = underscore">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="USBキーボードからアンダースコア(_)が入力できない件">
   <meta name="twitter:description" content="8.0-BETA2、xorg-server1.6.1、（xkeyboad-config-1.6_1）でUSBキーボード(日本語配列)からアンダースコア(_)が入力できない。      ひょんな事から会社のPCにFreeBSDをインストールする羽目になったのだが、そこで遭遇。      調べてみたら昔からある事象のようだが、自宅のFreeBSDを入れているPCは、すべてUS配列のキーボードだったので気がつかなかった。      通常のコンソールなら大丈夫。      キーボード関係ということで、HALのfdiで解決できないかググってみたけど解決せず…。      結局、X起動時にxmodmapで設定することにした。      startxでX起動してるので、.xinitrcに細工。      問題は解消されたけど、キーボードの設定がxmodmapとfdiの二つに分散してるのが、どうも納得いかない。$ cat ~/.xinitrcxmodmap $HOME/.xmodmap(後略)$ cat ./.xmodmapkeycode 151 = underscore">
-  <meta name="twitter:url" content="http://localhost:4000/2009/07/27-usb%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%82%B3%E3%82%A2-%E3%81%8C%E5%85%A5%E5%8A%9B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
+  <meta name="twitter:url" content="/2009/07/27-usb%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%82%B3%E3%82%A2-%E3%81%8C%E5%85%A5%E5%8A%9B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/07/27-usb%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%82%B3%E3%82%A2-%E3%81%8C%E5%85%A5%E5%8A%9B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
+<link rel="canonical" href="/2009/07/27-usb%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%82%B3%E3%82%A2-%E3%81%8C%E5%85%A5%E5%8A%9B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

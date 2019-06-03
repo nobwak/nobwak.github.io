@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="[メモ] FreeBSD10にhadoopインストール">
-<meta property="og:url" content="http://localhost:4000/2014/07/16-%E3%83%A1%E3%83%A2-freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
+<meta property="og:url" content="/2014/07/16-%E3%83%A1%E3%83%A2-freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
 
 
   <meta property="og:description" content="素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。2014/7/4時点でのpkgにはhadoop-1.2.1が入ってる。pkgのインストールpkgの初回インストールに成功した試しがない。pkgのpackageをダウンロードしてインストール。具体的には、pkg-staticを取り出し、pkg-staticでpkgのpackageをインストール。```sh$ fetch http://pkg0.isc.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txzpkg.txz                                       100% of 2013 kB  552 kBps 00m03s$$  tar xvzf ./pkg.txz –include “*pkg-static” –strip-components 4x pkg-static$（rootになって）./bin/pkg-static add ./pkg.txzInstalling pkg-1.2.7_3… doneIf you are upgrading from the old package format, first run:# pkg2ngroot@hdmock:/home/doe #pkg update。```sh# pkg updateUpdating repository cataloguedigests.txz                         100% 1112KB 556.1KB/s 192.2KB/s   00:02packagesite.txz                     100% 5014KB 626.7KB/s 373.9KB/s   00:08Incremental update completed, 23278 packages processed:0 packages updated, 0 removed and 23278 added.# シェルとか、sudoとか、必要なものがあればインストールする。hadoopのインストール```sh$ pkg search hadoopapache-hadoop-1.2.1_1$ sudo pkg install hadoopUpdating repository cataloguepkg: No packages matching ‘hadoop’ available in the repositories[doe@hdmock ~]$ sudo pkg install apache-hadoopUpdating repository catalogueThe following 39 packages will be installed:(中略)[39/39] Installing apache-hadoop-1.2.1_1…===&gt; Creating users and/or groups.Creating group ‘hadoop’ with gid ‘955’.Creating user ‘hadoop’ with uid ‘955’. done## OpenJDKのための設定hadoopについてくるOpenJDKのためにfstabに設定を加える。  OpenJDKインストール時のメッセージに沿って進める。```sh======================================================================This OpenJDK implementation requires fdescfs(5) mounted on /dev/fd andprocfs(5) mounted on /proc.If you have not done it yet, please do the following:        mount -t fdescfs fdesc /dev/fd        mount -t procfs proc /procTo make it permanent, you need the following lines in /etc/fstab:        fdesc   /dev/fd         fdescfs         rw      0       0        proc    /proc           procfs          rw      0       0=====================================================================fstabに以下に行を追加。区切りはtab。```shfdesc           /dev/fd         fdescfs rw      0       0proc            /proc           procfs  rw      0       0mount。  mountと叩いてmountされていることを確認。```sh$ sudo mount -a$ mount/dev/ada0p2 on / (ufs, local, journaled soft-updates)devfs on /dev (devfs, local, multilabel)fdescfs on /dev/fd (fdescfs)procfs on /proc (procfs, local)以上。続きはこちら。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="[メモ] FreeBSD10にhadoopインストール">
   <meta name="twitter:description" content="素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。2014/7/4時点でのpkgにはhadoop-1.2.1が入ってる。pkgのインストールpkgの初回インストールに成功した試しがない。pkgのpackageをダウンロードしてインストール。具体的には、pkg-staticを取り出し、pkg-staticでpkgのpackageをインストール。```sh$ fetch http://pkg0.isc.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txzpkg.txz                                       100% of 2013 kB  552 kBps 00m03s$$  tar xvzf ./pkg.txz –include “*pkg-static” –strip-components 4x pkg-static$（rootになって）./bin/pkg-static add ./pkg.txzInstalling pkg-1.2.7_3… doneIf you are upgrading from the old package format, first run:# pkg2ngroot@hdmock:/home/doe #pkg update。```sh# pkg updateUpdating repository cataloguedigests.txz                         100% 1112KB 556.1KB/s 192.2KB/s   00:02packagesite.txz                     100% 5014KB 626.7KB/s 373.9KB/s   00:08Incremental update completed, 23278 packages processed:0 packages updated, 0 removed and 23278 added.# シェルとか、sudoとか、必要なものがあればインストールする。hadoopのインストール```sh$ pkg search hadoopapache-hadoop-1.2.1_1$ sudo pkg install hadoopUpdating repository cataloguepkg: No packages matching ‘hadoop’ available in the repositories[doe@hdmock ~]$ sudo pkg install apache-hadoopUpdating repository catalogueThe following 39 packages will be installed:(中略)[39/39] Installing apache-hadoop-1.2.1_1…===&gt; Creating users and/or groups.Creating group ‘hadoop’ with gid ‘955’.Creating user ‘hadoop’ with uid ‘955’. done## OpenJDKのための設定hadoopについてくるOpenJDKのためにfstabに設定を加える。  OpenJDKインストール時のメッセージに沿って進める。```sh======================================================================This OpenJDK implementation requires fdescfs(5) mounted on /dev/fd andprocfs(5) mounted on /proc.If you have not done it yet, please do the following:        mount -t fdescfs fdesc /dev/fd        mount -t procfs proc /procTo make it permanent, you need the following lines in /etc/fstab:        fdesc   /dev/fd         fdescfs         rw      0       0        proc    /proc           procfs          rw      0       0=====================================================================fstabに以下に行を追加。区切りはtab。```shfdesc           /dev/fd         fdescfs rw      0       0proc            /proc           procfs  rw      0       0mount。  mountと叩いてmountされていることを確認。```sh$ sudo mount -a$ mount/dev/ada0p2 on / (ufs, local, journaled soft-updates)devfs on /dev (devfs, local, multilabel)fdescfs on /dev/fd (fdescfs)procfs on /proc (procfs, local)以上。続きはこちら。">
-  <meta name="twitter:url" content="http://localhost:4000/2014/07/16-%E3%83%A1%E3%83%A2-freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
+  <meta name="twitter:url" content="/2014/07/16-%E3%83%A1%E3%83%A2-freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2014/07/16-%E3%83%A1%E3%83%A2-freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
+<link rel="canonical" href="/2014/07/16-%E3%83%A1%E3%83%A2-freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

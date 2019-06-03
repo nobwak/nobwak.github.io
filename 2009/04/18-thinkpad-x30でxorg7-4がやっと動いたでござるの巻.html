@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Thinkpad x30でXorg7.4がやっと動いたでござるの巻">
-<meta property="og:url" content="http://localhost:4000/2009/04/18-thinkpad-x30%E3%81%A7xorg7-4%E3%81%8C%E3%82%84%E3%81%A3%E3%81%A8%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%AE%E5%B7%BB.html">
+<meta property="og:url" content="/2009/04/18-thinkpad-x30%E3%81%A7xorg7-4%E3%81%8C%E3%82%84%E3%81%A3%E3%81%A8%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%AE%E5%B7%BB.html">
 
 
   <meta property="og:description" content="実は年明けのxorg祭りから我がThinkpad x30でXorg7.4（xorg-server1.5, 1.6）は&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090314/p1&quot; target=&quot;_blank&quot;&gt;まったく動かなかった&lt;/a&gt;のだが、ふと思いついてXorg -configureで出来たxorg.confは一切信用しないで、/etc/xorg.confに適当なセクションだけ書いたら立ち上がった。      /homeディレクトリをリードオンリーでマウントして、万が一またフリーズしてfsck地獄へ備えたのだが、意外にあっさりで拍子抜けした。      でもまだintelドライバが地雷のようで、安心は出来ないっぽい。      （たぶん）関連するportsxorg-server-1.6.0,1xf86-video-intel-2.6.3libpciaccess-0.10.5_6hal-0.5.11_23xf86-input-mouse-1.4.0_5/etc/X11/xorg.confSection &amp;#34;Files&amp;#34;ModulePath   &amp;#34;/usr/local/lib/xorg/modules&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/misc/&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/TTF/&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/OTF&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/Type1/&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/100dpi/&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/75dpi/&amp;#34;EndSectionSection &amp;#34;InputDevice&amp;#34;Identifier  &amp;#34;Mouse0&amp;#34;Driver      &amp;#34;mouse&amp;#34;Option      &amp;#34;Protocol&amp;#34; &amp;#34;auto&amp;#34;#Option     &amp;#34;Device&amp;#34; &amp;#34;/dev/sysmouse&amp;#34;Option      &amp;#34;Device&amp;#34; &amp;#34;/dev/psm0&amp;#34;Option      &amp;#34;ZAxisMapping&amp;#34; &amp;#34;4 5 6 7&amp;#34;EndSection/etc/rc.conf（関連部分のみ）moused_port=&amp;#34;/dev/psm0&amp;#34;moused_enable=&amp;#34;NO&amp;#34;moused_nondefault_enable=&amp;#34;NO&amp;#34;dbus_enable=&amp;#34;YES&amp;#34;hald_enable=&amp;#34;YES&amp;#34;hald_flags=&amp;#34; --verbose=yes &amp;#34;">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Thinkpad x30でXorg7.4がやっと動いたでござるの巻">
   <meta name="twitter:description" content="実は年明けのxorg祭りから我がThinkpad x30でXorg7.4（xorg-server1.5, 1.6）は&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090314/p1&quot; target=&quot;_blank&quot;&gt;まったく動かなかった&lt;/a&gt;のだが、ふと思いついてXorg -configureで出来たxorg.confは一切信用しないで、/etc/xorg.confに適当なセクションだけ書いたら立ち上がった。      /homeディレクトリをリードオンリーでマウントして、万が一またフリーズしてfsck地獄へ備えたのだが、意外にあっさりで拍子抜けした。      でもまだintelドライバが地雷のようで、安心は出来ないっぽい。      （たぶん）関連するportsxorg-server-1.6.0,1xf86-video-intel-2.6.3libpciaccess-0.10.5_6hal-0.5.11_23xf86-input-mouse-1.4.0_5/etc/X11/xorg.confSection &amp;#34;Files&amp;#34;ModulePath   &amp;#34;/usr/local/lib/xorg/modules&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/misc/&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/TTF/&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/OTF&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/Type1/&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/100dpi/&amp;#34;FontPath     &amp;#34;/usr/local/lib/X11/fonts/75dpi/&amp;#34;EndSectionSection &amp;#34;InputDevice&amp;#34;Identifier  &amp;#34;Mouse0&amp;#34;Driver      &amp;#34;mouse&amp;#34;Option      &amp;#34;Protocol&amp;#34; &amp;#34;auto&amp;#34;#Option     &amp;#34;Device&amp;#34; &amp;#34;/dev/sysmouse&amp;#34;Option      &amp;#34;Device&amp;#34; &amp;#34;/dev/psm0&amp;#34;Option      &amp;#34;ZAxisMapping&amp;#34; &amp;#34;4 5 6 7&amp;#34;EndSection/etc/rc.conf（関連部分のみ）moused_port=&amp;#34;/dev/psm0&amp;#34;moused_enable=&amp;#34;NO&amp;#34;moused_nondefault_enable=&amp;#34;NO&amp;#34;dbus_enable=&amp;#34;YES&amp;#34;hald_enable=&amp;#34;YES&amp;#34;hald_flags=&amp;#34; --verbose=yes &amp;#34;">
-  <meta name="twitter:url" content="http://localhost:4000/2009/04/18-thinkpad-x30%E3%81%A7xorg7-4%E3%81%8C%E3%82%84%E3%81%A3%E3%81%A8%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%AE%E5%B7%BB.html">
+  <meta name="twitter:url" content="/2009/04/18-thinkpad-x30%E3%81%A7xorg7-4%E3%81%8C%E3%82%84%E3%81%A3%E3%81%A8%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%AE%E5%B7%BB.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/04/18-thinkpad-x30%E3%81%A7xorg7-4%E3%81%8C%E3%82%84%E3%81%A3%E3%81%A8%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%AE%E5%B7%BB.html">
+<link rel="canonical" href="/2009/04/18-thinkpad-x30%E3%81%A7xorg7-4%E3%81%8C%E3%82%84%E3%81%A3%E3%81%A8%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%AE%E5%B7%BB.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="起動スクリプト操作コマンドservice（Linuxのchkconfigの簡易版）">
-<meta property="og:url" content="http://localhost:4000/2012/03/19-%E8%B5%B7%E5%8B%95%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E6%93%8D%E4%BD%9C%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89service-linux%E3%81%AEchkconfig%E3%81%AE%E7%B0%A1%E6%98%93%E7%89%88.html">
+<meta property="og:url" content="/2012/03/19-%E8%B5%B7%E5%8B%95%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E6%93%8D%E4%BD%9C%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89service-linux%E3%81%AEchkconfig%E3%81%AE%E7%B0%A1%E6%98%93%E7%89%88.html">
 
 
   <meta property="og:description" content="FreeBSDにおいて、各種サーバソフトウェアの起動・停止を行う起動スクリプトは/etc/rc.d、/usr/local/etc/rc.dに格納されている。      いちいち/usr/local/etc/rc.d/apache22 startなどとキーを叩くのは面倒で仕方がない。      そこでportsにあるbsdadminscriptsなどを使っていたのだが、ふと気が付くと7.3あたりからserviceというコマンドが作られたようだ。      &lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;使い方。&lt;/span&gt;      書式。          　service  start|stop|restart等々      &lt;/blockquote&gt;        使用例      ```sh$ sudo service dovecot statusPassword:dovecot is running as pid 1026.$ sudo service dovecot restartStopping dovecot.Waiting for PIDS: 1026.Starting dovecot.```        注意点としては、引数で与えるのはあくまでも起動スクリプト名であって、サーバソフトウェアの名前ではない、という点。          例えば、dhcpdだとisc-dhcpdで指定しないといけないが、それを思い出せないこともしばしば。          だから後述の使用法も使って、起動スクリプト名を調べるとよい。                そのほかの使い方:起動スクリプトに関する情報が得られる。            ```shservice -e　有効になっているサービスを表示する。　起動順（rcorder）に表示service -r　無効になっているものも含めてサービスを表示する。　起動順（rcorder）に表示。　もちろん無効になっているものは、もしも有効だったら　という仮定で。service -l　rc.dディレクトリの下にあるファイルをすべてリストする。　/etc/rc.dのほか、たとえば/usr/local/etc/rc.dなど。-v　ほんの少しだけ説明が増える。　（試してみたら本当に少しだけだった）```        例えば。-rだと、-eのときにはない起動スクリプトも表示されていることが分かる。      ```sh$ service -e|grep &#34;/usr/local&#34;/usr/local/etc/rc.d/mrtg_daemon/usr/local/etc/rc.d/jenkins/usr/local/etc/rc.d/dovecot/usr/local/etc/rc.d/clamav-clamd/usr/local/etc/rc.d/clamav-freshclam/usr/local/etc/rc.d/apache22$ service -r|grep &#34;/usr/local&#34;/usr/local/etc/rc.d/svnserve/usr/local/etc/rc.d/rsyncd/usr/local/etc/rc.d/rrdcached/usr/local/etc/rc.d/munin-node/usr/local/etc/rc.d/mrtg_daemon/usr/local/etc/rc.d/jenkins/usr/local/etc/rc.d/htcacheclean/usr/local/etc/rc.d/dovecot/usr/local/etc/rc.d/clamav-clamd/usr/local/etc/rc.d/clamav-freshclam/usr/local/etc/rc.d/apache22```">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="起動スクリプト操作コマンドservice（Linuxのchkconfigの簡易版）">
   <meta name="twitter:description" content="FreeBSDにおいて、各種サーバソフトウェアの起動・停止を行う起動スクリプトは/etc/rc.d、/usr/local/etc/rc.dに格納されている。      いちいち/usr/local/etc/rc.d/apache22 startなどとキーを叩くのは面倒で仕方がない。      そこでportsにあるbsdadminscriptsなどを使っていたのだが、ふと気が付くと7.3あたりからserviceというコマンドが作られたようだ。      &lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;使い方。&lt;/span&gt;      書式。          　service  start|stop|restart等々      &lt;/blockquote&gt;        使用例      ```sh$ sudo service dovecot statusPassword:dovecot is running as pid 1026.$ sudo service dovecot restartStopping dovecot.Waiting for PIDS: 1026.Starting dovecot.```        注意点としては、引数で与えるのはあくまでも起動スクリプト名であって、サーバソフトウェアの名前ではない、という点。          例えば、dhcpdだとisc-dhcpdで指定しないといけないが、それを思い出せないこともしばしば。          だから後述の使用法も使って、起動スクリプト名を調べるとよい。                そのほかの使い方:起動スクリプトに関する情報が得られる。            ```shservice -e　有効になっているサービスを表示する。　起動順（rcorder）に表示service -r　無効になっているものも含めてサービスを表示する。　起動順（rcorder）に表示。　もちろん無効になっているものは、もしも有効だったら　という仮定で。service -l　rc.dディレクトリの下にあるファイルをすべてリストする。　/etc/rc.dのほか、たとえば/usr/local/etc/rc.dなど。-v　ほんの少しだけ説明が増える。　（試してみたら本当に少しだけだった）```        例えば。-rだと、-eのときにはない起動スクリプトも表示されていることが分かる。      ```sh$ service -e|grep &#34;/usr/local&#34;/usr/local/etc/rc.d/mrtg_daemon/usr/local/etc/rc.d/jenkins/usr/local/etc/rc.d/dovecot/usr/local/etc/rc.d/clamav-clamd/usr/local/etc/rc.d/clamav-freshclam/usr/local/etc/rc.d/apache22$ service -r|grep &#34;/usr/local&#34;/usr/local/etc/rc.d/svnserve/usr/local/etc/rc.d/rsyncd/usr/local/etc/rc.d/rrdcached/usr/local/etc/rc.d/munin-node/usr/local/etc/rc.d/mrtg_daemon/usr/local/etc/rc.d/jenkins/usr/local/etc/rc.d/htcacheclean/usr/local/etc/rc.d/dovecot/usr/local/etc/rc.d/clamav-clamd/usr/local/etc/rc.d/clamav-freshclam/usr/local/etc/rc.d/apache22```">
-  <meta name="twitter:url" content="http://localhost:4000/2012/03/19-%E8%B5%B7%E5%8B%95%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E6%93%8D%E4%BD%9C%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89service-linux%E3%81%AEchkconfig%E3%81%AE%E7%B0%A1%E6%98%93%E7%89%88.html">
+  <meta name="twitter:url" content="/2012/03/19-%E8%B5%B7%E5%8B%95%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E6%93%8D%E4%BD%9C%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89service-linux%E3%81%AEchkconfig%E3%81%AE%E7%B0%A1%E6%98%93%E7%89%88.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2012/03/19-%E8%B5%B7%E5%8B%95%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E6%93%8D%E4%BD%9C%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89service-linux%E3%81%AEchkconfig%E3%81%AE%E7%B0%A1%E6%98%93%E7%89%88.html">
+<link rel="canonical" href="/2012/03/19-%E8%B5%B7%E5%8B%95%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E6%93%8D%E4%BD%9C%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89service-linux%E3%81%AEchkconfig%E3%81%AE%E7%B0%A1%E6%98%93%E7%89%88.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

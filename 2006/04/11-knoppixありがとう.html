@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Knoppixありがとう。">
-<meta property="og:url" content="http://localhost:4000/2006/04/11-knoppix%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86.html">
+<meta property="og:url" content="/2006/04/11-knoppix%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86.html">
 
 
   <meta property="og:description" content="仕事の助けにとSambaサーバをさせていたLinuxマシンが、異音を発し操作を受け付けなくなった。最終的に画面にDisk I/Oエラーを表示しまくってHDD死亡。      そんな時、CDブート出来るKnoppixがとても有り難かったという話。            もちろん、こんなこともあろうかと、仕事に使っていたデータは別ディスクに保存していたので、データ自体には問題ないのだが、そのディスクはext3でフォーマットされている。      そして周りには自由に使えるLinuxマシンがない。      このような、周りにWindowsしかない環境では、データ保存メディアはWindowsでも読めるようにしておくのが楽なのだが、今時FAT32は嫌だし、かといってLinuxでNTFSを扱うのは難しいし、と結局ext3でフォーマットしてしまったのだ。      結果、すぐには読み出せない。            &lt;a href=&quot;http://uranus.it.swin.edu.au/%7Ejn/linux/explore2fs.htm&quot; target=&quot;_blank&quot;&gt;http://uranus.it.swin.edu.au/%7Ejn/linux/explore2fs.htm&lt;/a&gt;      Windowsでext2/3が読めるこういうツールもあるのだが、最新のベータ版でUnicodeに対応したばかりなので、日本語ファイル名の扱いがやや不安だ。      ディスクが死んだのは終電間際。どうしよう。      そこで引き出しの中になぜか転がっていたKnoppix(&lt;a href=&quot;http://web.archive.org/web/20140208094219/https://unit.aist.go.jp/itri/knoppix/&quot; target=&quot;_blank&quot;&gt;http://unit.aist.go.jp/itri/knoppix/&lt;/a&gt;)を発見し、壊れたLinuxマシンをブート。      ディスクが死んでようが、CDから起動するので、CDドライブ含め他の部分が生きていれば立ち上がる。            狙いのディスクをマウントし、konquerorで自分のマシン(Windows)の共有フォルダにコピー。      …しようと思ったが、いくつか読めないファイルがある。ディスクに問題はないので、文字コードのせいだろうか。      なので、/etc/smb.confを書き換え、マウントしたディスクをSambaで共有してWindowsからアクセスを試みる。      今度は問題なくコピーが終了した。      助かった…（家に帰れる…）。      Linuxやその他PC-UNIXが壊れたとき、代替機はなく、手近にあるのはWindowsマシンだけ、というシチュエーションは結構あるのだと思う。      そんな時、手っ取り早く起動して、手っ取り早くWindowsへデータの移し替えが出来るKnoppixはとても重宝する。(Sambaサーバ/クライアント付きで)      通常のLinux/PC-UNIXの起動CDにも、緊急作業用のオプションは付いているが、あくまで緊急作業用なので、普段と異なる手順を強いられる場合が多いし、そもそも余計なものをすっ飛ばして独立したシステムとして立ち上がってもらったほうが遙かに楽だ。      事実、Knoppixゆえの操作法に戸惑うことはあっても、「やりたいこと」は普通に出来た。      ということで、Knoppix、その他の同じようなシステム(総称してLiveCD)に俄然興味がわいてきた。      KnoppixはLinuxだが、BSD系ではFreeSBIE（&lt;a href=&quot;http://www.freesbie.org/&quot; target=&quot;_blank&quot;&gt;http://www.freesbie.org/&lt;/a&gt;）がある。      そのほかにも色々ある。      ちょっと調べてみようと思った。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Knoppixありがとう。">
   <meta name="twitter:description" content="仕事の助けにとSambaサーバをさせていたLinuxマシンが、異音を発し操作を受け付けなくなった。最終的に画面にDisk I/Oエラーを表示しまくってHDD死亡。      そんな時、CDブート出来るKnoppixがとても有り難かったという話。            もちろん、こんなこともあろうかと、仕事に使っていたデータは別ディスクに保存していたので、データ自体には問題ないのだが、そのディスクはext3でフォーマットされている。      そして周りには自由に使えるLinuxマシンがない。      このような、周りにWindowsしかない環境では、データ保存メディアはWindowsでも読めるようにしておくのが楽なのだが、今時FAT32は嫌だし、かといってLinuxでNTFSを扱うのは難しいし、と結局ext3でフォーマットしてしまったのだ。      結果、すぐには読み出せない。            &lt;a href=&quot;http://uranus.it.swin.edu.au/%7Ejn/linux/explore2fs.htm&quot; target=&quot;_blank&quot;&gt;http://uranus.it.swin.edu.au/%7Ejn/linux/explore2fs.htm&lt;/a&gt;      Windowsでext2/3が読めるこういうツールもあるのだが、最新のベータ版でUnicodeに対応したばかりなので、日本語ファイル名の扱いがやや不安だ。      ディスクが死んだのは終電間際。どうしよう。      そこで引き出しの中になぜか転がっていたKnoppix(&lt;a href=&quot;http://web.archive.org/web/20140208094219/https://unit.aist.go.jp/itri/knoppix/&quot; target=&quot;_blank&quot;&gt;http://unit.aist.go.jp/itri/knoppix/&lt;/a&gt;)を発見し、壊れたLinuxマシンをブート。      ディスクが死んでようが、CDから起動するので、CDドライブ含め他の部分が生きていれば立ち上がる。            狙いのディスクをマウントし、konquerorで自分のマシン(Windows)の共有フォルダにコピー。      …しようと思ったが、いくつか読めないファイルがある。ディスクに問題はないので、文字コードのせいだろうか。      なので、/etc/smb.confを書き換え、マウントしたディスクをSambaで共有してWindowsからアクセスを試みる。      今度は問題なくコピーが終了した。      助かった…（家に帰れる…）。      Linuxやその他PC-UNIXが壊れたとき、代替機はなく、手近にあるのはWindowsマシンだけ、というシチュエーションは結構あるのだと思う。      そんな時、手っ取り早く起動して、手っ取り早くWindowsへデータの移し替えが出来るKnoppixはとても重宝する。(Sambaサーバ/クライアント付きで)      通常のLinux/PC-UNIXの起動CDにも、緊急作業用のオプションは付いているが、あくまで緊急作業用なので、普段と異なる手順を強いられる場合が多いし、そもそも余計なものをすっ飛ばして独立したシステムとして立ち上がってもらったほうが遙かに楽だ。      事実、Knoppixゆえの操作法に戸惑うことはあっても、「やりたいこと」は普通に出来た。      ということで、Knoppix、その他の同じようなシステム(総称してLiveCD)に俄然興味がわいてきた。      KnoppixはLinuxだが、BSD系ではFreeSBIE（&lt;a href=&quot;http://www.freesbie.org/&quot; target=&quot;_blank&quot;&gt;http://www.freesbie.org/&lt;/a&gt;）がある。      そのほかにも色々ある。      ちょっと調べてみようと思った。">
-  <meta name="twitter:url" content="http://localhost:4000/2006/04/11-knoppix%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86.html">
+  <meta name="twitter:url" content="/2006/04/11-knoppix%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2006/04/11-knoppix%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86.html">
+<link rel="canonical" href="/2006/04/11-knoppix%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

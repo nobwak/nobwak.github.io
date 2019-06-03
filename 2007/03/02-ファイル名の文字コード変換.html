@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="ファイル名の文字コード変換">
-<meta property="og:url" content="http://localhost:4000/2007/03/02-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89%E5%A4%89%E6%8F%9B.html">
+<meta property="og:url" content="/2007/03/02-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89%E5%A4%89%E6%8F%9B.html">
 
 
   <meta property="og:description" content="俺メモ      ファイルの中身ではなく、ファイル名そのものの文字コードを変換するには、convmv&lt;a class=&quot;keyword&quot; href=&quot;http://d.hatena.ne.jp/keyword/convmv?mode=edit&quot; rel=&quot;nofollow&quot;&gt;?&lt;/a&gt;というコマンドを使う。      正直言って、コマンドの名前さえ分かれば、後はググるなりmanするなり何なりすれば万事オッケーなのだが、とりあえずメモしておく。      コマンド自体は大抵、各システムのパッケージ管理システムから問題なくインストールできるはず。      使い方は-fオプションに元の文字コードを、-tに変換先の文字コードを指定し、ファイル名を続けるだけ。      今回やりたいことの性質上、化けまくってるファイルの名前を一生懸命タイプするよりは、あるディレクトリ配下をアスタリスクで指定するのがまあ普通。      コマンド実行イメージ。          $ convmv -f euc-jp -t utf8 *                  (略)                  No changes to your files done. Use -notest to finally rename the files.      実はこれだけでは実際に変換は行われず、単に変換後のイメージを表示するだけ。実際に変換するには、メッセージの通り、-notestをつけて実行する。          $ convmv -notest -f euc-jp -t utf8 *                  (略)      サブディレクトリまで再帰的に実行したいときは、お決まりの-rオプションをつける。      また、convmv -listとすれば、指定できる文字コード一覧が表示される。      が、実際に使うのは下記3つだろう。          euc-jp, utf8, shiftjis      ">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="ファイル名の文字コード変換">
   <meta name="twitter:description" content="俺メモ      ファイルの中身ではなく、ファイル名そのものの文字コードを変換するには、convmv&lt;a class=&quot;keyword&quot; href=&quot;http://d.hatena.ne.jp/keyword/convmv?mode=edit&quot; rel=&quot;nofollow&quot;&gt;?&lt;/a&gt;というコマンドを使う。      正直言って、コマンドの名前さえ分かれば、後はググるなりmanするなり何なりすれば万事オッケーなのだが、とりあえずメモしておく。      コマンド自体は大抵、各システムのパッケージ管理システムから問題なくインストールできるはず。      使い方は-fオプションに元の文字コードを、-tに変換先の文字コードを指定し、ファイル名を続けるだけ。      今回やりたいことの性質上、化けまくってるファイルの名前を一生懸命タイプするよりは、あるディレクトリ配下をアスタリスクで指定するのがまあ普通。      コマンド実行イメージ。          $ convmv -f euc-jp -t utf8 *                  (略)                  No changes to your files done. Use -notest to finally rename the files.      実はこれだけでは実際に変換は行われず、単に変換後のイメージを表示するだけ。実際に変換するには、メッセージの通り、-notestをつけて実行する。          $ convmv -notest -f euc-jp -t utf8 *                  (略)      サブディレクトリまで再帰的に実行したいときは、お決まりの-rオプションをつける。      また、convmv -listとすれば、指定できる文字コード一覧が表示される。      が、実際に使うのは下記3つだろう。          euc-jp, utf8, shiftjis      ">
-  <meta name="twitter:url" content="http://localhost:4000/2007/03/02-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89%E5%A4%89%E6%8F%9B.html">
+  <meta name="twitter:url" content="/2007/03/02-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89%E5%A4%89%E6%8F%9B.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2007/03/02-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89%E5%A4%89%E6%8F%9B.html">
+<link rel="canonical" href="/2007/03/02-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89%E5%A4%89%E6%8F%9B.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

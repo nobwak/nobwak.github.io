@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Fedora Coreと格闘中">
-<meta property="og:url" content="http://localhost:4000/2005/08/21-fedora-core%E3%81%A8%E6%A0%BC%E9%97%98%E4%B8%AD.html">
+<meta property="og:url" content="/2005/08/21-fedora-core%E3%81%A8%E6%A0%BC%E9%97%98%E4%B8%AD.html">
 
 
   <meta property="og:description" content="業務上の必要性からLinuxを勉強しています。      BSD系、Solarisなら勝手が分かるものの、Linuxはまったく知らないので大変です。      今日の日記はただの愚痴です。            ディストリビューションはRed Hat系のFedora Core 4(FC4)を選択しました。      デフォルトのインストールでWMが選択され、しかもそれが重いGNOMEとかKDEなんてディストリは嫌なのですが、寄らば大樹の陰と嫌々ながらも選んだのでした。ネット上の情報量も多いですし。本当ならGentoo辺りに同類の香りを感じるのですが、この際仕方ないでしょう。            さて早速インストールを試みると、驚いたことに最新版の4は起動用のフロッピーイメージがなくCDかDVDのみ。CD-ROMドライブの無いノートに入れるつもりだったので難儀しました。何とかインストールも完了し、鬼門のX設定も完了、GNOMEをfluxboxに変更したところで、apacheを設定してみました。            …動かない。apacheそのものや、トップページは動くんだけど、そこに作成したディレクトリ配下、ユーザのpublic_html配下が見えない。      調べてみると、FC4ではデフォルトで動作するSELinux(Security-Enhanced Linux)モジュールのせい。要するに今までにUNIX系OSにはないセキュリティメカニズムが実装されていたためでした。            Linuxは良く言えば進取の気性に富んでおり、悪く言えば節操がない。      新しい技術を取り込むのにためらいがない。これは俺のUNIX系人生がBSDから始まったからこそ余計にそう思えるんでしょう。      とにかく、新しい仕組みが沢山入ってて、分からないことだらけだ。BSDからSolarisに移ったときより辛い。なまじ他のUNIX系OSに関する知識があるので、思わぬところで足を取られる。            そして、ふとローカルホストにsshを試みたら普通にログインが出来てしまうではないか。しかも鍵認証じゃなくパスワード認証で。      sshd動いているんならリモートから、と思ったら繋がらない。なんか別のアクセス制御がかかっているようだ。            インストール直後の時点でsshd他サービスが起動していて（しているように見える）、だけどリモートからはアクセス制限が有効になっているせいで接続できない。このアンバランスさが不思議。      慣れるには時間がかかりそうだ。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Fedora Coreと格闘中">
   <meta name="twitter:description" content="業務上の必要性からLinuxを勉強しています。      BSD系、Solarisなら勝手が分かるものの、Linuxはまったく知らないので大変です。      今日の日記はただの愚痴です。            ディストリビューションはRed Hat系のFedora Core 4(FC4)を選択しました。      デフォルトのインストールでWMが選択され、しかもそれが重いGNOMEとかKDEなんてディストリは嫌なのですが、寄らば大樹の陰と嫌々ながらも選んだのでした。ネット上の情報量も多いですし。本当ならGentoo辺りに同類の香りを感じるのですが、この際仕方ないでしょう。            さて早速インストールを試みると、驚いたことに最新版の4は起動用のフロッピーイメージがなくCDかDVDのみ。CD-ROMドライブの無いノートに入れるつもりだったので難儀しました。何とかインストールも完了し、鬼門のX設定も完了、GNOMEをfluxboxに変更したところで、apacheを設定してみました。            …動かない。apacheそのものや、トップページは動くんだけど、そこに作成したディレクトリ配下、ユーザのpublic_html配下が見えない。      調べてみると、FC4ではデフォルトで動作するSELinux(Security-Enhanced Linux)モジュールのせい。要するに今までにUNIX系OSにはないセキュリティメカニズムが実装されていたためでした。            Linuxは良く言えば進取の気性に富んでおり、悪く言えば節操がない。      新しい技術を取り込むのにためらいがない。これは俺のUNIX系人生がBSDから始まったからこそ余計にそう思えるんでしょう。      とにかく、新しい仕組みが沢山入ってて、分からないことだらけだ。BSDからSolarisに移ったときより辛い。なまじ他のUNIX系OSに関する知識があるので、思わぬところで足を取られる。            そして、ふとローカルホストにsshを試みたら普通にログインが出来てしまうではないか。しかも鍵認証じゃなくパスワード認証で。      sshd動いているんならリモートから、と思ったら繋がらない。なんか別のアクセス制御がかかっているようだ。            インストール直後の時点でsshd他サービスが起動していて（しているように見える）、だけどリモートからはアクセス制限が有効になっているせいで接続できない。このアンバランスさが不思議。      慣れるには時間がかかりそうだ。">
-  <meta name="twitter:url" content="http://localhost:4000/2005/08/21-fedora-core%E3%81%A8%E6%A0%BC%E9%97%98%E4%B8%AD.html">
+  <meta name="twitter:url" content="/2005/08/21-fedora-core%E3%81%A8%E6%A0%BC%E9%97%98%E4%B8%AD.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2005/08/21-fedora-core%E3%81%A8%E6%A0%BC%E9%97%98%E4%B8%AD.html">
+<link rel="canonical" href="/2005/08/21-fedora-core%E3%81%A8%E6%A0%BC%E9%97%98%E4%B8%AD.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

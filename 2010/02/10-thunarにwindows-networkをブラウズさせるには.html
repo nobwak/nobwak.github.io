@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="ThunarにWindows Networkをブラウズさせるには。">
-<meta property="og:url" content="http://localhost:4000/2010/02/10-thunar%E3%81%ABwindows-network%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2010/02/10-thunar%E3%81%ABwindows-network%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="Xubuntuは、Linuxの便利さを堪能できる割に軽いので素敵だ。      ThunarがWindows Networkを見にいけないのだけが残念だったが、&lt;a href=&quot;http://ubuntuforums.org/showthread.php?t=304131&quot; target=&quot;_blank&quot;&gt;http://ubuntuforums.org/showthread.php?t=304131&lt;/a&gt;にHow toがあったので解決。            1.Applications -&gt; システム -&gt; フォルダの共有　で、sambaのインストール。NFSは要らない。      2.fusesmbをインストール$ sudo apt-get install fusesmb3./etc/modulesに&amp;#8221;fuse&amp;#8221;と一行を追加（ダブルクオーテーションは不要）      4.リブート      5.Applications -&gt; システム -&gt; ユーザとグループ から、自分のユーザ名プロパティで「ユーザ空間ファイルシステムをマウントできる」にチェック            6.ネットワークドライブをマウントするディレクトリを作る。      　どこだってよい。パーミッションは777に。$ sudo mkdir /media/network$ sudo chmod 777 /media/network7.Applications -&gt; システム -&gt; ユーザとグループ -&gt; グループの管理でfuseグループに自分がいることを確認      8.リブート      9.Applications -&gt; 設定 -&gt; セッションと起動　から「自動開始アプリケーション」タブから「追加」      　適当に名前、説明を入れたあとに、以下のコマンドを設定fusesmb /media/network10.マウントポイントをショートカットペインに作っておく。      　ここの例では/media/networkのnetworkフォルダを左側のペインにドラッグ&amp;ドロップ      11.ログアウトし、ログイン      12.Thunarから先ほどのフォルダに行けば、Windows Networkが見えるはず。            ustreamだって、何にもしなくても見れるし、ubuntu最高。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="ThunarにWindows Networkをブラウズさせるには。">
   <meta name="twitter:description" content="Xubuntuは、Linuxの便利さを堪能できる割に軽いので素敵だ。      ThunarがWindows Networkを見にいけないのだけが残念だったが、&lt;a href=&quot;http://ubuntuforums.org/showthread.php?t=304131&quot; target=&quot;_blank&quot;&gt;http://ubuntuforums.org/showthread.php?t=304131&lt;/a&gt;にHow toがあったので解決。            1.Applications -&gt; システム -&gt; フォルダの共有　で、sambaのインストール。NFSは要らない。      2.fusesmbをインストール$ sudo apt-get install fusesmb3./etc/modulesに&amp;#8221;fuse&amp;#8221;と一行を追加（ダブルクオーテーションは不要）      4.リブート      5.Applications -&gt; システム -&gt; ユーザとグループ から、自分のユーザ名プロパティで「ユーザ空間ファイルシステムをマウントできる」にチェック            6.ネットワークドライブをマウントするディレクトリを作る。      　どこだってよい。パーミッションは777に。$ sudo mkdir /media/network$ sudo chmod 777 /media/network7.Applications -&gt; システム -&gt; ユーザとグループ -&gt; グループの管理でfuseグループに自分がいることを確認      8.リブート      9.Applications -&gt; 設定 -&gt; セッションと起動　から「自動開始アプリケーション」タブから「追加」      　適当に名前、説明を入れたあとに、以下のコマンドを設定fusesmb /media/network10.マウントポイントをショートカットペインに作っておく。      　ここの例では/media/networkのnetworkフォルダを左側のペインにドラッグ&amp;ドロップ      11.ログアウトし、ログイン      12.Thunarから先ほどのフォルダに行けば、Windows Networkが見えるはず。            ustreamだって、何にもしなくても見れるし、ubuntu最高。">
-  <meta name="twitter:url" content="http://localhost:4000/2010/02/10-thunar%E3%81%ABwindows-network%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2010/02/10-thunar%E3%81%ABwindows-network%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2010/02/10-thunar%E3%81%ABwindows-network%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2010/02/10-thunar%E3%81%ABwindows-network%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

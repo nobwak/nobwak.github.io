@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="portsからインストールしたデーモンプログラムのスタート方法">
-<meta property="og:url" content="http://localhost:4000/2008/02/13-ports%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%83%A2%E3%83%B3%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E6%96%B9%E6%B3%95.html">
+<meta property="og:url" content="/2008/02/13-ports%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%83%A2%E3%83%B3%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E6%96%B9%E6%B3%95.html">
 
 
   <meta property="og:description" content="FreeBSDでportsからapacheなどのdaemonプログラムをインストールした場合、起動用スクリプトは/usr/local/etc/rc.dに置かれる。      で、インストールして設定ファイルを修正した後、おもむろに/usr/local/etc/rc.d/apache22 startとして実行することになるわけだが、実はこれでは起動しない。      これはFreeBSDがrc.dシステムを採用しているためで、portsからインストールされ、daemonとして動作するプログラムは、原則として/etc/rc.confでapache22_enable=&amp;#8221;YES&amp;#8221;などと設定しておかなければならない。      シェルスクリプトなので、中身を見れば一目瞭然なわけだが、どんな時でも必ず/etc/rc.confの値は参照される。      俺は勝手に、この記載は普通、システムの起動時に狙いのデーモンプログラムを実行するためだけのものと思いこんでいた。      なので、たとえばapacheの設定のテストをしていて、一回だけサーバを実行して試してみたい、という時にも参照されてしまうので、/etc/rc.confにapache22_enable=&amp;#8221;YES&amp;#8221;と書いていない限り、何度やってもapacheは起動しない。      問題なのは、エラーメッセージが表示されないことで、正常に起動したくさいのに、pgrepでhttpdが見つけられず、頭を抱えることになる。      まあ、出来合いの起動スクリプトではなく、apachectlを直打ちすればいいんだけど。      そういったわけで、/etc/rc.confに値を設定せず、テスト用として一回だけ起動したい場合には、引数にstartではなくonestartを与えて実行kすればよい。たとえば下記のように。/usr/local/etc/rc.d/apache22 onestartこのほかに俺がonestartを使うのは、sftpがなく、ftpしか使えないクライアントに対し/etc/inetd onestartとしてinetdを起動させるくらい、かな。      SolarisやLinuxのような、runレベルを採用しているシステムに慣れていると驚くところではある。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="portsからインストールしたデーモンプログラムのスタート方法">
   <meta name="twitter:description" content="FreeBSDでportsからapacheなどのdaemonプログラムをインストールした場合、起動用スクリプトは/usr/local/etc/rc.dに置かれる。      で、インストールして設定ファイルを修正した後、おもむろに/usr/local/etc/rc.d/apache22 startとして実行することになるわけだが、実はこれでは起動しない。      これはFreeBSDがrc.dシステムを採用しているためで、portsからインストールされ、daemonとして動作するプログラムは、原則として/etc/rc.confでapache22_enable=&amp;#8221;YES&amp;#8221;などと設定しておかなければならない。      シェルスクリプトなので、中身を見れば一目瞭然なわけだが、どんな時でも必ず/etc/rc.confの値は参照される。      俺は勝手に、この記載は普通、システムの起動時に狙いのデーモンプログラムを実行するためだけのものと思いこんでいた。      なので、たとえばapacheの設定のテストをしていて、一回だけサーバを実行して試してみたい、という時にも参照されてしまうので、/etc/rc.confにapache22_enable=&amp;#8221;YES&amp;#8221;と書いていない限り、何度やってもapacheは起動しない。      問題なのは、エラーメッセージが表示されないことで、正常に起動したくさいのに、pgrepでhttpdが見つけられず、頭を抱えることになる。      まあ、出来合いの起動スクリプトではなく、apachectlを直打ちすればいいんだけど。      そういったわけで、/etc/rc.confに値を設定せず、テスト用として一回だけ起動したい場合には、引数にstartではなくonestartを与えて実行kすればよい。たとえば下記のように。/usr/local/etc/rc.d/apache22 onestartこのほかに俺がonestartを使うのは、sftpがなく、ftpしか使えないクライアントに対し/etc/inetd onestartとしてinetdを起動させるくらい、かな。      SolarisやLinuxのような、runレベルを採用しているシステムに慣れていると驚くところではある。">
-  <meta name="twitter:url" content="http://localhost:4000/2008/02/13-ports%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%83%A2%E3%83%B3%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E6%96%B9%E6%B3%95.html">
+  <meta name="twitter:url" content="/2008/02/13-ports%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%83%A2%E3%83%B3%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E6%96%B9%E6%B3%95.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/02/13-ports%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%83%A2%E3%83%B3%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E6%96%B9%E6%B3%95.html">
+<link rel="canonical" href="/2008/02/13-ports%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%83%87%E3%83%BC%E3%83%A2%E3%83%B3%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E6%96%B9%E6%B3%95.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

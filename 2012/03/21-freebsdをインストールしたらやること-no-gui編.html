@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="FreeBSDをインストールしたらやること。（no GUI編）">
-<meta property="og:url" content="http://localhost:4000/2012/03/21-freebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89%E3%82%84%E3%82%8B%E3%81%93%E3%81%A8-no-gui%E7%B7%A8.html">
+<meta property="og:url" content="/2012/03/21-freebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89%E3%82%84%E3%82%8B%E3%81%93%E3%81%A8-no-gui%E7%B7%A8.html">
 
 
   <meta property="og:description" content="FreeBSDをインストールしてやることをまとめたよ。            まずrootでログイン      シェル、sudo、screen、vim-lite(日本語OKなvi)をインストール。# pkg_add -r bash sudo screen vim-lite以降、viはvim等と読み替えておくれ。# vipw自アカウントのシェルを変更。# vi /etc/groupwheelに自アカウントを追加。            sudoが使えるように。      これ以降、原則としてrootは使わない。# visudo（以下の%wheelの行をアンコメントする。）## Uncomment to allow members of group wheel to execute any command%wheel ALL=(ALL) ALL自分のアカウントでログイン。      ホームディレクトリの.profileに以下を追加。      言語設定とパッケージの取得先変更。## modified#LANG=ja_JP.UTF-8;export LANGPACKAGEROOT=&amp;#34;ftp://ftp2.jp.freebsd.org&amp;#34;;export PACKAGEROOT上記設定を読み込み。$ . ~/.profileportsの更新$ sudo vi /etc/portsnap.conf（portsnapの取得先をfreebsd.orgからallbsd.orgへ変更(感謝））#SERVERNAME=portsnap.FreeBSD.orgSERVERNAME=portsnap.allbsd.org既存のportsは一回捨てる。      rmするのも時間がかかるので、いったんmvして消す。      で、portsnapで取り直し。$ sudo mv /usr/ports /usr/ports.org$ sudo rm -Rf /usr/ports.org（このあとバックグラウンドにするとよい）$ mkdir /usr/ports$ sudo portsnap fetch extract時間がかかるのでさらにターミナルを起動。            起動時のサービスの設定$ sudo vi /etc/rc.conf以下を（なければ）追加。sshd_enable=&amp;#34;YES&amp;#34;powerd_enable=&amp;#34;YES&amp;#34;	#低負荷の時にクロック等を下げるpowerd_flags=&amp;#34;-a adp -n adp&amp;#34;ntpdate_hosts=&amp;#34;ntp.jst.mfeed.ad.jp&amp;#34;	#時刻合わせntpdate_enable=&amp;#34;YES&amp;#34;#sendmail swtich. see rc.sendmail(8) sendmailを止める。sendmail_enable=&amp;#34;NO&amp;#34;sendmail_submit_enable=&amp;#34;NO&amp;#34;sendmail_outbound_enable=&amp;#34;NO&amp;#34;sendmail_msp_queue_enable=&amp;#34;NO&amp;#34;powerd, ntpdateを起動。sendmailはまあ...後で再起動か。$ sudo service powerd start$ sudo service ntpdate startlocateデータベースの作成      放っておけば一週間に一回更新してくれるのだが、すぐに使いたいので。$ sudo /etc/periodic/weekly/310.locateあとはports管理とか。$ sudo pkg_add -r psearch pkg_replace portmaster portauditでかい言語系。$ sudo pkg_add -r perl pythonとりあえずこんなもん。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="FreeBSDをインストールしたらやること。（no GUI編）">
   <meta name="twitter:description" content="FreeBSDをインストールしてやることをまとめたよ。            まずrootでログイン      シェル、sudo、screen、vim-lite(日本語OKなvi)をインストール。# pkg_add -r bash sudo screen vim-lite以降、viはvim等と読み替えておくれ。# vipw自アカウントのシェルを変更。# vi /etc/groupwheelに自アカウントを追加。            sudoが使えるように。      これ以降、原則としてrootは使わない。# visudo（以下の%wheelの行をアンコメントする。）## Uncomment to allow members of group wheel to execute any command%wheel ALL=(ALL) ALL自分のアカウントでログイン。      ホームディレクトリの.profileに以下を追加。      言語設定とパッケージの取得先変更。## modified#LANG=ja_JP.UTF-8;export LANGPACKAGEROOT=&amp;#34;ftp://ftp2.jp.freebsd.org&amp;#34;;export PACKAGEROOT上記設定を読み込み。$ . ~/.profileportsの更新$ sudo vi /etc/portsnap.conf（portsnapの取得先をfreebsd.orgからallbsd.orgへ変更(感謝））#SERVERNAME=portsnap.FreeBSD.orgSERVERNAME=portsnap.allbsd.org既存のportsは一回捨てる。      rmするのも時間がかかるので、いったんmvして消す。      で、portsnapで取り直し。$ sudo mv /usr/ports /usr/ports.org$ sudo rm -Rf /usr/ports.org（このあとバックグラウンドにするとよい）$ mkdir /usr/ports$ sudo portsnap fetch extract時間がかかるのでさらにターミナルを起動。            起動時のサービスの設定$ sudo vi /etc/rc.conf以下を（なければ）追加。sshd_enable=&amp;#34;YES&amp;#34;powerd_enable=&amp;#34;YES&amp;#34;	#低負荷の時にクロック等を下げるpowerd_flags=&amp;#34;-a adp -n adp&amp;#34;ntpdate_hosts=&amp;#34;ntp.jst.mfeed.ad.jp&amp;#34;	#時刻合わせntpdate_enable=&amp;#34;YES&amp;#34;#sendmail swtich. see rc.sendmail(8) sendmailを止める。sendmail_enable=&amp;#34;NO&amp;#34;sendmail_submit_enable=&amp;#34;NO&amp;#34;sendmail_outbound_enable=&amp;#34;NO&amp;#34;sendmail_msp_queue_enable=&amp;#34;NO&amp;#34;powerd, ntpdateを起動。sendmailはまあ...後で再起動か。$ sudo service powerd start$ sudo service ntpdate startlocateデータベースの作成      放っておけば一週間に一回更新してくれるのだが、すぐに使いたいので。$ sudo /etc/periodic/weekly/310.locateあとはports管理とか。$ sudo pkg_add -r psearch pkg_replace portmaster portauditでかい言語系。$ sudo pkg_add -r perl pythonとりあえずこんなもん。">
-  <meta name="twitter:url" content="http://localhost:4000/2012/03/21-freebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89%E3%82%84%E3%82%8B%E3%81%93%E3%81%A8-no-gui%E7%B7%A8.html">
+  <meta name="twitter:url" content="/2012/03/21-freebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89%E3%82%84%E3%82%8B%E3%81%93%E3%81%A8-no-gui%E7%B7%A8.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2012/03/21-freebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89%E3%82%84%E3%82%8B%E3%81%93%E3%81%A8-no-gui%E7%B7%A8.html">
+<link rel="canonical" href="/2012/03/21-freebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89%E3%82%84%E3%82%8B%E3%81%93%E3%81%A8-no-gui%E7%B7%A8.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

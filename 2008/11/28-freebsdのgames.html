@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="FreeBSDのgames">
-<meta property="og:url" content="http://localhost:4000/2008/11/28-freebsd%E3%81%AEgames.html">
+<meta property="og:url" content="/2008/11/28-freebsd%E3%81%AEgames.html">
 
 
   <meta property="og:description" content="2chのFreeBSD関連スレを徒然に眺めていたら出てきたgrdc。      コンソール画面いっぱいにデジタル時計を表示するコマンドで、なんだかすごく衝撃を受けた。      こんなのがあるとは知らなかった。      ただ、コマンドがgamesに属するので、FreeBSDをインストールしたときのオプションによってはgrdcがインストールされていない場合もある。      俺の場合もそうだった。      インストールする方法はいくらでもあるが、俺はソースだけは全部インストールしておいたので、コンパイル後インストール。[flageo@xxxxx /usr/src/games/grdc]$ lsMakefile        grdc.6          grdc.c[flageo@xxxxx /usr/src/games/grdc]$ sudo make（中略）[flageo@xxxxx /usr/src/games/grdc]$ lsMakefile        grdc.6          grdc.cgrdc            grdc.6.gz       grdc.o[flageo@xxxxx /usr/src/games/grdc]$ sudo make install cleaninstall -s -o root -g wheel -m 555   grdc /usr/gamesinstall -o root -g wheel -m 444 grdc.6.gz  /usr/share/man/man6rm -f grdc grdc.o grdc.6.gz grdc.6.cat.gz[flageo@xxxxx /usr/src/games/grdc]$オプションは-sでスクロール、-tで12時間フォーマット、数字nを引数で与えてやるとn秒後にストップする。ただスクロールさせると表示が間に合わないかもね。とのこと。なんだそれ。            容量確保とか、ビルドの時間を短くしたいとかで、gamesはいつも削除の対象にしていたが、改めて/usr/src/gamesを眺めてみると大した量はない。そういえばgames配下のものは、可能な限りportsに移したという話を聞いたこともある。FreeBSD自体の考えでは、ベースシステムとそれ以外を厳密に分ける。結果として、いまだにperlがベースに入ってないくらいなので、無駄なものが入っていればすぐにやり玉にあがったろう。      そういったわけで、/usr/src/gamesの下でmake install cleanして全部のコマンドを入れた。      中でも有名なのはfortune。      さっそくインストールして実行してみた。（訳俺）          ウェイター「コーヒーと紅茶、どちらになさいますか？」                  客A 「紅茶がいいね」                  客B 「僕も。カップが清潔か、きちんと確認してくれたまえ。」                  数分後                  ウェイター「紅茶を二つお持ちしました。清潔なカップを頼まれたのはどちら様ですか？」      …。            あとは文字列をパンチカードに変換するとか、カエサル暗号化するとか、すてきなコマンドがあった。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="FreeBSDのgames">
   <meta name="twitter:description" content="2chのFreeBSD関連スレを徒然に眺めていたら出てきたgrdc。      コンソール画面いっぱいにデジタル時計を表示するコマンドで、なんだかすごく衝撃を受けた。      こんなのがあるとは知らなかった。      ただ、コマンドがgamesに属するので、FreeBSDをインストールしたときのオプションによってはgrdcがインストールされていない場合もある。      俺の場合もそうだった。      インストールする方法はいくらでもあるが、俺はソースだけは全部インストールしておいたので、コンパイル後インストール。[flageo@xxxxx /usr/src/games/grdc]$ lsMakefile        grdc.6          grdc.c[flageo@xxxxx /usr/src/games/grdc]$ sudo make（中略）[flageo@xxxxx /usr/src/games/grdc]$ lsMakefile        grdc.6          grdc.cgrdc            grdc.6.gz       grdc.o[flageo@xxxxx /usr/src/games/grdc]$ sudo make install cleaninstall -s -o root -g wheel -m 555   grdc /usr/gamesinstall -o root -g wheel -m 444 grdc.6.gz  /usr/share/man/man6rm -f grdc grdc.o grdc.6.gz grdc.6.cat.gz[flageo@xxxxx /usr/src/games/grdc]$オプションは-sでスクロール、-tで12時間フォーマット、数字nを引数で与えてやるとn秒後にストップする。ただスクロールさせると表示が間に合わないかもね。とのこと。なんだそれ。            容量確保とか、ビルドの時間を短くしたいとかで、gamesはいつも削除の対象にしていたが、改めて/usr/src/gamesを眺めてみると大した量はない。そういえばgames配下のものは、可能な限りportsに移したという話を聞いたこともある。FreeBSD自体の考えでは、ベースシステムとそれ以外を厳密に分ける。結果として、いまだにperlがベースに入ってないくらいなので、無駄なものが入っていればすぐにやり玉にあがったろう。      そういったわけで、/usr/src/gamesの下でmake install cleanして全部のコマンドを入れた。      中でも有名なのはfortune。      さっそくインストールして実行してみた。（訳俺）          ウェイター「コーヒーと紅茶、どちらになさいますか？」                  客A 「紅茶がいいね」                  客B 「僕も。カップが清潔か、きちんと確認してくれたまえ。」                  数分後                  ウェイター「紅茶を二つお持ちしました。清潔なカップを頼まれたのはどちら様ですか？」      …。            あとは文字列をパンチカードに変換するとか、カエサル暗号化するとか、すてきなコマンドがあった。">
-  <meta name="twitter:url" content="http://localhost:4000/2008/11/28-freebsd%E3%81%AEgames.html">
+  <meta name="twitter:url" content="/2008/11/28-freebsd%E3%81%AEgames.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/11/28-freebsd%E3%81%AEgames.html">
+<link rel="canonical" href="/2008/11/28-freebsd%E3%81%AEgames.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

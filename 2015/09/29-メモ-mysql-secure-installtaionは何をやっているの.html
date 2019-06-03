@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="[メモ]mysql_secure_installtaionは何をやっているの？">
-<meta property="og:url" content="http://localhost:4000/2015/09/29-%E3%83%A1%E3%83%A2-mysql-secure-installtaion%E3%81%AF%E4%BD%95%E3%82%92%E3%82%84%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%AE.html">
+<meta property="og:url" content="/2015/09/29-%E3%83%A1%E3%83%A2-mysql-secure-installtaion%E3%81%AF%E4%BD%95%E3%82%92%E3%82%84%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%AE.html">
 
 
   <meta property="og:description" content="https://dev.mysql.com/doc/refman/5.6/en/mysql-secure-installation.htmlmysql_secure_installationは、perlで書かれたスクリプトで、MySQLのセキュリティを向上させることができる。具体的には;（MySQLの）rootのパスワード設定localhost外からアクセス可能なrootアカウントの削除anonymousユーザアカウントの削除anonymousユーザ含め誰でもアクセス可能な「test」データベースの削除test_から始まるデータベースへの接続権限の削除（デフォルトでは誰でもアクセスできる）MySQLが動いている状態で、引数なしで実行すればよい。```shsysrc mysql_enable=YESmysql_enable:  -&gt; YESservice mysql-server startStarting mysql.```立ち上げておいて。mysql_secure_installationを引数なしで実行。rootパスワード以外はリターンキー連打でよし。```sh# mysql_secure_installationNOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!In order to log into MySQL to secure it, we’ll need the currentpassword for the root user.  If you’ve just installed MySQL, andyou haven’t set the root password yet, the password will be blank,so you should just press enter here.Enter current password for root (enter for none):OK, successfully used password, moving on…Setting the root password ensures that nobody can log into the MySQLroot user without the proper authorisation.Set root password? [Y/n] YNew password:Re-enter new password:Password updated successfully!Reloading privilege tables.. … Success!By default, a MySQL installation has an anonymous user, allowing anyoneto log into MySQL without having to have a user account created forthem.  This is intended only for testing, and to make the installationgo a bit smoother.  You should remove them before moving into aproduction environment.Remove anonymous users? [Y/n] Y … Success!Normally, root should only be allowed to connect from ‘localhost’.  Thisensures that someone cannot guess at the root password from the network.Disallow root login remotely? [Y/n] Y … Success!By default, MySQL comes with a database named ‘test’ that anyone canaccess.  This is also intended only for testing, and should be removedbefore moving into a production environment.Remove test database and access to it? [Y/n] Y  Dropping test database… … Success!  Removing privileges on test database… … Success!Reloading the privilege tables will ensure that all changes made so farwill take effect immediately.Reload privilege tables now? [Y/n] Y … Success!All done!  If you’ve completed all of the above steps, your MySQLinstallation should now be secure.Thanks for using MySQL!Cleaning up…```">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="[メモ]mysql_secure_installtaionは何をやっているの？">
   <meta name="twitter:description" content="https://dev.mysql.com/doc/refman/5.6/en/mysql-secure-installation.htmlmysql_secure_installationは、perlで書かれたスクリプトで、MySQLのセキュリティを向上させることができる。具体的には;（MySQLの）rootのパスワード設定localhost外からアクセス可能なrootアカウントの削除anonymousユーザアカウントの削除anonymousユーザ含め誰でもアクセス可能な「test」データベースの削除test_から始まるデータベースへの接続権限の削除（デフォルトでは誰でもアクセスできる）MySQLが動いている状態で、引数なしで実行すればよい。```shsysrc mysql_enable=YESmysql_enable:  -&gt; YESservice mysql-server startStarting mysql.```立ち上げておいて。mysql_secure_installationを引数なしで実行。rootパスワード以外はリターンキー連打でよし。```sh# mysql_secure_installationNOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!In order to log into MySQL to secure it, we’ll need the currentpassword for the root user.  If you’ve just installed MySQL, andyou haven’t set the root password yet, the password will be blank,so you should just press enter here.Enter current password for root (enter for none):OK, successfully used password, moving on…Setting the root password ensures that nobody can log into the MySQLroot user without the proper authorisation.Set root password? [Y/n] YNew password:Re-enter new password:Password updated successfully!Reloading privilege tables.. … Success!By default, a MySQL installation has an anonymous user, allowing anyoneto log into MySQL without having to have a user account created forthem.  This is intended only for testing, and to make the installationgo a bit smoother.  You should remove them before moving into aproduction environment.Remove anonymous users? [Y/n] Y … Success!Normally, root should only be allowed to connect from ‘localhost’.  Thisensures that someone cannot guess at the root password from the network.Disallow root login remotely? [Y/n] Y … Success!By default, MySQL comes with a database named ‘test’ that anyone canaccess.  This is also intended only for testing, and should be removedbefore moving into a production environment.Remove test database and access to it? [Y/n] Y  Dropping test database… … Success!  Removing privileges on test database… … Success!Reloading the privilege tables will ensure that all changes made so farwill take effect immediately.Reload privilege tables now? [Y/n] Y … Success!All done!  If you’ve completed all of the above steps, your MySQLinstallation should now be secure.Thanks for using MySQL!Cleaning up…```">
-  <meta name="twitter:url" content="http://localhost:4000/2015/09/29-%E3%83%A1%E3%83%A2-mysql-secure-installtaion%E3%81%AF%E4%BD%95%E3%82%92%E3%82%84%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%AE.html">
+  <meta name="twitter:url" content="/2015/09/29-%E3%83%A1%E3%83%A2-mysql-secure-installtaion%E3%81%AF%E4%BD%95%E3%82%92%E3%82%84%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%AE.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2015/09/29-%E3%83%A1%E3%83%A2-mysql-secure-installtaion%E3%81%AF%E4%BD%95%E3%82%92%E3%82%84%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%AE.html">
+<link rel="canonical" href="/2015/09/29-%E3%83%A1%E3%83%A2-mysql-secure-installtaion%E3%81%AF%E4%BD%95%E3%82%92%E3%82%84%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%AE.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

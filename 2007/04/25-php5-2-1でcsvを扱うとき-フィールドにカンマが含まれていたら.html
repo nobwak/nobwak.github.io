@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら">
-<meta property="og:url" content="http://localhost:4000/2007/04/25-php5-2-1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D-%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89.html">
+<meta property="og:url" content="/2007/04/25-php5-2-1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D-%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89.html">
 
 
   <meta property="og:description" content="「a,b,&amp;#8221;cde,fg&amp;#8221;,e」      こんなCSVをPHPで扱おうとすると、結構面倒くさい。      &lt;a href=&quot;http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html&quot; target=&quot;_blank&quot;&gt;ここ&lt;/a&gt;の人と同じように結構悩んだ。      結論だけ書く。      &lt;a href=&quot;http://php.benscom.com/manual/ja/function.strtok.php&quot; target=&quot;_blank&quot;&gt;http://php.benscom.com/manual/ja/function.strtok.php&lt;/a&gt;      ここにサンプルがあったので、これを改変してこんな感じで。          test.php                              ＜?php                  $fh=fopen(&#8220;test.csv&#8221;,&#8217;r&#8217;);                  while(!feof($fh)){                  　　　　$buffer = fgets($fh,4096);                  　　　　$buffer = chop($buffer);                  　　　　$values = tokenizeQuoted($buffer,&#8221;,&#8221;);                  　　　　print_r($values);                              }                  fclose($fh);                              //split a string into an array of space-delimited tokens, taking double-quoted strings into account                  function tokenizeQuoted($string,$delimitar)                  {                  　　for($tokens=array(), $nextToken=strtok($string, $delimitar); $nextToken!==false; $nextToken=strtok($delimitar))                  　　{                  　　　　if($nextToken{0}==&#39;&#8221;-)                  　　　　　　$nextToken = $nextToken{strlen($nextToken)-1}==&#39;&#8221;- ?                  　　　　　　substr($nextToken, 1, -1) : substr($nextToken, 1) . $delimitar . strtok(-&#8221;-);                  　　　　$tokens[] = $nextToken;                  　　}                  　　return $tokens;                  }                  ?&gt;      サンプル          nobody@localhost$ cat test.csv                  a,b,&#8221;cde,fg&#8221;,e                  nobody@localhost$ php ./test.php                  Array                  (                  　　[0] =&gt; a                  　　[1] =&gt; b                  　　[2] =&gt; cde,fg                  　　[3] =&gt; e                  )                  nobody@localhost$      ">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら">
   <meta name="twitter:description" content="「a,b,&amp;#8221;cde,fg&amp;#8221;,e」      こんなCSVをPHPで扱おうとすると、結構面倒くさい。      &lt;a href=&quot;http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html&quot; target=&quot;_blank&quot;&gt;ここ&lt;/a&gt;の人と同じように結構悩んだ。      結論だけ書く。      &lt;a href=&quot;http://php.benscom.com/manual/ja/function.strtok.php&quot; target=&quot;_blank&quot;&gt;http://php.benscom.com/manual/ja/function.strtok.php&lt;/a&gt;      ここにサンプルがあったので、これを改変してこんな感じで。          test.php                              ＜?php                  $fh=fopen(&#8220;test.csv&#8221;,&#8217;r&#8217;);                  while(!feof($fh)){                  　　　　$buffer = fgets($fh,4096);                  　　　　$buffer = chop($buffer);                  　　　　$values = tokenizeQuoted($buffer,&#8221;,&#8221;);                  　　　　print_r($values);                              }                  fclose($fh);                              //split a string into an array of space-delimited tokens, taking double-quoted strings into account                  function tokenizeQuoted($string,$delimitar)                  {                  　　for($tokens=array(), $nextToken=strtok($string, $delimitar); $nextToken!==false; $nextToken=strtok($delimitar))                  　　{                  　　　　if($nextToken{0}==&#39;&#8221;-)                  　　　　　　$nextToken = $nextToken{strlen($nextToken)-1}==&#39;&#8221;- ?                  　　　　　　substr($nextToken, 1, -1) : substr($nextToken, 1) . $delimitar . strtok(-&#8221;-);                  　　　　$tokens[] = $nextToken;                  　　}                  　　return $tokens;                  }                  ?&gt;      サンプル          nobody@localhost$ cat test.csv                  a,b,&#8221;cde,fg&#8221;,e                  nobody@localhost$ php ./test.php                  Array                  (                  　　[0] =&gt; a                  　　[1] =&gt; b                  　　[2] =&gt; cde,fg                  　　[3] =&gt; e                  )                  nobody@localhost$      ">
-  <meta name="twitter:url" content="http://localhost:4000/2007/04/25-php5-2-1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D-%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89.html">
+  <meta name="twitter:url" content="/2007/04/25-php5-2-1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D-%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2007/04/25-php5-2-1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D-%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89.html">
+<link rel="canonical" href="/2007/04/25-php5-2-1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D-%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

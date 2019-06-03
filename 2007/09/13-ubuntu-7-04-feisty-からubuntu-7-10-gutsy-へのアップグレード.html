@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Ubuntu 7.04 (”Feisty”)からUbuntu 7.10 (”Gutsy”)へのアップグレード">
-<meta property="og:url" content="http://localhost:4000/2007/09/13-ubuntu-7-04-feisty-%E3%81%8B%E3%82%89ubuntu-7-10-gutsy-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89.html">
+<meta property="og:url" content="/2007/09/13-ubuntu-7-04-feisty-%E3%81%8B%E3%82%89ubuntu-7-10-gutsy-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89.html">
 
 
   <meta property="og:description" content="Ubuntuを7.04にアップグレードしたばかりだが、ある事情により7.10に続けてアップグレードしたその顛末。      とは言っても、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070906/p1&quot; target=&quot;_blank&quot;&gt;先日&lt;/a&gt;の手順での&amp;#8221;Feisty&amp;#8221;をそのまま&amp;#8221;Gutsy&amp;#8221;に変更して実施しただけ。      後述の問題を除きスムーズに終了した。            その問題とは、正式版リリース前でリポジトリが頻繁に更新されているせいなのか、チェックサム不整合でapt-get updateが正常に終了しなかったこと。      そもそもsources.listを十分に理解していかなかったので途方に暮れたのだが、Ubuntu公式をうろついて、なんとなく&lt;a href=&quot;https://launchpad.net/ubuntu/+archivemirrors&quot; target=&quot;_blank&quot;&gt;ミラーサイト一覧&lt;/a&gt;からオリジナルサーバとの差が小さいものを選んでsources.listを書き換えたら動いた。      そのとき、&lt;a href=&quot;http://www.ubuntu.com/community/ubuntustory/components&quot; target=&quot;_blank&quot;&gt;たまたま見つけたページ&lt;/a&gt;でコンポーネントの意味も分かったので良かった。      こういうとき、公式サイトのドキュメントがしっかりしていると助かる。      そんなわけでまとめてみた。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Ubuntu 7.04 (”Feisty”)からUbuntu 7.10 (”Gutsy”)へのアップグレード">
   <meta name="twitter:description" content="Ubuntuを7.04にアップグレードしたばかりだが、ある事情により7.10に続けてアップグレードしたその顛末。      とは言っても、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070906/p1&quot; target=&quot;_blank&quot;&gt;先日&lt;/a&gt;の手順での&amp;#8221;Feisty&amp;#8221;をそのまま&amp;#8221;Gutsy&amp;#8221;に変更して実施しただけ。      後述の問題を除きスムーズに終了した。            その問題とは、正式版リリース前でリポジトリが頻繁に更新されているせいなのか、チェックサム不整合でapt-get updateが正常に終了しなかったこと。      そもそもsources.listを十分に理解していかなかったので途方に暮れたのだが、Ubuntu公式をうろついて、なんとなく&lt;a href=&quot;https://launchpad.net/ubuntu/+archivemirrors&quot; target=&quot;_blank&quot;&gt;ミラーサイト一覧&lt;/a&gt;からオリジナルサーバとの差が小さいものを選んでsources.listを書き換えたら動いた。      そのとき、&lt;a href=&quot;http://www.ubuntu.com/community/ubuntustory/components&quot; target=&quot;_blank&quot;&gt;たまたま見つけたページ&lt;/a&gt;でコンポーネントの意味も分かったので良かった。      こういうとき、公式サイトのドキュメントがしっかりしていると助かる。      そんなわけでまとめてみた。">
-  <meta name="twitter:url" content="http://localhost:4000/2007/09/13-ubuntu-7-04-feisty-%E3%81%8B%E3%82%89ubuntu-7-10-gutsy-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89.html">
+  <meta name="twitter:url" content="/2007/09/13-ubuntu-7-04-feisty-%E3%81%8B%E3%82%89ubuntu-7-10-gutsy-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2007/09/13-ubuntu-7-04-feisty-%E3%81%8B%E3%82%89ubuntu-7-10-gutsy-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89.html">
+<link rel="canonical" href="/2007/09/13-ubuntu-7-04-feisty-%E3%81%8B%E3%82%89ubuntu-7-10-gutsy-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

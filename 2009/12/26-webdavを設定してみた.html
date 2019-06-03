@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="webdavを設定してみた">
-<meta property="og:url" content="http://localhost:4000/2009/12/26-webdav%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F.html">
+<meta property="og:url" content="/2009/12/26-webdav%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F.html">
 
 
   <meta property="og:description" content="メモ。      apache22, subversionをインストールする。      subversionはpkgでなくportsからインストールして、オプション選択のところでmod_dav_svnを選ばないとダメ。      /usr/local/etc/apache22/httpd.confに以下の行があるか確認。      subversionをインストールするときに勝手に加えてくれるはず。LoadModule dav_module         libexec/apache22/mod_dav.soLoadModule dav_svn_module     libexec/apache22/mod_dav_svn.soLoadModule authz_svn_module   libexec/apache22/mod_authz_svn.so同じくhttpd.confで、httpd-dav.confを指定している行のコメントアウトを外す。# Distributed authoring and versioning (WebDAV)#Include etc/apache22/extra/httpd-dav.confInclude etc/apache22/extra/httpd-dav.conf以降、/usr/local/etc/apache22/extra/httpd-dav.conf を参照したり編集したりする。# The User/Group specified in httpd.conf needs to have write permissions# on the directory where the DavLockDB is placed and on any directory where# &amp;#34;Dav On&amp;#34; is specified.DavLockDB &amp;#34;/usr/local/var/DavLock&amp;#34;まずロックファイルを置くディレクトリの指定があるので、作る。      パーミッションの設定も忘れないこと。      以下、実行例。$ sudo mkdir /usr/local/var/DavLock$ sudo chown www:www ./DavLock/$ sudo chmod 750 ./DavLock/$ ls -latotal 8drwxr-xr-x   4 root  wheel  512 12 27 22:08 .drwxr-xr-x  16 root  wheel  512 12 26 21:49 ..drwxr-x---   2 www   www    512 12 27 22:08 DavLock次に実際のDavの場所、Davアクセスするためのパスワードファイルの場所指定。デフォルトが気に入らなければ変える。      変えたらディレクトリは作っておくこと。      以下、httpd-dav.confの変更例。#Alias /uploads &amp;#34;/usr/local/uploads&amp;#34;Alias /uploads &amp;#34;/usr/local/www/uploads&amp;#34;#&amp;#60;Directory &amp;#34;/usr/local/uploads&amp;#34;&amp;#62;&amp;#60;Directory &amp;#34;/usr/local/www/uploads&amp;#34;&amp;#62;# You can use the htdigest program to create the password database:#   htdigest -c &amp;#34;/usr/local/user.passwd&amp;#34; DAV-upload admin#AuthUserFile &amp;#34;/usr/local/user.passwd&amp;#34;AuthUserFile &amp;#34;/usr/local/www/dav.passwd&amp;#34;パスワードファイルの作成。      ユーザがharukiya、realmがDAV-uploadの場合の例。初めてパスワードファイルを作るときは-cをつける。      htdigestが使えるよ、と書いてあるので使ってみる。      以下、実行例。$sudo htdigest -c &amp;#34;/usr/local/www/dav.passwd&amp;#34; DAV-upload harukiyaAdding password for harukiya in realm DAV-upload.New password:Re-type new password:デフォルトだと、誰でもwebdavディレクトリを見られて、書き込みはadminだけOK、ただしパスワード要という設定。      とりあえず下記ではadminを上記でパスワードを設定したharukiyaに変更している。# Allow universal read-access, but writes are restricted# to the admin user.&amp;#60;LimitExcept GET OPTIONS&amp;#62;#require user adminrequire user harukiya&amp;#60;/LimitExcept&amp;#62;あとは/etc/rc.confにapache22_enable=&amp;#8221;YES&amp;#8221;という一行を加え、/usr/local/etc/rc.d/apache22 startとやればOK。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="webdavを設定してみた">
   <meta name="twitter:description" content="メモ。      apache22, subversionをインストールする。      subversionはpkgでなくportsからインストールして、オプション選択のところでmod_dav_svnを選ばないとダメ。      /usr/local/etc/apache22/httpd.confに以下の行があるか確認。      subversionをインストールするときに勝手に加えてくれるはず。LoadModule dav_module         libexec/apache22/mod_dav.soLoadModule dav_svn_module     libexec/apache22/mod_dav_svn.soLoadModule authz_svn_module   libexec/apache22/mod_authz_svn.so同じくhttpd.confで、httpd-dav.confを指定している行のコメントアウトを外す。# Distributed authoring and versioning (WebDAV)#Include etc/apache22/extra/httpd-dav.confInclude etc/apache22/extra/httpd-dav.conf以降、/usr/local/etc/apache22/extra/httpd-dav.conf を参照したり編集したりする。# The User/Group specified in httpd.conf needs to have write permissions# on the directory where the DavLockDB is placed and on any directory where# &amp;#34;Dav On&amp;#34; is specified.DavLockDB &amp;#34;/usr/local/var/DavLock&amp;#34;まずロックファイルを置くディレクトリの指定があるので、作る。      パーミッションの設定も忘れないこと。      以下、実行例。$ sudo mkdir /usr/local/var/DavLock$ sudo chown www:www ./DavLock/$ sudo chmod 750 ./DavLock/$ ls -latotal 8drwxr-xr-x   4 root  wheel  512 12 27 22:08 .drwxr-xr-x  16 root  wheel  512 12 26 21:49 ..drwxr-x---   2 www   www    512 12 27 22:08 DavLock次に実際のDavの場所、Davアクセスするためのパスワードファイルの場所指定。デフォルトが気に入らなければ変える。      変えたらディレクトリは作っておくこと。      以下、httpd-dav.confの変更例。#Alias /uploads &amp;#34;/usr/local/uploads&amp;#34;Alias /uploads &amp;#34;/usr/local/www/uploads&amp;#34;#&amp;#60;Directory &amp;#34;/usr/local/uploads&amp;#34;&amp;#62;&amp;#60;Directory &amp;#34;/usr/local/www/uploads&amp;#34;&amp;#62;# You can use the htdigest program to create the password database:#   htdigest -c &amp;#34;/usr/local/user.passwd&amp;#34; DAV-upload admin#AuthUserFile &amp;#34;/usr/local/user.passwd&amp;#34;AuthUserFile &amp;#34;/usr/local/www/dav.passwd&amp;#34;パスワードファイルの作成。      ユーザがharukiya、realmがDAV-uploadの場合の例。初めてパスワードファイルを作るときは-cをつける。      htdigestが使えるよ、と書いてあるので使ってみる。      以下、実行例。$sudo htdigest -c &amp;#34;/usr/local/www/dav.passwd&amp;#34; DAV-upload harukiyaAdding password for harukiya in realm DAV-upload.New password:Re-type new password:デフォルトだと、誰でもwebdavディレクトリを見られて、書き込みはadminだけOK、ただしパスワード要という設定。      とりあえず下記ではadminを上記でパスワードを設定したharukiyaに変更している。# Allow universal read-access, but writes are restricted# to the admin user.&amp;#60;LimitExcept GET OPTIONS&amp;#62;#require user adminrequire user harukiya&amp;#60;/LimitExcept&amp;#62;あとは/etc/rc.confにapache22_enable=&amp;#8221;YES&amp;#8221;という一行を加え、/usr/local/etc/rc.d/apache22 startとやればOK。">
-  <meta name="twitter:url" content="http://localhost:4000/2009/12/26-webdav%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F.html">
+  <meta name="twitter:url" content="/2009/12/26-webdav%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/12/26-webdav%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F.html">
+<link rel="canonical" href="/2009/12/26-webdav%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

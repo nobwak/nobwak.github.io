@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Thinkpad X30でUbuntu 8.04がフリーズしまくる件について">
-<meta property="og:url" content="http://localhost:4000/2008/11/14-thinkpad-x30%E3%81%A7ubuntu-8-04%E3%81%8C%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%97%E3%81%BE%E3%81%8F%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+<meta property="og:url" content="/2008/11/14-thinkpad-x30%E3%81%A7ubuntu-8-04%E3%81%8C%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%97%E3%81%BE%E3%81%8F%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
 
   <meta property="og:description" content="Windows2000をインストールしていたThinkpad X30のHDDがクラッシュしたので、古いHDDに換装してUbuntuのインストールを試みた。      7.10→8.04→8.10というようにアップグレードする予定だったのだが、何度やってもフリーズする。      古いHDDのせいかと別のにしても結果は同じ。      ハード的に寿命なのかと頭を抱えたのだが、ふと思い立ってググってみたら、あっさり&lt;a href=&quot;http://ubuntuforums.org/showthread.php?t=766639&quot; target=&quot;_blank&quot;&gt;解決&lt;/a&gt;した。グーグル先生ありがとう。      後述するとおり、原因ははっきりとは分からないが、Ubuntu 8.04のXにおけるマウスの設定が影響しているようだ。      至れり尽くせりのUbuntuでこんなことが起こるとは思わなかったよ…。      ちなみに、上記リンクのとおり、CentOSでは大丈夫らしい。            解決法は以下の通り/etc/X11/xorg.confを書き換える。      ◎マウスの設定でEmulate3Buttonsを無効にSection &quot;InputDevice&quot;Identifier	&quot;Configured Mouse&quot;Driver		&quot;mouse&quot;Option		&quot;CorePointer&quot;Option		&quot;Emulate3Buttons&quot;	&quot;false&quot;  #この行追加EndSection◎キーボードレイアウトをgb(英国=グレートブリテン)に変更...だが。#Option	&quot;XkbLayout&quot;	&quot;us&quot;　　#コメントアウトOption	&quot;XkbLayout&quot;	&quot;gb&quot;ネタ元の発言者のポストはどうも要を得ないのだが、少なくとも俺はキーボード配列を変えなくてもよかった。まあ、参考までに。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Thinkpad X30でUbuntu 8.04がフリーズしまくる件について">
   <meta name="twitter:description" content="Windows2000をインストールしていたThinkpad X30のHDDがクラッシュしたので、古いHDDに換装してUbuntuのインストールを試みた。      7.10→8.04→8.10というようにアップグレードする予定だったのだが、何度やってもフリーズする。      古いHDDのせいかと別のにしても結果は同じ。      ハード的に寿命なのかと頭を抱えたのだが、ふと思い立ってググってみたら、あっさり&lt;a href=&quot;http://ubuntuforums.org/showthread.php?t=766639&quot; target=&quot;_blank&quot;&gt;解決&lt;/a&gt;した。グーグル先生ありがとう。      後述するとおり、原因ははっきりとは分からないが、Ubuntu 8.04のXにおけるマウスの設定が影響しているようだ。      至れり尽くせりのUbuntuでこんなことが起こるとは思わなかったよ…。      ちなみに、上記リンクのとおり、CentOSでは大丈夫らしい。            解決法は以下の通り/etc/X11/xorg.confを書き換える。      ◎マウスの設定でEmulate3Buttonsを無効にSection &quot;InputDevice&quot;Identifier	&quot;Configured Mouse&quot;Driver		&quot;mouse&quot;Option		&quot;CorePointer&quot;Option		&quot;Emulate3Buttons&quot;	&quot;false&quot;  #この行追加EndSection◎キーボードレイアウトをgb(英国=グレートブリテン)に変更...だが。#Option	&quot;XkbLayout&quot;	&quot;us&quot;　　#コメントアウトOption	&quot;XkbLayout&quot;	&quot;gb&quot;ネタ元の発言者のポストはどうも要を得ないのだが、少なくとも俺はキーボード配列を変えなくてもよかった。まあ、参考までに。">
-  <meta name="twitter:url" content="http://localhost:4000/2008/11/14-thinkpad-x30%E3%81%A7ubuntu-8-04%E3%81%8C%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%97%E3%81%BE%E3%81%8F%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+  <meta name="twitter:url" content="/2008/11/14-thinkpad-x30%E3%81%A7ubuntu-8-04%E3%81%8C%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%97%E3%81%BE%E3%81%8F%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/11/14-thinkpad-x30%E3%81%A7ubuntu-8-04%E3%81%8C%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%97%E3%81%BE%E3%81%8F%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+<link rel="canonical" href="/2008/11/14-thinkpad-x30%E3%81%A7ubuntu-8-04%E3%81%8C%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%97%E3%81%BE%E3%81%8F%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

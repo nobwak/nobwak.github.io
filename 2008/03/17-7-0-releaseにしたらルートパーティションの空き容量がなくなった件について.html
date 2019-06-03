@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="7.0-RELEASEにしたらルートパーティションの空き容量がなくなった件について">
-<meta property="og:url" content="http://localhost:4000/2008/03/17-7-0-release%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E3%83%AB%E3%83%BC%E3%83%88%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%A9%BA%E3%81%8D%E5%AE%B9%E9%87%8F%E3%81%8C%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+<meta property="og:url" content="/2008/03/17-7-0-release%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E3%83%AB%E3%83%BC%E3%83%88%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%A9%BA%E3%81%8D%E5%AE%B9%E9%87%8F%E3%81%8C%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
 
   <meta property="og:description" content="webサーバとして使用しているマシンを7.0-RELEASEにした。      古いマシンなので、ソースからのアップデートは出来ず、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080111/p2&quot; target=&quot;_blank&quot;&gt;ISOイメージを使って&lt;/a&gt;さっさと終わらせたのだが、ふと気がつくとルートパーティションの容量がぎりぎりになっている。      これは、7.0-RELEASEからカーネルとカーネルモジュールのシンボルファイルもインストールされるようになったため。$ uname -aFreeBSD blue.local 7.0-RELEASE FreeBSD 7.0-RELEASE #0: Sun Feb 24 19:59:52 UTC 2008     root@logan.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC  i386$ du -sh /boot/kernel112M    /boot/kernelというように、/boot/kernelで100M超。      シンボルファイルによって、何か障害があったときの原因究明を行いやすくするためだが、6系以前の感覚でいると、ルートパーティションの容量がまったく足りない。      自分で調査もしないし、バグレポートを出すつもりもない場合には必要ないので、/boot/kernel配下の*.symbolというファイルをすべて削除すればよい。      あるいは、カーネルコンフィグファイルの以下の行をコメントアウトしておけば、次回以降のカーネルビルドでシンボルファイルが作られなくなる。makeoptions    DEBUG=-g                # Build kernel with gdb(1) debug symbolsあるいは/usr/src/UPDATINGの以下記載を参照のこと。20060118:This actually occured some time ago, but installing the kernelnow also installs a bunch of symbol files for the kernel modules.This increases the size of /boot/kernel to about 67Mbytes. Youwill need twice this if you will eventually back this up to kernel.oldon your next install.If you have a shortage of room in your root partition, you should add-DINSTALL_NODEBUG to your make arguments or add INSTALL_NODEBUG=&quot;yes&quot;to your /etc/make.conf.">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="7.0-RELEASEにしたらルートパーティションの空き容量がなくなった件について">
   <meta name="twitter:description" content="webサーバとして使用しているマシンを7.0-RELEASEにした。      古いマシンなので、ソースからのアップデートは出来ず、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080111/p2&quot; target=&quot;_blank&quot;&gt;ISOイメージを使って&lt;/a&gt;さっさと終わらせたのだが、ふと気がつくとルートパーティションの容量がぎりぎりになっている。      これは、7.0-RELEASEからカーネルとカーネルモジュールのシンボルファイルもインストールされるようになったため。$ uname -aFreeBSD blue.local 7.0-RELEASE FreeBSD 7.0-RELEASE #0: Sun Feb 24 19:59:52 UTC 2008     root@logan.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC  i386$ du -sh /boot/kernel112M    /boot/kernelというように、/boot/kernelで100M超。      シンボルファイルによって、何か障害があったときの原因究明を行いやすくするためだが、6系以前の感覚でいると、ルートパーティションの容量がまったく足りない。      自分で調査もしないし、バグレポートを出すつもりもない場合には必要ないので、/boot/kernel配下の*.symbolというファイルをすべて削除すればよい。      あるいは、カーネルコンフィグファイルの以下の行をコメントアウトしておけば、次回以降のカーネルビルドでシンボルファイルが作られなくなる。makeoptions    DEBUG=-g                # Build kernel with gdb(1) debug symbolsあるいは/usr/src/UPDATINGの以下記載を参照のこと。20060118:This actually occured some time ago, but installing the kernelnow also installs a bunch of symbol files for the kernel modules.This increases the size of /boot/kernel to about 67Mbytes. Youwill need twice this if you will eventually back this up to kernel.oldon your next install.If you have a shortage of room in your root partition, you should add-DINSTALL_NODEBUG to your make arguments or add INSTALL_NODEBUG=&quot;yes&quot;to your /etc/make.conf.">
-  <meta name="twitter:url" content="http://localhost:4000/2008/03/17-7-0-release%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E3%83%AB%E3%83%BC%E3%83%88%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%A9%BA%E3%81%8D%E5%AE%B9%E9%87%8F%E3%81%8C%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+  <meta name="twitter:url" content="/2008/03/17-7-0-release%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E3%83%AB%E3%83%BC%E3%83%88%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%A9%BA%E3%81%8D%E5%AE%B9%E9%87%8F%E3%81%8C%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/03/17-7-0-release%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E3%83%AB%E3%83%BC%E3%83%88%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%A9%BA%E3%81%8D%E5%AE%B9%E9%87%8F%E3%81%8C%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+<link rel="canonical" href="/2008/03/17-7-0-release%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E3%83%AB%E3%83%BC%E3%83%88%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%A9%BA%E3%81%8D%E5%AE%B9%E9%87%8F%E3%81%8C%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。">
-<meta property="og:url" content="http://localhost:4000/2009/12/23-wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B.html">
+<meta property="og:url" content="/2009/12/23-wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B.html">
 
 
   <meta property="og:description" content="納得いかないが、とりあえずメモだけしとく。      sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev/cd（SCSI）経由でアクセスするので、いろいろと設定を変える必要がある。      ◎/etc/fstabを修正する。      /etc/fstabを修正して、/dev/acd0をコメントアウト、さらにprocを作っておく。$ cat /etc/fstab# Device		Mountpoint	FStype	Options		Dump	Pass#/dev/ad0s1b		none		swap	sw		0	0/dev/ad0s1a		/		ufs	rw		1	1/dev/ad0s1f		/home		ufs	rw		2	2/dev/ad0s1e		/usr		ufs	rw		2	2/dev/ad0s1d		/var		ufs	rw		2	2#/dev/acd0		/cdrom		cd9660	ro,noauto	0	0proc			/proc		procfs	rw		0	0$ sudo mount /proc$ mount/dev/ad0s1a on / (ufs, local)devfs on /dev (devfs, local, multilabel)/dev/ad0s1f on /home (ufs, local, soft-updates)/dev/ad0s1e on /usr (ufs, local)/dev/ad0s1d on /var (ufs, local)procfs on /proc (procfs, local)◎atapicamをロードするよう、/boot/loader.confを修正する。      &lt;a href=&quot;http://www.freebsd.org/gnome/docs/faq2.html#q15&quot; target=&quot;_blank&quot;&gt;FreeBSD公式サイト&lt;/a&gt;を見るとKernelにdevice atapicamを入れろとか書いてあるが、そんなことしたらGENERICカーネルが使えずfreebsd-updateに影響するので、カーネルモジュールをロードすることにした。$ grep atapicam /boot/loader.confatapicam_load=&amp;#34;YES&amp;#34;loader.confが正しく設定されているか、いったんリブートして確認するのがよいが、どうせ後でdevfs.confを修正した時にリブートするのでその時に確認するとして、ここではsudo kldload atapicamする。      kldstatしてatapicamがロードされているか見る。      さらにcamcontrolでデバイスが認識されていることも確認すること。$ kldstatId Refs Address    Size     Name1   19 0xc0400000 b6dfe0   kernel2    1 0xc0f6e000 7224     snd_ich.ko3    2 0xc0f76000 567c0    sound.ko4    1 0xc0fcd000 4ffc     atapicam.ko5    1 0xc4774000 2000     blank_saver.ko6    1 0xc48da000 9000     i915.ko7    1 0xc48e3000 14000    drm.ko$ camcontrol devlist&amp;#60;HL-DT-ST RW/DVD GCC-4160N 0013&amp;#62;   at scbus1 target 0 lun 0 (cd0,pass0)◎camcontrol devlistで表示されたデバイス名に合わせて/etc/devfs.confを修正する。      そのままだと一般ユーザはアクセス出来ないので。      上記の結果を見ると、/dev/cd0が狙いのCD（DVD）ROMドライブなので、devfs.confでパーミッションを変える。      &lt;a href=&quot;http://www.freebsd.org/gnome/docs/faq2.html#q15&quot; target=&quot;_blank&quot;&gt;FreeBSD GNOME FAQ&lt;/a&gt;にあるとおり、0666にするのもよいが、ここではoperatorグループに自ユーザを加え、root:operatorに0660にした。      その他にxpt0, pass0も同様に。$ tail /etc/devfs.conf#####own	cd0	root:operatorperm	cd0	0666own	acd0	root:operatorperm	acd0	0666own	xpt0	root:operatorperm	xpt0	0666own	pass0		root:operatorperm	pass0		0666own	msdosfs		root:operatorperm	msdosfs		0666$ grep operator /etc/groupoperator:&amp;#42;:5:root,ore＜リブート＞$ ls -la /dev/cd0 /dev/xpt0 /dev/pass0crw-rw----  1 root  operator    0,  92 12 21 23:52 /dev/cd0crw-rw----  1 root  operator    0,  91 12 21 23:52 /dev/pass0crw-rw----  1 root  operator    0,  90 12 21 23:52 /dev/xpt0GNOMEだったらこれで行けた。XFCE4だったらダメ。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。">
   <meta name="twitter:description" content="納得いかないが、とりあえずメモだけしとく。      sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev/cd（SCSI）経由でアクセスするので、いろいろと設定を変える必要がある。      ◎/etc/fstabを修正する。      /etc/fstabを修正して、/dev/acd0をコメントアウト、さらにprocを作っておく。$ cat /etc/fstab# Device		Mountpoint	FStype	Options		Dump	Pass#/dev/ad0s1b		none		swap	sw		0	0/dev/ad0s1a		/		ufs	rw		1	1/dev/ad0s1f		/home		ufs	rw		2	2/dev/ad0s1e		/usr		ufs	rw		2	2/dev/ad0s1d		/var		ufs	rw		2	2#/dev/acd0		/cdrom		cd9660	ro,noauto	0	0proc			/proc		procfs	rw		0	0$ sudo mount /proc$ mount/dev/ad0s1a on / (ufs, local)devfs on /dev (devfs, local, multilabel)/dev/ad0s1f on /home (ufs, local, soft-updates)/dev/ad0s1e on /usr (ufs, local)/dev/ad0s1d on /var (ufs, local)procfs on /proc (procfs, local)◎atapicamをロードするよう、/boot/loader.confを修正する。      &lt;a href=&quot;http://www.freebsd.org/gnome/docs/faq2.html#q15&quot; target=&quot;_blank&quot;&gt;FreeBSD公式サイト&lt;/a&gt;を見るとKernelにdevice atapicamを入れろとか書いてあるが、そんなことしたらGENERICカーネルが使えずfreebsd-updateに影響するので、カーネルモジュールをロードすることにした。$ grep atapicam /boot/loader.confatapicam_load=&amp;#34;YES&amp;#34;loader.confが正しく設定されているか、いったんリブートして確認するのがよいが、どうせ後でdevfs.confを修正した時にリブートするのでその時に確認するとして、ここではsudo kldload atapicamする。      kldstatしてatapicamがロードされているか見る。      さらにcamcontrolでデバイスが認識されていることも確認すること。$ kldstatId Refs Address    Size     Name1   19 0xc0400000 b6dfe0   kernel2    1 0xc0f6e000 7224     snd_ich.ko3    2 0xc0f76000 567c0    sound.ko4    1 0xc0fcd000 4ffc     atapicam.ko5    1 0xc4774000 2000     blank_saver.ko6    1 0xc48da000 9000     i915.ko7    1 0xc48e3000 14000    drm.ko$ camcontrol devlist&amp;#60;HL-DT-ST RW/DVD GCC-4160N 0013&amp;#62;   at scbus1 target 0 lun 0 (cd0,pass0)◎camcontrol devlistで表示されたデバイス名に合わせて/etc/devfs.confを修正する。      そのままだと一般ユーザはアクセス出来ないので。      上記の結果を見ると、/dev/cd0が狙いのCD（DVD）ROMドライブなので、devfs.confでパーミッションを変える。      &lt;a href=&quot;http://www.freebsd.org/gnome/docs/faq2.html#q15&quot; target=&quot;_blank&quot;&gt;FreeBSD GNOME FAQ&lt;/a&gt;にあるとおり、0666にするのもよいが、ここではoperatorグループに自ユーザを加え、root:operatorに0660にした。      その他にxpt0, pass0も同様に。$ tail /etc/devfs.conf#####own	cd0	root:operatorperm	cd0	0666own	acd0	root:operatorperm	acd0	0666own	xpt0	root:operatorperm	xpt0	0666own	pass0		root:operatorperm	pass0		0666own	msdosfs		root:operatorperm	msdosfs		0666$ grep operator /etc/groupoperator:&amp;#42;:5:root,ore＜リブート＞$ ls -la /dev/cd0 /dev/xpt0 /dev/pass0crw-rw----  1 root  operator    0,  92 12 21 23:52 /dev/cd0crw-rw----  1 root  operator    0,  91 12 21 23:52 /dev/pass0crw-rw----  1 root  operator    0,  90 12 21 23:52 /dev/xpt0GNOMEだったらこれで行けた。XFCE4だったらダメ。">
-  <meta name="twitter:url" content="http://localhost:4000/2009/12/23-wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B.html">
+  <meta name="twitter:url" content="/2009/12/23-wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/12/23-wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B.html">
+<link rel="canonical" href="/2009/12/23-wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer-brasero-totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="portsnapに不要なportsをダウンロードさせないようにするには">
-<meta property="og:url" content="http://localhost:4000/2009/05/04-portsnap%E3%81%AB%E4%B8%8D%E8%A6%81%E3%81%AAports%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%95%E3%81%9B%E3%81%AA%E3%81%84%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2009/05/04-portsnap%E3%81%AB%E4%B8%8D%E8%A6%81%E3%81%AAports%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%95%E3%81%9B%E3%81%AA%E3%81%84%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="/etc/portsnap.confで不要なportsをREFUSEディレクティブで指定しておけば、portsnapはそのportsをダウンロードしない。      たとえばarabicと指定すれば、アラビア語関連のports、要するに/usr/ports/arabicはその後アップデートされなくなる。また、financeとか指定すれば/usr/ports/financeも同じくアップデートされなくなる。      ただし、portsnap.confの該当部分に書いてあるWARNINGの通り、これをするとportsツリーの一部は最新、一部は古いか存在しない不完全な状態になり、依存の関係で思わぬ問題が発生したりする。      よほどディスクスペースと帯域をケチりたいのでなければ止めたほうがいいし、やるとしても日本語以外の他言語を指定するだけにしておいた方がいいと思う。            ディスクスペースと帯域の節約が必要な一部のマシンでは、/etc/porsnap.confに以下を追加している。REFUSE arabic chinese french german hebrew hungarianREFUSE korean polish portuguese russian ukrainian vietnamese行頭にスペースがあると無視されるので注意。            一応、portsnap.confの該当部分を抜き出し。      問題が起こっても、メーリングリストに質問するのはREFUSEディレクティブを外して試してからだぞ、とか書いてある。          # Example of ignoring parts of the ports tree. If you know that you                  # absolutely will not need certain parts of the tree, this will save                  # some bandwidth and disk space. See the manual page for more details.                  #                  # WARNING: Working with an incomplete ports tree is not supported and                  # can cause problems due to missing dependencies. If you have REFUSE                  # directives and experience problems, remove them and update your tree                  # before asking for help on the mailing lists.      ">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="portsnapに不要なportsをダウンロードさせないようにするには">
   <meta name="twitter:description" content="/etc/portsnap.confで不要なportsをREFUSEディレクティブで指定しておけば、portsnapはそのportsをダウンロードしない。      たとえばarabicと指定すれば、アラビア語関連のports、要するに/usr/ports/arabicはその後アップデートされなくなる。また、financeとか指定すれば/usr/ports/financeも同じくアップデートされなくなる。      ただし、portsnap.confの該当部分に書いてあるWARNINGの通り、これをするとportsツリーの一部は最新、一部は古いか存在しない不完全な状態になり、依存の関係で思わぬ問題が発生したりする。      よほどディスクスペースと帯域をケチりたいのでなければ止めたほうがいいし、やるとしても日本語以外の他言語を指定するだけにしておいた方がいいと思う。            ディスクスペースと帯域の節約が必要な一部のマシンでは、/etc/porsnap.confに以下を追加している。REFUSE arabic chinese french german hebrew hungarianREFUSE korean polish portuguese russian ukrainian vietnamese行頭にスペースがあると無視されるので注意。            一応、portsnap.confの該当部分を抜き出し。      問題が起こっても、メーリングリストに質問するのはREFUSEディレクティブを外して試してからだぞ、とか書いてある。          # Example of ignoring parts of the ports tree. If you know that you                  # absolutely will not need certain parts of the tree, this will save                  # some bandwidth and disk space. See the manual page for more details.                  #                  # WARNING: Working with an incomplete ports tree is not supported and                  # can cause problems due to missing dependencies. If you have REFUSE                  # directives and experience problems, remove them and update your tree                  # before asking for help on the mailing lists.      ">
-  <meta name="twitter:url" content="http://localhost:4000/2009/05/04-portsnap%E3%81%AB%E4%B8%8D%E8%A6%81%E3%81%AAports%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%95%E3%81%9B%E3%81%AA%E3%81%84%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2009/05/04-portsnap%E3%81%AB%E4%B8%8D%E8%A6%81%E3%81%AAports%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%95%E3%81%9B%E3%81%AA%E3%81%84%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/05/04-portsnap%E3%81%AB%E4%B8%8D%E8%A6%81%E3%81%AAports%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%95%E3%81%9B%E3%81%AA%E3%81%84%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2009/05/04-portsnap%E3%81%AB%E4%B8%8D%E8%A6%81%E3%81%AAports%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%95%E3%81%9B%E3%81%AA%E3%81%84%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

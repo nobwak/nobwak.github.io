@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="php5パッケージにはApache向けphpモジュールが含まれていない件について">
-<meta property="og:url" content="http://localhost:4000/2008/11/18-php5%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AB%E3%81%AFapache%E5%90%91%E3%81%91php%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+<meta property="og:url" content="/2008/11/18-php5%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AB%E3%81%AFapache%E5%90%91%E3%81%91php%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
 
   <meta property="og:description" content="知らなかった。      FreeBSDを載せてサーバにしている自宅マシンは、CPUがセレロン300MHzの化石だ。      OS自体のアップグレードを自前ビルドでやるのはとうの昔にやめていて、snapshotからインストールする状態だった。が、そろそろportsのビルドも時間がかかるようになってきたので、こちらもpackageでバージョンアップするようにした。      そして先日、php5をpackageでバージョンアップしたところ、Apache上のphpスクリプトが動かなくなってしまった。      これはphp5のパッケージにはlibphp5.soが含まれていないのが原因。      なお、パッケージに含まれるファイル一覧は、pkg_info -Lで得られる。      ただ、引数としてバージョンも含めたパッケージ名を与えなければならないので、/var/db/pkg配下のディレクトリ名を調べるか、pkg_info -Ixで調べる。$ pkg_info -L php5|grep libphp5.sopkg_info: can&#39;t find package &#39;php5&#39; installed or in a file!$ pkg_info -Ix php5php5-5.2.6_2        PHP Scripting Language$ pkg_info -L php5-5.2.6_2|grep libphp5.so$まあ、確かにApacheモジュールのインストールを標準設定にするわけにはいかないので、これは仕方ないと思う。      というわけで、php5をportsからインストールしなおした。      pkg_info -Lの内容も当然ながら変化している。$ pkg_info -L php5-5.2.6_2|grep libphp5.so/usr/local/libexec/apache22/libphp5.so">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="php5パッケージにはApache向けphpモジュールが含まれていない件について">
   <meta name="twitter:description" content="知らなかった。      FreeBSDを載せてサーバにしている自宅マシンは、CPUがセレロン300MHzの化石だ。      OS自体のアップグレードを自前ビルドでやるのはとうの昔にやめていて、snapshotからインストールする状態だった。が、そろそろportsのビルドも時間がかかるようになってきたので、こちらもpackageでバージョンアップするようにした。      そして先日、php5をpackageでバージョンアップしたところ、Apache上のphpスクリプトが動かなくなってしまった。      これはphp5のパッケージにはlibphp5.soが含まれていないのが原因。      なお、パッケージに含まれるファイル一覧は、pkg_info -Lで得られる。      ただ、引数としてバージョンも含めたパッケージ名を与えなければならないので、/var/db/pkg配下のディレクトリ名を調べるか、pkg_info -Ixで調べる。$ pkg_info -L php5|grep libphp5.sopkg_info: can&#39;t find package &#39;php5&#39; installed or in a file!$ pkg_info -Ix php5php5-5.2.6_2        PHP Scripting Language$ pkg_info -L php5-5.2.6_2|grep libphp5.so$まあ、確かにApacheモジュールのインストールを標準設定にするわけにはいかないので、これは仕方ないと思う。      というわけで、php5をportsからインストールしなおした。      pkg_info -Lの内容も当然ながら変化している。$ pkg_info -L php5-5.2.6_2|grep libphp5.so/usr/local/libexec/apache22/libphp5.so">
-  <meta name="twitter:url" content="http://localhost:4000/2008/11/18-php5%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AB%E3%81%AFapache%E5%90%91%E3%81%91php%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+  <meta name="twitter:url" content="/2008/11/18-php5%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AB%E3%81%AFapache%E5%90%91%E3%81%91php%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/11/18-php5%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AB%E3%81%AFapache%E5%90%91%E3%81%91php%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+<link rel="canonical" href="/2008/11/18-php5%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AB%E3%81%AFapache%E5%90%91%E3%81%91php%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

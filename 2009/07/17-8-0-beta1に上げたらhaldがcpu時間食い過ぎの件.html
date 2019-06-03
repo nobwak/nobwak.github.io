@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="8.0-BETA1に上げたらhaldがCPU時間食い過ぎの件">
-<meta property="og:url" content="http://localhost:4000/2009/07/17-8-0-beta1%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89hald%E3%81%8Ccpu%E6%99%82%E9%96%93%E9%A3%9F%E3%81%84%E9%81%8E%E3%81%8E%E3%81%AE%E4%BB%B6.html">
+<meta property="og:url" content="/2009/07/17-8-0-beta1%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89hald%E3%81%8Ccpu%E6%99%82%E9%96%93%E9%A3%9F%E3%81%84%E9%81%8E%E3%81%8E%E3%81%AE%E4%BB%B6.html">
 
 
   <meta property="og:description" content="件名の通り。      まだ8.0にはデバッグ用の設定が残っていて、そのせいで遅いのかと思ったら、haldがCPU時間を食いまくってたでござる。      haldを作り直したら直った。やっぱり横着せずportsは作り直した方がいいんだな。大変だけど・・・。            システム起動直後はこんな感じ。$ top|headlast pid:  1407;  load averages:  1.14,  0.55,  0.22  up 0+00:02:36    00:11:3052 processes:  4 running, 48 sleepingMem: 32M Active, 13M Inact, 26M Wired, 52K Cache, 14M Buf, 909M FreeSwap: 512M Total, 512M FreePID USERNAME      THR PRI NICE   SIZE    RES STATE    TIME   WCPU COMMAND1162 haldaemon       1 116    0  6928K  4376K RUN      1:27 86.18% hald1174 root            1  49    0  5716K  2544K select   0:00  0.00% hald-addon-haldをkillした後。load avarageが1未満に減っている。$ top|headlast pid:  1693;  load averages:  0.71,  0.78,  0.39  up 0+00:05:36    00:14:3045 processes:  1 running, 44 sleepingMem: 26M Active, 12M Inact, 26M Wired, 52K Cache, 14M Buf, 915M FreeSwap: 512M Total, 512M FreePID USERNAME      THR PRI NICE   SIZE    RES STATE    TIME   WCPU COMMAND1379 root            1  44    0  4524K  2644K wait     0:00  0.10% bash1007 root            1  44    0  3296K  1380K select   0:00  0.00% powerdあと、8.0に上げたらUSBマウスが動かなくなった。マウスパッドは効くのに。      さんざんググっても分からず頭を抱えたが、次の日くらいの8.0にアップグレードしたら完治。      なんだかんだ言ってもまだCURRENTなんだなと思った。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="8.0-BETA1に上げたらhaldがCPU時間食い過ぎの件">
   <meta name="twitter:description" content="件名の通り。      まだ8.0にはデバッグ用の設定が残っていて、そのせいで遅いのかと思ったら、haldがCPU時間を食いまくってたでござる。      haldを作り直したら直った。やっぱり横着せずportsは作り直した方がいいんだな。大変だけど・・・。            システム起動直後はこんな感じ。$ top|headlast pid:  1407;  load averages:  1.14,  0.55,  0.22  up 0+00:02:36    00:11:3052 processes:  4 running, 48 sleepingMem: 32M Active, 13M Inact, 26M Wired, 52K Cache, 14M Buf, 909M FreeSwap: 512M Total, 512M FreePID USERNAME      THR PRI NICE   SIZE    RES STATE    TIME   WCPU COMMAND1162 haldaemon       1 116    0  6928K  4376K RUN      1:27 86.18% hald1174 root            1  49    0  5716K  2544K select   0:00  0.00% hald-addon-haldをkillした後。load avarageが1未満に減っている。$ top|headlast pid:  1693;  load averages:  0.71,  0.78,  0.39  up 0+00:05:36    00:14:3045 processes:  1 running, 44 sleepingMem: 26M Active, 12M Inact, 26M Wired, 52K Cache, 14M Buf, 915M FreeSwap: 512M Total, 512M FreePID USERNAME      THR PRI NICE   SIZE    RES STATE    TIME   WCPU COMMAND1379 root            1  44    0  4524K  2644K wait     0:00  0.10% bash1007 root            1  44    0  3296K  1380K select   0:00  0.00% powerdあと、8.0に上げたらUSBマウスが動かなくなった。マウスパッドは効くのに。      さんざんググっても分からず頭を抱えたが、次の日くらいの8.0にアップグレードしたら完治。      なんだかんだ言ってもまだCURRENTなんだなと思った。">
-  <meta name="twitter:url" content="http://localhost:4000/2009/07/17-8-0-beta1%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89hald%E3%81%8Ccpu%E6%99%82%E9%96%93%E9%A3%9F%E3%81%84%E9%81%8E%E3%81%8E%E3%81%AE%E4%BB%B6.html">
+  <meta name="twitter:url" content="/2009/07/17-8-0-beta1%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89hald%E3%81%8Ccpu%E6%99%82%E9%96%93%E9%A3%9F%E3%81%84%E9%81%8E%E3%81%8E%E3%81%AE%E4%BB%B6.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/07/17-8-0-beta1%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89hald%E3%81%8Ccpu%E6%99%82%E9%96%93%E9%A3%9F%E3%81%84%E9%81%8E%E3%81%8E%E3%81%AE%E4%BB%B6.html">
+<link rel="canonical" href="/2009/07/17-8-0-beta1%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89hald%E3%81%8Ccpu%E6%99%82%E9%96%93%E9%A3%9F%E3%81%84%E9%81%8E%E3%81%8E%E3%81%AE%E4%BB%B6.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

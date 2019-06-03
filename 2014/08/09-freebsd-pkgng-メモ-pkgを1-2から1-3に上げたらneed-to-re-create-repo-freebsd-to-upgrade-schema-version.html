@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version">
-<meta property="og:url" content="http://localhost:4000/2014/08/09-freebsd-pkgng-%E3%83%A1%E3%83%A2-pkg%E3%82%921-2%E3%81%8B%E3%82%891-3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need-to-re-create-repo-freebsd-to-upgrade-schema-version.html">
+<meta property="og:url" content="/2014/08/09-freebsd-pkgng-%E3%83%A1%E3%83%A2-pkg%E3%82%921-2%E3%81%8B%E3%82%891-3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need-to-re-create-repo-freebsd-to-upgrade-schema-version.html">
 
 
   <meta property="og:description" content="pkgを1.2から1.3.xに上げたら以下のようなメッセージが出てupgradeができない。sh$ sudo pkg upgradeUpdating repository catalogueFreeBSD repository is up-to-dateAll repositories are up-to-datepkg: Repo FreeBSD needs schema upgrade from 2006 to 2010 but it is opened readonlypkg: need to re-create repo FreeBSD to upgrade schema versionChecking for upgrades: 100%Checking integrity... done (0 conflicting)need to re-create repo とか言いつつ、どうすればいいのか書いてないし。調べたところ、pkg update -fすればいいとのこと。```sh$ sudo pkg update -fUpdating repository catalogueFetching meta.txz: 100% of 944 BFetching digests.txz: 100% of 1 MBFetching packagesite.txz: 100% of 5 MBAdding new entries: 100%Incremental update completed, 23313 packages processed:0 packages updated, 0 removed and 23313 added.incremental update completedとのこと。  この状態でpkg upgradeすると、確かに動いた。  表示も少し親切になっていますな。```sh$ sudo pkg upgradeUpdating repository catalogueFreeBSD repository is up-to-dateAll repositories are up-to-dateChecking for upgrades: 100%The following 41 packages will be affected (of 0 checked):New packages to be INSTALLED:        libevent2: 2.0.21_2        i386-wine-devel: 1.7.23,1        p5-Mozilla-CA: 20130114Installed packages to be UPGRADED:        xproto: 7.0.25 -&amp;gt; 7.0.26Installed packages to be REINSTALLED:        tevent-0.9.21 (options changed)The process will require 209 MB more space78 MB to be downloadedProceed with this action [y/N]: yFetching xproto-7.0.26.txz: 100% of 60 KBFetching vim-lite-7.4.389.txz: 100% of 5 MB（略）```しかもconflictsを検知してくれるみたい。```shChecking integrity... done (1 conflicting)Checking integrity... done (0 conflicting)Conflicts with the existing packages have been found.One more solver iteration is needed to resolve them.The following 42 packages will be affected (of 0 checked):Installed packages to be REMOVED:        libevent-1.4.14b_3New packages to be INSTALLED:        p5-Mozilla-CA: 20130114        libevent2: 2.0.21_2        i386-wine-devel: 1.7.23,1Installed packages to be UPGRADED:        xproto: 7.0.25 -&amp;gt; 7.0.26Installed packages to be REINSTALLED:        libxcb-1.10_2 (options changed)Proceed with this action [y/N]: y[1/42] Upgrading python27 from 2.7.6_4 to 2.7.8_2: 100%[2/42] Upgrading pcre from 8.34_1 to 8.34_2: 100%以上。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version">
   <meta name="twitter:description" content="pkgを1.2から1.3.xに上げたら以下のようなメッセージが出てupgradeができない。sh$ sudo pkg upgradeUpdating repository catalogueFreeBSD repository is up-to-dateAll repositories are up-to-datepkg: Repo FreeBSD needs schema upgrade from 2006 to 2010 but it is opened readonlypkg: need to re-create repo FreeBSD to upgrade schema versionChecking for upgrades: 100%Checking integrity... done (0 conflicting)need to re-create repo とか言いつつ、どうすればいいのか書いてないし。調べたところ、pkg update -fすればいいとのこと。```sh$ sudo pkg update -fUpdating repository catalogueFetching meta.txz: 100% of 944 BFetching digests.txz: 100% of 1 MBFetching packagesite.txz: 100% of 5 MBAdding new entries: 100%Incremental update completed, 23313 packages processed:0 packages updated, 0 removed and 23313 added.incremental update completedとのこと。  この状態でpkg upgradeすると、確かに動いた。  表示も少し親切になっていますな。```sh$ sudo pkg upgradeUpdating repository catalogueFreeBSD repository is up-to-dateAll repositories are up-to-dateChecking for upgrades: 100%The following 41 packages will be affected (of 0 checked):New packages to be INSTALLED:        libevent2: 2.0.21_2        i386-wine-devel: 1.7.23,1        p5-Mozilla-CA: 20130114Installed packages to be UPGRADED:        xproto: 7.0.25 -&amp;gt; 7.0.26Installed packages to be REINSTALLED:        tevent-0.9.21 (options changed)The process will require 209 MB more space78 MB to be downloadedProceed with this action [y/N]: yFetching xproto-7.0.26.txz: 100% of 60 KBFetching vim-lite-7.4.389.txz: 100% of 5 MB（略）```しかもconflictsを検知してくれるみたい。```shChecking integrity... done (1 conflicting)Checking integrity... done (0 conflicting)Conflicts with the existing packages have been found.One more solver iteration is needed to resolve them.The following 42 packages will be affected (of 0 checked):Installed packages to be REMOVED:        libevent-1.4.14b_3New packages to be INSTALLED:        p5-Mozilla-CA: 20130114        libevent2: 2.0.21_2        i386-wine-devel: 1.7.23,1Installed packages to be UPGRADED:        xproto: 7.0.25 -&amp;gt; 7.0.26Installed packages to be REINSTALLED:        libxcb-1.10_2 (options changed)Proceed with this action [y/N]: y[1/42] Upgrading python27 from 2.7.6_4 to 2.7.8_2: 100%[2/42] Upgrading pcre from 8.34_1 to 8.34_2: 100%以上。">
-  <meta name="twitter:url" content="http://localhost:4000/2014/08/09-freebsd-pkgng-%E3%83%A1%E3%83%A2-pkg%E3%82%921-2%E3%81%8B%E3%82%891-3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need-to-re-create-repo-freebsd-to-upgrade-schema-version.html">
+  <meta name="twitter:url" content="/2014/08/09-freebsd-pkgng-%E3%83%A1%E3%83%A2-pkg%E3%82%921-2%E3%81%8B%E3%82%891-3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need-to-re-create-repo-freebsd-to-upgrade-schema-version.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2014/08/09-freebsd-pkgng-%E3%83%A1%E3%83%A2-pkg%E3%82%921-2%E3%81%8B%E3%82%891-3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need-to-re-create-repo-freebsd-to-upgrade-schema-version.html">
+<link rel="canonical" href="/2014/08/09-freebsd-pkgng-%E3%83%A1%E3%83%A2-pkg%E3%82%921-2%E3%81%8B%E3%82%891-3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need-to-re-create-repo-freebsd-to-upgrade-schema-version.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

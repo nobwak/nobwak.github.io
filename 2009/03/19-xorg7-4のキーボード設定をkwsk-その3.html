@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Xorg7.4のキーボード設定をkwsk その3">
-<meta property="og:url" content="http://localhost:4000/2009/03/19-xorg7-4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk-%E3%81%9D%E3%81%AE3.html">
+<meta property="og:url" content="/2009/03/19-xorg7-4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk-%E3%81%9D%E3%81%AE3.html">
 
 
   <meta property="og:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090316/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その1&lt;/a&gt;、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090318/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その2&lt;/a&gt;よりつづく。      &amp;nbsp;      2. haldを通さず、xorg.confから伝えるためには、xorg.confに以下の行を加える。haldは自動的にinputデバイスを探さない。ググれば山ほど出てくる。shOption &quot;AllowEmptyInput&quot; &quot;True&quot;3. haldもxorg.confも通さず、直接伝えるには、setxkbmapを使う。      setxkbmapを使えば、直接XKBに設定を伝えられる。manを見ればレイアウト等の指定方法が書いてあるので、それに沿う。      xorg.confはXorg -configureで出来たファイルをそのまま使っておく。      haldは特に設定不要。      その上で、startxでXを起動している場合には、~/.xinitrcに以下の行を加える。shsetxkbmap -rules xorg -layout jp -model jp106 -option ctrl:swapcapsXDMとかの場合は~/.xsessionrcでいいと思う。      &amp;nbsp;      ◎参考にしたサイト      http://forums.freebsd.org/showthread.php?p=10924#post10924      http://forums.freebsd.org/showthread.php?t=1934 (リンク死亡…）      &lt;a href=&quot;http://cgit.freedesktop.org/xorg/xserver/tree/config/x11-input.fdi&quot; target=&quot;_blank&quot;&gt;http://cgit.freedesktop.org/xorg/xserver/tree/config/x11-input.fdi&lt;/a&gt;      FreeBSDを語れ Part22（2ch.net）      &lt;a href=&quot;http://ubuntuforums.org/archive/index.php/t-948154.html&quot; target=&quot;_blank&quot;&gt;http://ubuntuforums.org/archive/index.php/t-948154.html&lt;/a&gt;      &amp;nbsp;      &amp;nbsp;      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090316/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その1&lt;/a&gt;      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090318/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その2&lt;/a&gt;      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090319/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その3&lt;/a&gt;">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Xorg7.4のキーボード設定をkwsk その3">
   <meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090316/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その1&lt;/a&gt;、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090318/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その2&lt;/a&gt;よりつづく。      &amp;nbsp;      2. haldを通さず、xorg.confから伝えるためには、xorg.confに以下の行を加える。haldは自動的にinputデバイスを探さない。ググれば山ほど出てくる。shOption &quot;AllowEmptyInput&quot; &quot;True&quot;3. haldもxorg.confも通さず、直接伝えるには、setxkbmapを使う。      setxkbmapを使えば、直接XKBに設定を伝えられる。manを見ればレイアウト等の指定方法が書いてあるので、それに沿う。      xorg.confはXorg -configureで出来たファイルをそのまま使っておく。      haldは特に設定不要。      その上で、startxでXを起動している場合には、~/.xinitrcに以下の行を加える。shsetxkbmap -rules xorg -layout jp -model jp106 -option ctrl:swapcapsXDMとかの場合は~/.xsessionrcでいいと思う。      &amp;nbsp;      ◎参考にしたサイト      http://forums.freebsd.org/showthread.php?p=10924#post10924      http://forums.freebsd.org/showthread.php?t=1934 (リンク死亡…）      &lt;a href=&quot;http://cgit.freedesktop.org/xorg/xserver/tree/config/x11-input.fdi&quot; target=&quot;_blank&quot;&gt;http://cgit.freedesktop.org/xorg/xserver/tree/config/x11-input.fdi&lt;/a&gt;      FreeBSDを語れ Part22（2ch.net）      &lt;a href=&quot;http://ubuntuforums.org/archive/index.php/t-948154.html&quot; target=&quot;_blank&quot;&gt;http://ubuntuforums.org/archive/index.php/t-948154.html&lt;/a&gt;      &amp;nbsp;      &amp;nbsp;      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090316/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その1&lt;/a&gt;      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090318/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その2&lt;/a&gt;      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090319/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その3&lt;/a&gt;">
-  <meta name="twitter:url" content="http://localhost:4000/2009/03/19-xorg7-4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk-%E3%81%9D%E3%81%AE3.html">
+  <meta name="twitter:url" content="/2009/03/19-xorg7-4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk-%E3%81%9D%E3%81%AE3.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/03/19-xorg7-4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk-%E3%81%9D%E3%81%AE3.html">
+<link rel="canonical" href="/2009/03/19-xorg7-4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk-%E3%81%9D%E3%81%AE3.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

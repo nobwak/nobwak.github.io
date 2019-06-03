@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="カスタムカーネルを使用しているときのfreebsd-update。">
-<meta property="og:url" content="http://localhost:4000/2009/11/11-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEfreebsd-update.html">
+<meta property="og:url" content="/2009/11/11-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEfreebsd-update.html">
 
 
   <meta property="og:description" content="大したことはないのだが。      カスタムカーネルを使っている場合でも、/boot/GENERICにGENERIC kernelを置いとけば更新してくれるよ、という話。ハンドブックに書いてある。            カスタムカーネルを使っていて、なおかつ/boot/GENERICを置いているマシンでfreebsd-udpdateをした場合。isis# uname -aFreeBSD isis 7.2-RELEASE FreeBSD 7.2-RELEASE #0: Tue Aug 11 08:47:28 JST 2009     doe@isis:/usr/obj/usr/src/sys/ISIS  i386isis# freebsd-update fetchLooking up update.FreeBSD.org mirrors... none found.Fetching metadata signature for 7.2-RELEASE from update.FreeBSD.org... done.Fetching metadata index... done.Inspecting system... done.Preparing to download files... done.The following files will be updated as part of updating to 7.2-RELEASE-p3:/boot/GENERIC/if_bce.ko/boot/GENERIC/if_bce.ko.symbols/boot/GENERIC/if_fxp.ko/boot/GENERIC/if_fxp.ko.symbols/boot/GENERIC/kernel/boot/GENERIC/kernel.symbols/lib/libc.so.7/lib/libthr.so.3#通常は/boot/kernel/と表示されるはずが、/boot/GENERICとなっているのに注目。      あとは普段どおりinstallして、reboot -kか、nextbootでGENERICを指定すればOK。# freebsd-update installInstalling updates... done.# shutdown -r now(中略)# uname -aFreeBSD isis 7.2-RELEASE FreeBSD 7.2-RELEASE #0: Tue Aug 11 08:47:28 JST 2009     doe@isis:/usr/obj/usr/src/sys/ISIS  i386#通常のrebootでは当然7.2-RELEASEのまま。      reboot -kでGENERICを指定すると。# sync;sync# reboot -k GENERIC## uname -ir7.2-RELEASE-p2 GENERIC">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="カスタムカーネルを使用しているときのfreebsd-update。">
   <meta name="twitter:description" content="大したことはないのだが。      カスタムカーネルを使っている場合でも、/boot/GENERICにGENERIC kernelを置いとけば更新してくれるよ、という話。ハンドブックに書いてある。            カスタムカーネルを使っていて、なおかつ/boot/GENERICを置いているマシンでfreebsd-udpdateをした場合。isis# uname -aFreeBSD isis 7.2-RELEASE FreeBSD 7.2-RELEASE #0: Tue Aug 11 08:47:28 JST 2009     doe@isis:/usr/obj/usr/src/sys/ISIS  i386isis# freebsd-update fetchLooking up update.FreeBSD.org mirrors... none found.Fetching metadata signature for 7.2-RELEASE from update.FreeBSD.org... done.Fetching metadata index... done.Inspecting system... done.Preparing to download files... done.The following files will be updated as part of updating to 7.2-RELEASE-p3:/boot/GENERIC/if_bce.ko/boot/GENERIC/if_bce.ko.symbols/boot/GENERIC/if_fxp.ko/boot/GENERIC/if_fxp.ko.symbols/boot/GENERIC/kernel/boot/GENERIC/kernel.symbols/lib/libc.so.7/lib/libthr.so.3#通常は/boot/kernel/と表示されるはずが、/boot/GENERICとなっているのに注目。      あとは普段どおりinstallして、reboot -kか、nextbootでGENERICを指定すればOK。# freebsd-update installInstalling updates... done.# shutdown -r now(中略)# uname -aFreeBSD isis 7.2-RELEASE FreeBSD 7.2-RELEASE #0: Tue Aug 11 08:47:28 JST 2009     doe@isis:/usr/obj/usr/src/sys/ISIS  i386#通常のrebootでは当然7.2-RELEASEのまま。      reboot -kでGENERICを指定すると。# sync;sync# reboot -k GENERIC## uname -ir7.2-RELEASE-p2 GENERIC">
-  <meta name="twitter:url" content="http://localhost:4000/2009/11/11-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEfreebsd-update.html">
+  <meta name="twitter:url" content="/2009/11/11-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEfreebsd-update.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/11/11-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEfreebsd-update.html">
+<link rel="canonical" href="/2009/11/11-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AEfreebsd-update.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

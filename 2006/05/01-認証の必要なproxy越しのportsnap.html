@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="認証の必要なPROXY越しのportsnap">
-<meta property="og:url" content="http://localhost:4000/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html">
+<meta property="og:url" content="/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html">
 
 
   <meta property="og:description" content="認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。      最初はportsnapサーバの調子が悪いだけかと思っていたのだが、自宅からだと認証は必要ないものの100%成功する。これは明らかにおかしいと調べたところ、何とか解決した。            先に結論:          　portsnapで認証要のPROXYを突破するときは、下記環境変数を設定すること。                  　　HTTP_PROXY=&#8221;http://URL:port/&#8221;                  　　HTTP_PROXY_AUTH=&#8221;basic:*:username:pass&#8221;      以下、顛末            このFreeBSDマシンは認証の必要なPROXYの内側にあるわけだが、もともと俺はfetchおよびwget用に環境変数HTTP_PROXYを&amp;#8221;http://username:pass@URL:port/&amp;#8221;という書式で設定しており、fetchとwgetの動作に特に問題は無かった。      が、portsnapだけが失敗するので今回調べてみた。      portsnapはファイルの取得にfetch等を使用せず、独自のphttpgetというプログラムを使用している。      詳しくは&lt;a href=&quot;http://www.daemonology.net/phttpget/&quot; target=&quot;_blank&quot;&gt;Pipelined HTTP GET utility&lt;/a&gt;を参照。      ここを見ると、作者はphttpgetに自信を持っているようだが、使う側の率直な意見として、好きなのを使わせてくれてもと思う。      phttpgetはportsnapとともにFreeBSDに取り込まれているので、ソースは下記の場所にある。          /usr/src/usr/sbin/portsnap/phttpget/phttpget.c      中をのぞいて見ると、環境変数HTTP_PROXY内にユーザネーム、パスワードを入れる方法は受け付けない事が分かる。      HTTP_PROXY_AUTHに書かないといけない。また、&amp;#8221;basic:*:username:pass&amp;#8221;という書式を想定しているようだ。こういった環境変数の一覧どっかにないものか。            下記が該当部分          /usr/src/usr/sbin/portsnap/phttpget/phttpget.c                  __FBSDID(&#8220;$FreeBSD: /repoman/r/ncvs/src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $&#8221;);                                    env_HTTP_PROXY_AUTH = getenv(&#8220;HTTP_PROXY_AUTH&#8221;);                  if ((env_HTTP_PROXY != NULL) &amp;&amp;                  (env_HTTP_PROXY_AUTH != NULL) &amp;&amp;                  (strncasecmp(env_HTTP_PROXY_AUTH, &#8220;basic:&#8221; , 6) == 0)) {                  /* Ignore authentication scheme */                  (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;);                  /* Ignore realm */                  (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;);                  /* Obtain username and password */                  proxy_auth_user = strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;);                  proxy_auth_pass = env_HTTP_PROXY_AUTH;                  }      &lt;/blockquote&gt;">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="認証の必要なPROXY越しのportsnap">
   <meta name="twitter:description" content="認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。      最初はportsnapサーバの調子が悪いだけかと思っていたのだが、自宅からだと認証は必要ないものの100%成功する。これは明らかにおかしいと調べたところ、何とか解決した。            先に結論:          　portsnapで認証要のPROXYを突破するときは、下記環境変数を設定すること。                  　　HTTP_PROXY=&#8221;http://URL:port/&#8221;                  　　HTTP_PROXY_AUTH=&#8221;basic:*:username:pass&#8221;      以下、顛末            このFreeBSDマシンは認証の必要なPROXYの内側にあるわけだが、もともと俺はfetchおよびwget用に環境変数HTTP_PROXYを&amp;#8221;http://username:pass@URL:port/&amp;#8221;という書式で設定しており、fetchとwgetの動作に特に問題は無かった。      が、portsnapだけが失敗するので今回調べてみた。      portsnapはファイルの取得にfetch等を使用せず、独自のphttpgetというプログラムを使用している。      詳しくは&lt;a href=&quot;http://www.daemonology.net/phttpget/&quot; target=&quot;_blank&quot;&gt;Pipelined HTTP GET utility&lt;/a&gt;を参照。      ここを見ると、作者はphttpgetに自信を持っているようだが、使う側の率直な意見として、好きなのを使わせてくれてもと思う。      phttpgetはportsnapとともにFreeBSDに取り込まれているので、ソースは下記の場所にある。          /usr/src/usr/sbin/portsnap/phttpget/phttpget.c      中をのぞいて見ると、環境変数HTTP_PROXY内にユーザネーム、パスワードを入れる方法は受け付けない事が分かる。      HTTP_PROXY_AUTHに書かないといけない。また、&amp;#8221;basic:*:username:pass&amp;#8221;という書式を想定しているようだ。こういった環境変数の一覧どっかにないものか。            下記が該当部分          /usr/src/usr/sbin/portsnap/phttpget/phttpget.c                  __FBSDID(&#8220;$FreeBSD: /repoman/r/ncvs/src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $&#8221;);                                    env_HTTP_PROXY_AUTH = getenv(&#8220;HTTP_PROXY_AUTH&#8221;);                  if ((env_HTTP_PROXY != NULL) &amp;&amp;                  (env_HTTP_PROXY_AUTH != NULL) &amp;&amp;                  (strncasecmp(env_HTTP_PROXY_AUTH, &#8220;basic:&#8221; , 6) == 0)) {                  /* Ignore authentication scheme */                  (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;);                  /* Ignore realm */                  (void) strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;);                  /* Obtain username and password */                  proxy_auth_user = strsep(&amp;env_HTTP_PROXY_AUTH, &#8220;:&#8221;);                  proxy_auth_pass = env_HTTP_PROXY_AUTH;                  }      &lt;/blockquote&gt;">
-  <meta name="twitter:url" content="http://localhost:4000/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html">
+  <meta name="twitter:url" content="/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html">
+<link rel="canonical" href="/2006/05/01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

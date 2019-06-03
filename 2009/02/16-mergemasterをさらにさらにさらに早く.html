@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="mergemasterをさらにさらにさらに早く">
-<meta property="og:url" content="http://localhost:4000/2009/02/16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F.html">
+<meta property="og:url" content="/2009/02/16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F.html">
 
 
   <meta property="og:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/1追記:&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090501/p1&quot; target=&quot;_blank&quot;&gt;mergemasterのオプションは-UPiFで&lt;/a&gt;どうぞ&lt;/span&gt;            mergemasterについては、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080304/p1&quot; target=&quot;_blank&quot;&gt;mergemasterを少しだけ楽に&lt;/a&gt;、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; target=&quot;_blank&quot;&gt;mergemasterは-sivaでなく-UPiで。&lt;/a&gt;とやってきたが、つい先頃、7.1-STABLEと7.1-RELEASEを行き来した際、CVS Idが違うだけで「どうするよ？」と山ほど聞かれたのにウンザリして、改めてmergemasterのmanを読んだら解決したのでメモ。            結論をさっさと書くと、下記が俺の/etc/mergemaster.rc      ポイントは最下行。この指定によりCVS Idを無視して比較してくれるので、かなり楽になる。      ◎/etc/mergemaster.rcAUTO_UPGRADE=yesAUTO_INSTALL=yesIGNORE_FILES=&amp;#39;/etc/motd&amp;#39;PRESERVE_FILES=yesVERBOSE=yesDIFF_OPTIONS=&amp;#39;-I$FreeBSD:.&amp;#42;&amp;#91;$]&amp;#39;manから引用すると下記の通り。#Additional options for diff.  This will get unset when using -s.#DIFF_OPTIONS=&amp;#39;-I$FreeBSD:.&amp;#42;&amp;#91;$]&amp;#39;        # Ignores CVS Id tags注意すべきは、この設定はコマンドラインオプションでは指定できず、/etc/mergemaster.rcに記載しておく必要がある点。      まあ、上記のようにすれば後はmergemasterと叩くだけだから。      なお、以前の記事でmergemaster.rc内に記載していたIGNORE_MOTDオプションは今後無くなる運命なので、IGNORE_FILESとして/etc/motdを指定すること。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="mergemasterをさらにさらにさらに早く">
   <meta name="twitter:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/1追記:&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090501/p1&quot; target=&quot;_blank&quot;&gt;mergemasterのオプションは-UPiFで&lt;/a&gt;どうぞ&lt;/span&gt;            mergemasterについては、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080304/p1&quot; target=&quot;_blank&quot;&gt;mergemasterを少しだけ楽に&lt;/a&gt;、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; target=&quot;_blank&quot;&gt;mergemasterは-sivaでなく-UPiで。&lt;/a&gt;とやってきたが、つい先頃、7.1-STABLEと7.1-RELEASEを行き来した際、CVS Idが違うだけで「どうするよ？」と山ほど聞かれたのにウンザリして、改めてmergemasterのmanを読んだら解決したのでメモ。            結論をさっさと書くと、下記が俺の/etc/mergemaster.rc      ポイントは最下行。この指定によりCVS Idを無視して比較してくれるので、かなり楽になる。      ◎/etc/mergemaster.rcAUTO_UPGRADE=yesAUTO_INSTALL=yesIGNORE_FILES=&amp;#39;/etc/motd&amp;#39;PRESERVE_FILES=yesVERBOSE=yesDIFF_OPTIONS=&amp;#39;-I$FreeBSD:.&amp;#42;&amp;#91;$]&amp;#39;manから引用すると下記の通り。#Additional options for diff.  This will get unset when using -s.#DIFF_OPTIONS=&amp;#39;-I$FreeBSD:.&amp;#42;&amp;#91;$]&amp;#39;        # Ignores CVS Id tags注意すべきは、この設定はコマンドラインオプションでは指定できず、/etc/mergemaster.rcに記載しておく必要がある点。      まあ、上記のようにすれば後はmergemasterと叩くだけだから。      なお、以前の記事でmergemaster.rc内に記載していたIGNORE_MOTDオプションは今後無くなる運命なので、IGNORE_FILESとして/etc/motdを指定すること。">
-  <meta name="twitter:url" content="http://localhost:4000/2009/02/16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F.html">
+  <meta name="twitter:url" content="/2009/02/16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/02/16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F.html">
+<link rel="canonical" href="/2009/02/16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

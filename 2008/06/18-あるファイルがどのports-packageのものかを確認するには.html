@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="あるファイルがどのports/packageのものかを確認するには。">
-<meta property="og:url" content="http://localhost:4000/2008/06/18-%E3%81%82%E3%82%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%A9%E3%81%AEports-package%E3%81%AE%E3%82%82%E3%81%AE%E3%81%8B%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2008/06/18-%E3%81%82%E3%82%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%A9%E3%81%AEports-package%E3%81%AE%E3%82%82%E3%81%AE%E3%81%8B%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="無節操にportsをインストールすると/usr/local/bin配下に謎のコマンドが増えていくが、そのコマンドはどのportsに属するかを調べる方法。pkg_infoを-Wオプションとあわせて使う。[hal@fb /usr/local/bin]$ pkg_info -W zip/usr/local/bin/zip was installed by package zip-2.32zipはzip-2.32というports/packageに含まれるということがわかる。      まあ、zipコマンドなので明白ではあるが。      なお、指定対象のファイルがカレントディレクトリにない場合には、パスの通っているディレクトリを探してくれる。[hal@fb ~]$ pkg_info -W zip/usr/local/bin/zip was installed by package zip-2.32[hal@fb ~]$また、指定対象のファイルがports/packageからインストールされたものではない場合、特に応答は返らない。[hal@fb ~]$ pkg_info -W tar[hal@fb ~]$pkg_info -Wの他にも同じことをしてくれるコマンドがあったと思うが、pkg_infoはベースシステムに含まれているので、こっちを覚えておいた方がいいと思う。[hal@fb ~]$ pkg_info -W pkg_info[hal@fb ~]$">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="あるファイルがどのports/packageのものかを確認するには。">
   <meta name="twitter:description" content="無節操にportsをインストールすると/usr/local/bin配下に謎のコマンドが増えていくが、そのコマンドはどのportsに属するかを調べる方法。pkg_infoを-Wオプションとあわせて使う。[hal@fb /usr/local/bin]$ pkg_info -W zip/usr/local/bin/zip was installed by package zip-2.32zipはzip-2.32というports/packageに含まれるということがわかる。      まあ、zipコマンドなので明白ではあるが。      なお、指定対象のファイルがカレントディレクトリにない場合には、パスの通っているディレクトリを探してくれる。[hal@fb ~]$ pkg_info -W zip/usr/local/bin/zip was installed by package zip-2.32[hal@fb ~]$また、指定対象のファイルがports/packageからインストールされたものではない場合、特に応答は返らない。[hal@fb ~]$ pkg_info -W tar[hal@fb ~]$pkg_info -Wの他にも同じことをしてくれるコマンドがあったと思うが、pkg_infoはベースシステムに含まれているので、こっちを覚えておいた方がいいと思う。[hal@fb ~]$ pkg_info -W pkg_info[hal@fb ~]$">
-  <meta name="twitter:url" content="http://localhost:4000/2008/06/18-%E3%81%82%E3%82%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%A9%E3%81%AEports-package%E3%81%AE%E3%82%82%E3%81%AE%E3%81%8B%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2008/06/18-%E3%81%82%E3%82%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%A9%E3%81%AEports-package%E3%81%AE%E3%82%82%E3%81%AE%E3%81%8B%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/06/18-%E3%81%82%E3%82%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%A9%E3%81%AEports-package%E3%81%AE%E3%82%82%E3%81%AE%E3%81%8B%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2008/06/18-%E3%81%82%E3%82%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%A9%E3%81%AEports-package%E3%81%AE%E3%82%82%E3%81%AE%E3%81%8B%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

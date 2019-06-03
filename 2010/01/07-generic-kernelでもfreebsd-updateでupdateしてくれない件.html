@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="GENERIC kernelでもfreebsd-updateでupdateしてくれない件">
-<meta property="og:url" content="http://localhost:4000/2010/01/07-generic-kernel%E3%81%A7%E3%82%82freebsd-update%E3%81%A7update%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%AA%E3%81%84%E4%BB%B6.html">
+<meta property="og:url" content="/2010/01/07-generic-kernel%E3%81%A7%E3%82%82freebsd-update%E3%81%A7update%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
 
   <meta property="og:description" content="8.0から8.0-p1のアップデートは、カーネルに修正が入らないので、そのままだとunameコマンドで両者の区別を出来ない。      /usr/src/sys/conf/newvers.shを見れば分かるが、それは面倒。      だからGENERICカーネルを再構築しておき、unameで8.0-p1と返してくれるようにしておいた。      しかし、新しいnewvers.shでカーネルを再構築するとハッシュ値も違ってしまうので、freebsd-updateは修正対象と認識してくれないようだ。      本日、FreeBSDに&lt;a href=&quot;http://www.freebsd.org/security/advisories.html&quot; target=&quot;_blank&quot;&gt;Security Adisoryが出た&lt;/a&gt;ので、さっそくfreebsd-updateして8.0-p2に上げてみたのだが、/boot/kernel配下のカーネルが対象になっていない。$ uname -aFreeBSD xxxx 8.0-RELEASE-p1 FreeBSD 8.0-RELEASE-p1 #2: Wed Dec  9 09:18:02JST 2009     root@xxxx:/usr/obj/usr/src/sys/GENERIC  i386$ freebsd-update fetch＜略＞The following files are affected by updates, but no changes havebeen downloaded because the files have been modified locally:/var/db/mergemaster.mtreeThe following files will be updated as part of updating to 8.0-RELEASE-p2:/boot/GENERIC/ip_mroute.ko/boot/GENERIC/ip_mroute.ko.symbols/boot/GENERIC/kernel/boot/GENERIC/kernel.symbols/boot/GENERIC/krpc.ko/boot/GENERIC/krpc.ko.symbols/boot/GENERIC/zfs.ko/boot/GENERIC/zfs.ko.symbols/boot/kernel.old/ip_mroute.ko/boot/kernel.old/ip_mroute.ko.symbols/boot/kernel.old/kernel/boot/kernel.old/kernel.symbols/boot/kernel.old/krpc.ko/boot/kernel.old/krpc.ko.symbols/boot/kernel.old/zfs.ko/boot/kernel.old/zfs.ko.symbols/lib/libzpool.so.2＜略＞ひとまず/boot/GENERICと/boot/kernelにコピーして再起動、unameで8.0-p2になっていることを確認した。      今後も念のため/boot/GENERICを置いとこうと思った。$ uname -aFreeBSD xxxx 8.0-RELEASE-p2 FreeBSD 8.0-RELEASE-p2 #0: Tue Jan  5 16:02:27UTC 2010     root@i386-builder.daemonology.net:/usr/obj/usr/src/sys/GENERICi386">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="GENERIC kernelでもfreebsd-updateでupdateしてくれない件">
   <meta name="twitter:description" content="8.0から8.0-p1のアップデートは、カーネルに修正が入らないので、そのままだとunameコマンドで両者の区別を出来ない。      /usr/src/sys/conf/newvers.shを見れば分かるが、それは面倒。      だからGENERICカーネルを再構築しておき、unameで8.0-p1と返してくれるようにしておいた。      しかし、新しいnewvers.shでカーネルを再構築するとハッシュ値も違ってしまうので、freebsd-updateは修正対象と認識してくれないようだ。      本日、FreeBSDに&lt;a href=&quot;http://www.freebsd.org/security/advisories.html&quot; target=&quot;_blank&quot;&gt;Security Adisoryが出た&lt;/a&gt;ので、さっそくfreebsd-updateして8.0-p2に上げてみたのだが、/boot/kernel配下のカーネルが対象になっていない。$ uname -aFreeBSD xxxx 8.0-RELEASE-p1 FreeBSD 8.0-RELEASE-p1 #2: Wed Dec  9 09:18:02JST 2009     root@xxxx:/usr/obj/usr/src/sys/GENERIC  i386$ freebsd-update fetch＜略＞The following files are affected by updates, but no changes havebeen downloaded because the files have been modified locally:/var/db/mergemaster.mtreeThe following files will be updated as part of updating to 8.0-RELEASE-p2:/boot/GENERIC/ip_mroute.ko/boot/GENERIC/ip_mroute.ko.symbols/boot/GENERIC/kernel/boot/GENERIC/kernel.symbols/boot/GENERIC/krpc.ko/boot/GENERIC/krpc.ko.symbols/boot/GENERIC/zfs.ko/boot/GENERIC/zfs.ko.symbols/boot/kernel.old/ip_mroute.ko/boot/kernel.old/ip_mroute.ko.symbols/boot/kernel.old/kernel/boot/kernel.old/kernel.symbols/boot/kernel.old/krpc.ko/boot/kernel.old/krpc.ko.symbols/boot/kernel.old/zfs.ko/boot/kernel.old/zfs.ko.symbols/lib/libzpool.so.2＜略＞ひとまず/boot/GENERICと/boot/kernelにコピーして再起動、unameで8.0-p2になっていることを確認した。      今後も念のため/boot/GENERICを置いとこうと思った。$ uname -aFreeBSD xxxx 8.0-RELEASE-p2 FreeBSD 8.0-RELEASE-p2 #0: Tue Jan  5 16:02:27UTC 2010     root@i386-builder.daemonology.net:/usr/obj/usr/src/sys/GENERICi386">
-  <meta name="twitter:url" content="http://localhost:4000/2010/01/07-generic-kernel%E3%81%A7%E3%82%82freebsd-update%E3%81%A7update%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%AA%E3%81%84%E4%BB%B6.html">
+  <meta name="twitter:url" content="/2010/01/07-generic-kernel%E3%81%A7%E3%82%82freebsd-update%E3%81%A7update%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2010/01/07-generic-kernel%E3%81%A7%E3%82%82freebsd-update%E3%81%A7update%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%AA%E3%81%84%E4%BB%B6.html">
+<link rel="canonical" href="/2010/01/07-generic-kernel%E3%81%A7%E3%82%82freebsd-update%E3%81%A7update%E3%81%97%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

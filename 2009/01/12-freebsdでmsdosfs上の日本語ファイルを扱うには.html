@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="FreeBSDでmsdosfs上の日本語ファイルを扱うには">
-<meta property="og:url" content="http://localhost:4000/2009/01/12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2009/01/12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="MSDOSFSの日本語ファイル名に使われる文字コードはCP932(&lt;a href=&quot;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932&quot; target=&quot;_blank&quot;&gt;Shit_JIS&lt;/a&gt;)だが、これをFreeBSDでマウントするには少々の手間がかかる。      結論からいえば、現時点(2009/01/12)でUTF-8に変換すると問題があるため、EUC-JPに変換する。            具体的には、mount_msdosfsに-L, -Dオプションを与えて使う。      ◎実行例# dmesg|grep da0Jan 12 12:37:10 onyx kernel: da0 at umass-sim0 bus 0 target 0 lun 0Jan 12 12:37:10 onyx kernel: da0: &amp;#60;Maxtor OneTouch 0200&amp;#62; Fixed Direct Access SCSI-0 deviceJan 12 12:37:10 onyx kernel: da0: 40.000MB/s transfersJan 12 12:37:10 onyx kernel: da0: 194480MB (398295040 512 byte sectors: 255H 63S/T 24792C)＜略＞# mount_msdosfs -o large -Lja_JP.eucJP -D CP932  /dev/da0s1 /mntこれでファイル名はEUC-JPで表示されるので、LANG=ja_JP.eucJP;export LANGとしたうえで、ターミナルの設定を変えてやればOK。      UTF-8のターミナルでファイル名を確認したい場合には、nkf( /usr/ports/japanese/nkf)やiconv(/usr/ports/converters/libiconv)で変換する。            ◎実行例$ ls /mnt/Document/&amp;#42;.url/mnt/Document/SUPPORT&amp;#91;Support Info.]Windows 2000 ???????.url/mnt/Document/????????????????.url$ ls /mnt/Document/&amp;#42;.url|iconv -f EUC-JP -t UTF-8/mnt/Document/SUPPORT&amp;#91;Support Info.]Windows 2000 関連情報.url/mnt/Document/ファイアウォール.url$nkfの場合にはiconvの代わりにnkf -Ewとする。      ファイル名の文字コード自体を変換したい場合には、convmv(&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070302/p1&quot; target=&quot;_blank&quot;&gt;ファイル名の文字コード変換&lt;/a&gt;)を使う。      なお、mount_msdosfsでUTF-8への変換時に発生する問題については下記のリンクを参照のこと。      &lt;a href=&quot;http://www.mail-archive.com/freebsd-users-jp@jp.freebsd.org/msg03158.html&quot; target=&quot;_blank&quot;&gt;”(FreeBSD-users-jp 91921) Re: Trouble in msdosfs UTF-8 conversion of japanese filename”&lt;/a&gt;      一部引用。          Q                  cd9600 msdosfs ntfs などの CP932 なファイルシステムで                  日本語を含むファイルがある場合、UTF-8 に変換して mount する                  (たとえば # mount_msdosfs -L ja_JP.UTF-8 ) と、日本語を                  含むファイルへのアクセスがおかしいようです。                  A                  カーネル内部のコード変換が、バイト数が変化する変換に完全にはまだ                  対応できていないためです（ UTF-8 では漢字は 3 バイト）。EUC への                  変換で回避するか、imuraさんによる kiconv enhancement パッチ                  http://people.freebsd.org/~imura/kiconv/                  を自分で当てて、対応したカーネルを作成する必要があります。      ">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="FreeBSDでmsdosfs上の日本語ファイルを扱うには">
   <meta name="twitter:description" content="MSDOSFSの日本語ファイル名に使われる文字コードはCP932(&lt;a href=&quot;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932&quot; target=&quot;_blank&quot;&gt;Shit_JIS&lt;/a&gt;)だが、これをFreeBSDでマウントするには少々の手間がかかる。      結論からいえば、現時点(2009/01/12)でUTF-8に変換すると問題があるため、EUC-JPに変換する。            具体的には、mount_msdosfsに-L, -Dオプションを与えて使う。      ◎実行例# dmesg|grep da0Jan 12 12:37:10 onyx kernel: da0 at umass-sim0 bus 0 target 0 lun 0Jan 12 12:37:10 onyx kernel: da0: &amp;#60;Maxtor OneTouch 0200&amp;#62; Fixed Direct Access SCSI-0 deviceJan 12 12:37:10 onyx kernel: da0: 40.000MB/s transfersJan 12 12:37:10 onyx kernel: da0: 194480MB (398295040 512 byte sectors: 255H 63S/T 24792C)＜略＞# mount_msdosfs -o large -Lja_JP.eucJP -D CP932  /dev/da0s1 /mntこれでファイル名はEUC-JPで表示されるので、LANG=ja_JP.eucJP;export LANGとしたうえで、ターミナルの設定を変えてやればOK。      UTF-8のターミナルでファイル名を確認したい場合には、nkf( /usr/ports/japanese/nkf)やiconv(/usr/ports/converters/libiconv)で変換する。            ◎実行例$ ls /mnt/Document/&amp;#42;.url/mnt/Document/SUPPORT&amp;#91;Support Info.]Windows 2000 ???????.url/mnt/Document/????????????????.url$ ls /mnt/Document/&amp;#42;.url|iconv -f EUC-JP -t UTF-8/mnt/Document/SUPPORT&amp;#91;Support Info.]Windows 2000 関連情報.url/mnt/Document/ファイアウォール.url$nkfの場合にはiconvの代わりにnkf -Ewとする。      ファイル名の文字コード自体を変換したい場合には、convmv(&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070302/p1&quot; target=&quot;_blank&quot;&gt;ファイル名の文字コード変換&lt;/a&gt;)を使う。      なお、mount_msdosfsでUTF-8への変換時に発生する問題については下記のリンクを参照のこと。      &lt;a href=&quot;http://www.mail-archive.com/freebsd-users-jp@jp.freebsd.org/msg03158.html&quot; target=&quot;_blank&quot;&gt;”(FreeBSD-users-jp 91921) Re: Trouble in msdosfs UTF-8 conversion of japanese filename”&lt;/a&gt;      一部引用。          Q                  cd9600 msdosfs ntfs などの CP932 なファイルシステムで                  日本語を含むファイルがある場合、UTF-8 に変換して mount する                  (たとえば # mount_msdosfs -L ja_JP.UTF-8 ) と、日本語を                  含むファイルへのアクセスがおかしいようです。                  A                  カーネル内部のコード変換が、バイト数が変化する変換に完全にはまだ                  対応できていないためです（ UTF-8 では漢字は 3 バイト）。EUC への                  変換で回避するか、imuraさんによる kiconv enhancement パッチ                  http://people.freebsd.org/~imura/kiconv/                  を自分で当てて、対応したカーネルを作成する必要があります。      ">
-  <meta name="twitter:url" content="http://localhost:4000/2009/01/12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2009/01/12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/01/12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2009/01/12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

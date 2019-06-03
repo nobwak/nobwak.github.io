@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Ubuntu6.10でのApache/SSL構築">
-<meta property="og:url" content="http://localhost:4000/2007/02/20-ubuntu6-10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89.html">
+<meta property="og:url" content="/2007/02/20-ubuntu6-10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89.html">
 
 
   <meta property="og:description" content="Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ      ◎apache2のインストール      　適当にapt-get installで。            ◎sslモジュールの設定ファイル      　/etc/apache2/mods-enabled/にて      　/etc/apache2/mods-available/配下のssl.conf、ssl.loadに      　同名にてシンボリックリンクを張る。      　ただ、ここのssl.confには大した事が書かれていないので、別途exampleなどから持ってくる。      　例)/usr/share/doc/apache2/examples/ssl.conf.gz      　注:ssl.confについては、このあと&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070906/p2&quot; target=&quot;_blank&quot;&gt;7.10にアップグレードしたとき&lt;/a&gt;、ちょっとつまづいた。            ◎オレオレ証明書の作成      　このへんを参考に作成。      &lt;a href=&quot;http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html&quot; target=&quot;_blank&quot;&gt;http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html&lt;/a&gt;      　      　さらにこのへんを参考にブラウザへ証明書をインポート      &lt;a href=&quot;http://takagi-hiromitsu.jp/diary/20050327.html&quot; target=&quot;_blank&quot;&gt;http://takagi-hiromitsu.jp/diary/20050327.html&lt;/a&gt;            ◎起動      　問題なく起動することを確認      　また下記コマンドでも接続テスト      　openssl s_client -connect target:443      　GET / HTTP/1.0 (リターンを2回)      　参考:&lt;a href=&quot;http://x68000.q-e-d.net/~68user/unix/pickup?openssl&quot; target=&quot;_blank&quot;&gt;http://x68000.q-e-d.net/~68user/unix/pickup?openssl&lt;/a&gt;">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Ubuntu6.10でのApache/SSL構築">
   <meta name="twitter:description" content="Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ      ◎apache2のインストール      　適当にapt-get installで。            ◎sslモジュールの設定ファイル      　/etc/apache2/mods-enabled/にて      　/etc/apache2/mods-available/配下のssl.conf、ssl.loadに      　同名にてシンボリックリンクを張る。      　ただ、ここのssl.confには大した事が書かれていないので、別途exampleなどから持ってくる。      　例)/usr/share/doc/apache2/examples/ssl.conf.gz      　注:ssl.confについては、このあと&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070906/p2&quot; target=&quot;_blank&quot;&gt;7.10にアップグレードしたとき&lt;/a&gt;、ちょっとつまづいた。            ◎オレオレ証明書の作成      　このへんを参考に作成。      &lt;a href=&quot;http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html&quot; target=&quot;_blank&quot;&gt;http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html&lt;/a&gt;      　      　さらにこのへんを参考にブラウザへ証明書をインポート      &lt;a href=&quot;http://takagi-hiromitsu.jp/diary/20050327.html&quot; target=&quot;_blank&quot;&gt;http://takagi-hiromitsu.jp/diary/20050327.html&lt;/a&gt;            ◎起動      　問題なく起動することを確認      　また下記コマンドでも接続テスト      　openssl s_client -connect target:443      　GET / HTTP/1.0 (リターンを2回)      　参考:&lt;a href=&quot;http://x68000.q-e-d.net/~68user/unix/pickup?openssl&quot; target=&quot;_blank&quot;&gt;http://x68000.q-e-d.net/~68user/unix/pickup?openssl&lt;/a&gt;">
-  <meta name="twitter:url" content="http://localhost:4000/2007/02/20-ubuntu6-10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89.html">
+  <meta name="twitter:url" content="/2007/02/20-ubuntu6-10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2007/02/20-ubuntu6-10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89.html">
+<link rel="canonical" href="/2007/02/20-ubuntu6-10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

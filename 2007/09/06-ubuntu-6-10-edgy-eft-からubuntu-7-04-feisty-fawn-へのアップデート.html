@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Ubuntu 6.10 (”Edgy Eft”)からUbuntu 7.04 (”Feisty Fawn”)へのアップデート">
-<meta property="og:url" content="http://localhost:4000/2007/09/06-ubuntu-6-10-edgy-eft-%E3%81%8B%E3%82%89ubuntu-7-04-feisty-fawn-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88.html">
+<meta property="og:url" content="/2007/09/06-ubuntu-6-10-edgy-eft-%E3%81%8B%E3%82%89ubuntu-7-04-feisty-fawn-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88.html">
 
 
   <meta property="og:description" content="俺メモ。      Ubuntu 6.10から7.04へマニュアルアップグレードしたので、その時のメモ。      といっても、Ubuntu公式サイトに書いてある通り進めるだけ。      念のため、基本的なパッケージがインストールされていることを確認。          sudo apt-get install ubuntu-minimal ubuntu-standard                  sudo apt-get install xubuntu-desktop      最新の状態にアップグレードされていることを確認          sudo apt-get update &amp;&amp; sudo apt-get      sources.listを修正          sudo sed -e -s/\sedgy/ feisty/g&#8217; -i /etc/apt/sources.list      apache2+php5をインストールしている場合には、apache2を動作させた状態でアップグレードをすること、とサイトには書いてある。（冒頭に書いておけよ、と思った）      深呼吸してから実際のアップグレードを始める。      sudo apt-get updateとしてから、sudo apt-get dist-upgradeを「何もアップグレードするものが無くなるまで」繰り返す。      たいていは何かのアップグレードに失敗するし、場合によってapt-get -f installをしろと指示されるので、その通りに実行してまたdist-upgrade。      念には念を入れ、下記コマンドを実行。          sudo apt-get update &amp;&amp; sudo apt-get dist-upgrade                  sudo apt-get -f install                  sudo dpkg -configure -a      最後にサイトの注意書きを確認する。      ・/etc/groupのadminグループに自分のユーザ名が入っていること。      ・pango-libthaiがインストールされていないこと。            オッケーならリブートして終了。      問題なく動作するはずだが、俺の場合、Apache2+SSLが動かなくなった。      後述の問題を解決して、最後にsudo apt-get autoremoveして終了。      結局のところ、Ubuntuをアップグレードしたから、というよりは、apache2のバージョンアップで、設定ファイルのルールが変更されたため、エラーとなったようだ。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Ubuntu 6.10 (”Edgy Eft”)からUbuntu 7.04 (”Feisty Fawn”)へのアップデート">
   <meta name="twitter:description" content="俺メモ。      Ubuntu 6.10から7.04へマニュアルアップグレードしたので、その時のメモ。      といっても、Ubuntu公式サイトに書いてある通り進めるだけ。      念のため、基本的なパッケージがインストールされていることを確認。          sudo apt-get install ubuntu-minimal ubuntu-standard                  sudo apt-get install xubuntu-desktop      最新の状態にアップグレードされていることを確認          sudo apt-get update &amp;&amp; sudo apt-get      sources.listを修正          sudo sed -e -s/\sedgy/ feisty/g&#8217; -i /etc/apt/sources.list      apache2+php5をインストールしている場合には、apache2を動作させた状態でアップグレードをすること、とサイトには書いてある。（冒頭に書いておけよ、と思った）      深呼吸してから実際のアップグレードを始める。      sudo apt-get updateとしてから、sudo apt-get dist-upgradeを「何もアップグレードするものが無くなるまで」繰り返す。      たいていは何かのアップグレードに失敗するし、場合によってapt-get -f installをしろと指示されるので、その通りに実行してまたdist-upgrade。      念には念を入れ、下記コマンドを実行。          sudo apt-get update &amp;&amp; sudo apt-get dist-upgrade                  sudo apt-get -f install                  sudo dpkg -configure -a      最後にサイトの注意書きを確認する。      ・/etc/groupのadminグループに自分のユーザ名が入っていること。      ・pango-libthaiがインストールされていないこと。            オッケーならリブートして終了。      問題なく動作するはずだが、俺の場合、Apache2+SSLが動かなくなった。      後述の問題を解決して、最後にsudo apt-get autoremoveして終了。      結局のところ、Ubuntuをアップグレードしたから、というよりは、apache2のバージョンアップで、設定ファイルのルールが変更されたため、エラーとなったようだ。">
-  <meta name="twitter:url" content="http://localhost:4000/2007/09/06-ubuntu-6-10-edgy-eft-%E3%81%8B%E3%82%89ubuntu-7-04-feisty-fawn-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88.html">
+  <meta name="twitter:url" content="/2007/09/06-ubuntu-6-10-edgy-eft-%E3%81%8B%E3%82%89ubuntu-7-04-feisty-fawn-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2007/09/06-ubuntu-6-10-edgy-eft-%E3%81%8B%E3%82%89ubuntu-7-04-feisty-fawn-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88.html">
+<link rel="canonical" href="/2007/09/06-ubuntu-6-10-edgy-eft-%E3%81%8B%E3%82%89ubuntu-7-04-feisty-fawn-%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

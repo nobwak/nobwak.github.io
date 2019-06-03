@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="portscleanの代替distviper">
-<meta property="og:url" content="http://localhost:4000/2009/04/17-portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper.html">
+<meta property="og:url" content="/2009/04/17-portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper.html">
 
 
   <meta property="og:description" content="sysutils/bsdadminscriptsには便利ツールがたくさん入っている。      たとえばdistviper。      portsの運用を続けると、/usr/ports/distfiles/配下には古いファイルがたまっていくが、これを自動的に検知して削除してくれる。      同じ用途に使えるコマンドとしては、portupgrade付属のportscleanが有名だが、これらのコマンドはrubyが必要で、これだけのためにインストールするのも重い。            /usr/ports/distfiles/配下のすべてのファイルに対して検知を行うthoroughモードと、インストールされているportsだけに限り検知を行い、それ以外を削除するfastモードがある。      thoroughモードは時間がかかるので、portsビルド専用（つまりビルドだけしてインストールしない）マシンでもないかぎりfastモードで十分。      　-dで消されるファイルの確認、-iで消す前に聞くようになる、-qでメッセージ抑制、-vでverboseといったオプションがある。      実行例$ distviper -d fastdelete zsh-4.3.9.tar.bz2（中略）$ sudo distviper fastdelete zsh-4.3.9.tar.bz2delete zsh-4.3.9-doc.tar.bz2delete xorg/driver/xf86-video-ati-6.11.0.tar.bz2delete xorg/driver/xf86-video-mach64-6.8.0.tar.bz2delete xorg/driver/xf86-video-nv-2.1.12.tar.bz2delete xorg/driver/xf86-video-r128-6.8.0.tar.bz2delete xorg/driver/xf86-video-radeonhd-1.2.4.tar.bz2delete xorg/driver/xf86-video-openchrome-0.2.903.tar.bz2delete gnome2/gdm-2.24.1.tar.bz2delete gnome/esound-0.2.41.tar.bz2delete a2ps-4.13b.tar.gzdelete libssh2-1.0.tar.gzdelete xc/vnc-4_1_3-unixsrc.tar.gzdelete xc/X430src-1.tgzdelete audiofile-0.2.6.tar.gzdelete samba-3.0.34.tar.gzdelete thunderbird-2.0.0.19-source.tar.bz2$ということで、/usr/local/etc/periodic/weeklyというディレクトリを（無ければ）作って、998.deldist.shとか適当な名前で下記のスクリプトを置いて、週1で自動的に実行されるようにしておいた。      /etc/local/etc/periodic/weekly/998.deldist.sh#!/bin/shDELCMD=&amp;#39;/usr/local/sbin/distviper&amp;#39;DELOPT=&amp;#39;fast&amp;#39;rc=0if &amp;#91; -x $DELCMD ]; thenecho &amp;#39;Searching and deleting outdated distfiles...&amp;#39;$DELCMD $DELOPT || rc=$?echo &amp;#39;Done.&amp;#39;elseecho &amp;#34;$DELCMD is not installed and I gave up.&amp;#34;rc=2fiexit &amp;#34;$rc&amp;#34;">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="portscleanの代替distviper">
   <meta name="twitter:description" content="sysutils/bsdadminscriptsには便利ツールがたくさん入っている。      たとえばdistviper。      portsの運用を続けると、/usr/ports/distfiles/配下には古いファイルがたまっていくが、これを自動的に検知して削除してくれる。      同じ用途に使えるコマンドとしては、portupgrade付属のportscleanが有名だが、これらのコマンドはrubyが必要で、これだけのためにインストールするのも重い。            /usr/ports/distfiles/配下のすべてのファイルに対して検知を行うthoroughモードと、インストールされているportsだけに限り検知を行い、それ以外を削除するfastモードがある。      thoroughモードは時間がかかるので、portsビルド専用（つまりビルドだけしてインストールしない）マシンでもないかぎりfastモードで十分。      　-dで消されるファイルの確認、-iで消す前に聞くようになる、-qでメッセージ抑制、-vでverboseといったオプションがある。      実行例$ distviper -d fastdelete zsh-4.3.9.tar.bz2（中略）$ sudo distviper fastdelete zsh-4.3.9.tar.bz2delete zsh-4.3.9-doc.tar.bz2delete xorg/driver/xf86-video-ati-6.11.0.tar.bz2delete xorg/driver/xf86-video-mach64-6.8.0.tar.bz2delete xorg/driver/xf86-video-nv-2.1.12.tar.bz2delete xorg/driver/xf86-video-r128-6.8.0.tar.bz2delete xorg/driver/xf86-video-radeonhd-1.2.4.tar.bz2delete xorg/driver/xf86-video-openchrome-0.2.903.tar.bz2delete gnome2/gdm-2.24.1.tar.bz2delete gnome/esound-0.2.41.tar.bz2delete a2ps-4.13b.tar.gzdelete libssh2-1.0.tar.gzdelete xc/vnc-4_1_3-unixsrc.tar.gzdelete xc/X430src-1.tgzdelete audiofile-0.2.6.tar.gzdelete samba-3.0.34.tar.gzdelete thunderbird-2.0.0.19-source.tar.bz2$ということで、/usr/local/etc/periodic/weeklyというディレクトリを（無ければ）作って、998.deldist.shとか適当な名前で下記のスクリプトを置いて、週1で自動的に実行されるようにしておいた。      /etc/local/etc/periodic/weekly/998.deldist.sh#!/bin/shDELCMD=&amp;#39;/usr/local/sbin/distviper&amp;#39;DELOPT=&amp;#39;fast&amp;#39;rc=0if &amp;#91; -x $DELCMD ]; thenecho &amp;#39;Searching and deleting outdated distfiles...&amp;#39;$DELCMD $DELOPT || rc=$?echo &amp;#39;Done.&amp;#39;elseecho &amp;#34;$DELCMD is not installed and I gave up.&amp;#34;rc=2fiexit &amp;#34;$rc&amp;#34;">
-  <meta name="twitter:url" content="http://localhost:4000/2009/04/17-portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper.html">
+  <meta name="twitter:url" content="/2009/04/17-portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/04/17-portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper.html">
+<link rel="canonical" href="/2009/04/17-portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

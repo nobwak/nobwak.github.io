@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="FreeBSDでリムーバブルメディアを自動マウントさせるには">
-<meta property="og:url" content="http://localhost:4000/2009/12/18-freebsd%E3%81%A7%E3%83%AA%E3%83%A0%E3%83%BC%E3%83%90%E3%83%96%E3%83%AB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%92%E8%87%AA%E5%8B%95%E3%83%9E%E3%82%A6%E3%83%B3%E3%83%88%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2009/12/18-freebsd%E3%81%A7%E3%83%AA%E3%83%A0%E3%83%BC%E3%83%90%E3%83%96%E3%83%AB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%92%E8%87%AA%E5%8B%95%E3%83%9E%E3%82%A6%E3%83%B3%E3%83%88%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="今日の今日まで、FreeBSDにCDとかDVDとかUSBメモリを自動マウントすることができなかったが、思わぬ落とし穴に気がついたおかげで、なんとか達成できたのでメモ。      基本、&lt;a href=&quot;http://www.freebsd.org//gnome/docs/halfaq.html&quot; target=&quot;_blank&quot;&gt;このへん（FreeBSD公式サイト）&lt;/a&gt;を見ながら作業する。      当然、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090724/p1&quot; target=&quot;_blank&quot;&gt;GNOMEとかXFCE4の構築まで済んでる前提&lt;/a&gt;で。（もちろんhal, dbusも動いている前提で）            やること。            1./etc/fstabの編集      　/dev/acd0をコメントアウト      　procfsを書き入れて、mount。      　/etc/fstabの例（デリミタ（区切り）はタブ）#/dev/acd0		/cdrom		cd9660	ro,noauto	0	0proc			/proc		procfs	rw		0	0　このあとsudo mount /procする。            2./etc/devfs.confの編集      　以下の行を追加（デリミタ（区切り）はタブ）      　そして、ああなんと、俺が今まで自動マウント出来なかったのは、区切りをスペースにしてたのが問題であったよ。perm    cd0     0666perm    acd0    0666perm    xpt0    0666perm    pass0   06663./usr/local/etc/PolicyKit/PolicyKit.confの編集      　自ユーザなら何でも出来るようにする。      　セキュリティ上、ナニかもしれないが、自動マウントなんて、個人用のマシンでしかやらないのでオッケーオッケー。      ◎編集前&amp;#60;config version=&amp;#34;0.1&amp;#34;&amp;#62;&amp;#60;match user=&amp;#34;root&amp;#34;&amp;#62;&amp;#60;return result=&amp;#34;yes&amp;#34;/&amp;#62;&amp;#60;/match&amp;#62;◎編集後（自分のユーザ名がoreの場合）&amp;#60;config version=&amp;#34;0.1&amp;#34;&amp;#62;&amp;#60;match user=&amp;#34;root|ore&amp;#34;&amp;#62;&amp;#60;return result=&amp;#34;yes&amp;#34;/&amp;#62;&amp;#60;/match&amp;#62;4./etc/sysctl.confの編集      これは必須ではないけど以下を追加。vfs.usermount=1んでrebootすればOK。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="FreeBSDでリムーバブルメディアを自動マウントさせるには">
   <meta name="twitter:description" content="今日の今日まで、FreeBSDにCDとかDVDとかUSBメモリを自動マウントすることができなかったが、思わぬ落とし穴に気がついたおかげで、なんとか達成できたのでメモ。      基本、&lt;a href=&quot;http://www.freebsd.org//gnome/docs/halfaq.html&quot; target=&quot;_blank&quot;&gt;このへん（FreeBSD公式サイト）&lt;/a&gt;を見ながら作業する。      当然、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090724/p1&quot; target=&quot;_blank&quot;&gt;GNOMEとかXFCE4の構築まで済んでる前提&lt;/a&gt;で。（もちろんhal, dbusも動いている前提で）            やること。            1./etc/fstabの編集      　/dev/acd0をコメントアウト      　procfsを書き入れて、mount。      　/etc/fstabの例（デリミタ（区切り）はタブ）#/dev/acd0		/cdrom		cd9660	ro,noauto	0	0proc			/proc		procfs	rw		0	0　このあとsudo mount /procする。            2./etc/devfs.confの編集      　以下の行を追加（デリミタ（区切り）はタブ）      　そして、ああなんと、俺が今まで自動マウント出来なかったのは、区切りをスペースにしてたのが問題であったよ。perm    cd0     0666perm    acd0    0666perm    xpt0    0666perm    pass0   06663./usr/local/etc/PolicyKit/PolicyKit.confの編集      　自ユーザなら何でも出来るようにする。      　セキュリティ上、ナニかもしれないが、自動マウントなんて、個人用のマシンでしかやらないのでオッケーオッケー。      ◎編集前&amp;#60;config version=&amp;#34;0.1&amp;#34;&amp;#62;&amp;#60;match user=&amp;#34;root&amp;#34;&amp;#62;&amp;#60;return result=&amp;#34;yes&amp;#34;/&amp;#62;&amp;#60;/match&amp;#62;◎編集後（自分のユーザ名がoreの場合）&amp;#60;config version=&amp;#34;0.1&amp;#34;&amp;#62;&amp;#60;match user=&amp;#34;root|ore&amp;#34;&amp;#62;&amp;#60;return result=&amp;#34;yes&amp;#34;/&amp;#62;&amp;#60;/match&amp;#62;4./etc/sysctl.confの編集      これは必須ではないけど以下を追加。vfs.usermount=1んでrebootすればOK。">
-  <meta name="twitter:url" content="http://localhost:4000/2009/12/18-freebsd%E3%81%A7%E3%83%AA%E3%83%A0%E3%83%BC%E3%83%90%E3%83%96%E3%83%AB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%92%E8%87%AA%E5%8B%95%E3%83%9E%E3%82%A6%E3%83%B3%E3%83%88%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2009/12/18-freebsd%E3%81%A7%E3%83%AA%E3%83%A0%E3%83%BC%E3%83%90%E3%83%96%E3%83%AB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%92%E8%87%AA%E5%8B%95%E3%83%9E%E3%82%A6%E3%83%B3%E3%83%88%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/12/18-freebsd%E3%81%A7%E3%83%AA%E3%83%A0%E3%83%BC%E3%83%90%E3%83%96%E3%83%AB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%92%E8%87%AA%E5%8B%95%E3%83%9E%E3%82%A6%E3%83%B3%E3%83%88%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2009/12/18-freebsd%E3%81%A7%E3%83%AA%E3%83%A0%E3%83%BC%E3%83%90%E3%83%96%E3%83%AB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%92%E8%87%AA%E5%8B%95%E3%83%9E%E3%82%A6%E3%83%B3%E3%83%88%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

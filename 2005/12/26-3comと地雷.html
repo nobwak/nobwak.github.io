@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="3Comと地雷">
-<meta property="og:url" content="http://localhost:4000/2005/12/26-3com%E3%81%A8%E5%9C%B0%E9%9B%B7.html">
+<meta property="og:url" content="/2005/12/26-3com%E3%81%A8%E5%9C%B0%E9%9B%B7.html">
 
 
   <meta property="og:description" content="本日はLinux, FreeBSDのお話。      Linuxの認定試験も終わったので、勉強のため古いノートPCに入れていたFedoraをさっぱり消した。      短い間だったが、Fedoraに対しては、新しい技術を取り込むのに貪欲なLinuxの中にあっても、特に急進的な印象を受けた。      技術をRedHatに実装する前に、とりあえずFedoraでやってみるとか、そういう意味合いがあるとかないとか、その辺はよく知らない。      とにかく、何か調べ物があってインターネットを渉猟しても、Fedoraが新しすぎて役に立たない事が何度かあった。            逆に、大手ベンダーが配布しているバイナリがそのまま使えるという、Linuxであることの恩恵を身いっぱいに享受できたのは幸せだった。      FreeBSDを使っていた頃は、わざわざLinuxエミュレーション上で各種プログラムを動かしていたから、なんだか複雑な気分になった。      で、空いた古いノートPCに何を入れるか、であるが、Solaris i386はさすがにキツイので、FreeBSDを入れることにした。      知らない間に6.0-RELEASEが出ていたので、ちょっとウキウキしながら試す。      Floppyで起動してネットワークインストール可能なのが嬉しい。特に古いPCにあっては。      Fedora Core 4は起動ディスクがCDかDVDのみ（USBストレージもあったかな）に限られる。      そしてあろうことか、ネットワークインストールの際には、プロキシ経由が不可だった。      このせいで、会社の古いPCをサーバにしたくて、Fedoraのインストールを試みたのだが叶わず、仕方なくその辺に転がっていた付録CDからVineを入れた。俺はどうもブドウのマークを受け付けないので、いつかTurbo, Suse, Gentooあたりに変えてやりたい。            それはさておき、FreeBSDの、愛嬌の「あ」の字も感じられない殺伐としたインストールメニューからネットワークインストールを始める。      …が、どうも上手く行かない。      結論から言うと6.0-RELEASEのバグが原因だった。ガックリ。      FreeBSD bugs list &lt;freebsd-bugs@freebsd.org&gt;で報告があった。      kern/87114 [xl] xl0 : watchdog timeout on 6.0 (regression)      kern/90441 [xl] xl driver watchdog timeout in 3Com 3c575B Fast Et      症状としては、NICに3Com 3c575を使用した場合において、下記メッセージがコンソールに表示され、ネットワークが異常に遅くなる。      xl0: watchdog timeout      5.4-RELEASE以前は問題なく動いていたそうなので、6.0-RELEASEに移る際に混入      したバグのようだ。      かといって、俺みたいな人間にはバグに対して何も出来ない。      家の中を探してみても、PCカードのNICなど今更どこにもない。      仕方ないので問題が解決されるまで5-STABLEを使うことにした。      ただ、現時点でこの部分に7件のバグがある。直してくれるか甚だ不安だ。      3Comとか、IntelのNICなら間違いないと大枚はたいて買ったのだが、地雷を踏んでしまったらしい。とほほ。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="3Comと地雷">
   <meta name="twitter:description" content="本日はLinux, FreeBSDのお話。      Linuxの認定試験も終わったので、勉強のため古いノートPCに入れていたFedoraをさっぱり消した。      短い間だったが、Fedoraに対しては、新しい技術を取り込むのに貪欲なLinuxの中にあっても、特に急進的な印象を受けた。      技術をRedHatに実装する前に、とりあえずFedoraでやってみるとか、そういう意味合いがあるとかないとか、その辺はよく知らない。      とにかく、何か調べ物があってインターネットを渉猟しても、Fedoraが新しすぎて役に立たない事が何度かあった。            逆に、大手ベンダーが配布しているバイナリがそのまま使えるという、Linuxであることの恩恵を身いっぱいに享受できたのは幸せだった。      FreeBSDを使っていた頃は、わざわざLinuxエミュレーション上で各種プログラムを動かしていたから、なんだか複雑な気分になった。      で、空いた古いノートPCに何を入れるか、であるが、Solaris i386はさすがにキツイので、FreeBSDを入れることにした。      知らない間に6.0-RELEASEが出ていたので、ちょっとウキウキしながら試す。      Floppyで起動してネットワークインストール可能なのが嬉しい。特に古いPCにあっては。      Fedora Core 4は起動ディスクがCDかDVDのみ（USBストレージもあったかな）に限られる。      そしてあろうことか、ネットワークインストールの際には、プロキシ経由が不可だった。      このせいで、会社の古いPCをサーバにしたくて、Fedoraのインストールを試みたのだが叶わず、仕方なくその辺に転がっていた付録CDからVineを入れた。俺はどうもブドウのマークを受け付けないので、いつかTurbo, Suse, Gentooあたりに変えてやりたい。            それはさておき、FreeBSDの、愛嬌の「あ」の字も感じられない殺伐としたインストールメニューからネットワークインストールを始める。      …が、どうも上手く行かない。      結論から言うと6.0-RELEASEのバグが原因だった。ガックリ。      FreeBSD bugs list &lt;freebsd-bugs@freebsd.org&gt;で報告があった。      kern/87114 [xl] xl0 : watchdog timeout on 6.0 (regression)      kern/90441 [xl] xl driver watchdog timeout in 3Com 3c575B Fast Et      症状としては、NICに3Com 3c575を使用した場合において、下記メッセージがコンソールに表示され、ネットワークが異常に遅くなる。      xl0: watchdog timeout      5.4-RELEASE以前は問題なく動いていたそうなので、6.0-RELEASEに移る際に混入      したバグのようだ。      かといって、俺みたいな人間にはバグに対して何も出来ない。      家の中を探してみても、PCカードのNICなど今更どこにもない。      仕方ないので問題が解決されるまで5-STABLEを使うことにした。      ただ、現時点でこの部分に7件のバグがある。直してくれるか甚だ不安だ。      3Comとか、IntelのNICなら間違いないと大枚はたいて買ったのだが、地雷を踏んでしまったらしい。とほほ。">
-  <meta name="twitter:url" content="http://localhost:4000/2005/12/26-3com%E3%81%A8%E5%9C%B0%E9%9B%B7.html">
+  <meta name="twitter:url" content="/2005/12/26-3com%E3%81%A8%E5%9C%B0%E9%9B%B7.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2005/12/26-3com%E3%81%A8%E5%9C%B0%E9%9B%B7.html">
+<link rel="canonical" href="/2005/12/26-3com%E3%81%A8%E5%9C%B0%E9%9B%B7.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

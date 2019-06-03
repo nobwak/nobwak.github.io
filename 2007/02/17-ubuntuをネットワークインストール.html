@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Ubuntuをネットワークインストール">
-<meta property="og:url" content="http://localhost:4000/2007/02/17-ubuntu%E3%82%92%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
+<meta property="og:url" content="/2007/02/17-ubuntu%E3%82%92%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
 
 
   <meta property="og:description" content="Vaio N505A/BPにLinuxをインストールしようと思った顛末をダラダラと書く。      さっそくだが、マシンのスペックは下記の通りとても厳しい。          モバイルCelerom 366MHz                  メモリ128MB                  HDD 30G(換装済み)                  イーサネットは無し                  CD-ROMドライブ付属      CD-ROMドライブが付属しているので、一見さっくりとインストール出来そうなのだが、さにはあらじ。      PCGA-CD51という型番のこのCD-ROMは、数あるPC-UNIX, Linuxインストーラが、起動だけはするもののそれを最後にドライブを見失うという悪名高いもの。      今回試してみたいUbuntu6.10もアウト。      しかたないのでインストーラが起動した時点でネットワークインストールができないか探してみるが無し。      結局このような手を取った。      何かの付録でついてきたVineでならば実はCD-ROMからインストールが可能だったので、とりあえず最小構成でインストール。      http://ftp.ecc.u-tokyo.ac.jp/ubuntu/dists/edgy/main/installer-i386/20060711ubuntu18/images/netboot/ubuntu-installer/i386/      ここからinitrd.gz、linuxをダウンロード。      /boot/ubuntu配下あたりにコピー。      あとはここを参考にliloを設定。      &lt;a href=&quot;http://www.jp.debian.org/releases/stable/i386/ch05s01.html.ja#boot-initrd&quot; target=&quot;_blank&quot;&gt;http://www.jp.debian.org/releases/stable/i386/ch05s01.html.ja#boot-initrd&lt;/a&gt;      たとえばこう。          image=/boot/ubuntu/linux                  　　　label=ubuntuinst                  　　　initrd=/boot/ubuntu/initrd.gz                  　　　root=/dev/ram0      で、再起動してubuntuinstを選べばネットワークインストールが始まる。      LiveCDで起動したり、あるいはインストールCDでもシェルが動いてfdiskが使えたりするならば、わざわざこんな回りくどい事をしなくてもいいのだが、最悪のケースでもVineが動くのでこうした。      とりあえずインストーラも無事に動き始めたので、ハードディスクのパーティションエディタでは、/boot以外はすべて初期化を行うようにする。            インストールする大量のパッケージをダウンロードする際、画面がまったく動かない状態になって少し焦ったが、Alt-F4で開く端末にはしっかりと経過が表示されていたので安心した。      また、途中でWMも選べるようになっており、マシンのスペックからGnomeは無理と判断してxfce、つまりxubuntuを選択して無事インストールが完了した。      ただ、これだけでは&lt;a href=&quot;http://www.ubuntulinux.jp/download&quot; target=&quot;_blank&quot;&gt;Japanese Teamのパッケージが追加されないので&lt;/a&gt;、          deb http://archive.ubuntulinux.jp/ubuntu-ja edgy/                  deb http://archive.ubuntulinux.jp/ubuntu-ja edgy-ja/      上記を/etc/apt/sources.lstに追記、ubuntu-ja-keyringをインストールしてからapt-get update/apt-get upgrade。      Linuxの事にはとんと疎かったのだが、何だかこれで色々と、特に起動に関する部分が分かって勉強になった。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Ubuntuをネットワークインストール">
   <meta name="twitter:description" content="Vaio N505A/BPにLinuxをインストールしようと思った顛末をダラダラと書く。      さっそくだが、マシンのスペックは下記の通りとても厳しい。          モバイルCelerom 366MHz                  メモリ128MB                  HDD 30G(換装済み)                  イーサネットは無し                  CD-ROMドライブ付属      CD-ROMドライブが付属しているので、一見さっくりとインストール出来そうなのだが、さにはあらじ。      PCGA-CD51という型番のこのCD-ROMは、数あるPC-UNIX, Linuxインストーラが、起動だけはするもののそれを最後にドライブを見失うという悪名高いもの。      今回試してみたいUbuntu6.10もアウト。      しかたないのでインストーラが起動した時点でネットワークインストールができないか探してみるが無し。      結局このような手を取った。      何かの付録でついてきたVineでならば実はCD-ROMからインストールが可能だったので、とりあえず最小構成でインストール。      http://ftp.ecc.u-tokyo.ac.jp/ubuntu/dists/edgy/main/installer-i386/20060711ubuntu18/images/netboot/ubuntu-installer/i386/      ここからinitrd.gz、linuxをダウンロード。      /boot/ubuntu配下あたりにコピー。      あとはここを参考にliloを設定。      &lt;a href=&quot;http://www.jp.debian.org/releases/stable/i386/ch05s01.html.ja#boot-initrd&quot; target=&quot;_blank&quot;&gt;http://www.jp.debian.org/releases/stable/i386/ch05s01.html.ja#boot-initrd&lt;/a&gt;      たとえばこう。          image=/boot/ubuntu/linux                  　　　label=ubuntuinst                  　　　initrd=/boot/ubuntu/initrd.gz                  　　　root=/dev/ram0      で、再起動してubuntuinstを選べばネットワークインストールが始まる。      LiveCDで起動したり、あるいはインストールCDでもシェルが動いてfdiskが使えたりするならば、わざわざこんな回りくどい事をしなくてもいいのだが、最悪のケースでもVineが動くのでこうした。      とりあえずインストーラも無事に動き始めたので、ハードディスクのパーティションエディタでは、/boot以外はすべて初期化を行うようにする。            インストールする大量のパッケージをダウンロードする際、画面がまったく動かない状態になって少し焦ったが、Alt-F4で開く端末にはしっかりと経過が表示されていたので安心した。      また、途中でWMも選べるようになっており、マシンのスペックからGnomeは無理と判断してxfce、つまりxubuntuを選択して無事インストールが完了した。      ただ、これだけでは&lt;a href=&quot;http://www.ubuntulinux.jp/download&quot; target=&quot;_blank&quot;&gt;Japanese Teamのパッケージが追加されないので&lt;/a&gt;、          deb http://archive.ubuntulinux.jp/ubuntu-ja edgy/                  deb http://archive.ubuntulinux.jp/ubuntu-ja edgy-ja/      上記を/etc/apt/sources.lstに追記、ubuntu-ja-keyringをインストールしてからapt-get update/apt-get upgrade。      Linuxの事にはとんと疎かったのだが、何だかこれで色々と、特に起動に関する部分が分かって勉強になった。">
-  <meta name="twitter:url" content="http://localhost:4000/2007/02/17-ubuntu%E3%82%92%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
+  <meta name="twitter:url" content="/2007/02/17-ubuntu%E3%82%92%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2007/02/17-ubuntu%E3%82%92%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
+<link rel="canonical" href="/2007/02/17-ubuntu%E3%82%92%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

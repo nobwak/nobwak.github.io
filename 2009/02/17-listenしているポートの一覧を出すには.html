@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="listenしているポートの一覧を出すには">
-<meta property="og:url" content="http://localhost:4000/2009/02/17-listen%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E4%B8%80%E8%A6%A7%E3%82%92%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2009/02/17-listen%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E4%B8%80%E8%A6%A7%E3%82%92%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="fortuneが教えてくれたのでメモ。      sockstatを使うことは知っていたが、オプションを工夫することで分かりやすくなる。      具体的には-4lをオプションとして与える。      以下が実行例。$ sockstat -4lUSER     COMMAND    PID   FD PROTO  LOCAL ADDRESS         FOREIGN ADDRESSroot     sendmail   933   3  tcp4   127.0.0.1:25          &amp;#42;:&amp;#42;root     sshd       917   3  tcp4   &amp;#42;:22                  &amp;#42;:&amp;#42;root     syslogd    771   6  udp4   &amp;#42;:514                 &amp;#42;:&amp;#42;sendmailはともかくとして、syslogdが口空けているのは気分がよろしくないので、/etc/rc.confに以下の一行を追加してポートを閉じる。（当然、リモートサイトのログは取れなくなるが、スタンドアロンであれば問題なし。）syslogd_flags=&amp;#34;-ss&amp;#34;そのあとsyslogdを再起動すればOK。# /etc/rc.d/syslogd restartStopping syslogd.Starting syslogd.# sockstat -4lUSER     COMMAND    PID   FD PROTO  LOCAL ADDRESS         FOREIGN ADDRESSroot     sendmail   933   3  tcp4   127.0.0.1:25          &amp;#42;:&amp;#42;root     sshd       917   3  tcp4   &amp;#42;:22                  &amp;#42;:&amp;#42;#">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="listenしているポートの一覧を出すには">
   <meta name="twitter:description" content="fortuneが教えてくれたのでメモ。      sockstatを使うことは知っていたが、オプションを工夫することで分かりやすくなる。      具体的には-4lをオプションとして与える。      以下が実行例。$ sockstat -4lUSER     COMMAND    PID   FD PROTO  LOCAL ADDRESS         FOREIGN ADDRESSroot     sendmail   933   3  tcp4   127.0.0.1:25          &amp;#42;:&amp;#42;root     sshd       917   3  tcp4   &amp;#42;:22                  &amp;#42;:&amp;#42;root     syslogd    771   6  udp4   &amp;#42;:514                 &amp;#42;:&amp;#42;sendmailはともかくとして、syslogdが口空けているのは気分がよろしくないので、/etc/rc.confに以下の一行を追加してポートを閉じる。（当然、リモートサイトのログは取れなくなるが、スタンドアロンであれば問題なし。）syslogd_flags=&amp;#34;-ss&amp;#34;そのあとsyslogdを再起動すればOK。# /etc/rc.d/syslogd restartStopping syslogd.Starting syslogd.# sockstat -4lUSER     COMMAND    PID   FD PROTO  LOCAL ADDRESS         FOREIGN ADDRESSroot     sendmail   933   3  tcp4   127.0.0.1:25          &amp;#42;:&amp;#42;root     sshd       917   3  tcp4   &amp;#42;:22                  &amp;#42;:&amp;#42;#">
-  <meta name="twitter:url" content="http://localhost:4000/2009/02/17-listen%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E4%B8%80%E8%A6%A7%E3%82%92%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2009/02/17-listen%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E4%B8%80%E8%A6%A7%E3%82%92%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/02/17-listen%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E4%B8%80%E8%A6%A7%E3%82%92%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2009/02/17-listen%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E4%B8%80%E8%A6%A7%E3%82%92%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

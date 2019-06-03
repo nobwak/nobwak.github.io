@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="mergemasterのオプションは-UPiFで。">
-<meta property="og:url" content="http://localhost:4000/2009/05/01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7.html">
+<meta property="og:url" content="/2009/05/01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7.html">
 
 
   <meta property="og:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090519/p1&quot; target=&quot;_blank&quot;&gt;こちら&lt;/a&gt;。   &lt;/span&gt;  いつごろからか、mergemasterに新しいオプションが増えた。&lt;blockquote&gt;      Using the [-F] option mergemaster will install the new file for you if they differ only by VCS strings.  &lt;/blockquote&gt;  -Fオプションを使うと、VCS文字列だけが違って内容は変わらないファイルを自動的にインストールしてくれるとのこと。  ここでのVCS文字列というのは、ファイルに含まれるこんなの。```sh # $FreeBSD: src/etc/defaults/rc.conf,v 1.318.2.17 2009/03/24 02:56:50 dougb Exp$ ```  以前は、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090216/p1&quot; target=&quot;_blank&quot;&gt;mergemasterをさらにさらにさらに早く&lt;/a&gt;で書いていたようにmergemaster.rcでしか指定できなかったが、オプションでも指定できるようになったと。  だからmergemasterのオプションは今までの経緯も含めて-UPiFとするのが良いようだ。  なお、-Fに対応するmergemaster.rcでの指定は「FREEBSD_ID=」となる。  以下に俺のmergemaster.rcを示す。こうしておけばmergemasterと打つだけでOK。```sh AUTO_UPGRADE=yes AUTO_INSTALL=yes IGNORE_FILES=&amp;#39;/etc/motd&amp;#39; PRESERVE_FILES=yes VERBOSE=yes #DIFF_OPTIONS=&amp;#39;-I$FreeBSD:.&amp;#42;&amp;#91;$]&amp;#39; FREEBSD_ID=yes ```  手前味噌だけど参考。  &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080304/p1&quot; target=&quot;_blank&quot;&gt;mergemasterを少しだけ楽に&lt;/a&gt;  &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; target=&quot;_blank&quot;&gt;mergemasterは-sivaでなく-UPiで。&lt;/a&gt;">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="mergemasterのオプションは-UPiFで。">
   <meta name="twitter:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090519/p1&quot; target=&quot;_blank&quot;&gt;こちら&lt;/a&gt;。   &lt;/span&gt;  いつごろからか、mergemasterに新しいオプションが増えた。&lt;blockquote&gt;      Using the [-F] option mergemaster will install the new file for you if they differ only by VCS strings.  &lt;/blockquote&gt;  -Fオプションを使うと、VCS文字列だけが違って内容は変わらないファイルを自動的にインストールしてくれるとのこと。  ここでのVCS文字列というのは、ファイルに含まれるこんなの。```sh # $FreeBSD: src/etc/defaults/rc.conf,v 1.318.2.17 2009/03/24 02:56:50 dougb Exp$ ```  以前は、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090216/p1&quot; target=&quot;_blank&quot;&gt;mergemasterをさらにさらにさらに早く&lt;/a&gt;で書いていたようにmergemaster.rcでしか指定できなかったが、オプションでも指定できるようになったと。  だからmergemasterのオプションは今までの経緯も含めて-UPiFとするのが良いようだ。  なお、-Fに対応するmergemaster.rcでの指定は「FREEBSD_ID=」となる。  以下に俺のmergemaster.rcを示す。こうしておけばmergemasterと打つだけでOK。```sh AUTO_UPGRADE=yes AUTO_INSTALL=yes IGNORE_FILES=&amp;#39;/etc/motd&amp;#39; PRESERVE_FILES=yes VERBOSE=yes #DIFF_OPTIONS=&amp;#39;-I$FreeBSD:.&amp;#42;&amp;#91;$]&amp;#39; FREEBSD_ID=yes ```  手前味噌だけど参考。  &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080304/p1&quot; target=&quot;_blank&quot;&gt;mergemasterを少しだけ楽に&lt;/a&gt;  &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; target=&quot;_blank&quot;&gt;mergemasterは-sivaでなく-UPiで。&lt;/a&gt;">
-  <meta name="twitter:url" content="http://localhost:4000/2009/05/01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7.html">
+  <meta name="twitter:url" content="/2009/05/01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/05/01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7.html">
+<link rel="canonical" href="/2009/05/01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

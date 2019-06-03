@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Solaris, LinuxでNICのリンクスピード（帯域）、モードを知るには">
-<meta property="og:url" content="http://localhost:4000/2008/02/12-solaris-linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89-%E5%B8%AF%E5%9F%9F-%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2008/02/12-solaris-linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89-%E5%B8%AF%E5%9F%9F-%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="俺メモ      FreeBSDではifconfigコマンドでリンクなどが表示される。$ ifconfig -aem0: flags=8843&amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;#62; metric 0 mtu 1500options=9b&amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&amp;#62;ether xx:xx:xx:xx:xx:xxinet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xxmedia: Ethernet autoselect (&lt;span style=&quot;font-weight:bold;&quot;&gt;1000baseTX &amp;#60;full-duplex&amp;#62;&lt;/span&gt;)status: activeBoldで示した通り、1Gbの全二重であることが分かる。      ところがLinux, Solarisだとifconfigでこういった情報が表示されない。      軽くググってみた結果。      Linuxではethtoolを使う。      ethtool &lt;span style=&quot;font-style:italic;&quot;&gt;&lt;デバイス名&gt;&lt;/span&gt;            Solarisではnddを使う。      ndd -get &lt;span style=&quot;font-style:italic;&quot;&gt;&lt;デバイス名&gt; &lt;オプション&gt;&lt;/span&gt;      オプションにはlink_speedなどを与える。      どちらも管理者権限が必要。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Solaris, LinuxでNICのリンクスピード（帯域）、モードを知るには">
   <meta name="twitter:description" content="俺メモ      FreeBSDではifconfigコマンドでリンクなどが表示される。$ ifconfig -aem0: flags=8843&amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;#62; metric 0 mtu 1500options=9b&amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&amp;#62;ether xx:xx:xx:xx:xx:xxinet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xxmedia: Ethernet autoselect (&lt;span style=&quot;font-weight:bold;&quot;&gt;1000baseTX &amp;#60;full-duplex&amp;#62;&lt;/span&gt;)status: activeBoldで示した通り、1Gbの全二重であることが分かる。      ところがLinux, Solarisだとifconfigでこういった情報が表示されない。      軽くググってみた結果。      Linuxではethtoolを使う。      ethtool &lt;span style=&quot;font-style:italic;&quot;&gt;&lt;デバイス名&gt;&lt;/span&gt;            Solarisではnddを使う。      ndd -get &lt;span style=&quot;font-style:italic;&quot;&gt;&lt;デバイス名&gt; &lt;オプション&gt;&lt;/span&gt;      オプションにはlink_speedなどを与える。      どちらも管理者権限が必要。">
-  <meta name="twitter:url" content="http://localhost:4000/2008/02/12-solaris-linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89-%E5%B8%AF%E5%9F%9F-%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2008/02/12-solaris-linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89-%E5%B8%AF%E5%9F%9F-%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/02/12-solaris-linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89-%E5%B8%AF%E5%9F%9F-%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2008/02/12-solaris-linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89-%E5%B8%AF%E5%9F%9F-%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

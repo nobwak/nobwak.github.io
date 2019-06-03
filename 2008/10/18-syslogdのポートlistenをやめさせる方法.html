@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="syslogdのポートListenをやめさせる方法">
-<meta property="og:url" content="http://localhost:4000/2008/10/18-syslogd%E3%81%AE%E3%83%9D%E3%83%BC%E3%83%88listen%E3%82%92%E3%82%84%E3%82%81%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95.html">
+<meta property="og:url" content="/2008/10/18-syslogd%E3%81%AE%E3%83%9D%E3%83%BC%E3%83%88listen%E3%82%92%E3%82%84%E3%82%81%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95.html">
 
 
   <meta property="og:description" content="syslogdはデフォルト設定だと514ポートで待ち受けを行う。      rc.confに以下の行を追加すれば、これをやめさせることができる。syslogd_flags=&amp;#34;-ss&amp;#34;デフォルト設定だとこのように514をListen          $ sockstat|grep syslogd                  root syslogd 10197 4 dgram /var/run/log                  root syslogd 10197 5 dgram /var/run/logpriv                  root syslogd 10197 6 udp6 *:514 *:*                  root syslogd 10197 7 udp4 *:514 *:*      rc.confを先述の通り修正して、syslogdを再起動。          $ sudo /etc/rc.d/syslogd restart                  Stopping syslogd.                  Starting syslogd.                  $      こんな感じ。          $ sockstat|grep syslogd                  root syslogd 10222 4 dgram /var/run/log                  root syslogd 10222 5 dgram /var/run/logpriv                  $      ">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="syslogdのポートListenをやめさせる方法">
   <meta name="twitter:description" content="syslogdはデフォルト設定だと514ポートで待ち受けを行う。      rc.confに以下の行を追加すれば、これをやめさせることができる。syslogd_flags=&amp;#34;-ss&amp;#34;デフォルト設定だとこのように514をListen          $ sockstat|grep syslogd                  root syslogd 10197 4 dgram /var/run/log                  root syslogd 10197 5 dgram /var/run/logpriv                  root syslogd 10197 6 udp6 *:514 *:*                  root syslogd 10197 7 udp4 *:514 *:*      rc.confを先述の通り修正して、syslogdを再起動。          $ sudo /etc/rc.d/syslogd restart                  Stopping syslogd.                  Starting syslogd.                  $      こんな感じ。          $ sockstat|grep syslogd                  root syslogd 10222 4 dgram /var/run/log                  root syslogd 10222 5 dgram /var/run/logpriv                  $      ">
-  <meta name="twitter:url" content="http://localhost:4000/2008/10/18-syslogd%E3%81%AE%E3%83%9D%E3%83%BC%E3%83%88listen%E3%82%92%E3%82%84%E3%82%81%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95.html">
+  <meta name="twitter:url" content="/2008/10/18-syslogd%E3%81%AE%E3%83%9D%E3%83%BC%E3%83%88listen%E3%82%92%E3%82%84%E3%82%81%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/10/18-syslogd%E3%81%AE%E3%83%9D%E3%83%BC%E3%83%88listen%E3%82%92%E3%82%84%E3%82%81%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95.html">
+<link rel="canonical" href="/2008/10/18-syslogd%E3%81%AE%E3%83%9D%E3%83%BC%E3%83%88listen%E3%82%92%E3%82%84%E3%82%81%E3%81%95%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

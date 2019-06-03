@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="portsを探すのがだるい件について。">
-<meta property="og:url" content="http://localhost:4000/2009/07/31-ports%E3%82%92%E6%8E%A2%E3%81%99%E3%81%AE%E3%81%8C%E3%81%A0%E3%82%8B%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+<meta property="og:url" content="/2009/07/31-ports%E3%82%92%E6%8E%A2%E3%81%99%E3%81%AE%E3%81%8C%E3%81%A0%E3%82%8B%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
 
   <meta property="og:description" content="結論から言うとports-mgmt/psearchがおすすめ。      あのソフトがportsにないかなーというとき、セオリーで言えば/usr/portsディレクトリでmake search key=&amp;#8221;キーワード&amp;#8221;とするわけだが、いちいちここまでコマンドを打つのが面倒だし、そもそも書式をすぐに忘れる。（後者は俺だけかもしれないが）            次に考えるのがlocateやfindだが。findは長々とコマンドを打たないといけないので嫌。検索遅いし。      locateは強力だが、ヒットしすぎて困り果てるし、システムインストール直後だとデータベースが出来ていなくて使えない。            そこでしばらくwhereisコマンドを使っていた。      こんな感じ。$ whereis audaciousaudacious: /usr/ports/multimedia/audaciousただ、whereisなんで、検索対象のファイル名をきっちり分かってないと使えない。（たぶん）      また、注意すべきは-aオプションを与えないと最初のマッチしか返さないこと。以下の例のように、初めてxlockmoreを検索したときは、なんで日本語版しかないんだ?と悩んだ。$ whereis xlockmorexlockmore: /usr/ports/japanese/xlockmore$ whereis -a xlockmorexlockmore: /usr/ports/japanese/xlockmore /usr/ports/x11/xlockmoreそういった遍歴の結果、ports-mgmt/psearchに辿り着いて今のことろ満足している。      書式は以下の通り。psearch &amp;#91;options] PATTERNPATTERNには正規表現が使える。$ psearch audaci&amp;#42;audio/audacious-crossfade A Crossfading/Gapless Pluginaudio/audacious-dumb      Audacious plugin that support the IT, XM, S3M or MOD formatsaudio/audacious-mac       Audacious plugin that support the Monkey&amp;#39;s Audio lossless formatsaudio/audacity            Audacity is a GUI editor for digital audio waveformsaudio/audacity-devel      Audacity is a GUI editor for digital audio waveformsaudio/wmauda              A port of wmxmms to GTK 2.x and Audaciousmultimedia/audacious      A media player based on BMP and XMMSmultimedia/audacious-plugins Plugins needed for audaciousx11-themes/audacious-skins A collection of audacious skins俺はいつもaudaciousを入れるつもりでaudacityをインストールしてしまってガッカリするんだがこれで安心。            その他には、単語を複数渡し、スペースで区切ればand検索。-oオプションを与えればOR検索。-nならバージョン名を教えてくれる。-cでカテゴリーを指定すればそこだけを探してくれる。$ psearch thunar pluginarchivers/thunar-archive-plugin Archive plugin for the Thunar File Manageraudio/thunar-media-tags-plugin A Media Tags Plugindevel/thunar-svn-plugin   Subversion plugin for Thunarsysutils/thunar-volman-plugin A Device manager plugin.$ psearch -o thunar plugin|lessarchivers/thunar-archive-plugin Archive plugin for the Thunar File Managerastro/gkrellmoon          A moon clock plugin for Gkrellm（略）$ psearch -n thunar pluginthunar-archive-plugin-0.2.4_2 Archive plugin for the Thunar File Managerthunar-media-tags-plugin-0.1.2_8 A Media Tags Pluginthunar-svn-plugin-0.0.3_1 Subversion plugin for Thunarthunar-volman-0.2.0_4     A Device manager plugin.$ psearch -c archivers thunar pluginarchivers/thunar-archive-plugin Archive plugin for the Thunar File Manager$すげー便利。      ただ/usr/ports/INDEX-?（?にはOSのメジャーバージョンが入る）が無いとダメ。普段は気にすることないがメジャーバージョンの変わり目では気をつけること。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="portsを探すのがだるい件について。">
   <meta name="twitter:description" content="結論から言うとports-mgmt/psearchがおすすめ。      あのソフトがportsにないかなーというとき、セオリーで言えば/usr/portsディレクトリでmake search key=&amp;#8221;キーワード&amp;#8221;とするわけだが、いちいちここまでコマンドを打つのが面倒だし、そもそも書式をすぐに忘れる。（後者は俺だけかもしれないが）            次に考えるのがlocateやfindだが。findは長々とコマンドを打たないといけないので嫌。検索遅いし。      locateは強力だが、ヒットしすぎて困り果てるし、システムインストール直後だとデータベースが出来ていなくて使えない。            そこでしばらくwhereisコマンドを使っていた。      こんな感じ。$ whereis audaciousaudacious: /usr/ports/multimedia/audaciousただ、whereisなんで、検索対象のファイル名をきっちり分かってないと使えない。（たぶん）      また、注意すべきは-aオプションを与えないと最初のマッチしか返さないこと。以下の例のように、初めてxlockmoreを検索したときは、なんで日本語版しかないんだ?と悩んだ。$ whereis xlockmorexlockmore: /usr/ports/japanese/xlockmore$ whereis -a xlockmorexlockmore: /usr/ports/japanese/xlockmore /usr/ports/x11/xlockmoreそういった遍歴の結果、ports-mgmt/psearchに辿り着いて今のことろ満足している。      書式は以下の通り。psearch &amp;#91;options] PATTERNPATTERNには正規表現が使える。$ psearch audaci&amp;#42;audio/audacious-crossfade A Crossfading/Gapless Pluginaudio/audacious-dumb      Audacious plugin that support the IT, XM, S3M or MOD formatsaudio/audacious-mac       Audacious plugin that support the Monkey&amp;#39;s Audio lossless formatsaudio/audacity            Audacity is a GUI editor for digital audio waveformsaudio/audacity-devel      Audacity is a GUI editor for digital audio waveformsaudio/wmauda              A port of wmxmms to GTK 2.x and Audaciousmultimedia/audacious      A media player based on BMP and XMMSmultimedia/audacious-plugins Plugins needed for audaciousx11-themes/audacious-skins A collection of audacious skins俺はいつもaudaciousを入れるつもりでaudacityをインストールしてしまってガッカリするんだがこれで安心。            その他には、単語を複数渡し、スペースで区切ればand検索。-oオプションを与えればOR検索。-nならバージョン名を教えてくれる。-cでカテゴリーを指定すればそこだけを探してくれる。$ psearch thunar pluginarchivers/thunar-archive-plugin Archive plugin for the Thunar File Manageraudio/thunar-media-tags-plugin A Media Tags Plugindevel/thunar-svn-plugin   Subversion plugin for Thunarsysutils/thunar-volman-plugin A Device manager plugin.$ psearch -o thunar plugin|lessarchivers/thunar-archive-plugin Archive plugin for the Thunar File Managerastro/gkrellmoon          A moon clock plugin for Gkrellm（略）$ psearch -n thunar pluginthunar-archive-plugin-0.2.4_2 Archive plugin for the Thunar File Managerthunar-media-tags-plugin-0.1.2_8 A Media Tags Pluginthunar-svn-plugin-0.0.3_1 Subversion plugin for Thunarthunar-volman-0.2.0_4     A Device manager plugin.$ psearch -c archivers thunar pluginarchivers/thunar-archive-plugin Archive plugin for the Thunar File Manager$すげー便利。      ただ/usr/ports/INDEX-?（?にはOSのメジャーバージョンが入る）が無いとダメ。普段は気にすることないがメジャーバージョンの変わり目では気をつけること。">
-  <meta name="twitter:url" content="http://localhost:4000/2009/07/31-ports%E3%82%92%E6%8E%A2%E3%81%99%E3%81%AE%E3%81%8C%E3%81%A0%E3%82%8B%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+  <meta name="twitter:url" content="/2009/07/31-ports%E3%82%92%E6%8E%A2%E3%81%99%E3%81%AE%E3%81%8C%E3%81%A0%E3%82%8B%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/07/31-ports%E3%82%92%E6%8E%A2%E3%81%99%E3%81%AE%E3%81%8C%E3%81%A0%E3%82%8B%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
+<link rel="canonical" href="/2009/07/31-ports%E3%82%92%E6%8E%A2%E3%81%99%E3%81%AE%E3%81%8C%E3%81%A0%E3%82%8B%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

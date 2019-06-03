@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="日本語ファイルを含むzipが展開できない件">
-<meta property="og:url" content="http://localhost:4000/2009/11/23-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%90%AB%E3%82%80zip%E3%81%8C%E5%B1%95%E9%96%8B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
+<meta property="og:url" content="/2009/11/23-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%90%AB%E3%82%80zip%E3%81%8C%E5%B1%95%E9%96%8B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
 
   <meta property="og:description" content="Windowsで圧縮した日本語ファイルをFreeBSDでunzipすると文字化けする。      ここでの文字化けは、ファイル名だけでなく、どうも中身も壊れてしまうようだ。      該当ファイルをlsしてみると、（無効なエンコーディング）と表示される。$ ls進捗1112.xls (無効なエンコーディング)$仕事上、メールをFreeBSDマシンで受けることがあるのだが、このおかげでメールに添付されたファイルを開けない。      困っていて検索したところ、以下のページがヒット。      これで内容が壊れる件は問題なく出来た。（ファイル名はSJISなのでやっぱり化ける。UTF-8やEUC-JPにするには&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070302/p1&quot; target=&quot;_blank&quot;&gt;convmv&lt;/a&gt;が必要）      &lt;a href=&quot;http://nhh.mo-blog.jp/ttt/2007/03/zipunzip_315b.html&quot; target=&quot;_blank&quot;&gt;http://nhh.mo-blog.jp/ttt/2007/03/zipunzip_315b.html&lt;/a&gt;      ここに記載の通り、&amp;#8221;CFLAGS+=-D&amp;#8217;Ext_ASCII_TO_Native(string, hostnum, hostver, isuxatt, islochdr)&#39;&amp;#8221;をつけてmake。      出来たカスタム版unzipだが、/usr/local/bin配下に置くのはちょっと嫌なので、ホームディレクトリのbin配下にコピー。さらにカスタム版だということが分かるよう、名前はunzip.custに変えた。$ cd /usr/ports/archivers/unzip$ make &amp;#34;CFLAGS+=-D&amp;#39;Ext_ASCII_TO_Native(string, hostnum, hostver, isuxatt, islochdr)&amp;#39;&amp;#34;（略）$ cd ./work/unzip60 (workの下のディレクトリ名は異なる可能性あり)$ cp unzip ~/bin/unzip.cust$">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="日本語ファイルを含むzipが展開できない件">
   <meta name="twitter:description" content="Windowsで圧縮した日本語ファイルをFreeBSDでunzipすると文字化けする。      ここでの文字化けは、ファイル名だけでなく、どうも中身も壊れてしまうようだ。      該当ファイルをlsしてみると、（無効なエンコーディング）と表示される。$ ls進捗1112.xls (無効なエンコーディング)$仕事上、メールをFreeBSDマシンで受けることがあるのだが、このおかげでメールに添付されたファイルを開けない。      困っていて検索したところ、以下のページがヒット。      これで内容が壊れる件は問題なく出来た。（ファイル名はSJISなのでやっぱり化ける。UTF-8やEUC-JPにするには&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070302/p1&quot; target=&quot;_blank&quot;&gt;convmv&lt;/a&gt;が必要）      &lt;a href=&quot;http://nhh.mo-blog.jp/ttt/2007/03/zipunzip_315b.html&quot; target=&quot;_blank&quot;&gt;http://nhh.mo-blog.jp/ttt/2007/03/zipunzip_315b.html&lt;/a&gt;      ここに記載の通り、&amp;#8221;CFLAGS+=-D&amp;#8217;Ext_ASCII_TO_Native(string, hostnum, hostver, isuxatt, islochdr)&#39;&amp;#8221;をつけてmake。      出来たカスタム版unzipだが、/usr/local/bin配下に置くのはちょっと嫌なので、ホームディレクトリのbin配下にコピー。さらにカスタム版だということが分かるよう、名前はunzip.custに変えた。$ cd /usr/ports/archivers/unzip$ make &amp;#34;CFLAGS+=-D&amp;#39;Ext_ASCII_TO_Native(string, hostnum, hostver, isuxatt, islochdr)&amp;#39;&amp;#34;（略）$ cd ./work/unzip60 (workの下のディレクトリ名は異なる可能性あり)$ cp unzip ~/bin/unzip.cust$">
-  <meta name="twitter:url" content="http://localhost:4000/2009/11/23-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%90%AB%E3%82%80zip%E3%81%8C%E5%B1%95%E9%96%8B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
+  <meta name="twitter:url" content="/2009/11/23-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%90%AB%E3%82%80zip%E3%81%8C%E5%B1%95%E9%96%8B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/11/23-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%90%AB%E3%82%80zip%E3%81%8C%E5%B1%95%E9%96%8B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
+<link rel="canonical" href="/2009/11/23-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%90%AB%E3%82%80zip%E3%81%8C%E5%B1%95%E9%96%8B%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

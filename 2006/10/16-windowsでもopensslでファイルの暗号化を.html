@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="WindowsでもOpenSSLでファイルの暗号化を">
-<meta property="og:url" content="http://localhost:4000/2006/10/16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92.html">
+<meta property="og:url" content="/2006/10/16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92.html">
 
 
   <meta property="og:description" content="会社のWindowsマシンでOpenSSLコマンドを使ってみた。      バイナリは(&lt;a href=&quot;http://www.openssl.org/related/binaries.html&quot; target=&quot;_blank&quot;&gt;http://www.openssl.org/related/binaries.html&lt;/a&gt;)で手に入る。      俺の会社では、PCへの暗号化ソフトのインストール、およびデータの暗号化は必須である。      暗号化は大変よろしいのだが、常々思っていたのは、PCがクラッシュしたときのデータリカバリだ。      プロプライエタリな暗号化ソフトなので、有事の際にはきちんと復号出来るのか非常に不安だ。      あくまでも想像だが、一般のツールは使えず、通常はその暗号化ソフト付属のツールでしか復旧は出来ないように思える。            つい先だって、Windows2000で、NTFS上での圧縮ファイルが破損するという話があった(&lt;a href=&quot;http://slashdot.jp/~oops/journal/&quot; target=&quot;_blank&quot;&gt;slashdot.jp&lt;/a&gt; , &lt;a href=&quot;http://pc8.2ch.net/test/read.cgi/win/1151414872/&quot; target=&quot;_blank&quot;&gt;2ch&lt;/a&gt;[dat落ちしてるかも] 今では修正パッチ提供済み)。      NTFSもプロプライエタリものだが、超メジャーであったせいで、LinuxやFreeBSDが対応しており、それらOSから復旧を試みることができた結果、偶然にもFreeBSDから壊れたファイルを読むことが出来たそうな（これは別にFreeBSDが優れているという話ではなく、あくまでたまたまOKだっただけ）。            きっとこの暗号化ソフトもメジャーであればあるほど、外部ツールは充実されるんだろうが、メジャー度は正直よく知らない。      最終的には、ソフトベンダにお金払って復旧してもらうんだろう。たぶん。            まあそんなわけで、素人の俺様が考えるに、暗号化ソフト（と言っていいのか知らんが）は、オープンかつメジャーなものが良いと思った。      翻って俺の会社の話。      業務で生成した成果物は共有のファイルサーバにアップしているので問題ないのだが、問題は業務関連だが個人用のデータ。      要するにメールのデータなどだ。      もちろん、個人のデータであっても、業務上のデータであるので、緊急時には管理者がバックドアなりマスターキーなり何なりで復号するのは当然だが、普段の話として。      一応、会社は吊しのNASに、社員ごとのフォルダを用意してくれているのだが、そこに生のデータをアップするのは抵抗がある。      かといって個人持ちの外部記憶装置は禁止なので、フラッシュメモリ、USBのHDDは使えない。            ということで、前半で述べた俺様判断の結果により、オープンかつメジャーなOpenSSLで暗号化し、その後にNASにアップすることにした。      なんかあったらWindowsだけじゃなく、LinuxやFreeBSDその他で復号出来るし。            冒頭で書いたとおり、Windows用のバイナリは(&lt;a href=&quot;http://www.openssl.org/related/binaries.html&quot; target=&quot;_blank&quot;&gt;http://www.openssl.org/related/binaries.html&lt;/a&gt;)で手に入る。      c:\OpenSSL\binにインストールされるのでパスを通す。      OpenSSLは使えるオプションがクソ多くて混乱するが、&lt;a href=&quot;http://www.atmarkit.co.jp/fsecurity/rensai/securitytips/026openssl.html&quot; target=&quot;_blank&quot;&gt;@IT&lt;/a&gt;に使用例が載っていた。      一応、ここにも使用例を載せておく。      書式          openssl  &lt;-e:暗号/-d:復号&gt; -in  -out       &lt;/blockquote&gt;        サンプル                (暗号化)                  openssl des -e -in test.doc -out test.doc.crypted                  (復号)                  openssl des -d -in test.doc.crypted -out test.doc              試しに暗号化されたファイルの頭をダンプしてみたらSaltedになっていた。きちんと暗号化されてるようだ。  ">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="WindowsでもOpenSSLでファイルの暗号化を">
   <meta name="twitter:description" content="会社のWindowsマシンでOpenSSLコマンドを使ってみた。      バイナリは(&lt;a href=&quot;http://www.openssl.org/related/binaries.html&quot; target=&quot;_blank&quot;&gt;http://www.openssl.org/related/binaries.html&lt;/a&gt;)で手に入る。      俺の会社では、PCへの暗号化ソフトのインストール、およびデータの暗号化は必須である。      暗号化は大変よろしいのだが、常々思っていたのは、PCがクラッシュしたときのデータリカバリだ。      プロプライエタリな暗号化ソフトなので、有事の際にはきちんと復号出来るのか非常に不安だ。      あくまでも想像だが、一般のツールは使えず、通常はその暗号化ソフト付属のツールでしか復旧は出来ないように思える。            つい先だって、Windows2000で、NTFS上での圧縮ファイルが破損するという話があった(&lt;a href=&quot;http://slashdot.jp/~oops/journal/&quot; target=&quot;_blank&quot;&gt;slashdot.jp&lt;/a&gt; , &lt;a href=&quot;http://pc8.2ch.net/test/read.cgi/win/1151414872/&quot; target=&quot;_blank&quot;&gt;2ch&lt;/a&gt;[dat落ちしてるかも] 今では修正パッチ提供済み)。      NTFSもプロプライエタリものだが、超メジャーであったせいで、LinuxやFreeBSDが対応しており、それらOSから復旧を試みることができた結果、偶然にもFreeBSDから壊れたファイルを読むことが出来たそうな（これは別にFreeBSDが優れているという話ではなく、あくまでたまたまOKだっただけ）。            きっとこの暗号化ソフトもメジャーであればあるほど、外部ツールは充実されるんだろうが、メジャー度は正直よく知らない。      最終的には、ソフトベンダにお金払って復旧してもらうんだろう。たぶん。            まあそんなわけで、素人の俺様が考えるに、暗号化ソフト（と言っていいのか知らんが）は、オープンかつメジャーなものが良いと思った。      翻って俺の会社の話。      業務で生成した成果物は共有のファイルサーバにアップしているので問題ないのだが、問題は業務関連だが個人用のデータ。      要するにメールのデータなどだ。      もちろん、個人のデータであっても、業務上のデータであるので、緊急時には管理者がバックドアなりマスターキーなり何なりで復号するのは当然だが、普段の話として。      一応、会社は吊しのNASに、社員ごとのフォルダを用意してくれているのだが、そこに生のデータをアップするのは抵抗がある。      かといって個人持ちの外部記憶装置は禁止なので、フラッシュメモリ、USBのHDDは使えない。            ということで、前半で述べた俺様判断の結果により、オープンかつメジャーなOpenSSLで暗号化し、その後にNASにアップすることにした。      なんかあったらWindowsだけじゃなく、LinuxやFreeBSDその他で復号出来るし。            冒頭で書いたとおり、Windows用のバイナリは(&lt;a href=&quot;http://www.openssl.org/related/binaries.html&quot; target=&quot;_blank&quot;&gt;http://www.openssl.org/related/binaries.html&lt;/a&gt;)で手に入る。      c:\OpenSSL\binにインストールされるのでパスを通す。      OpenSSLは使えるオプションがクソ多くて混乱するが、&lt;a href=&quot;http://www.atmarkit.co.jp/fsecurity/rensai/securitytips/026openssl.html&quot; target=&quot;_blank&quot;&gt;@IT&lt;/a&gt;に使用例が載っていた。      一応、ここにも使用例を載せておく。      書式          openssl  &lt;-e:暗号/-d:復号&gt; -in  -out       &lt;/blockquote&gt;        サンプル                (暗号化)                  openssl des -e -in test.doc -out test.doc.crypted                  (復号)                  openssl des -d -in test.doc.crypted -out test.doc              試しに暗号化されたファイルの頭をダンプしてみたらSaltedになっていた。きちんと暗号化されてるようだ。  ">
-  <meta name="twitter:url" content="http://localhost:4000/2006/10/16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92.html">
+  <meta name="twitter:url" content="/2006/10/16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2006/10/16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92.html">
+<link rel="canonical" href="/2006/10/16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

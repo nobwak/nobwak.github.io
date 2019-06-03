@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="mergemasterは-sivaでなく-UPiで。">
-<meta property="og:url" content="http://localhost:4000/2008/12/08-mergemaster%E3%81%AF-siva%E3%81%A7%E3%81%AA%E3%81%8F-upi%E3%81%A7.html">
+<meta property="og:url" content="/2008/12/08-mergemaster%E3%81%AF-siva%E3%81%A7%E3%81%AA%E3%81%8F-upi%E3%81%A7.html">
 
 
   <meta property="og:description" content="mergemasterについて、FreeBSD-questionsに面白い投稿（&lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&quot; target=&quot;_blank&quot;&gt;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&lt;/a&gt;）があった。      もし結論を早く知りたい人がいれば、結末から読んでください。            &lt;span style=&quot;font-style:italic;&quot;&gt;2009/2/16 追記。本記事も陳腐化したので、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090216/p1&quot; target=&quot;_blank&quot;&gt;mergemasterをさらにさらにさらに早く&lt;/a&gt;をどうぞ。&lt;/span&gt;      mergemasterにはかなり前に自動アップデート機能が追加されていたらしく…。      具体的には、mergemasaterに-Uオプションを与えて実行する。      これは、ユーザ変更がされていないファイルであれば自動的にアップデートするというもの。      便利は便利なのだが、その性質上、ユーザ変更の有無を比較するための原本が必要になる。      その原本が/var/db/mergemaster.mtree。      今までに何度かmergemasterを実行していれば上記ファイルはあるはずだが、ない場合には「ソースをアップデートする前に」mergemasterを一回カラ打ちする必要がある。            実行例$ mergemaster&amp;#42;&amp;#42;&amp;#42; Unable to find mtree database. Skipping auto-upgrade.&amp;#42;&amp;#42;&amp;#42; Creating the temporary root environment in /var/tmp/temproot&amp;#42;&amp;#42;&amp;#42; /var/tmp/temproot ready for use&amp;#42;&amp;#42;&amp;#42; Creating and populating directory structure in /var/tmp/temprootmtree -eU  -f /usr/src/etc/mtree/BSD.root.dist -p /var/tmp/temproot/(略)こうしておけば、次からmergemaster -Uとやるだけで、かなりのファイルを自動アップデートしてくれて楽になるはず。      しかし、自動アップデートはやはり怖いので、入れ替え前のファイルはどこかに保存しておきたい。だから-Pオプションも追加。バックアップは/var/tmp/mergemaster/preserved-files-`date +%y%m%d-%H%M%S`に作られる。      さらに、アップグレードにより新規に追加されたファイルは問答無用でインストールしていいはずなので、-iオプションも追加。      つまりmergemaster -UPi      ところで、mergemasterの設定ファイルであるmergemaster.rcは/usr/share/examples配下にない。何でないのだろう、と思っていたのだが、なんとmergemasterのマニュアル内にあった。最後まで読んでなかったよ…。            というわけで、以下のファイルを/etc/mergemaster.rcとして保存しておけばオプション要らず。      /etc/mergemaster.rcAUTO_INSTALL=yesAUTO_UPGRADE=yesPRESERVE_FILES=yesPRESERVE_FILES_DIR=/var/tmp/mergemaster/preserved-files-`date +%y%m%d-%H%M%S`IGNORE_MOTD=yesVERBOSE=yesAUTO_UPGRADEが-Uオプションに対応するが、現時点（7.1-BETA2）ではマニュアルに記載されていない。      4行目以降はmergemasterのマニュアルを参考に書いた。      PRESERVE_FILES_DIRはバックアップファイルを置くディレクトリ書式の指定。      IGNORE_MOTDはmotdを無視する設定。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="mergemasterは-sivaでなく-UPiで。">
   <meta name="twitter:description" content="mergemasterについて、FreeBSD-questionsに面白い投稿（&lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&quot; target=&quot;_blank&quot;&gt;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&lt;/a&gt;）があった。      もし結論を早く知りたい人がいれば、結末から読んでください。            &lt;span style=&quot;font-style:italic;&quot;&gt;2009/2/16 追記。本記事も陳腐化したので、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090216/p1&quot; target=&quot;_blank&quot;&gt;mergemasterをさらにさらにさらに早く&lt;/a&gt;をどうぞ。&lt;/span&gt;      mergemasterにはかなり前に自動アップデート機能が追加されていたらしく…。      具体的には、mergemasaterに-Uオプションを与えて実行する。      これは、ユーザ変更がされていないファイルであれば自動的にアップデートするというもの。      便利は便利なのだが、その性質上、ユーザ変更の有無を比較するための原本が必要になる。      その原本が/var/db/mergemaster.mtree。      今までに何度かmergemasterを実行していれば上記ファイルはあるはずだが、ない場合には「ソースをアップデートする前に」mergemasterを一回カラ打ちする必要がある。            実行例$ mergemaster&amp;#42;&amp;#42;&amp;#42; Unable to find mtree database. Skipping auto-upgrade.&amp;#42;&amp;#42;&amp;#42; Creating the temporary root environment in /var/tmp/temproot&amp;#42;&amp;#42;&amp;#42; /var/tmp/temproot ready for use&amp;#42;&amp;#42;&amp;#42; Creating and populating directory structure in /var/tmp/temprootmtree -eU  -f /usr/src/etc/mtree/BSD.root.dist -p /var/tmp/temproot/(略)こうしておけば、次からmergemaster -Uとやるだけで、かなりのファイルを自動アップデートしてくれて楽になるはず。      しかし、自動アップデートはやはり怖いので、入れ替え前のファイルはどこかに保存しておきたい。だから-Pオプションも追加。バックアップは/var/tmp/mergemaster/preserved-files-`date +%y%m%d-%H%M%S`に作られる。      さらに、アップグレードにより新規に追加されたファイルは問答無用でインストールしていいはずなので、-iオプションも追加。      つまりmergemaster -UPi      ところで、mergemasterの設定ファイルであるmergemaster.rcは/usr/share/examples配下にない。何でないのだろう、と思っていたのだが、なんとmergemasterのマニュアル内にあった。最後まで読んでなかったよ…。            というわけで、以下のファイルを/etc/mergemaster.rcとして保存しておけばオプション要らず。      /etc/mergemaster.rcAUTO_INSTALL=yesAUTO_UPGRADE=yesPRESERVE_FILES=yesPRESERVE_FILES_DIR=/var/tmp/mergemaster/preserved-files-`date +%y%m%d-%H%M%S`IGNORE_MOTD=yesVERBOSE=yesAUTO_UPGRADEが-Uオプションに対応するが、現時点（7.1-BETA2）ではマニュアルに記載されていない。      4行目以降はmergemasterのマニュアルを参考に書いた。      PRESERVE_FILES_DIRはバックアップファイルを置くディレクトリ書式の指定。      IGNORE_MOTDはmotdを無視する設定。">
-  <meta name="twitter:url" content="http://localhost:4000/2008/12/08-mergemaster%E3%81%AF-siva%E3%81%A7%E3%81%AA%E3%81%8F-upi%E3%81%A7.html">
+  <meta name="twitter:url" content="/2008/12/08-mergemaster%E3%81%AF-siva%E3%81%A7%E3%81%AA%E3%81%8F-upi%E3%81%A7.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/12/08-mergemaster%E3%81%AF-siva%E3%81%A7%E3%81%AA%E3%81%8F-upi%E3%81%A7.html">
+<link rel="canonical" href="/2008/12/08-mergemaster%E3%81%AF-siva%E3%81%A7%E3%81%AA%E3%81%8F-upi%E3%81%A7.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

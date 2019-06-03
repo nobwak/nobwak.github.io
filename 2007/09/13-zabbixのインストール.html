@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="ZABBIXのインストール">
-<meta property="og:url" content="http://localhost:4000/2007/09/13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
+<meta property="og:url" content="/2007/09/13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
 
 
   <meta property="og:description" content="&lt;a href=&quot;http://www.zabbix.com/index.php&quot; target=&quot;_blank&quot;&gt;ZABBIX&lt;/a&gt;とはフリーの統合監視ソフト。      Webインタフェースで楽に設定できて、綺麗な表示が得られるのが特徴。      今回、Ubuntuの入ったマシンにZABBIXをインストールしようと思ったのだが、2007/9現在、ZABBIXは1.4.2が最新版であるのに対し、7.04(Feisty)で手に入るパッケージのバージョンは1.1。      どうせなら新しいのを入れたい。      &lt;a href=&quot;http://packages.ubuntu.com/cgi-bin/search_packages.pl?keywords=zabbix&amp;#038;searchon=names&amp;#038;subword=1&amp;#038;version=all&amp;#038;release=all&quot; target=&quot;_blank&quot;&gt;調べたところ&lt;/a&gt;7.10(Gutsy)であれば1.4.1のパッケージがあるようだ。            もちろんソースからコンパイルしても良いのだが、自前インストールしたZABBIXがパッケージ管理しているソフトウェアに依存していると後々面倒なので、思い切って7.10にアップグレードした。      で、インストール。      バックエンドのデータベースにはMySQLを使用するので、下記二つのパッケージをインストールした。          zabbix-frontend-php - software for monitoring of your servers &#8212; php frontend                  zabbix-server-mysql - software for monitoring of your networks &#8212; server      インストールに伴う設定手順などは&lt;a href=&quot;http://www.thinkit.co.jp/free/article/0611/19/1/&quot; target=&quot;_blank&quot;&gt;ThinkIT 第1回：ZABBIXをインストール&lt;/a&gt;が参考になる。      が、こういった記事は日が経つに従い、対象としているソフトの最新版との違いが発生してくるので、オフィシャルサイトやソフト自体に付属してくるドキュメントも確認しないと色々と問題が起こったりする。      実際、上記の記事では誤記も多かったので、オフィシャルサイトのマニュアルと見比べつつ設定をした。      特に大きな違いがあるのはWindowsにagentデーモンをサービスとして登録する方法。      記事中では単に「install」を追加すると書いてあるが、オフィシャルマニュアルでは「-install」となっており、実際に後者でないと認識されない。      v1.4ではzabbix_agentd.exe -c &amp;#8220;設定ファイル&amp;#8221; -installとする。      ちなみにWindows上でzabbix_agentd.exeに-hオプションを与えて実行した出力は下記の通り。      その他のオプションが表示される。C:\Program Files\zabbix&amp;#62;zabbix_agentd.exe -hZABBIX Agent Win32 (service) v1.4.2 (20 August 2007)usage: zabbix_agentd.exe [-Vhp] [-idsx] [-c &amp;#60;file&amp;#62;] [-t &amp;#60;metric&amp;#62;]Options:-c --config &amp;#60;file&amp;#62;  Specify configuration file-h --help           give this help-V --version        display version number-p --print          print supported metrics and exit-t --test &amp;#60;metric&amp;#62;  test specified metric and exitFunctions:-i --install        install ZABIX agent as service-d --uninstall      uninstall ZABIX agent from service-s --start          start ZABIX agent service-x --stop           stop ZABIX agent serviceC:\Program Files\zabbix&amp;#62;その他にちょっとつまづいたのは、php.iniの修正。      webインタフェースを初めて実行すると設定が始まり、場合によってphp.iniの修正を求められる。      俺がphp.iniを変更したのは下記の2行          max_execution_time = 300　（30だったのを300に修正）                  date.timezone = Asia/Tokyo　（追加）      php.iniを修正したらapacheの再起動を忘れずに。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="ZABBIXのインストール">
   <meta name="twitter:description" content="&lt;a href=&quot;http://www.zabbix.com/index.php&quot; target=&quot;_blank&quot;&gt;ZABBIX&lt;/a&gt;とはフリーの統合監視ソフト。      Webインタフェースで楽に設定できて、綺麗な表示が得られるのが特徴。      今回、Ubuntuの入ったマシンにZABBIXをインストールしようと思ったのだが、2007/9現在、ZABBIXは1.4.2が最新版であるのに対し、7.04(Feisty)で手に入るパッケージのバージョンは1.1。      どうせなら新しいのを入れたい。      &lt;a href=&quot;http://packages.ubuntu.com/cgi-bin/search_packages.pl?keywords=zabbix&amp;#038;searchon=names&amp;#038;subword=1&amp;#038;version=all&amp;#038;release=all&quot; target=&quot;_blank&quot;&gt;調べたところ&lt;/a&gt;7.10(Gutsy)であれば1.4.1のパッケージがあるようだ。            もちろんソースからコンパイルしても良いのだが、自前インストールしたZABBIXがパッケージ管理しているソフトウェアに依存していると後々面倒なので、思い切って7.10にアップグレードした。      で、インストール。      バックエンドのデータベースにはMySQLを使用するので、下記二つのパッケージをインストールした。          zabbix-frontend-php - software for monitoring of your servers &#8212; php frontend                  zabbix-server-mysql - software for monitoring of your networks &#8212; server      インストールに伴う設定手順などは&lt;a href=&quot;http://www.thinkit.co.jp/free/article/0611/19/1/&quot; target=&quot;_blank&quot;&gt;ThinkIT 第1回：ZABBIXをインストール&lt;/a&gt;が参考になる。      が、こういった記事は日が経つに従い、対象としているソフトの最新版との違いが発生してくるので、オフィシャルサイトやソフト自体に付属してくるドキュメントも確認しないと色々と問題が起こったりする。      実際、上記の記事では誤記も多かったので、オフィシャルサイトのマニュアルと見比べつつ設定をした。      特に大きな違いがあるのはWindowsにagentデーモンをサービスとして登録する方法。      記事中では単に「install」を追加すると書いてあるが、オフィシャルマニュアルでは「-install」となっており、実際に後者でないと認識されない。      v1.4ではzabbix_agentd.exe -c &amp;#8220;設定ファイル&amp;#8221; -installとする。      ちなみにWindows上でzabbix_agentd.exeに-hオプションを与えて実行した出力は下記の通り。      その他のオプションが表示される。C:\Program Files\zabbix&amp;#62;zabbix_agentd.exe -hZABBIX Agent Win32 (service) v1.4.2 (20 August 2007)usage: zabbix_agentd.exe [-Vhp] [-idsx] [-c &amp;#60;file&amp;#62;] [-t &amp;#60;metric&amp;#62;]Options:-c --config &amp;#60;file&amp;#62;  Specify configuration file-h --help           give this help-V --version        display version number-p --print          print supported metrics and exit-t --test &amp;#60;metric&amp;#62;  test specified metric and exitFunctions:-i --install        install ZABIX agent as service-d --uninstall      uninstall ZABIX agent from service-s --start          start ZABIX agent service-x --stop           stop ZABIX agent serviceC:\Program Files\zabbix&amp;#62;その他にちょっとつまづいたのは、php.iniの修正。      webインタフェースを初めて実行すると設定が始まり、場合によってphp.iniの修正を求められる。      俺がphp.iniを変更したのは下記の2行          max_execution_time = 300　（30だったのを300に修正）                  date.timezone = Asia/Tokyo　（追加）      php.iniを修正したらapacheの再起動を忘れずに。">
-  <meta name="twitter:url" content="http://localhost:4000/2007/09/13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
+  <meta name="twitter:url" content="/2007/09/13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2007/09/13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
+<link rel="canonical" href="/2007/09/13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

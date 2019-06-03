@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="portsnapの罠">
-<meta property="og:url" content="http://localhost:4000/2006/05/15-portsnap%E3%81%AE%E7%BD%A0.html">
+<meta property="og:url" content="/2006/05/15-portsnap%E3%81%AE%E7%BD%A0.html">
 
 
   <meta property="og:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20060501#p1&quot; target=&quot;_blank&quot;&gt;先日&lt;/a&gt;の日記でも少し触れたportsnap。日記ではさらりと書いているが実はすごく苦労した。      最終的にあのような結論に至った訳だが、今回、別のマシンに6.0-RELEASEを入れて分かったことがある。もう少し早く気づけばよかった。            6.0-RELEASEのportsnapでは、認証が必要なPROXY越えは出来ない。            その後、いくつか修正が入ったものの、本当の意味で使えるようになったのは6.1-RELEASEから。            5系列では、5.4-RELEASE、および3/9より以前の5-STABLEも同様にPROXY越え不可。            6系列におけるphttpget.cのバージョンを下記に示す。      6.0-RELEASEのもの。      __FBSDID(&amp;#8220;$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.1 2005/08/15 20:24:08 cperciva Exp $&amp;#8221;);            6.1-RELEASEのもの。      __FBSDID(&amp;#8220;$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $&amp;#8221;);            &lt;a href=&quot;http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c&lt;/a&gt;      上記リンクを参照すると分かるが、認証要PROXYに対応したのは1.4.2.2から。      ただしHTTP_PROXY_AUTHについて、誤った書式をもとに読み込んでいるため、正しく動かない。      ここを修正したのが1.4.2.5。      もちろん、1.4.2.5より前のphttpget.cでも上記の情報をもとに修正すれば問題なく動く。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="portsnapの罠">
   <meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20060501#p1&quot; target=&quot;_blank&quot;&gt;先日&lt;/a&gt;の日記でも少し触れたportsnap。日記ではさらりと書いているが実はすごく苦労した。      最終的にあのような結論に至った訳だが、今回、別のマシンに6.0-RELEASEを入れて分かったことがある。もう少し早く気づけばよかった。            6.0-RELEASEのportsnapでは、認証が必要なPROXY越えは出来ない。            その後、いくつか修正が入ったものの、本当の意味で使えるようになったのは6.1-RELEASEから。            5系列では、5.4-RELEASE、および3/9より以前の5-STABLEも同様にPROXY越え不可。            6系列におけるphttpget.cのバージョンを下記に示す。      6.0-RELEASEのもの。      __FBSDID(&amp;#8220;$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.1 2005/08/15 20:24:08 cperciva Exp $&amp;#8221;);            6.1-RELEASEのもの。      __FBSDID(&amp;#8220;$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $&amp;#8221;);            &lt;a href=&quot;http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c&lt;/a&gt;      上記リンクを参照すると分かるが、認証要PROXYに対応したのは1.4.2.2から。      ただしHTTP_PROXY_AUTHについて、誤った書式をもとに読み込んでいるため、正しく動かない。      ここを修正したのが1.4.2.5。      もちろん、1.4.2.5より前のphttpget.cでも上記の情報をもとに修正すれば問題なく動く。">
-  <meta name="twitter:url" content="http://localhost:4000/2006/05/15-portsnap%E3%81%AE%E7%BD%A0.html">
+  <meta name="twitter:url" content="/2006/05/15-portsnap%E3%81%AE%E7%BD%A0.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2006/05/15-portsnap%E3%81%AE%E7%BD%A0.html">
+<link rel="canonical" href="/2006/05/15-portsnap%E3%81%AE%E7%BD%A0.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

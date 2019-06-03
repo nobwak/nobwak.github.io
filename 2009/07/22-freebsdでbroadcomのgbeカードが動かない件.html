@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="FreeBSDでbroadcomのGbEカードが動かない件">
-<meta property="og:url" content="http://localhost:4000/2009/07/22-freebsd%E3%81%A7broadcom%E3%81%AEgbe%E3%82%AB%E3%83%BC%E3%83%89%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E4%BB%B6.html">
+<meta property="og:url" content="/2009/07/22-freebsd%E3%81%A7broadcom%E3%81%AEgbe%E3%82%AB%E3%83%BC%E3%83%89%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
 
   <meta property="og:description" content="あるマシンにFreeBSDをインストールしたのだが、BroadcomのGbEカードで通信ができない。      DHCPに設定してもIPアドレスを取得できないし、固定で設定しても通信できない。7.2-STABLEと8.0-BETA2で確認した。      &lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-stable/2009-April/049571.html&quot; target=&quot;_blank&quot;&gt;ググって&lt;/a&gt;以下のように/boot/loader.confに設定して何とか解決したのでメモ。問題はBroadcomのカードではなく、むしろNVIDIAチップセットにある模様。      ◎/boot/loader.confhw.bce.msi_enable=0hw.pci.enable_msi=0具体的なカードは以下の通り。◎dmesgの出力bge0: &amp;#60;Broadcom NetXtreme Gigabit Ethernet Controller, ASIC rev. 0xb002&amp;#62;mem 0xfddf0000-0xfddfffff irq 16 at device 0.0 on pci2miibus0: &amp;#60;MII bus&amp;#62; on bge0◎pciconf -lvの出力$ pciconf -lv|lessnone0@pci0:0:0:0:       class=0x050000 card=0x02f010de chip=0x02f010de rev=0xa2 hdr=0x00vendor     = &amp;#39;Nvidia Corp&amp;#39;device     = &amp;#39;C51 Host Bridge&amp;#39;class      = memorysubclass   = RAM（中略）bge0@pci0:2:0:0:        class=0x020000 card=0x01ec1028 chip=0x167a14e4 rev=0x02 hdr=0x00vendor     = &amp;#39;Broadcom Corporation&amp;#39;device     = &amp;#39;Broadcom NetXtreme Gigabit Ethernet Controller (BCM5754)&amp;#39;class      = networksubclass   = ethernetNICが使えないとなると、OSを変えるかIntelあたりのNICを追加するかしないといけなかったので、直ってよかった…。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="FreeBSDでbroadcomのGbEカードが動かない件">
   <meta name="twitter:description" content="あるマシンにFreeBSDをインストールしたのだが、BroadcomのGbEカードで通信ができない。      DHCPに設定してもIPアドレスを取得できないし、固定で設定しても通信できない。7.2-STABLEと8.0-BETA2で確認した。      &lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-stable/2009-April/049571.html&quot; target=&quot;_blank&quot;&gt;ググって&lt;/a&gt;以下のように/boot/loader.confに設定して何とか解決したのでメモ。問題はBroadcomのカードではなく、むしろNVIDIAチップセットにある模様。      ◎/boot/loader.confhw.bce.msi_enable=0hw.pci.enable_msi=0具体的なカードは以下の通り。◎dmesgの出力bge0: &amp;#60;Broadcom NetXtreme Gigabit Ethernet Controller, ASIC rev. 0xb002&amp;#62;mem 0xfddf0000-0xfddfffff irq 16 at device 0.0 on pci2miibus0: &amp;#60;MII bus&amp;#62; on bge0◎pciconf -lvの出力$ pciconf -lv|lessnone0@pci0:0:0:0:       class=0x050000 card=0x02f010de chip=0x02f010de rev=0xa2 hdr=0x00vendor     = &amp;#39;Nvidia Corp&amp;#39;device     = &amp;#39;C51 Host Bridge&amp;#39;class      = memorysubclass   = RAM（中略）bge0@pci0:2:0:0:        class=0x020000 card=0x01ec1028 chip=0x167a14e4 rev=0x02 hdr=0x00vendor     = &amp;#39;Broadcom Corporation&amp;#39;device     = &amp;#39;Broadcom NetXtreme Gigabit Ethernet Controller (BCM5754)&amp;#39;class      = networksubclass   = ethernetNICが使えないとなると、OSを変えるかIntelあたりのNICを追加するかしないといけなかったので、直ってよかった…。">
-  <meta name="twitter:url" content="http://localhost:4000/2009/07/22-freebsd%E3%81%A7broadcom%E3%81%AEgbe%E3%82%AB%E3%83%BC%E3%83%89%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E4%BB%B6.html">
+  <meta name="twitter:url" content="/2009/07/22-freebsd%E3%81%A7broadcom%E3%81%AEgbe%E3%82%AB%E3%83%BC%E3%83%89%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/07/22-freebsd%E3%81%A7broadcom%E3%81%AEgbe%E3%82%AB%E3%83%BC%E3%83%89%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E4%BB%B6.html">
+<link rel="canonical" href="/2009/07/22-freebsd%E3%81%A7broadcom%E3%81%AEgbe%E3%82%AB%E3%83%BC%E3%83%89%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E4%BB%B6.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

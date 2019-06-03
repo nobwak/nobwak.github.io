@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="[FreeBSD] システムアップグレード時にはzpool(ZFS)のアップグレードも忘れずにNE！">
-<meta property="og:url" content="http://localhost:4000/2015/01/02-freebsd-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E3%81%AB%E3%81%AFzpool-zfs-%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%82%E5%BF%98%E3%82%8C%E3%81%9A%E3%81%ABne.html">
+<meta property="og:url" content="/2015/01/02-freebsd-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E3%81%AB%E3%81%AFzpool-zfs-%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%82%E5%BF%98%E3%82%8C%E3%81%9A%E3%81%ABne.html">
 
 
   <meta property="og:description" content="10.1-RELEASEにアップグレードしたけどzpool(ZFS)のアップグレードを忘れてたのでメモ。アップグレードでfeaturesがいくつか追加されるから、まあやっておくのがおすすめ。9.x系列からのアップグレードの場合は、以下を参照のこと。[メモ]zpoolのupgrade[メモ]zpoolのVersionについて（Versionナンバはもう使われない）10.1-RELEASEで追加されるfeaturesは以下の通り。詳細はman zpool-featuresせよ（手抜き）。この中ではbookmarksがすごいと思うよ。  enabled_txg  hole_birth  extensible_dataset  embedded_data  bookmarks  filesystem_limitsアップグレードが必要かどうかは、zpool statusで分かる。```sh$ zpool statuspool: warehouse state: ONLINEstatus: Some supported features are not enabled on the pool. The pool can        still be used, but some features are unavailable.action: Enable all features using ‘zpool upgrade’. Once this is done,        the pool may no longer be accessible by software that does not support        the features. See zpool-features(7) for details.  scan: none requestedconfig:    NAME        STATE     READ WRITE CKSUM    warehouse   ONLINE       0     0     0      ada2      ONLINE       0     0     0errors: No known data errors```前も書いたと思うけど、ZFSは「何をすべきか」まで教えてくれるのがとても助かる。ファイルシステムなんてそんな頻繁にいじらないし、久しぶりだとコマンド忘れてしまうからね。この場合はzpool upgradeせよと。まず一般権限でzpool upgrade。```sh$ zpool upgradeThis system supports ZFS pool feature flags.All pools are formatted using feature flags.Some supported features are not enabled on the following pools. Once afeature is enabled the pool may become incompatible with softwarethat does not support the feature. See zpool-features(7) for details.POOL  FEATUREwarehouse      spacemap_histogram      enabled_txg      hole_birth      extensible_dataset      embedded_data      bookmarks      filesystem_limits追加されるfeaturesを確認したらスーパーユーザでもう一度zpool upgrade。  すぐ終わる。  お約束だが、フルバックアップは取っておこうな！```sh$ sudo zpool upgrade warehouseThis system supports ZFS pool feature flags.Enabled the following features on &#39;warehouse&#39;:  spacemap_histogram  enabled_txg  hole_birth  extensible_dataset  embedded_data  bookmarks  filesystem_limits">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="[FreeBSD] システムアップグレード時にはzpool(ZFS)のアップグレードも忘れずにNE！">
   <meta name="twitter:description" content="10.1-RELEASEにアップグレードしたけどzpool(ZFS)のアップグレードを忘れてたのでメモ。アップグレードでfeaturesがいくつか追加されるから、まあやっておくのがおすすめ。9.x系列からのアップグレードの場合は、以下を参照のこと。[メモ]zpoolのupgrade[メモ]zpoolのVersionについて（Versionナンバはもう使われない）10.1-RELEASEで追加されるfeaturesは以下の通り。詳細はman zpool-featuresせよ（手抜き）。この中ではbookmarksがすごいと思うよ。  enabled_txg  hole_birth  extensible_dataset  embedded_data  bookmarks  filesystem_limitsアップグレードが必要かどうかは、zpool statusで分かる。```sh$ zpool statuspool: warehouse state: ONLINEstatus: Some supported features are not enabled on the pool. The pool can        still be used, but some features are unavailable.action: Enable all features using ‘zpool upgrade’. Once this is done,        the pool may no longer be accessible by software that does not support        the features. See zpool-features(7) for details.  scan: none requestedconfig:    NAME        STATE     READ WRITE CKSUM    warehouse   ONLINE       0     0     0      ada2      ONLINE       0     0     0errors: No known data errors```前も書いたと思うけど、ZFSは「何をすべきか」まで教えてくれるのがとても助かる。ファイルシステムなんてそんな頻繁にいじらないし、久しぶりだとコマンド忘れてしまうからね。この場合はzpool upgradeせよと。まず一般権限でzpool upgrade。```sh$ zpool upgradeThis system supports ZFS pool feature flags.All pools are formatted using feature flags.Some supported features are not enabled on the following pools. Once afeature is enabled the pool may become incompatible with softwarethat does not support the feature. See zpool-features(7) for details.POOL  FEATUREwarehouse      spacemap_histogram      enabled_txg      hole_birth      extensible_dataset      embedded_data      bookmarks      filesystem_limits追加されるfeaturesを確認したらスーパーユーザでもう一度zpool upgrade。  すぐ終わる。  お約束だが、フルバックアップは取っておこうな！```sh$ sudo zpool upgrade warehouseThis system supports ZFS pool feature flags.Enabled the following features on &#39;warehouse&#39;:  spacemap_histogram  enabled_txg  hole_birth  extensible_dataset  embedded_data  bookmarks  filesystem_limits">
-  <meta name="twitter:url" content="http://localhost:4000/2015/01/02-freebsd-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E3%81%AB%E3%81%AFzpool-zfs-%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%82%E5%BF%98%E3%82%8C%E3%81%9A%E3%81%ABne.html">
+  <meta name="twitter:url" content="/2015/01/02-freebsd-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E3%81%AB%E3%81%AFzpool-zfs-%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%82%E5%BF%98%E3%82%8C%E3%81%9A%E3%81%ABne.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2015/01/02-freebsd-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E3%81%AB%E3%81%AFzpool-zfs-%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%82%E5%BF%98%E3%82%8C%E3%81%9A%E3%81%ABne.html">
+<link rel="canonical" href="/2015/01/02-freebsd-%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E3%81%AB%E3%81%AFzpool-zfs-%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%82%E5%BF%98%E3%82%8C%E3%81%9A%E3%81%ABne.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

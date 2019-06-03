@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="ports/package周りの定期作業をperiodicで。">
-<meta property="og:url" content="http://localhost:4000/2007/11/27-portspackage%E5%91%A8%E3%82%8A%E3%81%AE%E5%AE%9A%E6%9C%9F%E4%BD%9C%E6%A5%AD%E3%82%92periodic%E3%81%A7.html">
+<meta property="og:url" content="/2007/11/27-portspackage%E5%91%A8%E3%82%8A%E3%81%AE%E5%AE%9A%E6%9C%9F%E4%BD%9C%E6%A5%AD%E3%82%92periodic%E3%81%A7.html">
 
 
   <meta property="og:description" content="FreeBSDを長く運用していると、/usr/ports/distfiles配下に、portsで使うソースファイルがだんだんと溜まっていき、ディスク容量を圧迫する。      なので俺はportupgradeをインストールするとついてくるportscleanを、一週間に一度実行している。      具体的には、portscleanにC, D, Pオプションを与えて実行する。これらのオプションで、それぞれ下記3つの掃除をする。          Cオプション:portsのインストールの際に、make cleanし忘れてたとかとかで残ってしまったworkディレクトリ              Dオプション:バージョンアップで不要となったportsのソースファイル              Pオプション:バージョンアップで不要となったpackage      で、これを定期的に実行させるわけだが、FreeBSDでは特定のディレクトリにスクリプトを置いておけば、決められた間隔ごとに実行してくれる仕組みがある。      それがperiodicで、マニュアルは&lt;a href=&quot;http://www.jp.freebsd.org/cgi/mroff.cgi?subdir=man&amp;#038;lc=1&amp;#038;cmd=&amp;#038;man=periodic&amp;#038;dir=jpman-6.2.2%2Fman&amp;#038;sect=0&quot; target=&quot;_blank&quot;&gt;ここ&lt;/a&gt;にあるが、簡単に言うと、periodicはシステムcronから呼び出されて、あるディレクトリ内にあるスクリプトを実行するシェルスクリプトである。      マニュアルにも書いてあるが、/etc/crontabにはこのような記載がある。# do daily/weekly/monthly maintenance0      2       *       *       *       root    periodic daily0      3       *       *       6       root    periodic weekly0      5       1       *       *       root    periodic monthly/etc/periodic、/usr/local/etc/periodicの配下には、daily, weekly, monthlyというディレクトリがあり、periodicは日ごと、週ごと、月ごとにcronから呼び出され、それぞれdaily、weekly、monthly配下のスクリプトを実行する、という仕組み。            というわけで、/usr/local/etc/weekly/998.portscleanなどとして、下記のようなファイルを置いてみた。chmod 755しておくのを忘れずに。#!/bin/shif [ -x /usr/local/sbin/portsclean ]; then/usr/local/sbin/portsclean -CDP &amp;&amp; rc=0 || rc=1elserc=1fiexit $rc正常終了時に0を、それ以外は1を返すようにしているのは、マニュアルを見ればわかるが、各スクリプトの返り値によって動作が変わるから。      なお、通常であれば実行結果はrootへmailされるが、/etc/periodic.confとして下記の内容を記載しておけば、/var/log配下にログを書き出してくれる。      これもマニュアルに記載あり。          daily_output=/var/log/daily.log                  weekly_output=/var/log/weekly.log                  monthly_output=/var/log/monthly.log      俺はこっちにしておいた。            さておき、これで一週間に一度portscleanが実行されるようになる。      注意すべきは、portsのmakeと上記の定期実行がかぶると、portsのmakeをやり直さなければならない点。      先述のcrontabをみればわかるが、毎週土曜日の午前3時に実行されるので、ここをまたいでportsのmakeをするときは、スクリプトの実行属性を落としておくなどの処置が必要。      というか、そもそもスクリプトでそのあたりを判断すればいいのだが、俺にはそんなスクリプトは書けないので。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="ports/package周りの定期作業をperiodicで。">
   <meta name="twitter:description" content="FreeBSDを長く運用していると、/usr/ports/distfiles配下に、portsで使うソースファイルがだんだんと溜まっていき、ディスク容量を圧迫する。      なので俺はportupgradeをインストールするとついてくるportscleanを、一週間に一度実行している。      具体的には、portscleanにC, D, Pオプションを与えて実行する。これらのオプションで、それぞれ下記3つの掃除をする。          Cオプション:portsのインストールの際に、make cleanし忘れてたとかとかで残ってしまったworkディレクトリ              Dオプション:バージョンアップで不要となったportsのソースファイル              Pオプション:バージョンアップで不要となったpackage      で、これを定期的に実行させるわけだが、FreeBSDでは特定のディレクトリにスクリプトを置いておけば、決められた間隔ごとに実行してくれる仕組みがある。      それがperiodicで、マニュアルは&lt;a href=&quot;http://www.jp.freebsd.org/cgi/mroff.cgi?subdir=man&amp;#038;lc=1&amp;#038;cmd=&amp;#038;man=periodic&amp;#038;dir=jpman-6.2.2%2Fman&amp;#038;sect=0&quot; target=&quot;_blank&quot;&gt;ここ&lt;/a&gt;にあるが、簡単に言うと、periodicはシステムcronから呼び出されて、あるディレクトリ内にあるスクリプトを実行するシェルスクリプトである。      マニュアルにも書いてあるが、/etc/crontabにはこのような記載がある。# do daily/weekly/monthly maintenance0      2       *       *       *       root    periodic daily0      3       *       *       6       root    periodic weekly0      5       1       *       *       root    periodic monthly/etc/periodic、/usr/local/etc/periodicの配下には、daily, weekly, monthlyというディレクトリがあり、periodicは日ごと、週ごと、月ごとにcronから呼び出され、それぞれdaily、weekly、monthly配下のスクリプトを実行する、という仕組み。            というわけで、/usr/local/etc/weekly/998.portscleanなどとして、下記のようなファイルを置いてみた。chmod 755しておくのを忘れずに。#!/bin/shif [ -x /usr/local/sbin/portsclean ]; then/usr/local/sbin/portsclean -CDP &amp;&amp; rc=0 || rc=1elserc=1fiexit $rc正常終了時に0を、それ以外は1を返すようにしているのは、マニュアルを見ればわかるが、各スクリプトの返り値によって動作が変わるから。      なお、通常であれば実行結果はrootへmailされるが、/etc/periodic.confとして下記の内容を記載しておけば、/var/log配下にログを書き出してくれる。      これもマニュアルに記載あり。          daily_output=/var/log/daily.log                  weekly_output=/var/log/weekly.log                  monthly_output=/var/log/monthly.log      俺はこっちにしておいた。            さておき、これで一週間に一度portscleanが実行されるようになる。      注意すべきは、portsのmakeと上記の定期実行がかぶると、portsのmakeをやり直さなければならない点。      先述のcrontabをみればわかるが、毎週土曜日の午前3時に実行されるので、ここをまたいでportsのmakeをするときは、スクリプトの実行属性を落としておくなどの処置が必要。      というか、そもそもスクリプトでそのあたりを判断すればいいのだが、俺にはそんなスクリプトは書けないので。">
-  <meta name="twitter:url" content="http://localhost:4000/2007/11/27-portspackage%E5%91%A8%E3%82%8A%E3%81%AE%E5%AE%9A%E6%9C%9F%E4%BD%9C%E6%A5%AD%E3%82%92periodic%E3%81%A7.html">
+  <meta name="twitter:url" content="/2007/11/27-portspackage%E5%91%A8%E3%82%8A%E3%81%AE%E5%AE%9A%E6%9C%9F%E4%BD%9C%E6%A5%AD%E3%82%92periodic%E3%81%A7.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2007/11/27-portspackage%E5%91%A8%E3%82%8A%E3%81%AE%E5%AE%9A%E6%9C%9F%E4%BD%9C%E6%A5%AD%E3%82%92periodic%E3%81%A7.html">
+<link rel="canonical" href="/2007/11/27-portspackage%E5%91%A8%E3%82%8A%E3%81%AE%E5%AE%9A%E6%9C%9F%E4%BD%9C%E6%A5%AD%E3%82%92periodic%E3%81%A7.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

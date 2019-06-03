@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="FreeBSDでNTFS上の日本語名ファイルを扱うには。">
-<meta property="og:url" content="http://localhost:4000/2009/01/25-freebsd%E3%81%A7ntfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%90%8D%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2009/01/25-freebsd%E3%81%A7ntfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%90%8D%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="FreeBSDでは、先日の&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090112/p1&quot; target=&quot;_blank&quot;&gt;MSDOSFSの件と同じく&lt;/a&gt;、NTFS上の日本語ファイル名の扱いにも問題がある。      こちらもEUC-JPでマウントすれば一応は問題が解消されるが、俺はFreeBSDの環境をUTF-8にしているので、もともとUTF-8のNTFSを、EUC-JPにして読み込むのは実に馬鹿馬鹿しい。      そこで、MSDOSFSの件で発見した、&lt;a href=&quot;http://people.freebsd.org/~imura/kiconv/&quot; target=&quot;_blank&quot;&gt;http://people.freebsd.org/~imura/kiconv/&lt;/a&gt;で公開されているパッチを使用する。      ただ、こういうのも何だが、文字コードを変換してマウントする場合、現時点では読み込みのみがサポートされ、書き込みは不可であることを考える&lt;span class=&quot;footnote&quot;&gt;*1&lt;/span&gt;と、一時的な用途であればLinuxを使った方がはるかに早い。例えば、死んでしまったWindowsのディスクからファイルを復旧したいといったケースには、LinuxのLiveCDを使うほうが手軽。      また、カーネルとユーザランドへのパッチなので、ソースをアップデートする度にパッチを当てなおさなければならないのは、かなりのデメリット。継続的にNTFSをマウント（加えて読み取りのみ）する必要がある場合に限ったほうがいいと思う。            さておき。まず、上記のサイトから、1.,2.のパッチと、3.のNTFS向けパッチをダウンロードする。      /usr/src直下でpatchコマンドにこれらのパッチを食わせればよい。本番前に-Cオプションを付けて実行し、様子を見るのが吉。      ◎実行例# pwd/usr/src# patch -C &amp;#60; ~/ntfs.patch/01.k.patch(略)# patch &amp;#60; ~/ntfs.patch/01.k.patch(略)次に、kernelの再構築と、libkiconvのmake install。      上記のパッチは、kernelに対するものと、libkiconvに対するものの二つであるため。      kernelは、特別なことはなにもせず、再インストールすればいいだけ。(/usr/src配下でmake buildkernel, make installkernel）      libkiconvは/usr/src/lib/libkiconvでmake, make installする。      ◎実行例# pwd/usr/src/lib/libkiconv# make cleanrm -f kiconv.3.gz kiconv.3.cat.gz（略）# makecc -O2 -fno-strict-aliasing -pipe  -I/usr/src/lib/libkiconv/../../sys  -c /usr/src/lib/libkiconv/sysctl.c（略）# make installinstall -C -o root -g wheel -m 444   libkiconv.a /usr/lib（略）あとは再起動して新しいkernelを読み込ませ、mout_ntfsに-CUTF-8オプションを与えるだけ。      ◎実行例# mount_ntfs -o ro -CUTF-8 /dev/da0s1 /mntFreeBSD初心者スレにもちょうど同じ話題があったのでコピーしておく。シンクロニシティ・・。      初心者もOK! FreeBSD質問スレッド その99          445 : 名無しさん＠お腹いっぱい。 : sage : 2009/01/13(火) 08:13:53                  .UTF-8 で ntfs のこと:                  http://people.freebsd.org/~imura/kiconv/                  の、1. 2. と3.　の ntfs ぶん当てて kernel と libkiconv 作り直して、                  % grep ntfs /etc/fstab                  /dev/ad0s3 /diske ntfs ro,-CUTF-8 0 0                  で、日本語 file name 読めた。                  % uname -rp                  7.1-RELEASE-p1 i386                  へけけ      ">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="FreeBSDでNTFS上の日本語名ファイルを扱うには。">
   <meta name="twitter:description" content="FreeBSDでは、先日の&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090112/p1&quot; target=&quot;_blank&quot;&gt;MSDOSFSの件と同じく&lt;/a&gt;、NTFS上の日本語ファイル名の扱いにも問題がある。      こちらもEUC-JPでマウントすれば一応は問題が解消されるが、俺はFreeBSDの環境をUTF-8にしているので、もともとUTF-8のNTFSを、EUC-JPにして読み込むのは実に馬鹿馬鹿しい。      そこで、MSDOSFSの件で発見した、&lt;a href=&quot;http://people.freebsd.org/~imura/kiconv/&quot; target=&quot;_blank&quot;&gt;http://people.freebsd.org/~imura/kiconv/&lt;/a&gt;で公開されているパッチを使用する。      ただ、こういうのも何だが、文字コードを変換してマウントする場合、現時点では読み込みのみがサポートされ、書き込みは不可であることを考える&lt;span class=&quot;footnote&quot;&gt;*1&lt;/span&gt;と、一時的な用途であればLinuxを使った方がはるかに早い。例えば、死んでしまったWindowsのディスクからファイルを復旧したいといったケースには、LinuxのLiveCDを使うほうが手軽。      また、カーネルとユーザランドへのパッチなので、ソースをアップデートする度にパッチを当てなおさなければならないのは、かなりのデメリット。継続的にNTFSをマウント（加えて読み取りのみ）する必要がある場合に限ったほうがいいと思う。            さておき。まず、上記のサイトから、1.,2.のパッチと、3.のNTFS向けパッチをダウンロードする。      /usr/src直下でpatchコマンドにこれらのパッチを食わせればよい。本番前に-Cオプションを付けて実行し、様子を見るのが吉。      ◎実行例# pwd/usr/src# patch -C &amp;#60; ~/ntfs.patch/01.k.patch(略)# patch &amp;#60; ~/ntfs.patch/01.k.patch(略)次に、kernelの再構築と、libkiconvのmake install。      上記のパッチは、kernelに対するものと、libkiconvに対するものの二つであるため。      kernelは、特別なことはなにもせず、再インストールすればいいだけ。(/usr/src配下でmake buildkernel, make installkernel）      libkiconvは/usr/src/lib/libkiconvでmake, make installする。      ◎実行例# pwd/usr/src/lib/libkiconv# make cleanrm -f kiconv.3.gz kiconv.3.cat.gz（略）# makecc -O2 -fno-strict-aliasing -pipe  -I/usr/src/lib/libkiconv/../../sys  -c /usr/src/lib/libkiconv/sysctl.c（略）# make installinstall -C -o root -g wheel -m 444   libkiconv.a /usr/lib（略）あとは再起動して新しいkernelを読み込ませ、mout_ntfsに-CUTF-8オプションを与えるだけ。      ◎実行例# mount_ntfs -o ro -CUTF-8 /dev/da0s1 /mntFreeBSD初心者スレにもちょうど同じ話題があったのでコピーしておく。シンクロニシティ・・。      初心者もOK! FreeBSD質問スレッド その99          445 : 名無しさん＠お腹いっぱい。 : sage : 2009/01/13(火) 08:13:53                  .UTF-8 で ntfs のこと:                  http://people.freebsd.org/~imura/kiconv/                  の、1. 2. と3.　の ntfs ぶん当てて kernel と libkiconv 作り直して、                  % grep ntfs /etc/fstab                  /dev/ad0s3 /diske ntfs ro,-CUTF-8 0 0                  で、日本語 file name 読めた。                  % uname -rp                  7.1-RELEASE-p1 i386                  へけけ      ">
-  <meta name="twitter:url" content="http://localhost:4000/2009/01/25-freebsd%E3%81%A7ntfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%90%8D%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2009/01/25-freebsd%E3%81%A7ntfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%90%8D%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/01/25-freebsd%E3%81%A7ntfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%90%8D%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2009/01/25-freebsd%E3%81%A7ntfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%90%8D%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="mergemasterを少しだけ楽に">
-<meta property="og:url" content="http://localhost:4000/2008/03/04-mergemaster%E3%82%92%E5%B0%91%E3%81%97%E3%81%A0%E3%81%91%E6%A5%BD%E3%81%AB.html">
+<meta property="og:url" content="/2008/03/04-mergemaster%E3%82%92%E5%B0%91%E3%81%97%E3%81%A0%E3%81%91%E6%A5%BD%E3%81%AB.html">
 
 
   <meta property="og:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;200812追記。本件は古い内容なので、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; target=&quot;_blank&quot;&gt;こちら&lt;/a&gt;へ。&lt;/span&gt;            FreeBSDをアップグレードするときにいつも面倒なのが/etc配下のファイルを更新すること。      アップグレードの手引きには素っ気なくmergemasterと書いてある。      mergemasterは新旧/etc配下ファイルの差分をチェックし、必要であればユーザに選択、マージさせるよくできたスクリプト。      だが、手引きの通り素のまま実行すると、間欠的にファイルの差分チェックを求められるので面倒だ。      /etc配下にはご存知の通りpasswdなど超重要ファイルがあり、失敗するといろいろとヘビーな状態になるので緊張するが、この、間欠的というのがミスのもととなる。      が、-a、-rオプションを使えばそれなりに楽にはなる。      アップグレードする度にいつも何だったっけなあ、と思うのでメモっておく。# mergemaster -siva# mergemaster -sivrt &amp;#60;一回めで使用したテンポラリディレクトリ&amp;#62;aオプションを指定すると、とりあえず差分のないファイルをインストールしてくれる。      残りのファイル、つまり差分のあるファイルはテンポラリディレクトリに残る。      で、tオプションでそのテンポラリディレクトリを指定し、rオプションをmergemasterに与えれば、アップグレードにより差分の発生したファイルのみを対象に作業ができるので効率的、という話。      なお、sオプションは各ファイルの照合を一行ずつやります、というオプションで、iは照合時、インストール先にファイルがなければインストールする、というオプション。詳しくはman mergemaster。      テンポラリディレクトリは、-sivaで作業した際に、これこれのファイルがインストールされていませんよ、と教えてくれるのだが、そのときにディレクトリも教えてくれるのでそれを指定する。# mergemaster -siva＜中略＞/var/tmp/temproot.0304.23.20.42/COPYRIGHT# mergemaster -sivrt /var/tmp/temproot.0304.23.20.42/まあ、見て分かるように/var/tmp/temprootの後は、日付、時間、分、秒と並んでるので、一回めの出力結果をわざわざ注意して見てなくてもいいけど。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="mergemasterを少しだけ楽に">
   <meta name="twitter:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;200812追記。本件は古い内容なので、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; target=&quot;_blank&quot;&gt;こちら&lt;/a&gt;へ。&lt;/span&gt;            FreeBSDをアップグレードするときにいつも面倒なのが/etc配下のファイルを更新すること。      アップグレードの手引きには素っ気なくmergemasterと書いてある。      mergemasterは新旧/etc配下ファイルの差分をチェックし、必要であればユーザに選択、マージさせるよくできたスクリプト。      だが、手引きの通り素のまま実行すると、間欠的にファイルの差分チェックを求められるので面倒だ。      /etc配下にはご存知の通りpasswdなど超重要ファイルがあり、失敗するといろいろとヘビーな状態になるので緊張するが、この、間欠的というのがミスのもととなる。      が、-a、-rオプションを使えばそれなりに楽にはなる。      アップグレードする度にいつも何だったっけなあ、と思うのでメモっておく。# mergemaster -siva# mergemaster -sivrt &amp;#60;一回めで使用したテンポラリディレクトリ&amp;#62;aオプションを指定すると、とりあえず差分のないファイルをインストールしてくれる。      残りのファイル、つまり差分のあるファイルはテンポラリディレクトリに残る。      で、tオプションでそのテンポラリディレクトリを指定し、rオプションをmergemasterに与えれば、アップグレードにより差分の発生したファイルのみを対象に作業ができるので効率的、という話。      なお、sオプションは各ファイルの照合を一行ずつやります、というオプションで、iは照合時、インストール先にファイルがなければインストールする、というオプション。詳しくはman mergemaster。      テンポラリディレクトリは、-sivaで作業した際に、これこれのファイルがインストールされていませんよ、と教えてくれるのだが、そのときにディレクトリも教えてくれるのでそれを指定する。# mergemaster -siva＜中略＞/var/tmp/temproot.0304.23.20.42/COPYRIGHT# mergemaster -sivrt /var/tmp/temproot.0304.23.20.42/まあ、見て分かるように/var/tmp/temprootの後は、日付、時間、分、秒と並んでるので、一回めの出力結果をわざわざ注意して見てなくてもいいけど。">
-  <meta name="twitter:url" content="http://localhost:4000/2008/03/04-mergemaster%E3%82%92%E5%B0%91%E3%81%97%E3%81%A0%E3%81%91%E6%A5%BD%E3%81%AB.html">
+  <meta name="twitter:url" content="/2008/03/04-mergemaster%E3%82%92%E5%B0%91%E3%81%97%E3%81%A0%E3%81%91%E6%A5%BD%E3%81%AB.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/03/04-mergemaster%E3%82%92%E5%B0%91%E3%81%97%E3%81%A0%E3%81%91%E6%A5%BD%E3%81%AB.html">
+<link rel="canonical" href="/2008/03/04-mergemaster%E3%82%92%E5%B0%91%E3%81%97%E3%81%A0%E3%81%91%E6%A5%BD%E3%81%AB.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

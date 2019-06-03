@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="インストールしたportsのpkgを作るには">
-<meta property="og:url" content="http://localhost:4000/2008/11/20-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9Fports%E3%81%AEpkg%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2008/11/20-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9Fports%E3%81%AEpkg%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081118/p1&quot; target=&quot;_blank&quot;&gt;こんなこと&lt;/a&gt;があったので、やはり曲がりなりにもサーバたるもの、吊るしのpkgをインストールすることはやめようと思ったのだが、やっぱり時間がかかる。      そこでメインマシンのVM上FreeBSDでビルドしたものをサーバマシンに移すことにした。      ビルドするときにパッケージも作っておく方法はいくらでもあるが、すでにビルド済みのマシンでパッケージを作るのはあまり経験が無かったのでメモ。# pkg_create -Rvb php5-5.2.6_2このように、バージョン名も含めてターゲットを指定すると、カレントディレクトリにpkgが作成されるので、それを移す。      ただしmeta-portは指定出来ない。      なお、Rオプションは、ターゲットのportsビルドに必要な別のportsのパッケージも作る指示。      移動先マシンへのインストールが、ターゲットのportsだけでよいことがはっきりしている場合には、付けなくても可。      以下が実行例。$ pkg_create -Rvb php5-5.2.6_2Creating package php5-5.2.6_2Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/php5-5.2.6_2.tbz&#39;Creating package expat-2.0.1Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/expat-2.0.1.tbz&#39;Creating package perl-5.8.8_1Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/perl-5.8.8_1.tbz&#39;Creating package pkg-config-0.23_1Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/pkg-config-0.23_1.tbz&#39;Creating package sqlite3-3.6.4Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/sqlite3-3.6.4.tbz&#39;Creating package db41-4.1.25_4Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/db41-4.1.25_4.tbz&#39;Creating package libiconv-1.11_1Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/libiconv-1.11_1.tbz&#39;Creating package apache-2.2.9_5Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/apache-2.2.9_5.tbz&#39;Creating package libxml2-2.6.32_1Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/libxml2-2.6.32_1.tbz&#39;ところで、php5の場合はphp5-extensionsでインストールしたphp拡張機能も作っておく必要がある。      冒頭で述べたように、pkg_createではphp5-extensionsのようなmeta-portは指定出来ない。      そこでpkg_info -Ix php5として得られる一覧をpkg_createに渡すことを考えるが、pkg_createが取ることのできる引数は一つだけ。      なのでxargsを使う。xargsで-n 1とすれば、引数を一つずつ渡してくれる。      下記が実行例。-Rオプションはここでは外している。$ pkg_info -Ix php5|cut -d&quot; &quot; -f 1 |xargs -n 1 pkg_create -vbCreating package php5-5.2.6_2Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/php5-5.2.6_2.tbz&#39;Creating package php5-bz2-5.2.6_2Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/php5-bz2-5.2.6_2.tbz&#39;（略）Creating package php5-zlib-5.2.6_2Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/php5-zlib-5.2.6_2.tbz&#39;こういうまだるっこしいことをせず、インストールされているportsのすべてをpkgにするには、pkg_infoにEaオプションを与えてpkg_createに渡す。$ pkg_info -Ea|xargs -n 1 pkg_create -vbCreating package ORBit2-2.14.14Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/ORBit2-2.14.14.tbz&#39;Creating package aalib-1.4.r5_4Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/aalib-1.4.r5_4.tbz&#39;Creating package alacarte-0.11.5_1（略）">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="インストールしたportsのpkgを作るには">
   <meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081118/p1&quot; target=&quot;_blank&quot;&gt;こんなこと&lt;/a&gt;があったので、やはり曲がりなりにもサーバたるもの、吊るしのpkgをインストールすることはやめようと思ったのだが、やっぱり時間がかかる。      そこでメインマシンのVM上FreeBSDでビルドしたものをサーバマシンに移すことにした。      ビルドするときにパッケージも作っておく方法はいくらでもあるが、すでにビルド済みのマシンでパッケージを作るのはあまり経験が無かったのでメモ。# pkg_create -Rvb php5-5.2.6_2このように、バージョン名も含めてターゲットを指定すると、カレントディレクトリにpkgが作成されるので、それを移す。      ただしmeta-portは指定出来ない。      なお、Rオプションは、ターゲットのportsビルドに必要な別のportsのパッケージも作る指示。      移動先マシンへのインストールが、ターゲットのportsだけでよいことがはっきりしている場合には、付けなくても可。      以下が実行例。$ pkg_create -Rvb php5-5.2.6_2Creating package php5-5.2.6_2Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/php5-5.2.6_2.tbz&#39;Creating package expat-2.0.1Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/expat-2.0.1.tbz&#39;Creating package perl-5.8.8_1Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/perl-5.8.8_1.tbz&#39;Creating package pkg-config-0.23_1Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/pkg-config-0.23_1.tbz&#39;Creating package sqlite3-3.6.4Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/sqlite3-3.6.4.tbz&#39;Creating package db41-4.1.25_4Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/db41-4.1.25_4.tbz&#39;Creating package libiconv-1.11_1Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/libiconv-1.11_1.tbz&#39;Creating package apache-2.2.9_5Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/apache-2.2.9_5.tbz&#39;Creating package libxml2-2.6.32_1Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/libxml2-2.6.32_1.tbz&#39;ところで、php5の場合はphp5-extensionsでインストールしたphp拡張機能も作っておく必要がある。      冒頭で述べたように、pkg_createではphp5-extensionsのようなmeta-portは指定出来ない。      そこでpkg_info -Ix php5として得られる一覧をpkg_createに渡すことを考えるが、pkg_createが取ることのできる引数は一つだけ。      なのでxargsを使う。xargsで-n 1とすれば、引数を一つずつ渡してくれる。      下記が実行例。-Rオプションはここでは外している。$ pkg_info -Ix php5|cut -d&quot; &quot; -f 1 |xargs -n 1 pkg_create -vbCreating package php5-5.2.6_2Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/php5-5.2.6_2.tbz&#39;Creating package php5-bz2-5.2.6_2Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/php5-bz2-5.2.6_2.tbz&#39;（略）Creating package php5-zlib-5.2.6_2Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/php5-zlib-5.2.6_2.tbz&#39;こういうまだるっこしいことをせず、インストールされているportsのすべてをpkgにするには、pkg_infoにEaオプションを与えてpkg_createに渡す。$ pkg_info -Ea|xargs -n 1 pkg_create -vbCreating package ORBit2-2.14.14Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/ORBit2-2.14.14.tbz&#39;Creating package aalib-1.4.r5_4Creating bzip&#39;d tar ball in &#39;/usr/home/flageo/aalib-1.4.r5_4.tbz&#39;Creating package alacarte-0.11.5_1（略）">
-  <meta name="twitter:url" content="http://localhost:4000/2008/11/20-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9Fports%E3%81%AEpkg%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2008/11/20-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9Fports%E3%81%AEpkg%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/11/20-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9Fports%E3%81%AEpkg%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2008/11/20-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9Fports%E3%81%AEpkg%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

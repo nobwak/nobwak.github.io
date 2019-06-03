@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="[sh] オレオレ証明書作成シェルスクリプト">
-<meta property="og:url" content="http://localhost:4000/2015/09/25-sh-%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88.html">
+<meta property="og:url" content="/2015/09/25-sh-%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88.html">
 
 
   <meta property="og:description" content="すぐに作り方を忘れるので、シェルスクリプトを記録しておく。変数OPENSSLにopensslをフルパスで与えること。あとはchmod 755して実行すればカレントディレクトリにserver.crtとserver.keyができる。おまけでDHパラメータ、dhparam.pemもできる。# Generates a self-signed certificate.OPENSSL=/usr/bin/opensslKEYFILE=server.keyCERTFILE=server.crtSIGNREQ=server.csrDHPARAM=dhparam.pemif [ -f $CERTFILE ]; then  echo &quot;$CERTFILE already exists, won&#39;t overwrite&quot;  exit 1fiif [ -f $KEYFILE ]; then  echo &quot;$KEYFILE already exists, won&#39;t overwrite&quot;  exit 1fiif [ -f $SIGNREQ ]; then  echo &quot;$SIGNREQ already exists, won&#39;t overwrite&quot;  exit 1fiechoecho &quot;Generating key file, $KEYFILE&quot;echo &quot;============================&quot;$OPENSSL genrsa 2048 &amp;gt; $KEYFILE || exit 2chmod 0600 $KEYFILEecho &quot;============================&quot;echoecho &quot;Generating sign request file, $SIGNREQ&quot;echo &quot;============================&quot;$OPENSSL req -new -key $KEYFILE &amp;gt; $SIGNREQ || exit2echo &quot;============================&quot;echoecho &quot;Generating cert file, $CERTFILE&quot;echo &quot;============================&quot;$OPENSSL x509 -days 3650 -req -signkey $KEYFILE &amp;lt; $SIGNREQ &amp;gt; $CERTFILE || exit2echo &quot;============================&quot;echoecho &quot;Generating DH key, $DHPARAM&quot;echo &quot;============================&quot;$OPENSSL dhparam -out $DHPARAM 2048echo &quot;============================&quot;echoecho &quot;Now you have $CERTFILE, $KEYFILE and $DHPARAM&quot;echo参考http://d.hatena.ne.jp/rikunora/20120514/p1http://qiita.com/kunichiko/items/12cbccaadcbf41c72735">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="[sh] オレオレ証明書作成シェルスクリプト">
   <meta name="twitter:description" content="すぐに作り方を忘れるので、シェルスクリプトを記録しておく。変数OPENSSLにopensslをフルパスで与えること。あとはchmod 755して実行すればカレントディレクトリにserver.crtとserver.keyができる。おまけでDHパラメータ、dhparam.pemもできる。# Generates a self-signed certificate.OPENSSL=/usr/bin/opensslKEYFILE=server.keyCERTFILE=server.crtSIGNREQ=server.csrDHPARAM=dhparam.pemif [ -f $CERTFILE ]; then  echo &quot;$CERTFILE already exists, won&#39;t overwrite&quot;  exit 1fiif [ -f $KEYFILE ]; then  echo &quot;$KEYFILE already exists, won&#39;t overwrite&quot;  exit 1fiif [ -f $SIGNREQ ]; then  echo &quot;$SIGNREQ already exists, won&#39;t overwrite&quot;  exit 1fiechoecho &quot;Generating key file, $KEYFILE&quot;echo &quot;============================&quot;$OPENSSL genrsa 2048 &amp;gt; $KEYFILE || exit 2chmod 0600 $KEYFILEecho &quot;============================&quot;echoecho &quot;Generating sign request file, $SIGNREQ&quot;echo &quot;============================&quot;$OPENSSL req -new -key $KEYFILE &amp;gt; $SIGNREQ || exit2echo &quot;============================&quot;echoecho &quot;Generating cert file, $CERTFILE&quot;echo &quot;============================&quot;$OPENSSL x509 -days 3650 -req -signkey $KEYFILE &amp;lt; $SIGNREQ &amp;gt; $CERTFILE || exit2echo &quot;============================&quot;echoecho &quot;Generating DH key, $DHPARAM&quot;echo &quot;============================&quot;$OPENSSL dhparam -out $DHPARAM 2048echo &quot;============================&quot;echoecho &quot;Now you have $CERTFILE, $KEYFILE and $DHPARAM&quot;echo参考http://d.hatena.ne.jp/rikunora/20120514/p1http://qiita.com/kunichiko/items/12cbccaadcbf41c72735">
-  <meta name="twitter:url" content="http://localhost:4000/2015/09/25-sh-%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88.html">
+  <meta name="twitter:url" content="/2015/09/25-sh-%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2015/09/25-sh-%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88.html">
+<link rel="canonical" href="/2015/09/25-sh-%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

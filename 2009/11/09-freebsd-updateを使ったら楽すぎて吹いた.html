@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="freebsd-updateを使ったら楽すぎて吹いた。">
-<meta property="og:url" content="http://localhost:4000/2009/11/09-freebsd-update%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%89%E6%A5%BD%E3%81%99%E3%81%8E%E3%81%A6%E5%90%B9%E3%81%84%E3%81%9F.html">
+<meta property="og:url" content="/2009/11/09-freebsd-update%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%89%E6%A5%BD%E3%81%99%E3%81%8E%E3%81%A6%E5%90%B9%E3%81%84%E3%81%9F.html">
 
 
   <meta property="og:description" content="自宅サーバはほぼ10年前のノートPCだ。      ここにFreeBSDを入れてApache, Samba, mt-daapdを動かしている。バッテリーはさすがに死んでいるが動作には全くといっていいほど問題ない。      とはいえ、通常運用時はともかくとして、セキュリティフィックスなどでOSやportsの更新が発生したときの手間がさすがにつらくなってきた。      portsはもうかなり前から別マシンでコンパイルするようにしていて、これはもう解決。      OSは別マシンでbuildした/usr/objからインストールしたり、snapshotsのISOイメージを使うようにしていたが、とうとうこれもあきらめてfreebsd-updateに移行することにした。      そしたら予想以上に楽で驚いた。            ただ、RELEASEなど安定版バージョン（とそのBETA版、RC版）でなければ使えない。      FreeBSDにはRELEASEブランチのほかに開発版であるSTABLE, CURRENTというのもある。人柱用のCURRENTはともかく、CURRENTで実験済みのソースがバンバン突っ込まれるSTABLEで使えないのはちょっと寂しく、これが今まで俺がfreebsd-updateを使わなかった理由なんだが、まあSTABLEでのバイナリアップデートはきつかろう。      あともう一つ、カーネルもカスタマイズしている場合には注意が必要。      そういった訳で、7-STABLEからわざわざ7.2-RELEASEに戻してやってみた。      実際にやったのは1ヶ月ほど前なので、以下の例では7.2-p3までのアップデートです。11/5時点では7.2-p4が最新。            freebsd-update fetchで必要なファイルをダウンロード。# uname -r7.2-RELEASE# freebsd-update fetchLooking up update.FreeBSD.org mirrors... none found.Fetching metadata signature for 7.2-RELEASE from update.FreeBSD.org... done.Fetching metadata index... done.Fetching 2 metadata files... done.Inspecting system... done.Preparing to download files... done.Fetching 35 patches.....10....20....30.. done.Applying patches... done.The following files will be updated as part of updating to 7.2-RELEASE-p3:/boot/kernel/if_bce.ko/boot/kernel/if_bce.ko.symbols/boot/kernel/if_fxp.ko/boot/kernel/if_fxp.ko.symbols/boot/kernel/kernel/boot/kernel/kernel.symbols/lib/libc.so.7（中略）/usr/src/sys/conf/newvers.sh/usr/src/sys/dev/bce/if_bce.c/usr/src/sys/dev/fxp/if_fxp.c/usr/src/sys/kern/sys_pipe.c/usr/src/sys/netinet6/in6.c#その後、installして再起動。      uname -rとすればパッチレベルの上がっている事が確認できる…はずだが、unameの応答はp2になっていてp3ではない。# freebsd-update install# reboot（略）$ uname -r7.2-RELEASE-p2$これはなぜかというと、p2からp3で修正されたのはbindだけで、kernelは修正されておらず、p2の時のままだから。      unameに対してkernelが返す値は、/usr/src/sys/conf/newvers.shが元になっているが、こちらを確認すればしっかりp3になっていることが確認できる。      繰り返しになるが、p2からp3になったときに、freebsd-updateはbindを更新し、kernelは更新しないからunameの応答はp2になるというわけ。      ただ、freebsd-updateはパッチレベルが上がった時には必ずnewvers.shを更新しているので、kernelに更新がなくとも、kernelを再作成すればパッチレベルは上がる。      真面目なサーバの場合は、kernelを再作成しておいた方がよいと思う。            ロールバックも試しにやってみた。# uname -r7.2-RELEASE$ uname -r7.2-RELEASE-p2# freebsd-update rollbackUninstalling updates... done.$ uname -r7.2-RELEASE">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="freebsd-updateを使ったら楽すぎて吹いた。">
   <meta name="twitter:description" content="自宅サーバはほぼ10年前のノートPCだ。      ここにFreeBSDを入れてApache, Samba, mt-daapdを動かしている。バッテリーはさすがに死んでいるが動作には全くといっていいほど問題ない。      とはいえ、通常運用時はともかくとして、セキュリティフィックスなどでOSやportsの更新が発生したときの手間がさすがにつらくなってきた。      portsはもうかなり前から別マシンでコンパイルするようにしていて、これはもう解決。      OSは別マシンでbuildした/usr/objからインストールしたり、snapshotsのISOイメージを使うようにしていたが、とうとうこれもあきらめてfreebsd-updateに移行することにした。      そしたら予想以上に楽で驚いた。            ただ、RELEASEなど安定版バージョン（とそのBETA版、RC版）でなければ使えない。      FreeBSDにはRELEASEブランチのほかに開発版であるSTABLE, CURRENTというのもある。人柱用のCURRENTはともかく、CURRENTで実験済みのソースがバンバン突っ込まれるSTABLEで使えないのはちょっと寂しく、これが今まで俺がfreebsd-updateを使わなかった理由なんだが、まあSTABLEでのバイナリアップデートはきつかろう。      あともう一つ、カーネルもカスタマイズしている場合には注意が必要。      そういった訳で、7-STABLEからわざわざ7.2-RELEASEに戻してやってみた。      実際にやったのは1ヶ月ほど前なので、以下の例では7.2-p3までのアップデートです。11/5時点では7.2-p4が最新。            freebsd-update fetchで必要なファイルをダウンロード。# uname -r7.2-RELEASE# freebsd-update fetchLooking up update.FreeBSD.org mirrors... none found.Fetching metadata signature for 7.2-RELEASE from update.FreeBSD.org... done.Fetching metadata index... done.Fetching 2 metadata files... done.Inspecting system... done.Preparing to download files... done.Fetching 35 patches.....10....20....30.. done.Applying patches... done.The following files will be updated as part of updating to 7.2-RELEASE-p3:/boot/kernel/if_bce.ko/boot/kernel/if_bce.ko.symbols/boot/kernel/if_fxp.ko/boot/kernel/if_fxp.ko.symbols/boot/kernel/kernel/boot/kernel/kernel.symbols/lib/libc.so.7（中略）/usr/src/sys/conf/newvers.sh/usr/src/sys/dev/bce/if_bce.c/usr/src/sys/dev/fxp/if_fxp.c/usr/src/sys/kern/sys_pipe.c/usr/src/sys/netinet6/in6.c#その後、installして再起動。      uname -rとすればパッチレベルの上がっている事が確認できる…はずだが、unameの応答はp2になっていてp3ではない。# freebsd-update install# reboot（略）$ uname -r7.2-RELEASE-p2$これはなぜかというと、p2からp3で修正されたのはbindだけで、kernelは修正されておらず、p2の時のままだから。      unameに対してkernelが返す値は、/usr/src/sys/conf/newvers.shが元になっているが、こちらを確認すればしっかりp3になっていることが確認できる。      繰り返しになるが、p2からp3になったときに、freebsd-updateはbindを更新し、kernelは更新しないからunameの応答はp2になるというわけ。      ただ、freebsd-updateはパッチレベルが上がった時には必ずnewvers.shを更新しているので、kernelに更新がなくとも、kernelを再作成すればパッチレベルは上がる。      真面目なサーバの場合は、kernelを再作成しておいた方がよいと思う。            ロールバックも試しにやってみた。# uname -r7.2-RELEASE$ uname -r7.2-RELEASE-p2# freebsd-update rollbackUninstalling updates... done.$ uname -r7.2-RELEASE">
-  <meta name="twitter:url" content="http://localhost:4000/2009/11/09-freebsd-update%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%89%E6%A5%BD%E3%81%99%E3%81%8E%E3%81%A6%E5%90%B9%E3%81%84%E3%81%9F.html">
+  <meta name="twitter:url" content="/2009/11/09-freebsd-update%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%89%E6%A5%BD%E3%81%99%E3%81%8E%E3%81%A6%E5%90%B9%E3%81%84%E3%81%9F.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/11/09-freebsd-update%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%89%E6%A5%BD%E3%81%99%E3%81%8E%E3%81%A6%E5%90%B9%E3%81%84%E3%81%9F.html">
+<link rel="canonical" href="/2009/11/09-freebsd-update%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%89%E6%A5%BD%E3%81%99%E3%81%8E%E3%81%A6%E5%90%B9%E3%81%84%E3%81%9F.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

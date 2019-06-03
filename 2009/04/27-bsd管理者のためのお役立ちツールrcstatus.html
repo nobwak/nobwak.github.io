@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="BSD管理者のためのお役立ちツールrcstatus">
-<meta property="og:url" content="http://localhost:4000/2009/04/27-bsd%E7%AE%A1%E7%90%86%E8%80%85%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%81%8A%E5%BD%B9%E7%AB%8B%E3%81%A1%E3%83%84%E3%83%BC%E3%83%ABrcstatus.html">
+<meta property="og:url" content="/2009/04/27-bsd%E7%AE%A1%E7%90%86%E8%80%85%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%81%8A%E5%BD%B9%E7%AB%8B%E3%81%A1%E3%83%84%E3%83%BC%E3%83%ABrcstatus.html">
 
 
   <meta property="og:description" content="FreeBSDでは各種サーバソフトウェアの起動スクリプトは/etc/rc.d、/usr/local/etc/rc.d等のrc.dディレクトリに置かれる。ここにあるスクリプトを実行しようとするといちいち/usr/local/etc/rc.dと打たないといけないので面倒。      /usr/ports/sysutils/bsdadminscriptsでインストールされるシェルスクリプトに以下のようなものがある。rcstart rcstatus rcstop rcrestartrconestart rconestatus rconestop rconerestartこれらのスクリプトは、rc.d配下のスクリプトの扱いを（少しだけ）楽にしてくれる。      スクリプト名に&amp;#8221;one&amp;#8221;が含まれるものは、/etc/rc.confにservice_enable=&amp;#8221;yes&amp;#8221;が含まれて「いない」サービスを扱うためのスクリプト。逆に&amp;#8221;one&amp;#8221;が含まれて「いない」ものは、service_enable=&amp;#8221;yes&amp;#8221;が含まれて「いる」サービスを扱う。      ややこしいが、要するに&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080213/p1&quot; target=&quot;_blank&quot;&gt;ここ&lt;/a&gt;でいうところの、onestart, forcestartが必要なケースではスクリプト名に&amp;#8221;one&amp;#8221;が含まれる方を使う。            オプションは、-sで対象となるサービスの一覧表示、-lで対象スクリプトの場所表示、-pでサーチ対象としているパスの表示。      実行例$ rcstatus -sDAEMONFILESYSTEMSLOGINNETWORKING NETWORK（略）zabbix_server$$ rcstatus -l apache22apache22:       /usr/local/etc/rc.d/apache22$$ rcstatus -p/etc/rc.d/usr/local/etc/rc.d$/etc/rc.confにftpd_enable=&amp;#8221;YES&amp;#8221;がない場合の実行例。pidの読み取りには管理者権限が必要のようだ。$ grep ftpd /etc/rc.conf$$ rcstatus ftpd$ rconestatus ftpdftpd is not running.$ sudo rconestart ftpdPassword:Starting ftpd.$ rconestatus ftpdeval: cannot open /var/run/ftpd.pid: Permission deniedftpd is not running.$ sudo rconestatus ftpdftpd is running as pid 99650.$ sudo rconestop ftpdStopping ftpd.$注意点としては、ftpdなどのサービスの指定は、rc.dディレクトリにあるスクリプトファイル名ではなく、スクリプトファイル中に書かれるPROVIDE行での指定に準ずるところ。      なので、こんなことが起こった。$ grep samba /etc/rc.confsamba_enable=&amp;#34;YES&amp;#34;$ rcstatus samba$ rcstatus smbd$ rcstatus nmbd$ rcstatus -s |grep smbnmbd smbd$$ grep PROVIDE /usr/local/etc/rc.d/samba# PROVIDE: nmbd smbd# PROVIDE: winbindd$$ rcstatus nmbd smbd$ rcstatus &amp;#34;nmbd smbd&amp;#34;nmbd is running as pid 99768.smbd is running as pid 99772.$Sambaはsmb, samba等では理解してくれず、&amp;#8221;nmbd smbd&amp;#8221;と指定する必要がある。">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="BSD管理者のためのお役立ちツールrcstatus">
   <meta name="twitter:description" content="FreeBSDでは各種サーバソフトウェアの起動スクリプトは/etc/rc.d、/usr/local/etc/rc.d等のrc.dディレクトリに置かれる。ここにあるスクリプトを実行しようとするといちいち/usr/local/etc/rc.dと打たないといけないので面倒。      /usr/ports/sysutils/bsdadminscriptsでインストールされるシェルスクリプトに以下のようなものがある。rcstart rcstatus rcstop rcrestartrconestart rconestatus rconestop rconerestartこれらのスクリプトは、rc.d配下のスクリプトの扱いを（少しだけ）楽にしてくれる。      スクリプト名に&amp;#8221;one&amp;#8221;が含まれるものは、/etc/rc.confにservice_enable=&amp;#8221;yes&amp;#8221;が含まれて「いない」サービスを扱うためのスクリプト。逆に&amp;#8221;one&amp;#8221;が含まれて「いない」ものは、service_enable=&amp;#8221;yes&amp;#8221;が含まれて「いる」サービスを扱う。      ややこしいが、要するに&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080213/p1&quot; target=&quot;_blank&quot;&gt;ここ&lt;/a&gt;でいうところの、onestart, forcestartが必要なケースではスクリプト名に&amp;#8221;one&amp;#8221;が含まれる方を使う。            オプションは、-sで対象となるサービスの一覧表示、-lで対象スクリプトの場所表示、-pでサーチ対象としているパスの表示。      実行例$ rcstatus -sDAEMONFILESYSTEMSLOGINNETWORKING NETWORK（略）zabbix_server$$ rcstatus -l apache22apache22:       /usr/local/etc/rc.d/apache22$$ rcstatus -p/etc/rc.d/usr/local/etc/rc.d$/etc/rc.confにftpd_enable=&amp;#8221;YES&amp;#8221;がない場合の実行例。pidの読み取りには管理者権限が必要のようだ。$ grep ftpd /etc/rc.conf$$ rcstatus ftpd$ rconestatus ftpdftpd is not running.$ sudo rconestart ftpdPassword:Starting ftpd.$ rconestatus ftpdeval: cannot open /var/run/ftpd.pid: Permission deniedftpd is not running.$ sudo rconestatus ftpdftpd is running as pid 99650.$ sudo rconestop ftpdStopping ftpd.$注意点としては、ftpdなどのサービスの指定は、rc.dディレクトリにあるスクリプトファイル名ではなく、スクリプトファイル中に書かれるPROVIDE行での指定に準ずるところ。      なので、こんなことが起こった。$ grep samba /etc/rc.confsamba_enable=&amp;#34;YES&amp;#34;$ rcstatus samba$ rcstatus smbd$ rcstatus nmbd$ rcstatus -s |grep smbnmbd smbd$$ grep PROVIDE /usr/local/etc/rc.d/samba# PROVIDE: nmbd smbd# PROVIDE: winbindd$$ rcstatus nmbd smbd$ rcstatus &amp;#34;nmbd smbd&amp;#34;nmbd is running as pid 99768.smbd is running as pid 99772.$Sambaはsmb, samba等では理解してくれず、&amp;#8221;nmbd smbd&amp;#8221;と指定する必要がある。">
-  <meta name="twitter:url" content="http://localhost:4000/2009/04/27-bsd%E7%AE%A1%E7%90%86%E8%80%85%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%81%8A%E5%BD%B9%E7%AB%8B%E3%81%A1%E3%83%84%E3%83%BC%E3%83%ABrcstatus.html">
+  <meta name="twitter:url" content="/2009/04/27-bsd%E7%AE%A1%E7%90%86%E8%80%85%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%81%8A%E5%BD%B9%E7%AB%8B%E3%81%A1%E3%83%84%E3%83%BC%E3%83%ABrcstatus.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2009/04/27-bsd%E7%AE%A1%E7%90%86%E8%80%85%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%81%8A%E5%BD%B9%E7%AB%8B%E3%81%A1%E3%83%84%E3%83%BC%E3%83%ABrcstatus.html">
+<link rel="canonical" href="/2009/04/27-bsd%E7%AE%A1%E7%90%86%E8%80%85%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%81%8A%E5%BD%B9%E7%AB%8B%E3%81%A1%E3%83%84%E3%83%BC%E3%83%ABrcstatus.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

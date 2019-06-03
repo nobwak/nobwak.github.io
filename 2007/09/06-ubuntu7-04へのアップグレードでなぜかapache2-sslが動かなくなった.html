@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="Ubuntu7.04へのアップグレードでなぜかapache2 SSLが動かなくなった。">
-<meta property="og:url" content="http://localhost:4000/2007/09/06-ubuntu7-04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2-ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F.html">
+<meta property="og:url" content="/2007/09/06-ubuntu7-04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2-ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F.html">
 
 
   <meta property="og:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070220/p1&quot; target=&quot;_blank&quot;&gt;6.10のときにインストールしたApache2+SSL&lt;/a&gt;だが、7.04にアップグレードしたとたん、下記のメッセージが表示されてSSLが動作しない。          mixing * ports and non-* ports with a NameVirtualHost address is not supported      sites-enabled内の000-defaultで下記の記載がある。          　NameVirtualHost *                  　&lt;VirtualHost *&gt;      したがって、000-defaultのVirtualHost *は*:*、つまりportが*と判断され、すべてのportに適用されるため、mod-enable内のssl設定ファイルの下記記載と齟齬を来していた。          　      &lt;/blockquote&gt;              なので、000-defaultを下記のように修正してOK。                　NameVirtualHost *:80                  　&lt;VirtualHost *:80&gt;                    000-defaultを変更したくないのであれば、ssl設定ファイルのホスト名を、下記のようにIPアドレスにしてもOK                　&lt;VirtualHost 192.168.1.1:443&gt;      ">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="Ubuntu7.04へのアップグレードでなぜかapache2 SSLが動かなくなった。">
   <meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070220/p1&quot; target=&quot;_blank&quot;&gt;6.10のときにインストールしたApache2+SSL&lt;/a&gt;だが、7.04にアップグレードしたとたん、下記のメッセージが表示されてSSLが動作しない。          mixing * ports and non-* ports with a NameVirtualHost address is not supported      sites-enabled内の000-defaultで下記の記載がある。          　NameVirtualHost *                  　&lt;VirtualHost *&gt;      したがって、000-defaultのVirtualHost *は*:*、つまりportが*と判断され、すべてのportに適用されるため、mod-enable内のssl設定ファイルの下記記載と齟齬を来していた。          　      &lt;/blockquote&gt;              なので、000-defaultを下記のように修正してOK。                　NameVirtualHost *:80                  　&lt;VirtualHost *:80&gt;                    000-defaultを変更したくないのであれば、ssl設定ファイルのホスト名を、下記のようにIPアドレスにしてもOK                　&lt;VirtualHost 192.168.1.1:443&gt;      ">
-  <meta name="twitter:url" content="http://localhost:4000/2007/09/06-ubuntu7-04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2-ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F.html">
+  <meta name="twitter:url" content="/2007/09/06-ubuntu7-04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2-ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2007/09/06-ubuntu7-04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2-ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F.html">
+<link rel="canonical" href="/2007/09/06-ubuntu7-04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2-ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>

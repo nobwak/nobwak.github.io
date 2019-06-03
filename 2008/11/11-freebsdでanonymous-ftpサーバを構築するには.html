@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ja_JP.UTF_8">
 <meta property="og:site_name" content="nobwak's lair">
 <meta property="og:title" content="FreeBSDでanonymous FTPサーバを構築するには">
-<meta property="og:url" content="http://localhost:4000/2008/11/11-freebsd%E3%81%A7anonymous-ftp%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<meta property="og:url" content="/2008/11/11-freebsd%E3%81%A7anonymous-ftp%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
   <meta property="og:description" content="最近はanonymous FTPを立てることは少なくなった。      とはいっても、たまにはあるわけで、その時のためにメモする。      （&lt;a href=&quot;http://www.freebsdnews.net/index.php&quot; target=&quot;_blank&quot;&gt;http://www.freebsdnews.net/index.php&lt;/a&gt;の記事をベースにしています）      手順としては、anonymous FTP用のユーザを作っておき、ディレクトリの準備などをした後に、ftpdを-Aオプションで起動するという流れ。            ◎ユーザの追加      シェルは/sbin/nologinにしておくこと。# adduserUsername: ftpFull name: Anonymous FTP userUid (Leave empty for default):Login group [ftp]:Login group is ftp. Invite ftp into other groups? []:Login class [default]:Shell (sh csh tcsh bash rbash nologin) [sh]: nologinHome directory [/home/ftp]: /var/ftpHome directory permissions (Leave empty for default):Use password-based authentication? [yes]: noLock out the account after creation? [no]: noUsername   : ftpPassword   : &amp;#60;disabled&amp;#62;Full Name  : Anonymous FTP userUid        : 1002Class      :Groups     : ftpHome       : /var/ftpHome Mode  :Shell      : /usr/sbin/nologinLocked     : noOK? (yes/no): yesadduser: INFO: Successfully added (ftp) to the user database.Add another user? (yes/no): noGoodbye!◎ディレクトリの作成      ユーザ作成時に指定したホームディレクトリを作る。      ここがftpユーザにとってはルートディレクトリとなる。# mkdir -p /var/ftp/pub# chown ftp:ftp /var/ftp/pub◎メッセージの作成      下記二つのファイルを、必要であれば修正。      まあ自分用ならいらないか。      /etc/ftpwelcome : ログイン前に表示されるメッセージ      /etc/ftpmod : ログイン後に表示されるメッセージ            ◎inetd.confの修正# echo &quot;ftp stream tcp nowait root /usr/libexec/ftpd ftpd -l -S -A -r&quot; \&amp;#62;&amp;#62; /etc/inetd.confここで、オプションは下記の通りなので、適宜書き換え。-l ftpログインを記録する。-r 読み取りのみ-A anonymous FTP接続のみ許可-S ユーザのダウンロード履歴を/var/log/ftpdに記録する。　ただし/var/log/ftpdが存在していること。◎ログ出力先の作成      Sオプションを指定している場合はログの書き込み先ファイルを作る。# touch /var/log/ftpdなお、-lで記録することになるログはsyslogに送られ、デフォルトでは/var/log/xferlogに記録される。本ファイルは改めて作らなくても最初からある。            ◎起動      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080213/p1&quot; target=&quot;_blank&quot;&gt;こちら&lt;/a&gt;のように、そのとき限りの起動の場合。# /etc/rc.d/inetd onestartリブート後も起動させておきたい場合# echo &#39;inetd_enable=&quot;YES&quot;&#39; &amp;#62;&amp;#62; /etc/rc.conf# /etc/rc.d/inetd start以上">
@@ -30,7 +30,7 @@
   <meta name="twitter:site" content="@nobwak">
   <meta name="twitter:title" content="FreeBSDでanonymous FTPサーバを構築するには">
   <meta name="twitter:description" content="最近はanonymous FTPを立てることは少なくなった。      とはいっても、たまにはあるわけで、その時のためにメモする。      （&lt;a href=&quot;http://www.freebsdnews.net/index.php&quot; target=&quot;_blank&quot;&gt;http://www.freebsdnews.net/index.php&lt;/a&gt;の記事をベースにしています）      手順としては、anonymous FTP用のユーザを作っておき、ディレクトリの準備などをした後に、ftpdを-Aオプションで起動するという流れ。            ◎ユーザの追加      シェルは/sbin/nologinにしておくこと。# adduserUsername: ftpFull name: Anonymous FTP userUid (Leave empty for default):Login group [ftp]:Login group is ftp. Invite ftp into other groups? []:Login class [default]:Shell (sh csh tcsh bash rbash nologin) [sh]: nologinHome directory [/home/ftp]: /var/ftpHome directory permissions (Leave empty for default):Use password-based authentication? [yes]: noLock out the account after creation? [no]: noUsername   : ftpPassword   : &amp;#60;disabled&amp;#62;Full Name  : Anonymous FTP userUid        : 1002Class      :Groups     : ftpHome       : /var/ftpHome Mode  :Shell      : /usr/sbin/nologinLocked     : noOK? (yes/no): yesadduser: INFO: Successfully added (ftp) to the user database.Add another user? (yes/no): noGoodbye!◎ディレクトリの作成      ユーザ作成時に指定したホームディレクトリを作る。      ここがftpユーザにとってはルートディレクトリとなる。# mkdir -p /var/ftp/pub# chown ftp:ftp /var/ftp/pub◎メッセージの作成      下記二つのファイルを、必要であれば修正。      まあ自分用ならいらないか。      /etc/ftpwelcome : ログイン前に表示されるメッセージ      /etc/ftpmod : ログイン後に表示されるメッセージ            ◎inetd.confの修正# echo &quot;ftp stream tcp nowait root /usr/libexec/ftpd ftpd -l -S -A -r&quot; \&amp;#62;&amp;#62; /etc/inetd.confここで、オプションは下記の通りなので、適宜書き換え。-l ftpログインを記録する。-r 読み取りのみ-A anonymous FTP接続のみ許可-S ユーザのダウンロード履歴を/var/log/ftpdに記録する。　ただし/var/log/ftpdが存在していること。◎ログ出力先の作成      Sオプションを指定している場合はログの書き込み先ファイルを作る。# touch /var/log/ftpdなお、-lで記録することになるログはsyslogに送られ、デフォルトでは/var/log/xferlogに記録される。本ファイルは改めて作らなくても最初からある。            ◎起動      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080213/p1&quot; target=&quot;_blank&quot;&gt;こちら&lt;/a&gt;のように、そのとき限りの起動の場合。# /etc/rc.d/inetd onestartリブート後も起動させておきたい場合# echo &#39;inetd_enable=&quot;YES&quot;&#39; &amp;#62;&amp;#62; /etc/rc.conf# /etc/rc.d/inetd start以上">
-  <meta name="twitter:url" content="http://localhost:4000/2008/11/11-freebsd%E3%81%A7anonymous-ftp%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+  <meta name="twitter:url" content="/2008/11/11-freebsd%E3%81%A7anonymous-ftp%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
   
     <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/2008/11/11-freebsd%E3%81%A7anonymous-ftp%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
+<link rel="canonical" href="/2008/11/11-freebsd%E3%81%A7anonymous-ftp%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF.html">
 
 
 
@@ -65,7 +65,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "nobwak",
-      "url": "http://localhost:4000",
+      "url": null,
       "sameAs": null
     }
   </script>
