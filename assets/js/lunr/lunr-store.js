@@ -2323,4 +2323,9 @@ var store = [{
         "excerpt":"ネットワーク越しのzfs send recvをmbufferでスピードアップしよう zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、send, recvで送受するデータの実体はストリームなので、sendとrecvをパイプラインで繋ぐ。 パイプラインで繋ぐということは、ストリームを操作、制御するコマンドをsend, recvの間に挟んでも構わないということになる。 こういった特性を活かして、ネットワーク越しにzfsデータを送受するときには、間にバッファツールを挟む。 バッファツールはその名の通りデータをバッファするツールで、今回のケースで言えば、受け側ホストか経路ネットワークの問題か、要するにデータを受け取れないときにはデータをためておき、受け取れるときには限界までデータを流し込む。 こうすることでzfs send recvの転送速度向上を期待できる。 なお、「ネットワーク越し」という場合、その「ネットワーク」がプライベート網かインターネットなどの公衆網のどちらなのか、で要件が大きく変わる。 それについては後述の「データの流れとコマンド実行方法」を参照のこと。 バッファツールの定番mbuffer バッファツールには定番mbufferを使う。 公式 freshports(FreeBSDの方) pkgでインストール(FreeBSDの方) 送受それぞれのホストでインストールしましょうね。 $ sudo pkg install mbuffer Password: Updating FreeBSD repository catalogue... Fetching meta.txz: 100% 944 B 0.9kB/s 00:01 Fetching packagesite.txz: 100% 6 MiB 2.2MB/s 00:03 Processing...","categories": [],
         "tags": [],
         "url": "/2019/06/01-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B6%8A%E3%81%97%E3%81%AEzfs-send-recv.html",
+        "teaser":null},{
+        "title": "Freebsdでsamba4をインストールしたらsmb.confのexampleがない",
+        "excerpt":"[メモ]FreeBSDでSamba4をインストールしたらsmb.confのexampleがなかった。   しょうがないので、sambaのgitに行き   インストールしたバージョンのstableを見て、今回の場合は4.8.   examplesの下にあるsmb.conf.defaultからダウンロードした。   以上  ","categories": [],
+        "tags": [],
+        "url": "/2019/06/03-freebsd%E3%81%A7samba4%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89smb-conf%E3%81%AEexample%E3%81%8C%E3%81%AA%E3%81%84.html",
         "teaser":null}]

@@ -1861,6 +1861,10 @@
 <lastmod>2019-06-01T00:00:00+09:00</lastmod>
 </url>
 <url>
+<loc>/2019/06/03-freebsd%E3%81%A7samba4%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89smb-conf%E3%81%AEexample%E3%81%8C%E3%81%AA%E3%81%84.html</loc>
+<lastmod>2019-06-03T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>/</loc>
 </url>
 <url>
@@ -2138,5 +2142,8 @@
 </url>
 <url>
 <loc>/page93/</loc>
+</url>
+<url>
+<loc>/page94/</loc>
 </url>
 </urlset>
