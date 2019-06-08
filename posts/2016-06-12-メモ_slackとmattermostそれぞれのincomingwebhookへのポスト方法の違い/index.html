@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [メモ] SlackとMattermostそれぞれのincomingWebhookへのポスト方法の違い</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[メモ] SlackとMattermostそれぞれのincomingWebhookへのポスト方法の違い" />
+<meta property="og:description" content="MattermostはSlackのクローンであるが、incomingWebhookへのポストだけは、どうも違いがあるようだ。 以下にSlack" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2016-06-12-%E3%83%A1%E3%83%A2_slack%E3%81%A8mattermost%E3%81%9D%E3%82%8C%E3%81%9E%E3%82%8C%E3%81%AEincomingwebhook%E3%81%B8%E3%81%AE%E3%83%9D%E3%82%B9%E3%83%88%E6%96%B9%E6%B3%95%E3%81%AE%E9%81%95%E3%81%84/" />
+<meta property="article:published_time" content="2016-06-12T21:48:06&#43;09:00"/>
+<meta property="article:modified_time" content="2016-06-12T21:48:06&#43;09:00"/>
+
+<meta itemprop="name" content="[メモ] SlackとMattermostそれぞれのincomingWebhookへのポスト方法の違い">
+<meta itemprop="description" content="MattermostはSlackのクローンであるが、incomingWebhookへのポストだけは、どうも違いがあるようだ。 以下にSlack">
+
+
+<meta itemprop="datePublished" content="2016-06-12T21:48:06&#43;09:00" />
+<meta itemprop="dateModified" content="2016-06-12T21:48:06&#43;09:00" />
+<meta itemprop="wordCount" content="209">
+
+
+
+<meta itemprop="keywords" content="mattermost,python,slack," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[メモ] SlackとMattermostそれぞれのincomingWebhookへのポスト方法の違い"/>
+<meta name="twitter:description" content="MattermostはSlackのクローンであるが、incomingWebhookへのポストだけは、どうも違いがあるようだ。 以下にSlack"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[メモ] SlackとMattermostそれぞれのincomingWebhookへのポスト方法の違い</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2016-06-12T21:48:06&#43;09:00">June 12, 2016</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>MattermostはSlackのクローンであるが、incomingWebhookへのポストだけは、どうも違いがあるようだ。<br />
+以下にSlack/Mattermostそれぞれでの実例を示す。<br />
+まずmattermost</p>
+
+<pre><code class="language-python"># mattermost
+
+import requests
+
+incomWebHook = 'http://192.168.10.1/hooks/xxxxx'
+msg = 'test message'
+icon_url = 'http://192.168.10.10/graphix/robot.png'
+username = 'bot'
+
+def sendMsg(incomWebHook, icon_url, username, msg):
+    payload = {
+            'text': msg,
+            'icon_url': icon_url,
+            'username': username}
+
+    r = requests.post(
+        incomWebHook,
+        json=payload)
+
+    return r
+
+r = sendMsg(incomWebHook, icon_url, username, msg)
+</code></pre>
+
+<p>Slack</p>
+
+<pre><code class="language-python"># slack
+import requests
+
+incomWebHook =&quot;https://slack.com/api/chat.postMessage&quot;
+msg = 'test message'
+username = 'bot'
+token = &quot;xoxb-xxxx-xxxx&quot;
+
+def sendMsg(incomWebHook, token, username, msg):
+    payload_dic = {
+            &quot;token&quot;: token
+            &quot;type&quot;: &quot;message&quot;,
+            &quot;channel&quot;: &quot;#general&quot;,
+            &quot;text&quot;: msg,
+            &quot;username&quot;: username,
+            &quot;icon_emoji&quot;: &quot;:bird:&quot;,
+            }
+
+    headers = {
+            'Content-type': 'application/json',
+            'Accept': 'text/plain'
+            }
+
+    r = requests.post(
+            incomWebHook,
+            params=payload_dic,
+            headers=headers)
+
+    return r
+
+r = sendMsg(incomWebHook, token, username, msg)
+</code></pre>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/mattermost" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">mattermost</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/slack" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">slack</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2016-06-02-slack_mattermost%E3%81%AEbot%E3%82%92python%E3%81%AEflask%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">Slack/MattermostのbotをPythonのFlaskで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-05-08-python_requests%E3%81%A8lxml%E3%81%A7%E4%BA%AC%E6%80%A5%E3%81%AE%E9%81%8B%E8%A1%8C%E6%83%85%E5%A0%B1%E3%82%92%E6%8A%BD%E5%87%BA%E3%81%97%E3%82%88%E3%81%86/">[Python] requestsとlxmlで京急の運行情報を抽出しよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-06-08-%E3%83%A1%E3%83%A2python_anaconda%E3%82%92windows_xp%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%88%E3%81%86%E3%81%A8%E3%81%99%E3%82%8B%E3%81%A8%E5%A4%B1%E6%95%97%E3%81%99%E3%82%8B/">[メモ][Python] AnacondaをWindows xpにインストールしようとすると失敗する</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-05-22-python_list%E3%81%AE%E5%B7%AE%E5%88%86%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/">[Python] listの差分を知るには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-05-19-pythonmemo_%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%81%AE%E5%B7%AE%E3%82%92%E6%B1%82%E3%82%81%E3%82%8B/">[Python][memo] タイムスタンプの差を求める</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-04-16-slackhubotjail%E3%83%A1%E3%83%A2_freebsd_jail%E3%81%A7hubot%E3%82%92%E9%A3%BC%E3%81%86/">[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-05-python_wxpython%E3%81%A7%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python] wxPythonで、タイトルバーにアイコンを表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-01-12-pythonwindows_windows7%E3%81%B8%E3%81%AE%E7%B4%94%E6%AD%A3python%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%83%A1%E3%83%A2/">[Python][Windows] Windows7への純正Pythonインストールメモ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-12-29-python_wxglade%E3%81%A7gui%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%82%92/">[Python] wxGladeでGUIのデザインを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-10-23-python_pyinstaller%E3%81%AE%E9%81%85%E3%81%95%E3%81%AB%E3%81%8C%E3%81%A3%E3%81%8B%E3%82%8A%E3%81%97%E3%81%A6py2exe%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E7%88%86%E9%80%9F%E3%81%A7%E9%A9%9A%E3%81%84%E3%81%9F%E4%BB%B6/">[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-19-%E3%83%A1%E3%83%A2_wxpython%E3%81%8Cos_x%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E8%A7%A3%E6%B1%BA/">[メモ] wxPythonがOS Xにインストールできない（解決）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-14-%E3%83%A1%E3%83%A2pythonsqlite_%E5%B7%A8%E5%A4%A7%E3%81%AAsqlite%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF/">[メモ][Python][SQLite] 巨大なSQLiteデータベースからレコードを取り出すには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-31-%E3%83%A1%E3%83%A2_python%E3%81%A7%E6%A8%99%E6%BA%96%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%BA%E5%8A%9B%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] Pythonで標準エラー出力に表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-09-%E3%83%A1%E3%83%A2_mac%E3%81%ABpython%E3%81%AEmatplotlib%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] MacにPythonのmatplotlibをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-30-python_%E4%BA%8C%E3%81%A4%E3%81%AE%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%81%AE%E5%B7%AE%E5%88%86%E3%82%92%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python] 二つのタイムスタンプの差分を計算するには</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

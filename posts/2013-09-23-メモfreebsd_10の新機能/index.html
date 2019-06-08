@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | メモ: FreeBSD 10の新機能</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="メモ: FreeBSD 10の新機能" />
+<meta property="og:description" content="FreeBSD 10が年明けあたりにリリースされる。 今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。 その変更点を以下" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-09-23-%E3%83%A1%E3%83%A2freebsd_10%E3%81%AE%E6%96%B0%E6%A9%9F%E8%83%BD/" />
+<meta property="article:published_time" content="2013-09-23T21:28:55&#43;09:00"/>
+<meta property="article:modified_time" content="2013-09-23T21:28:55&#43;09:00"/>
+
+<meta itemprop="name" content="メモ: FreeBSD 10の新機能">
+<meta itemprop="description" content="FreeBSD 10が年明けあたりにリリースされる。 今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。 その変更点を以下">
+
+
+<meta itemprop="datePublished" content="2013-09-23T21:28:55&#43;09:00" />
+<meta itemprop="dateModified" content="2013-09-23T21:28:55&#43;09:00" />
+<meta itemprop="wordCount" content="1132">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="メモ: FreeBSD 10の新機能"/>
+<meta name="twitter:description" content="FreeBSD 10が年明けあたりにリリースされる。 今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。 その変更点を以下"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">メモ: FreeBSD 10の新機能</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-09-23T21:28:55&#43;09:00">September 23, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>FreeBSD 10が年明けあたりにリリースされる。<br />
+今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。<br />
+その変更点を以下にまとめる。あくまでも本日時点。</p>
+
+<p>なお元ネタは<a href="https://wiki.freebsd.org/WhatsNew/FreeBSD10  " target="_blank"><a href="https://wiki.freebsd.org/WhatsNew/FreeBSD10">https://wiki.freebsd.org/WhatsNew/FreeBSD10</a></a></p>
+
+<h2 id="span-style-text-decoration-underline-freebsd-10での変更点-span"><span style="text-decoration: underline;">FreeBSD 10での変更点</span></h2>
+
+<p><span style="text-decoration: underline;">システム</span></p>
+
+<p><p style="padding-left: 30px;">
+  GCCアウト。<a href="http://ja.wikipedia.org/wiki/Clang" target="_blank">CLANG</a>に入れ替え。<br /> また、デフォルトのコンパイラもclangに。<br /> [コメント]GPLv3問題のためですな。<br /> そしてシステム全部がclangでコンパイルされている、というのは大きなこと。<br /> ある意味、オープンソース・ソフトウェアを支えてきたgccと決別したわけだから。</p>
+
+<p><span style="text-decoration: underline;">pkg</span></p>
+
+<p><p style="padding-left: 30px;">
+  pkg<em>*アウト。pkgngイン。<br /> [コメント]FreeBSD 10-ALPHAでpkg</em>*の無いことに驚いた。<br /> しかしpkgngのオフィシャルリポジトリはまだ復活していない。<br /> 10-RELEASEの暁にはpkg-test.freebsd.orgが本格運用されるであろう。</p>
+
+<p><p style="padding-left: 30px;"></p>
+
+<pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;サーバソフトウェア&lt;/span&gt;
+</code></pre>
+
+<p><p style="padding-left: 30px;">
+    （作業中）BINDアウト。UnboundとLNDSがイン。<br /> [コメント]BINDちゃんセキュリティホール多かったしのう。</p>
+
+<pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;仮想化&lt;/span&gt;
+</code></pre>
+
+<p><p style="padding-left: 30px;">
+    bhyveイン。 LinuxのKVMのようなもの<br /> [コメント]bhyveってなんぞや。<a href="http://d.hatena.ne.jp/k32ru/20120928/1348848993" target="_blank">ここ</a>で概要つかめるかも。</p>
+
+<pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;ファイルシステム&lt;/span&gt;
+</code></pre>
+
+<p><p style="padding-left: 30px;">
+    <a href="../../../?p=2264">インストーラでのZFS on root対応</a><br /> ZFSでTRIMサポート<br /> ZFSでLZ4圧縮のサポート<br /> L2ARC圧縮もサポート<br /> FUSEがベースシステムでサポートされる。<br /> UFSのライブリサイズがサポートされる。つまりサービス断なくディスクを増加させられる。<br /> [コメント]LZ4については手前味噌ですが<a href="../../../?p=1885" target="_blank">こちら</a>を。<br /> ZFSがばんばん更新されるのは嬉しいのだが、ZFS自体のアップデートはすごく緊張する。</p>
+
+<pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;起動&lt;/span&gt;
+</code></pre>
+
+<p><p style="padding-left: 30px;">
+    UEFIブートローダのサポート<br /> ブート時のアニメーションsplashスクリーンサポート</p>
+
+<pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;その他&lt;/span&gt;
+</code></pre>
+
+<p><p style="padding-left: 30px;">
+    ログインIDが32文字までに延長<br /> CVS終了。portsのアップデートに{csup|cvsup}使ってる奴はsvnliteかsvnupを使え。<br /> svnliteはベースシステムに、svnupはportsにある。<br /> 10以降で作られたUFSはfsckが早い。<br /> [コメント]ログインIDの文字数は地味に助かる。FreeBSDでメールサーバ立てた時、苦労した覚えが。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

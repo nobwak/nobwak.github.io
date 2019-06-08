@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | csup(cvsup)でのports、srcのアップデートを早くするために</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="csup(cvsup)でのports、srcのアップデートを早くするために" />
+<meta property="og:description" content="2014/3/20追記 なぜだかこの記事が未だにアクセスされているので追記。 もうFreeBSDではcsupは使われませんので注意のほどを。 追記" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2008-11-29-csupcvsup%E3%81%A7%E3%81%AEportssrc%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E6%97%A9%E3%81%8F%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AB/" />
+<meta property="article:published_time" content="2008-11-29T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2008-11-29T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="csup(cvsup)でのports、srcのアップデートを早くするために">
+<meta itemprop="description" content="2014/3/20追記 なぜだかこの記事が未だにアクセスされているので追記。 もうFreeBSDではcsupは使われませんので注意のほどを。 追記">
+
+
+<meta itemprop="datePublished" content="2008-11-29T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2008-11-29T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="734">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="csup(cvsup)でのports、srcのアップデートを早くするために"/>
+<meta name="twitter:description" content="2014/3/20追記 なぜだかこの記事が未だにアクセスされているので追記。 もうFreeBSDではcsupは使われませんので注意のほどを。 追記"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">csup(cvsup)でのports、srcのアップデートを早くするために</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-11-29T01:00:00&#43;09:00">November 29, 2008</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><em>2014/3/20追記</em><br />
+<em>なぜだかこの記事が未だにアクセスされているので追記。</em><br />
+<em>もうFreeBSDではcsupは使われませんので注意のほどを。</em><br />
+<em>追記ここまで</em></p>
+
+<pre><code>&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071021/p2&quot; target=&quot;_blank&quot;&gt;ここ&lt;/a&gt;でも書いたが、portsのアップデートはcsupにしている。
+
+
+
+で、csupを少しでも早くするために、refuseの設定の他、fastest_cvsupも使っている。
+
+
+
+このコマンドはperlスクリプトで、カントリーコードを与えて実行すると、自分の環境で反応の速いcvsupサーバ上位3つを返してくれる。
+
+
+
+/usr/ports/sysutils/fastest_cvsupからインストールできる。
+
+
+
+実行例。
+</code></pre>
+
+<pre><code class="language-console">[flageo@xxx ]$ fastest_cvsup -c jp
+&gt;&gt;  Querying servers in countries: jp
+--&gt; Connecting to cvsup.jp.freebsd.org [210.224.172.75]...
+- server replied: OK 17 0 SNAP_16_1h CVSup server ready
+- time taken: 56.67 ms
+--&gt; Connecting to cvsup2.jp.freebsd.org [203.216.196.85]...
+- server replied: OK 17 0 SNAP_16_1h CVSup server ready
+- time taken: 23.71 ms
+--&gt; Connecting to cvsup3.jp.freebsd.org [59.106.2.11]...
+- server replied: OK 17 0 SNAP_16_1h CVSup server ready
+- time taken: 24.14 ms
+--&gt; Connecting to cvsup4.jp.freebsd.org [133.1.240.15]...
+- server replied: OK 17 0 SNAP_16_1h CVSup server ready
+- time taken: 28.51 ms
+--&gt; Connecting to cvsup5.jp.freebsd.org [210.161.150.4]...
+- server replied: OK 17 0 SNAP_16_1h CVSup server ready
+- time taken: 46.06 ms
+--&gt; Connecting to cvsup6.jp.freebsd.org [59.106.2.11]...
+- server replied: OK 17 0 SNAP_16_1h CVSup server ready
+- time taken: 29.57 ms
+&gt;&gt;  Speed Daemons:
+- 1st: cvsup2.jp.freebsd.org
+- 2nd: cvsup3.jp.freebsd.org
+- 3rd: cvsup4.jp.freebsd.org
+</code></pre>
+
+<pre><code>で、-qオプションを与えてやると一番速いとこだけを返すようになるので、これをcsupに食わせてやる。
+
+
+
+実行例
+</code></pre>
+
+<pre><code class="language-console"># csup -h `/usr/local/bin/fastest_cvsup -q -c jp` -g /etc/supfile-ports
+-=(oooooo)=(cvsup6.jp.freebsd.org)=-
+Connected to 203.216.196.85
+Updating collection ports-all/cvs
+(略)
+</code></pre>
+
+<pre><code>その時々でネットワークの状況だったり、サーバの混み具合が違い、結果として速いサーバも変わってくるので、csup実行時にチェックできるのがいいと思う。
+
+
+
+なお、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071021/p2&quot; target=&quot;_blank&quot;&gt;ここ&lt;/a&gt;で書いたrefuseの設定は以下の通り。
+
+
+
+こうしておくと、不要なファイルのダウンロードはしない。
+</code></pre>
+
+<pre><code class="language-console">$ cat /var/db/sup/refuse
+doc/bn_*
+doc/da_*
+doc/de_*
+doc/el_*
+doc/es_*
+doc/fr_*
+doc/hu_*
+doc/id_*
+doc/it_*
+doc/mn_*
+doc/nl_*
+doc/no_*
+doc/pl_*
+doc/pt_*
+doc/ro_*
+doc/ru_*
+doc/sr_*
+doc/tr_*
+doc/zh_*
+ports/arabic
+ports/chinese
+ports/french
+ports/german
+ports/hebrew
+ports/hungarian
+ports/korean
+ports/polish
+ports/portuguese
+ports/russian
+ports/ukrainian
+ports/vietnamese
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

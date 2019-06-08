@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | portscleanの代替distviper</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="portscleanの代替distviper" />
+<meta property="og:description" content="sysutils/bsdadminscriptsには便利ツールがたくさん入っている。 たとえばdistviper。 portsの運用を続けると、" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2009-04-17-portsclean%E3%81%AE%E4%BB%A3%E6%9B%BFdistviper/" />
+<meta property="article:published_time" content="2009-04-17T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2009-04-17T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="portscleanの代替distviper">
+<meta itemprop="description" content="sysutils/bsdadminscriptsには便利ツールがたくさん入っている。 たとえばdistviper。 portsの運用を続けると、">
+
+
+<meta itemprop="datePublished" content="2009-04-17T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2009-04-17T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="655">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="portscleanの代替distviper"/>
+<meta name="twitter:description" content="sysutils/bsdadminscriptsには便利ツールがたくさん入っている。 たとえばdistviper。 portsの運用を続けると、"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">portscleanの代替distviper</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-04-17T01:00:00&#43;09:00">April 17, 2009</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>sysutils/bsdadminscriptsには便利ツールがたくさん入っている。
+
+
+
+たとえばdistviper。
+
+
+
+portsの運用を続けると、/usr/ports/distfiles/配下には古いファイルがたまっていくが、これを自動的に検知して削除してくれる。
+
+
+
+同じ用途に使えるコマンドとしては、portupgrade付属のportscleanが有名だが、これらのコマンドはrubyが必要で、これだけのためにインストールするのも重い。
+
+
+
+
+
+
+/usr/ports/distfiles/配下のすべてのファイルに対して検知を行うthoroughモードと、インストールされているportsだけに限り検知を行い、それ以外を削除するfastモードがある。
+
+
+
+thoroughモードは時間がかかるので、portsビルド専用（つまりビルドだけしてインストールしない）マシンでもないかぎりfastモードで十分。
+
+
+
+　-dで消されるファイルの確認、-iで消す前に聞くようになる、-qでメッセージ抑制、-vでverboseといったオプションがある。
+
+
+
+実行例
+</code></pre>
+
+<pre><code class="language-console">$ distviper -d fast
+delete zsh-4.3.9.tar.bz2
+（中略）
+$ sudo distviper fast
+delete zsh-4.3.9.tar.bz2
+delete zsh-4.3.9-doc.tar.bz2
+delete xorg/driver/xf86-video-ati-6.11.0.tar.bz2
+delete xorg/driver/xf86-video-mach64-6.8.0.tar.bz2
+delete xorg/driver/xf86-video-nv-2.1.12.tar.bz2
+delete xorg/driver/xf86-video-r128-6.8.0.tar.bz2
+delete xorg/driver/xf86-video-radeonhd-1.2.4.tar.bz2
+delete xorg/driver/xf86-video-openchrome-0.2.903.tar.bz2
+delete gnome2/gdm-2.24.1.tar.bz2
+delete gnome/esound-0.2.41.tar.bz2
+delete a2ps-4.13b.tar.gz
+delete libssh2-1.0.tar.gz
+delete xc/vnc-4_1_3-unixsrc.tar.gz
+delete xc/X430src-1.tgz
+delete audiofile-0.2.6.tar.gz
+delete samba-3.0.34.tar.gz
+delete thunderbird-2.0.0.19-source.tar.bz2
+$
+</code></pre>
+
+<pre><code>ということで、/usr/local/etc/periodic/weeklyというディレクトリを（無ければ）作って、998.deldist.shとか適当な名前で下記のスクリプトを置いて、週1で自動的に実行されるようにしておいた。
+
+
+
+/etc/local/etc/periodic/weekly/998.deldist.sh
+</code></pre>
+
+<pre><code class="language-console">#!/bin/sh
+DELCMD=&amp;#39;/usr/local/sbin/distviper&amp;#39;
+DELOPT=&amp;#39;fast&amp;#39;
+rc=0
+if &amp;#91; -x $DELCMD ]; then
+echo &amp;#39;Searching and deleting outdated distfiles...&amp;#39;
+$DELCMD $DELOPT || rc=$?
+echo &amp;#39;Done.&amp;#39;
+else
+echo &amp;#34;$DELCMD is not installed and I gave up.&amp;#34;
+rc=2
+fi
+exit &amp;#34;$rc&amp;#34;
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

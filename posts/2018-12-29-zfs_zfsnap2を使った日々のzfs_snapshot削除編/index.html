@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [zfs] zfsnap2を使った日々のzfs snapshot（削除編）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[zfs] zfsnap2を使った日々のzfs snapshot（削除編）" />
+<meta property="og:description" content="zfsnap2（以降、zfsnap）をperiodicで自動取得する方法はこちらで触れた。 同期時でも触れた通り、zfsnapには自動削除する" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2018-12-29-zfs_zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs_snapshot%E5%89%8A%E9%99%A4%E7%B7%A8/" />
+<meta property="article:published_time" content="2018-12-29T13:44:00&#43;09:00"/>
+<meta property="article:modified_time" content="2018-12-29T13:44:00&#43;09:00"/>
+
+<meta itemprop="name" content="[zfs] zfsnap2を使った日々のzfs snapshot（削除編）">
+<meta itemprop="description" content="zfsnap2（以降、zfsnap）をperiodicで自動取得する方法はこちらで触れた。 同期時でも触れた通り、zfsnapには自動削除する">
+
+
+<meta itemprop="datePublished" content="2018-12-29T13:44:00&#43;09:00" />
+<meta itemprop="dateModified" content="2018-12-29T13:44:00&#43;09:00" />
+<meta itemprop="wordCount" content="533">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[zfs] zfsnap2を使った日々のzfs snapshot（削除編）"/>
+<meta name="twitter:description" content="zfsnap2（以降、zfsnap）をperiodicで自動取得する方法はこちらで触れた。 同期時でも触れた通り、zfsnapには自動削除する"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[zfs] zfsnap2を使った日々のzfs snapshot（削除編）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-12-29T13:44:00&#43;09:00">December 29, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>zfsnap2（以降、zfsnap）をperiodicで自動取得する方法は<a href="./2018-12-02-[zfs]_zfsnap2を使った日々のzfs_snapshot（取得編）.md">こちら</a>で触れた。<br />
+同期時でも触れた通り、zfsnapには自動削除するperiodic scriptもある。<br />
+が、実はそのままでは動かない。<br />
+変更内容を本記事で示す。</p>
+
+<h3 id="結論">結論</h3>
+
+<p>付属のスクリプトではdestroyするfsの指定がないので補う。<br />
+具体的には以下の個所。</p>
+
+<pre><code class="language-diff">&lt;         xPREFIXx/zfsnap destroy $OPTIONS -p &quot;hourly- daily- weekly- monthly- reboot- $xPERIODICx_zfsnap_delete_prefixes&quot; $xPERIODICx_zfsnap_delete_fs -r $xPERIODICx_zfsnap_delete_recursive_fs
+---
+&gt;         xPREFIXx/zfsnap destroy $OPTIONS -p &quot;hourly- daily- weekly- monthly- reboot- $xPERIODICx_zfsnap_delete_prefixes&quot;
+</code></pre>
+
+<p>同時に、/etc/periodic.confで$xPERIODICx_zfsnap_delete_fs、$xPERIODICx_zfsnap_delete_recursive_fsの指定も行うこと。</p>
+
+<h3 id="結果">結果</h3>
+
+<p>dailyの削除スクリプト例（dailyのみ）</p>
+
+<pre><code class="language-console">#!/bin/sh
+
+# This file is licensed under the BSD-3-Clause license.
+# See the AUTHORS and LICENSE files for more information.
+
+# If there is a global system configuration file, suck it in.
+if [ -r /etc/defaults/periodic.conf ]; then
+    . /etc/defaults/periodic.conf
+    source_periodic_confs
+fi
+
+# daily_zfsnap_delete_enable   - Delete old snapshots periodicaly (values: YES | NO)
+# daily_zfsnap_delete_flags    - `zfsnap destroy` flags
+# daily_zfsnap_delete_verbose  - Verbose output (values: YES | NO)
+# daily_zfsnap_delete_prefixes - Space-separated list of prefixes of expired zfsnap snapshots to delete
+#                                     'hourly-', 'daily-', 'weekly-', 'monthly-', and 'reboot-' prefixes are hardcode
+d
+
+case &quot;${daily_zfsnap_delete_enable-&quot;NO&quot;}&quot; in
+    [Yy][Ee][Ss])
+        OPTIONS=&quot;$daily_zfsnap_delete_flags&quot;
+
+        case &quot;${daily_zfsnap_delete_verbose-&quot;NO&quot;}&quot; in
+            [Yy][Ee][Ss]) OPTIONS=&quot;$OPTIONS -v&quot; ;;
+        esac
+
+        /usr/local/sbin/zfsnap destroy $OPTIONS -p &quot;hourly- daily- weekly- monthly- reboot- $daily_zfsnap_delete_pref
+ixes&quot; $daily_zfsnap_delete_fs -r $daily_zfsnap_delete_recursive_fs
+        exit $?
+        ;;
+
+    *)
+        exit 0
+        ;;
+esac
+
+# vim: set ts=4 sw=4:
+</code></pre>
+
+<p>/etc/periodic.confの例（dailyのみ）</p>
+
+<pre><code class="language-console"># zfsnap_daily
+daily_zfsnap_enable=&quot;YES&quot;
+daily_zfsnap_recursive_fs=&quot;vault&quot;
+daily_zfsnap_verbose=&quot;YES&quot;
+daily_zfsnap_flags=&quot;-s -S -z&quot;
+daily_zfsnap_ttl=&quot;1w1d&quot;
+daily_zfsnap_delete_enable=&quot;YES&quot;
+daily_zfsnap_delete_flags=&quot;-s -S&quot;
+daily_zfsnap_delete_verbose=&quot;YES&quot;
+daily_zfsnap_delete_recursive_fs=&quot;vault&quot;
+</code></pre>
+
+<p>上手くいけばdaily outputで以下のような内容が通知される。</p>
+
+<pre><code class="language-console">/sbin/zfs destroy vault/chamber@daily-2018-12-21_04.00.00-1w1d ... DONE  
+/sbin/zfs destroy vault/itunes@daily-2018-12-21_04.00.00-1w1d ... DONE  
+/sbin/zfs destroy vault@daily-2018-12-21_04.00.00-1w1d ... DONE
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

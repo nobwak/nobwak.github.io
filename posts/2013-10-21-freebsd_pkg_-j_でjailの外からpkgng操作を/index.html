@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD] pkg -j でjailの「外から」pkgng操作を。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD] pkg -j でjailの「外から」pkgng操作を。" />
+<meta property="og:description" content="サマリ pkg -jを使うと、ホストからjail内のpkgを操作できる。 しかし、あらかじめjail内にpkgのインストールが必要。 pkg -j pkgのman" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-21-freebsd_pkg_-j_%E3%81%A7jail%E3%81%AE%E5%A4%96%E3%81%8B%E3%82%89pkgng%E6%93%8D%E4%BD%9C%E3%82%92/" />
+<meta property="article:published_time" content="2013-10-21T22:55:18&#43;09:00"/>
+<meta property="article:modified_time" content="2013-10-21T22:55:18&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD] pkg -j でjailの「外から」pkgng操作を。">
+<meta itemprop="description" content="サマリ pkg -jを使うと、ホストからjail内のpkgを操作できる。 しかし、あらかじめjail内にpkgのインストールが必要。 pkg -j pkgのman">
+
+
+<meta itemprop="datePublished" content="2013-10-21T22:55:18&#43;09:00" />
+<meta itemprop="dateModified" content="2013-10-21T22:55:18&#43;09:00" />
+<meta itemprop="wordCount" content="825">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD] pkg -j でjailの「外から」pkgng操作を。"/>
+<meta name="twitter:description" content="サマリ pkg -jを使うと、ホストからjail内のpkgを操作できる。 しかし、あらかじめjail内にpkgのインストールが必要。 pkg -j pkgのman"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD] pkg -j でjailの「外から」pkgng操作を。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-10-21T22:55:18&#43;09:00">October 21, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h2 id="span-style-text-decoration-underline-サマリ-span"><span style="text-decoration: underline;">サマリ</span></h2>
+
+<p>pkg -jを使うと、ホストからjail内のpkgを操作できる。<br />
+しかし、あらかじめjail内にpkgのインストールが必要。</p>
+
+<h2 id="span-style-text-decoration-underline-pkg-j-span"><span style="text-decoration: underline;">pkg -j</span></h2>
+
+<p>pkgのmanを見ると以下の記載が。</p>
+
+<pre><code class="language-console">-j &lt;jail name or id&gt;
+             pkg will execute in the given &lt;jail name or id&gt;, where name
+             matches ``jls name'' and id matches ``jls jid''.  See jail(8) and
+             jls(8).
+</code></pre>
+
+<p>つまり、-jに続けてjail名あるいはjail idを指定すれば、ホストから当該jail内のpkgを操作できる、ということである。<br />
+これはさっそく試さねばなるまい。<br />
+qjailを使ってexmaple02というjailを作った。</p>
+
+<pre><code class="language-console">$ sudo qjail create -n em0 -4 192.168.100.241 example02
+Successfully created  example02
+[vanilla@yaryka ~]$ sudo qjail start example02
+Jail successfully started  example02
+[vanilla@yaryka ~]$ sudo qjail list
+
+STA JID  NIC IP              Jailname
+--- ---- --- --------------- --------------------------------------------------
+DR  1    em0 192.168.100.240 example01
+DR  2    em0 192.168.100.241 example02
+</code></pre>
+
+<p>さっそく試してみるが…？</p>
+
+<pre><code class="language-console">$ sudo pkg -j example02 info
+$ sudo pkg -j example02 update
+Updating repository catalogue
+$ sudo pkg -j example02 install bash
+Updating repository catalogue
+$
+</code></pre>
+
+<p>まったく反応がない。</p>
+
+<p>いろいろ試した結果、jailにはpkgがあらかじめインストールされていなければならないのであった。</p>
+
+<h2 id="span-style-text-decoration-underline-jailでpkgのインストール-span"><span style="text-decoration: underline;">jailでpkgのインストール</span></h2>
+
+<p>仕方なくjailのコンソールに接続し、pkgをインストール。<br />
+現時点ではpkgの公式リポジトリがないので、<a href="../../../?p=2280" target="_blank">こちら</a>の通りに進める。</p>
+
+<pre><code class="language-console">$ sudo qjail console example02
+FreeBSD 10.0-BETA1 (GENERIC) #0 r256420: Sun Oct 13 01:43:07 UTC 2013
+
+Welcome to your FreeBSD jail.
+example02 /root &gt;sh
+# PACKAGESITE=&quot;http://96.47.72.120/pkg-test-freebsd:10:x86:64/latest&quot; pkg
+The package management tool is not yet installed on your system.
+Do you want to fetch and install it now? [y/N]: y
+Bootstrapping pkg please wait
+Installing pkg-1.1.4_6... done
+If you are upgrading from the old package format, first run:
+（略）
+</code></pre>
+
+<p>もう一度ホストからpkgを実行。<br />
+今度は問題なく進んだ。</p>
+
+<pre><code class="language-console">$ sudo pkg -j example02 update
+Updating repository catalogue
+digests.txz                         100%  955KB 191.0KB/s 214.8KB/s   00:05
+packagesite.txz                     100% 5209KB 226.5KB/s  28.6KB/s   00:23
+Incremental update completed, 0 packages processed:
+0 packages updated, 0 removed and 21607 added.
+$
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-jailの外からpkg-jでpkg操作-span"><span style="text-decoration: underline;">jailの外からpkg -jでpkg操作</span></h2>
+
+<p>ではjailの外からインストールを。</p>
+
+<pre><code class="language-console">$ sudo pkg -j example02 install bash
+Updating repository catalogue
+The following 2 packages will be installed:
+
+        Installing gettext: 0.18.3
+        Installing bash: 4.2.45
+
+The installation will require 14 MB more space
+
+3 MB to be downloaded
+
+Proceed with installing packages [y/N]: y
+gettext-0.18.3.txz                  100% 2086KB 231.8KB/s  85.9KB/s   00:09
+bash-4.2.45.txz                     100%  890KB 222.6KB/s 410.2KB/s   00:04
+Checking integrity... done
+[1/2] Installing gettext-0.18.3... done
+[2/2] Installing bash-4.2.45... done
+$
+</code></pre>
+
+<p>-jオプションを付けるだけで、まったく同じように使える。<br />
+infoで一覧も得られるし、auditでセキュリティチェックもできる。upgradeもできそうだ。</p>
+
+<pre><code class="language-console">$ sudo pkg -j example02 audit -F
+auditfile.tbz                       100%   90KB  90.3KB/s  90.3KB/s   00:00
+0 problem(s) in your installed packages found.
+$ sudo pkg -j example02 info
+Password:
+bash-4.2.45                    The GNU Project's Bourne Again SHell
+gettext-0.18.3                 GNU gettext package
+pkg-1.1.4_6                    New generation package manager
+$ sudo pkg -j example02 upgrade
+Updating repository catalogue
+Nothing to do
+$
+</code></pre>
+
+<p>こいつは便利でございますな。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

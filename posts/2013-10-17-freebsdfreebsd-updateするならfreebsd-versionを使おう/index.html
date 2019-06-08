@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD]freebsd-updateするならfreebsd-versionを使おう</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD]freebsd-updateするならfreebsd-versionを使おう" />
+<meta property="og:description" content="freebsd-version(1) 10.0-BETA1で、freebsd-versionというFreeBSDのパッチレベルを教えてくれるコマンドが生まれた。 便利なコマンドな" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-17-freebsdfreebsd-update%E3%81%99%E3%82%8B%E3%81%AA%E3%82%89freebsd-version%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86/" />
+<meta property="article:published_time" content="2013-10-17T20:26:41&#43;09:00"/>
+<meta property="article:modified_time" content="2013-10-17T20:26:41&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD]freebsd-updateするならfreebsd-versionを使おう">
+<meta itemprop="description" content="freebsd-version(1) 10.0-BETA1で、freebsd-versionというFreeBSDのパッチレベルを教えてくれるコマンドが生まれた。 便利なコマンドな">
+
+
+<meta itemprop="datePublished" content="2013-10-17T20:26:41&#43;09:00" />
+<meta itemprop="dateModified" content="2013-10-17T20:26:41&#43;09:00" />
+<meta itemprop="wordCount" content="1284">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD]freebsd-updateするならfreebsd-versionを使おう"/>
+<meta name="twitter:description" content="freebsd-version(1) 10.0-BETA1で、freebsd-versionというFreeBSDのパッチレベルを教えてくれるコマンドが生まれた。 便利なコマンドな"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD]freebsd-updateするならfreebsd-versionを使おう</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-10-17T20:26:41&#43;09:00">October 17, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h2 id="span-style-text-decoration-underline-freebsd-version-1-span"><span style="text-decoration: underline;">freebsd-version(1)</span></h2>
+
+<p>10.0-BETA1で、freebsd-versionというFreeBSDのパッチレベルを教えてくれるコマンドが生まれた。<br />
+便利なコマンドなのでメモ。</p>
+
+<p>FreeBSDには、freebsd-updateというバイナリアップデートコマンドがある。<br />
+make buildworld, buildkernelしなくても、必要なファイルだけを更新してくれる優れもののコマンド。<br />
+セキュリティ更新があった場合や、アップグレードにとても便利なのだが、困ったことが一つ。</p>
+
+<p>あるセキュリティ更新が、カーネルに影響せず、ユーザランドのファイルのみ対象だった場合。<br />
+仮にここで9.2-RELEASEのユーザランド、たとえばbindにのみ更新があり9.2-RELEASE-p1になったとする。</p>
+
+<p>そのFreeBSDのパッチレベルを確認しようとunameコマンドを使っても、返ってくるのは9.2-RELEASEである。<br />
+つまりunameはカーネルしか見ていない。<br />
+これでは本当にfreebsd-updateが完了したか不安になる。</p>
+
+<p>カーネルを再コンパイルすればきちんと9.2-RELEASE-p1と返してくれるようになるが、これでは何のためのfreebsd-updateなのか分からなくなる。</p>
+
+<p>今回のfreebsd-versionは、このfreebsd-updateの困ったことを解決してくれるコマンドである。</p>
+
+<h2 id="span-style-text-decoration-underline-使い方-span"><span style="text-decoration: underline;">使い方</span></h2>
+
+<pre><code class="language-console">$ freebsd-version
+10.0-BETA1
+$ which freebsd-version
+/bin/freebsd-version
+$ file /bin/freebsd-version
+/bin/freebsd-version: POSIX shell script, UTF-8 Unicode text executable
+</code></pre>
+
+<p>freebsd-updateは10.0-BETA1で入ったもの。<br />
+/binの下にある。<br />
+ご覧の通りシェルスクリプトである。</p>
+
+<p>freebsd-versionに-kオプションを与えると、カーネルのパッチレベルを返す。<br />
+uname -rと同じように見えるが、以下の点で違う。<br />
+freebsd-updateなどでパッチを適用し、リブートして「いない」状態であっても、新しいカーネルのパッチレベルを返してくれる。<br />
+リブートするまえに確認できるから便利ですな。</p>
+
+<p>オプションなし、あるいは-uオプションを付けると、ユーザランドのパッチレベルを返してくれる。</p>
+
+<p>-kuとつけると、最初にカーネルのバージョン、次にユーザランドのバージョンを返してくれる。</p>
+
+<p>以下が実行例だが、ユーザランドに更新のない10.0-BETA1だけに違いが分からない…。</p>
+
+<pre><code class="language-console">$ freebsd-version -k
+10.0-BETA1
+$ freebsd-version -u
+10.0-BETA1
+$ freebsd-version
+10.0-BETA1
+$ freebsd-version -ku
+10.0-BETA1
+10.0-BETA1
+</code></pre>
+
+<p>詳細はman freebsd-version。<br />
+環境変数ROOTでpathを与えると、freebsd-versionはそこを基準にしてカーネルやユーザランドのパッチレベルを教えてくれる例など載っているので。</p>
+
+<pre><code class="language-console">EXAMPLES
+To determine the version of the currently running userland:
+
+/bin/freebsd-version -u
+
+To inspect a system being repaired using a live CD:
+
+mount -rt ufs /dev/ada0p2 /mnt
+env ROOT=/mnt /mnt/bin/freebsd-version -ku
+
+SEE ALSO
+uname(1), loader.conf(5), freebsd-version$1n
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-uname-u-uname-k-span"><span style="text-decoration: underline;">uname -U, uname -K</span></h2>
+
+<p>と、この記事をまとめた後（この記事は予約投稿なのです）に、<a href="http://svnweb.freebsd.org/base?view=revision&revision=256557" target="_blank">HEADに修正が入った</a>。<br />
+unameに新しいオプションが追加される。-Uと-K。</p>
+
+<p>-Uがユーザランドの、-Kがカーネルのバージョンを返す。<br />
+HEADだから11.0に入るのかな。<br />
+しかしそうなるとfreebsd-versionの立場は…。と思ったけど、コミット理由に「important for jail/chroot environments」と書いてありますな。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ssmtpを使ってroot宛のメールをgmailに転送したら便利杉ワロタ。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ssmtpを使ってroot宛のメールをgmailに転送したら便利杉ワロタ。" />
+<meta property="og:description" content="ssmtpとは。 Extremely simple MTA to get mail off the system to a mail hub なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2012-03-05-ssmtp%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6root%E5%AE%9B%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%92gmail%E3%81%AB%E8%BB%A2%E9%80%81%E3%81%97%E3%81%9F%E3%82%89%E4%BE%BF%E5%88%A9%E6%9D%89%E3%83%AF%E3%83%AD%E3%82%BF/" />
+<meta property="article:published_time" content="2012-03-05T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2012-03-05T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="ssmtpを使ってroot宛のメールをgmailに転送したら便利杉ワロタ。">
+<meta itemprop="description" content="ssmtpとは。 Extremely simple MTA to get mail off the system to a mail hub なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。">
+
+
+<meta itemprop="datePublished" content="2012-03-05T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2012-03-05T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="969">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ssmtpを使ってroot宛のメールをgmailに転送したら便利杉ワロタ。"/>
+<meta name="twitter:description" content="ssmtpとは。 Extremely simple MTA to get mail off the system to a mail hub なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ssmtpを使ってroot宛のメールをgmailに転送したら便利杉ワロタ。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2012-03-05T01:00:00&#43;09:00">March 5, 2012</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>ssmtpとは。
+
+
+
+Extremely simple MTA to get mail off the system to a mail hub
+
+
+
+なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。
+
+
+
+だからqmailとかpostfixとか生まれたらしいんですがね、もうそんな設定の難しいソフトウェアはベースシステムから取っ払ってほしいんですよ。
+
+
+
+で、ssmtpなら設定は簡単だし、gmailがsmtp開放してるってんで、まあ入れてみた。
+
+
+
+root宛にメールを送れば、自分のスマホにメールが届くというのは便利杉で驚いた次第。
+
+
+
+
+
+
+
+
+&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;事前準備: sendmailよRIP&lt;/span&gt;
+
+
+
+まずsendmailを止める。
+</code></pre>
+
+<pre><code class="language-console"># /etc/rc.d/sendmail stop
+</code></pre>
+
+<pre><code>sendmailが次回以降も起動しないように/etc/rc.confに以下を追記。
+
+
+
+君にはお世話になった。
+</code></pre>
+
+<pre><code class="language-console">#vi /etc/rc.conf
+(以下を追記)
+sendmail_enable=&quot;NO&quot;
+sendmail_submit_enable=&quot;NO&quot;
+sendmail_outbound_enable=&quot;NO&quot;
+sendmail_msp_queue_enable=&quot;NO&quot;
+</code></pre>
+
+<pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;ssmtpをインストール&lt;/span&gt;
+</code></pre>
+
+<pre><code class="language-console"># cd /usr/ports/mail/ssmtp
+# make install clean
+# make replace
+</code></pre>
+
+<pre><code>最後のreplaceは/etc/mail/mailer.confを修正して、sendmailをssmtpに置き換えてくれる。
+
+
+
+sendmailは他のたくさんのプログラムがアクセスするからね。
+
+
+
+/etc/mail/mailer.confを見ると、何が変わったかがわかる。
+</code></pre>
+
+<pre><code class="language-console">make replace後の/etc/mail/mailer.confの内容
+#sendmail       /usr/libexec/sendmail/sendmail
+#send-mail      /usr/libexec/sendmail/sendmail
+#mailq          /usr/libexec/sendmail/sendmail
+#newaliases     /usr/libexec/sendmail/sendmail
+#hoststat       /usr/libexec/sendmail/sendmail
+#purgestat      /usr/libexec/sendmail/sendmail
+sendmail        /usr/local/sbin/ssmtp
+send-mail       /usr/local/sbin/ssmtp
+mailq           /usr/local/sbin/ssmtp
+newaliases      /usr/local/sbin/ssmtp
+hoststat        /usr/bin/true
+purgestat       /usr/bin/true
+</code></pre>
+
+<p><br /> 補足。<br /> pkgからインストールした場合には、もちろんmake replaceが使えない。<br /> その場合には面倒でも手動で書き換える。<br /> 書き換え個所は上記の通りで問題ないはずだが、心配なら以下から最新のMakefileを見れば分かる。<br /> <a href="https://svnweb.freebsd.org/ports/head/mail/ssmtp/Makefile?view=log">https://svnweb.freebsd.org/ports/head/mail/ssmtp/Makefile?view=log</a><br /> ここの最新版をViewして「replace」を見ればよい。<br /> 例。</p>
+
+<pre><code class="language-console">55 	replace:
+56 	        @${REINPLACE_CMD} -e 's,^[^#],#&amp;,g' ${MAILERCONF}
+57 	        @${ECHO_CMD} &quot;sendmail  ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
+58 	        @${ECHO_CMD} &quot;send-mail ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
+59 	        @${ECHO_CMD} &quot;mailq             ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
+60 	        @${ECHO_CMD} &quot;newaliases        ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
+61 	        @${ECHO_CMD} &quot;hoststat  /usr/bin/true&quot; &gt;&gt; ${MAILERCONF}
+62 	        @${ECHO_CMD} &quot;purgestat /usr/bin/true&quot; &gt;&gt; ${MAILERCONF}
+</code></pre>
+
+<pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;ssmtpの設定&lt;/span&gt;
+
+
+
+ここでroot宛のメールをgmailに転送する設定をする。
+
+
+
+/usr/local/etc/ssmtp/ssmtp.confを作成
+</code></pre>
+
+<pre><code class="language-console">root=youremail@gmail.com
+mailhub=smtp.gmail.com:587
+AuthUser=youremail@gmail.com
+AuthPass=yourpassword
+UseSTARTTLS=YES
+</code></pre>
+
+<pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;実験&lt;/span&gt;
+</code></pre>
+
+<pre><code class="language-console">$ mail -v root
+Subject: &lt;件名を入れる&gt;
+適当な本文
+(Ctrl+Dを押す)
+</code></pre>
+
+<pre><code>これでOK。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

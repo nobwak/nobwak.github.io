@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | qjailならjailのユーザランド更新にmake worldは不要ッ！</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="qjailならjailのユーザランド更新にmake worldは不要ッ！" />
+<meta property="og:description" content="この件があって、jailはqjailで管理している。 上記記事では触れなかったのだが、qjailにはもう一つ大きな利点がある。 qjailでは、" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-12-06-qjail%E3%81%AA%E3%82%89jail%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%A9%E3%83%B3%E3%83%89%E6%9B%B4%E6%96%B0%E3%81%ABmake_world%E3%81%AF%E4%B8%8D%E8%A6%81%E3%83%83/" />
+<meta property="article:published_time" content="2013-12-06T22:02:34&#43;09:00"/>
+<meta property="article:modified_time" content="2013-12-06T22:02:34&#43;09:00"/>
+
+<meta itemprop="name" content="qjailならjailのユーザランド更新にmake worldは不要ッ！">
+<meta itemprop="description" content="この件があって、jailはqjailで管理している。 上記記事では触れなかったのだが、qjailにはもう一つ大きな利点がある。 qjailでは、">
+
+
+<meta itemprop="datePublished" content="2013-12-06T22:02:34&#43;09:00" />
+<meta itemprop="dateModified" content="2013-12-06T22:02:34&#43;09:00" />
+<meta itemprop="wordCount" content="749">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="qjailならjailのユーザランド更新にmake worldは不要ッ！"/>
+<meta name="twitter:description" content="この件があって、jailはqjailで管理している。 上記記事では触れなかったのだが、qjailにはもう一つ大きな利点がある。 qjailでは、"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">qjailならjailのユーザランド更新にmake worldは不要ッ！</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-12-06T22:02:34&#43;09:00">December 6, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>この件があって、jailはqjailで管理している。<br />
+上記記事では触れなかったのだが、qjailにはもう一つ大きな利点がある。<br />
+qjailでは、jailのユーザランド更新にmake buildworldが不要なのである。<br />
+細かいところは後で述べる。<br />
+まずその使い方から。</p>
+
+<h2 id="span-style-text-decoration-underline-qjailでのユーザランド更新-span"><span style="text-decoration: underline;">qjailでのユーザランド更新</span></h2>
+
+<p>jailを止めたあとに、qjail update -bだけでOK。<br />
+jailを止めないで実行しようとしても、下記のように怒られる。<br />
+update -bはすぐに終わる。</p>
+
+<pre><code class="language-console">$ sudo qjail update -b
+Error: All jails have to be stopped.
+This jail is running. example01
+]$ sudo qjail stop example01
+Jail successfully stopped  example01
+
+$ sudo qjail update -b
+
+Deletion of sharedfs binaries successful for bin.
+Deletion of sharedfs binaries successful for lib.
+Deletion of sharedfs binaries successful for libexec.
+Deletion of sharedfs binaries successful for sbin.
+Deletion of sharedfs binaries successful for usr/bin.
+Deletion of sharedfs binaries successful for usr/include.
+Deletion of sharedfs binaries successful for usr/lib.
+Deletion of sharedfs binaries successful for usr/libdata.
+Deletion of sharedfs binaries successful for usr/libexec.
+Deletion of sharedfs binaries successful for usr/sbin.
+Deletion of sharedfs binaries successful for usr/lib32.
+
+Copied host's binaries to sharedfs successfully for bin.
+Copied host's binaries to sharedfs successfully for lib.
+Copied host's binaries to sharedfs successfully for libexec.
+Copied host's binaries to sharedfs successfully for sbin.
+Copied host's binaries to sharedfs successfully for usr/bin.
+Copied host's binaries to sharedfs successfully for usr/include.
+Copied host's binaries to sharedfs successfully for usr/lib.
+Copied host's binaries to sharedfs successfully for usr/libdata.
+Copied host's binaries to sharedfs successfully for usr/libexec.
+Copied host's binaries to sharedfs successfully for usr/sbin.
+Copied host's binaries to sharedfs successfully for usr/lib32.
+
+Host to sharedfs binaries update completed successfully.
+$
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-qjail-update-bとは-span"><span style="text-decoration: underline;">qjail update -bとは</span></h2>
+
+<p>マニュアルから俺訳で引用すると:</p>
+
+<blockquote>
+<p>freebsd-updateはホストしか調べてくれず、jailは対象外だ。ホストには最新の環境があるのに、jailのためにわざわざ make buildworld/installworldするのは次男の無駄無駄無駄。<br />
+だからして、ホストのバイナリをsharedfsにコピーできるようした。</p>
+</blockquote>
+
+<p>原文は以下の通り。</p>
+
+<pre><code class="language-console">-b      The basic requirement of FreeBSD jails is the jail environment
+             and the host run the same version of the systems binaries. Since
+             the FreeBSD-update utility only inspects the host system to
+             determine the systems RELEASE level it's not applicable in a
+             jailed environment. Performing a make buildworld/installworld on
+             sharedfs's source is such a waste of effort and resources after
+             having done this already for the host system. This option makes
+             the buildworld/installworld obsolete for the qjail environment.
+
+             This option deletes all the system binaries from the sharedfs and
+             them copies the host's system binaries to sharedfs. It's intended
+             to be used after running the FreeBSD-update utility on the host
+             to apply security updates or to upgrade the GENERIC host from one
+             RELEASE to another newer RELEASE, or after performing a make
+             buildworld/installworld on the host updating its system binaries.
+             Basically update the host and copy your work to the sharedfs
+             getting both environments synchronized.
+(snip)
+
+FreeBSD 10.0                     July 22, 2013                    FreeBSD 10.0
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

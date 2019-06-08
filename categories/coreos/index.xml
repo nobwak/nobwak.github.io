@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Coreos on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/coreos/</link>
+    <description>Recent content in Coreos on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Mon, 15 Feb 2016 22:20:43 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/coreos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[coreos]CoreOSインストール時に使ったcloud-configはどこに行ったの？</title>
+      <link>https://nobwak.github.io/posts/2016-02-15-coreoscoreos%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%AB%E4%BD%BF%E3%81%A3%E3%81%9Fcloud-config%E3%81%AF%E3%81%A9%E3%81%93%E3%81%AB%E8%A1%8C%E3%81%A3%E3%81%9F%E3%81%AE/</link>
+      <pubDate>Mon, 15 Feb 2016 22:20:43 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-02-15-coreoscoreos%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%AB%E4%BD%BF%E3%81%A3%E3%81%9Fcloud-config%E3%81%AF%E3%81%A9%E3%81%93%E3%81%AB%E8%A1%8C%E3%81%A3%E3%81%9F%E3%81%AE/</guid>
+      <description>自分でCoreOSをインストールするときには、初期設定を書き込んだcloud-configを読み込ませる。 ファイル一つでOSの設定を全部、賄</description>
+    </item>
+    
+    <item>
+      <title>タスク管理ツールWekan（Trelloクローン）&#43;VirtualBox&#43;CoreOS&#43;docker</title>
+      <link>https://nobwak.github.io/posts/2016-01-02-%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABwekantrello%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3&#43;virtualbox&#43;coreos&#43;docker/</link>
+      <pubDate>Sat, 02 Jan 2016 00:52:11 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-01-02-%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABwekantrello%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3&#43;virtualbox&#43;coreos&#43;docker/</guid>
+      <description>WekanとはTrelloクローン。 鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サ</description>
+    </item>
+    
+    <item>
+      <title>[memo] CoreOSのインストール</title>
+      <link>https://nobwak.github.io/posts/2015-12-21-memo_coreos%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Mon, 21 Dec 2015 23:34:06 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-12-21-memo_coreos%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>CoreOSを自分でインストールする。 目的は、VirtualBoxや、VMWarePlayer, vSphere(ESXi)等で動かす自前のC</description>
+    </item>
+    
+  </channel>
+</rss>

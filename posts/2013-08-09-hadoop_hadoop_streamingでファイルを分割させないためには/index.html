@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [hadoop] hadoop streamingでファイルを分割させないためには。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[hadoop] hadoop streamingでファイルを分割させないためには。" />
+<meta property="og:description" content="※hadoop-1.0.0です。 hadoop streamingで困ること。 作業データ（たとえばログ）を与えると、Hadoopはまず分割をする。 分割され" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-08-09-hadoop_hadoop_streaming%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%88%86%E5%89%B2%E3%81%95%E3%81%9B%E3%81%AA%E3%81%84%E3%81%9F%E3%82%81%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2013-08-09T22:26:04&#43;09:00"/>
+<meta property="article:modified_time" content="2013-08-09T22:26:04&#43;09:00"/>
+
+<meta itemprop="name" content="[hadoop] hadoop streamingでファイルを分割させないためには。">
+<meta itemprop="description" content="※hadoop-1.0.0です。 hadoop streamingで困ること。 作業データ（たとえばログ）を与えると、Hadoopはまず分割をする。 分割され">
+
+
+<meta itemprop="datePublished" content="2013-08-09T22:26:04&#43;09:00" />
+<meta itemprop="dateModified" content="2013-08-09T22:26:04&#43;09:00" />
+<meta itemprop="wordCount" content="1457">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[hadoop] hadoop streamingでファイルを分割させないためには。"/>
+<meta name="twitter:description" content="※hadoop-1.0.0です。 hadoop streamingで困ること。 作業データ（たとえばログ）を与えると、Hadoopはまず分割をする。 分割され"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[hadoop] hadoop streamingでファイルを分割させないためには。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-08-09T22:26:04&#43;09:00">August 9, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>※hadoop-1.0.0です。</p>
+
+<h2 id="span-style-text-decoration-underline-hadoop-streamingで困ること-span"><span style="text-decoration: underline;">hadoop streamingで困ること。</span></h2>
+
+<p>作業データ（たとえばログ）を与えると、Hadoopはまず分割をする。<br />
+分割されたものはinput splits, あるいは単にsplitsと呼ばれる。<br />
+splitsのサイズはデフォルトで64MBytesだ。<br />
+Hadoop（JobTracker）は作業ノード（TaskTracker）にsplitsを割り当てる。<br />
+作業ノードはsplitsに対してmapタスクを行う。</p>
+
+<p>なお、作業ノードの割り当てにあたっては、splitsの物理的な場所との近さも考慮される。<br />
+要するにsplitsの実データが置かれている作業ノードが選ばれる。</p>
+
+<p>これは素晴らしい仕組みなのだが、困ることもある。<br />
+例えば以下のような場合。</p>
+
+<ul>
+<li>ファイルの冒頭にあるヘッダが処理に必要な場合。<br />
+→分割されると、ヘッダのないsplitsが出来てしまう。</li>
+<li>ログ上の2点間の時間差分を知りたい場合。<br />
+→2点の間で分割されると計算できない。</li>
+</ul>
+
+<h2 id="span-style-text-decoration-underline-回避策-span"><span style="text-decoration: underline;">回避策</span></h2>
+
+<p>下記の通り。</p>
+
+<p>How do I process files, one per map?</p>
+
+<p>つまり、hadoopへの入力に、いきなり「ファイルの内容」を送り込むのではなく、「ファイルのリスト」を渡す。<br />
+ファイルのリストだから、いくら分割してもファイル自体は分割されない。<br />
+なるほど。</p>
+
+<h2 id="span-style-text-decoration-underline-回避策とはいっても-span"><span style="text-decoration: underline;">回避策とはいっても。</span></h2>
+
+<p>しかし、この場合mapper側に工夫が必要になる。</p>
+
+<p>通常であれば、標準入力からファイルの中身がドバドバやってくる。<br />
+PythonだろうとRubyだろうとstdinをforループで読むだけ。<br />
+楽ちん。</p>
+
+<p>ところがこの回避策だと、ファイルリストが入力されるわけだから、ファイルを開くことから始めなければならない。<br />
+そしてファイルを開くには、mapperスクリプト内で「hadoop dfs -cat ＜ファイル＞」しないといけない<br />
+（ファイルがHDFSにあるとして）。</p>
+
+<p>それも面倒だし、加えて、無駄な通信が発生する可能性がある点も懸念。</p>
+
+<p>先述の通り、Hadoopは作業の振り分けにあたって、実データに近い作業ノードを選ぶ。<br />
+しかしファイル「リスト」を渡すということは、ファイル「リスト」と作業ノードの近さは考慮してくれるものの、リストに書かれたファイルと作業ノードの近さは考慮外になるということ。</p>
+
+<p>つまり、作業ノードと実際のデータのある場所が一致するとは限らない。<br />
+一致しなければ、作業ノードはデータを別ノードからダウンロードしなければならない。</p>
+
+<p>ノード間通信はコスト高なのでなるべく避けよう、というHadoopの思想にはそぐわない。</p>
+
+<h2 id="span-style-text-decoration-underline-mapperの例-span"><span style="text-decoration: underline;">mapperの例</span></h2>
+
+<p>しかし選択肢はないので進める。<br />
+以下はpythonでファイルリストを受けた場合の処理例。<br />
+作業データはHDFS上にあるので、subprocessで「hadoop dfs -cat ＜ファイル＞」する。</p>
+
+<pre><code class="language-console">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys os subprocess
+
+for line in sys.stdin:
+
+        line.strip(&quot;\n&quot;)
+        filename = line
+
+        cat = subprocess.Popen([&quot;hadoop&quot;,&quot;dfs&quot;,&quot;-cat&quot;,filename],stdout=subprocess.PIPE)
+
+        for logline in cat.stdout:
+		#処理
+		print line
+</code></pre>
+
+<p>大したことではないけれど、下記のように必ずテストしてからhdoopに投入すること。</p>
+
+<pre><code class="language-console">$ cat filelist.txt | mapper.py | sort | reducer.py
+</code></pre>
+
+<p>hadoopは自前mapper, reducerが失敗しても、エラー内容を教えてはくれないので（たぶん）。</p>
+
+<h2 id="span-style-text-decoration-underline-注意点-span"><span style="text-decoration: underline;">注意点</span></h2>
+
+<p>HDFS上にファイルを置いている場合、絶対パスで指定すること。<br />
+相対パスではダメだった。<br />
+また、HDFSでは「/user/hadoop/input」のように、「user」であって「usr」でないことに注意。</p>
+
+<p>作業データがローカルディスクにあるなら、hadoop dfs -getとか。<br />
+しかしそうするとすべての作業ノードがローカルディスクにアクセスしてくることになる。<br />
+それは避けたいので、HDFS上に置いた方がよいでしょう。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

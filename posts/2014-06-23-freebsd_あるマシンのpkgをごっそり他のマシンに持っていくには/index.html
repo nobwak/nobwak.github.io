@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには" />
+<meta property="og:description" content="インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。 イ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-06-23-freebsd_%E3%81%82%E3%82%8B%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AEpkg%E3%82%92%E3%81%94%E3%81%A3%E3%81%9D%E3%82%8A%E4%BB%96%E3%81%AE%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AB%E6%8C%81%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2014-06-23T21:51:55&#43;09:00"/>
+<meta property="article:modified_time" content="2014-06-23T21:51:55&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには">
+<meta itemprop="description" content="インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。 イ">
+
+
+<meta itemprop="datePublished" content="2014-06-23T21:51:55&#43;09:00" />
+<meta itemprop="dateModified" content="2014-06-23T21:51:55&#43;09:00" />
+<meta itemprop="wordCount" content="1543">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,pkgng," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには"/>
+<meta name="twitter:description" content="インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。 イ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-06-23T21:51:55&#43;09:00">June 23, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。</p>
+
+<p>インターネットに接続できるマシンでpkgをインストールしておき、そのマシンからpkgを取得する。</p>
+
+<h2 id="手順">手順</h2>
+
+<p>・ターゲットとなるマシン（以下、ターゲット）と同じ構成でVM（以下、コピーマシン）を作る。<br />
+・コピーマシンに必要なpkgをインストールする。<br />
+・コピーマシン上のどこかでインストール済みpkgを作る。<br />
+・同じ場所にrepoカタログを作成する。<br />
+・ターゲットと同じLANに繋ぎかえる。<br />
+・pkgのあるディレクトリをwebサーバで公開し、pkgをインストールする。</p>
+
+<p>以下、詳細手順</p>
+
+<h2 id="ターゲットと同じ構成でvmを作る">ターゲットと同じ構成でVMを作る</h2>
+
+<p>RELEASEバージョンを合わせておけばよいでしょう。<br />
+割愛。</p>
+
+<h2 id="コピーマシンに必要なpkgをインストールする">コピーマシンに必要なpkgをインストールする</h2>
+
+<p>タイトルの通り。<br />
+なにもわざわざインストールしなくても、という意見もあるだろうが、動作確認も必要だし。<br />
+割愛。</p>
+
+<h2 id="pkgを作る">pkgを作る</h2>
+
+<p>適当な場所にディレクトリを掘り、以下のコマンドを叩く。</p>
+
+<pre><code class="language-console">pkg create -a -f tgz -o ./ -n
+</code></pre>
+
+<p>-aは、インストール済みのすべてのpkgを指定、という意味。all。<br />
+-fは、圧縮フォーマットの指定。右から左へ移すだけだからtgzでよい。tbzだと時間がかかる。<br />
+-o ./は、作成したpkgを置く場所。<br />
+-nは、作成済みのpkgを作らない、という意味。付けると処理のスピードアップが望めるが、逆に更新のあったpkgを作り忘れる、という危険性もあるかも。<br />
+以下の例では-nを使っていない。</p>
+
+<pre><code class="language-console">$ cd /usr/home/vanilla/pkgrepo/
+$ sudo pkg create -f tgz -o ./ -a
+Loading the package list...
+Creating package for GentiumBasic-110_1
+Creating package for ImageMagick-6.8.9.3,1
+Creating package for ORBit2-2.14.19_1
+(略)
+</code></pre>
+
+<h2 id="repoカタログを作成する">repoカタログを作成する</h2>
+
+<p>pkg repoにディレクトリを指定すればよい。</p>
+
+<pre><code class="language-console">$ cd /usr/home/vanilla/pkgrepo/
+$ sudo pkg repo /usr/home/vanilla/pkgrepo/
+Generating repository catalog in /usr/home/vanilla/pkgrepo/: done!
+$
+</code></pre>
+
+<p>そうすると以下の二つのファイルができる。</p>
+
+<pre><code class="language-console">digests.txz     packagesite.txz
+</code></pre>
+
+<p>つまり今回の例でいえば、/usr/home/vanilla/pkgrepo/に作成したpkgと二つのファイルが格納されているわけ。</p>
+
+<p>以上でコピーマシンでの作業は完了。</p>
+
+<h2 id="ターゲットでの準備">ターゲットでの準備</h2>
+
+<p>ターゲットにpkg一式をコピーし、webサーバを立ち上げる。<br />
+そのまえに、ターゲットでレポジトリの設定ファイルを修正しておくこと。<br />
+具体的には、①公式のpkgレポジトリを無効にし、②自前のpkgレポジトリの設定を加えることである。</p>
+
+<p>①公式pkgレポジトリの無効化</p>
+
+<p>/etc/pkg/pkg/FreeBSD.confでenabledをnoにする。</p>
+
+<pre><code class="language-console"># $FreeBSD: release/10.0.0/etc/pkg/FreeBSD.conf 258710 2013-11-28 14:24:26Z gjb
+$
+FreeBSD: {
+  url: &quot;pkg+http://pkg.FreeBSD.org/${ABI}/latest&quot;,
+  mirror_type: &quot;srv&quot;,
+  signature_type: &quot;fingerprints&quot;,
+  fingerprints: &quot;/usr/share/keys/pkg&quot;,
+  enabled: no
+}
+</code></pre>
+
+<p>②自前レポジトリの設定<br />
+/usr/local/etc/pkg/repos/localpkg.confとして以下のようなファイルを作る。<br />
+urlは、後ほど設定するwebサーバと合わせる事。</p>
+
+<pre><code class="language-console">localpkg: {
+  url: &quot;http://localhost:8000/&quot;,
+  mirror_type: &quot;http&quot;,
+  enabled: yes
+}
+</code></pre>
+
+<p>pkg -vvとしてみる。<br />
+repo FreeBSDのenabledがno, repo localpkgのenabledがyesになっていることを確認。</p>
+
+<pre><code class="language-console">Repositories:
+  FreeBSD: {
+    url             : &quot;pkg+http://pkg.FreeBSD.org/freebsd:10:x86:32/latest&quot;,
+    enabled         : no,
+    mirror_type     : &quot;SRV&quot;,
+    signature_type  : &quot;FINGERPRINTS&quot;,
+    fingerprints    : &quot;/usr/share/keys/pkg&quot;
+  }
+  localpkg: {
+    url             : &quot;http://localhost:8000/&quot;,
+    enabled         : yes,
+    mirror_type     : &quot;HTTP&quot;
+  }
+</code></pre>
+
+<h2 id="webサーバでpkgを公開-インストールする">webサーバでpkgを公開、インストールする。</h2>
+
+<p>rsyncでもなんでも使って、ターゲットにpkg一式をコピーする。<br />
+/home/vanilla/10.0/pkgにコピーしたとして、webサーバでこのディレクトリを公開すればよい。<br />
+ここでは手早くpythonで公開する。<br />
+以下のようにするとカレントディレクトリをルートとするwebサーバが立ちあがる。ポートは8000である。</p>
+
+<pre><code class="language-console">$ cd /home/vanilla/10.0/pkg
+$ python -m SimpleHTTPServer
+</code></pre>
+
+<p>同じくターゲットでpkg udpate。<br />
+pkg repoで作成したdigests.txz, packagesite.txzを参照できていることを確認したら、pkg upgradeすればよい。</p>
+
+<pre><code class="language-console">$ sudo pkg update
+Updating repository catalogue
+digests.txz                         100%   29KB  29.3KB/s  29.3KB/s   00:00    
+packagesite.txz                     100%  136KB 135.9KB/s 135.9KB/s   00:00    
+Incremental update completed, 613 packages processed:
+0 packages updated, 0 removed and 613 added.
+</code></pre>
+
+<p>以上です。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/pkgng" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">pkgng</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/">ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Pythonベースのプロジェクト管理ツール、tracのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-11-freebsd%E3%81%ABredmine%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%8F%96%E3%82%8A%E3%81%82%E3%81%88%E3%81%9A%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92%E3%82%8B%E3%81%A8%E3%81%93%E3%81%BE%E3%81%A7/">FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/">Poudriereのjailにセキュリティアップデートを適用</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-29-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0samba-virusfilter%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。samba-virusfilter編</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-27-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0scannedonly%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。scannedonly編。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-25-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFsamba%E3%81%AEvfs%E3%81%A7%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3/">Sambaの汚物（ウイルス）は消毒だ。あるいはsambaのvfsでウイルススキャン</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-18-monitorix%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%97%E3%82%88%E3%81%86/">Monitorixをカスタマイズしよう</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [ZFS][zpool]zpoolのHDDをスタンバイモードにして消費電力を減らそう</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[ZFS][zpool]zpoolのHDDをスタンバイモードにして消費電力を減らそう" />
+<meta property="og:description" content="我が家のNASサーバーはFreeBSDの入ったHP microserverである。 HP microserverにはHDDを4つ入れることができる。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2018-11-18-zfszpoolzpool%E3%81%AEhdd%E3%82%92%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%90%E3%82%A4%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AB%E3%81%97%E3%81%A6%E6%B6%88%E8%B2%BB%E9%9B%BB%E5%8A%9B%E3%82%92%E6%B8%9B%E3%82%89%E3%81%9D%E3%81%86/" />
+<meta property="article:published_time" content="2018-11-18T18:36:33&#43;09:00"/>
+<meta property="article:modified_time" content="2018-11-18T18:36:33&#43;09:00"/>
+
+<meta itemprop="name" content="[ZFS][zpool]zpoolのHDDをスタンバイモードにして消費電力を減らそう">
+<meta itemprop="description" content="我が家のNASサーバーはFreeBSDの入ったHP microserverである。 HP microserverにはHDDを4つ入れることができる。">
+
+
+<meta itemprop="datePublished" content="2018-11-18T18:36:33&#43;09:00" />
+<meta itemprop="dateModified" content="2018-11-18T18:36:33&#43;09:00" />
+<meta itemprop="wordCount" content="2222">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[ZFS][zpool]zpoolのHDDをスタンバイモードにして消費電力を減らそう"/>
+<meta name="twitter:description" content="我が家のNASサーバーはFreeBSDの入ったHP microserverである。 HP microserverにはHDDを4つ入れることができる。"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[ZFS][zpool]zpoolのHDDをスタンバイモードにして消費電力を減らそう</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-11-18T18:36:33&#43;09:00">November 18, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>我が家のNASサーバーはFreeBSDの入ったHP microserverである。<br />
+HP microserverにはHDDを4つ入れることができる。<br />
+たいへん便利なのだが、HDDが4つとも24時間動きっぱなしというのは精神衛生上、よろしくない。</p>
+
+<p>実は、HDD4つのうちメインで使っているのはOSの入っているものと、Samba共有しているものの2つだけで、残りの2つはバックアップ用である。<br />
+少なくとも、残りの2本はバックアップを取得するときだけ動いてくれればよいので、それ以外の間は、HDD内円盤の回転を止めておきたい（スピンダウン）。</p>
+
+<p>しかしSamba共有しているもの、バックアップ用のHDD（要するにOSの入っているHDD）以外はすべてzfsのzpoolを構成しているものである。<br />
+気軽にスピンダウンしてしまってよいものだろうか。</p>
+
+<p>というのが調査を始めたきっかけである。</p>
+
+<p>ああ、それと、頻繁に止めたり動かしたりすることがHDDに悪い、というのは重々承知の上。</p>
+
+<h3 id="結論-camcontrol-standbyしろ">結論（camcontrol standbyしろ）</h3>
+
+<p>結論から言うと、camcontrolでディスクを止めろ。<br />
+ディスク停止には、&rdquo;standby&rdquo;で。&rdquo;idle&rdquo;はやめておけ。</p>
+
+<h3 id="ataデバイスのモード">ATAデバイスのモード</h3>
+
+<p>ATAデバイスには4つのPower Modeがあり、条件によりそれぞれを行き来する。</p>
+
+<ol>
+<li>Active</li>
+<li>Idle</li>
+<li>Standby</li>
+<li>Sleep</li>
+</ol>
+
+<p>Activeモードは、通常のデータのやり取りができる状態のこと。<br />
+それ以外は、Idle &gt; Standby &gt; Sleep の順に消費電力が下がり、反応速度も遅くなる。<br />
+詳細は以下書類（PDF注意）の4.18.3 Power modesを参照されたし。<br />
+<a href="http://www.t13.org/Documents/UploadedDocuments/docs2007/e07163r2-Comments_on_ATA8-ACS_revision_4a.pdf">http://www.t13.org/Documents/UploadedDocuments/docs2007/e07163r2-Comments_on_ATA8-ACS_revision_4a.pdf</a></p>
+
+<p>これを踏まえて、任意のタイミング、あるいは、一定時間アクセスがないタイミングでIdle/Standby/Sleepに遷移させられれば目的が達成できる。<br />
+FreeBSDにおいて、Power modeの遷移にはcamcontrolコマンドを使う。<br />
+しかしその前に、zfs/zpoolで使えるPower Modeを調べねばならない。</p>
+
+<h3 id="zfsにはstandby">zfsにはStandby</h3>
+
+<p>FreeBSD Forumにある<a href="https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/">camcontrol standby weirdness</a>というスレッドを見ると、以下のような記述がある。要するにStandbyを使えと。Idleだとzfsは当該ディスクをlost/defect/detachedと判断し、zpoolはdegradedになるか、unavailableになるという。</p>
+
+<blockquote>
+<p>First of all: ZFS is fine with disks that go into STANDBY (accessing a zpool with disks in STANDBY will wake them up and ZFS will wait for it). ZFS cannot handle disks that are in IDLE mode (it considers the disks lost/defect/detached and the zpool will go degraded or even unavailable).</p>
+
+<p><a href="https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-340121">https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-340121</a></p>
+</blockquote>
+
+<p>自分で試す気にはならないので、そのまま受け取る。</p>
+
+<h3 id="camcontrolによるstabdby操作">camcontrolによるstabdby操作</h3>
+
+<p>再びFreeBSD Forum。[AHCI] Spinning down ada(4) disksというスレッドの以下のポストを参照<br />
+<a href="https://forums.freebsd.org/threads/ahci-spinning-down-ada-4-disks.8841/page-2#post-98640">https://forums.freebsd.org/threads/ahci-spinning-down-ada-4-disks.8841/page-2#post-98640</a></p>
+
+<p>camcontrol standby adaXとすればよい。<br />
+またcamcontrol standby adaX -T sssとすれば、ただちにstandbyモードに移行し、その後もsss秒、アクセスがなければstandbyモードに移行することができる。<br />
+以下なら/dev/ada3をすぐにstandbyモードに移行させるとともに、20分の間アクセスがなければやはりstandbyモードに遷移するようタイマー設定している。今すぐはstandbyモードにしなくてもいいけど、タイマーだけ設定したい、という方法はないみたいだ。</p>
+
+<pre><code class="language-console"># camcontrol standby ada3 -T 12000
+</code></pre>
+
+<p>しかし上記のコマンドを実行したとしても、応答はない。なしのつぶてである。<br />
+standbyモードに移ったのか。かくなる上はHDDの回転数はいかほどか、耳を澄ますほかはない。<br />
+そんなご無体な、とgoogle先生に訴えたところ、FreeNASのフォーラムに以下のポストを発見。</p>
+
+<p><a href="https://forums.freenas.org/index.php?threads/spinning-down-your-drives-and-checking-power-states-new-script.41559/">Spinning Down your Drives and Checking Power States. (New Script)</a></p>
+
+<p>上記にあるスクリプトを使えば、power modeを知ることができる。<br />
+本記事の末尾に転載しておく。<br />
+<code>get_drive_status.sh</code>として保存しておいた。<br />
+実行してみると;</p>
+
+<pre><code class="language-console">$ sudo drivestatus.sh  
+ada0: FF  
+ada0: Running  
+ada1: FF  
+ada1: Running  
+ada2: FF  
+ada2: Running  
+ada3: FF  
+ada3: Running
+</code></pre>
+
+<p>camcontrolでstandbyにしておいて再実行。</p>
+
+<pre><code class="language-console">$ sudo drivestatus.sh  
+ada0: FF  
+ada0: Running  
+ada1: 00  
+ada1: Standby  
+ada2: 00  
+ada2: Standby  
+ada3: 00  
+ada3: Standby
+</code></pre>
+
+<p>/dev/ada0はOSのあるHDDだからActiveですな。</p>
+
+<h3 id="運用方法-なにかが変">運用方法（なにかが変）</h3>
+
+<p>よしこれで解決。<br />
+と思ったのだが、タイマー満了してもpower modeがstandbyに移らないのである。<br />
+その割に、そのディスクのディレクトリにアクセスすると、ファイル一覧の表示に待たされたりするのである。</p>
+
+<p>先に引用した彼も同じことに悩んでいる。</p>
+
+<blockquote>
+<p>But, then, when the disk is idle for &gt; 1800sec (monitor with &lsquo;zpool iostat 60&rsquo;), it will not spin down. Huh?</p>
+
+<p><a href="https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-339820">https://forums.freebsd.org/threads/camcontrol-standby-weirdness.59296/#post-339820</a></p>
+</blockquote>
+
+<p>この彼は、zpool iostat でディスクへの読み書きをモニターできるので、何分かアクセスがなければidleモードに移すスクリプトを書いた、と言っている。<br />
+常駐スクリプトを運用するのが面倒なので、cronジョブでstandbyさせるようにした。</p>
+
+<h3 id="結果">結果</h3>
+
+<p>ワットチェッカーなんてものは持っていないので、単純に温度で確認した。<br />
+以下がそのグラフ。<br />
+ある日を境に、（OSのある/dev/ada0を除いて）温度が劇的に下がっていて、現時点ではまあ満足。</p>
+
+<p><a href="../../../wp-content/uploads/2018/11/disk01z.1month.png">tempereture</a></p>
+
+<h3 id="power-mode確認スクリプト">power mode確認スクリプト</h3>
+
+<pre><code class="language-console">#!/bin/bash
+#
+# Created by: Motorahead
+# Date: 02/19/2016
+# Checks For Running Status of Connected ADA Devices
+
+# Look for Connected Devices
+DEVICELIST=($( camcontrol devlist | grep -o 'ada[0-9]' ))
+
+# Checks Drive Status, but only outputs relative field $10
+STATUS(){
+camcontrol cmd ${LIST} -a &quot;E5 00 00 00 00 00 00 00 00 00 00 00&quot; -r - | awk '{print $10}'
+}
+
+# Loop through each device found in ${DEVICELIST}
+for LIST in ${DEVICELIST[@]}; do
+        echo -n &quot;${LIST}:  &quot;
+        STATUS
+# If the Output is 00, then the drive is in Standby. If it's FF, then it's active.
+        if [[ &quot;$(STATUS)&quot; == &quot;FF&quot; ]]; then
+                echo &quot;${LIST}: Running&quot;
+        elif [[ &quot;$(STATUS)&quot; -eq &quot;00&quot; ]]; then
+                echo &quot;${LIST}: Standby&quot;
+        else
+                echo &quot;${LIST} is in a unrecognized state.&quot;
+    fi
+done
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

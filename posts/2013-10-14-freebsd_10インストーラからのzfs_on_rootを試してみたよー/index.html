@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSD 10インストーラからのzfs on rootを試してみたよー</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSD 10インストーラからのzfs on rootを試してみたよー" />
+<meta property="og:description" content="FreeBSD 10.0-RELEASEから、インストールの際にファイルシステムとしてZFSが選べるようになる。 システムの置かれるファイルシステムをZFS" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-14-freebsd_10%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%A9%E3%81%8B%E3%82%89%E3%81%AEzfs_on_root%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%88%E3%83%BC/" />
+<meta property="article:published_time" content="2013-10-14T20:22:42&#43;09:00"/>
+<meta property="article:modified_time" content="2013-10-14T20:22:42&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSD 10インストーラからのzfs on rootを試してみたよー">
+<meta itemprop="description" content="FreeBSD 10.0-RELEASEから、インストールの際にファイルシステムとしてZFSが選べるようになる。 システムの置かれるファイルシステムをZFS">
+
+
+<meta itemprop="datePublished" content="2013-10-14T20:22:42&#43;09:00" />
+<meta itemprop="dateModified" content="2013-10-14T20:22:42&#43;09:00" />
+<meta itemprop="wordCount" content="878">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSD 10インストーラからのzfs on rootを試してみたよー"/>
+<meta name="twitter:description" content="FreeBSD 10.0-RELEASEから、インストールの際にファイルシステムとしてZFSが選べるようになる。 システムの置かれるファイルシステムをZFS"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSD 10インストーラからのzfs on rootを試してみたよー</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-10-14T20:22:42&#43;09:00">October 14, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>FreeBSD 10.0-RELEASEから、インストールの際にファイルシステムとしてZFSが選べるようになる。<br />
+システムの置かれるファイルシステムをZFSにする、ということは、今までも出来ないことはなかったけど、そりゃもう面倒な手順を経る必要があった。<br />
+それがインストールの時の選択ひとつで出来るようになったというのは、けっこうすごいこと。</p>
+
+<p>また、システムをZFSに置けると、まずパーティションの切り方に悩まなくて済む。<br />
+あとで/varが足らないとか/usr/localがとかそういったことが無くなる。</p>
+
+<p>そのうえで、システムまるごとzfsのアドバンテージを満喫できる。<br />
+まるまるスナップショット取れたりするからね。</p>
+
+<p>ただ、2012/10/10現在、いまだテスト中のところであり、10.0-BETA1あたりに入るかも、という状態。(2013/10/15追記; 10.0-BETA1に入ってました）<br />
+そんな状態で試してみた顛末を記す。</p>
+
+<p>なお一次情報は以下の通り。</p>
+
+<p><div>
+  <a href="https://groups.google.com/forum/#!topic/fa.freebsd.current/Q-JnQKKo7dg" target="_blank">[CFT] Patch to bsdinstall to support root-on-ZFS and GELI</a></p>
+
+<h2 id="span-style-text-decoration-underline-インストーラでのzfs-on-rootを試す-span"><span style="text-decoration: underline;">インストーラでのzfs on rootを試す</span></h2>
+
+<p>前提:FreeBSD 10.0-ALPHA5, zfsbootonly.2013-10-09.isoをvirtualboxで試しています。<br />
+<strong>注意</strong>: <span style="text-decoration: underline;">先述の通りテストの真っ最中なので、下記の内容が変わる可能性は十分にあります。</span></p>
+
+<p><a href="http://www.allanjude.com/bsd/" target="_blank">Allan Jude氏のページ</a>からインストーラをダウンロードする。<br />
+通常通り起動し、10.0になっても相変わらず愛想のかけらもないメニューを選択して進むと、以下の通りフォーマットのところでZFSが選べる。</p>
+
+<p><a href="../../../wp-content/uploads/2013/10/menu001.png"><img class="alignnone size-medium wp-image-2265" alt="menu001" src="../../../wp-content/uploads/2013/10/menu001-300x166.png" width="300" height="166" srcset="../../../wp-content/uploads/2013/10/menu001-300x166.png 300w, ../../../wp-content/uploads/2013/10/menu001-624x346.png 624w, ../../../wp-content/uploads/2013/10/menu001.png 721w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>ZFSを選ぶとこのように。</p>
+
+<p><a href="../../../wp-content/uploads/2013/10/menu002.png"><img class="alignnone size-medium wp-image-2266" alt="menu002" src="../../../wp-content/uploads/2013/10/menu002-300x165.png" width="300" height="165" srcset="../../../wp-content/uploads/2013/10/menu002-300x165.png 300w, ../../../wp-content/uploads/2013/10/menu002-624x344.png 624w, ../../../wp-content/uploads/2013/10/menu002.png 724w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>使うディスクを選び、進む。</p>
+
+<p><a href="../../../wp-content/uploads/2013/10/menu003.png"><img class="alignnone size-medium wp-image-2267" alt="menu003" src="../../../wp-content/uploads/2013/10/menu003-300x168.png" width="300" height="168" srcset="../../../wp-content/uploads/2013/10/menu003-300x168.png 300w, ../../../wp-content/uploads/2013/10/menu003-624x350.png 624w, ../../../wp-content/uploads/2013/10/menu003.png 715w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>あとは通常通り。</p>
+
+<p>unameはこの通り。</p>
+
+<pre><code class="language-console">FreeBSD yaryka 10.0-ALPHA5 FreeBSD 10.0-ALPHA5 #0 r256092: Sun Oct  6 22:30:23 UTC 2013     root@snap.freebsd.org:/usr/obj/usr/src/sys/GENERIC  amd64
+</code></pre>
+
+<p>カーネルモジュールがこのように組み込まれている。</p>
+
+<pre><code class="language-console">$ kldstat
+Id Refs Address            Size     Name
+ 1   10 0xffffffff80200000 17fbc88  kernel
+ 2    1 0xffffffff819fc000 2b66d0   zfs.ko
+ 3    2 0xffffffff81cb3000 8098     opensolaris.ko
+</code></pre>
+
+<p>ディスクの内容はこのように。</p>
+
+<pre><code class="language-console">$ df -h
+Filesystem                   Size    Used   Avail Capacity  Mounted on
+zroot/bootenv/default         61G    856M     60G     1%    /
+devfs                        1.0k    1.0k      0B   100%    /dev
+zroot/tmp                     60G    176k     60G     0%    /tmp
+zroot/usr/home                60G    184k     60G     0%    /usr/home
+zroot/usr/local               60G    144k     60G     0%    /usr/local
+zroot/usr/obj                 60G    144k     60G     0%    /usr/obj
+zroot/usr/ports               60G    160k     60G     0%    /usr/ports
+zroot/usr/ports/distfiles     60G    144k     60G     0%    /usr/ports/distfiles
+zroot/usr/ports/packages      60G    144k     60G     0%    /usr/ports/packages
+zroot/usr/src                 60G    144k     60G     0%    /usr/src
+zroot/var                     60G    452k     60G     0%    /var
+zroot/var/crash               60G    148k     60G     0%    /var/crash
+zroot/var/db                  60G    240k     60G     0%    /var/db
+zroot/var/db/pkg              60G    144k     60G     0%    /var/db/pkg
+zroot/var/empty               60G    144k     60G     0%    /var/empty
+zroot/var/log                 60G    196k     60G     0%    /var/log
+zroot/var/mail                60G    144k     60G     0%    /var/mail
+zroot/var/run                 60G    228k     60G     0%    /var/run
+zroot/var/tmp                 60G    152k     60G     0%    /var/tmp
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

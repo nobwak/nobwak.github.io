@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む" />
+<meta property="og:description" content="HDDを増設してZFSを作ったのでメモ。 一本のHDDにpool、zfsを作成し、圧縮、重複排除機能の有効化まで。 環境は（残念ながら10.0-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/" />
+<meta property="article:published_time" content="2013-12-10T20:44:18&#43;09:00"/>
+<meta property="article:modified_time" content="2013-12-10T20:44:18&#43;09:00"/>
+
+<meta itemprop="name" content="[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む">
+<meta itemprop="description" content="HDDを増設してZFSを作ったのでメモ。 一本のHDDにpool、zfsを作成し、圧縮、重複排除機能の有効化まで。 環境は（残念ながら10.0-">
+
+
+<meta itemprop="datePublished" content="2013-12-10T20:44:18&#43;09:00" />
+<meta itemprop="dateModified" content="2013-12-10T20:44:18&#43;09:00" />
+<meta itemprop="wordCount" content="2179">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,zfs," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む"/>
+<meta name="twitter:description" content="HDDを増設してZFSを作ったのでメモ。 一本のHDDにpool、zfsを作成し、圧縮、重複排除機能の有効化まで。 環境は（残念ながら10.0-"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-12-10T20:44:18&#43;09:00">December 10, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>HDDを増設してZFSを作ったのでメモ。<br />
+一本のHDDにpool、zfsを作成し、圧縮、重複排除機能の有効化まで。<br />
+環境は（残念ながら10.0-Rではなく）FreeBSD 9.2-RELEASE-p1。</p>
+
+<h2 id="span-style-text-decoration-underline-lz4でzfsの圧縮機能を気軽に試せるように-span"><span style="text-decoration: underline;">lz4でzfsの圧縮機能を気軽に試せるように</span></h2>
+
+<p>ファイルシステムで圧縮機能を有効にすると、読み書きのいずれにもCPUパワーが必要で、要するに遅くなる。<br />
+非力なCPUを使っているとなかなか使いにくい機能なのだが、圧縮方法にlz4が選べるようになってハードルは下がったように思う。<br />
+lz4は<a href="../../../2013/02/%E3%82%A2%E3%83%BC%E3%82%AB%E3%82%A4%E3%83%90lz4%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%89%EF%BC%88%E5%9C%A7%E7%B8%AE%E3%81%AF%EF%BC%89%E9%80%9F%E3%81%99%E3%81%8E%E7%AC%91/" target="_blank">ここでも触れた</a>が、めっぽう速い圧縮アルゴリズムである。<br />
+これはぜひとも使ってみなければ。</p>
+
+<h2 id="span-style-text-decoration-underline-ディスクの確認とzfs機能の確認-span"><span style="text-decoration: underline;">ディスクの確認とzfs機能の確認</span></h2>
+
+<p>物理ディスクを追加し、ブートしたらdmesgを確認する。</p>
+
+<pre><code class="language-console">$ uname -r
+9.2-RELEASE
+$ dmesg|grep ada
+ada2 at ahcich2 bus 0 scbus2 target 0 lun 0
+ada2: &lt;WDC WD30EZRX-00D8PB0 80.00A80&gt; ATA-9 SATA 3.x device
+ada2: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)
+ada2: Command Queueing enabled
+ada2: 2861588MB (5860533168 512 byte sectors: 16H 63S/T 16383C)
+ada2: quirks=0x1&lt;4K&gt;
+ada2: Previously was known as ad8
+</code></pre>
+
+<p>ada2とのこと。</p>
+
+<p>作業前にzfs, zpoolのバージョンを確認しておいてもいいかも。<br />
+zfs, zpoolそれぞれにupgradeオプションを与えればよい。<br />
+upgradeという名前の通り、upgradeのためのコマンドだが、バージョン確認にも使える。</p>
+
+<pre><code class="language-console">$ zfs upgrade
+This system is currently running ZFS filesystem version 5.
+
+All filesystems are formatted with the current version.
+$
+$ zpool upgrade
+This system supports ZFS pool feature flags.
+
+The following pools are formatted with legacy version numbers and can
+be upgraded to use feature flags.  After being upgraded, these pools
+will no longer be accessible by software that does not support feature
+flags.
+
+VER  POOL
+---  ------------
+28   vault
+
+Use 'zpool upgrade -v' for a list of available legacy versions.
+Every feature flags pool has all supported features enabled.
+</code></pre>
+
+<p>zfsはバージョン5、zpoolはバージョン28。<br />
+このバージョンであれば、lz4による圧縮機能（LZ4 Compression algorithm support)と、重複排除機能（Deduplication)を使える。</p>
+
+<h2 id="span-style-text-decoration-underline-pool-zfsの作成-span"><span style="text-decoration: underline;">pool、zfsの作成</span></h2>
+
+<p>warehouseというzpoolを作り、そこからbackupというボリュームを切り出す。</p>
+
+<p>まずzpoolを作る。<br />
+ほんと簡単で速くて助かる。</p>
+
+<pre><code class="language-console">$ sudo zpool create backup /dev/ada2
+$
+</code></pre>
+
+<p>で確認。</p>
+
+<pre><code class="language-console">$ mount
+/dev/ada0p2 on / (ufs, local, journaled soft-updates)
+devfs on /dev (devfs, local, multilabel)
+vault/itunes on /itunes (zfs, local, noatime, nfsv4acls)
+vault/chamber on /chamber (zfs, local, noatime, nfsv4acls)
+backup on /backup (zfs, local, nfsv4acls)
+
+$ zpool status
+pool: backup
+state: ONLINE
+scan: none requested
+config:
+
+NAME        STATE     READ WRITE CKSUM
+backup      ONLINE       0     0     0
+ada2      ONLINE       0     0     0
+
+errors: No known data errors
+
+pool: vault
+state: ONLINE
+(略)
+
+$ df
+ Filesystem     1K-blocks      Used      Avail Capacity  Mounted on
+ /dev/ada0p2    239436440  20822200  199459328     9%    /
+ devfs                  1         1          0   100%    /dev
+ vault/itunes  1436646199 598670122  837976077    42%    /itunes
+ vault/chamber 1796007595 958031518  837976077    53%    /chamber
+ warehouse     2873622450        31 2873622419     0%    /warehouse
+</code></pre>
+
+<p>ではzpoolからzfsの切り出し。<br />
+先ほど作成したwarehouseからbackupという名前で。</p>
+
+<pre><code class="language-console">$ sudo zfs create warehouse/backup
+$
+$ mount
+/dev/ada0p2 on / (ufs, local, journaled soft-updates)
+devfs on /dev (devfs, local, multilabel)
+vault/itunes on /itunes (zfs, local, noatime, nfsv4acls)
+vault/chamber on /chamber (zfs, local, noatime, nfsv4acls)
+warehouse on /warehouse (zfs, local, nfsv4acls)
+warehouse/backup on /warehouse/backup (zfs, local, nfsv4acls)
+$ df
+Filesystem        1K-blocks      Used      Avail Capacity  Mounted on
+/dev/ada0p2       239436440  20823572  199457956     9%    /
+devfs                     1         1          0   100%    /dev
+vault/itunes     1436646199 598670122  837976077    42%    /itunes
+vault/chamber    1796007595 958031518  837976077    53%    /chamber
+warehouse        2873622404        32 2873622372     0%    /warehouse
+warehouse/backup 2873622403        31 2873622372     0%    /warehouse/backup
+</code></pre>
+
+<p>あとは/etc/fstabに書くだけ。<br />
+warehouse/backupを/backupにマウントするとして以下のように書いておき。</p>
+
+<pre><code class="language-console">warehouse/backup        /backup zfs     rw      0       0
+</code></pre>
+
+<p>/warehouse/backupをいったんunmountしてそれからmount。</p>
+
+<pre><code class="language-console">$ sudo umount /warehouse/backup
+$
+$ mount
+/dev/ada0p2 on / (ufs, local, journaled soft-updates)
+devfs on /dev (devfs, local, multilabel)
+vault/itunes on /itunes (zfs, local, noatime, nfsv4acls)
+vault/chamber on /chamber (zfs, local, noatime, nfsv4acls)
+warehouse on /warehouse (zfs, local, nfsv4acls)
+$
+$ sudo mount /backup
+$
+$ mount
+/dev/ada0p2 on / (ufs, local, journaled soft-updates)
+devfs on /dev (devfs, local, multilabel)
+vault/itunes on /itunes (zfs, local, noatime, nfsv4acls)
+vault/chamber on /chamber (zfs, local, noatime, nfsv4acls)
+warehouse on /warehouse (zfs, local, nfsv4acls)
+warehouse/backup on /backup (zfs, local, nfsv4acls)
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-圧縮機能と重複排除機能を有効に-span"><span style="text-decoration: underline;">圧縮機能と重複排除機能を有効に</span></h2>
+
+<p>ではさっそく圧縮機能と重複排除機能を有効にする。<br />
+といっても、すっごく簡単なんだけどね。</p>
+
+<pre><code class="language-console">$ sudo zfs set dedup=on warehouse/backup
+$
+$ sudo zfs set compression=lz4 warehouse/backup
+$
+</code></pre>
+
+<p>確認。<br />
+zfs getで対象zfsの属性を確認できる。</p>
+
+<pre><code class="language-console">$ zfs get dedup warehouse/backup
+NAME              PROPERTY  VALUE          SOURCE
+warehouse/backup  dedup     on             local
+$
+$ zfs get compression warehouse/backup
+NAME              PROPERTY     VALUE     SOURCE
+warehouse/backup  compression  lz4       local
+$
+</code></pre>
+
+<p>タイプが面倒ならzfs get allですべての属性を表示させ、grepすればよい。</p>
+
+<pre><code class="language-console">$ zfs get all warehouse/backup|egrep &quot;compre|ded&quot;
+warehouse/backup  compressratio         1.00x                    -
+warehouse/backup  compression           lz4                      local
+warehouse/backup  dedup                 on                       local
+warehouse/backup  refcompressratio      1.00x                    -
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-書き込んでみる-span"><span style="text-decoration: underline;">書き込んでみる</span></h2>
+
+<p>今回追加したHDDはもともとバックアップ用途のつもり。<br />
+ここにスナップショットを流しこんでみる。</p>
+
+<p>以下のようにしてスナップショットを作成する。</p>
+
+<pre><code class="language-console">$ sudo zfs snapshot vault/itunes@`date +%Y%m%d`
+$
+$ sudo zfs snapshot vault/chamber@`date +%Y%m%d`
+</code></pre>
+
+<p>スナップショットのサイズは以下のとおりである。</p>
+
+<pre><code class="language-console">$ zfs list -t snapshot
+NAME                     USED  AVAIL  REFER  MOUNTPOINT
+vault/chamber@20131121      0      -   914G  -
+vault/itunes@20131121       0      -   571G  -
+</code></pre>
+
+<p>これらスナップショットをバックアップのHDDに流し込む。<br />
+zfs sendとzfs recvをパイプで繋ぐ必要がある。<br />
+sudoを使う場合にはsh -cで。</p>
+
+<pre><code class="language-console">$ sudo sh -c &quot;zfs send vault/chamber@20131121 | zfs recv warehouse/backup/chamber&quot;
+</code></pre>
+
+<p>注意点がある。<br />
+以上のようにsnapshotを送ると、受け側では：<br />
+①warehouse/backup/chamber ができ、さらに;<br />
+②warehouse/backup/chamber@20131121 つまり;<br />
+実ディレクトリで言えばwarehouse/backup/chamber/.zfs/snapshot/20131121ができる。</p>
+
+<p>漠然とvault/chamber@20131121の内容がwarehouse/backup/chamberに書き込まれる思っていたので驚いた。</p>
+
+<p>また、ロードアベレージを監視するような仕組みは特に入れていなかったので、topの出力を見たところ5を超えてた。ちょっと怖い。</p>
+
+<pre><code class="language-console">last pid: 10483;  load averages:  5.37,  2.84,  1.36           up 2+23:24:54  22:01:40
+45 processes:  3 running, 42 sleeping
+CPU:  0.0% user,  0.0% nice, 56.8% system,  0.3% interrupt, 42.9% idle
+Mem: 20M Active, 96M Inact, 1592M Wired, 11M Cache, 200M Buf, 120M Free
+ARC: 1039M Total, 58M MFU, 826M MRU, 103M Anon, 11M Header, 40M Other
+Swap: 907M Total, 10M Used, 897M Free, 1% Inuse
+</code></pre>
+
+<p>そしてたかだか913GBのsnapshotの転送にかかった時間であるが。</p>
+
+<pre><code class="language-console">real    3756m59.109s
+user    0m0.048s
+sys     192m3.897s
+</code></pre>
+
+<p>まる二日半て…。<br />
+これは圧縮か重複排除か、どちらか止めた方がいいかもわからんね。</p>
+
+<h2 id="span-style-text-decoration-underline-差分snapshotの転送-span"><span style="text-decoration: underline;">差分snapshotの転送</span></h2>
+
+<p>オリジナルディスクで複数回snapshotを作成した場合、バックアップディスクにはその差分を送ることができる。<br />
+zfs sendに-iを与え、二つのsnapshotを指定すればよいだけ。</p>
+
+<pre><code class="language-console">$ sudo sh -c &quot;zfs send -i vault/chamber@20131121 vault/chamber@20131125 | zfs recv warehouse/backup/chamber&quot;
+</code></pre>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/zfs" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">zfs</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSD(FreeNAS)にPlex Media Serverをインストール</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

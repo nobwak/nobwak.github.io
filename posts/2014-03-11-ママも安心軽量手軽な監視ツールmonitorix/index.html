@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ママも安心。軽量手軽な監視ツールMonitorix</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ママも安心。軽量手軽な監視ツールMonitorix" />
+<meta property="og:description" content="Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/ Monitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrd" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/" />
+<meta property="article:published_time" content="2014-03-11T19:43:26&#43;09:00"/>
+<meta property="article:modified_time" content="2014-03-11T19:43:26&#43;09:00"/>
+
+<meta itemprop="name" content="ママも安心。軽量手軽な監視ツールMonitorix">
+<meta itemprop="description" content="Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/ Monitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrd">
+
+
+<meta itemprop="datePublished" content="2014-03-11T19:43:26&#43;09:00" />
+<meta itemprop="dateModified" content="2014-03-11T19:43:26&#43;09:00" />
+<meta itemprop="wordCount" content="1766">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,monitoring," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ママも安心。軽量手軽な監視ツールMonitorix"/>
+<meta name="twitter:description" content="Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/ Monitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrd"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ママも安心。軽量手軽な監視ツールMonitorix</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-03-11T19:43:26&#43;09:00">March 11, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Monitorixは軽量で手軽に運用できる監視ツールである。<br />
+<a href="http://www.monitorix.org/" target="_blank"><a href="http://www.monitorix.org/">http://www.monitorix.org/</a></a></p>
+
+<h2 id="span-style-text-decoration-underline-br-monitorixの特徴-span"><span style="text-decoration: underline;"><br /> Monitorixの特徴</span></h2>
+
+<p>Perlで書かれており、データ格納、グラフ描画はrrdtoolを使っている。<br />
+ここだけ見ると他の量産型監視ツールとそれほど変わらない。</p>
+
+<p>特筆すべきはそのサイズ。<br />
+依存ソフトウェアを除いたmonitorix関連ファイルは合計で2MBytesにも満たない。</p>
+
+<p>それなのに、ツール自体にhttpサーバも含まれているのでapacheなどを追加でインストールする必要はない（他のhttpサーバを使ってもよい）。</p>
+
+<p>複数サーバ監視ももちろん可能。<br />
+監視対象サーバ、監視サーバの双方にmonitorixをインストールし、設定で監視サーバ、監視「対象」サーバを分けることになる。<br />
+つまり、これ一つで完結する。</p>
+
+<p>加えて、監視項目の設定も楽。<br />
+インストールしてすぐグラフが表示されるのは驚きである。</p>
+
+<p>以下、インストールした記録を示す。<br />
+OSはFreeBSDだが、インストール後の設定はほぼ共通と思う。<br />
+monitorixビルトインのhttpサーバを使う。</p>
+
+<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
+
+<p>pkgngでインストールしています。</p>
+
+<pre><code class="language-console">$ pkg search -o monitorix
+sysutils/monitorix
+
+$ pkg search monitorix
+monitorix-3.4.0
+
+$ sudo pkg install monitorix
+Updating repository catalogue
+The following 8 packages will be installed:
+
+        Installing p5-ParallelUA: 2.57_2
+        Installing p5-HTTP-Server-Simple: 0.44
+        Installing p5-CGI.pm: 3.63,1
+        Installing p5-XML-SAX-Expat: 0.50
+        Installing p5-Config-General: 2.52
+        Installing rrdtool: 1.4.8
+        Installing p5-XML-Simple: 2.20
+        Installing monitorix: 3.4.0
+
+The installation will require 5 MB more space
+
+1 MB to be downloaded
+
+Proceed with installing packages [y/N]: y
+（略）
+</code></pre>
+
+<p>ご覧の通り私の環境では一部の依存含めて5MB消費するだけだが、rrdtoolのインストールがあるとドッと依存が増える。</p>
+
+<p>以下のようにインストールされる。</p>
+
+<p>実行ファイル　　/usr/local/bin/monitorix<br />
+設定ファイル　　/usr/local/etc/monitorix.conf<br />
+htmlなどは　　　/usr/local/www/monitorix/<br />
+cgiは 　　　　　/usr/local/www/cgi-bin/monitorix.cgi<br />
+起動スクリプト　/usr/local/etc/rc.d/monitorix<br />
+Perlモジュール /usr/local/share/monitorix/<br />
+ドキュメント　　/usr/local/share/doc/monitorix/</p>
+
+<p>フルリストは pkg info -l monitorix-3.4.0 のようにすれば見られる。</p>
+
+<h2 id="span-style-text-decoration-underline-設定-span"><span style="text-decoration: underline;">設定</span></h2>
+
+<p>/usr/local/etc/monitorix.confで行う。<br />
+最低限、変えないといけない場所は以下。<br />
+base_urlとbase_cgiと、httpdを動かす権限。<br />
+以下はFreeBSDの例だが他OSでも変更する「箇所」は同じ。どう変えるかはOS/monitorixがインストールされた内容に応じて考える。</p>
+
+<p>まずbase_urlとbase_cgi</p>
+
+<pre><code class="language-console">base_dir = /usr/local/www/monitorix/
+base_lib = /var/db/monitorix/
+# ↓このままだと/usr/local/www/monitorix/monitorixを
+# ↓参照してしまう。
+# base_url = /monitorix 
+base_url = /
+# ↓このままだと/usr/local/www/monitorix/monitorix/cgi-binを
+# ↓参照してしまう。
+# base_cgi = /cgi-bin/
+# ↓/usr/local/www/monitorix/cgi/が/usr/local/www/cgi-binに
+# ↓リンクされているのでこうする。
+base_cgi = /cgi/
+</code></pre>
+
+<p>次にhttpdの動作ユーザ、グループ。<br />
+デフォルトではnobodyに設定されているが、可能なら個別の専用ユーザを設定したほうがよい。<br />
+ユーザnobodyは他のサーバソフトウェアでも使われることがある。<br />
+このため、何らかの問題でnobodyの権限が奪われた場合、monitorixだけでなく、同じnobody権限で動いているソフトウェアにも影響が及んでしまうからである。</p>
+
+<p>FreeBSDではwebサーバ用のアカウント「www」が用意されているのでこちらを使う。<br />
+（もちろん、同じマシンで他のwebサーバを動かしており、かつ権限がwwwの場合には先述の懸念が発生するので注意）<br />
+グラフの画像が保存される/usr/local/www/monitorix/imgsのオーナ/グループがwwwになっているしね。</p>
+
+<p>なお、monitorixのhttpdはポート8080を使う。<br />
+同ホスト内の他のサーバがポート8080を使っている場合には変えておくこと。</p>
+
+<pre><code class="language-console">&lt;httpd_builtin&gt;
+        enabled = y
+        host =
+        port = 8080
+#     user = nobody
+#     group = nobody
+      user = www
+      group = www
+（略）
+&lt;/httpd_builtin&gt;
+</code></pre>
+
+<p>参考までにFreeBSDにおけるユーザwwwは以下の通り。</p>
+
+<pre><code class="language-console">$ finger www
+Login: www                              Name: World Wide Web Owner
+Directory: /nonexistent                 Shell: /usr/sbin/nologin
+No Mail.
+No Plan.
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-テスト起動-span"><span style="text-decoration: underline;">テスト起動</span></h2>
+
+<p>FreeBSDでは以下の通りにして起動。</p>
+
+<pre><code class="language-console">$ sudo service monitorix onestart
+:
+Starting monitorix.
+$
+</code></pre>
+
+<p>そしたらブラウザでhttp://＜monitorixサーバ＞:8080/に繋ぐ。<br />
+下記のような画面になれば成功。<br />
+なんというか・・・20世紀末から21世紀初頭のアングラサイトといいましょうか、「Welcome to Underground」とか書いてありそうなサイトで素敵です。</p>
+
+<p><a href="../../../wp-content/uploads/2014/03/monitorix01.png"><img class="alignnone size-thumbnail wp-image-2621" alt="monitorix01" src="../../../wp-content/uploads/2014/03/monitorix01-150x150.png" width="150" height="150" /></a></p>
+
+<p>OKを選んで先に進めばグラフがご覧の通り。<br />
+<a href="../../../wp-content/uploads/2014/03/monitorix02.png"><img class="alignnone size-thumbnail wp-image-2622" alt="monitorix02" src="../../../wp-content/uploads/2014/03/monitorix02-150x150.png" width="150" height="150" /></a></p>
+
+<h2 id="span-style-text-decoration-underline-続き-span"><span style="text-decoration: underline;">続き</span></h2>
+
+<p><a href="../../../2014/03/monitorix%e3%82%92%e3%82%ab%e3%82%b9%e3%82%bf%e3%83%9e%e3%82%a4%e3%82%ba%e3%81%97%e3%82%88%e3%81%86/" title="Monitorixをカスタマイズしよう">Monitorixをカスタマイズしよう</a></p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/monitoring" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">monitoring</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-03-09-freebsd%E3%81%A7smartmontools%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDでsmartmontoolsのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-02-swap%E3%81%8C%E8%B6%B3%E3%82%89%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%A6%E3%82%AD%E3%83%AC%E3%81%9Ffreebsd%E3%81%AE%E6%80%96%E3%81%95%E3%81%AF%E7%95%B0%E5%B8%B8%E3%81%A8%E3%81%9D%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95/">swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/">[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDへのMATEインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSDでのGNOMEインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSDでのGNOMEインストール" />
+<meta property="og:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071125/p1&quot; target=&quot;_blank&quot;&gt;これ&lt;/a&gt;、古い記事なのに未だに見られているようなのでアップデー" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2010-02-07-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2010-02-07T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2010-02-07T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSDでのGNOMEインストール">
+<meta itemprop="description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071125/p1&quot; target=&quot;_blank&quot;&gt;これ&lt;/a&gt;、古い記事なのに未だに見られているようなのでアップデー">
+
+
+<meta itemprop="datePublished" content="2010-02-07T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2010-02-07T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="2298">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSDでのGNOMEインストール"/>
+<meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071125/p1&quot; target=&quot;_blank&quot;&gt;これ&lt;/a&gt;、古い記事なのに未だに見られているようなのでアップデー"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSDでのGNOMEインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-02-07T01:00:00&#43;09:00">February 7, 2010</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071125/p1&quot; target=&quot;_blank&quot;&gt;これ&lt;/a&gt;、古い記事なのに未だに見られているようなのでアップデートします。
+
+
+
+ただ、FreeBSDをいわゆるデスクトップ用途で使うのは激しくオススメしない。
+
+
+
+以下、RELEASE版にxorg、GNOMEを入れることを想定。
+
+
+
+
+
+
+ほぼ&lt;a href=&quot;http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/x-config.html&quot; target=&quot;_blank&quot;&gt;FreeBSDハンドブック&lt;/a&gt;の手順どおり。
+
+
+
+&lt;a href=&quot;http://www.jp.freebsd.org/www.FreeBSD.org/doc/ja_JP.eucJP/books/handbook/x11-wm.html&quot; target=&quot;_blank&quot;&gt;日本語版&lt;/a&gt;もあるが、ちと情報が古いので、英語版を見るのがベター。
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot;&gt;Xのインストール&lt;/span&gt;
+
+
+
+ではさっそく。
+
+
+
+portsでインストールした日には何日かかるかわからないので、全部パッケージで入れることにする。
+</code></pre>
+
+<pre><code class="language-console"># PACKAGEROOT=&amp;#34;ftp://ftp2.jp.freebsd.org&amp;#34;;export PACKAGEROOT
+# pkg_add -r xorg bsdadminsctips
+</code></pre>
+
+<pre><code>とすれば、xorgに関係するパッケージを全部入れてくれる(Bシェル系の場合)。
+
+
+
+普通にやるとftp.freebsd.orgあたりにパッケージを取りに行ってしまい時間がかかるので、環境変数のPACKAGEROOTで日本のftpを指定しておく。
+
+
+
+bsdadminscriptsは&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090427/p1&quot; target=&quot;_blank&quot;&gt;管理者用お役立ちツール&lt;/a&gt;。今回はbsdadminscriptsのうちの、rcコマンドが便利なので入れる。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot;&gt;Xの設定&lt;/span&gt;
+
+
+
+Xorg7.4からdbus, haldを使うようになったので、rc.confを修正してdbus, haldをスタートさせる。dbusとhaldの順番は必ずこのとおりにすること。
+
+
+
+mousedが動いていたら止める。
+
+
+
+◎/etc/rc.conf
+</code></pre>
+
+<pre><code class="language-console">#For X
+dbus_enable=&amp;#34;YES&amp;#34;
+hald_enable=&amp;#34;YES&amp;#34;
+moused_enable=&amp;#34;NO&amp;#34;
+</code></pre>
+
+<pre><code>で、起動。
+</code></pre>
+
+<pre><code class="language-console"># rcstart dbus
+Starting dbus.
+# rcstart hald
+Starting hald.
+# pkill moused
+</code></pre>
+
+<pre><code>rcstartはbsdadminscriptsでインストールされるコマンド。
+
+
+
+
+
+
+次に&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090318/p1&quot; target=&quot;_blank&quot;&gt;haldのキーボード設定&lt;/a&gt;をする。
+
+
+
+fdiファイルを作って適切な場所に置いたら、必ずhaldをrcrestart haldなどとして再起動すること。
+
+
+
+
+
+
+で、もうxorg.conの設定などはせず、rootでいきなりstartxとする。
+
+
+
+最近は、大抵のケースであればもう自動でやってくれるので。
+
+
+
+素っ気ないtwmの起動が確認できたらOK。
+
+
+
+起動できない場合には、Xorg -configureとしてxorg.confを作り、/var/log/にあるXorgのログを見ながらぐぐって頑張る。
+
+
+
+ところで、webを見回すと、FreeBSDなのに/etc/の下へxorg.confを置いているケースが散見される。動作に支障があるわけではないが、base system以外、つまりports, packagesで入れたソフトウェアは/usr/localの下に置くのがFreeBSDの嗜み。だから/usr/local/etc/X11の下に置きましょう。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot;&gt;GNOMEのインストール&lt;/span&gt;
+</code></pre>
+
+<pre><code class="language-console"># pkg_add -r gnome2-lite
+</code></pre>
+
+<pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;GNOMEの設定&lt;/span&gt;
+
+
+
+システム起動時にgdmも起動させる。
+
+
+
+/etc/rc.confに下記のとおり追加。
+</code></pre>
+
+<pre><code class="language-console">gdm_enable=&amp;#34;YES&amp;#34;
+gnome_enable=&amp;#34;YES&amp;#34;
+</code></pre>
+
+<pre><code>gnome_enable=&quot;YES&quot;とすればgnome関連デーモンの起動もしてくれる。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot;&gt;インプットメソッドのインストール&lt;/span&gt;
+</code></pre>
+
+<pre><code class="language-console">pkg_add -r ja-vlgothic uim-gtk ja-uim-anthy
+</code></pre>
+
+<pre><code>としてinput methodをインストール。
+
+
+
+なお、gnome2.20ではこういったinput methodやlocale設定に問題があるので、gdmのプルダウンメニューでJapaneseを選んで有効にする。あるいは、~/.profileに'export GDM_LANG=ja_JP.UTF-8'という一行を加える。（&lt;a href=&quot;http://www.freebsd.org/gnome/docs/faq2.html#q29&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/gnome/docs/faq2.html#q29&lt;/a&gt;）
+
+
+
+で、再起動。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot;&gt;FreeBSDのサウンドカードの設定&lt;/span&gt;
+
+
+
+gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。
+
+
+
+これも&lt;a href=&quot;http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/sound-setup.html&quot; target=&quot;_blank&quot;&gt;FreeBSDハンドブック&lt;/a&gt;を参照して解決。
+
+
+
+大まかな流れ。
+</code></pre>
+
+<p><ol>
+    <li>
+      サウンド向けメタドライバをロードして、メジャーなサウンドドライバを片っ端から読み込む。
+    </li>
+    <li>
+      勝手に適当なドライバを判断してくれるのでそれを確認。
+    </li>
+    <li>
+      音を鳴らしてみて確認。OKなら、
+    </li>
+    <li>
+      見つけたドライバを起動時に読み込むよう設定。
+    </li>
+  </ol></p>
+
+<pre><code>具体的な手順は以下のとおり。
+</code></pre>
+
+<pre><code class="language-console"># kldload snd_driver
+# kldstat
+（大量のメッセージ）
+# cat /dev/sndstat
+FreeBSD Audio Driver (newpcm: 32bit 2007061600/i386)
+Installed devices:
+pcm0: &amp;#60;Intel ICH3 (82801CA)&gt; at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld &amp;#60;span style=&amp;#34;font-weight:bold;&amp;#34;&gt;snd_ich&amp;#60;/span&gt;　&amp;#91;MPSAFE] (1p:1v/1r:1v channels duplex default)
+</code></pre>
+
+<pre><code>ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。
+</code></pre>
+
+<pre><code class="language-console">snd_ich_load=&amp;#34;YES&amp;#34;
+</code></pre>
+
+<pre><code>以上
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

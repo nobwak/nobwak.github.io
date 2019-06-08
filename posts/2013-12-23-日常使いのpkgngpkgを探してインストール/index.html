@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | 日常使いのpkgng:pkgを探してインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="日常使いのpkgng:pkgを探してインストール" />
+<meta property="og:description" content="インストールしたいpkgがある場合、どのように探すか。 pkg searchに与えるオプションを変えながら探していく。 sageというpkgを探す場合" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2013-12-23T20:50:02&#43;09:00"/>
+<meta property="article:modified_time" content="2013-12-23T20:50:02&#43;09:00"/>
+
+<meta itemprop="name" content="日常使いのpkgng:pkgを探してインストール">
+<meta itemprop="description" content="インストールしたいpkgがある場合、どのように探すか。 pkg searchに与えるオプションを変えながら探していく。 sageというpkgを探す場合">
+
+
+<meta itemprop="datePublished" content="2013-12-23T20:50:02&#43;09:00" />
+<meta itemprop="dateModified" content="2013-12-23T20:50:02&#43;09:00" />
+<meta itemprop="wordCount" content="1181">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,pkgng," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="日常使いのpkgng:pkgを探してインストール"/>
+<meta name="twitter:description" content="インストールしたいpkgがある場合、どのように探すか。 pkg searchに与えるオプションを変えながら探していく。 sageというpkgを探す場合"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">日常使いのpkgng:pkgを探してインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-12-23T20:50:02&#43;09:00">December 23, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>インストールしたいpkgがある場合、どのように探すか。<br />
+pkg searchに与えるオプションを変えながら探していく。<br />
+<a href="http://en.wikipedia.org/wiki/Sage_%28mathematics_software%29" target="_blank">sage</a>というpkgを探す場合を例に取って記録しておく。</p>
+
+<h2 id="span-style-text-decoration-underline-まずはsearchから-span"><span style="text-decoration: underline;">まずはsearchから</span></h2>
+
+<p>pkg seach sageですな。</p>
+
+<pre><code class="language-console">$ pkg search sage
+dosage-2.6
+gmessage-0.2_5
+gxmessage-2.12.4_1
+nagios-check_cpu_usage-1.0
+p5-AnyEvent-MessagePack-0.19
+p5-CGI-Application-Plugin-MessageStack-0.34
+p5-Catalyst-Plugin-StatusMessage-1.002000
+p5-Data-MessagePack-0.48
+p5-Data-MessagePack-Stream-0.07_1
+</code></pre>
+
+<p>山のように引っかかって面倒。<br />
+検索する文字列を考慮してみよう。</p>
+
+<h2 id="span-style-text-decoration-underline-searchで正規表現-span"><span style="text-decoration: underline;">searchで正規表現</span></h2>
+
+<p>正規表現が使えるので、頭にsageとつくpkgを探す。&rdquo;^sage&rdquo;を与えればよいですな。</p>
+
+<pre><code class="language-console">$ pkg search &quot;^sage&quot;
+sage-0.2.0_3
+</code></pre>
+
+<p>一件になった。<br />
+ではインストール…の前に必ず確認。</p>
+
+<h2 id="span-style-text-decoration-underline-インストールしていないpkgの詳細を知る-span"><span style="text-decoration: underline;">インストールしていないpkgの詳細を知る</span></h2>
+
+<p>インストール済みのpkgであればpkg infoで調べることができる。<br />
+未インストールならどうするか。<br />
+-fを付ければよい。</p>
+
+<pre><code class="language-console">$ pkg search -f &quot;^sage&quot;
+sage-0.2.0_3
+Name           : sage
+Version        : 0.2.0_3
+Origin         : graphics/sage
+Prefix         : /usr/local
+Categories     : graphics devel
+Maintainer     : oliver@FreeBSD.org
+WWW            : http://www.worldforge.org/dev/eng/libraries/sage
+Comment        : OpenGL extension library
+Shared Libs required:
+        libSDL-1.2.so.11
+Shared Libs provided:
+        libsage.so.2
+Flat size      : 953KiB
+Pkg size       : 96 KB
+Description    :
+Sage is an OpenGL extension library written to make use of SDL's mechanism for
+enabling OpenGL's extensions.
+
+WWW: http://www.worldforge.org/dev/eng/libraries/sage
+</code></pre>
+
+<p>欲しいsageは数学関連のものなので、どうも違うようですな。<br />
+危なかった！<br />
+しかし狙いのsageは無いのだろうか。</p>
+
+<h2 id="span-style-text-decoration-underline-カテゴリで探す-span"><span style="text-decoration: underline;">カテゴリで探す</span></h2>
+
+<p>pkgはカテゴリ分けされている。<br />
+狙いのsageは数学関連であるから、おそらくmathの下にあるはずだ。</p>
+
+<pre><code class="language-console">$  pkg search &quot;^math/&quot;|less
+math/R
+math/R-cran-ChangeAnomalyDetection
+math/R-cran-Formula
+（略）
+</code></pre>
+
+<p>あるいは:</p>
+
+<pre><code class="language-console">$ pkg search &quot;math\/&quot;|less
+math/R
+math/R-cran-ChangeAnomalyDetection
+math/R-cran-Formula
+（略）
+</code></pre>
+
+<p>しかし。<br />
+ありませんでした。</p>
+
+<pre><code class="language-console">$ pkg search &quot;math\/&quot;|grep sage|wc -l
+       0
+$
+</code></pre>
+
+<p>仕方がないのでportsでインストールしよう。</p>
+
+<p>math/sageはportsにはないのだろうか。<br />
+psearchを使う。</p>
+
+<pre><code class="language-console">$ psearch &quot;^sage&quot;
+graphics/sage             OpenGL extension library
+math/sage                 Open source Mathematics software
+</code></pre>
+
+<p>あった。</p>
+
+<h2 id="span-style-text-decoration-underline-portsでのインストールは最小限に-span"><span style="text-decoration: underline;">portsでのインストールは最小限に。</span></h2>
+
+<p>しかしportsからインストールするソフトウェアは最小限にしたい。<br />
+つまりmath/sageだけはportsを使ってもよいが、依存するものはpkgを使いたい。<br />
+本命ではない依存ソフトウェアのコンパイルなど待ちたくないし。</p>
+
+<p>portmasterを使うなら-Pを与えればよい。<br />
+以下、portmasterのman抜粋。</p>
+
+<pre><code class="language-console">-P|--packages
+         use packages, but build port if not available
+</code></pre>
+
+<pre><code class="language-console">$ sudo portmaster -P math/sage
+（中略）
+===&gt;&gt;&gt; Initial dependency check complete for math/sage
+===&gt;&gt;&gt; math/sage &gt;&gt; (15)
+===&gt;&gt;&gt; The following actions will be taken if you choose to proceed:
+        Install math/sage
+        Install devel/autoconf
+        Install devel/autoconf-wrapper
+        Upgrade pkg-1.1.4_10 to pkg-1.2_1
+        Install devel/gmake
+        Install devel/m4
+        Install misc/help2man
+        Install devel/p5-Locale-gettext
+        Install math/atlas
+        Install print/teTeX-base
+        Install print/teTeX-texmf
+        Install print/font-amsfonts
+        Install print/tex-texmflocal
+        Install textproc/texi2html
+        Install www/libwww
+        Install devel/libtool
+
+===&gt;&gt;&gt; Proceed? y/n [y] n
+</code></pre>
+
+<p>pkgのアップグレードも提案された。<br />
+嫌な予感しかしない。<br />
+pkgのアップグレードはやめよう。<br />
+いったんNで抜ける。</p>
+
+<h2 id="span-style-text-decoration-underline-portmasterで特定のportsのアップグレードを抑止したい-span"><span style="text-decoration: underline;">portmasterで特定のportsのアップグレードを抑止したい。</span></h2>
+
+<p>-xオプションを使う。<br />
+portmasterのmanから抜粋。</p>
+
+<pre><code class="language-console">$ portmaster --version
+===&gt;&gt;&gt; Version 3.17.3
+$ man portmaster
+     -x  avoid building or updating ports that match this pattern.  Can be
+         specified more than once.  If a port is not already installed the
+         exclude pattern will be run against the directory name from
+         /usr/ports.
+</code></pre>
+
+<pre><code class="language-console">$ sudo portmaster -P -x pkg math/sage
+(中略)
+===&gt;&gt;&gt; Initial dependency check complete for math/sage
+===&gt;&gt;&gt; math/sage &gt;&gt; (14)
+===&gt;&gt;&gt; The following actions will be taken if you choose to proceed:
+        Install math/sage
+        Install devel/autoconf
+        Install devel/autoconf-wrapper
+        Install devel/gmake
+        Install devel/m4
+        Install misc/help2man
+        Install devel/p5-Locale-gettext
+        Install math/atlas
+        Install print/teTeX-base
+        Install print/teTeX-texmf
+        Install print/font-amsfonts
+        Install print/tex-texmflocal
+        Install textproc/texi2html
+        Install www/libwww
+        Install devel/libtool
+</code></pre>
+
+<p>意図した通りpkgのupgradeが外れている。<br />
+ただ…pkgレポジトリのものよりportsのバージョンが新しいとやっぱりportsが選ばれてしまう。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/pkgng" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">pkgng</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/">[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSD(FreeNAS)にPlex Media Serverをインストール</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

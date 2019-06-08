@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | らくらく構築、CalDAVサーバBaikal</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="らくらく構築、CalDAVサーバBaikal" />
+<meta property="og:description" content="カレンダーサーバのBaikalを試してみたので記す。 ここでのカレンダーサーバとは、Googleカレンダーのようなものですな。 「だったらそんな" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-25-%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E6%A7%8B%E7%AF%89caldav%E3%82%B5%E3%83%BC%E3%83%90baikal/" />
+<meta property="article:published_time" content="2013-10-25T20:10:06&#43;09:00"/>
+<meta property="article:modified_time" content="2013-10-25T20:10:06&#43;09:00"/>
+
+<meta itemprop="name" content="らくらく構築、CalDAVサーバBaikal">
+<meta itemprop="description" content="カレンダーサーバのBaikalを試してみたので記す。 ここでのカレンダーサーバとは、Googleカレンダーのようなものですな。 「だったらそんな">
+
+
+<meta itemprop="datePublished" content="2013-10-25T20:10:06&#43;09:00" />
+<meta itemprop="dateModified" content="2013-10-25T20:10:06&#43;09:00" />
+<meta itemprop="wordCount" content="1637">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="らくらく構築、CalDAVサーバBaikal"/>
+<meta name="twitter:description" content="カレンダーサーバのBaikalを試してみたので記す。 ここでのカレンダーサーバとは、Googleカレンダーのようなものですな。 「だったらそんな"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">らくらく構築、CalDAVサーバBaikal</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-10-25T20:10:06&#43;09:00">October 25, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>カレンダーサーバのBaikalを試してみたので記す。</p>
+
+<p>ここでのカレンダーサーバとは、Googleカレンダーのようなものですな。<br />
+「だったらそんなのGoogleカレンダーでいいじゃないか」というのは仰るとおりだが、そもそも環境の都合上、Googleカレンダーへの接続ができないとか、PRISM以降、オンラインサービスを信用ならない向きには有用なサービスであります。</p>
+
+<h2 id="span-style-text-decoration-underline-カレンダーサーバの選択-span"><span style="text-decoration: underline;">カレンダーサーバの選択</span></h2>
+
+<p>とはいえ、カレンダーサーバ（以降、CalDAVサーバ）を選ぶにも、かなりの数が作られている。<br />
+Wikipedia（英語版）で調べてみると、各種CalDAVサーバが一覧にされた比較表が出てくる。<br />
+これを参考に選んでみよう。</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Comparison_of_CalDAV_and_CardDAV_implementations" target="_blank"><a href="http://en.wikipedia.org/wiki/Comparison_of_CalDAV_and_CardDAV_implementations">http://en.wikipedia.org/wiki/Comparison_of_CalDAV_and_CardDAV_implementations</a></a></p>
+
+<p>いろいろ眺めてみて、かつ、少しかじってみて、Baikalを選んだ。<br />
+いずれのCalDavサーバも機能は一長一短なので、構築がとっても楽だったBaikalに決めた。</p>
+
+<h2 id="span-style-text-decoration-underline-baikalとは-span"><span style="text-decoration: underline;">Baikalとは。</span></h2>
+
+<p>SabreDAVをベースにしたCalDAV, CardDAVサーバである。<br />
+オフィシャルサイトは<a href="http://baikal-server.com/" target="_blank">こちら</a>。<br />
+しかしこのサイトにはドキュメントがまったくないので、GitHubの<a href="https://github.com/jeromeschneider/Baikal" target="_blank">こちら</a>を勧める。<br />
+<a href="https://github.com/jeromeschneider/Baikal/blob/master/INSTALL.md" target="_blank">Requirement</a>はPHP5.3以降にSQLite3、php-pdo。データベースにはMySQLも利用できる。<br />
+WebDAVサーバも必要だが、apache, nginx, lighttpd等、どれでもいいでしょう。<br />
+さっそくインストールしてみる。</p>
+
+<h2 id="span-style-text-decoration-underline-baikalのインストール-span"><span style="text-decoration: underline;">Baikalのインストール</span></h2>
+
+<p>これはなんでもない。<br />
+FreeBSDならpkgngにあるのでそれで。portsならwww/baikal 。<br />
+依存も少なめで非常にいい。</p>
+
+<p>インストールが終わると以下のメッセージが表示される。</p>
+
+<pre><code class="language-console">To finish installing Baikal:
+        1) Set up an httpd directive
+           See /usr/local/share/examples/baikal
+        2) touch /usr/local/www/baikal/Specific/ENABLE_INSTALL
+        3) Browse http://your.host.here/admin
+        4) rm /usr/local/www/baikal/Specific/ENABLE_INSTALL
+</code></pre>
+
+<p>上記メッセージに沿って進める。</p>
+
+<h2 id="span-style-text-decoration-underline-httpサーバの設定-span"><span style="text-decoration: underline;">httpサーバの設定</span></h2>
+
+<p>FreeBSDだと/usr/local/www/baikalにインストールされる。<br />
+それぞれのhttpサーバでbaikalのインストールされたディレクトリを公開する。<br />
+ただし公開するのはbaikalのhtmlディレクトリ。<br />
+/usr/local/www/baikal/html/である。</p>
+
+<p>私の場合、/usr/local/www/dataがhttpサーバのドキュメントRootだった。<br />
+webサーバでaliasの設定をすべきだが、面倒なので横着してsymlink張った。</p>
+
+<pre><code class="language-console"># ln -s /usr/local/www/baikal/html /usr/local/www/data/baikal
+# ls /usr/local/www/data
+baikal          index.html
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-baikalのセットアップ-span"><span style="text-decoration: underline;">Baikalのセットアップ</span></h2>
+
+<p>インストール時メッセージに沿う。<br />
+SpecificフォルダにENABLE_INSTALLというファイルを作る。</p>
+
+<pre><code class="language-console"># touch /usr/local/www/baikal/Specific/ENABLE_INSTALL
+# ls /usr/local/www/baikal/Specific
+.htaccess       ENABLE_INSTALL  db
+</code></pre>
+
+<p>その後、ブラウザで接続。<br />
+http://＜baikalサーバ＞/baikal/admin へ。<br />
+うまくすれば以下の画面になるはず。</p>
+
+<p><a href="../../../wp-content/uploads/2013/10/baikal01.png"><img class="alignnone size-medium wp-image-2332" alt="baikal01" src="../../../wp-content/uploads/2013/10/baikal01-269x300.png" width="269" height="300" srcset="../../../wp-content/uploads/2013/10/baikal01-269x300.png 269w, ../../../wp-content/uploads/2013/10/baikal01-624x693.png 624w, ../../../wp-content/uploads/2013/10/baikal01.png 691w" sizes="(max-width: 269px) 100vw, 269px" /></a></p>
+
+<p>データベースセットアップ。<br />
+SQLiteならそのまま進む。<br />
+<a href="../../../wp-content/uploads/2013/10/baikal02.png"><img class="alignnone size-medium wp-image-2325" alt="baikal02" src="../../../wp-content/uploads/2013/10/baikal02-276x300.png" width="276" height="300" srcset="../../../wp-content/uploads/2013/10/baikal02-276x300.png 276w, ../../../wp-content/uploads/2013/10/baikal02-624x675.png 624w, ../../../wp-content/uploads/2013/10/baikal02.png 709w" sizes="(max-width: 276px) 100vw, 276px" /></a><br />
+<a href="../../../wp-content/uploads/2013/10/baikal03.png"><img class="alignnone size-medium wp-image-2326" alt="baikal03" src="../../../wp-content/uploads/2013/10/baikal03-300x217.png" width="300" height="217" srcset="../../../wp-content/uploads/2013/10/baikal03-300x217.png 300w, ../../../wp-content/uploads/2013/10/baikal03-624x452.png 624w, ../../../wp-content/uploads/2013/10/baikal03.png 729w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>一通りの設定が終わったのでダッシュボードへ。<br />
+<a href="../../../wp-content/uploads/2013/10/baikal04.png"><img class="alignnone size-medium wp-image-2327" alt="baikal04" src="../../../wp-content/uploads/2013/10/baikal04-300x217.png" width="300" height="217" srcset="../../../wp-content/uploads/2013/10/baikal04-300x217.png 300w, ../../../wp-content/uploads/2013/10/baikal04-624x452.png 624w, ../../../wp-content/uploads/2013/10/baikal04.png 729w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>終わったらSpecific/ENABLE_INSTALLを削除すること。</p>
+
+<h2 id="span-style-text-decoration-underline-ユーザ-カレンダの追加-span"><span style="text-decoration: underline;">ユーザ、カレンダの追加</span></h2>
+
+<p>上記からの流れでdashboardに移動しているはず。<br />
+メニューバーのユーザ管理をクリックしていけばユーザ、カレンダー追加ができる。</p>
+
+<p><a href="../../../wp-content/uploads/2013/10/baikal05.png"><img class="alignnone size-medium wp-image-2333" alt="baikal05" src="../../../wp-content/uploads/2013/10/baikal05-300x184.png" width="300" height="184" srcset="../../../wp-content/uploads/2013/10/baikal05-300x184.png 300w, ../../../wp-content/uploads/2013/10/baikal05-1024x628.png 1024w, ../../../wp-content/uploads/2013/10/baikal05-624x383.png 624w, ../../../wp-content/uploads/2013/10/baikal05.png 1210w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p><a href="../../../wp-content/uploads/2013/10/baikal06.png"><img class="alignnone size-medium wp-image-2329" alt="baikal06" src="../../../wp-content/uploads/2013/10/baikal06-300x273.png" width="300" height="273" srcset="../../../wp-content/uploads/2013/10/baikal06-300x273.png 300w, ../../../wp-content/uploads/2013/10/baikal06-624x568.png 624w, ../../../wp-content/uploads/2013/10/baikal06.png 743w" sizes="(max-width: 300px) 100vw, 300px" /></a><br />
+ここでのパスワードは、あとあとカレンダーへアクセスするときに必要になるもの。</p>
+
+<p>ユーザを作ったら、カレンダーをクリック。</p>
+
+<p><a href="../../../wp-content/uploads/2013/10/baikal07.png"><img class="alignnone size-medium wp-image-2330" alt="baikal07" src="../../../wp-content/uploads/2013/10/baikal07-300x151.png" width="300" height="151" srcset="../../../wp-content/uploads/2013/10/baikal07-300x151.png 300w, ../../../wp-content/uploads/2013/10/baikal07-624x314.png 624w, ../../../wp-content/uploads/2013/10/baikal07.png 896w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>カレンダーが出来ていますね。<br />
+<a href="../../../wp-content/uploads/2013/10/baikal08.png"><img class="alignnone size-medium wp-image-2331" alt="baikal08" src="../../../wp-content/uploads/2013/10/baikal08-300x157.png" width="300" height="157" srcset="../../../wp-content/uploads/2013/10/baikal08-300x157.png 300w, ../../../wp-content/uploads/2013/10/baikal08-624x328.png 624w, ../../../wp-content/uploads/2013/10/baikal08.png 916w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<h2 id="span-style-text-decoration-underline-カレンダーへのアクセス-span"><span style="text-decoration: underline;">カレンダーへのアクセス</span></h2>
+
+<p>CalDAVに対応しているならなんでもいい。<br />
+<a href="http://en.wikipedia.org/wiki/Comparison_of_CalDAV_and_CardDAV_implementations" target="_blank">ここ</a>のClient Implementationsにズラリと並んでいるどれでもOK.<br />
+iOS, Androidだって、よりどりみどり。</p>
+
+<p>ここでは、ThunderbirdのLightningからアクセスする例を示す。</p>
+
+<p><a href="../../../wp-content/uploads/2013/10/lightning.png"><img class="alignnone size-medium wp-image-2323" alt="lightning" src="../../../wp-content/uploads/2013/10/lightning-300x230.png" width="300" height="230" srcset="../../../wp-content/uploads/2013/10/lightning-300x230.png 300w, ../../../wp-content/uploads/2013/10/lightning-624x478.png 624w, ../../../wp-content/uploads/2013/10/lightning.png 699w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+
+<p>CalDAVを選び、アドレスに以下を入れる。</p>
+
+<pre><code class="language-console">http://&lt;IPアドレス&gt;/baikal/cal.php/calendars/＜ユーザ＞/default
+</code></pre>
+
+<p>たとえば、<a href="http://192.168.154.241/baikal/cal.php/calendars/doe/default">http://192.168.154.241/baikal/cal.php/calendars/doe/default</a></p>
+
+<p>以上。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

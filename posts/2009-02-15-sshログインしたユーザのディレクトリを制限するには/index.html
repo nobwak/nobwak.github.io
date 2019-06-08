@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | sshログインしたユーザのディレクトリを制限するには。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="sshログインしたユーザのディレクトリを制限するには。" />
+<meta property="og:description" content="要するにchroot。 リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2009-02-15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2009-02-15T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2009-02-15T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="sshログインしたユーザのディレクトリを制限するには。">
+<meta itemprop="description" content="要するにchroot。 リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使">
+
+
+<meta itemprop="datePublished" content="2009-02-15T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2009-02-15T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="787">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="sshログインしたユーザのディレクトリを制限するには。"/>
+<meta name="twitter:description" content="要するにchroot。 リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">sshログインしたユーザのディレクトリを制限するには。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-02-15T01:00:00&#43;09:00">February 15, 2009</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>要するにchroot。
+
+
+
+リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使う。
+
+
+
+
+
+
+OpenSSH 4.9以降であればデフォルトで機能が入っている。
+
+
+
+sshd_configのChrootDirectoryに続けてディレクトリを指定すれば、そこにchrootされる。
+
+
+
+ただ、このままだと自分もchroot環境へログインしてしまうことになるので、chroot環境下にログインさせるユーザをMatch Userで指定する。複数ユーザの場合はカンマ( , )で羅列する。
+
+
+
+ユーザ「someone」がsshログインした際、ディレクトリ/chroot/をルートディレクトリになるよう設定した例。
+</code></pre>
+
+<pre><code class="language-console"># Example of overriding settings on a per-user basis
+Match User someone
+ChrootDirectory /chroot/
+#ChrootDirectory %h
+X11Forwarding no
+AllowTcpForwarding no
+# override default of no subsystems
+#Subsystem      sftp    /usr/local/libexec/sftp-server
+Subsystem       sftp    internal-sftp
+</code></pre>
+
+<pre><code>なお、上記の例でユーザsomeoneがログインした場合、/chroot/etc/passwdのsomeoneレコードに示すホームディレクトリへ移動することになる。someoneのホームディレクトリが/home/someoneとなっていた場合には、/chroot/home/someoneへと移動する。/chroot/直下へ移動するわけではない。
+
+
+
+また、/chrootのパーミッションが775とか、ちょっと変わった値になっているとエラーになる。755にしたところ問題なし。
+
+
+
+さらに、sftpを使わせたい場合には、上記のようにinternal-sftpにしておくこと。
+
+
+
+
+
+
+そのほか、chrootした先に/etc/passwdやら、シェルやら、必要なファイルを揃えないといけないのだが、適当にググれば出てくるので割愛。
+
+
+
+とはいっても、ググって出てくるのは孫引きした情報を並べたサイトばかりで閉口するが（その意味では当ブログだって同じだが）、下記サイトはとても参考になった。
+
+
+
+straceなんて初めて使った。
+
+
+
+&lt;a href=&quot;http://www.gentei.org/~yuuji/support/uu/200310/part2.html&quot; target=&quot;_blank&quot;&gt;http://www.gentei.org/~yuuji/support/uu/200310/part2.html&lt;/a&gt;
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

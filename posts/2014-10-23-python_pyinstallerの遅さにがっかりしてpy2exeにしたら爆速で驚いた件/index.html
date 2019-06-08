@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件" />
+<meta property="og:description" content="自作PythonスクリプトをWindows実行バイナリに変換する場合、pyInstallerはとっても楽ちんなのであるが、問題もある。 実行フ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-10-23-python_pyinstaller%E3%81%AE%E9%81%85%E3%81%95%E3%81%AB%E3%81%8C%E3%81%A3%E3%81%8B%E3%82%8A%E3%81%97%E3%81%A6py2exe%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E7%88%86%E9%80%9F%E3%81%A7%E9%A9%9A%E3%81%84%E3%81%9F%E4%BB%B6/" />
+<meta property="article:published_time" content="2014-10-23T22:52:37&#43;09:00"/>
+<meta property="article:modified_time" content="2014-10-23T22:52:37&#43;09:00"/>
+
+<meta itemprop="name" content="[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件">
+<meta itemprop="description" content="自作PythonスクリプトをWindows実行バイナリに変換する場合、pyInstallerはとっても楽ちんなのであるが、問題もある。 実行フ">
+
+
+<meta itemprop="datePublished" content="2014-10-23T22:52:37&#43;09:00" />
+<meta itemprop="dateModified" content="2014-10-23T22:52:37&#43;09:00" />
+<meta itemprop="wordCount" content="2336">
+
+
+
+<meta itemprop="keywords" content="python,Windows," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件"/>
+<meta name="twitter:description" content="自作PythonスクリプトをWindows実行バイナリに変換する場合、pyInstallerはとっても楽ちんなのであるが、問題もある。 実行フ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-10-23T22:52:37&#43;09:00">October 23, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>自作PythonスクリプトをWindows実行バイナリに変換する場合、pyInstallerはとっても楽ちんなのであるが、問題もある。<br />
+実行ファイルがスタートされるまで、とても待たされることだ。</p>
+
+<p>その遅さに耐えかねてpy2exeを試してみたところ、ビルドまでは面倒なものの、作成した実行ファイルはめっぽう速くて驚いた。<br />
+そういったわけで、py2exeでのWindows実行バイナリ作成方法について記す。</p>
+
+<p>まず最初に、pyInstallerとpy2exeで果たしてどの程度差があるかを示す。</p>
+
+<h2 id="実行速度の違い">実行速度の違い</h2>
+
+<p>UNIX系だと、time; ＜実行ファイル＞ とすると所要時間を計測してくれるが、Windowsだとどのようにするのであろうか。<br />
+よく分からない。<br />
+あんまり興味もないのでWindowsにもあるtimeコマンドで大まかに測ってみた。</p>
+
+<p>前提<br />
+・同じスクリプトを使用する<br />
+・バイナリは一つにまとめる<br />
+・バイナリの処理完了までを測る</p>
+
+<p>結果<br />
+・pyInstallerだと5秒<br />
+・py2exeだと2秒</p>
+
+<p>その差3秒。<br />
+たかだか3MBytesのプログラムでこの違いである。<br />
+ただ、py2exeを避けていたのには理由がある。</p>
+
+<h2 id="py2exeの制限">py2exeの制限</h2>
+
+<p>py2exeはバイナリ作成のために、別にsetup.pyを書かねばならない。<br />
+対するpyInstallerは、pyInstaller本体に自作スクリプトを引数として与えればいいだけ。こちらからすると面倒ではある。<br />
+また、pyInstallerを使っていた時には、特に意識しなかったMSVCR90.dllの考慮もしなければならない。<br />
+さらにさらに、エンコーディングにも注意が必要（後述）。</p>
+
+<p>が、これだけの弱点を差し引いても起動時間の差は魅力。<br />
+くわえて、setup.pyは一度書いてしまえば使い回しもできるんである。<br />
+というわけで、py2exeに宗旨替えを決意した。</p>
+
+<h2 id="py2exe-インストール">py2exe: インストール</h2>
+
+<p><a href="http://www.py2exe.org/">http://www.py2exe.org/</a>から。<br />
+ActivePythonであれば、pypm install py2exeでインストールできる。</p>
+
+<h2 id="py2exe-msvcr90-dllの準備">py2exe: MSVCR90.dllの準備</h2>
+
+<p>py2exeでのバイナリ作成、およびバイナリの実行にはMSVCR90.dllが必要。</p>
+
+<p>MSVCR90.dllはファイル名が同じでも複数バージョンが存在する。<br />
+悪いことにpy2exeは特定のバージョンを要求する。<br />
+そのバージョンが9.0.21022.8。<br />
+VisualStudioであれば「SP1でない」2008、あるいはこちらも「SP1でない」Microsoft Visual C++ 2008 Redistributable Package に含まれている。</p>
+
+<p>x86向け<br />
+<a href="http://www.microsoft.com/ja-JP/download/details.aspx?id=29">http://www.microsoft.com/ja-JP/download/details.aspx?id=29</a>
+x64向け<br />
+<a href="http://www.microsoft.com/ja-JP/download/details.aspx?id=15336">http://www.microsoft.com/ja-JP/download/details.aspx?id=15336</a></p>
+
+<p>以下はあくまで参考<br />
+x86向けSP1<br />
+<a href="http://www.microsoft.com/ja-JP/download/details.aspx?id=5582">http://www.microsoft.com/ja-JP/download/details.aspx?id=5582</a>
+x64向けSP1<br />
+<a href="http://www.microsoft.com/ja-JP/download/details.aspx?id=2092">http://www.microsoft.com/ja-JP/download/details.aspx?id=2092</a></p>
+
+<p>MSVCR90.dll、Microsoft Visual C++ 2008 Redistributable Packageのインストーラ（vcredist_x86.exe）ともに、プロパティからバージョンを確認することができる。</p>
+
+<p>バイナリ作成者がDLL再配布の権利を持っている場合、DLLも含めて自作プログラムを配布できる。<br />
+権利がなければ、ユーザには上記のMicrosoft Visual C++ 2008 Redistributable Packageをインストールしてもらうこと。</p>
+
+<h2 id="py2exe-setup-pyって何よ">py2exe:setup.pyって何よ。</h2>
+
+<p>py2exeは、バイナリ化じたいの処理を、pythonスクリプトで書く。<br />
+自作スクリプトのほかに、setup.pyを書く必要があるのはそのため。</p>
+
+<h2 id="py2exe-setup-pyの書きかた">py2exe: setup.pyの書きかた</h2>
+
+<p><a href="http://www.py2exe.org/index.cgi/Tutorial">http://www.py2exe.org/index.cgi/Tutorial</a></p>
+
+<p>上記チュートリアルに沿って進める。</p>
+
+<p>以下の通りのsetup.pyを作る。<br />
+ひとまず自作スクリプトと同じディレクトリが良いでしょう。<br />
+もちろん、jisaku.pyは自作スクリプト名に変更。</p>
+
+<pre><code class="language-python">from distutils.core import setup
+import py2exe
+
+setup(console=['jisaku.py'])
+</code></pre>
+
+<p>そうしたら、setup.py, 自作スクリプトのあるディレクトリで、以下のように実行するだけ。</p>
+
+<pre><code class="language-console">$ python setup.py py2exe
+$
+</code></pre>
+
+<p>そうすると、同じディレクトリにdistというディレクトリが作られ、その下に実行ファイルができあがる。<br />
+簡単である。</p>
+
+<p>あとはこのsetup.pyをベースに、いろいろと加えていけばよい。<br />
+py2exeのオプションは以下を参照のこと。<br />
+<a href="http://www.py2exe.org/index.cgi/ListOfOptions">http://www.py2exe.org/index.cgi/ListOfOptions</a></p>
+
+<h2 id="python-setup-py-py2exeとタイプするのが面倒">python setup.py py2exeとタイプするのが面倒</h2>
+
+<p><code>sys.argv.append('py2exe')</code>を加えてあげれば、それ以降<code>python setup.py</code>だけでよくなる。</p>
+
+<pre><code class="language-python">from distutils.core import setup
+import py2exe, sys, os
+
+sys.argv.append('py2exe')
+
+setup(console=['jisaku.py'])
+</code></pre>
+
+<h2 id="実行ファイルを一つにまとめるには">実行ファイルを一つにまとめるには</h2>
+
+<p><a href="http://www.py2exe.org/index.cgi/SingleFileExecutable">http://www.py2exe.org/index.cgi/SingleFileExecutable</a></p>
+
+<p>前章で作成したsetup.pyをベースに、といいつつガラッと変わる。<br />
+とはいえ、基本的な書式は変わっていない。</p>
+
+<pre><code class="language-python">from distutils.core import setup
+import py2exe, sys, os
+
+sys.argv.append('py2exe')
+
+setup(
+    options = {'py2exe': {'bundle_files':1}},
+    zipfile = None,
+    console = [{'script': &quot;jisaku.py&quot;}]
+)
+</code></pre>
+
+<p>bundle_filesでファイルのまとめ方を指定する。<br />
+値は1でよい。<br />
+1は、とにかく一つにまとめる。<br />
+2だと、本体とPython.dllが分かれる。<br />
+zipfileもNoneでよい。<br />
+ここにファイル名を指定すると、各種DLLがそのファイル名でzipされる。<br />
+Noneであれば本体にマージされる。</p>
+
+<h2 id="本体を圧縮するには">本体を圧縮するには</h2>
+
+<p>速度でpy2exeを選択した私としては、あまり使おうという気にならないのだが。<br />
+手元の自作スクリプトから作成した5MBの実行バイナリが3.5MBになった。</p>
+
+<pre><code class="language-python">from distutils.core import setup
+import py2exe, sys, os
+
+sys.argv.append('py2exe')
+
+setup(
+    options = {'py2exe': {'bundle_files':1, 'compressed': True}},
+    zipfile = None,
+    console = [{'script': &quot;jisaku.py&quot;}]
+)
+</code></pre>
+
+<h2 id="アイコンを追加するには">アイコンを追加するには</h2>
+
+<p>icon_resourcesで指定する。<br />
+<a href="http://www.py2exe.org/index.cgi/CustomIcons">http://www.py2exe.org/index.cgi/CustomIcons</a></p>
+
+<pre><code class="language-python">from distutils.core import setup
+import py2exe, sys
+
+sys.argv.append('py2exe')
+
+setup(
+    options = {'py2exe': {'bundle_files':1}},
+    zipfile = None,
+    console = [{
+            'script': &quot;jisaku.py&quot;,
+            'icon_resources': [(1, &quot;jisaku.ico&quot;)]
+            ,}]
+)
+</code></pre>
+
+<h2 id="実行時にコマンドプロンプトウインドウを開かないようにするには">実行時にコマンドプロンプトウインドウを開かないようにするには</h2>
+
+<p>consoleではなくwindowsにする。</p>
+
+<pre><code class="language-python">from distutils.core import setup
+import py2exe, sys
+
+sys.argv.append('py2exe')
+
+setup(
+    options = {'py2exe': {'bundle_files':1}},
+    zipfile = None,
+    windows = [{
+            'script': &quot;tsuboneChecker.py&quot;,
+            'icon_resources': [(1, &quot;Artcore-Illustrations-Artcore-4-Terminal.ico&quot;)]
+            ,}]
+)
+</code></pre>
+
+<h2 id="py2exeでのエンコーディング">py2exeでのエンコーディング</h2>
+
+<p>py2exeでホクホクしていたら、スクリプトの実行は問題ないのに、ひとたびpy2exeでバイナリにすると、途端にエンコーディングエラーが出る、という症状に悩まされた。<br />
+結論としては、以下を加えれば解決。</p>
+
+<pre><code class="language-python">if hasattr(sys, 'setdefaultencoding'):
+    import locale
+    lang, enc = locale.getdefaultlocale()
+    sys.setdefaultencoding(enc or 'cp932')
+    del sys.setdefaultencoding
+</code></pre>
+
+<p><a href="http://www.py2exe.org/index.cgi/EvenMoreEncodings">http://www.py2exe.org/index.cgi/EvenMoreEncodings</a>
+<a href="http://d.hatena.ne.jp/shive/20110626/1309061690">http://d.hatena.ne.jp/shive/20110626/1309061690</a></p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/windows" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Windows</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-09-14-%E3%83%A1%E3%83%A2pythonsqlite_%E5%B7%A8%E5%A4%A7%E3%81%AAsqlite%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF/">[メモ][Python][SQLite] 巨大なSQLiteデータベースからレコードを取り出すには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-09-pyinstaller%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9Fwindows%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84version_resource_file%E3%81%AE%E4%BD%9C%E3%82%8A%E3%81%8B%E3%81%9F/">PyInstallerで作ったWindowsアプリでバージョンを表示させたい（Version Resource Fileの作りかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-05-windows%E3%81%ABpyinstaller%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Windowsにpyinstallerをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-29-%E3%83%A1%E3%83%A2_windows_os_xmac%E3%81%A7%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%91%E3%82%B9%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E3%81%AB%E3%82%B3%E3%83%94%E3%83%BC%E3%81%99%E3%82%8B/">[メモ] Windows, OS X(Mac)でフォルダ/ファイルのパスをクリップボードにコピーする</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-19-%E3%83%A1%E3%83%A2_wxpython%E3%81%8Cos_x%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E8%A7%A3%E6%B1%BA/">[メモ] wxPythonがOS Xにインストールできない（解決）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-02-%E3%83%A1%E3%83%A2_clamav%E5%85%88%E7%94%9F%E6%82%AA%E6%84%8F%E3%81%AE%E3%81%82%E3%82%8B%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E5%89%8A%E9%99%A4%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%83%88%E3%83%AD%E3%82%A4%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%8B%E8%AA%A4%E6%A4%9C%E5%87%BA/">[メモ] clamav先生、悪意のあるソフトウェア削除ツールにトロイを見つける（誤検出）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-08-22-windows%E3%83%90%E3%83%83%E3%83%81%E3%83%A1%E3%83%A2_efs%E3%82%92%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%8B%E3%82%89%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B/">[Windows][バッチ][メモ] EFSをコマンドラインから操作する。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-08-09-windows_freeotfe%E3%81%AE%E4%BD%BF%E3%81%84%E3%81%8B%E3%81%9F/">[Windows] FreeOTFEの使いかた</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-08-08-windows_%E6%9A%97%E5%8F%B7%E5%8C%96%E4%BB%AE%E6%83%B3%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABfreeotfe/">[Windows] 暗号化仮想ディスク管理ツールFreeOTFE</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-31-%E3%83%A1%E3%83%A2_python%E3%81%A7%E6%A8%99%E6%BA%96%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%BA%E5%8A%9B%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] Pythonで標準エラー出力に表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-09-%E3%83%A1%E3%83%A2_mac%E3%81%ABpython%E3%81%AEmatplotlib%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] MacにPythonのmatplotlibをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-02-windows_%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%E5%8F%96%E5%BE%97%E3%83%84%E3%83%BC%E3%83%ABscreenshoter%E3%81%AF%E3%83%96%E3%82%B5%E3%82%A4%E3%82%AF%E3%81%A0%E3%81%91%E3%81%A9%E6%A5%BD%E3%81%99%E3%81%8E%E3%82%8B/">[Windows] スクリーンショット取得ツールScreenshoterはブサイクだけど楽すぎる</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-30-python_%E4%BA%8C%E3%81%A4%E3%81%AE%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%81%AE%E5%B7%AE%E5%88%86%E3%82%92%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python] 二つのタイムスタンプの差分を計算するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-20-%E3%83%A1%E3%83%A2windows_%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%A7ip%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B/">[メモ][Windows] コマンドラインでIPアドレスを変更する</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSDをインストールしたらやること。（no GUI編）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSDをインストールしたらやること。（no GUI編）" />
+<meta property="og:description" content="FreeBSDをインストールしてやることをまとめたよ。 まずrootでログイン シェル、sudo、screen、vim-lite(日本語OKなv" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2012-03-21-freebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89%E3%82%84%E3%82%8B%E3%81%93%E3%81%A8no_gui%E7%B7%A8/" />
+<meta property="article:published_time" content="2012-03-21T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2012-03-21T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSDをインストールしたらやること。（no GUI編）">
+<meta itemprop="description" content="FreeBSDをインストールしてやることをまとめたよ。 まずrootでログイン シェル、sudo、screen、vim-lite(日本語OKなv">
+
+
+<meta itemprop="datePublished" content="2012-03-21T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2012-03-21T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="682">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSDをインストールしたらやること。（no GUI編）"/>
+<meta name="twitter:description" content="FreeBSDをインストールしてやることをまとめたよ。 まずrootでログイン シェル、sudo、screen、vim-lite(日本語OKなv"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSDをインストールしたらやること。（no GUI編）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2012-03-21T01:00:00&#43;09:00">March 21, 2012</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>FreeBSDをインストールしてやることをまとめたよ。
+
+
+
+
+
+
+まずrootでログイン
+
+
+
+シェル、sudo、screen、vim-lite(日本語OKなvi)をインストール。
+</code></pre>
+
+<pre><code class="language-console"># pkg_add -r bash sudo screen vim-lite
+</code></pre>
+
+<pre><code>以降、viはvim等と読み替えておくれ。
+</code></pre>
+
+<pre><code class="language-console"># vipw
+</code></pre>
+
+<pre><code>自アカウントのシェルを変更。
+</code></pre>
+
+<pre><code class="language-console"># vi /etc/group
+</code></pre>
+
+<pre><code>wheelに自アカウントを追加。
+
+
+
+
+
+
+sudoが使えるように。
+
+
+
+これ以降、原則としてrootは使わない。
+</code></pre>
+
+<pre><code class="language-console"># visudo
+（以下の%wheelの行をアンコメントする。）
+## Uncomment to allow members of group wheel to execute any command
+%wheel ALL=(ALL) ALL
+</code></pre>
+
+<pre><code>自分のアカウントでログイン。
+
+
+
+ホームディレクトリの.profileに以下を追加。
+
+
+
+言語設定とパッケージの取得先変更。
+</code></pre>
+
+<pre><code class="language-console">#
+# modified
+#
+LANG=ja_JP.UTF-8;export LANG
+PACKAGEROOT=&amp;#34;ftp://ftp2.jp.freebsd.org&amp;#34;;export PACKAGEROOT
+</code></pre>
+
+<pre><code>上記設定を読み込み。
+</code></pre>
+
+<pre><code class="language-console">$ . ~/.profile
+</code></pre>
+
+<pre><code>portsの更新
+</code></pre>
+
+<pre><code class="language-console">$ sudo vi /etc/portsnap.conf
+（portsnapの取得先をfreebsd.orgからallbsd.orgへ変更(感謝））
+#SERVERNAME=portsnap.FreeBSD.org
+SERVERNAME=portsnap.allbsd.org
+</code></pre>
+
+<pre><code>既存のportsは一回捨てる。
+
+
+
+rmするのも時間がかかるので、いったんmvして消す。
+
+
+
+で、portsnapで取り直し。
+</code></pre>
+
+<pre><code class="language-console">$ sudo mv /usr/ports /usr/ports.org
+$ sudo rm -Rf /usr/ports.org
+（このあとバックグラウンドにするとよい）
+$ mkdir /usr/ports
+$ sudo portsnap fetch extract
+</code></pre>
+
+<pre><code>時間がかかるのでさらにターミナルを起動。
+
+
+
+
+
+
+起動時のサービスの設定
+</code></pre>
+
+<pre><code class="language-console">$ sudo vi /etc/rc.conf
+以下を（なければ）追加。
+sshd_enable=&amp;#34;YES&amp;#34;
+powerd_enable=&amp;#34;YES&amp;#34;	#低負荷の時にクロック等を下げる
+powerd_flags=&amp;#34;-a adp -n adp&amp;#34;
+ntpdate_hosts=&amp;#34;ntp.jst.mfeed.ad.jp&amp;#34;	#時刻合わせ
+ntpdate_enable=&amp;#34;YES&amp;#34;
+#sendmail swtich. see rc.sendmail(8) sendmailを止める。
+sendmail_enable=&amp;#34;NO&amp;#34;
+sendmail_submit_enable=&amp;#34;NO&amp;#34;
+sendmail_outbound_enable=&amp;#34;NO&amp;#34;
+sendmail_msp_queue_enable=&amp;#34;NO&amp;#34;
+</code></pre>
+
+<pre><code>powerd, ntpdateを起動。sendmailはまあ...後で再起動か。
+</code></pre>
+
+<pre><code class="language-console">$ sudo service powerd start
+$ sudo service ntpdate start
+</code></pre>
+
+<pre><code>locateデータベースの作成
+
+
+
+放っておけば一週間に一回更新してくれるのだが、すぐに使いたいので。
+</code></pre>
+
+<pre><code class="language-console">$ sudo /etc/periodic/weekly/310.locate
+</code></pre>
+
+<pre><code>あとはports管理とか。
+</code></pre>
+
+<pre><code class="language-console">$ sudo pkg_add -r psearch pkg_replace portmaster portaudit
+</code></pre>
+
+<pre><code>でかい言語系。
+</code></pre>
+
+<pre><code class="language-console">$ sudo pkg_add -r perl python
+</code></pre>
+
+<pre><code>とりあえずこんなもん。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

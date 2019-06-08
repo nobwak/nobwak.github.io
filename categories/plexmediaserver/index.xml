@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Plexmediaserver on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/plexmediaserver/</link>
+    <description>Recent content in Plexmediaserver on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Thu, 27 Aug 2015 23:16:28 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/plexmediaserver/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[FreeBSD][メモ] PlexConnectに関する情報</title>
+      <link>https://nobwak.github.io/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/</link>
+      <pubDate>Thu, 27 Aug 2015 23:16:28 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/</guid>
+      <description>PlexConnect https://github.com/iBaa/PlexConnect 最低限入れておくべきもの（jailを想定） plexmediaserver（これは当然） ca_root_nss python2.* スタートアップスクリプト /usr/local/</description>
+    </item>
+    
+    <item>
+      <title>[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール</title>
+      <link>https://nobwak.github.io/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Tue, 25 Aug 2015 23:42:59 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>件名の通り。 FreeBSDホストに格納してある写真、動画を各種メディアプレイヤー向けに公開したいが、オリジナルのホストを直接は公開したくない</description>
+    </item>
+    
+    <item>
+      <title>FreeBSD(FreeNAS)にPlex Media Serverをインストール</title>
+      <link>https://nobwak.github.io/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Sat, 24 Aug 2013 20:56:28 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>Plexというメディア共有ソフトウェア群がある。 Plex Media ServerとPlex Media Clientの二つから成っている。 Plex Media Serverというサーバを</description>
+    </item>
+    
+  </channel>
+</rss>

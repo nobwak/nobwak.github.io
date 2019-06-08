@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD] オフラインマシンでのpkgng（日常使いのpkgng その2）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD] オフラインマシンでのpkgng（日常使いのpkgng その2）" />
+<meta property="og:description" content="pkgngをインターネット接続していないマシンでも使いたい。 そういう場合には、他のマシンでpkgを作って持っていくというのが一番簡単な方法。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-03-20-freebsd_%E3%82%AA%E3%83%95%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%A7%E3%81%AEpkgng%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgng_%E3%81%9D%E3%81%AE2/" />
+<meta property="article:published_time" content="2013-03-20T21:56:31&#43;09:00"/>
+<meta property="article:modified_time" content="2013-03-20T21:56:31&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD] オフラインマシンでのpkgng（日常使いのpkgng その2）">
+<meta itemprop="description" content="pkgngをインターネット接続していないマシンでも使いたい。 そういう場合には、他のマシンでpkgを作って持っていくというのが一番簡単な方法。">
+
+
+<meta itemprop="datePublished" content="2013-03-20T21:56:31&#43;09:00" />
+<meta itemprop="dateModified" content="2013-03-20T21:56:31&#43;09:00" />
+<meta itemprop="wordCount" content="1045">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD] オフラインマシンでのpkgng（日常使いのpkgng その2）"/>
+<meta name="twitter:description" content="pkgngをインターネット接続していないマシンでも使いたい。 そういう場合には、他のマシンでpkgを作って持っていくというのが一番簡単な方法。"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD] オフラインマシンでのpkgng（日常使いのpkgng その2）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-03-20T21:56:31&#43;09:00">March 20, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>pkgngをインターネット接続していないマシンでも使いたい。<br />
+そういう場合には、他のマシンでpkgを作って持っていくというのが一番簡単な方法。</p>
+
+<p>自前のPKGSITEを作る方法もあるようだが、軽く調べたところ根こそぎすべてのpkgを作る方法のようだ。<br />
+それはきつい。<br />
+また、pkgを作ったうえで、自前のrepo.txzを作ってもいいけど、やっぱり手間。<br />
+やっぱり必要なものだけ作って持っていくのが良いと思う。</p>
+
+<p>私がよくやるのは以下の方法。</p>
+
+<ol>
+<li>インターネット接続できるマシン上で、仮想マシンに構築する。</li>
+<li>仮想マシンでターゲットとなるマシンと同じ環境を作る。</li>
+<li>仮想マシンで使ったpkgを全部ターゲットマシンに持っていく。</li>
+</ol>
+
+<h3 id="span-style-text-decoration-underline-pkgの持ち運びには-pkg-createを使う-span"><span style="text-decoration: underline;">pkgの持ち運びには、pkg createを使う。</span></h3>
+
+<p>pkg createの使い方。</p>
+
+<p>pkg help createでだいたい分かるけれども;<br />
+-oオプションで作成場所を選べる。<br />
+-aオプションだとそのマシンにインストール済みのpkgを全部作る。<br />
+-nオプションを付けるとすでにあるものは作らない。</p>
+
+<p>以下、コマンド例。<br />
+ああそうそう、pkg createはroot権限でやること。スーパーユーザでないとアクセスできないファイルもあるので。</p>
+
+<pre><code class="language-console"># pkg create -o ./ bash
+Creating package for bash-4.2.42
+
+# pkg create -n -o ./ bash
+bash-4.2.42 already packaged, skipping...
+
+# pkg create -a -o ./pkg
+Loading package list...
+Creating package for GentiumBasic-110
+Creating package for GeoIP-1.4.8_3
+Creating package for ORBit2-2.14.19
+</code></pre>
+
+<p>そして出来上がったpkgをターゲットマシンに持っていく。<br />
+ターゲットマシンでpkgをインストールするには、pkg addを使う。pkg installではダメなことに注意。</p>
+
+<h3 id="span-style-text-decoration-underline-pkg-add-span"><span style="text-decoration: underline;">pkg add</span></h3>
+
+<p>なんにも難しいことはない。<br />
+以下のようにすればOK。</p>
+
+<pre><code class="language-console">pkg add ./xorg-7.5.2.txz
+</code></pre>
+
+<p>なお、pkg addで追加するpkgはローカルにある必要はなくて、ftp, http, https経由でアクセスできる場所にあればよい。<br />
+pkg help addで出てくるように、pkg add <a href="ftp://somewhere/some/dir/pkg-nameとかすればよい。">ftp://somewhere/some/dir/pkg-nameとかすればよい。</a></p>
+
+<h3 id="span-style-text-decoration-underline-pkg-createが遅え-span"><span style="text-decoration: underline;">pkg createが遅え。</span></h3>
+
+<p>ところでpkg createは遅い。すごく遅い。<br />
+これはファイルをxzで圧縮しているから。<br />
+今回の用途では、スピードの方が大事なので、わざわざxzを使ってもらわなくてよい。</p>
+
+<p>pkg createは-fオプションで圧縮方法を決定できる。<br />
+txz（デフォルト）, tgz, tbzから選ぶ。</p>
+
+<p>tgzとtxzだと、bash程度でもtgz: 1.5秒、txz: 5秒と、時間に結構な差がでる。<br />
+もちろんそのぶん、サイズもtgz: 1.5MB、txz: 900KBとxz形式の面目躍如。</p>
+
+<p>``` console</p>
+
+<h1 id="time-pkg-create-f-tgz-o-bash">time pkg create -f tgz -o ./ bash</h1>
+
+<p>Creating package for bash-4.2.42</p>
+
+<p>real    0m1.526s
+user    0m1.415s
+sys     0m0.098s</p>
+
+<h1 id="time-pkg-create-o-bash">time pkg create  -o ./ bash</h1>
+
+<p>Creating package for bash-4.2.42</p>
+
+<p>real    0m4.985s
+user    0m1.070s
+sys     0m3.861s</p>
+
+<p>$ du -sh ./bash*
+1.5M    ./bash-4.2.42.tgz
+896k    ./bash-4.2.42.txz```</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

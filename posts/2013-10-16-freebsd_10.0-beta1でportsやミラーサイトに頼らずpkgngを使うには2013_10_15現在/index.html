@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSD 10.0-BETA1でportsやミラーサイトに頼らずpkgngを使うには（2013/10/15現在）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSD 10.0-BETA1でportsやミラーサイトに頼らずpkgngを使うには（2013/10/15現在）" />
+<meta property="og:description" content="FreeBSD 10.0もBETA1がリリースされた。 ウホッとばかり突撃して、pkg_*の無いのに仰け反り、それなのにpkgではインストールのしようが無い" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-16-freebsd_10.0-beta1%E3%81%A7ports%E3%82%84%E3%83%9F%E3%83%A9%E3%83%BC%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E9%A0%BC%E3%82%89%E3%81%9Apkgng%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF2013_10_15%E7%8F%BE%E5%9C%A8/" />
+<meta property="article:published_time" content="2013-10-16T00:17:28&#43;09:00"/>
+<meta property="article:modified_time" content="2013-10-16T00:17:28&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSD 10.0-BETA1でportsやミラーサイトに頼らずpkgngを使うには（2013/10/15現在）">
+<meta itemprop="description" content="FreeBSD 10.0もBETA1がリリースされた。 ウホッとばかり突撃して、pkg_*の無いのに仰け反り、それなのにpkgではインストールのしようが無い">
+
+
+<meta itemprop="datePublished" content="2013-10-16T00:17:28&#43;09:00" />
+<meta itemprop="dateModified" content="2013-10-16T00:17:28&#43;09:00" />
+<meta itemprop="wordCount" content="1980">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSD 10.0-BETA1でportsやミラーサイトに頼らずpkgngを使うには（2013/10/15現在）"/>
+<meta name="twitter:description" content="FreeBSD 10.0もBETA1がリリースされた。 ウホッとばかり突撃して、pkg_*の無いのに仰け反り、それなのにpkgではインストールのしようが無い"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSD 10.0-BETA1でportsやミラーサイトに頼らずpkgngを使うには（2013/10/15現在）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-10-16T00:17:28&#43;09:00">October 16, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>FreeBSD 10.0もBETA1がリリースされた。<br />
+ウホッとばかり突撃して、pkg_*の無いのに仰け反り、それなのにpkgではインストールのしようが無い現状に絶望した日本のFreeBSDユーザの方（絶対に少ねえ）に捧げます。</p>
+
+<p>改めて背景を。<br />
+10.0からは、従来のパッケージ管理システムであるpkg_*に代わり、pkgngが登場する。<br />
+しかし。<br />
+2013/10/15現在、いまだ公式のpkgng向けPACKAGESITEが用意されていないのである。<br />
+なぜ、というのは<a href="../../../?p=1947" target="_blank">ここ</a>でも触れたとおり。<br />
+となれば、現時点ではportsからしか各種ソフトウェアをインストール出来ない。<br />
+うわ面倒くせえ。</p>
+
+<p>PACKAGESITEは、さすがに10.0-RELEASEのときまでには準備がなされるはずであるが、現時点で外部の<span style="text-decoration: underline;">ミラーサイトを参照せずに</span>pkgngを使う方法を示す。</p>
+
+<p>（追記:2013/11/7）<br />
+公式のpkgngが公開されている。詳しくは以下を。<br />
+<a href="../../../?p=2357" target="_blank">../../../?p=2357</a><br />
+（追記ここまで）</p>
+
+<h2 id="span-style-text-decoration-underline-その名もpkg-test-freebsd-org-しかし-span"><span style="text-decoration: underline;">その名もpkg-test.freebsd.org。しかし。</span></h2>
+
+<p>実は、ゆくゆくオフィシャルなPACKAGESITEになる予定のサーバはもうある。<br />
+それがpkg-test.freebsd.orgである。</p>
+
+<p>じゃ、これをPACKAGESITEに指定すればいいじゃないか。<br />
+しかしですね、ブラウザでpkg-test.freebsd.orgに繋ごうとすると分かるが、No address recordとなるわけですよ。</p>
+
+<p>というのも、pkg-test.freebsd.orgはDNS上、AレコードではなくSRVレコードだそうであり、かつRFCに沿ってないからだという、もうほんといい加減にせえよ…。<br />
+詳細は下記を。<br />
+<a href="http://lists.freebsd.org/pipermail/freebsd-questions/2013-October/253569.html" target="_blank">Where is pkg repository for 9.2-RELEASE (amd64)?</a></p>
+
+<p>よろしい。ではIPアドレス直打ちでどうだということで、まっさらのFreeBSD 10.0-BETA1でpkgngを使う方法を示す。</p>
+
+<h2 id="span-style-text-decoration-underline-さいしょの一歩-pkgコマンドのインストール-span"><span style="text-decoration: underline;">さいしょの一歩(pkgコマンドのインストール)</span></h2>
+
+<p>何はともあれ、まずはpkgコマンドそのものをインストールしなければならない。<br />
+pkgと叩けばいいのだが、さっそくこれですよ。</p>
+
+<pre><code class="language-console"># pkg
+The package management tool is not yet installed on your system.
+Do you want to fetch and install it now? [y/N]: y
+Bootstrapping pkg please wait
+pkg: Error fetching http://pkg.FreeBSD.org/freebsd:10:x86:64/latest/Latest/pkg.txz: No address record
+A pre-built version of pkg could not be found for your system.
+Consider changing PACKAGESITE or installing it from ports: 'ports-mgmt/pkg'.
+</code></pre>
+
+<p>そこで、環境変数PACKAGESITEに以下のアドレスを与えてpkgコマンドを実行。<br />
+下記の例では<a href="http://96.47.72.120/pkg-test-freebsd:10:x86:64/latestである。">http://96.47.72.120/pkg-test-freebsd:10:x86:64/latestである。</a><br />
+96.47.72.120は<a href="http://lists.freebsd.org/pipermail/freebsd-questions/2013-October/253680.html" target="_blank">pkg-test.freebsd.orgのIPアドレス</a>。<br />
+i386だったら、<a href="http://96.47.72.120/pkg-test-freebsd:10:x86:32/latestにしてね。">http://96.47.72.120/pkg-test-freebsd:10:x86:32/latestにしてね。</a></p>
+
+<p>もちろん、pkg-test.freebsd.orgが参照しているpkg1.nyi.freebsd.orgでもOK。</p>
+
+<pre><code class="language-console"># sh
+# PACKAGESITE=&quot;http://96.47.72.120/pkg-test-freebsd:10:x86:64/latest&quot; pkg
+The package management tool is not yet installed on your system.
+Do you want to fetch and install it now? [y/N]: y
+Bootstrapping pkg please wait
+Installing pkg-1.1.4_6... done
+If you are upgrading from the old package format, first run:
+（中略）
+Commands provided by plugins:
+
+For more information on the different commands see 'pkg help &lt;command&gt;'.
+#
+</code></pre>
+
+<p>これでpkgコマンドがインストールされた。<br />
+つぎはpkgコマンドの設定。</p>
+
+<h2 id="span-style-text-decoration-underline-pkgの設定-span"><span style="text-decoration: underline;">pkgの設定</span></h2>
+
+<p>/usr/local/etc/pkg.confというファイルが出来ているはず。<br />
+ここのPACKAGESITEを確認。<br />
+ちなみに書式はYAML。<br />
+以下のようになっているはず。</p>
+
+<pre><code class="language-console">packagesite: http://96.47.72.120/pkg-test-freebsd:10:x86:64/latest
+</code></pre>
+
+<p>今後のことを考えて、以下のように書き換えておきましょう。</p>
+
+<pre><code class="language-console">PACKAGESITE     : http://96.47.72.120/pkg-test-${ABI}/latest
+</code></pre>
+
+<p>オフィシャルのPACKAGESITE（きっとpkg.freebsd.orgになるはず）が準備出来たら、ここはすぐに書き換えること。</p>
+
+<p>なお、/etc/make.confへのWITH_PKGNG= yesは要りません。<br />
+必要なのはFreeBSD 10.0より前のバージョン。<br />
+<a href="http://www.freebsd.org/doc/handbook/pkgng-intro.html" target="_blank">FreeBSD HandBook</a>より</p>
+
+<blockquote>
+<p>To ensure that the FreeBSD Ports Collection registers new software with pkgng, and not the traditional packages format, FreeBSD versions earlier than 10.X require this line in /etc/make.conf</p>
+</blockquote>
+
+<p>そうしたらpkg updateしておしまい。</p>
+
+<h2 id="span-style-text-decoration-underline-pkg-updateとpkgのインストール-span"><span style="text-decoration: underline;">pkg updateとpkgのインストール</span></h2>
+
+<pre><code class="language-console"># pkg update
+Updating repository catalogue
+digests.txz                         100%  955KB 238.7KB/s 214.8KB/s   00:04
+packagesite.txz                     100% 5209KB 274.1KB/s 418.6KB/s   00:19
+Incremental update completed, 0 packages processed:
+0 packages updated, 0 removed and 21607 added.
+</code></pre>
+
+<p>2013/10/15の時点で約21000のパッケージがあるようですな。<br />
+念のためpkg upgrade。</p>
+
+<pre><code class="language-console"># pkg upgrade
+Updating repository catalogue
+Nothing to do
+#
+</code></pre>
+
+<p>まあ何もないよね。</p>
+
+<p>試しにいくつかパッケージをインストールしてみましょう。</p>
+
+<pre><code class="language-console"># pkg install bash tmux sudo portaudit
+Updating repository catalogue
+The following 6 packages will be installed:
+
+        Installing gettext: 0.18.3
+        Installing libevent: 1.4.14b_2
+        Installing sudo: 1.8.7_1
+        Installing portaudit: 0.6.1
+        Installing bash: 4.2.45
+        Installing tmux: 1.8_1
+
+The installation will require 18 MB more space
+
+4 MB to be downloaded
+
+Proceed with installing packages [y/N]: y
+gettext-0.18.3.txz                  100% 2086KB 231.8KB/s 285.9KB/s   00:09
+libevent-1.4.14b_2.txz              100%  125KB 124.5KB/s 124.5KB/s   00:01
+sudo-1.8.7_1.txz                    100%  652KB 217.4KB/s 392.2KB/s   00:03
+portaudit-0.6.1.txz                 100%   10KB  10.1KB/s  10.1KB/s   00:00
+bash-4.2.45.txz                     100%  890KB 222.6KB/s 360.2KB/s   00:04
+tmux-1.8_1.txz                      100%  203KB 203.3KB/s 193.3KB/s   00:01
+Checking integrity... done
+[1/6] Installing gettext-0.18.3... done
+[2/6] Installing libevent-1.4.14b_2... done
+[3/6] Installing sudo-1.8.7_1... done
+[4/6] Installing portaudit-0.6.1...
+===&gt;  To check your installed ports for known vulnerabilities now, do:
+
+      /usr/local/sbin/portaudit -Fda
+
+ done
+[5/6] Installing bash-4.2.45... done
+[6/6] Installing tmux-1.8_1... done
+</code></pre>
+
+<p>パッケージも新しく、pkg auditで確認しても脆弱性の報告はない。</p>
+
+<pre><code class="language-console"># pkg audit -F
+auditfile.tbz                       100%   90KB  90.0KB/s  90.0KB/s   00:01
+0 problem(s) in your installed packages found.
+#
+</code></pre>
+
+<p>というわけで、いろいろ問題はあるけれど、pkg-test.freebsd.orgは現時点で十分使えるということでございます。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

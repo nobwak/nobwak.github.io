@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Samba on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/samba/</link>
+    <description>Recent content in Samba on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Thu, 07 May 2015 20:13:08 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/samba/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[FreeBSD] Samba 3.xからSamba 4.xへの移行</title>
+      <link>https://nobwak.github.io/posts/2015-05-07-freebsd_samba_3.x%E3%81%8B%E3%82%89samba_4.x%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/</link>
+      <pubDate>Thu, 07 May 2015 20:13:08 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-05-07-freebsd_samba_3.x%E3%81%8B%E3%82%89samba_4.x%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/</guid>
+      <description>Sambaの4.2.0リリースに伴い、3系列サポートが終了する、とのことなので、4.xに移行した。 顛末を記す。 Samba 3系列のサポート終了について</description>
+    </item>
+    
+    <item>
+      <title>[メモ] sambaのパスワードファイルに登録されているユーザ一覧を表示するには</title>
+      <link>https://nobwak.github.io/posts/2014-07-23-%E3%83%A1%E3%83%A2_samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E4%B8%80%E8%A6%A7%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Wed, 23 Jul 2014 19:42:59 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-07-23-%E3%83%A1%E3%83%A2_samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E4%B8%80%E8%A6%A7%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>smbpasswdにはそういった機能がない。 pdbedit -Lを使う。 pdbeditとは manによれば「SAM database（sambaユーザデータベ</description>
+    </item>
+    
+    <item>
+      <title>Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</title>
+      <link>https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/</link>
+      <pubDate>Sun, 26 Jan 2014 20:19:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/</guid>
+      <description>昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）" />
+<meta property="og:description" content="前回までで仮想マシンをインストールする準備が整った。 さっそくWindows10のインストールに取り掛かるが、準備すべきものがある。 Windo" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE2vm-bhyve%E4%BD%BF%E7%94%A8/" />
+<meta property="article:published_time" content="2019-05-12T20:30:48&#43;09:00"/>
+<meta property="article:modified_time" content="2019-05-12T20:30:48&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）">
+<meta itemprop="description" content="前回までで仮想マシンをインストールする準備が整った。 さっそくWindows10のインストールに取り掛かるが、準備すべきものがある。 Windo">
+
+
+<meta itemprop="datePublished" content="2019-05-12T20:30:48&#43;09:00" />
+<meta itemprop="dateModified" content="2019-05-12T20:30:48&#43;09:00" />
+<meta itemprop="wordCount" content="3028">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）"/>
+<meta name="twitter:description" content="前回までで仮想マシンをインストールする準備が整った。 さっそくWindows10のインストールに取り掛かるが、準備すべきものがある。 Windo"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2019-05-12T20:30:48&#43;09:00">May 12, 2019</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p><a href="./2019-05-12-FreeBSD_12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）.md">前回</a>までで仮想マシンをインストールする準備が整った。<br />
+さっそくWindows10のインストールに取り掛かるが、準備すべきものがある。</p>
+
+<ol>
+<li>Windows10インストールイメージ</li>
+<li>TigerVNC（Viewer）</li>
+</ol>
+
+<p>一つ目は言わずもがな。<br />
+<a href="https://www.microsoft.com/ja-jp/software-download/windows10">https://www.microsoft.com/ja-jp/software-download/windows10</a></p>
+
+<p>二つ目は、GUI操作のため。<br />
+Windowsのような、GUI操作が必須のOSをbhyve上の仮想マシンとして動かす場合には、VNCでその画面を見ることになる。<br />
+ただ、bhyveのVNCは癖があるようで、VNC viewerによっては途中で切れてしまうんである。<br />
+WindowsでもProであればリモートデスクトップという手もあるが、それにしたってインストールの時にはVNCで繋ぐほかない。<br />
+TigerVNCなら問題なく接続できるのでこれを準備しておくこと。<br />
+<a href="https://tigervnc.org/">https://tigervnc.org/</a><br />
+<a href="https://github.com/TigerVNC/tigervnc/releases">https://github.com/TigerVNC/tigervnc/releases</a></p>
+
+<p>2019/5/12時点では1.9.0が最新だからしてバイナリはこちら。Viewerでよい。<br />
+<a href="https://bintray.com/tigervnc/stable/tigervnc/1.9.0">https://bintray.com/tigervnc/stable/tigervnc/1.9.0</a></p>
+
+<p>初回には少し混乱したので記しておくが、VNCで接続する先のIPアドレスは、bhyveホストのIPアドレスである。<br />
+仮想マシンが自立して起動すると、そっちはそっちで独自のIPアドレスを取得する。</p>
+
+<p>VNCはbhyveが用意する仮想マシンへのGUIアクセスなのでbhyveホストに接続する必要があるわけ。<br />
+一方で、仮想マシンそのものでリモートデスクトップやら、VNC Serverを用意すれば、そのときは当然、仮想マシンのIPアドレスを接続先として指定することになる。</p>
+
+<p>ではISOの準備から。</p>
+
+<h2 id="仮想マシンインストール準備-インストーラ-iso">仮想マシンインストール準備（インストーラ = ISO）</h2>
+
+<p>インストーラの準備。<br />
+ISOイメージを登録する。VirtualBoxでもそういう操作あるよね。</p>
+
+<p>ISOイメージがあるなら$vm_dir/.isoに移す<br />
+sudo vmとして確認する<br />
+sudo vm とすれば、ダウンロードしてそこに置いてくれる。ちょっと驚き。</p>
+
+<pre><code class="language-console">$ sudo mv ./files/Windows10_18090.iso /vm/.iso/
+$ sudo vm iso
+DATASTORE           FILENAME
+default             Windows10_18090.iso
+
+$ sudo vm iso https://download.freebsd.org/ftp/releases/ISO-IMAGES/11.2/FreeBSD-11.2-RELEASE-amd64-bootonly.iso
+/vm/.iso/FreeBSD-11.2-RELEASE-amd64-bootonly.iso         308 MB 2228 kBps 02m22s
+$ sudo vm iso
+DATASTORE           FILENAME
+default             FreeBSD-11.2-RELEASE-amd64-bootonly.iso
+default             Windows10_18090.iso
+</code></pre>
+
+<h2 id="仮想マシンインストール準備-仮想マシン設定">仮想マシンインストール準備（仮想マシン設定）</h2>
+
+<p>前提。<br />
+仮想マシンは$vm_dir/（仮想マシン名）/に置かれる。<br />
+設定ファイルは$vm_dir/（仮想マシン名）/（仮想マシン名）.confである。<br />
+なお仮想マシンのログは$vm_dir/（仮想マシン名）/vm-bhyve.log。</p>
+
+<p>仮想マシン置き場が/vmで、仮想マシン名がwin10だと、<br />
+<code>/vm/win10/win10.conf</code>などとなる。</p>
+
+<p>で、vm createでまず仮想マシンの枠を作る。<br />
+このとき、-tでテンプレートを指定し、-sでディスクイメージのサイズを指定できる。<br />
+デフォルトだと20Gなので余程のことがない限り指定は必須。<br />
+作った仮想マシンはvm listで確認。</p>
+
+<pre><code class="language-console">$ sudo vm create -t windows -s 64G win10
+$ sudo vm list
+NAME       DATASTORE  LOADER  CPU  MEMORY  VNC  AUTOSTART  STATE
+win10home  default    uefi    2    2G      -    No         Stopped
+$ ls -lah /vm/win10/
+total 13366199
+drwxr-xr-x  2 root  wheel     6B May 11 14:10 .
+drwxr-xr-x  6 root  wheel     6B May  4 20:34 ..
+-rw-------  1 root  wheel    64G May 11 14:10 disk0.img
+-rw-r--r--  1 root  wheel   299B May  5 21:35 win10.conf
+</code></pre>
+
+<p>vm configureで設定（win10.conf）を変更。<br />
+vi操作で書き換える。<br />
+以下のように。</p>
+
+<pre><code class="language-console">uefi=&quot;yes&quot;
+graphics=&quot;yes&quot;
+graphics_wait=&quot;yes&quot;
+cpu=1
+memory=4G
+network0_type=&quot;e1000&quot;
+network0_switch=&quot;public&quot;
+disk0_type=&quot;ahci-hd&quot;
+disk0_name=&quot;disk0.img&quot;
+uuid=&quot;ff31650b-6ef0-11f9-963c-6cfffff61323&quot;
+utctime=&quot;no&quot;
+xhci_mouse=&quot;yes&quot;
+</code></pre>
+
+<p>WindowsなのでBIOSはuefi。</p>
+
+<p>graphicsをYesにするとVNCで接続できる。<br />
+デフォルトではbhyveホストのIPアドレス:5900で待ち受け。<br />
+変更したければそれぞれgraphics_listen、graphics_portで指定する。<br />
+また、解像度は800x600。graphics_res=&ldquo;WxH&rdquo;で変更できる。<br />
+graphics_waitを設定しておくと、VNC接続するまでゲストの起動を待ってくれる。<br />
+設定しなくても、仮想マシンをインストールモードで立ち上げたときには待ってくれるが、それは初回だけ。<br />
+Windowsのようにインストール時に複数回再起動するものはwaitしてもらったほうがいいだろうと。</p>
+
+<p>Windows10homeの場合はcpuを1。（後述）</p>
+
+<p>network0_typeにはe1000を指定。<br />
+インストールが無事に済んだらvirtioに変更するが、まずはe1000で。</p>
+
+<p>network0_switchで本仮想マシンを繋ぐ仮想スイッチを指定する。<br />
+vm-bhyveのデフォルト、publicにしておく。<br />
+なお、起動した暁には、仮想マシンにはtapX（Xは数字）インタフェースが割り当てられ、publicに接続される。</p>
+
+<p><code>disk0_type=&quot;ahci-hd&quot;</code>としていて、本来ならディスクイメージをzfsのボリュームにしてvirtio-blkと指定したいが、以下の通りahci-hdしかダメ。<br />
+<a href="https://github.com/churchers/vm-bhyve/wiki/Supported-Guest-Examples">https://github.com/churchers/vm-bhyve/wiki/Supported-Guest-Examples</a><br />
+&gt; the disk emulation needs to be ahci-hd.</p>
+
+<p>vm-bhyveは標準で仮想マシンの時刻をUTCに設定するので、<code>utctime=&quot;no&quot;</code>とする。<br />
+<code>xhci_mouse=&quot;yes&quot;</code>にしておかないと、後々VNCで接続したときにまともにマウスが動かない。</p>
+
+<h2 id="仮想マシンインストール">仮想マシンインストール</h2>
+
+<p>さあインストール。vmにinstallサブコマンドを与えて起動。<br />
+状態はvm listで確認。<br />
+bhyveホスト側では$vm_dirにあるvm-bhyve.logをtailして状況を確認しつつ進めるがよいだろう。</p>
+
+<pre><code class="language-console">$ sudo vm install win10home Windows10_18090.iso
+Starting win10home
+  * found guest in /vm/win10home
+  * booting...
+$ sudo vm list
+NAME       DATASTORE  LOADER  CPU  MEMORY  VNC           AUTOSTART  STATE
+win10home  default    uefi    1    2G      0.0.0.0:5900  No         Locked (camazotz)
+</code></pre>
+
+<p>lockedの通り、VNC待ち。<br />
+TigerVNCで接続し、インストールを進める。<br />
+繰り返すがこのときの接続先はbhyveホスト。</p>
+
+<pre><code class="language-console">$ sudo tail -f ./vm-bhyve.log
+Password:
+May 12 17:44:20: dynamically allocated port 5900 for vnc connections
+May 12 17:44:20: booting
+May 12 17:44:20:  [bhyve options: -c 1 -m 4G -Hwl bootrom,/usr/local/share/uefi-firmware/BHYVE_UEFI.fd -U 9e31650b-6e60-11e9-963c-6c4b90a61323]
+May 12 17:44:20:  [bhyve devices: -s 0,hostbridge -s 31,lpc -s 4:0,ahci-hd,/vm/win10/disk0.img -s 5:0,virtio-net,tap0,mac=58:9c:fc:02:b6:f3 -s 6:0,fbuf,tcp=0.0.0.0:5900 -s 7:0,xhci,tablet]
+May 12 17:44:20:  [bhyve console: -l com1,/dev/nmdm-win10.1A]
+May 12 17:44:20:  [bhyve iso device: -s 3:0,ahci-cd,/vm/.config/null.iso]
+May 12 17:44:20: starting bhyve (run 1)
+</code></pre>
+
+<p><img src="../../../wp-content/uploads/2019/05/win10.png" alt="実行イメージ" /></p>
+
+<h2 id="インストール後-ネットワークドライバの変更他">インストール後（ネットワークドライバの変更他）</h2>
+
+<p>無事にインストールが済んだら、ネットワークドライバを変更する。<br />
+ネットワークドライバの変更なのでVNCから接続しておく。<br />
+ドライバの配布先には、仮想マシンから直接、行ってしまってよい。</p>
+
+<p>場所はここだが、「virtio-win fedora」あたりで検索すれば辿り着けるはず。<br />
+<a href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/">https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/</a></p>
+
+<p>5/12時点では0.1.164が最新。<br />
+<a href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.164-2/virtio-win-0.1.164.iso">https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.164-2/virtio-win-0.1.164.iso</a></p>
+
+<p>Dにマウントしたら、以下のパスがドライバの場所。パスの通りWindows10, 64bitね。<br />
+こちらに強制的に変更する。ネットワークが切断されるがお構いなしで。<br />
+<code>D:\NetKVM\w10\amd64</code></p>
+
+<p><a href="../../../wp-content/uploads/2019/05/12.jpg">実行イメージ02</a> <a href="../../../wp-content/uploads/2019/05/13.jpg">実行イメージ03</a></p>
+
+<p>シャットダウンしたら、bhyve側の設定ファイルでネットワークタイプをe1000からvirtio-netに変更する。<br />
+graphics_waitも忘れずに削除。</p>
+
+<pre><code class="language-console">uefi=&quot;yes&quot;
+graphics=&quot;yes&quot;
+# graphics_wait=&quot;yes&quot;
+cpu=1
+memory=4G
+network0_type=&quot;virtio-net&quot;
+network0_switch=&quot;public&quot;
+disk0_type=&quot;ahci-hd&quot;
+disk0_name=&quot;disk0.img&quot;
+uuid=&quot;ff31650b-6ef0-11f9-963c-6cfffff61323&quot;
+utctime=&quot;no&quot;
+xhci_mouse=&quot;yes&quot;
+</code></pre>
+
+<h2 id="ゲストwindowsに与えるcpu数">ゲストWindowsに与えるCPU数</h2>
+
+<p>Windows10の場合、割り当てられるCPUは、Homeだと1つ、Proだと2つまで。<br />
+コア/スレッドはHomeだと32、Proだと256。</p>
+
+<p>コアを二つ以上与えようとしても、vm-bhyveでの指定はCPU数でのみ可能。<br />
+1.3からはより細かい設定ができるようになるそうだが、pkgからインストールするvm-bhyveは1.2なので1のままにしておく。</p>
+
+<p><a href="https://github.com/churchers/vm-bhyve/wiki/Guest-Example:-Windows">https://github.com/churchers/vm-bhyve/wiki/Guest-Example:-Windows</a></p>
+
+<p>なお/boot/loader.confに以下の設定をすることで、CPU一つあたりのコア数を指定できるが、手元ではうまく動かないので特に説明はしない。</p>
+
+<pre><code class="language-console">hw.vmm.topology.cores_per_package=4
+</code></pre>
+
+<p>上記パラメータの詳しい説明はこちら。<br />
+<a href="https://forums.freebsd.org/threads/bhyve-cpu-vcpu-cores-nad-threads.60169/">https://forums.freebsd.org/threads/bhyve-cpu-vcpu-cores-nad-threads.60169/</a></p>
+
+<h2 id="ホスト起動時に仮想マシンも起動させるには">ホスト起動時に仮想マシンも起動させるには。</h2>
+
+<p>/etc/rc.confに以下の行を追加。<br />
+複数ある場合にはスペースを置いて起動させたい順に記載。<br />
+vm_delayは、複数の仮想マシンを起動する場合のインターバルを秒で指定。</p>
+
+<pre><code class="language-console">vm_list=&quot;win10&quot;
+vm_delay=&quot;5&quot;
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

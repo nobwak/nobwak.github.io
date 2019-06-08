@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD] pkg quarterlyとlatestレポジトリの共存</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD] pkg quarterlyとlatestレポジトリの共存" />
+<meta property="og:description" content="ここでも触れたが、10.2-RELEASEから、pkgレポジトリのデフォルト参照先がlatestからquarterlyになった。 具体的には/" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2015-08-26-freebsd_pkg_quarterly%E3%81%A8latest%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E5%85%B1%E5%AD%98/" />
+<meta property="article:published_time" content="2015-08-26T21:00:18&#43;09:00"/>
+<meta property="article:modified_time" content="2015-08-26T21:00:18&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD] pkg quarterlyとlatestレポジトリの共存">
+<meta itemprop="description" content="ここでも触れたが、10.2-RELEASEから、pkgレポジトリのデフォルト参照先がlatestからquarterlyになった。 具体的には/">
+
+
+<meta itemprop="datePublished" content="2015-08-26T21:00:18&#43;09:00" />
+<meta itemprop="dateModified" content="2015-08-26T21:00:18&#43;09:00" />
+<meta itemprop="wordCount" content="2846">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,pkgng," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD] pkg quarterlyとlatestレポジトリの共存"/>
+<meta name="twitter:description" content="ここでも触れたが、10.2-RELEASEから、pkgレポジトリのデフォルト参照先がlatestからquarterlyになった。 具体的には/"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD] pkg quarterlyとlatestレポジトリの共存</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2015-08-26T21:00:18&#43;09:00">August 26, 2015</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p><a href="../../../2015/08/freebsd-10-2-release%e3%81%8b%e3%82%89%e9%81%a9%e7%94%a8%e3%81%95%e3%82%8c%e3%82%8bpkg-quarterly%e3%81%a6%e3%81%aa%e3%82%93%e3%81%a0%e3%80%82/">ここ</a>でも触れたが、10.2-RELEASEから、pkgレポジトリのデフォルト参照先がlatestからquarterlyになった。<br />
+具体的には/etc/pkg/FreeBSD.confの内容が変わった。</p>
+
+<p>だからして、引き続きlatestを参照したい場合には、/etc/pkg/FreeBSD.confを書き換えればいいや、と思っていたものの、どうもこのファイルは「なるべく触るな」ということのようである。</p>
+
+<p>つまり、もしもの時にlatestを参照する場合には、quarterly（すなわちデフォルト）の他に、latest向けのレポジトリ設定ファイルを作る必要がある。</p>
+
+<p>それぞれを、いちいちenable/disableするのも面倒なので、latest、quarterlyの双方を参照するよう、Multi-repositoryの設定をした。</p>
+
+<p>本記事ではMulti-repositoryの設定方法について示す。<br />
+と同時に、普段はquarterlyを使い、特定のときだけlatestを使うための方法を示す。</p>
+
+<p>まずデフォルトの/etc/pkg/FreeBSD.confについて</p>
+
+<h2 id="etc-pkg-freebsd-confは触るな">/etc/pkg/FreeBSD.confは触るな</h2>
+
+<p>/etc/pkg/FreeBSD.confの中身を見てみると、以下のような記載がある。</p>
+
+<pre><code class="language-console"># To disable this repository, instead of modifying or removing this file,
+# create a /usr/local/etc/pkg/repos/FreeBSD.conf file:
+#
+#   mkdir -p /usr/local/etc/pkg/repos
+#   echo &quot;FreeBSD: { enabled: no }&quot; &gt; /usr/local/etc/pkg/repos/FreeBSD.conf
+#
+</code></pre>
+
+<p>すなわち、この設定を無効化したい場合には、/etc/pkg/FreeBSD.confは触らずに、/usr/local/etc/pkg/repos/FreeBSD.confを作ったうえで、無効化の宣言をしろ、ということである。</p>
+
+<p>/etc/pkg/FreeBSD.confはデフォルト設定として扱いたい雰囲気丸出しであるが、そうならrc.confのデフォルト設定が/etc/defaultsの下にあるように、/etc/pkg/defaults/FreeBSD.conf的なものを作ってくれても良いのではないかと思った。</p>
+
+<p>しかしそもそも、レポジトリの設定ファイルはどのように読み込まれるのであろうか。</p>
+
+<h2 id="レポジトリ設定ファイルの読み込まれる順番">レポジトリ設定ファイルの読み込まれる順番</h2>
+
+<p>/usr/local/etc/pkg.confで指定する。<br />
+上記ファイルの中に、REPOS_DIRがある。<br />
+pkgは、ここに記載された順番通りにレポジトリ設定ファイルを読み込む。<br />
+特に変更していないのであれば、内容は下記の通り。</p>
+
+<pre><code class="language-console">REPOS_DIR [
+    &quot;/etc/pkg/&quot;,
+    &quot;/usr/local/etc/pkg/repos/&quot;,
+]
+</code></pre>
+
+<p>仮に複数のディレクトリに、同じレポジトリに対する設定ファイルがあったならば、後から読み込まれたもので上書きされる。<br />
+同じディレクトリに複数のファイルがあったならば、ファイルはアルファベット順に読み込まれる。</p>
+
+<p>以下、マニュアルからの引用</p>
+
+<p>Repositories are processed in the order they are found on the REPOS_DIR search path, with individual repository configuration files in the same directory processed in alphabetical order. Settings from files later in the search path will override those from earlier ones.</p>
+
+<p>だから、/etc/pkg/FreeBSD.confのコメントに書いてある通り、/usr/local/etc/pkg/repos/FreeBSD.confでFreeBSDレポジトリを無効にする宣言をすると、設定が上書きされ、めでたくFreeBSDレポジトリは無効になる。</p>
+
+<p>ところで、同じディレクトリ内の読み込み順序はアルファベット順、というのがキモで、実はレポジトリの名前と設定ファイルの名前は別々でも構わない。<br />
+だから、読み込ませたい順番に応じて、ファイル名の頭に数字を入れてもよい。</p>
+
+<h2 id="latestレポジトリ向けの設定はどこに-またどうやって">latestレポジトリ向けの設定はどこに？またどうやって？</h2>
+
+<p>さて。<br />
+仕組みはわかった。<br />
+どうも/etc/pkg/は触ってほしくないようだから、/usr/local/etc/pkg/reposにlatest向けの設定ファイルを置けばよいのだろう。<br />
+しかしちょっと待て。<br />
+latestとquarterlyを両立させるにはどのようにしたら良いのであろうか。</p>
+
+<h2 id="レポジトリの優先度について">レポジトリの優先度について</h2>
+
+<p>複数のレポジトリを参照する場合、どちらをどの程度優先するか。<br />
+レポジトリ設定ファイルにpriorityという設定項目があるので、それを使えば優先度の設定ができる、ようだが。</p>
+
+<p>以下はマニュアル。</p>
+
+<pre><code class="language-console">PRIORITY: integer    Set the priority of the repository.  Higher
+                     values are preferred.  Default: 0
+</code></pre>
+
+<p>レポジトリ設定ファイルにPRIORITYで優先度を指定すればよい。<br />
+数値が高ければ高いほど、優先度が高い。</p>
+
+<p>ふむふむ。<br />
+では、動作は？</p>
+
+<h2 id="優先度設定されたときの動作">優先度設定されたときの動作</h2>
+
+<pre><code class="language-console">WORKING WITH MULTIPLE REPOSITORIES
+  Where several different repositories are configured pkg will search
+  amongst them all in the order specified by the PRIORITY settings in the
+  repo.conf files, unless directed to use a single repository by the -r
+  flag （略）
+</code></pre>
+
+<p>「複数のレポジトリが与えられた場合、pkgは、-rで参照先レポジトリを明示されない限り、PRIORITYの順番で検索を行う。」</p>
+
+<p>ほほう。なるほど。<br />
+続けて読む。</p>
+
+<pre><code class="language-console">Where several different versions of the same package are available, pkg
+  will select the one with the highest version (略)
+</code></pre>
+
+<p>「異なるバージョンのpackageが見つかった場合、最も高いバージョンが選ばれる。」</p>
+
+<p>アレ!? 話が思わぬ方向に向かってきたよ！<br />
+優先度の高いレポジトリからインストールしてくれるんじゃないの!?</p>
+
+<pre><code class="language-console">even if a lower numbered version can be found in a
+  repository earlier in the list
+</code></pre>
+
+<p>「低いバージョンが優先度の高いレポジトリにあったとしてもこの動作は変わらない。」</p>
+
+<p>Oh&hellip;。</p>
+
+<pre><code class="language-console">This applies even if an explicit version is stated on
+  the command line.  Thus if packages example-1.0.0 and
+  example-1.0.1 are available in configured repositories（後略）
+</code></pre>
+
+<p>「さらにさらに、仮にバージョンを指定してインストールを実行しても、<br />
+動作は変わらない。<br />
+高いバージョンが見つかったら問答無用で新しい方をインストールする。」</p>
+
+<p>ぐぬぬ。</p>
+
+<h2 id="基本-quarterlyを使い-特定のときだけlatestを使うためには">基本、quarterlyを使い、特定のときだけlatestを使うためには</h2>
+
+<p>上記の動作を踏まえ、基本、quarterlyを使い、特定のときだけlatestを使うためには、以下の方法がある。</p>
+
+<p>A. 都度、レポジトリ設定ファイルを使い分ける。<br />
+B. マルチレポジトリにしつつ、インストール時に考慮をする。</p>
+
+<p>ここでA.を選ぶと芸がないので、B.の方法を示す。<br />
+B.の方法と言っても、以下の通りでOK。</p>
+
+<p>最初にquarterlyレポジトリからインストールする。<br />
+-rオプションで参照先レポジトリを明示すること。</p>
+
+<p>pkgは、そのpackageをどこからインストールしたかを覚えている。<br />
+後に示す設定を変えない限り、アップグレードの際には同じレポジトリを参照してくれる。<br />
+だから、最初のインストールでquarterlyを選んでおけば、次回アップグレードのときにも、原則としてquarterlyが選ばれるというわけ。</p>
+
+<p>これをコンサバティブアップグレード(conservative upgrade)といい、pkg.confでデフォルト有効になっている。</p>
+
+<pre><code class="language-console">CONSERVATIVE_UPGRADE: boolean
+    Ensure in multi repository mode that the priority is given
+    as much as possible to the repository where a package was
+    first installed from.  Default: YES.
+</code></pre>
+
+<p>説明を読むと;</p>
+
+<pre><code class="language-console">To override this
+  behaviour, on first installation of the package select the repository
+  with the appropriate version:
+     pkg install -r repo-a example-1.0.0
+  and then to make updates to that package ``sticky'' to the same reposi-
+  tory, set the value CONSERVATIVE_UPGRADE to true in pkg.conf.
+</code></pre>
+
+<p>「（常に高いバージョンを選ぶ）この動作を変更するには、最初のインストールで<br />
+-rオプションによりレポジトリを選ぶ。<br />
+その後のアップグレードで同じレポジトリを使うには、pkg.confの<br />
+CONSERVATIVE_UPGRADEでtrueを選べばよい。」</p>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/pkgng" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">pkgng</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2015-08-05-freebsd_10.2-release%E3%81%8B%E3%82%89%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%82%8Bpkg_quarterly%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0/">[FreeBSD] 10.2-RELEASEから適用されるpkg quarterlyてなんだ。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-01-03-freebsd%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%8B%E5%A5%B4%E3%81%AF1.4.3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%A6%E3%81%8A%E3%81%91/">[FreeBSD][メモ] pkgngで複数レポジトリ使ってる奴は1.4.3に上げておけ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-08-28-freebsd%E3%83%A1%E3%83%A2_pkg_1.3.7%E3%81%AB%E3%82%88%E3%82%8B%E5%95%8F%E7%AD%94%E7%84%A1%E7%94%A8%E3%81%AE%E5%85%A8%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%82%92%E9%81%BF%E3%81%91%E3%82%8B%E3%81%AB%E3%81%AF/">[FreeBSD][メモ] pkg 1.3.7による問答無用の全パッケージ再インストールを避けるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-08-09-freebsdpkgng%E3%83%A1%E3%83%A2_pkg%E3%82%921.2%E3%81%8B%E3%82%891.3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need_to_re-create_repo_freebsd_to_upgrade_schema_version/">[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-16-%E3%83%A1%E3%83%A2_freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] FreeBSD10にhadoopインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-23-freebsd_%E3%81%82%E3%82%8B%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AEpkg%E3%82%92%E3%81%94%E3%81%A3%E3%81%9D%E3%82%8A%E4%BB%96%E3%81%AE%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AB%E6%8C%81%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F%E3%81%AB%E3%81%AF/">[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-05-09-freebsd%E3%83%A1%E3%83%A2_aclaccess_control_lists%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B/">[FreeBSD][メモ] ACL（Access Control Lists）を有効にする</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

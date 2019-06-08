@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Xorg on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/xorg/</link>
+    <description>Recent content in Xorg on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Thu, 30 Jan 2014 19:31:10 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/xorg/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>FreeBSDへのMATEインストール</title>
+      <link>https://nobwak.github.io/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Thu, 30 Jan 2014 19:31:10 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>FreeBSDにMATEをpkgngでインストールしたので経緯を示す。 「メイト」って読んでたけどマテ茶のマテなのね。 私がFreeBSDをイン</description>
+    </item>
+    
+  </channel>
+</rss>

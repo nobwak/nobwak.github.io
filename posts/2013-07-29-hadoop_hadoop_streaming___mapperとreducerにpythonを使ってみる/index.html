@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [Hadoop] Hadoop Streaming / mapperとreducerにPythonを使ってみる。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[Hadoop] Hadoop Streaming / mapperとreducerにPythonを使ってみる。" />
+<meta property="og:description" content="HadoopはJavaで作られている。 だからHadoopに何か操作をさせたい場合には、通常、Javaで記述する必要がある。 しかしHadoop" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-07-29-hadoop_hadoop_streaming___mapper%E3%81%A8reducer%E3%81%ABpython%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B/" />
+<meta property="article:published_time" content="2013-07-29T23:30:38&#43;09:00"/>
+<meta property="article:modified_time" content="2013-07-29T23:30:38&#43;09:00"/>
+
+<meta itemprop="name" content="[Hadoop] Hadoop Streaming / mapperとreducerにPythonを使ってみる。">
+<meta itemprop="description" content="HadoopはJavaで作られている。 だからHadoopに何か操作をさせたい場合には、通常、Javaで記述する必要がある。 しかしHadoop">
+
+
+<meta itemprop="datePublished" content="2013-07-29T23:30:38&#43;09:00" />
+<meta itemprop="dateModified" content="2013-07-29T23:30:38&#43;09:00" />
+<meta itemprop="wordCount" content="1954">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Hadoop] Hadoop Streaming / mapperとreducerにPythonを使ってみる。"/>
+<meta name="twitter:description" content="HadoopはJavaで作られている。 だからHadoopに何か操作をさせたい場合には、通常、Javaで記述する必要がある。 しかしHadoop"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[Hadoop] Hadoop Streaming / mapperとreducerにPythonを使ってみる。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-07-29T23:30:38&#43;09:00">July 29, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>HadoopはJavaで作られている。<br />
+だからHadoopに何か操作をさせたい場合には、通常、Javaで記述する必要がある。<br />
+しかしHadoopにはHadoop Streamingという仕組みがあり、早い話UNIXのStandard Stream要するに標準入出力を扱うことができる。</p>
+
+<p>すなわち、UNIXの標準入出力の流儀に則ってさえいれば、お好きな言語で操作ができる。<br />
+Javaがまったく合わない私としては、Hadoop Streamはとてもありがたい。<br />
+これがなければHadoopに手を付ける気にはならなかった。</p>
+
+<h2 id="span-style-text-decoration-underline-hadoop-streamに必要なもの-span"><span style="text-decoration: underline;">Hadoop Streamに必要なもの。</span></h2>
+
+<p>mapperとreducerを、好きな言語で書くだけ。<br />
+べつにmapperだけでもよいけど。<br />
+私はPython。</p>
+
+<h2 id="span-style-text-decoration-underline-hadoop-streamにおけるmapperとreducerの概要-span"><span style="text-decoration: underline;">Hadoop streamにおけるmapperとreducerの概要。</span></h2>
+
+<p>mapperは何らかの入力を得て、キーと値（key, value）を出力する。<br />
+reducerはmapperからのkey, valueを受けて、keyごとにvalueを処理する。</p>
+
+<p>なお、mapperの出力がreducerに渡されるとき、Hadoopがkeyごとにソートしてくれる。<br />
+この点はreducerの処理を簡単にする。詳細は後述。</p>
+
+<h2 id="span-style-text-decoration-underline-試しにやってみること-span"><span style="text-decoration: underline;">試しにやってみること。</span></h2>
+
+<p>LAN向けのApacheのアクセス状況をカウントしてみる。<br />
+IPアドレスごとのアクセス回数だ。<br />
+ログは以下のようなもの。<br />
+アクセス元はすべてIPアドレスで記録されている。</p>
+
+<pre><code class="language-console">192.168.100.106 - - [24/Jul/2013:22:35:26 +0900] &quot;GET /MT/js/common/Editor/Iframe.js?v=5.14-ja HTTP/1.1&quot; 304 - &quot;http://192.168.100.5/MTcgi/mt.cgi?__mode=view&amp;_type=entry&amp;blog_id=2&amp;id=330&quot; &quot;Mozilla/5.0 (Windows NT 6.1; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0&quot;
+192.168.100.106 - - [24/Jul/2013:22:35:26 +0900] &quot;GET /MT/js/common/Editor/Textarea.js?v=5.14-ja HTTP/1.1&quot; 304 - &quot;http://192.168.100.5/MTcgi/mt.cgi?__mode=view&amp;_type=entry&amp;blog_id=2&amp;id=330&quot; &quot;Mozilla/5.0 (Windows NT 6.1; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0&quot;
+192.168.100.106 - - [24/Jul/2013:22:35:26 +0900] &quot;GET /MT/mt.js?v=5.14-ja HTTP/1.1&quot; 304 - &quot;http://192.168.100.5/MTcgi/mt.cgi?__mode=view&amp;_type=entry&amp;blog_id=2&amp;id=330&quot; &quot;Mozilla/5.0 (Windows NT 6.1; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0&quot;
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-処理の流れ-span"><span style="text-decoration: underline;">処理の流れ</span></h2>
+
+<p>1.mapperは、アクセスログからIPアドレスを抜き出す。<br />
+そして「＜IPアドレス＞＜タブ＞1」を出力する。<br />
+これは、たとえば「192.168.1.1」から「1」回アクセスがあったよ、という意味。</p>
+
+<p>2.hadoopがIPアドレスをキーにソート。</p>
+
+<p>3.reducerは、IPアドレスごとに回数をカウントし、<br />
+「＜IPアドレス＞＜タブ＞＜集計回数＞」を出力する。</p>
+
+<h2 id="span-style-text-decoration-underline-mapper-py-span"><span style="text-decoration: underline;">mapper.py</span></h2>
+
+<p>IPアドレスは、Apacheログにおいて、スペースを区切りにした第一フィールドに記載される。<br />
+だから一行ずつログを読んで、行頭のIPアドレスを抜き出し、その都度「＜IPアドレス＞＜タブ＞1」を出力する。<br />
+「if &ldquo;newsyslog&rdquo; not in line:」は、システムメッセージ行を読み飛ばすため。</p>
+
+<pre><code class="language-console">#!/usr/bin/env python
+
+import sys
+
+for line in sys.stdin:
+        if &quot;newsyslog&quot; not in line:
+                fields = line.strip().split()
+                print '%s\t%s' % (fields[0],1)
+</code></pre>
+
+<p>実行権限も忘れずにつける。</p>
+
+<pre><code class="language-console">$ chmod a+x ./mapper.py
+</code></pre>
+
+<p>実験。意図したとおり動いていますね。</p>
+
+<pre><code class="language-console">$ cat ../input/httpd-access.log |./mapper.py 
+
+192.168.100.107 1
+192.168.100.106 1
+192.168.100.110 1
+192.168.100.107 1
+192.168.100.107 1
+192.168.100.107 1
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-reducer-py-span"><span style="text-decoration: underline;">reducer.py</span></h2>
+
+<p>mapper.pyからの出力は、ソートされてreducer.pyに入力される。<br />
+上記のmapper.py出力例は、以下のようにソートされる。</p>
+
+<pre><code class="language-console">192.168.100.106 1
+192.168.100.107 1
+192.168.100.107 1
+192.168.100.107 1
+192.168.100.107 1
+192.168.100.110 1
+</code></pre>
+
+<p>だからreducerとしては、第一フィールドを上から読んでいって、keyが変化したら、そこまでのカウント数を出力する。<br />
+そしてそのkeyの事は、さっぱり忘れて次のkeyのカウントに移ることができる。<br />
+もしソートがなされていないならば、入力の終わりまですべてのkeyを保持しなければならない。Hadoopに感謝である。</p>
+
+<pre><code class="language-console">#!/usr/bin/env python
+
+import sys
+
+(last_key, count) = (None, 0)
+
+for line in sys.stdin:
+        (key, val) = line.strip().split(&quot;\t&quot;)
+
+        if last_key and last_key != key:
+                print &quot;%s\t%s&quot; % (last_key, count)
+                (last_key, count) = (key,int(val))
+        else:
+                last_key = key
+                count += int(val)
+
+if last_key:
+        print &quot;%s\t%s&quot; % (last_key, count)
+</code></pre>
+
+<p>実行権限を付ける。</p>
+
+<pre><code class="language-console">$ chmod a+x reducer.py
+</code></pre>
+
+<p>実験。間にsortを入れること。<br />
+問題なし。</p>
+
+<pre><code class="language-console">$ cat ../input/httpd-access.log |./mapper.py |sort|./reducer.py 
+
+127.0.0.1       567
+192.168.100.106 327
+192.168.100.107 671
+192.168.100.109 2
+192.168.100.150 193
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-hadoopで動かしてみよう-span"><span style="text-decoration: underline;">Hadoopで動かしてみよう。</span></h2>
+
+<p>まずカウント対象となるログをHDFSにコピーする。</p>
+
+<pre><code class="language-console">[hadoop@isis ~]$ hadoop dfs -put apachelog apachelog
+[hadoop@isis ~]$
+[hadoop@isis ~]$ hadoop dfs -ls
+Found 1 items
+drwxr-xr-x   - hadoop supergroup          0 2013-07-28 12:57 /user/hadoop/apachelog
+[hadoop@isis ~]$
+[hadoop@isis ~]$ hadoop dfs -ls apachelog
+Found 1 items
+-rw-r--r--   1 hadoop supergroup     999290 2013-07-28 12:57 /user/hadoop/apachelog/httpd-access.log
+[hadoop@isis ~]$
+</code></pre>
+
+<p>実行。</p>
+
+<p>hadoopにhadoop-streaming-1.0.0.jarを与え、input、outputのほかに、mapperとreducerも指定する。<br />
+-mapper -reducerとしてローカルファイルシステムでのパスを与える。<br />
+同時に、-fileでそれぞれのスクリプトを指定すると、スクリプトファイルをリモートのノードへ送ってくれる。</p>
+
+<p>コマンドはすごく長くなる。<br />
+エスケープシーケンスを使って適宜改行し、見やすくしてタイプミスを防ぐ。</p>
+
+<pre><code class="language-console">hadoop  jar \
+/usr/local/share/hadoop/contrib/streaming/hadoop-streaming-1.0.0.jar \
+    -input apachelog \
+    -output apachelog.out \
+    -mapper /home/hadoop/sandbox/mapper/mapper.py \
+    -reducer /home/hadoop/sandbox/mapper/reducer.py \
+    -file /home/hadoop/sandbox/mapper/mapper.py \
+    -file /home/hadoop/sandbox/mapper/reducer.py
+</code></pre>
+
+<p>実際のログ</p>
+
+<pre><code class="language-console">[hadoop@isis ~]$ hadoop  jar \
+&gt;    -output apachelog.out \
+&gt;    -mapper /home/hadoop/sandbox/mapper/mapper.py \
+&gt; /usr/local/share/hadoop/contrib/streaming/hadoop-streaming-1.0.0.jar \
+&gt;    -file /home/hadoop/sandbox/mapper/mapper.py \
+&gt;    -file /home/hadoop/sandbox/mapper/reducer.py \
+&gt;     -input apachelog \
+&gt;     -output apachelog.out \
+&gt;     -mapper /home/hadoop/sandbox/mapper/mapper.py \
+&gt;     -reducer /home/hadoop/sandbox/mapper/reducer.py \
+&gt;     -file /home/hadoop/sandbox/mapper/mapper.py \
+&gt;     -file /home/hadoop/sandbox/mapper/reducer.py
+
+packageJobJar: [/home/hadoop/sandbox/mapper/mapper.py, /home/hadoop/sandbox/mapper/reducer.py, /tmp/hadoop-hadoop/hadoop-unjar1190814954490199586/] [] /tmp/streamjob8960127756596123730.jar tmpDir=null
+13/07/28 13:30:15 INFO mapred.FileInputFormat: Total input paths to process : 1
+13/07/28 13:30:43 INFO streaming.StreamJob: getLocalDirs(): [/tmp/hadoop-hadoop/mapred/local]
+13/07/28 13:30:43 INFO streaming.StreamJob: Running job: job_201307281252_0001
+13/07/28 13:30:43 INFO streaming.StreamJob: To kill this job, run:
+13/07/28 13:30:43 INFO streaming.StreamJob: /usr/local/share/hadoop/bin/../bin/hadoop job  -Dmapred.job.tracker=localhost:8021 -kill job_201307281252_0001
+13/07/28 13:30:43 INFO streaming.StreamJob: Tracking URL: http://localhost:50030/jobdetails.jsp?jobid=job_201307281252_0001
+13/07/28 13:30:46 INFO streaming.StreamJob:  map 0%  reduce 0%
+13/07/28 13:39:14 INFO streaming.StreamJob:  map 100%  reduce 0%
+13/07/28 13:40:27 INFO streaming.StreamJob:  map 100%  reduce 33%
+13/07/28 13:40:33 INFO streaming.StreamJob:  map 100%  reduce 67%
+13/07/28 13:40:49 INFO streaming.StreamJob:  map 100%  reduce 100%
+13/07/28 13:42:39 INFO streaming.StreamJob: Job complete: job_201307281252_0001
+13/07/28 13:42:41 INFO streaming.StreamJob: Output: apachelog.out
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-結果の確認-span"><span style="text-decoration: underline;">結果の確認</span></h2>
+
+<p>hadoop dfs -catなどで。</p>
+
+<pre><code class="language-console">[hadoop@isis ~]$ hadoop dfs -ls
+Found 2 items
+drwxr-xr-x   - hadoop supergroup          0 2013-07-28 12:57 /user/hadoop/apachelog
+drwxr-xr-x   - hadoop supergroup          0 2013-07-28 13:42 /user/hadoop/apachelog.out
+[hadoop@isis ~]$
+[hadoop@isis ~]$ hadoop dfs -ls apachelog.out
+
+Found 3 items
+-rw-r--r--   1 hadoop supergroup          0 2013-07-28 13:42 /user/hadoop/apachelog.out/_SUCCESS
+drwxr-xr-x   - hadoop supergroup          0 2013-07-28 13:30 /user/hadoop/apachelog.out/_logs
+-rw-r--r--   1 hadoop supergroup       1438 2013-07-28 13:40 /user/hadoop/apachelog.out/part-00000
+[hadoop@isis ~]$
+[hadoop@isis ~]$ hadoop dfs -cat apachelog.out/part-00000
+
+127.0.0.1       567
+192.168.100.106 327
+192.168.100.107 671
+192.168.100.109 2
+192.168.100.150 193
+
+[hadoop@isis ~]$
+</code></pre>
+
+<p>以上</p>
+
+<p><a href="http://www.amazon.co.jp/gp/product/4873116295/ref=as_li_ss_il?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=4873116295&amp;linkCode=as2&amp;tag=harukiya00-22"><img class="resupvrypbhbbbqydwnn" alt="" src="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=4873116295&Format=_SL110_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=harukiya00-22" border="0" /></a><img class="resupvrypbhbbbqydwnn" style="border: none !important; margin: 0px !important;" alt="" src="http://ir-jp.amazon-adsystem.com/e/ir?t=harukiya00-22&l=as2&o=9&a=4873116295" width="1" height="1" border="0" /></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

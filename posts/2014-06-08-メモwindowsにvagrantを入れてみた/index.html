@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [メモ]WindowsにVagrantを入れてみた</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[メモ]WindowsにVagrantを入れてみた" />
+<meta property="og:description" content="タイトルの通り。 たかがインストールして使える状態にするまでだけで苦労したからだよ！ インストールした後はVagrantの使い方はこのあたり見た" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-06-08-%E3%83%A1%E3%83%A2windows%E3%81%ABvagrant%E3%82%92%E5%85%A5%E3%82%8C%E3%81%A6%E3%81%BF%E3%81%9F/" />
+<meta property="article:published_time" content="2014-06-08T00:05:08&#43;09:00"/>
+<meta property="article:modified_time" content="2014-06-08T00:05:08&#43;09:00"/>
+
+<meta itemprop="name" content="[メモ]WindowsにVagrantを入れてみた">
+<meta itemprop="description" content="タイトルの通り。 たかがインストールして使える状態にするまでだけで苦労したからだよ！ インストールした後はVagrantの使い方はこのあたり見た">
+
+
+<meta itemprop="datePublished" content="2014-06-08T00:05:08&#43;09:00" />
+<meta itemprop="dateModified" content="2014-06-08T00:05:08&#43;09:00" />
+<meta itemprop="wordCount" content="981">
+
+
+
+<meta itemprop="keywords" content="Vagrant,VM,Windows," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[メモ]WindowsにVagrantを入れてみた"/>
+<meta name="twitter:description" content="タイトルの通り。 たかがインストールして使える状態にするまでだけで苦労したからだよ！ インストールした後はVagrantの使い方はこのあたり見た"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[メモ]WindowsにVagrantを入れてみた</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-06-08T00:05:08&#43;09:00">June 8, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>タイトルの通り。<br />
+たかがインストールして使える状態にするまでだけで苦労したからだよ！<br />
+インストールした後はVagrantの使い方はこのあたり見たらいいわけですよ。</p>
+
+<p>Vagrant超入門：Vagrant初心者向けの解説だよ！<br />
+<a href="https://github.com/tmknom/study-vagrant" target="_blank"><a href="https://github.com/tmknom/study-vagrant">https://github.com/tmknom/study-vagrant</a></a></p>
+
+<h2 id="インストール">インストール</h2>
+
+<p>手順はここ <a href="http://docs.vagrantup.com/v2/getting-started/index.html" target="_blank"><a href="http://docs.vagrantup.com/v2/getting-started/index.html">http://docs.vagrantup.com/v2/getting-started/index.html</a> </a>参照。<br />
+<a href="http://www.vagrantup.com/" target="_blank"><a href="http://www.vagrantup.com/">http://www.vagrantup.com/</a></a> からインストーラをダウンロードしてとっととインストール<br />
+2014/6/7現在、ヴァージョンは1.6.3。</p>
+
+<h2 id="初期設定">初期設定</h2>
+
+<p>コマンドプロンプトを起動してinit。</p>
+
+<pre><code class="language-console">C:\Users\nobwak&gt;vagrant init hashicorp/precise32
+A `Vagrantfile` has been placed in this directory. You are now
+ready to `vagrant up` your first virtual environment! Please read
+the comments in the Vagrantfile as well as documentation on
+`vagrantup.com` for more information on using Vagrant.
+
+C:\Users\nobwak&gt;
+</code></pre>
+
+<p>そして起動&hellip;だが。</p>
+
+<pre><code class="language-console">C:\Users\nobwak&gt;vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==&gt; default: Box 'hashicorp/precise32' could not be found. Attempting to find an
+d install...
+    default: Box Provider: virtualbox
+    default: Box Version: &gt;= 0
+==&gt; default: Loading metadata for box 'hashicorp/precise32'
+    default: URL: https://vagrantcloud.com/hashicorp/precise32
+==&gt; default: Adding box 'hashicorp/precise32' (v1.0.0) for provider: virtualbox
+    default: Downloading: https://vagrantcloud.com/hashicorp/precise32/version/1
+/provider/virtualbox.box
+    default: Progress: 39% (Rate: 4070k/s, Estimated time remaining: 0:01:01)
+The executable 'bsdtar' Vagrant is trying to run was not
+found in the %PATH% variable. This is an error. Please verify
+this software is installed and on the path.
+</code></pre>
+
+<p>bsdtarがpathに入ってないとか文句を言うわけですよ。</p>
+
+<h2 id="解決法-再インストール">解決法..再インストール</h2>
+
+<p>なんと<a href="http://stackoverflow.com/questions/23543716/vagrant-error-when-running-vagrant-up-provider-docker" target="_blank">解決法</a>は再インストールだそうです。<br />
+嘘だろと思ったら本当に解決した。</p>
+
+<pre><code class="language-console">C:\Users\nobwak&gt;vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==&gt; default: Box 'hashicorp/precise32' could not be found. Attempting to find and install...
+    default: Box Provider: virtualbox
+    default: Box Version: &gt;= 0
+==&gt; default: Loading metadata for box 'hashicorp/precise32'
+    default: URL: https://vagrantcloud.com/hashicorp/precise32
+==&gt; default: Adding box 'hashicorp/precise32' (v1.0.0) for provider: virtualbox
+    default: Downloading: https://vagrantcloud.com/hashicorp/precise32/version/1
+/provider/virtualbox.box
+    default: Progress: 100% (Rate: 3345k/s, Estimated time remaining: --:--:--)
+==&gt; default: Successfully added box 'hashicorp/precise32' (v1.0.0) for 'virtualbox'!
+==&gt; default: Importing base box 'hashicorp/precise32'...
+==&gt; default: Matching MAC address for NAT networking...
+==&gt; default: Checking if box 'hashicorp/precise32' is up to date...
+==&gt; default: Setting the name of the VM: nobwak_default_1402067362695_84951
+==&gt; default: Clearing any previously set network interfaces...
+==&gt; default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+==&gt; default: Forwarding ports...
+    default: 22 =&gt; 2222 (adapter 1)
+==&gt; default: Booting VM...
+==&gt; default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2222
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+    default: Warning: Connection timeout. Retrying...
+==&gt; default: Machine booted and ready!
+==&gt; default: Checking for guest additions in VM...
+    default: The guest additions on this VM do not match the installed version of
+    default: VirtualBox! In most cases this is fine, but in rare cases it can
+    default: prevent things such as shared folders from working properly. If you see
+    default: shared folder errors, please make sure the guest additions within the
+    default: virtual machine match the version of VirtualBox you have installed on
+    default: your host and reload your VM.
+    default:
+    default: Guest Additions Version: 4.2.0
+    default: VirtualBox Version: 4.3
+==&gt; default: Mounting shared folders...
+    default: /vagrant =&gt; C:/Users/nobwak
+
+C:\Users\nobwak&gt;
+</code></pre>
+
+<p>このとき、Virtualboxに勝手に登録される。<br />
+<a href="../../../wp-content/uploads/2014/06/vagrantvbox01.png"><img class="alignnone size-thumbnail wp-image-2759" src="../../../wp-content/uploads/2014/06/vagrantvbox01-150x150.png" alt="vagrantvbox01" width="150" height="150" /><br />
+</a><br />
+さっそく繋いでみよう。</p>
+
+<h2 id="ssh接続-ダメ">ssh接続&hellip;ダメ。</h2>
+
+<p>vagrant sshで動かしたマシンにログインできるはずだが。</p>
+
+<pre><code class="language-console">C:\Users\nobwak&gt;vagrant ssh
+`ssh` executable not found in any directories in the %PATH% variable. Is an
+SSH client installed? Try installing Cygwin, MinGW or Git, all of which
+contain an SSH client. Or use your favorite SSH client with the following
+authentication information shown below:
+
+Host: 127.0.0.1
+Port: 2222
+Username: vagrant
+Private key: C:/Users/nobwak/.vagrant.d/insecure_private_key
+
+C:\Users\nobwak&gt;
+</code></pre>
+
+<p>sshがないからダメ。<br />
+だから適当なsshクライアントで繋ぐ。<br />
+上記のメッセージの通り、IPアドレスは127.0.0.1, ポートは2222。</p>
+
+<pre><code class="language-console">login as: vagrant
+vagrant@127.0.0.1's password:
+Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
+
+ * Documentation:  https://help.ubuntu.com/
+Welcome to your Vagrant-built virtual machine.
+Last login: Fri Sep 14 06:22:31 2012 from 10.0.2.2
+vagrant@precise32:~$
+</code></pre>
+
+<p>繋げましたな。<br />
+あとは消して終了。</p>
+
+<pre><code class="language-console">C:\Users\nobwak&gt;vagrant destroy
+    default: Are you sure you want to destroy the 'default' VM? [y/N] y
+==&gt; default: Forcing shutdown of VM...
+==&gt; default: Destroying VM and associated drives...
+
+C:\Users\nobwak&gt;
+</code></pre>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/vagrant" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Vagrant</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/vm" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">VM</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/windows" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Windows</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-05-09-pyinstaller%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9Fwindows%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84version_resource_file%E3%81%AE%E4%BD%9C%E3%82%8A%E3%81%8B%E3%81%9F/">PyInstallerで作ったWindowsアプリでバージョンを表示させたい（Version Resource Fileの作りかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-05-windows%E3%81%ABpyinstaller%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Windowsにpyinstallerをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/">Microsoft Security Essentialsをバッチで使おう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-06-%E3%83%A1%E3%83%A2_ms%E8%A3%BDoffice_2007%E4%BB%A5%E9%99%8D%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E3%83%93%E3%83%A5%E3%83%BC%E3%82%A2/">[メモ] MS製Office 2007以降ドキュメントビューア</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-27-windows%E3%81%AE%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E3%83%84%E3%83%BC%E3%83%AB/">Windowsのクリップボード操作系ツール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-02-windows%E3%81%A7curl%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFmicrosoft_security_essential%E3%81%AE%E5%AE%9A%E7%BE%A9%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92curl%E3%81%A7%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89/">Windowsでcurlを使おう。あるいはMicrosoft Security Essentialの定義ファイルをcurlでダウンロード。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

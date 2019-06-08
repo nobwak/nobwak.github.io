@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）" />
+<meta property="og:description" content="ある日、デスクトップ用途で使用しているFreeBSDマシンで、いきなりデスクトップ環境がブラックアウトしました。 ログを見たところこんな感じ。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-03-02-swap%E3%81%8C%E8%B6%B3%E3%82%89%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%A6%E3%82%AD%E3%83%AC%E3%81%9Ffreebsd%E3%81%AE%E6%80%96%E3%81%95%E3%81%AF%E7%95%B0%E5%B8%B8%E3%81%A8%E3%81%9D%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95/" />
+<meta property="article:published_time" content="2014-03-02T21:44:11&#43;09:00"/>
+<meta property="article:modified_time" content="2014-03-02T21:44:11&#43;09:00"/>
+
+<meta itemprop="name" content="swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）">
+<meta itemprop="description" content="ある日、デスクトップ用途で使用しているFreeBSDマシンで、いきなりデスクトップ環境がブラックアウトしました。 ログを見たところこんな感じ。">
+
+
+<meta itemprop="datePublished" content="2014-03-02T21:44:11&#43;09:00" />
+<meta itemprop="dateModified" content="2014-03-02T21:44:11&#43;09:00" />
+<meta itemprop="wordCount" content="974">
+
+
+
+<meta itemprop="keywords" content="FreeBSD," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）"/>
+<meta name="twitter:description" content="ある日、デスクトップ用途で使用しているFreeBSDマシンで、いきなりデスクトップ環境がブラックアウトしました。 ログを見たところこんな感じ。"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-03-02T21:44:11&#43;09:00">March 2, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>ある日、デスクトップ用途で使用しているFreeBSDマシンで、いきなりデスクトップ環境がブラックアウトしました。<br />
+ログを見たところこんな感じ。</p>
+
+<pre><code class="language-console">swap_pager_getswapspace(4): failed
+swap_pager_getswapspace(3): failed
+pid 1218 (mate-settings-daemo), uid 1001, was killed: out of swap space
+pid 1228 (mate-panel), uid 1001, was killed: out of swap space
+pid 1025 (clamd), uid 106, was killed: out of swap space
+pid 1203 (Xorg), uid 0, was killed: out of swap space
+</code></pre>
+
+<p>swapが足りなくて無実のプロセスを血祭りにした証拠であります。<br />
+恐ろしい。怖い。</p>
+
+<p>これは、ちょっと洒落にならんのじゃないかと思って、調べたのだが。<br />
+たとえば以下スレッドで議論が持ち上がってるようなんだけど、私の理解の限度を超えている。<br />
+<a href="http://lists.freebsd.org/pipermail/freebsd-current/2012-August/036080.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-current/2012-August/036080.html">http://lists.freebsd.org/pipermail/freebsd-current/2012-August/036080.html</a></a></p>
+
+<p>よろしい。<br />
+理解は諦めた。<br />
+対症療法的ではあるが、swapを後から補う方法はあるので、ここに採録。<br />
+なお、このようにswapが枯渇するのはよっぽどのこと。<br />
+末尾の後日談を参照の事。</p>
+
+<h2 id="span-style-text-decoration-underline-後から-スワップを追加する方法-span"><span style="text-decoration: underline;">「後から」スワップを追加する方法</span></h2>
+
+<p>ここに書いてある通り。<br />
+<a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html" target="_blank"><a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html">http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html</a></a></p>
+
+<p>ddでファイルを作り、それをswapとしてマウントする、という仕組み。<br />
+物理ディスクに余裕があれば、好きな容量を追加できる。</p>
+
+<h2 id="span-style-text-decoration-underline-現状確認-span"><span style="text-decoration: underline;">現状確認</span></h2>
+
+<p>まず、現状確認。<br />
+swapinfoでできる。</p>
+
+<pre><code class="language-console">$ swapinfo
+Device          1K-blocks     Used    Avail Capacity
+/dev/ada0s1b       524288    25960   498328     5%
+</code></pre>
+
+<p>500MBしか確保してなかった…。<br />
+古いマシンでOSアップグレードしながら使ってたからなあ。</p>
+
+<p>物理ディスクを確認。<br />
+7.2GBあるので、いっちょう奢って2GB確保しよう。</p>
+
+<pre><code class="language-console">$ df -h
+Filesystem     Size    Used   Avail Capacity  Mounted on
+/dev/ad4s1a     71G     58G    7.2G    89%    /
+devfs          1.0k    1.0k      0B   100%    /dev
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-swapファイルの作成-span"><span style="text-decoration: underline;">swapファイルの作成</span></h2>
+
+<p>ddでファイルを作る。<br />
+置き場所は物理ディスク上でも余裕のあるところにしよう。<br />
+以下の例では/var/cache下にファイルを作っている。<br />
+/var/cacheは/dev/ad4s1aの上に載っていて、上で確認した通り、容量も十分。</p>
+
+<pre><code class="language-console">$ sudo dd if=/dev/zero of=/var/cache/swapfile bs=1m count=2048
+パスワード:
+2048+0 records in
+2048+0 records out
+2147483648 bytes transferred in 45.843033 secs (46844275 bytes/sec)
+</code></pre>
+
+<p>念のためファイルのサイズ確認。<br />
+2GBになっている。</p>
+
+<pre><code class="language-console">$ du -sh /var/cache/swapfile
+2.0G    /var/cache/swapfile
+</code></pre>
+
+<p>オーナ、グループ、パーミッションを設定。</p>
+
+<pre><code class="language-console">$ sudo chmod 0600 /var/cache/swapfile
+$ sudo chown root:wheel /var/cache/swapfile
+$ ls -la /var/cache/swapfile
+-rw-------  1 root  wheel  2147483648  2月 10 17:20 /var/cache/swapfile
+</code></pre>
+
+<p>準備完了。</p>
+
+<h2 id="span-style-text-decoration-underline-swapファイルの追加-span"><span style="text-decoration: underline;">swapファイルの追加</span></h2>
+
+<p>以下のようにすればswapが増える。</p>
+
+<pre><code class="language-console">$ sudo mdconfig -a -t vnode -f /var/cache/swapfile -u 0 &amp;&amp; sudo swapon /dev/md0
+</code></pre>
+
+<p>おお二段になった。</p>
+
+<pre><code class="language-console">$ swapinfo
+Device          1K-blocks     Used    Avail Capacity
+/dev/ada0s1b       524288    25596   498692     5%
+/dev/md0          2097152        0  2097152     0%
+Total             2621440    25596  2595844     1%
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-etc-rc-confの修正-span"><span style="text-decoration: underline;">/etc/rc.confの修正</span></h2>
+
+<p>/etc/rc.confに以下を追加して、再起動しても設定が残るように。</p>
+
+<pre><code class="language-console"># add swapfile
+# See:
+# http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html
+swapfile=&quot;/var/cache/swapfile&quot;
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-後日談-span"><span style="text-decoration: underline;">後日談</span></h2>
+
+<p>swapの枯渇は、後から追加したソフトウェアが原因だった。<br />
+ソフトウェアを更新したらswapの枯渇はなくなった。</p>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/">[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDへのMATEインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/">EasyBotterをFreeBSDで動かす</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

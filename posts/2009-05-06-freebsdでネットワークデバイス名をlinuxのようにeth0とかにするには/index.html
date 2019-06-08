@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSDでネットワークデバイス名をLinuxのようにeth0とかにするには。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSDでネットワークデバイス名をLinuxのようにeth0とかにするには。" />
+<meta property="og:description" content="FreeBSDでは、読み込まれたドライバによってネットワークインターフェースのデバイス名が変化する。 たとえばIntelだったらfxp0とかB" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2009-05-06-freebsd%E3%81%A7%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E5%90%8D%E3%82%92linux%E3%81%AE%E3%82%88%E3%81%86%E3%81%ABeth0%E3%81%A8%E3%81%8B%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2009-05-06T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2009-05-06T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSDでネットワークデバイス名をLinuxのようにeth0とかにするには。">
+<meta itemprop="description" content="FreeBSDでは、読み込まれたドライバによってネットワークインターフェースのデバイス名が変化する。 たとえばIntelだったらfxp0とかB">
+
+
+<meta itemprop="datePublished" content="2009-05-06T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2009-05-06T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="303">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSDでネットワークデバイス名をLinuxのようにeth0とかにするには。"/>
+<meta name="twitter:description" content="FreeBSDでは、読み込まれたドライバによってネットワークインターフェースのデバイス名が変化する。 たとえばIntelだったらfxp0とかB"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSDでネットワークデバイス名をLinuxのようにeth0とかにするには。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-05-06T01:00:00&#43;09:00">May 6, 2009</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>FreeBSDでは、読み込まれたドライバによってネットワークインターフェースのデバイス名が変化する。
+
+
+
+たとえばIntelだったらfxp0とかBroadcomだったらbge0とか。
+
+
+
+実は自分の好きな名前に変えることができる。
+
+
+
+別に難しいことは何もなく、ifconfigのオプションに名前を指定するものがあるからそれを使うだけ。
+
+
+
+以下、manからの引用。
+</code></pre>
+
+<pre><code class="language-console">IFCONFIG(8)             FreeBSD System Manager's Manual            IFCONFIG(8)
+NAME
+ifconfig -- configure network interface parameters
+(略)
+The following parameters may be set with ifconfig:
+(略)
+name &lt;span style=&quot;font-style:italic;&quot;&gt;name&lt;/span&gt;
+Set the interface name to &lt;span style=&quot;font-style:italic;&quot;&gt;name&lt;/span&gt;.
+</code></pre>
+
+<pre><code>以下をrc.confに書いておけば、デバイス名fxp0がnet0に変更できる。
+</code></pre>
+
+<pre><code class="language-console">ifconfig_fxp0_name=&amp;#34;net0&amp;#34;
+ifconfig_net0=&amp;#34;DHCP&amp;#34;
+</code></pre>
+
+<pre><code>net0をeth0とすればLinux風に。
+
+
+
+以上FreeBSD-Questionsメーリングリストからのメモ。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ISOイメージのみでFreeBSDアップグレード</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ISOイメージのみでFreeBSDアップグレード" />
+<meta property="og:description" content="FreeBSDのSTABLEを追っかけたくても、PCが古くてbuildworldがつらい。 となると、1ヶ月に一度作られるsnapshotから" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2008-01-11-iso%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E3%81%BF%E3%81%A7freebsd%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/" />
+<meta property="article:published_time" content="2008-01-11T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2008-01-11T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="ISOイメージのみでFreeBSDアップグレード">
+<meta itemprop="description" content="FreeBSDのSTABLEを追っかけたくても、PCが古くてbuildworldがつらい。 となると、1ヶ月に一度作られるsnapshotから">
+
+
+<meta itemprop="datePublished" content="2008-01-11T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2008-01-11T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1634">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ISOイメージのみでFreeBSDアップグレード"/>
+<meta name="twitter:description" content="FreeBSDのSTABLEを追っかけたくても、PCが古くてbuildworldがつらい。 となると、1ヶ月に一度作られるsnapshotから"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ISOイメージのみでFreeBSDアップグレード</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-01-11T01:00:00&#43;09:00">January 11, 2008</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>FreeBSDのSTABLEを追っかけたくても、PCが古くてbuildworldがつらい。
+
+
+
+となると、1ヶ月に一度作られるsnapshotからインストールすることになるが、いちいちCDに焼いて、そこからブートするのも面倒。
+
+
+
+ということで、ISOイメージを使って、FreeBSDを7.0-BETA4からRC1にアップグレードしたときのメモ。
+
+
+
+無保証。
+
+
+
+謙遜で無保証と言ってる訳でなく、本当に無保証。
+
+
+
+これで合ってるのかどうか分からない。一応7.0current200709→current200710→BETA1→BETA2→RC1と歩いて来たけれども、マイナーバージョンアップグレードしかしてないから問題が出ていないだけの可能性も。
+
+
+
+
+
+
+◎全体のおおまかな流れ
+
+
+
+　1.ISOイメージのダウンロード
+
+
+
+　2.ISOイメージからファイルの取り出し。
+
+
+
+　3.schgフラグを外す
+
+
+
+　4.カーネルを展開
+
+
+
+　5.リブート
+
+
+
+　6./etcを除いたベースシステムを展開
+
+
+
+　7.mergemaster
+
+
+
+　8.リブート
+
+
+
+以下、実際の作業
+
+
+
+
+
+
+◎何はともあれ、バックアップ
+
+
+
+/etc配下のファイルと、カーネルをバックアップ
+</code></pre>
+
+<pre><code class="language-console"># cp -pR /etc /etc.080111
+# cp -pR /boot/kernel /boot/kernel.080111
+</code></pre>
+
+<pre><code>◎ISOイメージのマウント
+</code></pre>
+
+<pre><code class="language-console"># mdconfig -a -t vnode -f 7.0-RC1-i386-disc1.iso -u 10
+# /sbin/mount_cd9660 /dev/md10 /mnt
+</code></pre>
+
+<pre><code>◎必要なファイルのコピー
+
+
+
+カーネル、ユーザランド（て表現で合ってるのか？要するにworld部分）と、/etc配下ファイルのソースなど、必要なファイルをすべて抜き出しておく。これは、後でISOイメージをマウント出来るかどうか分からないため。
+
+
+
+配布ファイルは、フロッピーディスクでインストールしていた時代の名残で1.44Mごとに分割されているため、それを連結しどこかに置いておく。
+
+
+
+どこかとは言っても、後々、新しいカーネルでもマウントできるようなファイルシステムに置くこと。
+
+
+
+以下の例では、マニュアルページなどもついでにコピーしている。インストールが終わったら、改めてISOイメージをマウントし、install.shでコピーする手もあるが、そこは好き好きで。
+</code></pre>
+
+<pre><code class="language-console"># mkdir /usr/archive
+# cat /mnt/7.0-RC1/base/base.?? &gt; /usr/archive/base.tgz
+# cat /mnt/7.0-RC1/kernels/generic.?? &gt; /usr/archive/generic.tgz
+# cat /mnt/7.0-RC1/manpages/manpages.?? &gt; /usr/archive/manpages.tgz
+</code></pre>
+
+<pre><code>srcは下記のようにして/usr/src配下に展開しておく。
+</code></pre>
+
+<pre><code class="language-console"># cd /mnt/7.0-RC1/src
+# sh install.sh all
+Extracting sources into /usr/src...
+Extracting source component: ＜略＞
+Done extracting sources.
+</code></pre>
+
+<pre><code>◎schgフラグを外す
+
+
+
+システム上、重要なファイルはschgフラグがセットされ、rootであっても上書きできないようになっているので、そのフラグを外す。
+
+
+
+なお、システムのセキュリティレベルが1以上に設定されていると、フラグは変更できないので念のため。
+
+
+
+確認方法。詳しくはman security。
+</code></pre>
+
+<pre><code class="language-console"># sysctl kern.securelevel
+kern.securelevel: -1
+</code></pre>
+
+<pre><code>まずschgフラグがセットされているファイルを探す。こんな風にしてみた。
+</code></pre>
+
+<pre><code class="language-console"># find / -flags schg -exec ls -lo {} \; |cut -d ' ' -f 13 &gt; /tmp/flaglist
+</code></pre>
+
+<pre><code>/tmp/flaglistの中身はこんな感じ。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  /usr/bin/chpass
+
+
+
+  /usr/bin/chfn
+
+
+
+  /usr/bin/chsh
+
+
+
+  /usr/bin/login
+
+
+
+  /usr/bin/opieinfo
+
+
+
+  /usr/bin/opiepasswd
+
+
+
+  /usr/bin/passwd
+
+
+
+  /usr/bin/rlogin
+
+
+
+  /usr/bin/rsh
+
+
+
+  /usr/bin/su
+
+
+
+  /usr/bin/crontab
+
+
+
+  /usr/lib/libkse.so.3
+
+
+
+  /usr/lib/librt.so.1
+
+
+
+  /usr/sbin/sliplogin
+
+
+
+  /bin/rcp
+
+
+
+  /lib/libc.so.7
+
+
+
+  /lib/libcrypt.so.4
+
+
+
+  /lib/libthr.so.3
+
+
+
+  /libexec/ld-elf.so.1
+
+
+
+  /sbin/init
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>中身を確認して問題なければフラグを外す。xargs使うほどの量でもないけれども。
+</code></pre>
+
+<pre><code class="language-console"># xargs chflags noschg &amp;#60; /tmp/flaglist
+</code></pre>
+
+<pre><code>ていうか、/bin /usr/bin /sbin /usr/sbin/ /lib /usr/lib /libexec /usr/libexecあたりの配下ファイル全部に対してchflags noschgしちゃってもいい、というか早い。
+
+
+
+
+
+
+◎カーネルの展開
+
+
+
+先にコピーしておいたgeneric.tgzを展開。
+</code></pre>
+
+<pre><code class="language-console"># cd /usr/archive
+# tar -Upxvzf /usr/archive/generic.tgz
+</code></pre>
+
+<pre><code>念には念を入れてオリジナルのkernelをmvし、上で展開しておいた新kernelを/boot配下へ移動
+</code></pre>
+
+<pre><code class="language-console"># mv /boot/kernel /boot/kernel.orig
+# mv /usr/archive/GENERIC /boot/kernel
+</code></pre>
+
+<pre><code>◎リブート
+
+
+
+祈りつつリブートし、カーネルが正しく入れ替わっていることを確認。
+</code></pre>
+
+<pre><code class="language-console"># uname -a
+FreeBSD xxxx 7.0-RC1 FreeBSD 7.0-RC1 #0: Mon Dec 24 12:18:24 UTC 2007     root@logan.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC  i386
+</code></pre>
+
+<pre><code>RC1になってる。
+
+
+
+そもそもブートしなかったら/boot/kernel.orig/kernelから起動して、アップグレードは諦める。
+
+
+
+
+
+
+◎worldの展開
+
+
+
+いちばん緊張するところ。
+
+
+
+base.tgzを展開するが、気をつけないと/etcが上書きされて死亡するので、しっかり/etcをexcludeすること。
+</code></pre>
+
+<pre><code class="language-console"># /rescue/tar -Upxvzf /usr/archive/base.tgz -C / --exclude ./etc
+</code></pre>
+
+<pre><code>この後、mergemasterで新しい/etc配下ファイルとマージする。
+
+
+
+リブートして完了。
+
+
+
+あとは必要であればportsなど適当にアップグレード。
+
+
+
+以上。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

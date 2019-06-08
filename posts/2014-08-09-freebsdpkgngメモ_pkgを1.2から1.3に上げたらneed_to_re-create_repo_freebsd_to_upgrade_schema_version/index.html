@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version" />
+<meta property="og:description" content="pkgを1.2から1.3.xに上げたら以下のようなメッセージが出てupgradeができない。 $ sudo pkg upgrade Updating repository catalogue FreeBSD repository is up-to-date All repositories are up-to-date pkg: Repo FreeBSD needs schema upgrade from 2006 to" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-08-09-freebsdpkgng%E3%83%A1%E3%83%A2_pkg%E3%82%921.2%E3%81%8B%E3%82%891.3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need_to_re-create_repo_freebsd_to_upgrade_schema_version/" />
+<meta property="article:published_time" content="2014-08-09T21:13:29&#43;09:00"/>
+<meta property="article:modified_time" content="2014-08-09T21:13:29&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version">
+<meta itemprop="description" content="pkgを1.2から1.3.xに上げたら以下のようなメッセージが出てupgradeができない。 $ sudo pkg upgrade Updating repository catalogue FreeBSD repository is up-to-date All repositories are up-to-date pkg: Repo FreeBSD needs schema upgrade from 2006 to">
+
+
+<meta itemprop="datePublished" content="2014-08-09T21:13:29&#43;09:00" />
+<meta itemprop="dateModified" content="2014-08-09T21:13:29&#43;09:00" />
+<meta itemprop="wordCount" content="458">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,pkgng," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version"/>
+<meta name="twitter:description" content="pkgを1.2から1.3.xに上げたら以下のようなメッセージが出てupgradeができない。 $ sudo pkg upgrade Updating repository catalogue FreeBSD repository is up-to-date All repositories are up-to-date pkg: Repo FreeBSD needs schema upgrade from 2006 to"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-08-09T21:13:29&#43;09:00">August 9, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgを1.2から1.3.xに上げたら以下のようなメッセージが出てupgradeができない。</p>
+
+<pre><code class="language-console">$ sudo pkg upgrade
+Updating repository catalogue
+FreeBSD repository is up-to-date
+All repositories are up-to-date
+pkg: Repo FreeBSD needs schema upgrade from 2006 to 2010 but it is opened readonly
+pkg: need to re-create repo FreeBSD to upgrade schema version
+Checking for upgrades: 100%
+Checking integrity... done (0 conflicting)
+</code></pre>
+
+<p>need to re-create repo とか言いつつ、どうすればいいのか書いてないし。<br />
+調べたところ、pkg update -fすればいいとのこと。</p>
+
+<pre><code class="language-console">$ sudo pkg update -f
+Updating repository catalogue
+Fetching meta.txz: 100% of 944 B
+Fetching digests.txz: 100% of 1 MB
+Fetching packagesite.txz: 100% of 5 MB
+
+Adding new entries: 100%
+Incremental update completed, 23313 packages processed:
+0 packages updated, 0 removed and 23313 added.
+</code></pre>
+
+<p>incremental update completedとのこと。<br />
+この状態でpkg upgradeすると、確かに動いた。<br />
+表示も少し親切になっていますな。</p>
+
+<pre><code class="language-console">$ sudo pkg upgrade
+Updating repository catalogue
+FreeBSD repository is up-to-date
+All repositories are up-to-date
+Checking for upgrades: 100%
+The following 41 packages will be affected (of 0 checked):
+
+New packages to be INSTALLED:
+        libevent2: 2.0.21_2
+        i386-wine-devel: 1.7.23,1
+        p5-Mozilla-CA: 20130114
+
+Installed packages to be UPGRADED:
+        xproto: 7.0.25 -&gt; 7.0.26
+
+Installed packages to be REINSTALLED:
+        tevent-0.9.21 (options changed)
+
+
+The process will require 209 MB more space
+78 MB to be downloaded
+
+Proceed with this action [y/N]: y
+Fetching xproto-7.0.26.txz: 100% of 60 KB
+Fetching vim-lite-7.4.389.txz: 100% of 5 MB
+（略）
+</code></pre>
+
+<p>しかもconflictsを検知してくれるみたい。</p>
+
+<pre><code class="language-console">Checking integrity... done (1 conflicting)
+Checking integrity... done (0 conflicting)
+Conflicts with the existing packages have been found.
+One more solver iteration is needed to resolve them.
+The following 42 packages will be affected (of 0 checked):
+
+Installed packages to be REMOVED:
+        libevent-1.4.14b_3
+
+New packages to be INSTALLED:
+        p5-Mozilla-CA: 20130114
+        libevent2: 2.0.21_2
+        i386-wine-devel: 1.7.23,1
+
+Installed packages to be UPGRADED:
+        xproto: 7.0.25 -&gt; 7.0.26
+
+Installed packages to be REINSTALLED:
+        libxcb-1.10_2 (options changed)
+
+Proceed with this action [y/N]: y
+[1/42] Upgrading python27 from 2.7.6_4 to 2.7.8_2: 100%
+[2/42] Upgrading pcre from 8.34_1 to 8.34_2: 100%
+</code></pre>
+
+<p>以上。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/pkgng" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">pkgng</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-07-16-%E3%83%A1%E3%83%A2_freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] FreeBSD10にhadoopインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-23-freebsd_%E3%81%82%E3%82%8B%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AEpkg%E3%82%92%E3%81%94%E3%81%A3%E3%81%9D%E3%82%8A%E4%BB%96%E3%81%AE%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AB%E6%8C%81%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F%E3%81%AB%E3%81%AF/">[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-23-%E3%83%A1%E3%83%A2_samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E4%B8%80%E8%A6%A7%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] sambaのパスワードファイルに登録されているユーザ一覧を表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/">ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Pythonベースのプロジェクト管理ツール、tracのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-11-freebsd%E3%81%ABredmine%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%8F%96%E3%82%8A%E3%81%82%E3%81%88%E3%81%9A%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92%E3%82%8B%E3%81%A8%E3%81%93%E3%81%BE%E3%81%A7/">FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/">Poudriereのjailにセキュリティアップデートを適用</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-29-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0samba-virusfilter%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。samba-virusfilter編</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

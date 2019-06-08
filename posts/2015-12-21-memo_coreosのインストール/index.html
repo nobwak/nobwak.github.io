@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [memo] CoreOSのインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[memo] CoreOSのインストール" />
+<meta property="og:description" content="CoreOSを自分でインストールする。 目的は、VirtualBoxや、VMWarePlayer, vSphere(ESXi)等で動かす自前のC" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2015-12-21-memo_coreos%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2015-12-21T23:34:06&#43;09:00"/>
+<meta property="article:modified_time" content="2015-12-21T23:34:06&#43;09:00"/>
+
+<meta itemprop="name" content="[memo] CoreOSのインストール">
+<meta itemprop="description" content="CoreOSを自分でインストールする。 目的は、VirtualBoxや、VMWarePlayer, vSphere(ESXi)等で動かす自前のC">
+
+
+<meta itemprop="datePublished" content="2015-12-21T23:34:06&#43;09:00" />
+<meta itemprop="dateModified" content="2015-12-21T23:34:06&#43;09:00" />
+<meta itemprop="wordCount" content="1422">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[memo] CoreOSのインストール"/>
+<meta name="twitter:description" content="CoreOSを自分でインストールする。 目的は、VirtualBoxや、VMWarePlayer, vSphere(ESXi)等で動かす自前のC"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[memo] CoreOSのインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2015-12-21T23:34:06&#43;09:00">December 21, 2015</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>CoreOSを自分でインストールする。<br />
+目的は、VirtualBoxや、VMWarePlayer, vSphere(ESXi)等で動かす自前のCoreOSイメージを作成するため。</p>
+
+<h2 id="coreosの初期設定">CoreOSの初期設定</h2>
+
+<p>CoreOSはユーザアカウント等の初期設定をインストール時に一括で行う。<br />
+「一括で」とわざわざ書いたのには理由がある。<br />
+通常、LinuxやFreeBSDなどのインストールでは、インストール時に対話インタフェースが実行され、質問に答える形で各種設定を行う。<br />
+しかしCoreOSでは、あらかじめ準備した設定ファイルを、インストール時に指定する方法を採る。<br />
+つまり設定ファイルさえ書いておけば、コマンド一発でインストールができるということ。</p>
+
+<p>その設定ファイルがCloud-Config。</p>
+
+<h2 id="cloud-configの書き方">Cloud-Configの書き方</h2>
+
+<p>ここに記載がある。<br />
+ <a href="https://coreos.com/os/docs/latest/cloud-config.html" target="_blank"><a href="https://coreos.com/os/docs/latest/cloud-config.html">https://coreos.com/os/docs/latest/cloud-config.html</a></a></p>
+
+<p>いきなりここにあるすべての設定を書き込むのは、後述の手順を見てもかなり大変。<br />
+よって、必要最低限のものしか書かない。<br />
+具体的には、CoreOSにターミナルログインするユーザ設定のみ。<br />
+そこから先は、OSインストール後に実施する。</p>
+
+<h2 id="isoイメージでブート">ISOイメージでブート</h2>
+
+<p><a href="https://coreos.com/os/docs/latest/booting-with-iso.html" target="_blank"><a href="https://coreos.com/os/docs/latest/booting-with-iso.html">https://coreos.com/os/docs/latest/booting-with-iso.html</a></a><br />
+上記からダウンロード。<br />
+VirtualBoxでもなんでも、すきな仮想ソフトウェアに読み込ませて起動する。<br />
+なお、仮想マシン作成時、OSを選ぶ際には64bit Linuxを選んでおけばよい。</p>
+
+<h2 id="cloud-configを書く前に">Cloud-Configを書く前に</h2>
+
+<p>必要なのは、作業用アカウントの設定だけ。<br />
+したがって、ID、パスワード、作業用アカウントの権限くらいでよい。<br />
+当然のことながらパスワードを平文で保存するわけにはいかないから、mkpasswdを使ってハッシュ化したものを書き込むこと。</p>
+
+<h2 id="パスワードハッシュの生成">パスワードハッシュの生成</h2>
+
+<p>作業用アカウントのパスワードハッシュを生成する。<br />
+もちろん、SSHの公開鍵でもいいのだが、パスワードハッシュの方が楽。</p>
+
+<p>mkpasswdの使い方はmkpasswd -hで得られる。</p>
+
+<pre><code class="language-console">$ mkpasswd -h
+Usage: mkpasswd [OPTIONS]... [PASSWORD [SALT]]
+Crypts the PASSWORD using crypt(3).
+
+      -m, --method=TYPE     select method TYPE
+      -5                    like --method=md5
+      -S, --salt=SALT       use the specified SALT
+      -R, --rounds=NUMBER   use the specified NUMBER of rounds
+      -P, --password-fd=NUM read the password from file descriptor NUM
+                            instead of /dev/tty
+      -s, --stdin           like --password-fd=0
+      -h, --help            display this help and exit
+      -V, --version         output version information and exit
+
+If PASSWORD is missing then it is asked interactively.
+If no SALT is specified, a random one is generated.
+If TYPE is 'help', available methods are printed.
+</code></pre>
+
+<p>ハッシュ生成方法についてはmkpasswd -m helpで得られる。</p>
+
+<pre><code class="language-console">$ mkpasswd -m help
+Available methods:
+des     standard 56 bit DES-based crypt(3)
+md5     MD5
+sha-256 SHA-256
+sha-512 SHA-512
+</code></pre>
+
+<p>SHA-512までいけますね。<br />
+では、ハッシュ生成。<br />
+いったんテストして問題ないようなら、テキストファイルに書き込む。</p>
+
+<pre><code class="language-console">$ mkpasswd -m sha-512 avedakedavra
+$6$hIKFY6fnAE$gfpPpQu3rAcJMCeO3t93/3jUxVKBe7W/hC1.n5kwge3nnqsQngVnnoM8.jyWv/jYKbsJZoBm/6SSO7Ge4Zx/B0
+$ mkpasswd -m sha-512 avedakedavra &gt; cloud-config
+$
+</code></pre>
+
+<p>以上でカレントディレクトリのcloud-configが生成された。<br />
+あとはこのcloud-configに必要な設定を書き加えるだけ。</p>
+
+<h2 id="cloud-configの作成">Cloud-configの作成</h2>
+
+<p>設定ファイルの書式は<a href="https://ja.wikipedia.org/wiki/YAML" target="_blank">YAML</a>。<br />
+YAMLは人間の眼には易しいが、フォーマットが合っているか不安になる。<br />
+その場合はatom等で書いておいてもよい。ハイライトしてくれる<a href="https://atom.io/packages/language-yaml" target="_blank">パッケージもある</a>。</p>
+
+<p>そこで先述の通り必要最低限の記載だけする。<br />
+hostnameでホスト名、追加したいユーザと、そのユーザがsudoとdockerを使えるよう、groupに追加する。<br />
+以下のように。</p>
+
+<pre><code class="language-console">#cloud-config
+
+  hostname: &quot;coreos&quot;
+  users:
+    - name: &quot;nobwak&quot;
+      passwd: $6$hIKFY6fnAE$gfpPpQu3rAcJMC....
+      groups:
+        - &quot;sudo&quot;
+        - &quot;docker&quot;
+</code></pre>
+
+<h2 id="coreosのインストール">CoreOSのインストール</h2>
+
+<p>作成したcloud-configを指定してインストールすればよい。<br />
+-dでインストール先デバイスを、-Cでチャネルを、-cで先ほど作成したcloud-configを指定する。</p>
+
+<pre><code class="language-console">sudo coreos-install -d /dev/sda -C stable -c cloud-config
+</code></pre>
+
+<p>起動したら、作成したユーザでログインすることを確認する。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [zfs]ディスク交換、zpool容量の拡張</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[zfs]ディスク交換、zpool容量の拡張" />
+<meta property="og:description" content="HDDがいっぱいになってきたので容量の大きい別のHDDに移した。 zfsなのでmirrorをしつつ入れ替えができる。 その時のメモ。 端的に言えば" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2018-12-22-zfs%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E4%BA%A4%E6%8F%9Bzpool%E5%AE%B9%E9%87%8F%E3%81%AE%E6%8B%A1%E5%BC%B5/" />
+<meta property="article:published_time" content="2018-12-22T12:59:38&#43;09:00"/>
+<meta property="article:modified_time" content="2018-12-22T12:59:38&#43;09:00"/>
+
+<meta itemprop="name" content="[zfs]ディスク交換、zpool容量の拡張">
+<meta itemprop="description" content="HDDがいっぱいになってきたので容量の大きい別のHDDに移した。 zfsなのでmirrorをしつつ入れ替えができる。 その時のメモ。 端的に言えば">
+
+
+<meta itemprop="datePublished" content="2018-12-22T12:59:38&#43;09:00" />
+<meta itemprop="dateModified" content="2018-12-22T12:59:38&#43;09:00" />
+<meta itemprop="wordCount" content="1231">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[zfs]ディスク交換、zpool容量の拡張"/>
+<meta name="twitter:description" content="HDDがいっぱいになってきたので容量の大きい別のHDDに移した。 zfsなのでmirrorをしつつ入れ替えができる。 その時のメモ。 端的に言えば"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[zfs]ディスク交換、zpool容量の拡張</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-12-22T12:59:38&#43;09:00">December 22, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>HDDがいっぱいになってきたので容量の大きい別のHDDに移した。<br />
+zfsなのでmirrorをしつつ入れ替えができる。<br />
+その時のメモ。</p>
+
+<p>端的に言えばディスク交換後zpool online -eをすればよい。<br />
+以下、経緯。</p>
+
+<h3 id="ディスク追加">ディスク追加</h3>
+
+<p>2.5TのHDD, ada1上に作られたzpool、vaultがあり、残容量は150Gである。<br />
+もともとzfsは残容量が少なくなると格段にパフォーマンスが落ちると言われていて、これはちょっと危険な状態である。</p>
+
+<pre><code class="language-consoleell-session">  
+ada1 at ahcich1 bus 0 scbus1 target 0 lun 0  
+ada1: &lt;WDC WD25EZRX-00MMMB0 80.00A80&gt; ATA8-ACS SATA 3.x device  
+ada1: Serial Number WD-WMAWZ0230443  
+ada1: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)  
+ada1: Command Queueing enabled  
+ada1: 2384658MB (4883781168 512 byte sectors)  
+ada1: quirks=0x1&lt;4K&gt;
+
+# zpool status  
+pool: vault  
+state: ONLINE  
+scan: none requested  
+config:
+
+NAME STATE READ WRITE CKSUM  
+vault ONLINE 0 0 0  
+gpt/disk_01 ONLINE 0 0 0
+
+# zfs list  
+NAME USED AVAIL REFER MOUNTPOINT  
+vault 2.05T 150G 88K /vault  
+vault/chamber 1017G 150G 1017G /chamber  
+vault/itunes 1.06T 150G 1.05T /itunes
+</code></pre>
+
+<p>そこで、zpoolにmirrorとして容量の大きいディスクを追加し、その後オリジナルのディスクを外す、という手順。</p>
+
+<p>追加するのは以下のディスク。3T。<br />
+2.5Tから3Tじゃ焼け石に水ですがね&hellip;。</p>
+
+<pre><code class="language-console">ada2 at ahcich2 bus 0 scbus2 target 0 lun 0  
+ada2: &lt;WDC WD30EZRX-00D8PB0 80.00A80&gt; ACS-2 ATA SATA 3.x device  
+ada2: Serial Number WD-WMC4N0765033  
+ada2: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)  
+ada2: Command Queueing enabled  
+ada2: 2861588MB (5860533168 512 byte sectors)  
+ada2: quirks=0x1&lt;4K&gt;
+</code></pre>
+
+<p>既存のzpoolにmirrorとしてディスクを追加するには、zpool attachを使う。<br />
+zpool attachに続けてzpool名、既存ディスク、追加ディスクの順で指定。<br />
+以下の例では、ディスクの指定をada2などのデバイス名ではなくGPT名で行っている。</p>
+
+<pre><code class="language-csh"># zpool attach vault gpt/disk_01 gpt/disk_02
+</code></pre>
+
+<p>以下のようにzpoolがmirror構成になり、resilveringが始まる。</p>
+
+<pre><code class="language-csh">  
+# zpool status  
+pool: vault  
+status: One or more devices is currently being resilvered. The pool will  
+continue to function, possibly in a degraded state.  
+action: Wait for the resilver to complete.  
+scrub: resilver in progress for 0h0m, 0.01% done, 7h1m to go  
+config:
+
+NAME STATE READ WRITE CKSUM  
+vault ONLINE 0 0 0  
+mirror-0 ONLINE 0 0 0  
+gpt/disk_01 ONLINE 0 0 0  
+gpt/disk_02 ONLINE 0 0 0
+</code></pre>
+
+<p>しばらく待つと;</p>
+
+<pre><code class="language-console">pool: vault  
+state: ONLINE  
+scan: resilvered 2.04T in 6h48m with 0 errors on Sun Dec 16 19:15:11 2018  
+config:
+
+NAME STATE READ WRITE CKSUM  
+vault ONLINE 0 0 0  
+mirror-0 ONLINE 0 0 0  
+gpt/disk_01 ONLINE 0 0 0  
+gpt/disk_02 ONLINE 0 0 0
+</code></pre>
+
+<p>resilvering終了。</p>
+
+<h3 id="旧ディスクの除去">旧ディスクの除去</h3>
+
+<p>2.5Tと3Tのディスクでmirrorを構成しているので、当然ながら残容量に変化はない。</p>
+
+<pre><code class="language-console">NAME USED AVAIL REFER MOUNTPOINT  
+vault 2.05T 150G 88K /vault  
+vault/chamber 1017G 150G 1017G /chamber  
+vault/itunes 1.06T 150G 1.05T /itunes
+</code></pre>
+
+<p>では旧ディスクを外す。<br />
+mirrorからディスクを外すにはdetachを使う。<br />
+zpool detachに続けてzpool名、ディスク名を指定。</p>
+
+<pre><code class="language-csh">  
+# zpool detach vault gpt/disk_01  
+# zpool status  
+pool: vault  
+state: ONLINE  
+scan: resilvered 2.04T in 6h48m with 0 errors on Sun Dec 16 19:15:11 2018  
+config:
+
+NAME STATE READ WRITE CKSUM  
+vault ONLINE 0 0 0  
+gpt/disk_02 ONLINE 0 0 0
+
+errors: No known data errors
+</code></pre>
+
+<p>ご覧の通りmirror構成が解除される。</p>
+
+<h3 id="容量の拡張">容量の拡張</h3>
+
+<p>さてこの状態ではまだ残容量が増えない。</p>
+
+<pre><code class="language-console">  
+NAME USED AVAIL REFER MOUNTPOINT  
+vault 2.05T 150G 88K /vault  
+vault/chamber 1017G 150G 1017G /chamber  
+vault/itunes 1.06T 150G 1.05T /itunes
+</code></pre>
+
+<p>ただ物理ディスクは3Tなので、zpoolに「安心して容量を増やしたまえ」と通知する。<br />
+通知にはzpool online -eを使う。<br />
+zpool onlineは物理ディスクを有効にするコマンドだが、-eを付ければ、使用可能な領域をすべて使うようにできる。<br />
+manを以下に引用する。</p>
+
+<pre><code class="language-console">  
+zpool online [-e] pool device ...
+
+Brings the specified physical device online.
+
+This command is not applicable to spares or cache devices.
+
+-e Expand the device to use all available space. If the device  
+is part of a mirror or raidz then all devices must be  
+expanded before the new space will become available to the  
+pool.
+</code></pre>
+
+<p>ご覧の通り残容量が増えた。<br />
+たったの450Gだけど。</p>
+
+<pre><code class="language-consoleell-session"># zpool online -e vault gpt/disk_02  
+$ zfs list  
+NAME USED AVAIL REFER MOUNTPOINT  
+vault 2.05T 599G 88K /vault  
+vault/chamber 1017G 599G 1017G /chamber  
+vault/itunes 1.06T 599G 1.05T /itunes
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

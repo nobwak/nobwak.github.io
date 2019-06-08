@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [coreos]CoreOSインストール時に使ったcloud-configはどこに行ったの？</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[coreos]CoreOSインストール時に使ったcloud-configはどこに行ったの？" />
+<meta property="og:description" content="自分でCoreOSをインストールするときには、初期設定を書き込んだcloud-configを読み込ませる。 ファイル一つでOSの設定を全部、賄" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2016-02-15-coreoscoreos%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%AB%E4%BD%BF%E3%81%A3%E3%81%9Fcloud-config%E3%81%AF%E3%81%A9%E3%81%93%E3%81%AB%E8%A1%8C%E3%81%A3%E3%81%9F%E3%81%AE/" />
+<meta property="article:published_time" content="2016-02-15T22:20:43&#43;09:00"/>
+<meta property="article:modified_time" content="2016-02-15T22:20:43&#43;09:00"/>
+
+<meta itemprop="name" content="[coreos]CoreOSインストール時に使ったcloud-configはどこに行ったの？">
+<meta itemprop="description" content="自分でCoreOSをインストールするときには、初期設定を書き込んだcloud-configを読み込ませる。 ファイル一つでOSの設定を全部、賄">
+
+
+<meta itemprop="datePublished" content="2016-02-15T22:20:43&#43;09:00" />
+<meta itemprop="dateModified" content="2016-02-15T22:20:43&#43;09:00" />
+<meta itemprop="wordCount" content="677">
+
+
+
+<meta itemprop="keywords" content="coreos,docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[coreos]CoreOSインストール時に使ったcloud-configはどこに行ったの？"/>
+<meta name="twitter:description" content="自分でCoreOSをインストールするときには、初期設定を書き込んだcloud-configを読み込ませる。 ファイル一つでOSの設定を全部、賄"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[coreos]CoreOSインストール時に使ったcloud-configはどこに行ったの？</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2016-02-15T22:20:43&#43;09:00">February 15, 2016</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>自分でCoreOSをインストールするときには、初期設定を書き込んだcloud-configを読み込ませる。<br />
+ファイル一つでOSの設定を全部、賄えるとは、なんてお手軽なんだろう。</p>
+
+<p>あれ？<br />
+ではインストール後に、そういった設定を変更したい場合にはどうしたらよいのだろう。<br />
+もちろん、CoreOSだってLinuxなんだから、/etc下に設定ファイルが転がっているのは百も承知。<br />
+しかしCoreOSなんだから、一つのファイルで全部、管理したいじゃないか。</p>
+
+<p>インストール後のcloud-configの場所</p>
+
+<p>答え:<br />
+インストール時に使用したcloud-configは、/var/lib/coreos-install/user_dataに保存されているので、これを書き換えればよい。</p>
+
+<p>例。<br />
+インストール後に、CoreOSの更新方法を変える。<br />
+更新方法は/etc/coreos/update.confでも設定できるが、上述の理由から、敢えてuser_dateで操作する。</p>
+
+<p>では早速。<br />
+/var/lib/coreos-install/user_dataに以下の行を加えればよい。<br />
+※以下の例ではreboot-strategyにbest-effortを指定している。</p>
+
+<pre><code class="language-console">coreos:
+   update:
+     reboot-strategy: best-effort
+</code></pre>
+
+<p>CoreOSをリブートすると、/etc/coreos/update.confに以下の通り、最後の一行が増えている。</p>
+
+<pre><code class="language-console">$ cat update.conf
+GROUP=stable
+REBOOT_STRATEGY=best-effort
+</code></pre>
+
+<p>なお、CoreOSのバージョンは/etc/os-releaseに記載あり。</p>
+
+<pre><code class="language-console">$ cat /etc/os-release
+NAME=CoreOS
+ID=coreos
+VERSION=835.11.0
+VERSION_ID=835.11.0
+BUILD_ID=
+PRETTY_NAME=&quot;CoreOS 835.11.0&quot;
+ANSI_COLOR=&quot;1;32&quot;
+HOME_URL=&quot;https://coreos.com/&quot;
+BUG_REPORT_URL=&quot;https://github.com/coreos/bugs/issues&quot;
+</code></pre>
+
+<p>参考<br />
+<a href="https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md#update" target="_blank"><a href="https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md#update">https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md#update</a></a><br />
+<a href="https://coreos.com/os/docs/latest/update-strategies.html" target="_blank"><a href="https://coreos.com/os/docs/latest/update-strategies.html">https://coreos.com/os/docs/latest/update-strategies.html</a></a></p>
+
+<p><a href="https://coreos.com/os/docs/latest/cloud-config-locations.html" target="_blank"><a href="https://coreos.com/os/docs/latest/cloud-config-locations.html">https://coreos.com/os/docs/latest/cloud-config-locations.html</a></a><br />
+On every boot, coreos-cloudinit looks for a config file to configure your host. Here is a list of locations which are used by the Cloud-Config utility, depending on your CoreOS platform:</p>
+
+<p>/var/lib/coreos-install/user_data<br />
+When you install CoreOS manually using the coreos-install tool. Usually used in bare metal installations.</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/coreos" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">coreos</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/docker" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">docker</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2016-01-16-dockerdocker%E3%81%AEimage%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%97%E4%B8%8D%E8%A6%81%E3%81%AAimage%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B/">[docker]dockerのimageを更新し、不要なimageを削除する</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

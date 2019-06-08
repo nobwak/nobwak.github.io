@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | perlを5.8から5.10へ。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="perlを5.8から5.10へ。" />
+<meta property="og:description" content="perlのデフォルトバージョンが5.8から5.10に上がった。 /usr/ports/UPDATINGによれば2/5なんで、一ヶ月以上まえのこ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2010-03-26-perl%E3%82%925.8%E3%81%8B%E3%82%895.10%E3%81%B8/" />
+<meta property="article:published_time" content="2010-03-26T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2010-03-26T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="perlを5.8から5.10へ。">
+<meta itemprop="description" content="perlのデフォルトバージョンが5.8から5.10に上がった。 /usr/ports/UPDATINGによれば2/5なんで、一ヶ月以上まえのこ">
+
+
+<meta itemprop="datePublished" content="2010-03-26T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2010-03-26T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="377">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="perlを5.8から5.10へ。"/>
+<meta name="twitter:description" content="perlのデフォルトバージョンが5.8から5.10に上がった。 /usr/ports/UPDATINGによれば2/5なんで、一ヶ月以上まえのこ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">perlを5.8から5.10へ。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-03-26T01:00:00&#43;09:00">March 26, 2010</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>perlのデフォルトバージョンが5.8から5.10に上がった。
+
+
+
+/usr/ports/UPDATINGによれば2/5なんで、一ヶ月以上まえのことなんだが、perlと、perlに依存しているパッケージのリビルドが面倒でずっと放置していた。
+
+
+
+さすがに今であればpackagesも揃ってきたはずなので、重い腰をあげて作業。
+
+
+
+portsでなくpackagesで入れ替え。
+
+
+
+portupgradeとほぼ同等の機能をもっているのに、シェルスクリプトで書かれているので単体でインストールできるpkg_replaceを使った。
+</code></pre>
+
+<pre><code class="language-console">$ sudo pkg_replace -P perl=/usr/ports/lang/perl5.10
+---&gt;  Replacing &amp;#39;perl-5.8.9_3&amp;#39; with &amp;#39;perl-5.10.1&amp;#39;
+---&gt;  Fetching &amp;#39;ftp://ftp1.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7.3-re
+lease/All/perl-5.10.1.tbz&amp;#39;
+/usr/ports/packages/All/perl-5.10.1.tbz       100% of   13 MB  763 kBps 00m00s
+---&gt;  Found a package of &amp;#39;perl-5.10.1&amp;#39;: /usr/ports/packages/All/perl-5.10.1.tbz
+---&gt;  Backing up the old version
+（略）
+</code></pre>
+
+<pre><code>perlに依存しているものはすべて作り直せと書かれているが、必要なサービスは問題なく動いているようだったので、目についたものだけpkg_replace -Pで再インストールした。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

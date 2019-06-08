@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | インストールしたportsのpkgを作るには</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="インストールしたportsのpkgを作るには" />
+<meta property="og:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081118/p1&quot; target=&quot;_blank&quot;&gt;こんなこと&lt;/a&gt;があったので、やはり曲がりなりにもサーバたるもの" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2008-11-20-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9Fports%E3%81%AEpkg%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2008-11-20T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2008-11-20T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="インストールしたportsのpkgを作るには">
+<meta itemprop="description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081118/p1&quot; target=&quot;_blank&quot;&gt;こんなこと&lt;/a&gt;があったので、やはり曲がりなりにもサーバたるもの">
+
+
+<meta itemprop="datePublished" content="2008-11-20T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2008-11-20T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="911">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="インストールしたportsのpkgを作るには"/>
+<meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081118/p1&quot; target=&quot;_blank&quot;&gt;こんなこと&lt;/a&gt;があったので、やはり曲がりなりにもサーバたるもの"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">インストールしたportsのpkgを作るには</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-11-20T01:00:00&#43;09:00">November 20, 2008</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081118/p1&quot; target=&quot;_blank&quot;&gt;こんなこと&lt;/a&gt;があったので、やはり曲がりなりにもサーバたるもの、吊るしのpkgをインストールすることはやめようと思ったのだが、やっぱり時間がかかる。
+
+
+
+そこでメインマシンのVM上FreeBSDでビルドしたものをサーバマシンに移すことにした。
+
+
+
+ビルドするときにパッケージも作っておく方法はいくらでもあるが、すでにビルド済みのマシンでパッケージを作るのはあまり経験が無かったのでメモ。
+</code></pre>
+
+<pre><code class="language-console"># pkg_create -Rvb php5-5.2.6_2
+</code></pre>
+
+<pre><code>このように、バージョン名も含めてターゲットを指定すると、カレントディレクトリにpkgが作成されるので、それを移す。
+
+
+
+ただしmeta-portは指定出来ない。
+
+
+
+なお、Rオプションは、ターゲットのportsビルドに必要な別のportsのパッケージも作る指示。
+
+
+
+移動先マシンへのインストールが、ターゲットのportsだけでよいことがはっきりしている場合には、付けなくても可。
+
+
+
+以下が実行例。
+</code></pre>
+
+<pre><code class="language-console">$ pkg_create -Rvb php5-5.2.6_2
+Creating package php5-5.2.6_2
+Creating bzip'd tar ball in '/usr/home/flageo/php5-5.2.6_2.tbz'
+Creating package expat-2.0.1
+Creating bzip'd tar ball in '/usr/home/flageo/expat-2.0.1.tbz'
+Creating package perl-5.8.8_1
+Creating bzip'd tar ball in '/usr/home/flageo/perl-5.8.8_1.tbz'
+Creating package pkg-config-0.23_1
+Creating bzip'd tar ball in '/usr/home/flageo/pkg-config-0.23_1.tbz'
+Creating package sqlite3-3.6.4
+Creating bzip'd tar ball in '/usr/home/flageo/sqlite3-3.6.4.tbz'
+Creating package db41-4.1.25_4
+Creating bzip'd tar ball in '/usr/home/flageo/db41-4.1.25_4.tbz'
+Creating package libiconv-1.11_1
+Creating bzip'd tar ball in '/usr/home/flageo/libiconv-1.11_1.tbz'
+Creating package apache-2.2.9_5
+Creating bzip'd tar ball in '/usr/home/flageo/apache-2.2.9_5.tbz'
+Creating package libxml2-2.6.32_1
+Creating bzip'd tar ball in '/usr/home/flageo/libxml2-2.6.32_1.tbz'
+</code></pre>
+
+<pre><code>ところで、php5の場合はphp5-extensionsでインストールしたphp拡張機能も作っておく必要がある。
+
+
+
+冒頭で述べたように、pkg_createではphp5-extensionsのようなmeta-portは指定出来ない。
+
+
+
+そこでpkg_info -Ix php5として得られる一覧をpkg_createに渡すことを考えるが、pkg_createが取ることのできる引数は一つだけ。
+
+
+
+なのでxargsを使う。xargsで-n 1とすれば、引数を一つずつ渡してくれる。
+
+
+
+下記が実行例。-Rオプションはここでは外している。
+</code></pre>
+
+<pre><code class="language-console">$ pkg_info -Ix php5|cut -d&quot; &quot; -f 1 |xargs -n 1 pkg_create -vb
+Creating package php5-5.2.6_2
+Creating bzip'd tar ball in '/usr/home/flageo/php5-5.2.6_2.tbz'
+Creating package php5-bz2-5.2.6_2
+Creating bzip'd tar ball in '/usr/home/flageo/php5-bz2-5.2.6_2.tbz'
+（略）
+Creating package php5-zlib-5.2.6_2
+Creating bzip'd tar ball in '/usr/home/flageo/php5-zlib-5.2.6_2.tbz'
+</code></pre>
+
+<pre><code>こういうまだるっこしいことをせず、インストールされているportsのすべてをpkgにするには、pkg_infoにEaオプションを与えてpkg_createに渡す。
+</code></pre>
+
+<pre><code class="language-console">$ pkg_info -Ea|xargs -n 1 pkg_create -vb
+Creating package ORBit2-2.14.14
+Creating bzip'd tar ball in '/usr/home/flageo/ORBit2-2.14.14.tbz'
+Creating package aalib-1.4.r5_4
+Creating bzip'd tar ball in '/usr/home/flageo/aalib-1.4.r5_4.tbz'
+Creating package alacarte-0.11.5_1
+（略）
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Os X on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/os-x/</link>
+    <description>Recent content in Os X on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Fri, 25 Sep 2015 23:31:38 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/os-x/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[sh] オレオレ証明書作成シェルスクリプト</title>
+      <link>https://nobwak.github.io/posts/2015-09-25-sh_%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/</link>
+      <pubDate>Fri, 25 Sep 2015 23:31:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-09-25-sh_%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/</guid>
+      <description>すぐに作り方を忘れるので、シェルスクリプトを記録しておく。 変数OPENSSLにopensslをフルパスで与えること。 あとはchmod 755し</description>
+    </item>
+    
+    <item>
+      <title>sublimetext3でフォントを変えるには</title>
+      <link>https://nobwak.github.io/posts/2015-03-22-sublimetext3%E3%81%A7%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Sun, 22 Mar 2015 19:59:59 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-03-22-sublimetext3%E3%81%A7%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>https://www.sublimetext.com/docs/3/font.html を参照。 Preferences &amp;gt; Settings - User と進み、表示されたファイルに設定を書き込む。 書式は以下の通り。 &amp;quot;font_face&amp;quot;: &amp;quot;Courier New&amp;quot;, &amp;quot;font_size&amp;quot;: 10 私の設定ファイルの例。 { &amp;quot;color_scheme&amp;quot;: &amp;quot;Packages/User/SublimeLinter/Monokai (SL).tmTheme&amp;quot;, &amp;quot;font_face&amp;quot;: &amp;quot;VL ゴシック&amp;qu</description>
+    </item>
+    
+    <item>
+      <title>sublime textのpackaging controlをproxy越しで使うには</title>
+      <link>https://nobwak.github.io/posts/2015-03-20-sublime_text%E3%81%AEpackaging_control%E3%82%92proxy%E8%B6%8A%E3%81%97%E3%81%A7%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Fri, 20 Mar 2015 19:59:53 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-03-20-sublime_text%E3%81%AEpackaging_control%E3%82%92proxy%E8%B6%8A%E3%81%97%E3%81%A7%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF/</guid>
+      <description>proxy越しのpackage control（最初のインストール） package controlインストール用のコードを修正する。 定石通り、以下からインス</description>
+    </item>
+    
+    <item>
+      <title>rsyncのディレクトリ指定でエスケープの必要な文字を含めるには</title>
+      <link>https://nobwak.github.io/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 30 Oct 2014 22:52:56 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>先に結論:ダブルクオーテーションで括ればよい。 rsyncの対象ディレクトリでカッコ「()」など、エスケープの必要な文字の含まれているケースが</description>
+    </item>
+    
+    <item>
+      <title>[メモ] Windows, OS X(Mac)でフォルダ/ファイルのパスをクリップボードにコピーする</title>
+      <link>https://nobwak.github.io/posts/2014-09-29-%E3%83%A1%E3%83%A2_windows_os_xmac%E3%81%A7%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%91%E3%82%B9%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E3%81%AB%E3%82%B3%E3%83%94%E3%83%BC%E3%81%99%E3%82%8B/</link>
+      <pubDate>Mon, 29 Sep 2014 22:51:26 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-09-29-%E3%83%A1%E3%83%A2_windows_os_xmac%E3%81%A7%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%91%E3%82%B9%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E3%81%AB%E3%82%B3%E3%83%94%E3%83%BC%E3%81%99%E3%82%8B/</guid>
+      <description>たとえば仕事上、共有サーバにあるフォルダのパスを知らせたい、ということがある。 こういう時のために、フォルダのパスを簡単にクリップボードへコピ</description>
+    </item>
+    
+    <item>
+      <title>[メモ][OS X] Sublime textでShift-JISを扱うには</title>
+      <link>https://nobwak.github.io/posts/2014-09-28-%E3%83%A1%E3%83%A2os_x_sublime_text%E3%81%A7shift-jis%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Sun, 28 Sep 2014 15:49:40 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-09-28-%E3%83%A1%E3%83%A2os_x_sublime_text%E3%81%A7shift-jis%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/</guid>
+      <description>Sublime textはOS Xで使えるテキストエディタ。 Shift-JISが読めないが、Pluginで対応できる。 Pluginの名前はConvertTo</description>
+    </item>
+    
+    <item>
+      <title>[メモ] wxPythonがOS Xにインストールできない（解決）</title>
+      <link>https://nobwak.github.io/posts/2014-09-19-%E3%83%A1%E3%83%A2_wxpython%E3%81%8Cos_x%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E8%A7%A3%E6%B1%BA/</link>
+      <pubDate>Fri, 19 Sep 2014 23:29:59 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-09-19-%E3%83%A1%E3%83%A2_wxpython%E3%81%8Cos_x%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E8%A7%A3%E6%B1%BA/</guid>
+      <description>wxPythonはWindows, OS X, LinuxなどOSを問わずGUIアプリケーションを作ることのできる超絶ありがたいツールである。 あるのだ</description>
+    </item>
+    
+    <item>
+      <title>[メモ][Python][SQLite] 巨大なSQLiteデータベースからレコードを取り出すには</title>
+      <link>https://nobwak.github.io/posts/2014-09-14-%E3%83%A1%E3%83%A2pythonsqlite_%E5%B7%A8%E5%A4%A7%E3%81%AAsqlite%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Sun, 14 Sep 2014 21:06:48 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-09-14-%E3%83%A1%E3%83%A2pythonsqlite_%E5%B7%A8%E5%A4%A7%E3%81%AAsqlite%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF/</guid>
+      <description>PythonでSQLiteのデータベースからデータを抜き取るときには何種類か方法がある。 fetchallで一気に取得する方法 fetchone</description>
+    </item>
+    
+    <item>
+      <title>[メモ] sambaのパスワードファイルに登録されているユーザ一覧を表示するには</title>
+      <link>https://nobwak.github.io/posts/2014-07-23-%E3%83%A1%E3%83%A2_samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E4%B8%80%E8%A6%A7%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Wed, 23 Jul 2014 19:42:59 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-07-23-%E3%83%A1%E3%83%A2_samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E4%B8%80%E8%A6%A7%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>smbpasswdにはそういった機能がない。 pdbedit -Lを使う。 pdbeditとは manによれば「SAM database（sambaユーザデータベ</description>
+    </item>
+    
+    <item>
+      <title>Pythonがあればwebサーバを動かせる件について</title>
+      <link>https://nobwak.github.io/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Mon, 24 Feb 2014 23:43:49 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>Pythonがあれば、webサーバソフトウェアを追加することなくwebサーバを立ち上げることができる。 たいへん便利なのでメモしておく。 書式 Python</description>
+    </item>
+    
+    <item>
+      <title>[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</title>
+      <link>https://nobwak.github.io/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/</link>
+      <pubDate>Sun, 23 Feb 2014 13:13:06 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/</guid>
+      <description>cal/ncalにはイースター（復活祭）を表示するオプションがある。 私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に</description>
+    </item>
+    
+    <item>
+      <title>zfs snapshotの差分send/recvについて</title>
+      <link>https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Tue, 28 Jan 2014 22:33:29 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>zfs snapshotの差分send/recvについて zfsのバックアップは、snapshotを撮っておいて、自ホストの別zpool、あるいは他</description>
+    </item>
+    
+    <item>
+      <title>[メモ] grepでコメント行、空行以外の行を表示させるには</title>
+      <link>https://nobwak.github.io/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 16 Jan 2014 22:01:54 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>いつも忘れるのでメモ。 あるファイルから、コメント行と空行を除いて表示させるには。 コメント行なら&amp;rdquo;^ *#&amp;ldquo;がマッチ。 空</description>
+    </item>
+    
+    <item>
+      <title>iCalにGoogleのカレンダーを表示するには</title>
+      <link>https://nobwak.github.io/posts/2014-01-15-ical%E3%81%ABgoogle%E3%81%AE%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Wed, 15 Jan 2014 21:54:27 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-15-ical%E3%81%ABgoogle%E3%81%AE%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>メモ。 iCalにGoogleカレンダーの内容を表示させる方法について 事前準備 googleの二段階認証を有効にしている場合には、googleの</description>
+    </item>
+    
+  </channel>
+</rss>

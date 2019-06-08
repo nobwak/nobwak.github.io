@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSDでsmartmontoolsのインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSDでsmartmontoolsのインストール" />
+<meta property="og:description" content="ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。 FreeBSDではsysutils/sm" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-03-09-freebsd%E3%81%A7smartmontools%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2014-03-09T21:51:59&#43;09:00"/>
+<meta property="article:modified_time" content="2014-03-09T21:51:59&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSDでsmartmontoolsのインストール">
+<meta itemprop="description" content="ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。 FreeBSDではsysutils/sm">
+
+
+<meta itemprop="datePublished" content="2014-03-09T21:51:59&#43;09:00" />
+<meta itemprop="dateModified" content="2014-03-09T21:51:59&#43;09:00" />
+<meta itemprop="wordCount" content="3148">
+
+
+
+<meta itemprop="keywords" content="FreeBSD," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSDでsmartmontoolsのインストール"/>
+<meta name="twitter:description" content="ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。 FreeBSDではsysutils/sm"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSDでsmartmontoolsのインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-03-09T21:51:59&#43;09:00">March 9, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。<br />
+FreeBSDではsysutils/smartmontoolsからインストールできる。<br />
+smartmontoolsのインストール、実施例はいろんなところに書かれているので、ここではメモ程度にまとめる。</p>
+
+<p>FreeBSD 9.2-RELEASE-p3(i386), smartmontools-6.2_1での内容。</p>
+
+<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
+
+<p>portsもpkgもsysutils/smartmontoolsからインストールできる。<br />
+smartctlとsmartdが/usr/local/sbin/にインストールされる。</p>
+
+<p>smartctlがメインのコマンド。</p>
+
+<p>smartdがデーモンプログラム。<br />
+立ち上げておくと、定期的にディスクチェックを行い、結果をdaemonファシリティのログに書き込んでくれる。<br />
+必要であれば問題発生時にメールも送ってくれる。<br />
+設定ファイルは/usr/local/etc/smartd.conf。</p>
+
+<h2 id="span-style-text-decoration-underline-ディスクの確認-span"><span style="text-decoration: underline;">ディスクの確認</span></h2>
+
+<p>何はともあれ、どんなディスクが繋がっているか調べる。<br />
+smartctl -scanで得られる。<br />
+なお、SMARTにアクセスするには管理者権限が必要。<br />
+以下は実行例。<br />
+ここではHDDは/dev/ada0である。<br />
+環境により/dev/da0の場合もあるでしょう。</p>
+
+<pre><code class="language-console">$ sudo smartctl --scan
+/dev/ada0 -d atacam # /dev/ada0, ATA device
+/dev/cd0 -d atacam # /dev/cd0, ATA device
+</code></pre>
+
+<p>ディスクが分かったら、SMARTに対応しているかどうかを調べる。<br />
+smartctlでデバイスファイルを開いてみればよい。</p>
+
+<pre><code class="language-console">$ sudo smartctl /dev/ada0
+smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build)
+Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
+
+ATA device successfully opened
+
+Use 'smartctl -a' (or '-x') to print SMART (and more) information
+</code></pre>
+
+<p>大丈夫そう。</p>
+
+<h2 id="span-style-text-decoration-underline-smartからの情報の取得-span"><span style="text-decoration: underline;">SMARTからの情報の取得</span></h2>
+
+<p>smartctl -a ＜デバイスファイル＞で情報を全部、-xでSMART以外の情報も表示。</p>
+
+<p>実行例</p>
+
+<pre><code class="language-console">$ sudo smartctl -a /dev/ada0
+smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build)
+Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Model Family:     Seagate Barracuda 7200.10
+Device Model:     ST380815AS
+Serial Number:    5RW18X0V
+Firmware Version: 3.ADA
+User Capacity:    80,000,000,000 bytes [80.0 GB]
+Sector Size:      512 bytes logical/physical
+Device is:        In smartctl database [for details use: -P show]
+ATA Version is:   ATA/ATAPI-7 (minor revision not indicated)
+Local Time is:    Thu Feb 27 23:10:37 2014 JST
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+See vendor-specific Attribute list for marginal Attributes.
+（略）
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-ディスクのテスト実行-span"><span style="text-decoration: underline;">ディスクのテスト実行</span></h2>
+
+<p>smartctl -t short ＜デバイスファイル＞で実行する。<br />
+-tはテストの種類の指定。<br />
+shortと指定しているが、shortとくればlongもある。<br />
+それ以外にもある。<br />
+詳しくはman smartctl（「-test」で検索するとよい）。<br />
+shortだと10分以内、longだと数十分単位でのテスト。<br />
+運用中でも可能。</p>
+
+<p>上記のコマンドは、ディスクのSMARTに対して「テストをせい」と指示をするだけ。<br />
+コマンド叩いたときには、「何時何分ごろに終わるからね」と言うだけで結果は表示されない。<br />
+結果はsmartctl -aで確認する。<br />
+smartctl -Xでテストを中止する。</p>
+
+<p>以下実行例。</p>
+
+<pre><code class="language-console">$ sudo smartctl -t short /dev/ada0
+パスワード:
+smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build)
+Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF OFFLINE IMMEDIATE AND SELF-TEST SECTION ===
+Sending command: &quot;Execute SMART Short self-test routine immediately in off-line mode&quot;.
+Drive command &quot;Execute SMART Short self-test routine immediately in off-line mode&quot; successful.
+Testing has begun.
+Please wait 2 minutes for test to complete.
+Test will complete after Thu Feb 27 23:35:37 2014
+
+Use smartctl -X to abort test.
+
+$
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-結果確認-span"><span style="text-decoration: underline;">結果確認</span></h2>
+
+<p>smartctl -aで確認する。<br />
+見るのはSelf-test execution status、SMART Self-test logの二つのエリア</p>
+
+<p>以下の通り、「Self-test execution status」「SMART Self-test log」ともにエラーなし（without error）となっている。<br />
+なお、テスト実行をしてすぐsmartctl -aとすると、「いまテストしているところだよ」という表示になるので興味があればご覧ください。</p>
+
+<pre><code class="language-console">（前略）
+Self-test execution status:      (   0) The previous self-test routine completed
+                                        without error or no self-test has ever
+                                        been run.
+（略）
+SMART Self-test log structure revision number 1
+Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
+# 1  Short offline       Completed without error       00%     41957         -
+# 2  Short offline       Completed without error       00%     41956         -
+# 3  Short offline       Completed without error       00%         0         -
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-常時モニタリングのためのsmartd-span"><span style="text-decoration: underline;">常時モニタリングのためのsmartd</span></h2>
+
+<p>cronでsmartctlを実行してもよいけど、smartdを立ち上げおくのがよい。<br />
+テストの自動実行や、後述するようなディスクの変化についてもレポートしてくれる。<br />
+/usr/local/etc/smartd.confが設定ファイル。<br />
+デフォルトでは問題のあったときにしか報告してくれない。<br />
+日々のログを吐き出させたいのなら、syslogd, newsyslogの設定変更も必要。</p>
+
+<h2 id="span-style-text-decoration-underline-smartd-confの変更-span"><span style="text-decoration: underline;">smartd.confの変更</span></h2>
+
+<p>最低限やることは二つ。<br />
+①DEVICESCANはコメントアウト<br />
+②ディスクとテスト種別、スケジュールを指定。</p>
+
+<p><span style="text-decoration: underline;">①DEVICESCANのコメントアウト</span><br />
+デフォルトではDEVICESCANが有効になっている。<br />
+DEVICESCANがあると、smartdはそれ以降の設定をすべて無視して、実行される都度、デバイスのスキャンを行う。<br />
+それよりも、チェックするデバイスを明示した方がよい。</p>
+
+<p><span style="text-decoration: underline;">②ディスクとテスト種別、スケジュールを指定。</span><br />
+書式例は以下の通り。<br />
+＜ディスク＞　＜各種オプション＞　-s ＜スケジュール＞<br />
+実際の例は以下の通り。</p>
+
+<pre><code class="language-console">/dev/ada0 -a -o on -S on -s S/../.././02
+</code></pre>
+
+<p>＜ディスク＞にはデバイスファイルを指定。<br />
+＜各種オプション＞は以下の通り。<br />
+-a: ATAではデフォルト。全部入り。黙ってつけとけ。<br />
+-o: ATA専用。SMARTのオフラインテストを有効にするか。ONにしとけ。<br />
+-S: autosaveを有効にするか。ONにしとけ。<br />
+-s: T/MM/DD/d/HH でスケジュール指定。</p>
+
+<p><span style="text-decoration: underline;">T/MM/DD/d/HH</span><br />
+T: テストのタイプ。short（S）かlong（L）か。<br />
+MM: 月。01-12で指定。必ず二桁で指定。<br />
+DD: 日。01-31で指定。必ず二桁で指定。<br />
+d: 曜日。1が月曜、7が日曜。<br />
+HH: 時刻。00-23で指定。必ず二桁で指定。</p>
+
+<p>以下だと毎日の午前2時にshortのテストを実施。</p>
+
+<pre><code class="language-console">-s S/../.././02
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-syslogdの設定-span"><span style="text-decoration: underline;">syslogdの設定</span></h2>
+
+<p>smartdは、デフォルトではdaemonファシリティにログを吐く。<br />
+そのままだと使いにくいので、ログの出力先を変える。<br />
+たとえばlocal3ファシリティにする。<br />
+それには/etc/rc.confで、smartd_flagsとして指定する。</p>
+
+<p>/etc/rc.conf</p>
+
+<pre><code class="language-console">#SMART monitor tool
+smartd_enable=&quot;YES&quot; # マシン起動時にsmartdも起動させる設定
+smartd_flags=&quot; -l local3 &quot; # ログ出力先の指定
+</code></pre>
+
+<p>そうしておいて、/etc/syslog.confにて以下を追加。<br />
+/etc/syslog.conf</p>
+
+<pre><code class="language-console">#
+# smartd(smartmontools)
+#
+local3.*                                        /var/log/smartd.log
+</code></pre>
+
+<p>変更したらsyslogdを再起動。</p>
+
+<pre><code class="language-console">$ sudo service syslogd restart
+Stopping syslogd.
+Waiting for PIDS: 26185
+Starting syslogd.
+$
+</code></pre>
+
+<p>しかしこのままだとsmartd.logが際限なく大きくなる。<br />
+newsyslog.confにも変更を加える。</p>
+
+<h2 id="span-style-text-decoration-underline-newsyslog-confの設定-span"><span style="text-decoration: underline;">newsyslog.confの設定</span></h2>
+
+<p>以下を追加。<br />
+/etc/newsyslog.conf</p>
+
+<pre><code class="language-console">#
+# smartd(smartmontools)
+#
+/var/log/smartd.log                     640  10    1024 *     JC
+</code></pre>
+
+<p>1MBを超えたらログをローテート。bzipで圧縮。10個まで保存。圧縮後のパーミッションは640。</p>
+
+<p>終わったらnewsyslogを一回再起動しておくとよいかな。</p>
+
+<pre><code class="language-console">$ sudo service newsyslog restart
+Creating and/or trimming log files.
+$
+</code></pre>
+
+<p>やっと準備完了。<br />
+smartdを起動しよう。</p>
+
+<h2 id="span-style-text-decoration-underline-smartdの起動-span"><span style="text-decoration: underline;">smartdの起動</span></h2>
+
+<p>再掲になるけれども、/etc/rc.confを修正してsmartdを起動する。</p>
+
+<p>/etc/rc.conf</p>
+
+<pre><code class="language-console">#SMART monitor tool
+smartd_enable=&quot;YES&quot; # マシン起動時にsmartdも起動させる設定
+smartd_flags=&quot; -l local3 &quot; # ログ出力先の指定
+</code></pre>
+
+<p>smartdを起動する。</p>
+
+<pre><code class="language-console">$ sudo service smartd start
+Starting smartd.
+$
+</code></pre>
+
+<p>先ほど指定したログファイルを見る。</p>
+
+<pre><code class="language-console">$ cat /var/log/smartd.log
+Mar  4 22:17:59 ascomoid newsyslog[38905]: logfile first created
+Mar  4 22:26:32 ascomoid smartd[53036]: smartd 6.2 
+（略）
+Mar  4 22:26:32 ascomoid smartd[53038]: file /var/run/smartd.pid written containing PID 53038
+</code></pre>
+
+<p>動いていますね。</p>
+
+<p>ただこれだけでは、指定したディスクをチェックしてくれるか、分からない。<br />
+smartdはSIGUSR1シグナルを送ってやるとステータスチェックをしてくれるというので試してみよう。<br />
+なお、smartdのpidはさっきのログファイルに書いてあるし、あるいはservice smartd statusとやればpidを知ることができる。</p>
+
+<pre><code class="language-console">$ sudo kill -SIGUSR1 53038
+$
+</code></pre>
+
+<p>そのうえでログファイルを見てみると。<br />
+以下のような行が増えているはず。<br />
+/dev/ada0のチェックが出来ていますね。</p>
+
+<pre><code class="language-console">Mar  4 22:35:10 ascomoid smartd[53038]: Signal USR1 - checking devices now rather than in 682 seconds.
+Mar  4 22:35:10 ascomoid smartd[53038]: Device: /dev/ada0, SMART Usage Attribute: 190 Airflow_Temperature_Cel changed from 52 to 53
+Mar  4 22:35:10 ascomoid smartd[53038]: Device: /dev/ada0, SMART Usage Attribute: 194 Temperature_Celsius changed from 48 to 47
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-daily-status-span"><span style="text-decoration: underline;">daily status</span></h2>
+
+<p>以下のような行を/etc/periodic.confに追加するとレポートをroot宛てに送ってくれる。<br />
+複数ディスクの場合は、スペースで区切り。</p>
+
+<p><p class="lang:default decode:true">
+  daily_status_smart_devices=&ldquo;/dev/ada0&#8243;</p>
+
+<p>下記のようなメールが届く。</p>
+
+<pre><code class="language-console">SMART status:
+ Checking health of /dev/ada0: OK
+ Checking health of /dev/ada1: OK
+ Checking health of /dev/ada2: OK
+</code></pre>
+
+<p>以上。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-03-02-swap%E3%81%8C%E8%B6%B3%E3%82%89%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%A6%E3%82%AD%E3%83%AC%E3%81%9Ffreebsd%E3%81%AE%E6%80%96%E3%81%95%E3%81%AF%E7%95%B0%E5%B8%B8%E3%81%A8%E3%81%9D%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95/">swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/">[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDへのMATEインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/">EasyBotterをFreeBSDで動かす</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

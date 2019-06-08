@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | webdavを設定してみた</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="webdavを設定してみた" />
+<meta property="og:description" content="メモ。 apache22, subversionをインストールする。 subversionはpkgでなくportsからインストールして、オプション選択のところでm" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2009-12-26-webdav%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/" />
+<meta property="article:published_time" content="2009-12-26T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2009-12-26T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="webdavを設定してみた">
+<meta itemprop="description" content="メモ。 apache22, subversionをインストールする。 subversionはpkgでなくportsからインストールして、オプション選択のところでm">
+
+
+<meta itemprop="datePublished" content="2009-12-26T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2009-12-26T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="909">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="webdavを設定してみた"/>
+<meta name="twitter:description" content="メモ。 apache22, subversionをインストールする。 subversionはpkgでなくportsからインストールして、オプション選択のところでm"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">webdavを設定してみた</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-12-26T01:00:00&#43;09:00">December 26, 2009</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>メモ。
+
+
+
+apache22, subversionをインストールする。
+
+
+
+subversionはpkgでなくportsからインストールして、オプション選択のところでmod_dav_svnを選ばないとダメ。
+
+
+
+/usr/local/etc/apache22/httpd.confに以下の行があるか確認。
+
+
+
+subversionをインストールするときに勝手に加えてくれるはず。
+</code></pre>
+
+<pre><code class="language-console">LoadModule dav_module         libexec/apache22/mod_dav.so
+LoadModule dav_svn_module     libexec/apache22/mod_dav_svn.so
+LoadModule authz_svn_module   libexec/apache22/mod_authz_svn.so
+</code></pre>
+
+<pre><code>同じくhttpd.confで、httpd-dav.confを指定している行のコメントアウトを外す。
+</code></pre>
+
+<pre><code class="language-console"># Distributed authoring and versioning (WebDAV)
+#Include etc/apache22/extra/httpd-dav.conf
+Include etc/apache22/extra/httpd-dav.conf
+</code></pre>
+
+<pre><code>以降、/usr/local/etc/apache22/extra/httpd-dav.conf を参照したり編集したりする。
+</code></pre>
+
+<pre><code class="language-console"># The User/Group specified in httpd.conf needs to have write permissions
+# on the directory where the DavLockDB is placed and on any directory where
+# &amp;#34;Dav On&amp;#34; is specified.
+DavLockDB &amp;#34;/usr/local/var/DavLock&amp;#34;
+</code></pre>
+
+<pre><code>まずロックファイルを置くディレクトリの指定があるので、作る。
+
+
+
+パーミッションの設定も忘れないこと。
+
+
+
+以下、実行例。
+</code></pre>
+
+<pre><code class="language-console">$ sudo mkdir /usr/local/var/DavLock
+$ sudo chown www:www ./DavLock/
+$ sudo chmod 750 ./DavLock/
+$ ls -la
+total 8
+drwxr-xr-x   4 root  wheel  512 12 27 22:08 .
+drwxr-xr-x  16 root  wheel  512 12 26 21:49 ..
+drwxr-x---   2 www   www    512 12 27 22:08 DavLock
+</code></pre>
+
+<pre><code>次に実際のDavの場所、Davアクセスするためのパスワードファイルの場所指定。デフォルトが気に入らなければ変える。
+
+
+
+変えたらディレクトリは作っておくこと。
+
+
+
+以下、httpd-dav.confの変更例。
+</code></pre>
+
+<pre><code class="language-console">#Alias /uploads &amp;#34;/usr/local/uploads&amp;#34;
+Alias /uploads &amp;#34;/usr/local/www/uploads&amp;#34;
+</code></pre>
+
+<pre><code class="language-console">#&amp;#60;Directory &amp;#34;/usr/local/uploads&amp;#34;&gt;
+&amp;#60;Directory &amp;#34;/usr/local/www/uploads&amp;#34;&gt;
+# You can use the htdigest program to create the password database:
+#   htdigest -c &amp;#34;/usr/local/user.passwd&amp;#34; DAV-upload admin
+#AuthUserFile &amp;#34;/usr/local/user.passwd&amp;#34;
+AuthUserFile &amp;#34;/usr/local/www/dav.passwd&amp;#34;
+</code></pre>
+
+<pre><code>パスワードファイルの作成。
+
+
+
+ユーザがharukiya、realmがDAV-uploadの場合の例。初めてパスワードファイルを作るときは-cをつける。
+
+
+
+htdigestが使えるよ、と書いてあるので使ってみる。
+
+
+
+以下、実行例。
+</code></pre>
+
+<pre><code class="language-console">$sudo htdigest -c &amp;#34;/usr/local/www/dav.passwd&amp;#34; DAV-upload harukiya
+Adding password for harukiya in realm DAV-upload.
+New password:
+Re-type new password:
+</code></pre>
+
+<pre><code>デフォルトだと、誰でもwebdavディレクトリを見られて、書き込みはadminだけOK、ただしパスワード要という設定。
+
+
+
+とりあえず下記ではadminを上記でパスワードを設定したharukiyaに変更している。
+</code></pre>
+
+<pre><code class="language-console"># Allow universal read-access, but writes are restricted
+# to the admin user.
+&amp;#60;LimitExcept GET OPTIONS&gt;
+#require user admin
+require user harukiya
+&amp;#60;/LimitExcept&gt;
+</code></pre>
+
+<pre><code>あとは/etc/rc.confにapache22_enable=&quot;YES&quot;という一行を加え、/usr/local/etc/rc.d/apache22 startとやればOK。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

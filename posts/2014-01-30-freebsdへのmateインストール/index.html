@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSDへのMATEインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSDへのMATEインストール" />
+<meta property="og:description" content="FreeBSDにMATEをpkgngでインストールしたので経緯を示す。 「メイト」って読んでたけどマテ茶のマテなのね。 私がFreeBSDをイン" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2014-01-30T19:31:10&#43;09:00"/>
+<meta property="article:modified_time" content="2014-01-30T19:31:10&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSDへのMATEインストール">
+<meta itemprop="description" content="FreeBSDにMATEをpkgngでインストールしたので経緯を示す。 「メイト」って読んでたけどマテ茶のマテなのね。 私がFreeBSDをイン">
+
+
+<meta itemprop="datePublished" content="2014-01-30T19:31:10&#43;09:00" />
+<meta itemprop="dateModified" content="2014-01-30T19:31:10&#43;09:00" />
+<meta itemprop="wordCount" content="1630">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,Xorg," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSDへのMATEインストール"/>
+<meta name="twitter:description" content="FreeBSDにMATEをpkgngでインストールしたので経緯を示す。 「メイト」って読んでたけどマテ茶のマテなのね。 私がFreeBSDをイン"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSDへのMATEインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-01-30T19:31:10&#43;09:00">January 30, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>FreeBSDにMATEをpkgngでインストールしたので経緯を示す。<br />
+「メイト」って読んでたけどマテ茶のマテなのね。<br />
+私がFreeBSDをインストールしているマシンはやや古めで、GNOME3だと荷が重い。<br />
+そこでGNOME2後継のMATEにした。<br />
+デザインなど、やっぱり物足りない点はあるけれど満足している。<br />
+デスクトップ用途としてはそんなに使わないしね。<br />
+(追記)<br />
+この記事は一ヶ月ほどまえに書いたものです。<br />
+FreeBSD 10.o-RELEASEが公式アナウンスされた1/21(JST)の時点では、公式pkgリポジトリにmateが、加えてxorgすらもありません。<br />
+pkgリポジトリは一週間に一回の頻度で更新されますが、その都度全体的な整合性が保証されるわけではありません。<br />
+したがって、あるpackageがリポジトリに現れたり消えたりすることは、ままあることです。<br />
+mateやxorgなどの大量に依存を抱えるソフトウェアをすべてpkgで扱うのは、現時点では難しいようです。<br />
+(追記ここまで)<br />
+(2014/1/30さらに追記)<br />
+現時点でpkgにmateはあるけれども、今度はavahi-daemonがコアダンプするとかもうね…。<br />
+(追記ここまで)</p>
+
+<h2 id="span-style-text-decoration-underline-mateとは-span"><span style="text-decoration: underline;">MATEとは</span></h2>
+
+<p>Wikipediaから引用</p>
+
+<blockquote>
+<p>MATE (マテ、スペイン語発音: [ˈmate])はGNOME 2のコードからフォークされたデスクトップ環境である。</p>
+
+<p>従来のデスクトップメタファーをGNOME Shellによる新しいインターフェースで置き換えたGNOME 3はLinuxコミュニティの一部から批判を受けた。多くのユーザーは新しいGNOMEを受け入れることを拒否し、GNOME 2の開発を継続する者を求めた。MATEプロジェクトはあるArch Linuxユーザー[3]によってこのタスクを行うために立ち上げられた。</p>
+</blockquote>
+
+<p>MATE(wikipedia)<br />
+<a href="http://ja.wikipedia.org/wiki/MATE_%28%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%92%B0%E5%A2%83%29" target="_blank"><a href="http://ja.wikipedia.org/wiki/MATE_%28%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%92%B0%E5%A2%83%29">http://ja.wikipedia.org/wiki/MATE_%28%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%92%B0%E5%A2%83%29</a></a></p>
+
+<p>公式サイトはこちら。<br />
+MATE(公式)<br />
+<a href="http://mate-desktop.org/" target="_blank"><a href="http://mate-desktop.org/">http://mate-desktop.org/</a></a></p>
+
+<h2 id="span-style-text-decoration-underline-freebsdへのインストールについて-span"><span style="text-decoration: underline;">FreeBSDへのインストールについて</span></h2>
+
+<p>pkgngに用意されているので、コマンド一発でインストールできる。</p>
+
+<p>ただ、注意点が一つ。<br />
+mateにはログインマネジャーが付属しない。<br />
+おすすめはslim。xdmでも可。<br />
+gdmはおすすめしない。</p>
+
+<p>理由。<br />
+gdmはGNOMEアプリケーションだから。（せっかくGNOMEからフォークしてるのに）<br />
+以下にmateをFreeBSDにportしてくれた人のコメントを引用。</p>
+
+<blockquote>
+<p>Q: Why you won&rsquo;t check on GDM?<br />
+A: Because it&rsquo;s a GNOME applications and I do not want to install any<br />
+extra dependency. :-) But if MATE folks fork the GDM and yes I will<br />
+work on it.</p>
+</blockquote>
+
+<p>引用元<br />
+<a href="http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027576.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027576.html">http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027576.html</a></a></p>
+
+<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
+
+<p>Xorgはインストールされている前提。<br />
+$ sudo pkg install mate とするだけ。<br />
+ログを取り忘れたので出力例は割愛。</p>
+
+<p>slimもインストールする。<br />
+slimは本体の他にテーマもインストールする。<br />
+-fで調べてみると以下の様な結果。</p>
+
+<pre><code class="language-console">$ pkg search -f slim-1.3.5_3
+slim-1.3.5_3
+Name : slim
+Version : 1.3.5_3
+Origin : x11/slim
+Architecture : freebsd:9:x86:32
+Prefix : /usr/local
+Categories : x11
+Licenses : GPLv2
+Maintainer : henry.hu.sh@gmail.com
+WWW : http://slim.berlios.de/
+Comment : Graphical login manager for X11, derived from Login.app
+Options :
+PAM : on
+（略）Description :
+SLiM is a desktop-independent graphical login manager for X11, derived from Login.app by Per Liden.
+It aims to be light and simple, although completely configurable through
+themes and an option file; is suitable for machines on which remote login functionalities are not needed.
+WWW: http://slim.berlios.de/
+</code></pre>
+
+<p>インストール。</p>
+
+<pre><code class="language-console">$ sudo pkg install slim
+Updating repository catalogue
+The following 1 packages will be installed:
+
+Installing slim: 1.3.5_3
+
+The installation will require 467 kB more space
+
+257 kB to be downloaded
+
+Proceed with installing packages [y/N]: y
+slim-1.3.5_3.txz 100% 258KB 257.9KB/s 97.9KB/s 00:01
+Checking integrity... done
+[1/1] Installing slim-1.3.5_3... done
+*************************************************************************
+
+Thanks to Nikos Ntarmos, it is now possible to start slim from /etc/ttys.
+Please see /usr/local/etc/rc.d/slim for instructions on how to do that.
+</code></pre>
+
+<p>テーマもインストール</p>
+
+<pre><code class="language-console">$ pkg search -f slim-themes-1.0.1
+slim-themes-1.0.1
+Name : slim-themes
+Version : 1.0.1
+Origin : x11-themes/slim-themes
+Architecture : freebsd:9:x86:32
+Prefix : /usr/local
+Categories : x11-themes
+Maintainer : rea@FreeBSD.org
+WWW : http://slim.berlios.de/themes01.php
+Comment : Theme pack for SLiM login app
+Options :
+ALL_THEMES : on
+ARCHLINUX_SIMPLE: on
+CAPERNOITED : on
+DEBIAN_MOREBLUE: on
+FINGERPRINT : on
+FLAT : on
+FLOWER2 : on
+FREEBSD : on
+GENTOO_SIMPLE : on
+GNEWSENSE : on
+LAKE : on
+LUNAR_LINUX : on
+MINDLOCK : on
+PARALLEL_DIMS : on
+RAINBOW : on
+REAR_WINDOW : on
+SCOTLAND_ROAD : on
+SUBWAY : on
+WAVE : on
+ZENWALK : on
+Flat size : 5.33MiB
+Pkg size : 4 MB
+Description :
+Theme pack for the SLiM X login application.
+
+WWW: http://slim.berlios.de/themes01.php
+</code></pre>
+
+<pre><code class="language-console">$ sudo pkg install slim-themes-1.0.1
+
+Updating repository catalogue
+The following 1 packages will be installed:
+
+Installing slim-themes: 1.0.1
+
+The installation will require 5 MB more space
+
+4 MB to be downloaded
+
+Proceed with installing packages [y/N]: y
+slim-themes-1.0.1.txz 100% 5021KB 279.0KB/s 311.5KB/s 00:18
+Checking integrity... done
+[1/1] Installing slim-themes-1.0.1... done
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-設定-span"><span style="text-decoration: underline;">設定</span></h2>
+
+<p>以下メールの手順に沿うだけ。とっても簡単。<br />
+<a href="http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027575.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027575.html">http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027575.html</a></a></p>
+
+<p>具体的には/etc/rc.confの修正と、ホームディレクトリ.xinitrcの修正。<br />
+/etc/rc.conf</p>
+
+<pre><code class="language-console">dbus_enable=&quot;YES&quot;
+hald_enable=&quot;YES&quot;
+avahi_daemon_enable=&quot;YES&quot;
+avahi_dnsconfd_enable=&quot;YES&quot;
+slim_enable=&quot;YES&quot;
+</code></pre>
+
+<p>dbusからavahiまでの順番は重要。入れ替えないこと。<br />
+gdm_enableがあれば削るかコメントアウトすること。</p>
+
+<p>~/.xnitrc</p>
+
+<pre><code class="language-console">exec mate-session
+</code></pre>
+
+<p>再起動すればおしまい。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/xorg" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Xorg</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/">EasyBotterをFreeBSDで動かす</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-02-freebsd-current%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AFpanicmail%E3%82%92%E3%81%84%E3%81%BE%E3%81%99%E3%81%90%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">FreeBSD-currentユーザはpanicmailをいますぐインストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/">[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSD(FreeNAS)にPlex Media Serverをインストール</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

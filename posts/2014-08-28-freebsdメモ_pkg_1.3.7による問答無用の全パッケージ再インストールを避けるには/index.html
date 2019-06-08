@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD][メモ] pkg 1.3.7による問答無用の全パッケージ再インストールを避けるには</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD][メモ] pkg 1.3.7による問答無用の全パッケージ再インストールを避けるには" />
+<meta property="og:description" content="pkgを1.3.7にアップグレードすると、インストール済み全パッケージの再インストールが求められる。 この回避方法について示す。 そもそも、なん" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-08-28-freebsd%E3%83%A1%E3%83%A2_pkg_1.3.7%E3%81%AB%E3%82%88%E3%82%8B%E5%95%8F%E7%AD%94%E7%84%A1%E7%94%A8%E3%81%AE%E5%85%A8%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%82%92%E9%81%BF%E3%81%91%E3%82%8B%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2014-08-28T22:50:15&#43;09:00"/>
+<meta property="article:modified_time" content="2014-08-28T22:50:15&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD][メモ] pkg 1.3.7による問答無用の全パッケージ再インストールを避けるには">
+<meta itemprop="description" content="pkgを1.3.7にアップグレードすると、インストール済み全パッケージの再インストールが求められる。 この回避方法について示す。 そもそも、なん">
+
+
+<meta itemprop="datePublished" content="2014-08-28T22:50:15&#43;09:00" />
+<meta itemprop="dateModified" content="2014-08-28T22:50:15&#43;09:00" />
+<meta itemprop="wordCount" content="1209">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,pkgng," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD][メモ] pkg 1.3.7による問答無用の全パッケージ再インストールを避けるには"/>
+<meta name="twitter:description" content="pkgを1.3.7にアップグレードすると、インストール済み全パッケージの再インストールが求められる。 この回避方法について示す。 そもそも、なん"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD][メモ] pkg 1.3.7による問答無用の全パッケージ再インストールを避けるには</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-08-28T22:50:15&#43;09:00">August 28, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>pkgを1.3.7にアップグレードすると、インストール済み全パッケージの再インストールが求められる。<br />
+この回避方法について示す。</p>
+
+<p>そもそも、なんでそんな事になっているかというと。<br />
+端的に言って、パッケージシステムでのshared libraryの扱いに難があったため、1.3.7でキッチリ修正したのだと。<br />
+その影響で、何も知らずにパッケージをアップグレードしようとすると、「shared libraryに変更があったため」と全パッケージを再インストールしようとしてしまう。</p>
+
+<p>もちろん、別に全部再インストールしたって問題ないわけだが、帯域も時間も電気ももったいないので、再インストールを必要最低限に止める方法が公儀から発表された次第である。</p>
+
+<p>詳細は以下をご覧あれ。</p>
+
+<p><a href="http://lists.freebsd.org/pipermail/freebsd-ports-announce/2014-August/000086.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-ports-announce/2014-August/000086.html">http://lists.freebsd.org/pipermail/freebsd-ports-announce/2014-August/000086.html</a></a></p>
+
+<h2 id="手順1-なにはともあれpkgを1-3-7に">手順1.なにはともあれpkgを1.3.7に</h2>
+
+<p>2014/8/28現在である。</p>
+
+<pre><code class="language-console">$ sudo pkg update
+Updating repository catalogue
+Fetching meta.txz: 100% of 944 B
+Fetching digests.txz: 100% of 2 MB
+Fetching packagesite.txz: 100% of 5 MB
+Removing expired entries: 100%
+Adding new entries: 100%
+Incremental update completed, 23466 packages processed:
+23297 packages updated, 133 removed and 76 added.
+
+$ pkg version -vRL=|grep pkg
+pkg-1.3.6                          &lt;   needs updating (remote has 1.3.7)
+</code></pre>
+
+<p>キター。<br />
+さっそくpkgをアップグレードする。</p>
+
+<pre><code class="language-console">$ sudo pkg upgrade pkg
+パスワード:
+Updating repository catalogue
+Fetching meta.txz: 100% of 944 B
+Fetching digests.txz: 100% of 2 MB
+Fetching packagesite.txz: 100% of 5 MB
+
+Incremental update completed, 23466 packages processed:
+0 packages updated, 0 removed and 0 added.
+
+New version of pkg detected; it needs to be installed first.
+The following 1 packages will be affected (of 0 checked):
+
+Installed packages to be UPGRADED:
+        pkg: 1.3.6 -&gt; 1.3.7
+
+The process will require 9 KB more space
+2 MB to be downloaded
+
+Proceed with this action [y/N]:y
+
+Fetching pkg-1.3.7.txz: 100% of 2 MB
+Checking integrity... done (0 conflicting)
+[1/1] Upgrading pkg from 1.3.6 to 1.3.7: 100%
+Updating repository catalogue
+Fetching meta.txz: 100% of 944 B
+Fetching digests.txz: 100% of 2 MB
+Fetching packagesite.txz: 100% of 5 MB
+
+Incremental update completed, 23466 packages processed:
+0 packages updated, 0 removed and 0 added.
+
+Checking integrity...
+ done (0 conflicting)
+Your packages are up to date
+$
+</code></pre>
+
+<p>オゲ。</p>
+
+<h2 id="手順2-レポジトリカタログの強制更新とパッケージ解析">手順2.レポジトリカタログの強制更新とパッケージ解析</h2>
+
+<p>pkgをアップグレードした瞬間にレポジトリカタログの更新も走っている。<br />
+したがって、もう一回pkg updateする必要はないのだが、念のため手順に沿ってもう一回やる。</p>
+
+<pre><code class="language-console">$ sudo pkg update -f
+Updating FreeBSD repository catalogue...
+Fetching meta.txz: 100%   944 B   0.9k/s    00:01
+Fetching digests.txz: 100%    2 MB 291.4k/s    00:07
+Fetching packagesite.txz: 100%    5 MB 294.8k/s    00:18
+Processing new repository entries: 100%
+FreeBSD repository update completed. 23466 packages processed:
+  0 updated, 0 removed and 23466 added.
+$
+</code></pre>
+
+<p>当たり前だがアップデートも削除もなし。<br />
+次。<br />
+手順によるとpkg check -Baせよと。<br />
+これは何かというと、下記の通りインストール済みshared librariesを解析するものだそうな。<br />
+つまりこの解析の結果、全ファイル再インストールという事態を避けられるわけですな？</p>
+
+<p>以下、-B, -aのオプション説明をmanから抜粋。</p>
+
+<pre><code class="language-console">pkg check -B or pkg check --shlibs is used to reanalyse shared libraries
+     of installed packages.
+
+     -a, --all     Process all packages.
+</code></pre>
+
+<p>実行…するが、ひょっとすると時間がかかるかも。<br />
+仮想マシン、かつ750個くらいパッケージがある状態で1時間近くかかった。<br />
+しかし実マシン（hp microserver）、120個くらいで2分。<br />
+パッケージの数、装置スペックによって前後するだろうが覚悟のこと。</p>
+
+<p>改めて実行。</p>
+
+<pre><code class="language-console">$ sudo pkg check -Ba
+Checking all packages:  37%
+pkg: fstat() failed for(/usr/local/include/cdio++/enum.hpp): No such file or directory
+pkg: fstat() failed for(/usr/local/include/cdio++/mmc.hpp): No such file or directory
+pkg: fstat() failed for(/usr/local/include/cdio++/read.hpp): No such file or directory
+pkg: fstat() failed for(/usr/local/include/cdio/udf_file.h): No such file or directory
+pkg: fstat() failed for(/usr/local/lib/libcdio++.so): No such file or directory
+pkg: fstat() failed for(/usr/local/lib/libcdio.so): No such file or directory
+pkg: fstat() failed for(/usr/local/lib/libiso9660++.so): No such file or directory
+pkg: fstat() failed for(/usr/local/lib/libiso9660.so): No such file or directory
+pkg: fstat() failed for(/usr/local/lib/libudf.so): No such file or directory
+Checking all packages: 100%
+$
+</code></pre>
+
+<p>あとは通常通りpkg upgradeでよい。<br />
+理不尽な再インストールを求められることもありません。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/pkgng" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">pkgng</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-08-09-freebsdpkgng%E3%83%A1%E3%83%A2_pkg%E3%82%921.2%E3%81%8B%E3%82%891.3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need_to_re-create_repo_freebsd_to_upgrade_schema_version/">[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-16-%E3%83%A1%E3%83%A2_freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] FreeBSD10にhadoopインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-23-freebsd_%E3%81%82%E3%82%8B%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AEpkg%E3%82%92%E3%81%94%E3%81%A3%E3%81%9D%E3%82%8A%E4%BB%96%E3%81%AE%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AB%E6%8C%81%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F%E3%81%AB%E3%81%AF/">[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-23-%E3%83%A1%E3%83%A2_samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E4%B8%80%E8%A6%A7%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] sambaのパスワードファイルに登録されているユーザ一覧を表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/">ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Pythonベースのプロジェクト管理ツール、tracのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-11-freebsd%E3%81%ABredmine%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%8F%96%E3%82%8A%E3%81%82%E3%81%88%E3%81%9A%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92%E3%82%8B%E3%81%A8%E3%81%93%E3%81%BE%E3%81%A7/">FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/">Poudriereのjailにセキュリティアップデートを適用</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

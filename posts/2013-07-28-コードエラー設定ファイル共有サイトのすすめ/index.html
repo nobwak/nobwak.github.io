@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | コード、エラー、設定ファイル共有サイトのすすめ</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="コード、エラー、設定ファイル共有サイトのすすめ" />
+<meta property="og:description" content="sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-07-28-%E3%82%B3%E3%83%BC%E3%83%89%E3%82%A8%E3%83%A9%E3%83%BC%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/" />
+<meta property="article:published_time" content="2013-07-28T23:00:32&#43;09:00"/>
+<meta property="article:modified_time" content="2013-07-28T23:00:32&#43;09:00"/>
+
+<meta itemprop="name" content="コード、エラー、設定ファイル共有サイトのすすめ">
+<meta itemprop="description" content="sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ">
+
+
+<meta itemprop="datePublished" content="2013-07-28T23:00:32&#43;09:00" />
+<meta itemprop="dateModified" content="2013-07-28T23:00:32&#43;09:00" />
+<meta itemprop="wordCount" content="1600">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="コード、エラー、設定ファイル共有サイトのすすめ"/>
+<meta name="twitter:description" content="sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">コード、エラー、設定ファイル共有サイトのすすめ</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-07-28T23:00:32&#43;09:00">July 28, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p><a href="http://sprunge.us" target="_blank">sprunge.us</a>というサービスがあるのを、いまさら知って驚いてそして大感謝した。<br />
+以下に顛末を記す。</p>
+
+<h2 id="span-style-text-decoration-underline-sprunge-usってなんだ-span"><span style="text-decoration: underline;">sprunge.usってなんだ。</span></h2>
+
+<p>ブラウザでsprunge.usを開くと、manページのような見てくれで何か間違えたかと二度見するようなサイトなのだが、よく見ると凄い事が書いてある。</p>
+
+<p>何らかのコマンドの標準出力をsprunge.usに食わすと、URLが返る。<br />
+そのURLへアクセスすると、先の出力結果が見えるというわけ。</p>
+
+<h2 id="span-style-text-decoration-underline-sprunge-usの使い方-span"><span style="text-decoration: underline;">sprunge.usの使い方</span></h2>
+
+<p>使い方といっても上記の通りなんだが、やってみるのが早い。<br />
+uname -aの結果を食べさせてみる。</p>
+
+<pre><code class="language-console">$ uname -a | curl -F 'sprunge=&lt;-' http://sprunge.us
+http://sprunge.us/CTQL
+</code></pre>
+
+<p>返ってきたURL、<a href="http://sprunge.us/CTQL" target="_blank"><a href="http://sprunge.us/CTQL">http://sprunge.us/CTQL</a></a>にアクセスしていただくと、uname -aの結果、すなわち我輩の鯖の詳細が分かる。</p>
+
+<h2 id="span-style-text-decoration-underline-使いどころ-span"><span style="text-decoration: underline;">使いどころ</span></h2>
+
+<p>このサービスの何が便利なのか。<br />
+sprunge.usを使うことで、エラーや設定ファイル、ちょっとしたスクリプト、ソースを手軽に共有できる。</p>
+
+<p>たとえば私が、あるサーバが意図した動作をせず困っているときに、助けを求めるとする。<br />
+助けを求める相手が、twitterにいるとする。<br />
+twitterには140文字しか書けないので、エラー、使用している設定ファイルの中身をすべて貼り付けるのは無理がある。<br />
+ではどこかのサイト（いわゆるアップローダと言われているサイトなど）にアップロードするか？それも面倒。<br />
+そこでコマンドラインからsprunge.usにアップロードし、そのURLを相手に送る。</p>
+
+<p>これは便利じゃありませんかみなさん。<br />
+まあ、助けを求める相手がいる限りにおいてですが。</p>
+
+<h2 id="span-style-text-decoration-underline-いつまで残るの-span"><span style="text-decoration: underline;">いつまで残るの・・・？</span></h2>
+
+<p>sprungeに載せた内容はいつまで残るのか。<br />
+調べてみたけど、ちょっと分からなかった。<br />
+末尾で触れるpastebinだと、残す期間を選べたりするのだが。</p>
+
+<h2 id="span-style-text-decoration-underline-やってもうた時は-span"><span style="text-decoration: underline;">やってもうた時は？</span></h2>
+
+<p>共有すべきでない内容をsprunge.usしてしまった時はどうするのだろうか。<br />
+これも検索したけど分からない。<br />
+センシティブな情報、IDとかパスワードとかが含まれそうな場合は、後述のpastbinの方がよいかも。</p>
+
+<h2 id="span-style-text-decoration-underline-sprungeをもっと便利に使う-span"><span style="text-decoration: underline;">sprungeをもっと便利に使う。</span></h2>
+
+<p>まずですね、aliasを設定しましょう。<br />
+こんな長いの、いちいちタイプできんですよ。<br />
+設定したらすぐ確かめるのが紳士のたしなみ。ここだとaliasを引数なしですぐさま叩く。</p>
+
+<pre><code class="language-console">$ alias sprunge=&quot;curl -F 'sprunge=&lt;-' http://sprunge.us&quot;
+$ alias
+alias sprunge='curl -F '\''sprunge=&lt;-'\'' http://sprunge.us'
+</code></pre>
+
+<p>テストして問題なければ、シェルに合わせた初期設定ファイルに書き込んでおく。<br />
+~/.profileとか。</p>
+
+<h2 id="span-style-text-decoration-underline-sprungeはファイルの内容だってok-span"><span style="text-decoration: underline;">sprungeはファイルの内容だってOK。</span></h2>
+
+<p>sprungeは標準出力を受け付けるので、ファイルの内容だって貼り付けられる。<br />
+FreeBSDのftpd起動シェルスクリプトで試してみよう。<br />
+どうせなら、上記で作成したaliasで。</p>
+
+<pre><code class="language-console">$ cat /etc/rc.d/ftpd | sprunge
+http://sprunge.us/LQCZ
+</code></pre>
+
+<p><a href="http://sprunge.us/LQCZ" target="_blank"><a href="http://sprunge.us/LQCZ">http://sprunge.us/LQCZ</a></a> どうだろうか。</p>
+
+<h2 id="span-style-text-decoration-underline-構文強調と行番号表示もできる-span"><span style="text-decoration: underline;">構文強調と行番号表示もできる。</span></h2>
+
+<p>sprunge.usに以下のように書いてある。</p>
+
+<pre><code class="language-console">add ?&lt;lang&gt; to resulting url for line numbers and syntax highlighting
+    use this form to paste from a browser
+</code></pre>
+
+<p>上記のftpdシェルスクリプトを例に引く。<br />
+シェルスクリプトなので、「sh」を?に続けてURLに加えればよい。</p>
+
+<p><a href="http://sprunge.us/LQCZ?sh" target="_blank"><a href="http://sprunge.us/LQCZ">http://sprunge.us/LQCZ</a><span style="color: #ff0000;">?sh</span></a></p>
+
+<h2 id="span-style-text-decoration-underline-sprungeに意地悪をしてみる-span"><span style="text-decoration: underline;">sprungeに意地悪をしてみる。</span></h2>
+
+<p>知る人ぞ知るコマンドに<a href="http://ja.wikipedia.org/wiki/Sl_%28UNIX%29" target="_blank">sl</a>がある。</p>
+
+<p>これはlsをslとタイプミスしてしまったとき、アスキーアートのSL機関車がターミナルを爆走する豪快なコマンドだ。<br />
+slコマンドをご存じなく、UNIX系マシンをお持ちの方はぜひインストールしてその目で確かめてほしい。<br />
+ちなみにFreeBSDではportsに収録されている。games/slからどうぞ。</p>
+
+<p>で、これをsprungeに食わせてみた。</p>
+
+<pre><code class="language-console">$ sl | sprunge
+http://sprunge.us/Sijg
+</code></pre>
+
+<p><a href="http://sprunge.us/Sijg" target="_blank"><a href="http://sprunge.us/Sijg">http://sprunge.us/Sijg</a></a> &hellip;うん。まあ。仕方ないね。</p>
+
+<h2 id="span-style-text-decoration-underline-同様の別サービス-span"><span style="text-decoration: underline;">同様の別サービス</span></h2>
+
+<p>sprunge.usと同様のサービスにpastbinがある。<br />
+<a href="http://pastebin.com/" target="_blank"><a href="http://pastebin.com/">http://pastebin.com/</a></a><br />
+世間的にはsprunge.usよりこちらの方が有名な様子。</p>
+
+<p>CUIから使うためにwgetpastといったツールもある。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

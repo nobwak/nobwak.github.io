@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/python/</link>
+    <description>Recent content in Python on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Sun, 12 Jun 2016 21:48:06 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[メモ] SlackとMattermostそれぞれのincomingWebhookへのポスト方法の違い</title>
+      <link>https://nobwak.github.io/posts/2016-06-12-%E3%83%A1%E3%83%A2_slack%E3%81%A8mattermost%E3%81%9D%E3%82%8C%E3%81%9E%E3%82%8C%E3%81%AEincomingwebhook%E3%81%B8%E3%81%AE%E3%83%9D%E3%82%B9%E3%83%88%E6%96%B9%E6%B3%95%E3%81%AE%E9%81%95%E3%81%84/</link>
+      <pubDate>Sun, 12 Jun 2016 21:48:06 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-06-12-%E3%83%A1%E3%83%A2_slack%E3%81%A8mattermost%E3%81%9D%E3%82%8C%E3%81%9E%E3%82%8C%E3%81%AEincomingwebhook%E3%81%B8%E3%81%AE%E3%83%9D%E3%82%B9%E3%83%88%E6%96%B9%E6%B3%95%E3%81%AE%E9%81%95%E3%81%84/</guid>
+      <description>MattermostはSlackのクローンであるが、incomingWebhookへのポストだけは、どうも違いがあるようだ。 以下にSlack</description>
+    </item>
+    
+    <item>
+      <title>[メモ][Python] AnacondaをWindows xpにインストールしようとすると失敗する</title>
+      <link>https://nobwak.github.io/posts/2016-06-08-%E3%83%A1%E3%83%A2python_anaconda%E3%82%92windows_xp%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%88%E3%81%86%E3%81%A8%E3%81%99%E3%82%8B%E3%81%A8%E5%A4%B1%E6%95%97%E3%81%99%E3%82%8B/</link>
+      <pubDate>Wed, 08 Jun 2016 21:51:45 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-06-08-%E3%83%A1%E3%83%A2python_anaconda%E3%82%92windows_xp%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%88%E3%81%86%E3%81%A8%E3%81%99%E3%82%8B%E3%81%A8%E5%A4%B1%E6%95%97%E3%81%99%E3%82%8B/</guid>
+      <description>Anacondaは、Pythonのほかに、IPython、Spyder、pandas他便利ライブラリが一式でついてくるお手軽Python環境</description>
+    </item>
+    
+    <item>
+      <title>Slack/MattermostのbotをPythonのFlaskで作ろう</title>
+      <link>https://nobwak.github.io/posts/2016-06-02-slack_mattermost%E3%81%AEbot%E3%82%92python%E3%81%AEflask%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/</link>
+      <pubDate>Thu, 02 Jun 2016 23:54:24 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-06-02-slack_mattermost%E3%81%AEbot%E3%82%92python%E3%81%AEflask%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/</guid>
+      <description>Slack/Mattermost（以降、まとめてSlack）のbotといえばHubotが有名だ。 Hubotはcoffeescriptで書かれ</description>
+    </item>
+    
+    <item>
+      <title>[Python] listの差分を知るには</title>
+      <link>https://nobwak.github.io/posts/2016-05-22-python_list%E3%81%AE%E5%B7%AE%E5%88%86%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Sun, 22 May 2016 00:18:40 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-05-22-python_list%E3%81%AE%E5%B7%AE%E5%88%86%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>Pythonで、二つのリストの差分を知るには。 リストのままでは引き算ができない。 set()でset型にしてから引き算をする。 ただしset()</description>
+    </item>
+    
+    <item>
+      <title>[Python][memo] タイムスタンプの差を求める</title>
+      <link>https://nobwak.github.io/posts/2016-05-19-pythonmemo_%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%81%AE%E5%B7%AE%E3%82%92%E6%B1%82%E3%82%81%E3%82%8B/</link>
+      <pubDate>Thu, 19 May 2016 23:30:06 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-05-19-pythonmemo_%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%81%AE%E5%B7%AE%E3%82%92%E6%B1%82%E3%82%81%E3%82%8B/</guid>
+      <description>すぐ忘れるのでメモ。 文字列としてのタイムスタンプは、datetime.datetime.strptimeで、フォーマットを指定してdatet</description>
+    </item>
+    
+    <item>
+      <title>[Python] requestsとlxmlで京急の運行情報を抽出しよう</title>
+      <link>https://nobwak.github.io/posts/2016-05-08-python_requests%E3%81%A8lxml%E3%81%A7%E4%BA%AC%E6%80%A5%E3%81%AE%E9%81%8B%E8%A1%8C%E6%83%85%E5%A0%B1%E3%82%92%E6%8A%BD%E5%87%BA%E3%81%97%E3%82%88%E3%81%86/</link>
+      <pubDate>Sun, 08 May 2016 00:13:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-05-08-python_requests%E3%81%A8lxml%E3%81%A7%E4%BA%AC%E6%80%A5%E3%81%AE%E9%81%8B%E8%A1%8C%E6%83%85%E5%A0%B1%E3%82%92%E6%8A%BD%E5%87%BA%E3%81%97%E3%82%88%E3%81%86/</guid>
+      <description>botに京急の運行情報を調べさせて、Slackで発言させたい。 使用言語はPython。 さあどうしようかと思ったら、さいきんは、どんなものでも</description>
+    </item>
+    
+    <item>
+      <title>[Python] wxPythonで、タイトルバーにアイコンを表示するには</title>
+      <link>https://nobwak.github.io/posts/2015-08-05-python_wxpython%E3%81%A7%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Wed, 05 Aug 2015 20:39:01 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-08-05-python_wxpython%E3%81%A7%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>Pythonからpy2exeなどでWindowsアプリケーションを作成したときに、アイコンを設定することができる。 しかし、作成したアプリケー</description>
+    </item>
+    
+    <item>
+      <title>[Python][Windows] Windows7への純正Pythonインストールメモ</title>
+      <link>https://nobwak.github.io/posts/2015-01-12-pythonwindows_windows7%E3%81%B8%E3%81%AE%E7%B4%94%E6%AD%A3python%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%83%A1%E3%83%A2/</link>
+      <pubDate>Mon, 12 Jan 2015 21:46:02 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-01-12-pythonwindows_windows7%E3%81%B8%E3%81%AE%E7%B4%94%E6%AD%A3python%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%83%A1%E3%83%A2/</guid>
+      <description>ActivePython入れたり純正Python入れたり訳わかんなくなるからメモ。 Pythonのインストール https://www.python.org/ から2.xでも3.xでもダウン</description>
+    </item>
+    
+    <item>
+      <title>[Python] wxGladeでGUIのデザインを</title>
+      <link>https://nobwak.github.io/posts/2014-12-29-python_wxglade%E3%81%A7gui%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%82%92/</link>
+      <pubDate>Mon, 29 Dec 2014 13:39:02 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-12-29-python_wxglade%E3%81%A7gui%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%82%92/</guid>
+      <description>Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素</description>
+    </item>
+    
+    <item>
+      <title>[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件</title>
+      <link>https://nobwak.github.io/posts/2014-10-23-python_pyinstaller%E3%81%AE%E9%81%85%E3%81%95%E3%81%AB%E3%81%8C%E3%81%A3%E3%81%8B%E3%82%8A%E3%81%97%E3%81%A6py2exe%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E7%88%86%E9%80%9F%E3%81%A7%E9%A9%9A%E3%81%84%E3%81%9F%E4%BB%B6/</link>
+      <pubDate>Thu, 23 Oct 2014 22:52:37 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-10-23-python_pyinstaller%E3%81%AE%E9%81%85%E3%81%95%E3%81%AB%E3%81%8C%E3%81%A3%E3%81%8B%E3%82%8A%E3%81%97%E3%81%A6py2exe%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E7%88%86%E9%80%9F%E3%81%A7%E9%A9%9A%E3%81%84%E3%81%9F%E4%BB%B6/</guid>
+      <description>自作PythonスクリプトをWindows実行バイナリに変換する場合、pyInstallerはとっても楽ちんなのであるが、問題もある。 実行フ</description>
+    </item>
+    
+    <item>
+      <title>[メモ] wxPythonがOS Xにインストールできない（解決）</title>
+      <link>https://nobwak.github.io/posts/2014-09-19-%E3%83%A1%E3%83%A2_wxpython%E3%81%8Cos_x%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E8%A7%A3%E6%B1%BA/</link>
+      <pubDate>Fri, 19 Sep 2014 23:29:59 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-09-19-%E3%83%A1%E3%83%A2_wxpython%E3%81%8Cos_x%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E8%A7%A3%E6%B1%BA/</guid>
+      <description>wxPythonはWindows, OS X, LinuxなどOSを問わずGUIアプリケーションを作ることのできる超絶ありがたいツールである。 あるのだ</description>
+    </item>
+    
+    <item>
+      <title>[メモ][Python][SQLite] 巨大なSQLiteデータベースからレコードを取り出すには</title>
+      <link>https://nobwak.github.io/posts/2014-09-14-%E3%83%A1%E3%83%A2pythonsqlite_%E5%B7%A8%E5%A4%A7%E3%81%AAsqlite%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Sun, 14 Sep 2014 21:06:48 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-09-14-%E3%83%A1%E3%83%A2pythonsqlite_%E5%B7%A8%E5%A4%A7%E3%81%AAsqlite%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF/</guid>
+      <description>PythonでSQLiteのデータベースからデータを抜き取るときには何種類か方法がある。 fetchallで一気に取得する方法 fetchone</description>
+    </item>
+    
+    <item>
+      <title>[メモ] Pythonで標準エラー出力に表示するには</title>
+      <link>https://nobwak.github.io/posts/2014-07-31-%E3%83%A1%E3%83%A2_python%E3%81%A7%E6%A8%99%E6%BA%96%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%BA%E5%8A%9B%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 31 Jul 2014 19:07:48 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-07-31-%E3%83%A1%E3%83%A2_python%E3%81%A7%E6%A8%99%E6%BA%96%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%BA%E5%8A%9B%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>sys.stderrを使う。 例1) import sys sys.stderr.write(&#39;Error occurred!&#39;) 例2) import sys print &amp;gt;&amp;gt; sys.stderr, &#39;Error occurred!&#39; http://docs.python.jp/2/library/sys.html#sys.stderr http://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-python https://sites.google.com/site/diveintopythonjp/home/10-sukuriputo-to-sutorimu/10-2-hyoujun-nyuuryoku-hyoujun-shutsuryoku-soshite-era</description>
+    </item>
+    
+    <item>
+      <title>[メモ] MacにPythonのmatplotlibをインストール</title>
+      <link>https://nobwak.github.io/posts/2014-07-09-%E3%83%A1%E3%83%A2_mac%E3%81%ABpython%E3%81%AEmatplotlib%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Wed, 09 Jul 2014 20:53:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-07-09-%E3%83%A1%E3%83%A2_mac%E3%81%ABpython%E3%81%AEmatplotlib%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>matplotlibには、gfortran、freetypeが必要で、こちらはbrewでインストールする。 あとはpipでnumpy, scip</description>
+    </item>
+    
+    <item>
+      <title>[Python] 二つのタイムスタンプの差分を計算するには</title>
+      <link>https://nobwak.github.io/posts/2014-06-30-python_%E4%BA%8C%E3%81%A4%E3%81%AE%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%81%AE%E5%B7%AE%E5%88%86%E3%82%92%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Mon, 30 Jun 2014 22:33:57 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-06-30-python_%E4%BA%8C%E3%81%A4%E3%81%AE%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%81%AE%E5%B7%AE%E5%88%86%E3%82%92%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>datetimeを使うのが教科書的な回答になるわけだが、ただタイムスタンプってえのは大抵2014/06/20 23:03:58.455118と</description>
+    </item>
+    
+    <item>
+      <title>[メモ] MacにhomebrewでPythonをインストール（virtualenvまで）</title>
+      <link>https://nobwak.github.io/posts/2014-06-01-%E3%83%A1%E3%83%A2_mac%E3%81%ABhomebrew%E3%81%A7python%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%ABvirtualenv%E3%81%BE%E3%81%A7/</link>
+      <pubDate>Sun, 01 Jun 2014 06:06:42 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-06-01-%E3%83%A1%E3%83%A2_mac%E3%81%ABhomebrew%E3%81%A7python%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%ABvirtualenv%E3%81%BE%E3%81%A7/</guid>
+      <description>brewでpythonをインストールする 10.9.3にはPython 2.7.5が入っている。 brewでこれを新しいものに。 またvirtual</description>
+    </item>
+    
+    <item>
+      <title>ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</title>
+      <link>https://nobwak.github.io/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/</link>
+      <pubDate>Sat, 24 May 2014 22:35:35 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/</guid>
+      <description>ブロック図作成ツールblockdiagとは、テキストファイルから以下のような図を作成してくれるツールである。 これをFreeBSD にインストー</description>
+    </item>
+    
+    <item>
+      <title>Pythonベースのプロジェクト管理ツール、tracのインストール</title>
+      <link>https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Tue, 20 May 2014 23:24:19 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール</description>
+    </item>
+    
+    <item>
+      <title>PyInstallerで作ったWindowsアプリでバージョンを表示させたい（Version Resource Fileの作りかた）</title>
+      <link>https://nobwak.github.io/posts/2014-05-09-pyinstaller%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9Fwindows%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84version_resource_file%E3%81%AE%E4%BD%9C%E3%82%8A%E3%81%8B%E3%81%9F/</link>
+      <pubDate>Fri, 09 May 2014 22:36:50 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-05-09-pyinstaller%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9Fwindows%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84version_resource_file%E3%81%AE%E4%BD%9C%E3%82%8A%E3%81%8B%E3%81%9F/</guid>
+      <description>Windowsアプリケーションのバージョンは、そのプロパティから確認できる。 PyInstallerでWindowsアプリケーションを作るとき</description>
+    </item>
+    
+    <item>
+      <title>Windowsにpyinstallerをインストール</title>
+      <link>https://nobwak.github.io/posts/2014-05-05-windows%E3%81%ABpyinstaller%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Mon, 05 May 2014 19:52:32 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-05-05-windows%E3%81%ABpyinstaller%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。 （動いていたからまったく気がつかなかった・・・・）</description>
+    </item>
+    
+    <item>
+      <title>[Python2] Hex文字列とBin文字列でコンバート</title>
+      <link>https://nobwak.github.io/posts/2014-05-01-python2_hex%E6%96%87%E5%AD%97%E5%88%97%E3%81%A8bin%E6%96%87%E5%AD%97%E5%88%97%E3%81%A7%E3%82%B3%E3%83%B3%E3%83%90%E3%83%BC%E3%83%88/</link>
+      <pubDate>Thu, 01 May 2014 22:21:41 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-05-01-python2_hex%E6%96%87%E5%AD%97%E5%88%97%E3%81%A8bin%E6%96%87%E5%AD%97%E5%88%97%E3%81%A7%E3%82%B3%E3%83%B3%E3%83%90%E3%83%BC%E3%83%88/</guid>
+      <description>メモでござる。 Hex文字列をBin文字列に変換したり、その逆に変換するには。 Bin-&amp;gt;Hex まずサンプル。 bindata = &amp;quot;00001011&amp;quot; hexdata = &amp;quot;&amp;quot; scale = 2 num_of_digits = 2 hexdata = hex(int(bindata,scale))[2:].zfill(num_of_digits) print &amp;quot;%s ====&amp;gt; %s&amp;quot; % (bindata, hexdata) 実行</description>
+    </item>
+    
+    <item>
+      <title>[Python2] stringを逆に表示するには</title>
+      <link>https://nobwak.github.io/posts/2014-04-30-python2_string%E3%82%92%E9%80%86%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Wed, 30 Apr 2014 20:46:48 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-04-30-python2_string%E3%82%92%E9%80%86%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>ビット列を逆に読むときとかに。 [::-1]という指定 Python2で文字列を逆に表示するには、スライスで[::-1]と指定すればよい。 teststring = &amp;quot;123456&amp;quot;</description>
+    </item>
+    
+    <item>
+      <title>Pythonがあればwebサーバを動かせる件について</title>
+      <link>https://nobwak.github.io/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Mon, 24 Feb 2014 23:43:49 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>Pythonがあれば、webサーバソフトウェアを追加することなくwebサーバを立ち上げることができる。 たいへん便利なのでメモしておく。 書式 Python</description>
+    </item>
+    
+    <item>
+      <title>Hadoopフレンドリーなデータとは</title>
+      <link>https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/</link>
+      <pubDate>Thu, 23 Jan 2014 20:16:09 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/</guid>
+      <description>ログは1行1イベントに 何を言っとるんだお前はという感じであるが、つまりこういう事である。 通常、ログは1行が1イベントである。 たとえばapac</description>
+    </item>
+    
+    <item>
+      <title>Pythonアプリに引数を渡そう</title>
+      <link>https://nobwak.github.io/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/</link>
+      <pubDate>Fri, 10 Jan 2014 20:27:22 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/</guid>
+      <description>PythonでWindowsアプリケーションを作ったとする。 たとえばファイルを引数に取り、整形するものだとする。 せっかくWindowsアプリ</description>
+    </item>
+    
+    <item>
+      <title>PythonでWindowsアプリケーションを作ってみよう</title>
+      <link>https://nobwak.github.io/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/</link>
+      <pubDate>Fri, 27 Dec 2013 23:05:42 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/</guid>
+      <description>Pythonには、pythonスクリプトを手軽にWindowsアプリケーション化できるツールが揃っている。 有名なのはPy2exeとPyIns</description>
+    </item>
+    
+  </channel>
+</rss>

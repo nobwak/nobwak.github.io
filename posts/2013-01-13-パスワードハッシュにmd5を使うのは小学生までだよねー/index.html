@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | パスワードハッシュにmd5を使うのは小学生までだよねー</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="パスワードハッシュにmd5を使うのは小学生までだよねー" />
+<meta property="og:description" content="おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。 しかし、MD5は1996年に脆弱性" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-01-13-%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E3%81%ABmd5%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%AF%E5%B0%8F%E5%AD%A6%E7%94%9F%E3%81%BE%E3%81%A7%E3%81%A0%E3%82%88%E3%81%AD%E3%83%BC/" />
+<meta property="article:published_time" content="2013-01-13T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2013-01-13T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="パスワードハッシュにmd5を使うのは小学生までだよねー">
+<meta itemprop="description" content="おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。 しかし、MD5は1996年に脆弱性">
+
+
+<meta itemprop="datePublished" content="2013-01-13T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2013-01-13T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1991">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="パスワードハッシュにmd5を使うのは小学生までだよねー"/>
+<meta name="twitter:description" content="おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。 しかし、MD5は1996年に脆弱性"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">パスワードハッシュにmd5を使うのは小学生までだよねー</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-01-13T01:00:00&#43;09:00">January 13, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。
+
+
+
+しかし、MD5は1996年に脆弱性が見つかって以来、あまり推奨される方式ではなくなっている。
+
+
+
+&lt;a href=&quot;http://ja.wikipedia.org/wiki/MD5&quot; target=&quot;_blank&quot;&gt;Wikipedia&lt;/a&gt;で調べてみても「パソコンレベルで、数10分程度で、同一ハッシュ値の非ユニークなデータ列を生成できる実装が広まっている」などと恐ろしい事が書かれている。
+
+
+
+つまり暗号化されていてもMD5ハッシュだと総あたりで易々と破られてしまうということになる。
+
+
+
+こういった情勢のもと、多くのシステムでは、パスワードファイルのハッシュ方法を変えたり、または自由に変えられるようになっているので、もしお前らがUNIX-likeシステムを管理しているなら、いますぐ確認しろ。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;じゃあ何に変えたらいいの→SHA-2かBlowfishおすすめ。&lt;/span&gt;
+
+
+
+
+
+
+代替のハッシュ方法としては、&lt;a href=&quot;http://ja.wikipedia.org/wiki/Blowfish&quot; target=&quot;_blank&quot;&gt;Blowfish&lt;/a&gt;, &lt;a href=&quot;http://ja.wikipedia.org/wiki/SHA&quot; target=&quot;_blank&quot;&gt;SHA-2&lt;/a&gt;などが挙げられ、強度としてはBlowfishの方が高いようだが、そのアルゴリズムがNIST(アメリカ国立標準技術研究所)の承認をまだ受けてない事から、SHA-2を選択するケースが多い。
+
+
+
+そのシステムがどのハッシュを採っているかは、ハッシュ文字列先頭から判断できる。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  $1$: MD5
+
+
+
+  $2?$: Blowfish. ?はaかyかx.
+
+
+
+  $5$: SHA-2(SHA-256)
+
+
+
+  $6$: SHA-2(SHA-512)
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>FreeBSD 9.1-RELEASEはsha512(SHA-2)がデフォルト。手元にLinuxがないので確認できないのだが、UbuntuはまだMD5のよう。
+
+
+
+
+
+
+しかしFreeBSDはCVSを見ると2012年の7/15に&lt;a href=&quot;http://www.freebsd.org/cgi/cvsweb.cgi/src/etc/login.conf.diff?r1=1.54;r2=1.54.2.2&quot; target=&quot;_blank&quot;&gt;変わっている&lt;/a&gt;。9系列で言えば9.1-RELEASEからデフォルトが変更されているようだ。
+
+
+
+なお、9.1-RELEASEだから安心と思ったあなた。もしあなたが9.0以前から使い続けているなら注意が必要だ。これについては後述。
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;FreeBSDでハッシュ方法を変えるには&lt;/span&gt;
+
+
+
+
+
+
+FreeBSDでは/etc/login.confで制御する。
+
+
+
+以下の行を書き換えればOK。
+</code></pre>
+
+<pre><code class="language-console">:passwd_format=sha512:&amp;#92;
+</code></pre>
+
+<pre><code>md5ならmd5, SHA-2ならsha512, Blowfishならblfである。
+
+
+
+書き換えた後、以下のコマンドでlogin.conf.dbを作り直すこと。
+</code></pre>
+
+<pre><code class="language-console">cap_mkdb /etc/login.conf
+</code></pre>
+
+<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;パスワードを再設定しないと新ハッシュになりません!&lt;/span&gt;
+
+
+
+
+
+
+注意。上記設定をしたあと、もう一回パスワード設定しないと反映されません。
+
+
+
+なんと不親切な、と思ったけど、よく考えたらそらそうだ。
+
+
+
+もし自動的に変更しようとしたら、たとえばmd5でハッシュされた文字列を、いったん元に戻す必要がある。
+
+
+
+元に戻させないようにわざわざハッシュしているんだから、自動でできるわけがない。
+
+
+
+
+
+
+だから面倒でも、passwordコマンドを叩いて再設定すること。
+
+
+
+同じパスワードであっても構わないが、まあ今回の作業の性質を考えると、このタイミングでパスワード変えた方がいいと思う。
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;9.0以前から使い続けていた人は注意&lt;/span&gt;
+
+
+
+ということで、もしあなたのFreeBSDが9.1で、デフォルトのハッシュがSHA-2になっていたとしても、9.0以前にパスワード設定してそのままなら、ハッシュはmd5のままである。
+
+
+
+実際に俺のマシンは9.0で新規インストールし、ついこの間9.1にアップグレードした。
+</code></pre>
+
+<pre><code class="language-console">$ uname -a
+FreeBSD sylph 9.1-RELEASE FreeBSD 9.1-RELEASE #0 r243825: Tue Dec  4 09:23:10 UTC 2012     root@farrell.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC  amd64
+$ grep passwd /etc/login.conf|grep -v &amp;#34;^#&amp;#34;
+:passwd_format=sha512:&amp;#92;
+</code></pre>
+
+<pre><code>とまあこの通り、SHA-2になっている。しかし以下のログで示すように、先頭が$1$になっておりMD5ハッシュであることを示している。
+
+
+
+cap_mkdbしても同じ。（なおハッシュの核心部分はさすがにマスクしている）
+</code></pre>
+
+<pre><code class="language-console">$ sudo grep harukiya /etc/master.passwd
+パスワード:
+harukiya:$1$xxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash
+$ sudo cap_mkdb /etc/login.conf
+$ sudo grep doe /etc/master.passwd
+harukiya:$1$xxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash
+</code></pre>
+
+<pre><code>で、passwdコマンドでパスワードを設定してやると、めでたく先頭が$6$に変化した。
+
+
+
+（なおここではマスクしているが、実際にやってみるとハッシュがmd5に比べて長くなっていることが分かる）
+</code></pre>
+
+<pre><code class="language-console">$ passwd
+Changing local password for harukiya
+Old Password:
+New Password:
+Retype New Password:
+$ sudo grep harukiya /etc/master.passwd
+harukiya:$6$xxxxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash
+</code></pre>
+
+<pre><code>このままでもいいけど、せっかくだからblowfishに変更。/etc/login.confでsha512をblfへ。
+</code></pre>
+
+<pre><code class="language-console">:passwd_format=blf:&amp;#92;
+</code></pre>
+
+<pre><code>めでたくハッシュ先頭が$2a$に。
+</code></pre>
+
+<pre><code class="language-console">$ sudo cap_mkdb /etc/login.conf
+$ passwd
+Changing local password for harukiya
+Old Password:
+New Password:
+Retype New Password:
+$ sudo grep harukiya /etc/master.passwd
+harukiya:$2a$xxxxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash
+</code></pre>
+
+<pre><code>もちろん、このあとrootのパスワードも設定しました。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

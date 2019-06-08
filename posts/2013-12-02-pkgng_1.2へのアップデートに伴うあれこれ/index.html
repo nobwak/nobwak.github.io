@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | pkgng 1.2へのアップデートに伴うあれこれ。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="pkgng 1.2へのアップデートに伴うあれこれ。" />
+<meta property="og:description" content="pkgngを1.2にアップデートしたら、設定ファイルの扱いが変わって、ちょっとした修正が必要になった。 それをまとめる。 まとめ。 pkgngを更" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-12-02-pkgng_1.2%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%81%AB%E4%BC%B4%E3%81%86%E3%81%82%E3%82%8C%E3%81%93%E3%82%8C/" />
+<meta property="article:published_time" content="2013-12-02T21:16:22&#43;09:00"/>
+<meta property="article:modified_time" content="2013-12-02T21:16:22&#43;09:00"/>
+
+<meta itemprop="name" content="pkgng 1.2へのアップデートに伴うあれこれ。">
+<meta itemprop="description" content="pkgngを1.2にアップデートしたら、設定ファイルの扱いが変わって、ちょっとした修正が必要になった。 それをまとめる。 まとめ。 pkgngを更">
+
+
+<meta itemprop="datePublished" content="2013-12-02T21:16:22&#43;09:00" />
+<meta itemprop="dateModified" content="2013-12-02T21:16:22&#43;09:00" />
+<meta itemprop="wordCount" content="1388">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="pkgng 1.2へのアップデートに伴うあれこれ。"/>
+<meta name="twitter:description" content="pkgngを1.2にアップデートしたら、設定ファイルの扱いが変わって、ちょっとした修正が必要になった。 それをまとめる。 まとめ。 pkgngを更"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">pkgng 1.2へのアップデートに伴うあれこれ。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-12-02T21:16:22&#43;09:00">December 2, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>pkgngを1.2にアップデートしたら、設定ファイルの扱いが変わって、ちょっとした修正が必要になった。<br />
+それをまとめる。</p>
+
+<p>まとめ。</p>
+
+<ul>
+<li>pkgngを更新したらpkg upgradeを忘れずに</li>
+<li>すべてコメントの設定ファイルは受け付けてくれない。</li>
+<li>設定ファイルでのキー指定は、&rdquo;（クオート）で囲わないこと。</li>
+</ul>
+
+<h2 id="span-style-text-decoration-underline-pkg-のアップデートあり-span"><span style="text-decoration: underline;">pkg のアップデートあり</span></h2>
+
+<p>pkg updateをしたら、やたら文句を言われる。</p>
+
+<pre><code class="language-console">$ sudo pkg update
+pkg: Invalid configuration format, ignoring the configuration file
+Updating repository catalogue
+digests.txz                         100% 1045KB 261.2KB/s 434.7KB/s   00:04
+packagesite.txz                     100% 5537KB 276.9KB/s 177.0KB/s   00:20
+pkg: Skipping malformed dependency docbook-xml
+pkg: Skipping malformed dependency docbook
+pkg: Skipping malformed dependency docbook-xml
+</code></pre>
+
+<p>そしてupgradeすると、pkgに更新があるとな。<br />
+1.2.1である。<br />
+pkgに更新がある場合には、まずpkgを更新し、そのあとpkg upgradeをせよ、とのお達し。</p>
+
+<pre><code class="language-console">$ sudo pkg upgrade
+pkg: Invalid configuration format, ignoring the configuration file
+Updating repository catalogue
+digests.txz                         100% 1045KB 261.2KB/s 504.7KB/s   00:04
+New version of pkg detected; it needs to be installed first.
+After this upgrade it is recommended that you do a full upgrade using: 'pkg upgrade'
+
+Upgrades have been requested for the following 1 packages:
+
+        Upgrading pkg: 1.1.4_10 -&gt; 1.2.1
+
+The upgrade will require 580 KB more space
+
+2 MB to be downloaded
+
+Proceed with upgrading packages [y/N]: y
+pkg-1.2.1.txz                       100% 1942KB 323.7KB/s 282.3KB/s   00:06
+Checking integrity... done
+[1/1] Upgrading pkg from 1.1.4_10 to 1.2.1... done
+$
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-pkg-1-2でアップデートができない-span"><span style="text-decoration: underline;">pkg 1.2でアップデートができない。</span></h2>
+
+<p>pkgの更新は問題なく完了。<br />
+念のためもう一回pkg updateを試みるが、設定ファイルを読めないと怒られる。</p>
+
+<pre><code class="language-console">$ sudo pkg update
+pkg: Cannot parse configuration file!
+$
+</code></pre>
+
+<p>どうも設定ファイルがおかしいようだ。<br />
+しかし現状、/etc/pkgの下や、/usr/local/etc/reposの下にも設定ファイルがあって訳の分からない状態だ。</p>
+
+<p>調べた結果は以下のようなものだ。<br />
+pkgはREPOS_PATHで指定される全てのディレクトリから設定ファイルを探す。<br />
+デフォルトでは、/etc/pkgと/usr/local/etc/pkg/reposである。</p>
+
+<p>詳しくは以下を参照。<br />
+<a href="http://lists.freebsd.org/pipermail/freebsd-questions/2013-November/254682.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-questions/2013-November/254682.html">http://lists.freebsd.org/pipermail/freebsd-questions/2013-November/254682.html</a></a></p>
+
+<p>注意すべきは、すべてコメント文で出来ている設定ファイルがあると、&rdquo;pkg: Cannot parse configuration file!&ldquo;と言い出してそれ以上の処理をしてくれなくなることだ。<br />
+どうもバグのようだが。<br />
+1.2より前では文句だけだった。</p>
+
+<p>私の場合、以下の通り/usr/local/etc/pkg.confがコメント文だけだったので、rmした。（<a href="../../../2013/08/%e3%83%aa%e3%83%93%e3%82%b8%e3%83%a7%e3%83%b3%e7%ae%a1%e7%90%86rcs%e3%81%ae%e3%81%99%e3%81%99%e3%82%81%ef%bc%88xxx-conf-20130829%e3%81%a8%e3%81%8b%e3%81%af%e3%82%82%e3%81%86%e6%ad%a2%e3%82%81%e3%82%88/" target="_blank">RCS</a>に保存しているので消したって平気）</p>
+
+<pre><code class="language-console">$ grep -v &quot;^#&quot; /usr/local/etc/pkg.conf
+$
+$ sudo rm /usr/local/etc/pkg.conf
+$
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-設定ファイルでのkey指定方法の変更-span"><span style="text-decoration: underline;">設定ファイルでのkey指定方法の変更</span></h2>
+
+<p>改めてpkg update。今度は問題なしか？</p>
+
+<pre><code class="language-console">$ sudo pkg update
+pkg: Warning: expecting a boolean for the 'enabled' key of the 'us-west' repo,  the value has been correctly converted, please consider fixing
+Updating repository catalogue
+digests.txz                         100% 1045KB 261.2KB/s 404.7KB/s   00:04
+packagesite.txz                     100% 5537KB 276.9KB/s 187.0KB/s   00:20
+Incremental update completed, 22233 packages processed:
+0 packages updated, 0 removed and 22233 added.
+</code></pre>
+
+<p>今度は設定ファイルの内容に文句が付いた。<br />
+booleanを期待してたのに違うぞ、と。<br />
+文句だけなので進めはするが、気持ち悪いので修正する。<br />
+設定ファイルの中でenabledなどのキー指定からクオートを外せばよい。</p>
+
+<p>before</p>
+
+<pre><code class="language-console">us-west: {
+        url:    &quot;http://pkg0.isc.freebsd.org/${ABI}/latest&quot;,
+        enabled:        &quot;yes&quot;,
+        mirror_type:    &quot;none&quot;,
+}
+</code></pre>
+
+<p>after</p>
+
+<pre><code class="language-console">us-west: {
+        url:    &quot;http://pkg0.isc.freebsd.org/${ABI}/latest&quot;,
+        enabled:        yes,
+        mirror_type:    none,
+}
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-pkg-upgrade-span"><span style="text-decoration: underline;">pkg upgrade</span></h2>
+
+<p>そうしたら指定通りpkg upgradeを実行。<br />
+今度は問題なし。<br />
+通常のアップグレードのほかに、依存が変わったとかで再インストールの必要なものが結構あった。</p>
+
+<pre><code class="language-console">$ sudo pkg upgrade
+Updating repository catalogue
+digests.txz                         100% 1045KB 149.2KB/s  54.7KB/s   00:07
+Upgrades have been requested for the following 37 packages:
+
+        Upgrading apr: 1.4.8.1.5.2 -&gt; 1.4.8.1.5.3
+（略）
+        Reinstalling orca-2.32.1_2 (direct dependency changed)
+        Reinstalling gnome2-2.32.1_5 (direct dependency changed)
+
+The upgrade will require 2 MB more space
+
+102 MB to be downloaded
+
+Proceed with upgrading packages [y/N]: y
+</code></pre>
+
+<p>そしてまた、autoremoveで掃除をしておこう。</p>
+
+<pre><code class="language-console">$ sudo pkg autoremove
+Deinstallation has been requested for the following 6 packages:
+
+        autoconf-2.69
+        autoconf-wrapper-20130530
+        gmake-3.82_1
+        help2man-1.43.3_1
+        m4-1.4.17,1
+        p5-Locale-gettext-1.05_3
+
+The deinstallation will free 5 MB
+
+Proceed with deinstalling packages [y/N]:
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-余談-span"><span style="text-decoration: underline;">余談</span></h2>
+
+<p>以下のようにpy27-distributeが邪魔だというので、pkg delete -f py27-distributeしてpkg upgradeした。</p>
+
+<pre><code class="language-console">Checking integrity...pkg: WARNING: locally installed py27-distribute-0.6.35 conflicts on /usr/local/bin/easy_install with:
+        - py27-setuptools-1.1.7_1
+
+pkg: WARNING: locally installed py27-distribute-0.6.35 conflicts on /usr/local/bin/easy_install-2.7 with:
+        - py27-setuptools-1.1.7_1
+
+pkg: WARNING: locally installed py27-distribute-0.6.35 conflicts on /usr/local/lib/python2.7/site-packages/easy-install.pth.dist with:
+        - py27-setuptools-1.1.7_1
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

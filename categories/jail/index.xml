@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jail on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/jail/</link>
+    <description>Recent content in Jail on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Fri, 28 Aug 2015 22:55:02 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/jail/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[FreeBSD] jailのetcを更新する(qjail)</title>
+      <link>https://nobwak.github.io/posts/2015-08-28-freebsd_jail%E3%81%AEetc%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8Bqjail/</link>
+      <pubDate>Fri, 28 Aug 2015 22:55:02 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-08-28-freebsd_jail%E3%81%AEetc%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8Bqjail/</guid>
+      <description>qjailだと、ここで示したようにqjail update -bでjailのバイナリアップグレードをしてくれる。 アップグレードといっても、ホストのバイナリ</description>
+    </item>
+    
+    <item>
+      <title>Poudriereのjailにセキュリティアップデートを適用</title>
+      <link>https://nobwak.github.io/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/</link>
+      <pubDate>Fri, 25 Apr 2014 20:17:17 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/</guid>
+      <description>Heartbleedバグ対応では皆さんいかがお過ごしでしたか。 Poudriereではpackageの作成をjail内で実行するんだけども、も</description>
+    </item>
+    
+    <item>
+      <title>qjailならjailのユーザランド更新にmake worldは不要ッ！</title>
+      <link>https://nobwak.github.io/posts/2013-12-06-qjail%E3%81%AA%E3%82%89jail%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%A9%E3%83%B3%E3%83%89%E6%9B%B4%E6%96%B0%E3%81%ABmake_world%E3%81%AF%E4%B8%8D%E8%A6%81%E3%83%83/</link>
+      <pubDate>Fri, 06 Dec 2013 22:02:34 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-12-06-qjail%E3%81%AA%E3%82%89jail%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%A9%E3%83%B3%E3%83%89%E6%9B%B4%E6%96%B0%E3%81%ABmake_world%E3%81%AF%E4%B8%8D%E8%A6%81%E3%83%83/</guid>
+      <description>この件があって、jailはqjailで管理している。 上記記事では触れなかったのだが、qjailにはもう一つ大きな利点がある。 qjailでは、</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] pkg -j でjailの「外から」pkgng操作を。</title>
+      <link>https://nobwak.github.io/posts/2013-10-21-freebsd_pkg_-j_%E3%81%A7jail%E3%81%AE%E5%A4%96%E3%81%8B%E3%82%89pkgng%E6%93%8D%E4%BD%9C%E3%82%92/</link>
+      <pubDate>Mon, 21 Oct 2013 22:55:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-21-freebsd_pkg_-j_%E3%81%A7jail%E3%81%AE%E5%A4%96%E3%81%8B%E3%82%89pkgng%E6%93%8D%E4%BD%9C%E3%82%92/</guid>
+      <description>サマリ pkg -jを使うと、ホストからjail内のpkgを操作できる。 しかし、あらかじめjail内にpkgのインストールが必要。 pkg -j pkgのman</description>
+    </item>
+    
+    <item>
+      <title>10.0-BETA1でezjailが息してない→qjailに乗り換えた。</title>
+      <link>https://nobwak.github.io/posts/2013-10-19-10.0-beta1%E3%81%A7ezjail%E3%81%8C%E6%81%AF%E3%81%97%E3%81%A6%E3%81%AA%E3%81%84qjail%E3%81%AB%E4%B9%97%E3%82%8A%E6%8F%9B%E3%81%88%E3%81%9F/</link>
+      <pubDate>Sat, 19 Oct 2013 20:48:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-19-10.0-beta1%E3%81%A7ezjail%E3%81%8C%E6%81%AF%E3%81%97%E3%81%A6%E3%81%AA%E3%81%84qjail%E3%81%AB%E4%B9%97%E3%82%8A%E6%8F%9B%E3%81%88%E3%81%9F/</guid>
+      <description>せっかく覚えたezjailが息してない jailの設定ファイルが、rc.conf,/etc/rc.d/jailからjail.confに変わる。</description>
+    </item>
+    
+    <item>
+      <title>ezjailのflavoursを使ってみよう その2</title>
+      <link>https://nobwak.github.io/posts/2013-10-10-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE2/</link>
+      <pubDate>Thu, 10 Oct 2013 20:43:49 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-10-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE2/</guid>
+      <description>前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の</description>
+    </item>
+    
+    <item>
+      <title>ezjailのflavoursを使ってみよう その1</title>
+      <link>https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/</link>
+      <pubDate>Tue, 08 Oct 2013 22:43:13 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/</guid>
+      <description>[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親</description>
+    </item>
+    
+    <item>
+      <title>ezjailで作るjailの基本設定を変えよう</title>
+      <link>https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/</link>
+      <pubDate>Thu, 03 Oct 2013 21:14:50 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/</guid>
+      <description>[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] ezjailを試そう</title>
+      <link>https://nobwak.github.io/posts/2013-09-16-freebsd_ezjail%E3%82%92%E8%A9%A6%E3%81%9D%E3%81%86/</link>
+      <pubDate>Mon, 16 Sep 2013 20:49:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-09-16-freebsd_ezjail%E3%82%92%E8%A9%A6%E3%81%9D%E3%81%86/</guid>
+      <description>Jail FreeBSDにはJailという技術がある。 Jailとは、OSレベルの仮想化技術だ。 Jailを使うと、FreeBSDマシン上にいくつもの独</description>
+    </item>
+    
+  </channel>
+</rss>

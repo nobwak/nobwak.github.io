@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | portsにsubversionとsubversion-freebsdの二つがある件について</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="portsにsubversionとsubversion-freebsdの二つがある件について" />
+<meta property="og:description" content="/usr/ports/develにsubversionとsubversion-freebsdがあってちょっと驚いた。 どうもsubversio" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2010-01-05-ports%E3%81%ABsubversion%E3%81%A8subversion-freebsd%E3%81%AE%E4%BA%8C%E3%81%A4%E3%81%8C%E3%81%82%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" />
+<meta property="article:published_time" content="2010-01-05T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2010-01-05T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="portsにsubversionとsubversion-freebsdの二つがある件について">
+<meta itemprop="description" content="/usr/ports/develにsubversionとsubversion-freebsdがあってちょっと驚いた。 どうもsubversio">
+
+
+<meta itemprop="datePublished" content="2010-01-05T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2010-01-05T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="339">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="portsにsubversionとsubversion-freebsdの二つがある件について"/>
+<meta name="twitter:description" content="/usr/ports/develにsubversionとsubversion-freebsdがあってちょっと驚いた。 どうもsubversio"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">portsにsubversionとsubversion-freebsdの二つがある件について</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-01-05T01:00:00&#43;09:00">January 5, 2010</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>/usr/ports/develにsubversionとsubversion-freebsdがあってちょっと驚いた。
+
+
+
+どうもsubversion-freebsdにはFreeBSDのソースレポジトリにアクセスする際に便利なよう、ちょっとしたカスタマイズがされているものらしい。
+</code></pre>
+
+<pre><code class="language-console">$ cat ./subversion-freebsd/pkg-descr
+Subversion is a version control system designed to be as similar to cvs(1)
+as possible, while fixing many outstanding problems with cvs(1).
+This version adds patches that at this time are specific to the needs of
+the FreeBSD Project src repository.  If you do not need to access that
+repository you will want to use devel/subversion.
+WWW: http://subversion.tigris.org/
+</code></pre>
+
+<pre><code>&lt;a href=&quot;http://forums.freebsd.org/showthread.php?t=2740&quot; target=&quot;_blank&quot;&gt;FreeBSDのForum&lt;/a&gt;より、subversion-freebsdに入っているもの。
+</code></pre>
+
+<pre><code class="language-console">There&amp;#39;s 4 things in there:
+- supply the repository location in keyword substitution
+- set &amp;#34;display original&amp;#34; to true for merges
+- provide 3 extra format characters in substitution
+- Provide a default template that has FreeBSD project format:
++ &amp;#34;PR:&amp;#34;,
++ &amp;#34;Submitted by:&amp;#34;,
++ &amp;#34;Reviewed by:&amp;#34;,
++ &amp;#34;Approved by:&amp;#34;,
++ &amp;#34;Obtained from:&amp;#34;,
++ &amp;#34;MFC after:&amp;#34;,
++ &amp;#34;Security:&amp;#34;,
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

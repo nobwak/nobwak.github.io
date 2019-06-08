@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい" />
+<meta property="og:description" content="メモ。 jailのpkg操作は、いちいちそのjailの中に入らなくてもpkg -j ＜jail名 or jail ID＞ &hellip;というように-jオプション" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2016-08-08-%E3%83%A1%E3%83%A2freebsd_%E8%A4%87%E6%95%B0jail%E3%81%AEpkg_upgrade%E3%82%92%E4%B8%80%E6%B0%97%E3%81%AB%E6%B8%88%E3%81%BE%E3%81%9B%E3%81%9F%E3%81%84/" />
+<meta property="article:published_time" content="2016-08-08T22:35:58&#43;09:00"/>
+<meta property="article:modified_time" content="2016-08-08T22:35:58&#43;09:00"/>
+
+<meta itemprop="name" content="[メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい">
+<meta itemprop="description" content="メモ。 jailのpkg操作は、いちいちそのjailの中に入らなくてもpkg -j ＜jail名 or jail ID＞ &hellip;というように-jオプション">
+
+
+<meta itemprop="datePublished" content="2016-08-08T22:35:58&#43;09:00" />
+<meta itemprop="dateModified" content="2016-08-08T22:35:58&#43;09:00" />
+<meta itemprop="wordCount" content="230">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,jail,pkgng," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい"/>
+<meta name="twitter:description" content="メモ。 jailのpkg操作は、いちいちそのjailの中に入らなくてもpkg -j ＜jail名 or jail ID＞ &hellip;というように-jオプション"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2016-08-08T22:35:58&#43;09:00">August 8, 2016</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>メモ。</p>
+
+<p>jailのpkg操作は、いちいちそのjailの中に入らなくてもpkg -j ＜jail名 or jail ID＞ &hellip;というように-jオプションを付与すればできる。</p>
+
+<p>しかしjailの指定は、個々に行う必要がある。<br />
+たとえばpkg -j * upgradeというように、ワイルドカードを使うようなことは、もってのほかのようである。<br />
+jailなんてどんどん増えていくのに、いちいち-jで指定していくのもなあ。<br />
+仕方ないんで、やっつけでパイプを繋いで実現。</p>
+
+<pre><code class="language-console">jls -N|tail -n +2|cut -f2 -d&quot; &quot;|xargs -I{} sudo pkg -j {} upgrade
+</code></pre>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/jail" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">jail</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/pkgng" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">pkgng</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2016-04-16-slackhubotjail%E3%83%A1%E3%83%A2_freebsd_jail%E3%81%A7hubot%E3%82%92%E9%A3%BC%E3%81%86/">[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-28-freebsd_jail%E3%81%AEetc%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8Bqjail/">[FreeBSD] jailのetcを更新する(qjail)</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/">[FreeBSD][メモ] PlexConnectに関する情報</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-26-freebsd_pkg_quarterly%E3%81%A8latest%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E5%85%B1%E5%AD%98/">[FreeBSD] pkg quarterlyとlatestレポジトリの共存</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-05-freebsd_10.2-release%E3%81%8B%E3%82%89%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%82%8Bpkg_quarterly%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0/">[FreeBSD] 10.2-RELEASEから適用されるpkg quarterlyてなんだ。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-01-03-freebsd%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%8B%E5%A5%B4%E3%81%AF1.4.3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%A6%E3%81%8A%E3%81%91/">[FreeBSD][メモ] pkgngで複数レポジトリ使ってる奴は1.4.3に上げておけ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-08-28-freebsd%E3%83%A1%E3%83%A2_pkg_1.3.7%E3%81%AB%E3%82%88%E3%82%8B%E5%95%8F%E7%AD%94%E7%84%A1%E7%94%A8%E3%81%AE%E5%85%A8%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%82%92%E9%81%BF%E3%81%91%E3%82%8B%E3%81%AB%E3%81%AF/">[FreeBSD][メモ] pkg 1.3.7による問答無用の全パッケージ再インストールを避けるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-08-09-freebsdpkgng%E3%83%A1%E3%83%A2_pkg%E3%82%921.2%E3%81%8B%E3%82%891.3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need_to_re-create_repo_freebsd_to_upgrade_schema_version/">[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-16-%E3%83%A1%E3%83%A2_freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] FreeBSD10にhadoopインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-23-freebsd_%E3%81%82%E3%82%8B%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AEpkg%E3%82%92%E3%81%94%E3%81%A3%E3%81%9D%E3%82%8A%E4%BB%96%E3%81%AE%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AB%E6%8C%81%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F%E3%81%AB%E3%81%AF/">[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/">Poudriereのjailにセキュリティアップデートを適用</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | 「企業のWindows環境をLinuxへ移行したボクの体験記」翻訳</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="「企業のWindows環境をLinuxへ移行したボクの体験記」翻訳" />
+<meta property="og:description" content="Microsoftのライセンスは超高い。高すぎる。じゃあLinux/Unix環境へ…。 と、IT管理者なら誰しも一度は考える。でも色々考えると" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2005-09-22-%E4%BC%81%E6%A5%AD%E3%81%AEwindows%E7%92%B0%E5%A2%83%E3%82%92linux%E3%81%B8%E7%A7%BB%E8%A1%8C%E3%81%97%E3%81%9F%E3%83%9C%E3%82%AF%E3%81%AE%E4%BD%93%E9%A8%93%E8%A8%98%E7%BF%BB%E8%A8%B3/" />
+<meta property="article:published_time" content="2005-09-22T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2005-09-22T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="「企業のWindows環境をLinuxへ移行したボクの体験記」翻訳">
+<meta itemprop="description" content="Microsoftのライセンスは超高い。高すぎる。じゃあLinux/Unix環境へ…。 と、IT管理者なら誰しも一度は考える。でも色々考えると">
+
+
+<meta itemprop="datePublished" content="2005-09-22T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2005-09-22T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="3651">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="「企業のWindows環境をLinuxへ移行したボクの体験記」翻訳"/>
+<meta name="twitter:description" content="Microsoftのライセンスは超高い。高すぎる。じゃあLinux/Unix環境へ…。 と、IT管理者なら誰しも一度は考える。でも色々考えると"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">「企業のWindows環境をLinuxへ移行したボクの体験記」翻訳</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2005-09-22T01:00:00&#43;09:00">September 22, 2005</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>Microsoftのライセンスは超高い。高すぎる。じゃあLinux/Unix環境へ…。
+
+
+
+と、IT管理者なら誰しも一度は考える。でも色々考えると心が折れてしまうのだ。
+
+
+
+が、インドネシアの「MS Certified ProfessionalでありながらLinuxを愛してしまった男」が、それをやってのけた。
+
+
+
+彼がその顛末をFedora Core のメーリングリストに投稿していたので、簡単に訳してみた。
+
+
+
+原文は下記。
+
+
+
+http://linux2.arinet.org/index.php?option=com_content&amp;task=view&amp;id=110&amp;Itemid=2
+
+
+
+当然のことながら、思いつきで訳したので、訳の正確さについては一切責任を持ちません。
+
+
+
+必要なら原文をあたって下さい。
+
+
+
+
+
+
+
+
+--------------------------
+
+
+
+■My Experience and Strategy to Migrate MS Windows to Linux
+
+
+
+
+
+
+
+
+この文章は、MS Windowsから、OpenOffice、Sambaサーバ、dosemu(DOSエミュレータ）を使用したLinuxへの移行計画を立案する際に、何らかの助けになることを目的にしている。
+
+
+
+■背景:
+
+
+
+もっともっと経済的な別の方法があるというのに、なぜ数億ルピア（数百万円）も使わなければならないのか。
+
+
+
+激しい企業競争の時代において、あらゆる効率化が必要だと経営者は理解すべき時だ。　そして周知のように、マイクロソフト・インドネシアとBSAは、ここ数ヶ月、適切なライセンスを持たずに彼らのソフトウェアを使用している企業を追跡しようと躍起になっている。
+
+
+
+確かに、彼らがcopyrightを持っている以上、そのような行動は理解できるし、責めることも出来ない。　だが、MS Office のベーシックタイプ（Word, Excel, Powerpointのみバンドルされているもの）は、1ライセンス約150ドル。　つまり100台のPCがある会社は、1,500ドル払わなければならないわけだ。　これに加えて、1台あたり140ドルがOS用として（WinXP)必要になる。　最終的にはPC1台あたり300ドルかかることになる。　100台のPCとなれば30,000ドルだ。　100台から300台のPCを所有している会社であれば、ライセンスだけで数十万ドルかかることもあるわけだ。
+
+
+
+このように、費用を考えるとWindowsからLinuxに移行したくなるが、これは易しいことではない。　企業はなお、移行のコストとリターンを検討しなければならない。　それゆえ、一般的に移行計画は下記の点を含むべきだ。
+
+
+
+PCの使用方法を分析すること。　我々は、どのプログラムが使用されていて、どのPCが管理業務にのみ-例えばワープロや表計算等-使用されているかをチェックしなければならない。　また、業務で使用しているプログラムが、どのプラットフォームの上で動作しており、どのような言語で書かれているか、またそのプログラムがインストールされているPCはどれか、等をチェックしなければならない。
+
+
+
+集められたデータを元にして、初めて移行の展開範囲を分析することになる。　この分析であらゆる移行方法の可能性を探るのだ。
+</code></pre>
+
+<p><ul>
+  </ul></p>
+
+<p><ul>
+    <li>
+      どのPCが、OSとOfficeアプリケーションも含め、100%移行可能か。
+    </li>
+    <li>
+      どのPCが、Officeアプリケーションのみ、つまり50%移行可能か。
+    </li>
+    <li>
+      どのPCが、移行不可能、つまり移行可能パーセンテージが0か。
+    </li>
+  </ul></p>
+
+<pre><code>上記シナリオに基づき、さらに経営陣に報告すべきコストを見積もる。　もちろん、理想ではすべてのPCおよびアプリケーションを移行したいが、私の経験上、それはまだ不可能だ。　企業の一部業務は既にマイクロソフトやプロプライエタリな製品によって囲い込みされているからだ。　悲しいがこれは事実だ。
+
+
+
+■ケーススタディ:
+
+
+
+このような例を考えてみよう。
+
+
+
+ある中規模の広告代理店が、およそ300台のPCを各地にある支店に配置している。
+
+
+
+近頃、マイクロソフト/インドネシアよりソフトウェアライセンスの監査をせき立てる文書を受け取り、経営陣は動揺している。　簡単に調べたところ、PC1台あたりWinXPが140ドル、MS Officeが150ドルかかると分かった。　最終的に300台のPCでは約9,000ドルと、サーバおよびクライアントライセンスとして、さらに1,000ドルほど必要になる。
+
+
+
+
+
+
+
+
+さて。上記の分析方法によって、経営陣は下記のデータを得た。
+</code></pre>
+
+<p><ul>
+    <li>
+      約30%のPCは、Officeを使用しているだけであり、それもワープロおよび表計算ソフトである。
+    </li>
+    <li>
+      約50%のPCは、VBで書かれ、MS Windowsサーバで共有された経理システムを使用している。
+    </li>
+    <li>
+      約20%のPCは、Clipper<span class="footnote">*1</span>で書かれNovellサーバで共有された投資プログラムを使用している。
+    </li>
+    <li>
+      PCのスペックは初代PentiumからPentium4まで様々である。
+    </li>
+  </ul></p>
+
+<pre><code>ここで初めて我々は「何を移行できるか」という点で検討することが出来る。　今回は時間に限りがあるため、大きな問題もなく移行可能なPCのみ対象とすべきである。
+
+
+
+と、いうことで、VBアプリケーションが動いているPCについては忘れよう。
+
+
+
+
+
+
+
+
+Officeだけを使用しているPCについては、すぐにでも移行が可能だが、PCスペックが様々であるため、下記のように、細かく移行方法を設定しなければならない。
+</code></pre>
+
+<p><ol>
+    <li>
+      初代Pentium搭載マシンについては、Mandrake 9.0かRedHat 8に移行。
+    </li>
+    <li>
+      Pentium2、3搭載マシンについては、Mandrake 9.2、10,0、RedHat 9に移行。
+    </li>
+    <li>
+      Pentium4搭載マシンについては、FedoraCore4やMandriva 10.2など、最新のDistroに移行可能である。
+    </li>
+  </ol></p>
+
+<pre><code>Clipperアプリケーションを使用しているPCについては、Sambaによるファイルサーバと、dosemu(DOSエミュレータ)によって、Clipperアプリケーションを疑似することが出来る。
+
+
+
+(訳者注: Clipperは日本ではあまりなじみがない[と思われる]ので詳細は割愛)
+
+
+
+
+
+
+
+
+上記の方法により、この会社がソフトウェアライセンス費用に関して、相当量の効率化を図れる望みはある。　だが、私の経験上、移行を成功させるには、さらなる分析、検討が必要である。　それは下記の通りだ。
+
+
+
+
+
+
+
+
+1. dosemuやSamba上で動くclipperアプリケーションの、さらなる総合的な互換性テスト。
+
+
+
+いかにdosemuがDOS環境を疑似できようとも、所詮は疑似であり、私は様々なclipperアプリケーションに関して、100%の互換性を保証出来ないからだ。
+
+
+
+
+
+
+
+
+2. Officeアプリに関しても同様だ。　OpenOfficeに移行出来ないような、MS Office独自の機能がないかどうか。　OpenOffice 2 beta1は非常に高いレベルでMS Officeと互換性があるが、まだ完全ではない。　もし互換性に関して問題が発生した場合には、その機能をOpenOffice上で作り直すことで解決出来るか、あるいは全く出来ないかを判断しなければならない。
+
+
+
+
+
+
+
+
+3. もう一つ重要なことは、移行するすべてのファイルをバックアップすることだ。　例え問題が発生してファイルが破壊されても、ユーザはまだオリジナルを持っている。　私はこのような状況に陥ったことがある。　あるユーザがExcelファイルをOOcalcにインポートしたところ全く問題がなかったが、何度か使用しているうちに、突然ファイルを開けなくなったのだ。
+
+
+
+
+
+
+
+
+4. 最後に、おそらくこれが一番重要なことだろうが、ユーザに「なぜ我々はLinuxに移行するのか」良く理解してもらうことだ。　ユーザが受け入れられる説明をしっかりと与え、移行に対して協力的になってもらうのだ。　そして、新しい環境、新しいプログラムのもと、ユーザが助けを必要とした時には、必ずそこにいること。　新旧両者の違いについて、分かりやすい説明をすること。例えば、「MS Excelではこのようにして印刷をするが、OOcalcではこのようにする」など。　そうすることで、ユーザ達は両者の同じようなところ、また違うところがハッキリと分かるようになるのだ。
+
+
+
+
+
+
+
+
+以上が、私があなた方にお教えできるMS Windows環境からGNU/Linuxを基本にしたオープンソース環境への移行だ。
+
+
+
+
+
+
+
+
+ポイントは、下記の一点。
+
+
+
+論理的に明らかな解決法があるのに、なぜ数百万ルピアのお金をバラ巻かなければならないのだ？
+
+
+
+
+
+
+
+
+情報までに、公には知られておらず、まったく目立ってはいないが、何社かインドネシアの大企業がLinuxへ移行している。　静かながらオープンソースの潮流はインドネシアで受け入れられ、成長している。
+
+
+
+この記事が、ライセンス費用に関して何か解決策を求める人々の助けになることを願っている。
+
+
+
+
+
+
+
+
+v.1.0 by ari_stress またの名を tiger74 あるいはまたの名を Fajar Priyanto
+
+
+
+Jakarta, 17 September 2005. fajarpri at arinet dot org
+
+
+
+MS Certified ProfessionalでありながらLinuxを愛してしまった男。
+
+
+
+ジャカルタで自動車関連企業に勤めてます。
+
+
+
+Last Updated ( Sunday, 18 September 2005 )
+
+
+
+--------------------------
+</code></pre>
+
+<p><div class="footnote">
+  <p class="footnote">
+    *1：　（注: Clipperとはデータベースや業務システムで利用された言語。本来はDOSで動作したが、現在では様々なプラットフォーム上で動く。<a href="http://en.wikipedia.org/wiki/Clipper_programming_language" target="_blank"><a href="http://en.wikipedia.org/wiki/Clipper_programming_language">http://en.wikipedia.org/wiki/Clipper_programming_language</a></a>）</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

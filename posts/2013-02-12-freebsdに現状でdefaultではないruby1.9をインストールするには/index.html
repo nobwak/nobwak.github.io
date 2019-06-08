@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSDに、現状でdefaultではないRuby1.9をインストールするには</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSDに、現状でdefaultではないRuby1.9をインストールするには" />
+<meta property="og:description" content="備忘のために残す。 2013/2/12現在、FreeBSDで何も考えずにRubyをインストールすると1.8になってしまう。 しかし世の中はもう1" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-02-12-freebsd%E3%81%AB%E7%8F%BE%E7%8A%B6%E3%81%A7default%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%84ruby1.9%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2013-02-12T23:33:20&#43;09:00"/>
+<meta property="article:modified_time" content="2013-02-12T23:33:20&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSDに、現状でdefaultではないRuby1.9をインストールするには">
+<meta itemprop="description" content="備忘のために残す。 2013/2/12現在、FreeBSDで何も考えずにRubyをインストールすると1.8になってしまう。 しかし世の中はもう1">
+
+
+<meta itemprop="datePublished" content="2013-02-12T23:33:20&#43;09:00" />
+<meta itemprop="dateModified" content="2013-02-12T23:33:20&#43;09:00" />
+<meta itemprop="wordCount" content="865">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSDに、現状でdefaultではないRuby1.9をインストールするには"/>
+<meta name="twitter:description" content="備忘のために残す。 2013/2/12現在、FreeBSDで何も考えずにRubyをインストールすると1.8になってしまう。 しかし世の中はもう1"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSDに、現状でdefaultではないRuby1.9をインストールするには</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-02-12T23:33:20&#43;09:00">February 12, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>備忘のために残す。</p>
+
+<p>2013/2/12現在、FreeBSDで何も考えずにRubyをインストールすると1.8になってしまう。<br />
+しかし世の中はもう1.9で動いているのでこれでは困るのである。</p>
+
+<p>ところが、デフォルトとはちょっと変わった事をやりだすといろいろ面倒の発生するのがports。</p>
+
+<p><strong>Ruby 1.9をインストールする「前」に即すべきこと。</strong></p>
+
+<p>おもむろに/etc/make.confを開き、以下の二行を加えよ。</p>
+
+<blockquote style="border: 1px solid gray; padding: 5px; background-color: #eeeeee; font-style: normal;">
+  
+    RUBY_VERSION=1.9.3<br /> RUBY_DEFAULT_VER=1.9
+  
+</blockquote>
+
+<p>一行目の意味は、/usr/local/bin/rubyを作るという意味。<br />
+意味が分からないかもしれないが、ほんとう。<br />
+というのも、現時点でRuby 1.9をインストールすると、/usr/local/bin/ruby19が作成され、/usr/local/bin/rubyは出来ない。</p>
+
+<p>一行目の記載をしておけばインストール時にruby19から「ハードリンク」を張ってくれる。<br />
+symlink張ってもいいのだが、こういうのはシステム側にやらせておいた方がいい。</p>
+
+<p>ちなみに、検索するとmake.confにこう書け、と教えてくれるページはいくらでもあるのだが、根拠は見つけられなかった。<br />
+根拠、つまりインストール前にこういうところを見ておけばいい、というのが分からないので、今後もまず躓いてから考える事になる。これは&hellip;。</p>
+
+<p>二行目は、その名の通り、システムデフォルトをRuby1.9にするということ。<br />
+これがないと、例えばRuby Gemsをインストールするとき、Ruby1.9がインストール済みでも問答無用でRuby 1.8をインストールし始めるので注意。</p>
+
+<p>なおこちらは/usr/ports/UPDATINGに記載があった。<br />
+ただこれをインストール前に知る事が出来るのだろうか。「UPDATING」じゃないか。アップデートするときに読むものじゃないか。</p>
+
+<p><strong>Rubyそのほか</strong></p>
+
+<p>make.confに追記したら、lang/ruby19をインストール。<br />
+Ruby on Railsが必要であれば、続いてdevel/ruby-gems, www/rubygem-railsをインストールする。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

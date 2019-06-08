@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD] 日常使いのpkgng その1</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD] 日常使いのpkgng その1" />
+<meta property="og:description" content="pkgngをしばらく使ってみて感じるのは、情報を十分に与えてくれること。 適当に使っても、あれしろ、これしろ、と教えてくれるから戸惑いが少ない" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-03-15-freebsd_%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgng_%E3%81%9D%E3%81%AE1/" />
+<meta property="article:published_time" content="2013-03-15T23:40:13&#43;09:00"/>
+<meta property="article:modified_time" content="2013-03-15T23:40:13&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD] 日常使いのpkgng その1">
+<meta itemprop="description" content="pkgngをしばらく使ってみて感じるのは、情報を十分に与えてくれること。 適当に使っても、あれしろ、これしろ、と教えてくれるから戸惑いが少ない">
+
+
+<meta itemprop="datePublished" content="2013-03-15T23:40:13&#43;09:00" />
+<meta itemprop="dateModified" content="2013-03-15T23:40:13&#43;09:00" />
+<meta itemprop="wordCount" content="1205">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD] 日常使いのpkgng その1"/>
+<meta name="twitter:description" content="pkgngをしばらく使ってみて感じるのは、情報を十分に与えてくれること。 適当に使っても、あれしろ、これしろ、と教えてくれるから戸惑いが少ない"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD] 日常使いのpkgng その1</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-03-15T23:40:13&#43;09:00">March 15, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p><a href="../../../?p=1947" target="_blank">pkgngをしばらく使ってみて</a>感じるのは、情報を十分に与えてくれること。<br />
+適当に使っても、あれしろ、これしろ、と教えてくれるから戸惑いが少ない。<br />
+それでも、pkgngでやりたいこと別にまとめておくのは有用だと思うので記す。</p>
+
+<p>pkgngへの移行については<a href="../../../?p=1947">こちら</a>。</p>
+
+<h3 id="span-style-text-decoration-underline-まずやること-span"><span style="text-decoration: underline;">まずやること</span>。</h3>
+
+<p>/etc/periodic.confに以下を追加しよう。<br />
+periodic.confがなければ/etc/defaults/periodic.confを/etc/peridoc.confとしてコピーして末尾に追加。</p>
+
+<pre><code class="language-console">daily_backup_pkgng_enable=&quot;YES&quot;
+daily_status_security_pkgaudit_enable=&quot;YES&quot;
+</code></pre>
+
+<p>1行目はpkgngのdbを/var/db/backupsにバックアップさせるもの。<br />
+2行目はインストール済みのpkgにセキュリティの問題がないかを確認し、メールで報告させるもの。</p>
+
+<p>詳しくは以下スクリプトを。</p>
+
+<pre><code class="language-console">/usr/local/etc/periodic/daily/411.pkg-backup
+/usr/local/etc/periodic/security/410.pkg-audit
+</code></pre>
+
+<h3 id="span-style-text-decoration-underline-インストール済みのpkgをアップグレードするには-span"><span style="text-decoration: underline;">インストール済みのpkgをアップグレードするには。</span></h3>
+
+<p>pkg upgradeを叩くだけでOK。<br />
+pkg upgradeを実行すると、まずpkg updateしてからインストール済みpkgに更新がないかをチェックする。<br />
+updateとはrepository catalogueをアップデートすることで、repository catalogueとは、pkgダウンロード先サイトのpkg一覧がsqliteのDBでまとまっているもの。</p>
+
+<pre><code class="language-console">$ sudo pkg update
+Updating repository catalogue
+repo.txz   
+$ sudo pkg upgrade
+Updating repository catalogue
+Repository catalogue is up-to-date, no need to fetch fresh copy
+The following packages will be upgraded:
+
+        Upgrading p5-Tie-IxHash: 1.22 -&gt; 1.23
+        Upgrading xterm: 290 -&gt; 291
+
+The installation will require 402 B more space
+
+255 kB to be downloaded
+
+Proceed with upgrading packages [y/N]:Proceed with upgrading packages [y/N]: y
+p5-Tie-IxHash-1.23.txz              100%   11KB  10.6KB/s  10.6KB/s   00:00
+xterm-291.txz                       100%  245KB 244.7KB/s 244.7KB/s   00:00
+Checking integrity... done
+Upgrading p5-Tie-IxHash from 1.22 to 1.23... done
+Upgrading xterm from 290 to 291... done
+</code></pre>
+
+<h3 id="span-style-text-decoration-underline-不要なpkgを削除したい-span"><span style="text-decoration: underline;">不要なpkgを削除したい。</span></h3>
+
+<p>autoremoveを使う。<br />
+pkg_cutleavesのようなものですな。</p>
+
+<pre><code class="language-console">$ sudo pkg autoremove
+パスワード:
+Packages to be autoremoved:
+linux_base-f10-10_5
+nvidia-settings-310.14
+nvidia-xconfig-310.14
+
+The autoremoval will free 136 MB
+
+Proceed with autoremoval of packages [y/N]: y
+Deleting linux_base-f10-10_5...
+You may need to do by hand:
+o  unmount linprocfs if mounted
+o  delete /compat/linux/proc if present
+o  remove/comment linprocfs from /etc/fstab if present
+
+done
+Deleting nvidia-settings-310.14... done
+Deleting nvidia-xconfig-310.14... done
+</code></pre>
+
+<h3 id="span-style-text-decoration-underline-あるpkgが依存している他のpkgを調べるには-span"><span style="text-decoration: underline;">あるpkgが依存している他のpkgを調べるには</span>。</h3>
+
+<p>-dオプションを与える。DependのDなので覚えやすい。もうこれで間違えないよ！<br />
+Rとrで意味を違えるどこかのシステムは猛省していただきたいものである。</p>
+
+<pre><code class="language-console">$ pkg info -d bash
+bash-4.2.42 depends on:
+libiconv-1.14
+gettext-0.18.1.1
+</code></pre>
+
+<h3 id="span-style-text-decoration-underline-あるpkgに-どのpkgが依存しているかを調べるには-span"><span style="text-decoration: underline;">あるpkgに、どのpkgが依存しているかを調べるには。</span></h3>
+
+<p>requiredのrですな。</p>
+
+<pre><code class="language-console">$ pkg info -r bash
+bash-4.2.42 is required by:
+gnome-doc-utils-0.20.3
+rarian-0.8.1
+gnome-desktop-2.32.1_2
+policykit-gnome-0.9.2_6
+</code></pre>
+
+<h3 id="span-style-text-decoration-underline-pkgngにおけるportaudit的なものはないの-span"><span style="text-decoration: underline;">pkgngにおけるportaudit的なものはないの?</span></h3>
+
+<p>pkg auditを使う。-Fとセットがいいでしょうな。<br />
+package nameを与えるとそのpkgだけをチェックしてくれる。<br />
+ただ、package nameはバージョンまで指定しないとダメな模様。<br />
+問題なければ何も出力されない。これはちょっとさみしい。<br />
+まあこれは冒頭で触れたように、periodic.confからやるものですなあ。</p>
+
+<pre><code class="language-console">$ pkg audit
+pkg: unable to open audit file, try running 'pkg audit -F' first
+$ sudo pkg audit -F
+パスワード:
+auditfile.tbz                            100%   85KB  85.2KB/s  85.2KB/s   00:00
+apache22-2.2.23_4 is vulnerable:
+apache22 -- several vulnerabilities
+
+$ sudo pkg audit -F bash
+Audit file up-to-date.
+pkg: bad package name format: bash: No such file or directory
+$ pkg info|grep bash
+bash-4.2.42                    The GNU Project's Bourne Again SHell
+$ sudo pkg audit -F bash-4.2.42
+Audit file up-to-date.
+$
+</code></pre>
+
+<p>うわapache&hellip;</p>
+
+<p>（追記）<a href="../../../?p=1988" target="_blank">日常使いのpkgその2</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

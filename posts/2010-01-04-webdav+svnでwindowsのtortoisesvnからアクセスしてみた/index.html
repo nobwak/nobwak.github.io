@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | webdav&#43;svnで、WindowsのTortoiseSVNからアクセスしてみた。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="webdav&#43;svnで、WindowsのTortoiseSVNからアクセスしてみた。" />
+<meta property="og:description" content="webdavが出来上がったので、今度はここにSVNを組み込んでみた。 Excel, Wordファイルのバージョン管理をしたいだけなので、headとかそうい" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2010-01-04-webdav&#43;svn%E3%81%A7windows%E3%81%AEtortoisesvn%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/" />
+<meta property="article:published_time" content="2010-01-04T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2010-01-04T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="webdav&#43;svnで、WindowsのTortoiseSVNからアクセスしてみた。">
+<meta itemprop="description" content="webdavが出来上がったので、今度はここにSVNを組み込んでみた。 Excel, Wordファイルのバージョン管理をしたいだけなので、headとかそうい">
+
+
+<meta itemprop="datePublished" content="2010-01-04T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2010-01-04T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="874">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="webdav&#43;svnで、WindowsのTortoiseSVNからアクセスしてみた。"/>
+<meta name="twitter:description" content="webdavが出来上がったので、今度はここにSVNを組み込んでみた。 Excel, Wordファイルのバージョン管理をしたいだけなので、headとかそうい"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">webdav&#43;svnで、WindowsのTortoiseSVNからアクセスしてみた。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-01-04T01:00:00&#43;09:00">January 4, 2010</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>webdavが出来上がったので、今度はここにSVNを組み込んでみた。
+
+
+
+Excel, Wordファイルのバージョン管理をしたいだけなので、headとかそういうブランチを作成する予定はなし。
+
+
+
+まず&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20091226/p1&quot; target=&quot;_blank&quot;&gt;webdavとsubversionを設定しておく&lt;/a&gt;。
+
+
+
+そのうえで/usr/local/etc/apache22/extra/httpd-dav.confを編集
+</code></pre>
+
+<pre><code class="language-console">DavLockDB &amp;#34;/usr/local/var/DavLock&amp;#34;
+&amp;#60;Location /repo&gt;
+DAV svn
+SVNPath /usr/local/var/svn/repo
+AuthType Digest
+AuthName &amp;#34;svn sandbox&amp;#34;
+AuthUserFile &amp;#34;/usr/local/www/.davsvn.passwd&amp;#34;
+require valid-user
+Order deny,allow
+&amp;#60;/Location&gt;
+</code></pre>
+
+<pre><code>httpd-dav.confに書きこんだ設定に合わせて環境を整える。
+
+
+
+まずパスワードファイルの作成。
+
+
+
+AuthTypeはBasicでもいいけど、せっかくなのでDigest。
+
+
+
+始めてパスワードファイルを作る場合には-cをつける。
+
+
+
+パスワードファイルはどこでもよいが、外部からアクセスできないディレクトリに置くこと。
+
+
+
+もちろん場所を変えたらhttpd-dav.confの指定も併せて修正する。
+
+
+
+また、htdigestはrealmの設定も必要。httpd-dav.confのAuthNameと合わせること。
+
+
+
+以下は実行例
+</code></pre>
+
+<pre><code class="language-console">$ htdigest --help
+Usage: htdigest &amp;#91;-c] passwordfile realm username
+The -c flag creates a new file.
+$ sudo htdigest -c &amp;#34;/usr/local/www/.davsvn.passwd&amp;#34; &amp;#34;svn sandbox&amp;#34;  harukiya
+</code></pre>
+
+<pre><code>次にレポジトリとレポジトリを置くディレクトリの作成。
+
+
+
+もちろんhttp-dav.confで指定した場所に作ること。
+</code></pre>
+
+<pre><code class="language-console">$ sudo mkdir -p /usr/local/var/svn/repo
+$ sudo svnadmin create /usr/local/var/svn/repo
+$ sudo chown -R www:www /usr/local/var/svn/repo
+$ sudo chmod -R 770 /usr/local/var/svn/repo
+</code></pre>
+
+<pre><code>あとはapacheを再起動する。
+</code></pre>
+
+<pre><code class="language-console">$ sudo /usr/local/etc/rc.d/apache22 restart
+</code></pre>
+
+<pre><code>Windowsで&lt;a href=&quot;http://tortoisesvn.net/&quot; target=&quot;_blank&quot;&gt;TortoiseSVN&lt;/a&gt;をインストールして再起動。
+
+
+
+
+
+
+Windowsで作業用ディレクトリを開く。どこでもよい。
+
+
+
+そこで右クリックし、SVN checkoutを選ぶ。
+
+
+
+「URL of repository:」にhttp://＜サーバアドレス＞/＜レポジトリディレクトリ＞を入れる。
+
+
+
+俺の場合だとhttp://192.168.0.11/repoとかになる。
+
+
+
+で、OKを押す。
+
+
+
+あとはここにバージョン管理したいファイルをガバガバ入れていけばcommitなどしてけばOK
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

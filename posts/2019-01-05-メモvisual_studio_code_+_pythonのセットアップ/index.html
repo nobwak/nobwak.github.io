@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | 【メモ】Visual Studio Code &#43; Pythonのセットアップ</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="【メモ】Visual Studio Code &#43; Pythonのセットアップ" />
+<meta property="og:description" content="いまさらVisual Studio Code（以降、VSC）をインストールしたのでメモ Windows10。Python。 以下の手順に沿う。 Python in Visual Studio Code https://code.visualstudio.com/docs/languages/python VS" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2019-01-05-%E3%83%A1%E3%83%A2visual_studio_code_&#43;_python%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/" />
+<meta property="article:published_time" content="2019-01-05T18:36:51&#43;09:00"/>
+<meta property="article:modified_time" content="2019-01-05T18:36:51&#43;09:00"/>
+
+<meta itemprop="name" content="【メモ】Visual Studio Code &#43; Pythonのセットアップ">
+<meta itemprop="description" content="いまさらVisual Studio Code（以降、VSC）をインストールしたのでメモ Windows10。Python。 以下の手順に沿う。 Python in Visual Studio Code https://code.visualstudio.com/docs/languages/python VS">
+
+
+<meta itemprop="datePublished" content="2019-01-05T18:36:51&#43;09:00" />
+<meta itemprop="dateModified" content="2019-01-05T18:36:51&#43;09:00" />
+<meta itemprop="wordCount" content="573">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="【メモ】Visual Studio Code &#43; Pythonのセットアップ"/>
+<meta name="twitter:description" content="いまさらVisual Studio Code（以降、VSC）をインストールしたのでメモ Windows10。Python。 以下の手順に沿う。 Python in Visual Studio Code https://code.visualstudio.com/docs/languages/python VS"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">【メモ】Visual Studio Code &#43; Pythonのセットアップ</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2019-01-05T18:36:51&#43;09:00">January 5, 2019</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>いまさらVisual  Studio Code（以降、VSC）をインストールしたのでメモ<br />
+Windows10。Python。<br />
+以下の手順に沿う。</p>
+
+<p>Python in Visual Studio Code<br />
+<a href="https://code.visualstudio.com/docs/languages/python">https://code.visualstudio.com/docs/languages/python</a></p>
+
+<h3 id="vscのインストール">VSCのインストール</h3>
+
+<p>以下からダウンロード、インストール。</p>
+
+<p>Download Visual Studio Code<br />
+<a href="https://code.visualstudio.com/Download">https://code.visualstudio.com/Download</a></p>
+
+<p>私はzip版。<br />
+任意のフォルダに展開し、PATHを通す。<br />
+私の場合はPATHの通っているところにcode.exeのショートカットを置いただけ。</p>
+
+<h3 id="pythonのインストール">Pythonのインストール</h3>
+
+<p><a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+
+<p><a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_01.jpg">pythoninstall01</a></p>
+
+<p><a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_02.jpg">pythoninstall02</a> <a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_03.jpg">pythoninstall03</a><br />
+コマンドプロンプトでpythonにPATHが通っていることを確認<br />
+<a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_04.jpg">pythoninstall04</a></p>
+
+<h3 id="vscへのpython-extensionインストール">VSCへのpython extensionインストール</h3>
+
+<p>Python extension for Visual Studio Code<br />
+<a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">https://marketplace.visualstudio.com/items?itemName=ms-python.python</a></p>
+
+<p><a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_05.jpg">pythoninstall05</a><br />
+<a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_06.jpg">pythoninstall06
+</a> <a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_07.jpg">pythoninstall07</a></p>
+
+<h3 id="vscでのpython-interpreterの指定">VSCでのpython interpreterの指定</h3>
+
+<p>VSCを起動し、pythonを使う旨、VSCに明示する。<br />
+Ctrl + Shift + Pを押し、現れたウインドウに「Python」とタイプ、「インタープリターを選択」を選ぶ</p>
+
+<p><a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_08.jpg">pythoninstall08</a></p>
+
+<h3 id="pylintのインストール">PyLintのインストール</h3>
+
+<p>拡張子.pyのファイルを作ると、Linterが無いと怒られる。<br />
+インストールを選ぶ。<br />
+<a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_09.jpg">pythoninstall09</a><br />
+<a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_20.jpg">pythoninstall20</a></p>
+
+<h3 id="ライブラリのインストール">ライブラリのインストール</h3>
+
+<p>なんか画面が開いたのでpipで必要なライブラリのインストールを進める<br />
+<a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_21.jpg">pythoninstall21</a></p>
+
+<h3 id="microsoft-visual-c-14-0-のインストール">&ldquo;Microsoft Visual C++ 14.0&rdquo;のインストール</h3>
+
+<p>「Microsoft Visual C++ 14.0」が無いと怒られたら。</p>
+
+<pre><code class="language-console">copying cx_Freeze\samples\wx\wxapp.py -&gt; build\lib.win32-3.7\cx\_Freeze\samples\wx  
+creating build\lib.win32-3.7\cx_Freeze\samples\zope  
+copying cx_Freeze\samples\zope\qotd.py -&gt; build\lib.win32-3.7\cx\_Freeze\samples\zope  
+copying cx_Freeze\samples\zope\setup.py -&gt; build\lib.win32-3.7\cx_Freeze\samples\zope  
+running build_ext  
+building 'cx_Freeze.util' extension  
+error: Microsoft Visual C++ 14.0 is required. Get it with &quot;Microsoft Visual C++ Build Tools&quot;: https://visualstudio.microsoft.com/downloads/
+</code></pre>
+
+<p>このあたりから入手してインストール<br />
+<a href="https://visualstudio.microsoft.com/visual-cpp-build-tools/">https://visualstudio.microsoft.com/visual-cpp-build-tools/</a><br />
+<a href="https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe">https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe</a></p>
+
+<p>MD5ハッシュは 8d4afd3b226babecaa4effb10d69eb2e<br />
+以上</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

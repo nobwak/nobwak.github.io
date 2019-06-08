@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Windowsにpyinstallerをインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Windowsにpyinstallerをインストール" />
+<meta property="og:description" content="過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。 （動いていたからまったく気がつかなかった・・・・）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-05-05-windows%E3%81%ABpyinstaller%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2014-05-05T19:52:32&#43;09:00"/>
+<meta property="article:modified_time" content="2014-05-05T19:52:32&#43;09:00"/>
+
+<meta itemprop="name" content="Windowsにpyinstallerをインストール">
+<meta itemprop="description" content="過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。 （動いていたからまったく気がつかなかった・・・・）">
+
+
+<meta itemprop="datePublished" content="2014-05-05T19:52:32&#43;09:00" />
+<meta itemprop="dateModified" content="2014-05-05T19:52:32&#43;09:00" />
+<meta itemprop="wordCount" content="1046">
+
+
+
+<meta itemprop="keywords" content="python,Windows," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Windowsにpyinstallerをインストール"/>
+<meta name="twitter:description" content="過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。 （動いていたからまったく気がつかなかった・・・・）"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Windowsにpyinstallerをインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-05-05T19:52:32&#43;09:00">May 5, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。<br />
+（動いていたからまったく気がつかなかった・・・・）<br />
+<a title="PythonでWindowsアプリケーションを作ってみよう" href="../../../2013/12/python%e3%81%a7windows%e3%82%a2%e3%83%97%e3%83%aa%e3%82%b1%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86/" target="_blank">PythonでWindowsアプリケーションを作ってみよう</a></p>
+
+<p><a href="http://www.pyinstaller.org/" target="_blank">pyinstaller</a>とは、pythonプログラムをWindowsなどで動く実行ファイルに変換してくれるものだ。<br />
+自作pythonプログラムを他人にも使ってもらおうとすると、当然その人もpythonをインストールすることが前提になる。<br />
+しかしスタンドアロンの実行ファイルにできるなら、そんな面倒を解消できる。<br />
+ありがたいことでございます。</p>
+
+<h2 id="pyinstallerのインストール">PyInstallerのインストール</h2>
+
+<p><a href="http://pythonhosted.org/PyInstaller/#installing-pyinstaller" target="_blank">公式のドキュメント</a>に沿いつつ進める。<br />
+インストール先はWindows。</p>
+
+<h2 id="前提">前提</h2>
+
+<p>Pythonはもちろんインストールしてあるとして、以下のものが必要<br />
+・PyWin32<br />
+・（場合によって）setuptools/distribute</p>
+
+<h2 id="補足">補足</h2>
+
+<p>2014/5/2現在、ActivePythonのPyPMにPyInstallerはありません。</p>
+
+<h2 id="pywin32のインストール">PyWin32のインストール</h2>
+
+<p><a href="http://sourceforge.net/projects/pywin32/?source=navbar" target="_blank">PyWin32</a>はPythonからWindows APIにアクセスするためのもの。<br />
+以下から対応するバージョンをダウンロードし、インストールする。<br />
+<a href="http://sourceforge.net/projects/pywin32/files/?source=navbar" target="_blank"><a href="http://sourceforge.net/projects/pywin32/files/?source=navbar">http://sourceforge.net/projects/pywin32/files/?source=navbar</a></a><br />
+32bit WindowsにPython2.7をインストールしているなら、pywin32-218.win32-py2.7.exeをダウンロード（218はバージョンナンバなので変わる）。<br />
+<a href="../../../wp-content/uploads/2014/05/py3201.png"><img class="alignnone size-thumbnail wp-image-2690" src="../../../wp-content/uploads/2014/05/py3201-150x150.png" alt="py3201" width="150" height="150" /></a><br />
+<a href="../../../wp-content/uploads/2014/05/py3202.png"><img class="alignnone size-thumbnail wp-image-2691" src="../../../wp-content/uploads/2014/05/py3202-150x150.png" alt="py3202" width="150" height="150" /></a><br />
+pipがインストールされているなら、この時点でpip install PyInstallerでOK。</p>
+
+<h2 id="setuptools-distributeのインストール">setuptools/distributeのインストール</h2>
+
+<p>pipがインストールされているならこのステップは不要。<br />
+また、setuptools, distributeどっちでもよい。<br />
+2014/5/2現在、setuptoolsでいいようだが、私がインストールしたのはdistribute。<br />
+<a href="https://pypi.python.org/pypi/distribute/0.7.3" target="_blank"><a href="https://pypi.python.org/pypi/distribute/0.7.3">https://pypi.python.org/pypi/distribute/0.7.3</a></a></p>
+
+<p>ダウンロードして、伸張して、できたディレクトリでpython setup.py install。<br />
+distribute, setuptoolsの違いについては以下を。<br />
+<a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2" target="_blank"><a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2">http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2</a></a></p>
+
+<h2 id="pyinstallerのインストール-1">PyInstallerのインストール</h2>
+
+<p>以下から最新のPyInstallerをダウンロード。<br />
+<a href="https://pypi.python.org/pypi/PyInstaller/" target="_blank"><a href="https://pypi.python.org/pypi/PyInstaller/">https://pypi.python.org/pypi/PyInstaller/</a></a><br />
+伸張して、できたディレクトリでpython setup.py install。</p>
+
+<pre><code class="language-console">C:\local\pyinstaller&gt;python setup.py install
+（略）
+Installed c:\python27\lib\site-packages\pyinstaller-2.1-py2.7.egg
+Processing dependencies for PyInstaller==2.1
+Searching for distribute==0.6.19
+Best match: distribute 0.6.19
+Adding distribute 0.6.19 to easy-install.pth file
+Installing easy_install-script.py script to C:\Python27\Scripts
+Installing easy_install.exe script to C:\Python27\Scripts
+Installing easy_install-2.7-script.py script to C:\Python27\Scripts
+Installing easy_install-2.7.exe script to C:\Python27\Scripts
+
+Using c:\python27\lib\site-packages
+Finished processing dependencies for PyInstaller==2.1
+
+C:\local\pyinstaller&gt;
+</code></pre>
+
+<p>コマンドプロンプトを開いてpyinstaller -versionと叩いてみる。<br />
+うまく行っているならパスも通っている。</p>
+
+<pre><code class="language-console">C:\local&gt;pyinstaller --version
+2.1
+
+C:\local&gt;
+</code></pre>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/windows" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Windows</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-01-python2_hex%E6%96%87%E5%AD%97%E5%88%97%E3%81%A8bin%E6%96%87%E5%AD%97%E5%88%97%E3%81%A7%E3%82%B3%E3%83%B3%E3%83%90%E3%83%BC%E3%83%88/">[Python2] Hex文字列とBin文字列でコンバート</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-30-python2_string%E3%82%92%E9%80%86%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python2] stringを逆に表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/">Microsoft Security Essentialsをバッチで使おう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-06-%E3%83%A1%E3%83%A2_ms%E8%A3%BDoffice_2007%E4%BB%A5%E9%99%8D%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E3%83%93%E3%83%A5%E3%83%BC%E3%82%A2/">[メモ] MS製Office 2007以降ドキュメントビューア</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-27-windows%E3%81%AE%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E3%83%84%E3%83%BC%E3%83%AB/">Windowsのクリップボード操作系ツール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-02-windows%E3%81%A7curl%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFmicrosoft_security_essential%E3%81%AE%E5%AE%9A%E7%BE%A9%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92curl%E3%81%A7%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89/">Windowsでcurlを使おう。あるいはMicrosoft Security Essentialの定義ファイルをcurlでダウンロード。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

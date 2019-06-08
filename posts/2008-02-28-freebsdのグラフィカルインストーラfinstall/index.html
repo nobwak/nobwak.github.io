@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSDのグラフィカルインストーラ”finstall”</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSDのグラフィカルインストーラ”finstall”" />
+<meta property="og:description" content="FreeBSDのインストーラは、「殺風景すぐる」と言われ、「ちょっとFreeBSDをインストールしてみようかな？」と思い立った人々の心を折っ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2008-02-28-freebsd%E3%81%AE%E3%82%B0%E3%83%A9%E3%83%95%E3%82%A3%E3%82%AB%E3%83%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%A9finstall/" />
+<meta property="article:published_time" content="2008-02-28T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2008-02-28T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSDのグラフィカルインストーラ”finstall”">
+<meta itemprop="description" content="FreeBSDのインストーラは、「殺風景すぐる」と言われ、「ちょっとFreeBSDをインストールしてみようかな？」と思い立った人々の心を折っ">
+
+
+<meta itemprop="datePublished" content="2008-02-28T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2008-02-28T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="2080">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSDのグラフィカルインストーラ”finstall”"/>
+<meta name="twitter:description" content="FreeBSDのインストーラは、「殺風景すぐる」と言われ、「ちょっとFreeBSDをインストールしてみようかな？」と思い立った人々の心を折っ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSDのグラフィカルインストーラ”finstall”</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-02-28T01:00:00&#43;09:00">February 28, 2008</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>FreeBSDのインストーラは、「殺風景すぐる」と言われ、「ちょっとFreeBSDをインストールしてみようかな？」と思い立った人々の心を折ってきた。そんなFreeBSDにおいて非常に期待されているのが、XFce4を利用したグラフィカルインストーラ&lt;a href=&quot;http://journal.mycom.co.jp/articles/2007/05/18/badcan2/index.html&quot; target=&quot;_blank&quot;&gt;finstall&lt;/a&gt;。
+
+
+
+結局、当初の予定とは異なり、7.0-RELEASEには間に合わなかったのだが、FreeBSD-stableメーリングリストをつらつらと眺めていたところ、alphaバージョンとしてCDイメージを公開した、というアナウンスを見つけた。
+
+
+
+・・・のが、2月の頭で、やっとVMWare Playerで試してみることができた。といってもさわりだけだけど。とりあえず顛末を書く。末尾にCDイメージのありか、アナウンスメールの抄訳をつけておきます。
+
+
+
+このCDイメージからは7.0-RC1がインストール出来る。
+
+
+
+7.0-RELEASEが公開されたところだが、まあ、FreeBSDにはマイナーバージョンの差なんて気にするほどのものでもない。
+
+
+
+と書こうと思ったが、RC1からRC2になるところで確かライブラリがガラッと変わってたような気がするので、少し注意が必要ですな。
+
+
+
+それから、ちょっと興味を惹くのが、インストールの際にファイルシステムにZFSも選べること。
+
+
+
+いまのところ、通常のインストールではZFSを選べず、いろいろと面倒な手続きを踏む必要があるのでこれは楽。
+
+
+
+CDから起動し、ユーザ&quot;install&quot;としてログイン。
+
+
+
+と、いきなり懐かしのインストーラ画面になり「げえっ！sysinstall！」と青くなるが、キーボードおよびタイムゾーンの選択をしたあとは無事XFce4が立ち上がり、さらにデスクトップ上にある&quot;FreeBSD Installer&quot;アイコンをダブルクリックすれば今度こそインストーラが起動する。
+
+
+
+そこで、いそいそとファイルシステムにZFSを選んでみたが、メモリが768MBに満たないと許可してくれない。よんどころない事情によりVMWareへの割り当てメモリはちょっと増やせなかったので、仕方なしとUFSを選んでインストール。
+
+
+
+rootのパスワードの設定、ユーザの追加、シェルの選択、ホスト名とネットワークの設定を行い、powerd, ssh, BSDStatsなどのサービスを有効にするか聞かれる。ちなみに、BSDStatsはデフォルトで有効であった。
+
+
+
+あとはシステムをリブートすれば完了。
+
+
+
+特にxdmなどは立ち上がってこず、いわゆるCUIでのログインだが、X、xfce4はしっかりインストールされている。後述するがFirefoxやThunderbirdもインストールされる。そのほか、perl、sudoなどもインストールされていて、むむむこれはと調べてみると、
+</code></pre>
+
+<pre><code class="language-console">$ ls /var/db/pkg|wc -l
+326
+</code></pre>
+
+<pre><code>というように、300個以上のパッケージがインストールされていた。将来的にはインストールできるパッケージを選択できるようになればいいな。
+
+
+
+インストール後、少し触ってみたのだが、うーん、まだ色々と問題がある様子。
+
+
+
+じつはインストール自体も謎のエラーで一回失敗している。あまり時間がなかったので、じっくり対処もせず消してしまった。正直インストールそのものが目的だったし。
+
+
+
+なお、既存のインストーラであるsysinstallはその愛想の無さで嫌われがちだが、たとえばシリアルコンソールからでも操作できたりと、これはこれで便利である。念のため。
+
+
+
+そんなわけで、alphaバージョンのfinstallについて、詳しくはFreeBSD-stableに流れた&lt;a href=&quot;http://docs.freebsd.org/cgi/getmsg.cgi?fetch=441708+0+archive/2008/freebsd-stable/20080210.freebsd-stable&quot; target=&quot;_blank&quot;&gt;メール&lt;/a&gt;を参照のこと。
+
+
+
+イメージのサイズがCD1枚分になるまでには余裕があるので、何か入れてほしい物があれば言え、と別メールで書いてます。
+
+
+
+
+
+
+イメージは下記からダウンロード出来るが、バージョンアップによりいつなくなるか分かりません。なおi386のみ。
+
+
+
+http://ivoras.sharanet.org/stuff/freebsd7-finstall-alpha3.iso.bz2
+
+
+
+以下、アナウンスメールを抄訳。
+
+
+
+◎前提
+
+
+
+　あくまでもアルファバージョン。
+
+
+
+◎できないこと
+
+
+
+　すでにパーティションの切られたディスクに対しては実行出来ません。
+
+
+
+　RAID, X11, サウンド関連の、ちょっと複雑な設定は出来ません。
+
+
+
+　システムロケールの設定は出来ません。
+
+
+
+◎できること
+
+
+
+　LiveCDとして動作します。
+
+
+
+　7.0-RC1のインストールと、X.Org7.3, XFce desktop 4.4 Firefox,Thunderbirdなどの、こちらで選んでおいたパッケージのインストールが出来ます。
+
+
+
+　ファイルシステムとしては、UFS+Softupdate, UFS+Gjornal, ZFS, Ext2を選べます。ただしUFSしかしっかりテストしてません。
+
+
+
+　ssh, ntpdate, bsdstatsなどのサービスの設定が出来ます。
+
+
+
+◎この先の予定
+
+
+
+　近いうちに下記の機能を入れてみたいなと考えている。
+
+
+
+　パーティションの切られたディスクへのインストール。
+
+
+
+　リモートインストールをちょっとだけ。
+
+
+
+以上。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

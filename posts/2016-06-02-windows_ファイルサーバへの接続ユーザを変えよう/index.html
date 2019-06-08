@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [Windows] ファイルサーバへの接続ユーザを変えよう</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[Windows] ファイルサーバへの接続ユーザを変えよう" />
+<meta property="og:description" content="Sambaサーバのセットアップをしているとき、動作確認のために、Windowsから接続することがある。 このとき、権限も確認するために、ユーザ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2016-06-02-windows_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B5%E3%83%BC%E3%83%90%E3%81%B8%E3%81%AE%E6%8E%A5%E7%B6%9A%E3%83%A6%E3%83%BC%E3%82%B6%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/" />
+<meta property="article:published_time" content="2016-06-02T22:22:39&#43;09:00"/>
+<meta property="article:modified_time" content="2016-06-02T22:22:39&#43;09:00"/>
+
+<meta itemprop="name" content="[Windows] ファイルサーバへの接続ユーザを変えよう">
+<meta itemprop="description" content="Sambaサーバのセットアップをしているとき、動作確認のために、Windowsから接続することがある。 このとき、権限も確認するために、ユーザ">
+
+
+<meta itemprop="datePublished" content="2016-06-02T22:22:39&#43;09:00" />
+<meta itemprop="dateModified" content="2016-06-02T22:22:39&#43;09:00" />
+<meta itemprop="wordCount" content="365">
+
+
+
+<meta itemprop="keywords" content="BATCH,Windows," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Windows] ファイルサーバへの接続ユーザを変えよう"/>
+<meta name="twitter:description" content="Sambaサーバのセットアップをしているとき、動作確認のために、Windowsから接続することがある。 このとき、権限も確認するために、ユーザ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[Windows] ファイルサーバへの接続ユーザを変えよう</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2016-06-02T22:22:39&#43;09:00">June 2, 2016</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Sambaサーバのセットアップをしているとき、動作確認のために、Windowsから接続することがある。<br />
+このとき、権限も確認するために、ユーザを変えて接続しようとする。<br />
+しかしWindowsは、ファイルサーバの認証を一回してしまうと、再起動するまで記憶する（たぶん）。<br />
+それはそれで便利なのだが、検証するとなると障害になる。</p>
+
+<p>netコマンドを使えば、再起動なく認証をやり直すことができる。<br />
+コマンドなので、バッチ化も可能。<br />
+以下、使用例。</p>
+
+<p>net useで現在、記憶している接続を表示</p>
+
+<pre><code class="language-console">C:\&gt; net use
+新しい接続は記憶されます。
+
+ステータス  ローカル名 リモート名                ネットワーク名
+
+-------------------------------------------------------------------------------
+切断                   \\192.168.0.200\share     Microsoft Windows Network
+切断                   \\windowsShare\IPC$       Microsoft Windows Network
+コマンドは正常に終了しました。
+</code></pre>
+
+<p>net use /deleteで接続を削除</p>
+
+<pre><code class="language-console">C:\&gt; net use /delete \\192.168.0.200\share
+\\192.168.0.200\share が削除されました。
+</code></pre>
+
+<p>以下のようにすれば認証もできる。</p>
+
+<pre><code class="language-console">C:\&gt; net use \\192.168.0.200\share /user:administrator password
+コマンドは正常に終了しました。
+</code></pre>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/batch" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">BATCH</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/windows" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Windows</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-08-22-windows%E3%83%90%E3%83%83%E3%83%81%E3%83%A1%E3%83%A2_efs%E3%82%92%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%8B%E3%82%89%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B/">[Windows][バッチ][メモ] EFSをコマンドラインから操作する。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-09-17-%E3%83%A1%E3%83%A2windows_virtualbox%E3%81%AE%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%8B%E3%82%89vagrant%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/">[メモ][Windows] VirtualBoxの仮想マシンからvagrantのboxを作る</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-20-atom%E3%81%AEpackage%E3%82%92proxy%E3%81%AE%E8%83%8C%E5%BE%8C%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AFwindows_7/">atomのpackageをproxyの背後からインストールするには（Windows 7）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-05-python_wxpython%E3%81%A7%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python] wxPythonで、タイトルバーにアイコンを表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-03-22-sublimetext3%E3%81%A7%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B%E3%81%AB%E3%81%AF/">sublimetext3でフォントを変えるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-03-20-sublime_text%E3%81%AEpackaging_control%E3%82%92proxy%E8%B6%8A%E3%81%97%E3%81%A7%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF/">sublime textのpackaging controlをproxy越しで使うには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-01-12-pythonwindows_windows7%E3%81%B8%E3%81%AE%E7%B4%94%E6%AD%A3python%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%83%A1%E3%83%A2/">[Python][Windows] Windows7への純正Pythonインストールメモ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-12-23-%E3%83%A1%E3%83%A2windows_%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BD%E3%83%95%E3%83%88%E3%81%A7%E5%B9%B4%E8%B3%80%E7%8A%B6%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8B/">[メモ][Windows] フリーソフトで年賀状をつくる</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-10-23-python_pyinstaller%E3%81%AE%E9%81%85%E3%81%95%E3%81%AB%E3%81%8C%E3%81%A3%E3%81%8B%E3%82%8A%E3%81%97%E3%81%A6py2exe%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E7%88%86%E9%80%9F%E3%81%A7%E9%A9%9A%E3%81%84%E3%81%9F%E4%BB%B6/">[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-29-%E3%83%A1%E3%83%A2_windows_os_xmac%E3%81%A7%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%91%E3%82%B9%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E3%81%AB%E3%82%B3%E3%83%94%E3%83%BC%E3%81%99%E3%82%8B/">[メモ] Windows, OS X(Mac)でフォルダ/ファイルのパスをクリップボードにコピーする</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-14-%E3%83%A1%E3%83%A2pythonsqlite_%E5%B7%A8%E5%A4%A7%E3%81%AAsqlite%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF/">[メモ][Python][SQLite] 巨大なSQLiteデータベースからレコードを取り出すには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-02-%E3%83%A1%E3%83%A2_clamav%E5%85%88%E7%94%9F%E6%82%AA%E6%84%8F%E3%81%AE%E3%81%82%E3%82%8B%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E5%89%8A%E9%99%A4%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%83%88%E3%83%AD%E3%82%A4%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%8B%E8%AA%A4%E6%A4%9C%E5%87%BA/">[メモ] clamav先生、悪意のあるソフトウェア削除ツールにトロイを見つける（誤検出）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-08-09-windows_freeotfe%E3%81%AE%E4%BD%BF%E3%81%84%E3%81%8B%E3%81%9F/">[Windows] FreeOTFEの使いかた</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-08-08-windows_%E6%9A%97%E5%8F%B7%E5%8C%96%E4%BB%AE%E6%83%B3%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABfreeotfe/">[Windows] 暗号化仮想ディスク管理ツールFreeOTFE</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-02-windows_%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%E5%8F%96%E5%BE%97%E3%83%84%E3%83%BC%E3%83%ABscreenshoter%E3%81%AF%E3%83%96%E3%82%B5%E3%82%A4%E3%82%AF%E3%81%A0%E3%81%91%E3%81%A9%E6%A5%BD%E3%81%99%E3%81%8E%E3%82%8B/">[Windows] スクリーンショット取得ツールScreenshoterはブサイクだけど楽すぎる</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

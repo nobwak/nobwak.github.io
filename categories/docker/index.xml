@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/docker/</link>
+    <description>Recent content in Docker on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Sat, 16 Jan 2016 22:28:39 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[docker]dockerのimageを更新し、不要なimageを削除する</title>
+      <link>https://nobwak.github.io/posts/2016-01-16-dockerdocker%E3%81%AEimage%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%97%E4%B8%8D%E8%A6%81%E3%81%AAimage%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B/</link>
+      <pubDate>Sat, 16 Jan 2016 22:28:39 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-01-16-dockerdocker%E3%81%AEimage%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%97%E4%B8%8D%E8%A6%81%E3%81%AAimage%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B/</guid>
+      <description>docker pullしてimageを更新し、結果として山ほどできるnoneなimageを削除するのが面倒くさいのでシェルスクリプトにした。 upimage.sh #!/bin/sh docker images | grep</description>
+    </item>
+    
+  </channel>
+</rss>

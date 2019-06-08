@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う" />
+<meta property="og:description" content="slackにhubotを住まわせる記事は山のようにあるが、それを「hubotを自前サーバ」「それもFreeBSDに」という条件にすると記事数" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2016-04-16-slackhubotjail%E3%83%A1%E3%83%A2_freebsd_jail%E3%81%A7hubot%E3%82%92%E9%A3%BC%E3%81%86/" />
+<meta property="article:published_time" content="2016-04-16T22:20:53&#43;09:00"/>
+<meta property="article:modified_time" content="2016-04-16T22:20:53&#43;09:00"/>
+
+<meta itemprop="name" content="[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う">
+<meta itemprop="description" content="slackにhubotを住まわせる記事は山のようにあるが、それを「hubotを自前サーバ」「それもFreeBSDに」という条件にすると記事数">
+
+
+<meta itemprop="datePublished" content="2016-04-16T22:20:53&#43;09:00" />
+<meta itemprop="dateModified" content="2016-04-16T22:20:53&#43;09:00" />
+<meta itemprop="wordCount" content="1220">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,hubot,jail,slack," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う"/>
+<meta name="twitter:description" content="slackにhubotを住まわせる記事は山のようにあるが、それを「hubotを自前サーバ」「それもFreeBSDに」という条件にすると記事数"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2016-04-16T22:20:53&#43;09:00">April 16, 2016</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>slackにhubotを住まわせる記事は山のようにあるが、それを「hubotを自前サーバ」「それもFreeBSDに」という条件にすると記事数が激減する。</p>
+
+<p>そんななか、四苦八苦してなんとか達成したのでここに採録。<br />
+なお、そっけなく不親切に見えるのは、ここまでたどり着くのに疲労困憊したから。<br />
+ではどうぞ。</p>
+
+<h2 id="jailの作成">jailの作成</h2>
+
+<p>フッツーに。<br />
+以下ではqjailを使っているがezjailでもなんでも、好きなのを使いたまえ。</p>
+
+<pre><code class="language-console">sudo qjail create hubot -4 192.168.200.1
+</code></pre>
+
+<h2 id="npmのインストール">npmのインストール</h2>
+
+<p>まずjailをスタートさせて中に入ろうか。<br />
+そしてnpmのインストール。</p>
+
+<pre><code class="language-console">sudo qjail console ex02
+pkg install npm
+</code></pre>
+
+<p>node, npmのバージョンを確認しておく。<br />
+問題なくインストールされているかの確認でもある。</p>
+
+<pre><code class="language-console">node -v
+npm -v
+</code></pre>
+
+<h2 id="generatorのインストール">generatorのインストール</h2>
+
+<pre><code class="language-console">npm install -g yo generator-hubot
+</code></pre>
+
+<h2 id="hubot用ユーザの作成">hubot用ユーザの作成</h2>
+
+<p>jailの中でadduserし、お好きなユーザを作る。<br />
+以下では「bot」というユーザ。</p>
+
+<pre><code class="language-console">adduser bot
+</code></pre>
+
+<h2 id="hubot用ユーザでhubotレポジトリ作成">hubot用ユーザでhubotレポジトリ作成</h2>
+
+<pre><code class="language-console">su - bot
+mkdir hubot
+cd hubot
+yo hubot --adapter slack
+</code></pre>
+
+<p>botホストの作業はいったんはここまで。<br />
+以降、slack側で。</p>
+
+<h2 id="slackにhubotのインストール">slackにhubotのインストール</h2>
+
+<p>slackのteamメニューからApp&amp;Integrations &gt; Hubotをインストール<br />
+表示されるAPI Tokenを記録する。<br />
+hubotがslackへアクセスするためのトークン。</p>
+
+<h2 id="botホストで起動スクリプトの作成">botホストで起動スクリプトの作成</h2>
+
+<p>再びbotホスト<br />
+/usr/local/etc/rc.d/hubotとして以下を作成。<br />
+試行錯誤で作ったから雑なスクリプトであることに注意。<br />
+それから実行権限付けるのを忘れないこと。</p>
+
+<pre><code class="language-console">#! /bin/sh
+#
+#
+# PROVIDE: hubot
+# REQUIRE: DAEMON
+# KEYWORD: shutdown
+# $Id: hubot,v 1.3 2016/04/16 12:57:03 root Exp $
+
+. /etc/rc.subr
+
+name=hubot
+rcvar=hubot_enable
+
+command=/usr/home/bot/hubot/bin/hubot
+command_args=&quot;--adapter slack&quot;
+
+hubot_user=bot
+
+pidfile=&quot;/var/run/${name}.pid&quot;
+procname=node
+
+start_cmd=&quot;${name}_start&quot;
+
+hubot_start()
+{
+        export HUBOT_SLACK_TOKEN=xoxb-xxxx-xxxxx
+        export PATH=&quot;$PATH:/usr/home/bot/hubot/bin:/usr/local/bin&quot;
+        cd /usr/home/bot/hubot
+        echo &quot;starting hubot&quot;
+        /usr/sbin/daemon -p ${pidfile} -u ${hubot_user} ${command} ${command_args}
+}
+
+load_rc_config $name
+run_rc_command &quot;$1&quot;
+</code></pre>
+
+<h2 id="起動確認">起動確認</h2>
+
+<p>/etc/rc.confにhubot_enable=YESを記載。<br />
+service -l でhubotがリストされることを確認したら、service hubot startで起動。</p>
+
+<p>以下のような表示が出ればOK。</p>
+
+<pre><code class="language-console">[Sat Apr 16 2016 21:55:52 GMT+0900 (JST)] INFO Connecting...
+[Sat Apr 16 2016 21:55:53 GMT+0900 (JST)] INFO Logged in as xxx of xxxxxx, but not yet connected
+[Sat Apr 16 2016 21:55:54 GMT+0900 (JST)] INFO Slack client now connected
+[Sat Apr 16 2016 21:55:55 GMT+0900 (JST)] ERROR hubot-heroku-alive included, but missing HUBOT_HEROKU_KEEPALIVE_URL. `heroku config:set HUBOT_HEROKU_KEEPALIVE_URL=$(heroku apps:info -s  | grep web-url | cut -d= -f2)`
+[Sat Apr 16 2016 21:55:55 GMT+0900 (JST)] INFO hubot-redis-brain: Using default redis on localhost:6379
+</code></pre>
+
+<h2 id="ポートフォワーディングの設定">ポートフォワーディングの設定。</h2>
+
+<p>前章の起動時メッセージ、「INFO hubot-redis-brain: Using default redis on localhost:6379」に注目。<br />
+6379でポート待ち受けている。<br />
+ご家庭のサーバで動かしている場合には、ルータでのポートフォワーディング設定を忘れずに。<br />
+なお2016/4/16現在、slackの側でサーバのIPアドレスを指定したりするような設定は不要。</p>
+
+<h2 id="slack側の確認">slack側の確認</h2>
+
+<p>slackでbotを住まわせたいchannelにInvite。<br />
+botの名前の左側に在席マークが点いているのを確認し、「@＜bot名＞ ping」とし、botからPONGと帰ってきたら成功。<br />
+もし起動時メッセージが不要であれば、以下のように/usr/sbin/daemonのオプションに-fを加えるとよい。</p>
+
+<pre><code class="language-console">/usr/sbin/daemon -f -p ${pidfile} -u .....
+</code></pre>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/hubot" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">hubot</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/jail" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">jail</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/slack" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">slack</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2015-08-28-freebsd_jail%E3%81%AEetc%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8Bqjail/">[FreeBSD] jailのetcを更新する(qjail)</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/">[FreeBSD][メモ] PlexConnectに関する情報</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/">Poudriereのjailにセキュリティアップデートを適用</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-09-25-sh_%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/">[sh] オレオレ証明書作成シェルスクリプト</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-09-22-%E3%83%A1%E3%83%A2vagrant_freebsd%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/">[メモ][Vagrant] FreeBSDのboxを作る。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-26-freebsd_pkg_quarterly%E3%81%A8latest%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E5%85%B1%E5%AD%98/">[FreeBSD] pkg quarterlyとlatestレポジトリの共存</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-05-freebsd_10.2-release%E3%81%8B%E3%82%89%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%82%8Bpkg_quarterly%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0/">[FreeBSD] 10.2-RELEASEから適用されるpkg quarterlyてなんだ。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-05-09-freebsd%E3%83%A1%E3%83%A2_aclaccess_control_lists%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B/">[FreeBSD][メモ] ACL（Access Control Lists）を有効にする</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-05-07-freebsd_samba_3.x%E3%81%8B%E3%82%89samba_4.x%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/">[FreeBSD] Samba 3.xからSamba 4.xへの移行</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-01-03-freebsd%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%8B%E5%A5%B4%E3%81%AF1.4.3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%A6%E3%81%8A%E3%81%91/">[FreeBSD][メモ] pkgngで複数レポジトリ使ってる奴は1.4.3に上げておけ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-01-02-freebsd_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E3%81%AB%E3%81%AFzpoolzfs%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%82%E5%BF%98%E3%82%8C%E3%81%9A%E3%81%ABne/">[FreeBSD] システムアップグレード時にはzpool(ZFS)のアップグレードも忘れずにNE！</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-11-24-freebsd_10.1-release%E3%81%AEvt4%E3%81%A7console%E3%82%92%E3%81%86%E3%81%A4%E3%81%8F%E3%81%97%E3%81%8F/">FreeBSD 10.1-RELEASEのvt(4)でconsoleをうつくしく</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/">rsyncのディレクトリ指定でエスケープの必要な文字を含めるには</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

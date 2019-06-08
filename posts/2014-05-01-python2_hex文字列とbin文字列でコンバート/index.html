@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [Python2] Hex文字列とBin文字列でコンバート</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[Python2] Hex文字列とBin文字列でコンバート" />
+<meta property="og:description" content="メモでござる。 Hex文字列をBin文字列に変換したり、その逆に変換するには。 Bin-&gt;Hex まずサンプル。 bindata = &quot;00001011&quot; hexdata = &quot;&quot; scale = 2 num_of_digits = 2 hexdata = hex(int(bindata,scale))[2:].zfill(num_of_digits) print &quot;%s ====&gt; %s&quot; % (bindata, hexdata) 実行" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-05-01-python2_hex%E6%96%87%E5%AD%97%E5%88%97%E3%81%A8bin%E6%96%87%E5%AD%97%E5%88%97%E3%81%A7%E3%82%B3%E3%83%B3%E3%83%90%E3%83%BC%E3%83%88/" />
+<meta property="article:published_time" content="2014-05-01T22:21:41&#43;09:00"/>
+<meta property="article:modified_time" content="2014-05-01T22:21:41&#43;09:00"/>
+
+<meta itemprop="name" content="[Python2] Hex文字列とBin文字列でコンバート">
+<meta itemprop="description" content="メモでござる。 Hex文字列をBin文字列に変換したり、その逆に変換するには。 Bin-&gt;Hex まずサンプル。 bindata = &quot;00001011&quot; hexdata = &quot;&quot; scale = 2 num_of_digits = 2 hexdata = hex(int(bindata,scale))[2:].zfill(num_of_digits) print &quot;%s ====&gt; %s&quot; % (bindata, hexdata) 実行">
+
+
+<meta itemprop="datePublished" content="2014-05-01T22:21:41&#43;09:00" />
+<meta itemprop="dateModified" content="2014-05-01T22:21:41&#43;09:00" />
+<meta itemprop="wordCount" content="232">
+
+
+
+<meta itemprop="keywords" content="python," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Python2] Hex文字列とBin文字列でコンバート"/>
+<meta name="twitter:description" content="メモでござる。 Hex文字列をBin文字列に変換したり、その逆に変換するには。 Bin-&gt;Hex まずサンプル。 bindata = &quot;00001011&quot; hexdata = &quot;&quot; scale = 2 num_of_digits = 2 hexdata = hex(int(bindata,scale))[2:].zfill(num_of_digits) print &quot;%s ====&gt; %s&quot; % (bindata, hexdata) 実行"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[Python2] Hex文字列とBin文字列でコンバート</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-05-01T22:21:41&#43;09:00">May 1, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>メモでござる。</p>
+
+<p>Hex文字列をBin文字列に変換したり、その逆に変換するには。</p>
+
+<h2 id="bin-hex">Bin-&gt;Hex</h2>
+
+<p>まずサンプル。</p>
+
+<pre><code class="language-console">bindata = &quot;00001011&quot;
+hexdata = &quot;&quot;
+scale = 2
+num_of_digits = 2
+
+hexdata = hex(int(bindata,scale))[2:].zfill(num_of_digits)
+
+print &quot;%s ====&gt; %s&quot; % (bindata, hexdata)
+</code></pre>
+
+<p>実行例。</p>
+
+<pre><code class="language-console">00001011 ====&gt; 0b
+</code></pre>
+
+<h2 id="説明">説明</h2>
+
+<p>まずint()で数値に変換する。<br />
+その際には第二引数で基数を与える。bin文字列なら2を。hexなら16を与える。<br />
+次にその数値をhex()で16進数に変換。<br />
+そのままだと頭に0xが付いてしまうので[2:]として取り除く。<br />
+さらにzfillで桁数分0で埋める。</p>
+
+<h2 id="hex-bin">Hex-&gt;Bin</h2>
+
+<pre><code class="language-console">bindata = &quot;&quot;
+hexdata = &quot;1c&quot;
+scale = 16
+num_of_digits = 8
+
+bindata = bin(int(hexdata,scale))[2:].zfill(num_of_digits)
+
+print &quot;%s ====&gt; %s&quot; % (hexdata, bindata)
+</code></pre>
+
+<p>実行例</p>
+
+<pre><code class="language-console">1c ====&gt; 00011100
+</code></pre>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-04-30-python2_string%E3%82%92%E9%80%86%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python2] stringを逆に表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

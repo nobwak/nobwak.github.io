@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>未分類 on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/%E6%9C%AA%E5%88%86%E9%A1%9E/</link>
+    <description>Recent content in 未分類 on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Mon, 21 Dec 2015 23:34:06 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/%E6%9C%AA%E5%88%86%E9%A1%9E/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[memo] CoreOSのインストール</title>
+      <link>https://nobwak.github.io/posts/2015-12-21-memo_coreos%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Mon, 21 Dec 2015 23:34:06 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-12-21-memo_coreos%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>CoreOSを自分でインストールする。 目的は、VirtualBoxや、VMWarePlayer, vSphere(ESXi)等で動かす自前のC</description>
+    </item>
+    
+    <item>
+      <title>[メモ] wxPythonがOS Xにインストールできない（解決）</title>
+      <link>https://nobwak.github.io/posts/2014-09-19-%E3%83%A1%E3%83%A2_wxpython%E3%81%8Cos_x%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E8%A7%A3%E6%B1%BA/</link>
+      <pubDate>Fri, 19 Sep 2014 23:29:59 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-09-19-%E3%83%A1%E3%83%A2_wxpython%E3%81%8Cos_x%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E8%A7%A3%E6%B1%BA/</guid>
+      <description>wxPythonはWindows, OS X, LinuxなどOSを問わずGUIアプリケーションを作ることのできる超絶ありがたいツールである。 あるのだ</description>
+    </item>
+    
+    <item>
+      <title>[メモ] Pythonで標準エラー出力に表示するには</title>
+      <link>https://nobwak.github.io/posts/2014-07-31-%E3%83%A1%E3%83%A2_python%E3%81%A7%E6%A8%99%E6%BA%96%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%BA%E5%8A%9B%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 31 Jul 2014 19:07:48 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-07-31-%E3%83%A1%E3%83%A2_python%E3%81%A7%E6%A8%99%E6%BA%96%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%BA%E5%8A%9B%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>sys.stderrを使う。 例1) import sys sys.stderr.write(&#39;Error occurred!&#39;) 例2) import sys print &amp;gt;&amp;gt; sys.stderr, &#39;Error occurred!&#39; http://docs.python.jp/2/library/sys.html#sys.stderr http://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-python https://sites.google.com/site/diveintopythonjp/home/10-sukuriputo-to-sutorimu/10-2-hyoujun-nyuuryoku-hyoujun-shutsuryoku-soshite-era</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] 無人でのユーザ追加</title>
+      <link>https://nobwak.github.io/posts/2013-09-09-freebsd_%E7%84%A1%E4%BA%BA%E3%81%A7%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B6%E8%BF%BD%E5%8A%A0/</link>
+      <pubDate>Mon, 09 Sep 2013 22:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-09-09-freebsd_%E7%84%A1%E4%BA%BA%E3%81%A7%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B6%E8%BF%BD%E5%8A%A0/</guid>
+      <description>仮想化全盛のこの世の中、OSインストール直後の各種設定はなるだけ無人化したい。 そこでFreeBSDでのユーザ設定の無人化について。 pw(8) pwを使</description>
+    </item>
+    
+    <item>
+      <title>wireshark portableの設定のしかた</title>
+      <link>https://nobwak.github.io/posts/2012-08-03-wireshark_portable%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%81%97%E3%81%8B%E3%81%9F/</link>
+      <pubDate>Fri, 03 Aug 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-08-03-wireshark_portable%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%81%97%E3%81%8B%E3%81%9F/</guid>
+      <description>&amp;lt;a href=&amp;quot;http://www.wireshark.org/download/automated/win32/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.wireshark.org/download/automated/win32/&amp;lt;/a&amp;gt; 上記からwiresharkportable-x.x.x-SVN-xxxxxx.paf.exeなどをダウンロードする。 「paf」がポータ</description>
+    </item>
+    
+    <item>
+      <title>FreeBSD root宛のメールをgmailに転送</title>
+      <link>https://nobwak.github.io/posts/2012-03-05-freebsd_root%E5%AE%9B%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%92gmail%E3%81%AB%E8%BB%A2%E9%80%81/</link>
+      <pubDate>Mon, 05 Mar 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-03-05-freebsd_root%E5%AE%9B%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%92gmail%E3%81%AB%E8%BB%A2%E9%80%81/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] DHCP設定したネットワークデバイスが立ち上がらないときには</title>
+      <link>https://nobwak.github.io/posts/2010-01-14-freebsd_dhcp%E8%A8%AD%E5%AE%9A%E3%81%97%E3%81%9F%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%8C%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%8C%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 14 Jan 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-01-14-freebsd_dhcp%E8%A8%AD%E5%AE%9A%E3%81%97%E3%81%9F%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%81%8C%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%8C%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/</guid>
+      <description>rc.confでネットワークデバイスに設定する値にSYNCDHCPというのがあるそうな。 ネットワークデバイスの立ち上げは通常、デバイス自身が</description>
+    </item>
+    
+    <item>
+      <title>おかあさま</title>
+      <link>https://nobwak.github.io/posts/2006-07-10-%E3%81%8A%E3%81%8B%E3%81%82%E3%81%95%E3%81%BE/</link>
+      <pubDate>Mon, 10 Jul 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-07-10-%E3%81%8A%E3%81%8B%E3%81%82%E3%81%95%E3%81%BE/</guid>
+      <description>叶姉妹は実は男なんだと母親が主張する件について。</description>
+    </item>
+    
+    <item>
+      <title>死亡遊戯</title>
+      <link>https://nobwak.github.io/posts/2006-06-06-%E6%AD%BB%E4%BA%A1%E9%81%8A%E6%88%AF/</link>
+      <pubDate>Tue, 06 Jun 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-06-06-%E6%AD%BB%E4%BA%A1%E9%81%8A%E6%88%AF/</guid>
+      <description>3つのプロジェクトが重なって動いててどうにも身動きが取れない。</description>
+    </item>
+    
+    <item>
+      <title>[misc.] Les Miserables</title>
+      <link>https://nobwak.github.io/posts/2006-05-10-misc._les_miserables/</link>
+      <pubDate>Wed, 10 May 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-05-10-misc._les_miserables/</guid>
+      <description>何日か前にレ・ミゼラブルのミュージカルを観に行った。 有名な右の画像は例によってWikipediaのレ・ミゼラブルの項から。 1862年の初版に</description>
+    </item>
+    
+    <item>
+      <title>[misc.] かわらない日常</title>
+      <link>https://nobwak.github.io/posts/2006-05-10-misc._%E3%81%8B%E3%82%8F%E3%82%89%E3%81%AA%E3%81%84%E6%97%A5%E5%B8%B8/</link>
+      <pubDate>Wed, 10 May 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-05-10-misc._%E3%81%8B%E3%82%8F%E3%82%89%E3%81%AA%E3%81%84%E6%97%A5%E5%B8%B8/</guid>
+      <description>休みの人が多い5/1,5/2に敢えて出社し、モリモリ仕事を片付けて、「すごくヤバイ状況」が「かなりヤバイ状況」にまで改善されたのだが、連休明</description>
+    </item>
+    
+    <item>
+      <title>エイプリルフールと2.2.9</title>
+      <link>https://nobwak.github.io/posts/2006-04-03-%E3%82%A8%E3%82%A4%E3%83%97%E3%83%AA%E3%83%AB%E3%83%95%E3%83%BC%E3%83%AB%E3%81%A82.2.9/</link>
+      <pubDate>Mon, 03 Apr 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-04-03-%E3%82%A8%E3%82%A4%E3%83%97%E3%83%AA%E3%83%AB%E3%83%95%E3%83%BC%E3%83%AB%E3%81%A82.2.9/</guid>
+      <description>4/1はエイプリルフール。 ネットでもほとんど悪ノリのネタばかりで、見かけるたびに「はいはいワロスワロス」と意にも介さなかったのですが、ふと舞</description>
+    </item>
+    
+    <item>
+      <title>緑の服と虹色の卵</title>
+      <link>https://nobwak.github.io/posts/2006-03-16-%E7%B7%91%E3%81%AE%E6%9C%8D%E3%81%A8%E8%99%B9%E8%89%B2%E3%81%AE%E5%8D%B5/</link>
+      <pubDate>Thu, 16 Mar 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-03-16-%E7%B7%91%E3%81%AE%E6%9C%8D%E3%81%A8%E8%99%B9%E8%89%B2%E3%81%AE%E5%8D%B5/</guid>
+      <description>明日は、緑色の服、あるいは緑色の何かを身につけていない限り、つねられても文句は言えない日である。 3月17日はSt. Patrick&#39;s Dayだ。 聖パトリックと</description>
+    </item>
+    
+    <item>
+      <title>初めてのトラックバック</title>
+      <link>https://nobwak.github.io/posts/2006-03-14-%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E3%83%90%E3%83%83%E3%82%AF/</link>
+      <pubDate>Tue, 14 Mar 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-03-14-%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E3%83%90%E3%83%83%E3%82%AF/</guid>
+      <description>初めてトラックバックをもらったので驚いて更新する。 トラックバックをもらったのは&amp;lt;a href=&amp;quot;http://d.hatena</description>
+    </item>
+    
+    <item>
+      <title>ある技術者貧民街住人の叫び</title>
+      <link>https://nobwak.github.io/posts/2006-01-24-%E3%81%82%E3%82%8B%E6%8A%80%E8%A1%93%E8%80%85%E8%B2%A7%E6%B0%91%E8%A1%97%E4%BD%8F%E4%BA%BA%E3%81%AE%E5%8F%AB%E3%81%B3/</link>
+      <pubDate>Tue, 24 Jan 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-01-24-%E3%81%82%E3%82%8B%E6%8A%80%E8%A1%93%E8%80%85%E8%B2%A7%E6%B0%91%E8%A1%97%E4%BD%8F%E4%BA%BA%E3%81%AE%E5%8F%AB%E3%81%B3/</guid>
+      <description>「こんなとこ、来るんじゃなかったですよ！」 かに雑炊は、そう吐き捨てるように言った。 かに雑炊は、枯れ葉散る秋口に、系列の子会社から人攫い同然の</description>
+    </item>
+    
+    <item>
+      <title>仕事納めとパス回し</title>
+      <link>https://nobwak.github.io/posts/2005-12-28-%E4%BB%95%E4%BA%8B%E7%B4%8D%E3%82%81%E3%81%A8%E3%83%91%E3%82%B9%E5%9B%9E%E3%81%97/</link>
+      <pubDate>Wed, 28 Dec 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-12-28-%E4%BB%95%E4%BA%8B%E7%B4%8D%E3%82%81%E3%81%A8%E3%83%91%E3%82%B9%E5%9B%9E%E3%81%97/</guid>
+      <description>今日は仕事納め。 通常であれば、適当に机の周りを掃除して、挨拶回りをして、納会して終了であるが、俺の職場ではそうは行かない。 正月休みのあるのが</description>
+    </item>
+    
+    <item>
+      <title>3Comと地雷</title>
+      <link>https://nobwak.github.io/posts/2005-12-26-3com%E3%81%A8%E5%9C%B0%E9%9B%B7/</link>
+      <pubDate>Mon, 26 Dec 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-12-26-3com%E3%81%A8%E5%9C%B0%E9%9B%B7/</guid>
+      <description>本日はLinux, FreeBSDのお話。 Linuxの認定試験も終わったので、勉強のため古いノートPCに入れていたFedoraをさっぱり消した</description>
+    </item>
+    
+    <item>
+      <title>単焦点ステキーッ</title>
+      <link>https://nobwak.github.io/posts/2005-12-25-%E5%8D%98%E7%84%A6%E7%82%B9%E3%82%B9%E3%83%86%E3%82%AD%E3%83%BC%E3%83%83/</link>
+      <pubDate>Sun, 25 Dec 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-12-25-%E5%8D%98%E7%84%A6%E7%82%B9%E3%82%B9%E3%83%86%E3%82%AD%E3%83%BC%E3%83%83/</guid>
+      <description>世の中はクリスマスだが、昨日用事があって出かけた横浜近辺の人出にウンザリして家で過ごす。 写真の整理やカメラをいじってみたりしていたのだが、そ</description>
+    </item>
+    
+    <item>
+      <title>冬至と神秘体験</title>
+      <link>https://nobwak.github.io/posts/2005-12-22-%E5%86%AC%E8%87%B3%E3%81%A8%E7%A5%9E%E7%A7%98%E4%BD%93%E9%A8%93/</link>
+      <pubDate>Thu, 22 Dec 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-12-22-%E5%86%AC%E8%87%B3%E3%81%A8%E7%A5%9E%E7%A7%98%E4%BD%93%E9%A8%93/</guid>
+      <description>影が日に日に長くなって、冬至がやってくる。 北半球では一年で一番昼が短くなる日で、ゆず湯に入り、カボチャを食べると風邪をひかないと言われる。(</description>
+    </item>
+    
+    <item>
+      <title>Happy Holiday</title>
+      <link>https://nobwak.github.io/posts/2005-12-19-happy_holiday/</link>
+      <pubDate>Mon, 19 Dec 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-12-19-happy_holiday/</guid>
+      <description>いろいろ差別にうるさい彼の国では、近年メリークリスマスと言うのは出来るだけ避けて、Happy Holidayと言うようになっています。 この頃に</description>
+    </item>
+    
+    <item>
+      <title>片頭痛</title>
+      <link>https://nobwak.github.io/posts/2005-12-18-%E7%89%87%E9%A0%AD%E7%97%9B/</link>
+      <pubDate>Sun, 18 Dec 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-12-18-%E7%89%87%E9%A0%AD%E7%97%9B/</guid>
+      <description>片頭痛に関する情報源。 頭痛大学 &amp;lt;a href=&amp;quot;http://homepage2.nifty.com/uoh/index.html&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://homepage2.nifty.com/uoh/index.html&amp;lt;/a&amp;gt; 日本頭痛学会 &amp;lt;a href=&amp;quot;http://www.jhsnet.org/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.jhsnet.org/&amp;lt;/a&amp;gt; 適当にググって上位に来たやつ(英語) HealingWell.com &amp;lt;a href=&amp;quot;http://www.healingwell.com/migraines/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.healingwell.com/migraines/&amp;lt;/a&amp;gt; マッキンリーヘルスセンター http://www.mckinley.uiuc.edu/Handouts/migraine_headache.html 俺が今常用して</description>
+    </item>
+    
+    <item>
+      <title>早まった？</title>
+      <link>https://nobwak.github.io/posts/2005-12-05-%E6%97%A9%E3%81%BE%E3%81%A3%E3%81%9F/</link>
+      <pubDate>Mon, 05 Dec 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-12-05-%E6%97%A9%E3%81%BE%E3%81%A3%E3%81%9F/</guid>
+      <description>遅くに帰宅の後、作り置きしておいたカレーを食べながら、次に受けるLPICレベル2,202試験の範囲とそれぞれの重要度を公式ページで確認する。</description>
+    </item>
+    
+    <item>
+      <title>a watchcat</title>
+      <link>https://nobwak.github.io/posts/2005-12-04-a_watchcat/</link>
+      <pubDate>Sun, 04 Dec 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-12-04-a_watchcat/</guid>
+      <description>道を歩いているとどこからか猫の鳴き声がした。 見上げると塀の上に猫が。 道行く人が注視しても平気でニャーニャー鳴いていた。 どうしたんだろう。</description>
+    </item>
+    
+    <item>
+      <title>「受験ありとうございした」</title>
+      <link>https://nobwak.github.io/posts/2005-12-03-%E5%8F%97%E9%A8%93%E3%81%82%E3%82%8A%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%97%E3%81%9F/</link>
+      <pubDate>Sat, 03 Dec 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-12-03-%E5%8F%97%E9%A8%93%E3%81%82%E3%82%8A%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%97%E3%81%9F/</guid>
+      <description>某試験の三つめを本日受けて、無事通過。 あと一つでこの試験も終了だから、ゴールがやっと見えてきてホッとしている。 会場は&amp;lt;a href=&amp;q</description>
+    </item>
+    
+    <item>
+      <title>冷蔵庫の扉とクリスマスツリー</title>
+      <link>https://nobwak.github.io/posts/2005-11-28-%E5%86%B7%E8%94%B5%E5%BA%AB%E3%81%AE%E6%89%89%E3%81%A8%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%E3%83%84%E3%83%AA%E3%83%BC/</link>
+      <pubDate>Mon, 28 Nov 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-11-28-%E5%86%B7%E8%94%B5%E5%BA%AB%E3%81%AE%E6%89%89%E3%81%A8%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%E3%83%84%E3%83%AA%E3%83%BC/</guid>
+      <description>世はすっかりクリスマス一色だが、俺は今、クリスマスなど全く関係ない、死屍累々たる大規模開発の渦中で働いている。皆、年は越せるのかと思ってる。</description>
+    </item>
+    
+    <item>
+      <title>逃避行</title>
+      <link>https://nobwak.github.io/posts/2005-11-27-%E9%80%83%E9%81%BF%E8%A1%8C/</link>
+      <pubDate>Sun, 27 Nov 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-11-27-%E9%80%83%E9%81%BF%E8%A1%8C/</guid>
+      <description>&amp;lt;a href=&amp;quot;http://f.hatena.ne.jp/flageo/20051127134239&amp;quot; class=&amp;quot;hatena-fotolife&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;&amp;lt;img src=&amp;quot;http://cdn-ak.f.st-hatena.com/images/fotolife/f/flageo/20051127/20051127134239.jpg&amp;quot; alt=&amp;quot;f:id:flageo:20051127134239j:image&amp;quot; title=&amp;quot;f:id:flageo:20051127134239j:image&amp;quot; class=&amp;quot;hatena-fotolife&amp;quot; /&amp;gt;&amp;lt;/a&amp;gt; 一ヶ月に一度のペースで通っているある場所。 いつもは電車で行っているその場所へ、ふと自転車で行ってみようと思い立つ。 海を見な</description>
+    </item>
+    
+    <item>
+      <title>違和感</title>
+      <link>https://nobwak.github.io/posts/2005-11-24-%E9%81%95%E5%92%8C%E6%84%9F/</link>
+      <pubDate>Thu, 24 Nov 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-11-24-%E9%81%95%E5%92%8C%E6%84%9F/</guid>
+      <description>いつものように駅まで走り、いつものように電車に駆け込む。 普段と変わらない毎日のはずが、なにかが違う。 どことなく居心地の悪い違和感を感じながら</description>
+    </item>
+    
+    <item>
+      <title>消えた日曜日</title>
+      <link>https://nobwak.github.io/posts/2005-11-21-%E6%B6%88%E3%81%88%E3%81%9F%E6%97%A5%E6%9B%9C%E6%97%A5/</link>
+      <pubDate>Mon, 21 Nov 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-11-21-%E6%B6%88%E3%81%88%E3%81%9F%E6%97%A5%E6%9B%9C%E6%97%A5/</guid>
+      <description>日曜の昼、どうにも眠くて横になり、気が付くと夜中の12時過ぎ。 寝ぼけた頭で「明日仕事だから早く寝ないとな」と思って二度寝するともう朝だった。</description>
+    </item>
+    
+    <item>
+      <title>通常、パラレルポートはIRQの何番を使用しますか？</title>
+      <link>https://nobwak.github.io/posts/2005-11-05-%E9%80%9A%E5%B8%B8%E3%83%91%E3%83%A9%E3%83%AC%E3%83%AB%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AFirq%E3%81%AE%E4%BD%95%E7%95%AA%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%BE%E3%81%99%E3%81%8B/</link>
+      <pubDate>Sat, 05 Nov 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-11-05-%E9%80%9A%E5%B8%B8%E3%83%91%E3%83%A9%E3%83%AC%E3%83%AB%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AFirq%E3%81%AE%E4%BD%95%E7%95%AA%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%BE%E3%81%99%E3%81%8B/</guid>
+      <description>本日某技術系ベンダー試験の一つめを受けて無事通過。 ベンダー系は受験料が冗談じゃないくらい高いので、プレッシャーもなかなかのものである。 ところ</description>
+    </item>
+    
+    <item>
+      <title>案と笑</title>
+      <link>https://nobwak.github.io/posts/2005-10-27-%E6%A1%88%E3%81%A8%E7%AC%91/</link>
+      <pubDate>Thu, 27 Oct 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-10-27-%E6%A1%88%E3%81%A8%E7%AC%91/</guid>
+      <description>仕事がとても忙しい。たまの休みも偏頭痛で潰れたり、息継ぎの出来ない日々が続いて疲れ気味だ。 そしてこの頃、会社の資料に現れる「案」という漢字が</description>
+    </item>
+    
+    <item>
+      <title>チャルダッシュでカタルシス乞い</title>
+      <link>https://nobwak.github.io/posts/2005-10-17-%E3%83%81%E3%83%A3%E3%83%AB%E3%83%80%E3%83%83%E3%82%B7%E3%83%A5%E3%81%A7%E3%82%AB%E3%82%BF%E3%83%AB%E3%82%B7%E3%82%B9%E4%B9%9E%E3%81%84/</link>
+      <pubDate>Mon, 17 Oct 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-10-17-%E3%83%81%E3%83%A3%E3%83%AB%E3%83%80%E3%83%83%E3%82%B7%E3%83%A5%E3%81%A7%E3%82%AB%E3%82%BF%E3%83%AB%E3%82%B7%E3%82%B9%E4%B9%9E%E3%81%84/</guid>
+      <description>&amp;lt;a href=&amp;quot;http://www.amazon.co.jp/exec/obidos/ASIN/B00005N0V9/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.amazon.co.jp/exec/obidos/ASIN/B00005N0V9/&amp;lt;/a&amp;gt; 引っ越し荷物から出てきたGクレフのCD、ペルメル。 最近、聴いてます。 バイオリン、チェロ、ピアノのトリオで無茶な演奏をする人たち。 特に無</description>
+    </item>
+    
+    <item>
+      <title>衣替え</title>
+      <link>https://nobwak.github.io/posts/2005-10-03-%E8%A1%A3%E6%9B%BF%E3%81%88/</link>
+      <pubDate>Mon, 03 Oct 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-10-03-%E8%A1%A3%E6%9B%BF%E3%81%88/</guid>
+      <description>通勤途中に何かがふっと匂って、それがキンモクセイだと理解するのに数秒。 脳内で匂いを感じる部分は、記憶を司る海馬の近くにあるから、とかその他さ</description>
+    </item>
+    
+    <item>
+      <title>「企業のWindows環境をLinuxへ移行したボクの体験記」翻訳</title>
+      <link>https://nobwak.github.io/posts/2005-09-22-%E4%BC%81%E6%A5%AD%E3%81%AEwindows%E7%92%B0%E5%A2%83%E3%82%92linux%E3%81%B8%E7%A7%BB%E8%A1%8C%E3%81%97%E3%81%9F%E3%83%9C%E3%82%AF%E3%81%AE%E4%BD%93%E9%A8%93%E8%A8%98%E7%BF%BB%E8%A8%B3/</link>
+      <pubDate>Thu, 22 Sep 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-09-22-%E4%BC%81%E6%A5%AD%E3%81%AEwindows%E7%92%B0%E5%A2%83%E3%82%92linux%E3%81%B8%E7%A7%BB%E8%A1%8C%E3%81%97%E3%81%9F%E3%83%9C%E3%82%AF%E3%81%AE%E4%BD%93%E9%A8%93%E8%A8%98%E7%BF%BB%E8%A8%B3/</guid>
+      <description>Microsoftのライセンスは超高い。高すぎる。じゃあLinux/Unix環境へ…。 と、IT管理者なら誰しも一度は考える。でも色々考えると</description>
+    </item>
+    
+    <item>
+      <title>人間ドックとガラスのハート</title>
+      <link>https://nobwak.github.io/posts/2005-09-12-%E4%BA%BA%E9%96%93%E3%83%89%E3%83%83%E3%82%AF%E3%81%A8%E3%82%AC%E3%83%A9%E3%82%B9%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%88/</link>
+      <pubDate>Mon, 12 Sep 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-09-12-%E4%BA%BA%E9%96%93%E3%83%89%E3%83%83%E3%82%AF%E3%81%A8%E3%82%AC%E3%83%A9%E3%82%B9%E3%81%AE%E3%83%8F%E3%83%BC%E3%83%88/</guid>
+      <description>会社の福利厚生の一環で人間ドックに行ってきました。 直腸検診を担当したのが若くて綺麗な女医さんだったのでショックでした。 でも毛むくじゃらで脂性</description>
+    </item>
+    
+    <item>
+      <title>インド人とマトリョーシカと仕事の愚痴</title>
+      <link>https://nobwak.github.io/posts/2005-09-06-%E3%82%A4%E3%83%B3%E3%83%89%E4%BA%BA%E3%81%A8%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E3%81%A8%E4%BB%95%E4%BA%8B%E3%81%AE%E6%84%9A%E7%97%B4/</link>
+      <pubDate>Tue, 06 Sep 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-09-06-%E3%82%A4%E3%83%B3%E3%83%89%E4%BA%BA%E3%81%A8%E3%83%9E%E3%83%88%E3%83%AA%E3%83%A7%E3%83%BC%E3%82%B7%E3%82%AB%E3%81%A8%E4%BB%95%E4%BA%8B%E3%81%AE%E6%84%9A%E7%97%B4/</guid>
+      <description>南の島は物価が安かった。なんてったってタクシー初乗り50円である。 ちょっとした夕日を眺めるようなレストランで、ビール飲んで色々食べても大した</description>
+    </item>
+    
+    <item>
+      <title>南の島と棺と詩人</title>
+      <link>https://nobwak.github.io/posts/2005-09-05-%E5%8D%97%E3%81%AE%E5%B3%B6%E3%81%A8%E6%A3%BA%E3%81%A8%E8%A9%A9%E4%BA%BA/</link>
+      <pubDate>Mon, 05 Sep 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-09-05-%E5%8D%97%E3%81%AE%E5%B3%B6%E3%81%A8%E6%A3%BA%E3%81%A8%E8%A9%A9%E4%BA%BA/</guid>
+      <description>休みを取って、逃げるように南の島に行ってきました。 猥雑で清浄なところでした。 今は休みからのリハビリ中。 旅という非日常から、勤め人らしい、毎週</description>
+    </item>
+    
+    <item>
+      <title>チップとオハヨー乳業と夢の携帯電話</title>
+      <link>https://nobwak.github.io/posts/2005-08-22-%E3%83%81%E3%83%83%E3%83%97%E3%81%A8%E3%82%AA%E3%83%8F%E3%83%A8%E3%83%BC%E4%B9%B3%E6%A5%AD%E3%81%A8%E5%A4%A2%E3%81%AE%E6%90%BA%E5%B8%AF%E9%9B%BB%E8%A9%B1/</link>
+      <pubDate>Mon, 22 Aug 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-08-22-%E3%83%81%E3%83%83%E3%83%97%E3%81%A8%E3%82%AA%E3%83%8F%E3%83%A8%E3%83%BC%E4%B9%B3%E6%A5%AD%E3%81%A8%E5%A4%A2%E3%81%AE%E6%90%BA%E5%B8%AF%E9%9B%BB%E8%A9%B1/</guid>
+      <description>横浜のあるレストランに行った。 そこはテーブルクロスが紙で、テーブルの上にはクレヨン。 案の定、ウェイトレスが自分の名前をクロスに書いた。 そこで</description>
+    </item>
+    
+    <item>
+      <title>Fedora Coreと格闘中</title>
+      <link>https://nobwak.github.io/posts/2005-08-21-fedora_core%E3%81%A8%E6%A0%BC%E9%97%98%E4%B8%AD/</link>
+      <pubDate>Sun, 21 Aug 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-08-21-fedora_core%E3%81%A8%E6%A0%BC%E9%97%98%E4%B8%AD/</guid>
+      <description>業務上の必要性からLinuxを勉強しています。 BSD系、Solarisなら勝手が分かるものの、Linuxはまったく知らないので大変です。 今日</description>
+    </item>
+    
+    <item>
+      <title>Ice latte, but no ice pleaseとスターバックス貯金</title>
+      <link>https://nobwak.github.io/posts/2005-08-16-ice_latte_but_no_ice_please%E3%81%A8%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%90%E3%83%83%E3%82%AF%E3%82%B9%E8%B2%AF%E9%87%91/</link>
+      <pubDate>Tue, 16 Aug 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-08-16-ice_latte_but_no_ice_please%E3%81%A8%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%90%E3%83%83%E3%82%AF%E3%82%B9%E8%B2%AF%E9%87%91/</guid>
+      <description>外で冷たい飲み物を頼むと、オレンジジュースだろうがコーラだろうがコーヒーだろうが、たいていは氷が入っている。 実は俺はそれが大嫌い。なぜって放</description>
+    </item>
+    
+    <item>
+      <title>古今集とIsolated showerとUPS</title>
+      <link>https://nobwak.github.io/posts/2005-08-15-%E5%8F%A4%E4%BB%8A%E9%9B%86%E3%81%A8isolated_shower%E3%81%A8ups/</link>
+      <pubDate>Mon, 15 Aug 2005 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2005-08-15-%E5%8F%A4%E4%BB%8A%E9%9B%86%E3%81%A8isolated_shower%E3%81%A8ups/</guid>
+      <description>相変わらず暑いけど、夜になれば虫の音が目立つようになってきた。 「秋来ぬと目にはさやかに見えねども風の音にぞおどろかれぬる」という古今集の歌を</description>
+    </item>
+    
+  </channel>
+</rss>
