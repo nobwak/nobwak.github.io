@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>markdownでASCII Artを書きたい</title>
+      <link>https://nobwak.github.io/posts/2019-06-02-markdown%E3%81%A7ascii_art%E3%82%92%E6%9B%B8%E3%81%8D%E3%81%9F%E3%81%84/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2019-06-02-markdown%E3%81%A7ascii_art%E3%82%92%E6%9B%B8%E3%81%8D%E3%81%9F%E3%81%84/</guid>
+      <description>markdownファイルにアスキーアートを書きたい場合、スペース4つでインデントすればよい。 以下はslコマンドの出力である。 ( ) (@@) ( ) (@) () @@</description>
+    </item>
+    
+    <item>
       <title>ネットワーク越しのzfs send recvをmbufferでスピードアップしよう</title>
       <link>https://nobwak.github.io/posts/2019-06-01-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B6%8A%E3%81%97%E3%81%AEzfs_send_recv/</link>
       <pubDate>Sat, 01 Jun 2019 00:00:00 +0000</pubDate>
