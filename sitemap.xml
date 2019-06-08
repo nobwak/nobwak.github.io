@@ -13,6 +13,11 @@
   </url>
   
   <url>
+    <loc>https://nobwak.github.io/posts/2019-06-02-markdown%E3%81%A7ascii_art%E3%82%92%E6%9B%B8%E3%81%8D%E3%81%9F%E3%81%84/</loc>
+    <lastmod>2019-06-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://nobwak.github.io/posts/2019-06-01-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B6%8A%E3%81%97%E3%81%AEzfs_send_recv/</loc>
     <lastmod>2019-06-01T00:00:00+00:00</lastmod>
   </url>
@@ -2460,6 +2465,18 @@
   <url>
     <loc>https://nobwak.github.io/tags/linux/</loc>
     <lastmod>2015-09-25T23:31:38+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://nobwak.github.io/categories/markdown/</loc>
+    <lastmod>2019-06-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://nobwak.github.io/tags/markdown/</loc>
+    <lastmod>2019-06-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
