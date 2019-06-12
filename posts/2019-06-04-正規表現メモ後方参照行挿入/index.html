@@ -41,7 +41,7 @@
 
 <meta itemprop="datePublished" content="2019-06-04T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-06-04T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="495">
+<meta itemprop="wordCount" content="539">
 
 
 
@@ -158,18 +158,25 @@ bbb
 bbb
 </code></pre>
 
-<p>ここで、文末の「bbb」を「\nbbb」で変換するとこうなってしまう;</p>
+<p>ここで、行末の<code>bbb</code>を探して<code>\nbbb</code>で変換しようとするとこうなってしまう;</p>
+
+<pre><code class="language-console">aaaabbb  # ここと
+bbb  # ここにマッチ
+</code></pre>
+
+<p>↓</p>
 
 <pre><code class="language-console">aaaa
 bbb
 
-bbb
+bbb  # 余計な空行が増える
 </code></pre>
 
-<p>そこで後方参照を使う。<br />
-まず、通常通り表現を作る。<br />
+<p>そこで後方参照を使う。</p>
+
+<p>まず、通常通り表現を作る。<br />
 前に任意の一文字があり、行末がbbbで終わるものを書き換える。<br />
-つまり<code>.bbb\n</code>を<code>\nbbb\n</code>に。</p>
+つまり正規表現でいうところの<code>.bbb\n</code>を<code>\nbbb\n</code>に。</p>
 
 <pre><code class="language-console">s/.bbb\n/\nbbb\n/
 </code></pre>
@@ -181,11 +188,18 @@ bbb
 bbb
 </code></pre>
 
-<p>そこで後方参照を使う。<br />
+<p>で、後方参照。<br />
 使いまわしたい個所をかっこでくくり、1つめなら$1として参照する。<br />
 つまり<code>(.)bbb\n</code>を<code>$1\nbbb\n</code>に差し替える。</p>
 
 <pre><code class="language-console">s/(.)bbb\n/$1\nbbb\n/
+</code></pre>
+
+<p>無事にこうなる</p>
+
+<pre><code class="language-console">aaaa
+bbb
+bbb
 </code></pre>
 
 <h2 id="ファイルの特定行に文字列を挿入する">ファイルの特定行に文字列を挿入する</h2>
