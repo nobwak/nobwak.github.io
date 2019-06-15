@@ -33,15 +33,15 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2019-06-01-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B6%8A%E3%81%97%E3%81%AEzfs_send_recv/" />
 <meta property="article:published_time" content="2019-06-01T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2019-06-01T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-06-15T21:49:36&#43;00:00"/>
 
 <meta itemprop="name" content="ネットワーク越しのzfs send recvをmbufferでスピードアップしよう">
 <meta itemprop="description" content="zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、">
 
 
 <meta itemprop="datePublished" content="2019-06-01T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-06-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3167">
+<meta itemprop="dateModified" content="2019-06-15T21:49:36&#43;00:00" />
+<meta itemprop="wordCount" content="3321">
 
 
 
@@ -146,10 +146,10 @@ if (!doNotTrack) {
 <p>また、send, recvで送受するデータの実体はストリームなので、sendとrecvをパイプラインで繋ぐ。<br />
 パイプラインで繋ぐということは、ストリームを操作、制御するコマンドをsend, recvの間に挟んでも構わないということになる。</p>
 
-<p>こういった特性を活かして、ネットワーク越しにzfsデータを送受するときには、間にバッファツールを挟む。</p>
+<p>こういった特性を活かして、ネットワーク越しにzfsデータを送受するときには、間にバッファツールを挟むことで転送速度の向上を期待できる。</p>
 
 <p>バッファツールはその名の通りデータをバッファするツールで、今回のケースで言えば、受け側ホストか経路ネットワークの問題か、要するにデータを受け取れないときにはデータをためておき、受け取れるときには限界までデータを流し込む。<br />
-こうすることでzfs send recvの転送速度向上を期待できる。</p>
+これをパイプラインの途中に挟むというわけ。</p>
 
 <p>なお、「ネットワーク越し」という場合、その「ネットワーク」がプライベート網かインターネットなどの公衆網のどちらなのか、で要件が大きく変わる。<br />
 それについては後述の「データの流れとコマンド実行方法」を参照のこと。</p>
@@ -291,18 +291,19 @@ https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#mai
 <p>しかし上記の構成は、プライベート網だけに限るべき。</p>
 
 <p>というのも、mbufferはデータストリームをそのままネットワークにリダイレクトしているだけなので、データは丸見えだからである。<br />
-また、この構成の場合、受け側は特定のポートで口を開けて待っているだけで、受け取るデータが適正なものであるかについては一切、関知しない。それどころか認証すらしない。<br />
-来るもの拒まずのガバガバであるからして、非セキュアな網では使ってはいけない。</p>
+さらに、この構成の場合、受け側は特定のポートで口を開けて待っているだけで、受け取るデータが適正なものであるかについては一切、関知しない。それどころか認証すらしない。<br />
+結果、中身は丸見え、来るもの拒まずのガバガバであるからして、非セキュアな網では使ってはいけない。</p>
 
-<p>経路が信用できないときは、sshを経由すること。認証もあるし、データも暗号化してくれるからね。</p>
+<p>経路が信用できないときは、sshを経由すること。<br />
+認証もあるし、データも暗号化してくれるからね。</p>
 
 <p>この場合のデータの流れは以下の通り。</p>
 
 <pre><code class="language-console">zfs send --&gt; mbuffer --&gt; ssh --&gt; (network) --&gt; sshd --&gt; mbuffer --&gt; zfs recv
 </code></pre>
 
-<p>受け側のmbuffer, zfs recvは送り側からのsshによるリモート実行。
-ssh <em>リモートサーバ</em> <em>コマンド</em> ってやるやつな。</p>
+<p>受け側のmbuffer, zfs recvは送り側からのsshによるリモート実行。<br />
+<code>ssh &lt;リモートサーバ&gt; &lt;コマンド&gt;</code> ってやるやつな。</p>
 
 <h3 id="定期的に実行するか">定期的に実行するか</h3>
 
@@ -313,7 +314,8 @@ ssh <em>リモートサーバ</em> <em>コマンド</em> ってやるやつな�
 <p>理由は、コマンドの実行が片方だけのホストで完結するからである。sshを使う場合、例えば送り側でzfs sendし、sshによるリモートコマンド実行で受け側のzfs recvもやってしまう。<br />
 つまりコマンド実行は送り側だけでよい。ということは、cronによる定期的な実行も楽にできる。</p>
 
-<p>しかしsshを使わない場合だと、受け側でmbuffer, zfs recvを実行したあとに送り側でzfs send, mbufferを実行する必要がある。これを自動でやるのは非常に面倒だ。</p>
+<p>しかしsshを使わない場合だと、受け側でmbuffer, zfs recvを実行したあとに送り側でzfs send, mbufferを実行する必要がある。これを自動でやるのは非常に面倒だ。<br />
+いまさらrshもないしね。</p>
 
 <p>したがって、定期的にバックアップをリモートへ送信するなら、やはりsshを使ったほうがよい。</p>
 
@@ -322,13 +324,12 @@ ssh <em>リモートサーバ</em> <em>コマンド</em> ってやるやつな�
 <p>そうなんだけど、sshの場合はちょっと設定が面倒である。<br />
 この先を読んでほしい。</p>
 
-<p>ともあれ、この記事ではプライベート網、一回限りのデータ送信として、sshを使わない方法を採る。</p>
-
 <h2 id="どのユーザで実行するか">どのユーザで実行するか。</h2>
 
 <p>zfsの操作は基本、rootしかできないので、送受それぞれのサーバでrootで実行すること。</p>
 
-<p>しかし、定期的にバックアップしたデータを流すのなら、さすがにrootにやらすのは危険だ。<br />
+<p>しかし、バックアップしたデータを定期的に送受するのなら、さすがにrootにやらすのは危険だ。<br />
+定期的に、というならcronだし、cronをrootで実行するのはね。<br />
 くわえてパスワードなしで相手先ホストにログインできる設定をしておかないといけない。</p>
 
 <p>そういう場合には以下のようにして特定ユーザにzfs操作を許可しておき、そのユーザを使う。<br />
@@ -337,11 +338,14 @@ ssh <em>リモートサーバ</em> <em>コマンド</em> ってやるやつな�
 <pre><code class="language-console"># zfs allow -u housekeeper create,receive,mount,send vault/chamber
 </code></pre>
 
-<p>もちろん鍵認証等、パスワードなしでコマンド実行できるようにしておく。</p>
+<p>もちろん鍵認証を使うなどして、パスワードなしでコマンド実行できるようにしておく。</p>
 
 <h2 id="実行">実行</h2>
 
-<p>繰り返すが受け側-&gt;送り側の順で実行すること。</p>
+<p>では、プライベート網を経由する1回限りの転送、という設定で実行する。<br />
+つまり、sshを使わず、送受双方でrootで実行する手順。</p>
+
+<p>繰り返すが受け側-&gt;送り側の順番で実行すること。</p>
 
 <h3 id="受け側">受け側</h3>
 
@@ -360,7 +364,8 @@ ssh <em>リモートサーバ</em> <em>コマンド</em> ってやるやつな�
 <h3 id="送り側">送り側</h3>
 
 <p>送り側で以下を実行。<br />
-こちらではIPアドレス、ポートを指定する。送り側はボロサーバなのでメモリを確保できず500MBにした。</p>
+こちらではIPアドレス、ポートを指定する。送り側はボロサーバなのでメモリを確保できず500MBにした。<br />
+受け側はすでに待ち状態になっているので、コマンド実行した瞬間に転送が始まる。</p>
 
 <pre><code class="language-console"># zfs send -R vault/itunes@monthly-2019-06-01_05.30.00--1y1d | mbuffer -O 192.168.1.7:8000 -s 128k -m 500m
 mbuffer: warning: allocating more than half of available memory
@@ -402,6 +407,10 @@ mbuffer: warning: allocating more than half of available memory
 in @  0.0 kiB/s, out @ 28.6 MiB/s, 1121 GiB total, buffer   1% fulll
 summary: 1121 GiByte in 11h 08min 49.5sec - average of 28.6 MiB/s
 </code></pre>
+
+<p>以上。</p>
+
+<p>更新: 2019-06-15 21:48:31</p>
 <ul class="pa0">
   
 </ul>
