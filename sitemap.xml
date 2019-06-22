@@ -3654,12 +3654,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/shellscripts/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/tags/slack/</loc>
     <lastmod>2016-06-12T21:48:06+09:00</lastmod>
     <changefreq>monthly</changefreq>
