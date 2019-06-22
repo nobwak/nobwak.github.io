@@ -3579,6 +3579,18 @@
   </url>
   
   <url>
+    <loc>https://nobwak.github.io/tags/rsync/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://nobwak.github.io/categories/rsync/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://nobwak.github.io/tags/ruby/</loc>
     <lastmod>2014-05-30T22:24:38+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -3616,6 +3628,12 @@
   <url>
     <loc>https://nobwak.github.io/tags/sh/</loc>
     <lastmod>2015-09-25T23:31:38+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://nobwak.github.io/tags/shellscripts/</loc>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
@@ -3751,6 +3769,12 @@
     <lastmod>2018-11-18T11:58:47+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://nobwak.github.io/posts/2019-06-05-rsync%E3%83%81%E3%83%BC%E3%83%88%E3%82%B7%E3%83%BC%E3%83%88/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
