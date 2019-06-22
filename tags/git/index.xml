@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/git/</link>
+    <description>Recent content in Git on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Thu, 06 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>わたしにgit pullとgit cloneの違いを教えてください</title>
+      <link>https://nobwak.github.io/posts/2019-06-06-%E3%82%8F%E3%81%9F%E3%81%97%E3%81%ABgit_pull%E3%81%A8git_clone%E3%81%AE%E9%81%95%E3%81%84%E3%82%92%E6%95%99%E3%81%88%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84/</link>
+      <pubDate>Thu, 06 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2019-06-06-%E3%82%8F%E3%81%9F%E3%81%97%E3%81%ABgit_pull%E3%81%A8git_clone%E3%81%AE%E9%81%95%E3%81%84%E3%82%92%E6%95%99%E3%81%88%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84/</guid>
+      <description>日曜プログラマのわしもバージョン管理としてrcsではなくgitを使い始めた。 いろいろとドキュメントは揃っているのだが、それぞれのサブコマンド</description>
+    </item>
+    
+  </channel>
+</rss>
