@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Jekyllのテーマminimal-mistakesを使う</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Jekyllのテーマminimal-mistakesを使う" />
+<meta property="og:description" content="Jekyllのデフォルトテーマminimaはあまりにも素っ気ないので、人気のテーマminimal-mistakesに変える。 FreeBSDで" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2019-06-08-jekyll%E3%81%AE%E3%83%86%E3%83%BC%E3%83%9Eminimal-mistakes%E3%82%92%E4%BD%BF%E3%81%86/" />
+<meta property="article:published_time" content="2019-06-08T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-06-08T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="Jekyllのテーマminimal-mistakesを使う">
+<meta itemprop="description" content="Jekyllのデフォルトテーマminimaはあまりにも素っ気ないので、人気のテーマminimal-mistakesに変える。 FreeBSDで">
+
+
+<meta itemprop="datePublished" content="2019-06-08T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-06-08T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2265">
+
+
+
+<meta itemprop="keywords" content="jekyll,blog," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jekyllのテーマminimal-mistakesを使う"/>
+<meta name="twitter:description" content="Jekyllのデフォルトテーマminimaはあまりにも素っ気ないので、人気のテーマminimal-mistakesに変える。 FreeBSDで"/>
+
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-38155461-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Jekyllのテーマminimal-mistakesを使う</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2019-06-08T00:00:00Z">June 8, 2019</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Jekyllのデフォルトテーマminimaはあまりにも素っ気ないので、人気のテーマminimal-mistakesに変える。<br />
+FreeBSDで実施しているが、インストール後はどの環境でも同じ。<br />
+ガイドなどはあるが、結局minimal-mistakesのgithubからダウンロードした環境で作業したほうが楽なのでそうする。</p>
+
+<p>しかし&hellip;。<br />
+試してみたものの、そもそもjekyllによるビルドが糞遅いうえに、minimal-mistakesみたいがゴージャスなテーマを使うとさらに糞糞遅くなる。<br />
+ストレスなくblogを書きたいのにこれではストレスばかり溜まるのでjekyllは今は使ってません。</p>
+
+<h2 id="minimal-mistakesとは">minimal-mistakesとは</h2>
+
+<p>Jekyllでは超有名なテーマ。</p>
+
+<ul>
+<li>公式サイト: <a href="https://mmistakes.github.io/minimal-mistakes/">https://mmistakes.github.io/minimal-mistakes/</a></li>
+<li>見た目: <a href="https://mmistakes.github.io/minimal-mistakes/year-archive/">https://mmistakes.github.io/minimal-mistakes/year-archive/</a></li>
+<li>github: <a href="https://github.com/mmistakes/minimal-mistakes">https://github.com/mmistakes/minimal-mistakes</a></li>
+<li>Quickstart guide: <a href="https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/">https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/</a></li>
+</ul>
+
+<h2 id="インストール-freebsd">インストール(FreeBSD)</h2>
+
+<p>pkgから以下をインストール。<br />
+gitは、先々、github hubにアップロードするため。</p>
+
+<ul>
+<li>rubygem-jekyll</li>
+<li>rubygem-bundler</li>
+<li>git</li>
+</ul>
+
+<p>ログ。<br />
+rootでインストールしているが、これはjailの中なんで気にしない！</p>
+
+<pre><code class="language-console"># pkg install rubygem-jekyll
+Updating FreeBSD repository catalogue...
+FreeBSD repository is up to date.
+All repositories are up to date.
+The following 34 package(s) will be affected (of 0 checked):
+
+New packages to be INSTALLED:
+        rubygem-jekyll: 3.8.5
+        rubygem-jekyll-watch: 2.1.2
+        ruby: 2.4.5_1,1
+（略）
+
+# pkg install rubygem-bundler
+Updating FreeBSD repository catalogue...
+FreeBSD repository is up to date.
+All repositories are up to date.
+The following 1 package(s) will be affected (of 0 checked):
+
+New packages to be INSTALLED:
+        rubygem-bundler: 1.17.1
+
+Number of packages to be installed: 1
+
+The process will require 1 MiB more space.
+295 KiB to be downloaded.
+[jekyll] [1/1] Fetching rubygem-bundler-1.17.1.txz: 100%  295 KiB 301.9kB/s    00:01
+Checking integrity... done (0 conflicting)
+[jekyll] [1/1] Installing rubygem-bundler-1.17.1...
+[jekyll] [1/1] Extracting rubygem-bundler-1.17.1: 100%
+（略）
+
+# pkg install git
+Updating FreeBSD repository catalogue...
+FreeBSD repository is up to date.
+All repositories are up to date.
+The following 23 package(s) will be affected (of 0 checked):
+
+New packages to be INSTALLED:
+        git: 2.21.0
+        p5-CGI: 4.42
+（略）
+</code></pre>
+
+<h2 id="minimal-mistakesのダウンロード">minimal-mistakesのダウンロード</h2>
+
+<p>git cloneする。</p>
+
+<pre><code class="language-console"># git clone https://github.com/mmistakes/minimal-mistakes.git
+Cloning into 'minimal-mistakes'...
+remote: Enumerating objects: 15858, done.
+remote: Total 15858 (delta 0), reused 0 (delta 0), pack-reused 15858
+Receiving objects: 100% (15858/15858), 41.61 MiB | 9.43 MiB/s, done.
+Resolving deltas: 100% (9338/9338), done.
+</code></pre>
+
+<p>出来上がったディレクトリ構造は以下の通り。</p>
+
+<pre><code class="language-console"># tree minimal-mistakes -L 1
+minimal-mistakes
+|-- CHANGELOG.md
+|-- Gemfile
+|-- LICENSE
+|-- README.md
+|-- Rakefile
+|-- _config.yml
+|-- _data
+|-- _includes
+|-- _layouts
+|-- _sass
+|-- assets
+|-- banner.js
+|-- docs
+|-- index.html
+|-- minimal-mistakes-jekyll.gemspec
+|-- package-lock.json
+|-- package.json
+|-- screenshot-layouts.png
+|-- screenshot.png
+|-- staticman.yml
+`-- test
+</code></pre>
+
+<p>できたディレクトリに降りてbundle install。<br />
+rootでやってるが気にしない。</p>
+
+<pre><code class="language-console"># bundle install
+Don't run Bundler as root. Bundler can ask for sudo if it is needed, and installing your bundle as root will break
+this application for all non-root users on this machine.
+Fetching gem metadata from https://rubygems.org/..........
+Fetching gem metadata from https://rubygems.org/.
+Resolving dependencies...
+Fetching rake 10.5.0
+Installing rake 10.5.0
+(略)
+</code></pre>
+
+<h2 id="config-ymlを編集">_config.ymlを編集</h2>
+
+<p>量があって疲れる。<br />
+変えた個所をdiff形式で示す。<br />
+重要なのはloaleやpermalink, timezone, サイト情報。<br />
+あとは適当に。</p>
+
+<pre><code class="language-diff">18,19c18,19
+&lt; locale                   : &quot;ja-JP&quot;
+&lt; title                    : &quot;nobwak's lair&quot;
+---
+&gt; locale                   : &quot;en-US&quot;
+&gt; title                    : &quot;Site Title&quot;
+21,23c21,23
+&lt; name                     : &quot;nobwak&quot;
+&lt; description              : &quot;where nobwak sleeps&quot;
+
+---
+&gt; words_per_minute         : 200
+79c79
+&lt; google_site_verification : googlexxxx.html
+---
+&gt; google_site_verification :
+86,90c86,90
+&lt;   username               : nobwak
+&lt; #facebook:
+&lt;   #username               :
+&lt;   #app_id                 :
+&lt;   #publisher              :
+---
+&gt;   username               :
+&gt; facebook:
+&gt;   username               :
+&gt;   app_id                 :
+&gt;   publisher              :
+101c101
+&lt;   provider               : google # false (default), &quot;google&quot;, &quot;google-universal&quot;, &quot;custom&quot;
+---
+&gt;   provider               : false # false (default), &quot;google&quot;, &quot;google-universal&quot;, &quot;custom&quot;
+103c103
+&lt;     tracking_id          : UA-xxxx-x
+---
+&gt;     tracking_id          :
+109c109
+&lt;   name             : &quot;nobwak&quot;
+---
+&gt;   name             : &quot;Your Name&quot;
+111,112c111,112
+&lt;   bio              : &quot;Cum mortuis in lingua mortua&quot;
+&lt;   location         : &quot;/dev/null&quot;
+---
+&gt;   bio              : &quot;I am an amazing person.&quot;
+&gt;   location         : &quot;Somewhere&quot;
+115,116c115,116
+&lt;     #- label: &quot;Email&quot;
+&lt;       #icon: &quot;fas fa-fw fa-envelope-square&quot;
+---
+&gt;     - label: &quot;Email&quot;
+&gt;       icon: &quot;fas fa-fw fa-envelope-square&quot;
+118,119c118,119
+&lt;     #- label: &quot;Website&quot;
+&lt;       #icon: &quot;fas fa-fw fa-link&quot;
+---
+&gt;     - label: &quot;Website&quot;
+&gt;       icon: &quot;fas fa-fw fa-link&quot;
+
+&lt;     #- label: &quot;Instagram&quot;
+&lt;       #icon: &quot;fab fa-fw fa-instagram&quot;
+---
+&gt;     - label: &quot;Instagram&quot;
+&gt;       icon: &quot;fab fa-fw fa-instagram&quot;
+139d138
+&lt;       url: &quot;https://twitter.com/nobwak&quot;
+141,151c140,141
+&lt;     #- label: &quot;Facebook&quot;
+&lt;       #icon: &quot;fab fa-fw fa-facebook-square&quot;
+&lt;       ## url:
+&lt;     #- label: &quot;GitHub&quot;
+&lt;       #icon: &quot;fab fa-fw fa-github&quot;
+&lt;       ## url:
+&lt;     #- label: &quot;GitLab&quot;
+&lt;       #icon: &quot;fab fa-fw fa-gitlab&quot;
+&lt;       ## url:
+&lt;     #- label: &quot;Bitbucket&quot;
+&lt;       #icon: &quot;fab fa-fw fa-bitbucket&quot;
+---
+&gt;     - label: &quot;Facebook&quot;
+&gt;       icon: &quot;fab fa-fw fa-facebook-square&quot;
+153,155c143,154
+&lt;     #- label: &quot;Instagram&quot;
+&lt;       #icon: &quot;fab fa-fw fa-instagram&quot;
+&lt;       ## url:
+---
+&gt;     - label: &quot;GitHub&quot;
+&gt;       icon: &quot;fab fa-fw fa-github&quot;
+&gt;       # url:
+&gt;     - label: &quot;GitLab&quot;
+&gt;       icon: &quot;fab fa-fw fa-gitlab&quot;
+&gt;       # url:
+&gt;     - label: &quot;Bitbucket&quot;
+&gt;       icon: &quot;fab fa-fw fa-bitbucket&quot;
+&gt;       # url:
+&gt;     - label: &quot;Instagram&quot;
+&gt;       icon: &quot;fab fa-fw fa-instagram&quot;
+&gt;       # url:
+222,223c221
+&lt; #permalink: /:categories/:title/
+&lt; permalink: /:year/:month/:day-:slug:output_ext
+---
+&gt; permalink: /:categories/:title/
+226c224
+&lt; timezone: Asia/Tokyo # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+---
+&gt; timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+</code></pre>
+
+<h2 id="navigation-ymlを編集">navigation.ymlを編集</h2>
+
+<p>デフォルトだとminima-mistakesのクイックスタートガイドへのリンクが貼られるので削る。<br />
+<code>_data/navigation.yml</code>を編集。<br />
+以下が編集後。</p>
+
+<pre><code class="language-console"># main links
+main:
+  #- title: &quot;Quick-Start Guide&quot;
+    # url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  # - title: &quot;About&quot;
+  #   url: https://mmistakes.github.io/minimal-mistakes/about/
+  # - title: &quot;Sample Posts&quot;
+  #   url: /year-archive/
+  # - title: &quot;Sample Collections&quot;
+  #   url: /collection-archive/
+  # - title: &quot;Sitemap&quot;
+  #   url: /sitemap/
+</code></pre>
+
+<h2 id="layout-post向けのテンプレートを作る-wordpressからexport-to-jekyllした場合のみ">layout:post向けのテンプレートを作る（Wordpressからexport to jekyllした場合のみ）</h2>
+
+<p>Jekyllはfront matterのlayoutで指定されたテンプレートを使う。<br />
+Wordpressからexport to jekyllで作ったファイルは、すべてlayoutが「post」になっている。<br />
+一方、minimal-mistakesのlayoutには「post」はなく「posts」しかない。<br />
+そこで「posts」を丸々コピーする。</p>
+
+<pre><code class="language-console"># cd _layouts/
+# ls
+archive-taxonomy.html   collection.html         posts.html              tag.html
+archive.html            compress.html           search.html             tags.html
+categories.html         default.html            single.html
+category.html           home.html               splash.html
+# cp posts.html post.html
+# ls
+archive-taxonomy.html   collection.html         post.html               splash.html
+archive.html            compress.html           posts.html              tag.html
+categories.html         default.html            search.html             tags.html
+category.html           home.html               single.html
+</code></pre>
+
+<h2 id="記事の作成-ビルド">記事の作成、ビルド</h2>
+
+<p><code>_posts</code>というディレクトリを作ってそこに記事を入れたら、ビルド。<br />
+完成品は<code>_site</code>の中。<br />
+下記ログで示すように、文字コードは日本語にしておこうな。</p>
+
+<pre><code class="language-console"># bundle exec jekyll serve
+Configuration file: /usr/home/lair/minimal-mistakes/_config.yml
+            Source: /usr/home/lair/minimal-mistakes
+       Destination: /usr/home/lair/minimal-mistakes/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating...
+       Jekyll Feed: Generating feed for posts
+  Conversion error: Jekyll::Converters::Scss encountered an error while converting 'assets/css/main.scss':
+                    Invalid US-ASCII character &quot;\xE2&quot; on line 54
+jekyll 3.8.5 | Error:  Invalid US-ASCII character &quot;\xE2&quot; on line 54
+#
+# LANG=ja_JP.UTF-8
+# export LANG
+# echo $LANG
+ja_JP.UTF-8
+# bundle exec jekyll
+</code></pre>
+
+<h2 id="ビルド時間の計測">ビルド時間の計測</h2>
+
+<p>ビルドは<code>bundle exec jekyll build</code>などとするが、ここに<code>--profile</code>をつけると要素ごとにかかった時間を測ってくれる。<br />
+460件の記事で10分である。<br />
+本来なら、ここから最適化を進めるんだが、チューニングしてまでjekyllを使うモチベーションはない。</p>
+
+<p>ビルドする記事を制限する等の回避策はあるけど（ビルドする数を制限するオプションを使う）、一挙手一投足すべて遅いのでjekyllはやめようかな。</p>
+
+<pre><code class="language-console"># bundle exec jekyll --profile
+（略）
+
+Filename                                   | Count |      Bytes |    Time
+-------------------------------------------+-------+------------+--------
+_layouts/post.html                         |   461 | 164754.28K | 591.394
+_includes/archive-single.html              |   554 | 157930.46K | 570.367
+_layouts/default.html                      |   557 | 170491.63K |   6.070
+_includes/head.html                        |   557 |   3282.31K |   4.653
+_includes/seo.html                         |   557 |   2904.27K |   4.251
+_layouts/archive.html                      |   554 | 165782.67K |   2.170
+_includes/sidebar.html                     |   557 |    501.54K |   1.799
+_layouts/home.html                         |    93 |    430.45K |   1.672
+_includes/author-profile.html              |   557 |    475.97K |   1.428
+_includes/scripts.html                     |   557 |    137.07K |   0.861
+assets/js/lunr/lunr-store.js               |     1 |    850.26K |   0.612
+sitemap.xml                                |     1 |    112.23K |   0.478
+_includes/paginator.html                   |    93 |     81.62K |   0.297
+_includes/comments-providers/scripts.html  |   557 |      0.00K |   0.157
+_includes/analytics.html                   |   557 |      0.00K |   0.134
+_layouts/single.html                       |     3 |     83.10K |   0.086
+feed.xml                                   |     1 |    180.05K |   0.066
+_includes/head/custom.html                 |   557 |     73.98K |   0.019
+_includes/author-profile-custom-links.html |   557 |    123.48K |   0.013
+_includes/footer/custom.html               |   557 |     40.25K |   0.012
+_includes/social-share.html                |     3 |      5.21K |   0.010
+_includes/post_pagination.html             |     3 |      1.51K |   0.007
+_includes/footer.html                      |     1 |      0.67K |   0.001
+_includes/masthead.html                    |     1 |      0.51K |   0.001
+_includes/page__taxonomy.html              |     3 |      0.01K |   0.001
+robots.txt                                 |     1 |      0.04K |   0.000
+assets/js/lunr/lunr-gr.js                  |     1 |     15.30K |   0.000
+assets/css/main.scss                       |     1 |      0.11K |   0.000
+assets/js/lunr/lunr-en.js                  |     1 |      2.46K |   0.000
+_includes/browser-upgrade.html             |     1 |      0.24K |   0.000
+
+
+                    done in 609.748 seconds.
+ Auto-regeneration: disabled. Use --watch to enable.
+</code></pre>
+
+<p>以上。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/jekyll" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">jekyll</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/blog" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">blog</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
