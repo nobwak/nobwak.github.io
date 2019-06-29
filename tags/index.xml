@@ -93,6 +93,15 @@
     </item>
     
     <item>
+      <title>Hugo</title>
+      <link>https://nobwak.github.io/tags/hugo/</link>
+      <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Jail</title>
       <link>https://nobwak.github.io/tags/jail/</link>
       <pubDate>Mon, 08 Aug 2016 22:35:58 +0900</pubDate>
@@ -251,6 +260,15 @@
       <pubDate>Sun, 12 Jun 2016 21:48:06 +0900</pubDate>
       
       <guid>https://nobwak.github.io/tags/slack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Staticsitegenerator</title>
+      <link>https://nobwak.github.io/tags/staticsitegenerator/</link>
+      <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/staticsitegenerator/</guid>
       <description></description>
     </item>
     

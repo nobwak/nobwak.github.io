@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/hugo/</link>
+    <description>Recent content in Hugo on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Sun, 09 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>爆速静的サイトジェネレータHUGO</title>
+      <link>https://nobwak.github.io/posts/2019-06-09-%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BFhugo/</link>
+      <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2019-06-09-%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BFhugo/</guid>
+      <description>静的サイトジェネレータとしてJekyllを使っていたが、ビルドがとにかく遅い。 そんなところでストレスためてもよくないので引っ越す。 以下をつら</description>
+    </item>
+    
+  </channel>
+</rss>
