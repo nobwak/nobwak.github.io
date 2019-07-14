@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | VSCでHUGOのFrontMatterを書くsnippetsをつくろう</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="VSCでHUGOのFrontMatterを書くsnippetsをつくろう" />
+<meta property="og:description" content="HUGOに食わせるマークダウンファイルを作る場合には、適切なFront matterが必要だ。 hugo new &lt;ファイル&gt;とすれば、Front" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2019-06-10-hugo_frontmatter%E3%81%AEvsc_snippets%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8D%E3%81%86/" />
+<meta property="article:published_time" content="2019-06-10T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-06-10T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="VSCでHUGOのFrontMatterを書くsnippetsをつくろう">
+<meta itemprop="description" content="HUGOに食わせるマークダウンファイルを作る場合には、適切なFront matterが必要だ。 hugo new &lt;ファイル&gt;とすれば、Front">
+
+
+<meta itemprop="datePublished" content="2019-06-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-06-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1972">
+
+
+
+<meta itemprop="keywords" content="HUGO,VisualStudioCode,snippets," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VSCでHUGOのFrontMatterを書くsnippetsをつくろう"/>
+<meta name="twitter:description" content="HUGOに食わせるマークダウンファイルを作る場合には、適切なFront matterが必要だ。 hugo new &lt;ファイル&gt;とすれば、Front"/>
+
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-38155461-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">VSCでHUGOのFrontMatterを書くsnippetsをつくろう</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2019-06-10T00:00:00Z">June 10, 2019</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>HUGOに食わせるマークダウンファイルを作る場合には、適切なFront matterが必要だ。<br />
+<code>hugo new &lt;ファイル&gt;</code>とすれば、Front Matterの書き込まれたファイルを用意してくれる。<br />
+この記事はVisual Studio Code（以降VSC）で書いているが、VSCにはhugofy等のExtensionがあり、これを使えばFron Matter入りの新規ファイルを作ってくれるようだ。</p>
+
+<p>「ようだ」と言っているのは、実際に試したけど失敗したから。<br />
+おそらく、手元のPCにHUGOがインストールされていないからだと思う。</p>
+
+<p>私の場合、記事データは自宅サーバの共有フォルダに置いていて、HUGOもそこにインストールしている。<br />
+いまのところPCにHUGOをインストールするつもりはないので、VSCにsnippetsを入れて少しでも手間を省く。<br />
+具体的には、あるキーワードを入れたら、Front Matterのテンプレートが表示されるようにする。</p>
+
+<h2 id="hugoのfront-matter">HUGOのFront Matter</h2>
+
+<p>まずHUGOのFront Matterを調べる。<br />
+<code>hugo new</code>で作成されるFront Matterは以下の通り。</p>
+
+<pre><code class="language-console">---
+title: &quot;My First Post&quot;
+date: 2019-06-07T18:00:59+09:00
+draft: true
+---
+</code></pre>
+
+<p>これに以下を見ながら肉付けをする。<br />
+<a href="https://gohugo.io/content-management/front-matter/">https://gohugo.io/content-management/front-matter/</a><br />
+まあ、必須なのは<code>isCJKLanguage</code>くらいかな。<br />
+これを設定しないとサマリがうまく表示されないからね。</p>
+
+<h2 id="vscのsnippetsファイル生成">VSCのsnippetsファイル生成</h2>
+
+<p>以下を見ながら進める。<br />
+<a href="https://code.visualstudio.com/docs/editor/userdefinedsnippets">https://code.visualstudio.com/docs/editor/userdefinedsnippets</a></p>
+
+<p>VSCで<code>ctrl + shift + P</code>を押し、<code>snippets</code>とタイプ。<br />
+<code>基本設定: ユーザスニペットの構成</code>をクリック。<br />
+すると、以下の二つが候補に挙がるはず。</p>
+
+<ul>
+<li>新しいグローバルスニペットファイル</li>
+<li>*ワークスペース*の新しいスニペットファイル</li>
+</ul>
+
+<p>グローバルはその名の通り、全ワークスペースで使える共通のスニペットファイルである。<br />
+ワークスペースは、ワークスペースだけで有効なスニペットファイルである。<br />
+前者の場合、共通ではあるが言語ごとに設定を作る。<br />
+設定はjson形式。</p>
+
+<p>どちらでもよいが、グローバルの場合には<code>言語（ファイルタイプ）</code>.jsonとしてファイルを作る。<br />
+今回のケースで言えば、<code>markdown.json</code>とする。<br />
+以下がグローバルスニペットの例。</p>
+
+<pre><code class="language-json">{
+    // Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and
+    // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+    // same ids are connected.
+    // Example:
+    // &quot;Print to console&quot;: {
+    //     &quot;prefix&quot;: &quot;log&quot;,
+    //     &quot;body&quot;: [
+    //         &quot;console.log('$1');&quot;,
+    //         &quot;$2&quot;
+    //     ],
+    //     &quot;description&quot;: &quot;Log output to console&quot;
+    // }
+}
+</code></pre>
+
+<p>ローカルの場合:</p>
+
+<pre><code class="language-json">{
+    // Place your lair workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+    // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+    // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+    // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+    // Placeholders with the same ids are connected.
+    // Example:
+    // &quot;Print to console&quot;: {
+    //     &quot;scope&quot;: &quot;javascript,typescript&quot;,
+    //     &quot;prefix&quot;: &quot;log&quot;,
+    //     &quot;body&quot;: [
+    //         &quot;console.log('$1');&quot;,
+    //         &quot;$2&quot;
+    //     ],
+    //     &quot;description&quot;: &quot;Log output to console&quot;
+    // }
+}
+</code></pre>
+
+<p>いずれの場合でも、json形式でsnippetsを記載、保存すればよい。<br />
+何個か追加してみたけど、一回、VSCを再起動したほうがいいかも。</p>
+
+<h2 id="設定の記述例">設定の記述例</h2>
+
+<p>以下を例に引く</p>
+
+<pre><code class="language-json">{
+    &quot;back-ticks&quot; : {          // snippetsの名前
+        &quot;prefix&quot;: &quot;console&quot;,  // snippetsとして選ぶキーワード。後述。
+        &quot;body&quot;: [             // 以降、実際に表示される内容
+            &quot;^^^ console&quot;,
+            &quot;$1&quot;,             // $1, $2はタブストップ。後述
+            &quot;^^^\n&quot;,
+            &quot;$0&quot;              // 最後のタブストップ
+        ],
+        &quot;description&quot;: &quot;to paste console log&quot;  // 説明
+    }
+}
+</code></pre>
+
+<p>上記のような設定だと、<code>console</code>とタイプし、<code>Ctrl + Space</code>（tabキーにも変えられる）を叩くと、snippets <code>back-ticks</code>が呼び出され、以下の文字列が入力される。</p>
+
+<pre><code class="language-sh">^^^ console
+($1)
+^^^
+($0)
+</code></pre>
+
+<p>このとき$1に自動的にカーソルが移動する。<br />
+$2, $3と書いておけば、その場所へ数字の順にタブで移動できる。<br />
+$0は、最後に移動する場所。<br />
+これをタブストップという。</p>
+
+<h2 id="便利な書式">便利な書式</h2>
+
+<p>タブストップのほかにも便利な書式がある。</p>
+
+<h3 id="デフォルト値入りのタブストップ">デフォルト値入りのタブストップ</h3>
+
+<p><code>${1:foo}</code>とすると、1つめのタブストップでありながら、その場所に<code>foo</code>が入力され、タブで移ったときには<code>foo</code>が選択された状態になる。</p>
+
+<h3 id="選択">選択</h3>
+
+<p><code>${1|one,two,three|}</code>とすると、one, two, threeを選べる。</p>
+
+<h3 id="プレ設定された変数">プレ設定された変数</h3>
+
+<p>プレ設定された便利な変数が使える。</p>
+
+<table>
+<thead>
+<tr>
+<th>変数名</th>
+<th>内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TM_SELECTED_TEXT</td>
+<td>選択中の文字列</td>
+</tr>
+
+<tr>
+<td>TM_CURRENT_LINE</td>
+<td>カーソルのある行</td>
+</tr>
+
+<tr>
+<td>TM_CURRENT_WORD</td>
+<td>カードルのある単語</td>
+</tr>
+
+<tr>
+<td>TM_LINE_INDEX</td>
+<td>行番号（0始まり）</td>
+</tr>
+
+<tr>
+<td>TM_LINE_NUMBER</td>
+<td>行番号（1始まり）</td>
+</tr>
+
+<tr>
+<td>TM_FILENAME</td>
+<td>編集中ファイル名</td>
+</tr>
+
+<tr>
+<td>TM_FILENAME_BASE</td>
+<td>編集中ファイル名（拡張子除く）</td>
+</tr>
+
+<tr>
+<td>CLIPBOARD</td>
+<td>クリップボード</td>
+</tr>
+</tbody>
+</table>
+
+<p>時間関連もある。</p>
+
+<table>
+<thead>
+<tr>
+<th>変数名</th>
+<th>内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>CURRENT_YEAR</td>
+<td>西暦4桁</td>
+</tr>
+
+<tr>
+<td>CURRENT_MONTH</td>
+<td>今月。2桁（2月は02）</td>
+</tr>
+
+<tr>
+<td>CURRENT_DATE</td>
+<td>今日。2桁。</td>
+</tr>
+
+<tr>
+<td>CURRENT_DAY_NAME</td>
+<td>曜日</td>
+</tr>
+
+<tr>
+<td>CURRENT_DAY_NAME_SHORT</td>
+<td>曜日。短い版。Monとか。</td>
+</tr>
+
+<tr>
+<td>CURRENT_HOUR</td>
+<td>24時間方式。2桁。</td>
+</tr>
+
+<tr>
+<td>CURRENT_MINUTE</td>
+<td>2桁</td>
+</tr>
+
+<tr>
+<td>CURRENT_SECOND</td>
+<td>2桁</td>
+</tr>
+</tbody>
+</table>
+
+<p>詳細はこちらを。<br />
+<a href="https://code.visualstudio.com/docs/editor/userdefinedsnippets">https://code.visualstudio.com/docs/editor/userdefinedsnippets</a></p>
+
+<h2 id="私家版front-matter-snippets">私家版Front matter snippets</h2>
+
+<p>上記を踏まえて作ったsnippets。</p>
+
+<pre><code class="language-json">    &quot;hugo front matter&quot; : {
+        &quot;prefix&quot; : &quot;hugo&quot;,
+        &quot;body&quot;: [
+            &quot;---&quot;,
+            &quot;title: \&quot;${1:${TM_FILENAME_BASE}}\&quot;&quot;,
+            &quot;date: \&quot;${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}+09:00\&quot;&quot;,
+            &quot;lastmod: \&quot;\&quot;&quot;,
+            &quot;isCJKLanguage: true&quot;,
+            &quot;categories:\n\t  - $2&quot;,
+            &quot;tags:\n\t  - $3&quot;,
+            &quot;draft: true&quot;,
+            &quot;---&quot;,
+            &quot;$0&quot;
+        ]
+    },
+</code></pre>
+
+<p>表示させてみるとこのように。</p>
+
+<pre><code class="language-sh">---
+title: &quot;2019-06-10-HUGO_FrontMatterのVSC_snippetsをつくろう&quot;
+date: &quot;2019-06-08T22:19:53+09:00&quot;
+lastmod: &quot;&quot;
+isCJKLanguage: true
+categories:
+        -
+tags:
+        -
+draft: true
+---
+</code></pre>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/hugo" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">HUGO</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/visualstudiocode" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">VisualStudioCode</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/snippets" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">snippets</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2019-06-09-%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BFhugo/">爆速静的サイトジェネレータHUGO</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
