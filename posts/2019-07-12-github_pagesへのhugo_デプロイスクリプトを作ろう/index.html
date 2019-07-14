@@ -41,7 +41,7 @@
 
 <meta itemprop="datePublished" content="2019-07-12T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-07-12T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="527">
+<meta itemprop="wordCount" content="535">
 
 
 
@@ -163,11 +163,13 @@ HOSTING AND DEPLOYMENTのページにある<a href="https://gohugo.io/hosting-an
 
 <h2 id="スクリプト">スクリプト</h2>
 
-<p>HUGOのサイトにあるスクリプトでは、プロダクション用のビルドになっていないので、そこだけ変更している。<br />
-1行目のShebangだけ書き換えること。<br />
-これをdeploy.shとでも名前を付けて保存する。<br />
+<p>HUGOのサイトにあるスクリプトでは、プロダクション用のビルドになっていないので、そこだけ変更している。</p>
+
+<p>これをdeploy.shとでも名前を付けて保存する。<br />
 <code>deploy.sh &quot;add articles&quot;</code>というように引数を与えればそれがコミットメッセージになる。<br />
 引数に無ければ<code>rebuilding site 20190713</code>というようなメッセージになる。</p>
+
+<p>転用する場合には1行目のShebangだけ書き換えること。</p>
 
 <pre><code class="language-sh">#!/usr/local/bin/bash
 
