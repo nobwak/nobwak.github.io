@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Docker on Nobwak&#39;s Lair</title>
+    <title>docker on Nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/tags/docker/</link>
-    <description>Recent content in Docker on Nobwak&#39;s Lair</description>
+    <description>Recent content in docker on Nobwak&#39;s Lair</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
     <lastBuildDate>Mon, 15 Feb 2016 22:20:43 +0900</lastBuildDate>
