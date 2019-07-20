@@ -41,7 +41,7 @@
 
 <meta itemprop="datePublished" content="2019-07-20T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-07-20T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="309">
+<meta itemprop="wordCount" content="401">
 
 
 
@@ -158,11 +158,25 @@ if (!doNotTrack) {
 $
 </code></pre>
 
-<p>こうすると、<code>~/.gitconfig</code>に以下が追加される。</p>
+<p>特に応答は返らないが、こうすると<code>~/.gitconfig</code>に以下が追加される。</p>
 
 <pre><code class="language-sh">[credential]
         helper = cache
 </code></pre>
+
+<p>キャッシュする時間を変えるなら、以下の通り指定する。単位は秒。</p>
+
+<pre><code class="language-console">git config --global credential.helper 'cache --timeout=3600'
+</code></pre>
+
+<p>この場合の<code>.gitconfig</code>はこのようになる。</p>
+
+<pre><code class="language-sh">[credential]
+        helper = cache --timeout=3600
+</code></pre>
+
+<p>これで問題なく動いた。<br />
+とても楽。</p>
 <ul class="pa0">
   
    <li class="list">
