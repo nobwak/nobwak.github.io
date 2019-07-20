@@ -41,7 +41,7 @@
 
 <meta itemprop="datePublished" content="2019-07-20T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-07-20T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="277">
+<meta itemprop="wordCount" content="309">
 
 
 
@@ -156,6 +156,12 @@ if (!doNotTrack) {
 
 <pre><code class="language-console">$ git config --global credential.helper cache
 $
+</code></pre>
+
+<p>こうすると、<code>~/.gitconfig</code>に以下が追加される。</p>
+
+<pre><code class="language-sh">[credential]
+        helper = cache
 </code></pre>
 <ul class="pa0">
   
