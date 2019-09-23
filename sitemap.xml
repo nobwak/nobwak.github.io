@@ -27,13 +27,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/windows/</loc>
+    <loc>https://nobwak.github.io/tags/windows/</loc>
     <lastmod>2019-08-10T14:24:05+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/windows/</loc>
+    <loc>https://nobwak.github.io/categories/windows/</loc>
     <lastmod>2019-08-10T14:24:05+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -46,13 +46,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/git/</loc>
+    <loc>https://nobwak.github.io/tags/git/</loc>
     <lastmod>2019-07-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/git/</loc>
+    <loc>https://nobwak.github.io/categories/git/</loc>
     <lastmod>2019-07-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -65,13 +65,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/hugo/</loc>
+    <loc>https://nobwak.github.io/tags/hugo/</loc>
     <lastmod>2019-07-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/hugo/</loc>
+    <loc>https://nobwak.github.io/categories/hugo/</loc>
     <lastmod>2019-07-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -148,13 +148,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/jekyll/</loc>
+    <loc>https://nobwak.github.io/tags/jekyll/</loc>
     <lastmod>2019-06-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/jekyll/</loc>
+    <loc>https://nobwak.github.io/categories/jekyll/</loc>
     <lastmod>2019-06-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -180,13 +180,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/regex/</loc>
+    <loc>https://nobwak.github.io/tags/regex/</loc>
     <lastmod>2019-06-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/regex/</loc>
+    <loc>https://nobwak.github.io/categories/regex/</loc>
     <lastmod>2019-06-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -206,13 +206,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/markdown/</loc>
+    <loc>https://nobwak.github.io/tags/markdown/</loc>
     <lastmod>2019-06-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/markdown/</loc>
+    <loc>https://nobwak.github.io/categories/markdown/</loc>
     <lastmod>2019-06-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -490,13 +490,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/coreos/</loc>
+    <loc>https://nobwak.github.io/tags/coreos/</loc>
     <lastmod>2016-02-15T22:20:43+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/coreos/</loc>
+    <loc>https://nobwak.github.io/categories/coreos/</loc>
     <lastmod>2016-02-15T22:20:43+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -738,13 +738,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/sublime/</loc>
+    <loc>https://nobwak.github.io/tags/sublime/</loc>
     <lastmod>2015-03-22T19:59:59+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/sublime/</loc>
+    <loc>https://nobwak.github.io/categories/sublime/</loc>
     <lastmod>2015-03-22T19:59:59+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -894,13 +894,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/security/</loc>
+    <loc>https://nobwak.github.io/tags/security/</loc>
     <lastmod>2014-09-02T21:57:20+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/security/</loc>
+    <loc>https://nobwak.github.io/categories/security/</loc>
     <lastmod>2014-09-02T21:57:20+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -962,13 +962,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/hadoop/</loc>
+    <loc>https://nobwak.github.io/tags/hadoop/</loc>
     <lastmod>2014-07-16T23:29:13+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/hadoop/</loc>
+    <loc>https://nobwak.github.io/categories/hadoop/</loc>
     <lastmod>2014-07-16T23:29:13+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -1270,13 +1270,13 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/xorg/</loc>
+    <loc>https://nobwak.github.io/tags/xorg/</loc>
     <lastmod>2014-01-30T19:31:10+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/xorg/</loc>
+    <loc>https://nobwak.github.io/categories/xorg/</loc>
     <lastmod>2014-01-30T19:31:10+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -3827,12 +3827,12 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/rsync/</loc>
+    <loc>https://nobwak.github.io/tags/rsync/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/rsync/</loc>
+    <loc>https://nobwak.github.io/categories/rsync/</loc>
     <priority>0</priority>
   </url>
   
