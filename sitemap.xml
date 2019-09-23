@@ -3,12 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://nobwak.github.io/categories/</loc>
-    <lastmod>2019-08-10T14:24:05+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/</loc>
     <lastmod>2019-08-10T14:24:05+09:00</lastmod>
     <priority>0</priority>
@@ -21,40 +15,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/</loc>
-    <lastmod>2019-08-10T14:24:05+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/windows/</loc>
-    <lastmod>2019-08-10T14:24:05+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/windows/</loc>
-    <lastmod>2019-08-10T14:24:05+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/windows-defender%E3%82%92%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E6%93%8D%E4%BD%9C%E3%81%97%E3%82%88%E3%81%86/</loc>
     <lastmod>2019-08-10T14:24:05+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/git/</loc>
-    <lastmod>2019-07-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/git/</loc>
-    <lastmod>2019-07-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -65,28 +29,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/hugo/</loc>
-    <lastmod>2019-07-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/hugo/</loc>
-    <lastmod>2019-07-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2019-07-12-github_pages%E3%81%B8%E3%81%AEhugo_%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92%E4%BD%9C%E3%82%8D%E3%81%86/</loc>
     <lastmod>2019-07-12T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/shellscripts/</loc>
-    <lastmod>2019-07-12T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -97,34 +43,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/visualstudiocode/</loc>
-    <lastmod>2019-06-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/snippets/</loc>
-    <lastmod>2019-06-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2019-06-09-hugo%E3%81%AEananke%E3%81%A7googleanalytics%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%AA%E3%82%89%E3%81%AA%E3%81%84/</loc>
     <lastmod>2019-06-09T19:07:48+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/github/</loc>
-    <lastmod>2019-06-09T19:07:48+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/staticsitegenerator/</loc>
-    <lastmod>2019-06-09T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -142,30 +64,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/blog/</loc>
-    <lastmod>2019-06-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/jekyll/</loc>
-    <lastmod>2019-06-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/jekyll/</loc>
-    <lastmod>2019-06-08T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/bhyve/</loc>
-    <lastmod>2019-06-07T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2019-06-07-freebsd_jail%E3%81%A7%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E3%82%AA%E3%83%BC%E3%83%88%E3%83%9E%E3%82%A6%E3%83%B3%E3%83%88%E3%81%97%E3%82%88%E3%81%86/</loc>
     <lastmod>2019-06-07T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -180,18 +78,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/regex/</loc>
-    <lastmod>2019-06-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/regex/</loc>
-    <lastmod>2019-06-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2019-06-04-%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%83%A1%E3%83%A2%E5%BE%8C%E6%96%B9%E5%8F%82%E7%85%A7%E8%A1%8C%E6%8C%BF%E5%85%A5/</loc>
     <lastmod>2019-06-04T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -203,18 +89,6 @@
     <lastmod>2019-06-03T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/markdown/</loc>
-    <lastmod>2019-06-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/markdown/</loc>
-    <lastmod>2019-06-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -260,22 +134,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/freebsd/</loc>
-    <lastmod>2019-05-12T17:17:30+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE1vm-bhyve%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2019-05-12T17:17:30+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/python/</loc>
-    <lastmod>2019-01-05T18:36:51+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -290,12 +152,6 @@
     <lastmod>2018-12-29T13:44:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/zfs/</loc>
-    <lastmod>2018-12-29T13:44:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -327,34 +183,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/freebsd/</loc>
-    <lastmod>2018-11-18T11:58:47+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2018-11-18-zfszpool_zfs%E3%81%AE%E5%88%A5%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/</loc>
     <lastmod>2018-11-18T11:58:47+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/zfs/</loc>
-    <lastmod>2018-11-18T11:58:47+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/zpool/</loc>
-    <lastmod>2018-11-18T11:58:47+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/linux/</loc>
-    <lastmod>2018-03-21T20:13:48+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -379,40 +211,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/jail/</loc>
-    <lastmod>2016-08-08T22:35:58+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/pkgng/</loc>
-    <lastmod>2016-08-08T22:35:58+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2016-06-12-%E3%83%A1%E3%83%A2_slack%E3%81%A8mattermost%E3%81%9D%E3%82%8C%E3%81%9E%E3%82%8C%E3%81%AEincomingwebhook%E3%81%B8%E3%81%AE%E3%83%9D%E3%82%B9%E3%83%88%E6%96%B9%E6%B3%95%E3%81%AE%E9%81%95%E3%81%84/</loc>
     <lastmod>2016-06-12T21:48:06+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/mattermost/</loc>
-    <lastmod>2016-06-12T21:48:06+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/python/</loc>
-    <lastmod>2016-06-12T21:48:06+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/slack/</loc>
-    <lastmod>2016-06-12T21:48:06+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -427,12 +229,6 @@
     <lastmod>2016-06-02T23:54:24+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/batch/</loc>
-    <lastmod>2016-06-02T22:22:39+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -471,18 +267,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/chatops/</loc>
-    <lastmod>2016-04-16T22:20:53+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/hubot/</loc>
-    <lastmod>2016-04-16T22:20:53+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2016-02-15-coreoscoreos%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%AB%E4%BD%BF%E3%81%A3%E3%81%9Fcloud-config%E3%81%AF%E3%81%A9%E3%81%93%E3%81%AB%E8%A1%8C%E3%81%A3%E3%81%9F%E3%81%AE/</loc>
     <lastmod>2016-02-15T22:20:43+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -490,34 +274,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/coreos/</loc>
-    <lastmod>2016-02-15T22:20:43+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/coreos/</loc>
-    <lastmod>2016-02-15T22:20:43+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/docker/</loc>
-    <lastmod>2016-02-15T22:20:43+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2016-01-16-dockerdocker%E3%81%AEimage%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%97%E4%B8%8D%E8%A6%81%E3%81%AAimage%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B/</loc>
     <lastmod>2016-01-16T22:28:39+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/docker/</loc>
-    <lastmod>2016-01-16T22:28:39+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -535,22 +295,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/%E6%9C%AA%E5%88%86%E9%A1%9E/</loc>
-    <lastmod>2015-12-21T23:34:06+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2015-10-05-%E3%83%A1%E3%83%A2freebsd_owncloud_&#43;_nginx_&#43;_php-fpm_&#43;_mysql%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</loc>
     <lastmod>2015-10-05T22:56:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/mysql/</loc>
-    <lastmod>2015-09-29T22:26:12+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -568,12 +316,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/os-x/</loc>
-    <lastmod>2015-09-25T23:31:38+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2015-09-25-sh_%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/</loc>
     <lastmod>2015-09-25T23:31:38+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -581,46 +323,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/linux/</loc>
-    <lastmod>2015-09-25T23:31:38+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/sh/</loc>
-    <lastmod>2015-09-25T23:31:38+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/</loc>
-    <lastmod>2015-09-25T23:31:38+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/vm/</loc>
-    <lastmod>2015-09-22T11:53:28+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/vagrant/</loc>
-    <lastmod>2015-09-22T11:53:28+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2015-09-22-%E3%83%A1%E3%83%A2vagrant_freebsd%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</loc>
     <lastmod>2015-09-22T11:53:28+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/vm/</loc>
-    <lastmod>2015-09-18T23:07:12+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -652,22 +358,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/jail/</loc>
-    <lastmod>2015-08-28T22:55:02+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/</loc>
     <lastmod>2015-08-27T23:16:28+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/plexmediaserver/</loc>
-    <lastmod>2015-08-27T23:16:28+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -678,22 +372,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/pkgng/</loc>
-    <lastmod>2015-08-26T21:00:18+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</loc>
     <lastmod>2015-08-25T23:42:59+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/atom/</loc>
-    <lastmod>2015-08-20T23:39:30+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -725,28 +407,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/samba/</loc>
-    <lastmod>2015-05-07T20:13:08+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2015-05-07-freebsd_samba_3.x%E3%81%8B%E3%82%89samba_4.x%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/</loc>
     <lastmod>2015-05-07T20:13:08+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/sublime/</loc>
-    <lastmod>2015-03-22T19:59:59+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/sublime/</loc>
-    <lastmod>2015-03-22T19:59:59+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -827,12 +491,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/unix/</loc>
-    <lastmod>2014-10-30T22:52:56+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/</loc>
     <lastmod>2014-10-30T22:52:56+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -844,12 +502,6 @@
     <lastmod>2014-10-23T22:52:37+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/osx/</loc>
-    <lastmod>2014-09-29T22:51:26+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -881,28 +533,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/tip/</loc>
-    <lastmod>2014-09-14T21:06:48+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2014-09-02-%E3%83%A1%E3%83%A2_clamav%E5%85%88%E7%94%9F%E6%82%AA%E6%84%8F%E3%81%AE%E3%81%82%E3%82%8B%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E5%89%8A%E9%99%A4%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%83%88%E3%83%AD%E3%82%A4%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%8B%E8%AA%A4%E6%A4%9C%E5%87%BA/</loc>
     <lastmod>2014-09-02T21:57:20+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/security/</loc>
-    <lastmod>2014-09-02T21:57:20+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/security/</loc>
-    <lastmod>2014-09-02T21:57:20+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -962,24 +596,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/hadoop/</loc>
-    <lastmod>2014-07-16T23:29:13+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/hadoop/</loc>
-    <lastmod>2014-07-16T23:29:13+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/osx/</loc>
-    <lastmod>2014-07-09T20:53:38+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2014-07-09-%E3%83%A1%E3%83%A2_mac%E3%81%ABpython%E3%81%AEmatplotlib%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</loc>
     <lastmod>2014-07-09T20:53:38+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -1029,22 +645,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/ruby/</loc>
-    <lastmod>2014-05-30T22:24:38+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2014-05-30-%E3%83%A1%E3%83%A2_mac%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</loc>
     <lastmod>2014-05-30T22:24:38+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/homebrew/</loc>
-    <lastmod>2014-05-30T22:24:38+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -1139,12 +743,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/tags/monitoring/</loc>
-    <lastmod>2014-03-18T20:02:55+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/</loc>
     <lastmod>2014-03-13T20:45:33+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -1170,12 +768,6 @@
     <lastmod>2014-03-07T21:14:55+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/scrap/</loc>
-    <lastmod>2014-03-07T21:14:55+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -1270,18 +862,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/xorg/</loc>
-    <lastmod>2014-01-30T19:31:10+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/xorg/</loc>
-    <lastmod>2014-01-30T19:31:10+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2014-01-29-%E3%83%A1%E3%83%A2_freebsd_10.0_%E3%81%A7_libc_nonshared.a%E3%81%8C%E8%A6%8B%E3%81%A4%E3%81%8B%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/</loc>
     <lastmod>2014-01-29T22:08:42+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -1314,12 +894,6 @@
     <lastmod>2014-01-21T22:12:38+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/nginx/</loc>
-    <lastmod>2014-01-21T22:12:38+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -1638,12 +1212,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/computer/</loc>
-    <lastmod>2013-09-02T22:08:20+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2013-09-02-windows_xp%E3%81%AEntbackup.exe%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%E3%82%92windows_7%E3%81%A7%E3%83%AA%E3%82%B9%E3%83%88%E3%82%A2%E3%81%99%E3%82%8B/</loc>
     <lastmod>2013-09-02T22:08:20+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -1777,12 +1345,6 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/books/</loc>
-    <lastmod>2013-07-19T23:24:41+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2013-06-17-freebsdlinux_dhcp%E3%82%B5%E3%83%BC%E3%83%90isc-dhcpd%E3%81%A7%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bip%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%AE%E6%95%B0%E3%82%92%E7%9B%A3%E8%A6%96%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</loc>
     <lastmod>2013-06-17T23:10:32+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -1832,22 +1394,10 @@
   </url>
   
   <url>
-    <loc>https://nobwak.github.io/categories/thoughts/</loc>
-    <lastmod>2013-04-21T17:14:33+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://nobwak.github.io/posts/2013-04-18-teleco_%E7%B1%B3%E5%9B%BD%E3%81%A7%E3%81%AF%E5%BD%93%E5%B1%80%E3%81%8C%E6%90%BA%E5%B8%AF%E9%9B%BB%E8%A9%B1%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%AE%E5%81%9C%E6%AD%A2%E3%82%92%E5%91%BD%E4%BB%A4%E3%81%A7%E3%81%8D%E3%82%8B/</loc>
     <lastmod>2013-04-18T23:50:36+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/teleco/</loc>
-    <lastmod>2013-04-18T23:50:36+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -1925,12 +1475,6 @@
     <lastmod>2013-02-16T00:19:07+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/misc./</loc>
-    <lastmod>2013-02-16T00:19:07+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -2113,12 +1657,6 @@
     <lastmod>2012-03-01T01:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/ubuntu/</loc>
-    <lastmod>2010-05-17T01:00:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -2735,12 +2273,6 @@
     <lastmod>2009-03-07T01:00:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/redhat/</loc>
-    <lastmod>2009-03-05T01:00:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -3823,16 +3355,6 @@
   
   <url>
     <loc>https://nobwak.github.io/posts/images/googledf858b913ff9f5f4/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/categories/rsync/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nobwak.github.io/tags/rsync/</loc>
     <priority>0</priority>
   </url>
   
