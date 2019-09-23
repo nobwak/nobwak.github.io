@@ -29,26 +29,26 @@
     
 
     <meta property="og:title" content="ssmtpを使ってroot宛のメールをgmailに転送したら便利杉ワロタ。" />
-<meta property="og:description" content="ssmtpとは。 Extremely simple MTA to get mail off the system to a mail hub なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。" />
+<meta property="og:description" content="ssmtpとは Extremely simple MTA to get mail off the system to a mail hub なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。 だ" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2012-03-05-ssmtp%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6root%E5%AE%9B%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%82%92gmail%E3%81%AB%E8%BB%A2%E9%80%81%E3%81%97%E3%81%9F%E3%82%89%E4%BE%BF%E5%88%A9%E6%9D%89%E3%83%AF%E3%83%AD%E3%82%BF/" />
 <meta property="article:published_time" content="2012-03-05T01:00:00&#43;09:00"/>
 <meta property="article:modified_time" content="2012-03-05T01:00:00&#43;09:00"/>
 
 <meta itemprop="name" content="ssmtpを使ってroot宛のメールをgmailに転送したら便利杉ワロタ。">
-<meta itemprop="description" content="ssmtpとは。 Extremely simple MTA to get mail off the system to a mail hub なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。">
+<meta itemprop="description" content="ssmtpとは Extremely simple MTA to get mail off the system to a mail hub なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。 だ">
 
 
 <meta itemprop="datePublished" content="2012-03-05T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-05T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="969">
+<meta itemprop="wordCount" content="973">
 
 
 
-<meta itemprop="keywords" content="" />
+<meta itemprop="keywords" content="ssmtp," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ssmtpを使ってroot宛のメールをgmailに転送したら便利杉ワロタ。"/>
-<meta name="twitter:description" content="ssmtpとは。 Extremely simple MTA to get mail off the system to a mail hub なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。"/>
+<meta name="twitter:description" content="ssmtpとは Extremely simple MTA to get mail off the system to a mail hub なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。 だ"/>
 
       
 <script type="application/javascript">
@@ -141,53 +141,28 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>ssmtpとは。
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
 
+<h2 id="ssmtpとは">ssmtpとは</h2>
 
+<p>Extremely simple MTA to get mail off the system to a mail hub</p>
 
-Extremely simple MTA to get mail off the system to a mail hub
+<p>なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。<br />
+だからqmailとかpostfixとか生まれたらしいんですがね、もうそんな設定の難しいソフトウェアはベースシステムから取っ払ってほしいんですよ。<br />
+で、ssmtpなら設定は簡単だし、gmailがsmtp開放してるってんで、まあ入れてみた。<br />
+root宛にメールを送れば、自分のスマホにメールが届くというのは便利杉で驚いた次第。</p>
 
+<h2 id="事前準備-sendmailよrip">事前準備: sendmailよRIP</h2>
 
-
-なんかね、20年近く前までは、sendmailの設定できるってだけで高給取りだったそうなんですよ。
-
-
-
-だからqmailとかpostfixとか生まれたらしいんですがね、もうそんな設定の難しいソフトウェアはベースシステムから取っ払ってほしいんですよ。
-
-
-
-で、ssmtpなら設定は簡単だし、gmailがsmtp開放してるってんで、まあ入れてみた。
-
-
-
-root宛にメールを送れば、自分のスマホにメールが届くというのは便利杉で驚いた次第。
-
-
-
-
-
-
-
-
-&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;事前準備: sendmailよRIP&lt;/span&gt;
-
-
-
-まずsendmailを止める。
-</code></pre>
+<p>まずsendmailを止める。</p>
 
 <pre><code class="language-console"># /etc/rc.d/sendmail stop
 </code></pre>
 
-<pre><code>sendmailが次回以降も起動しないように/etc/rc.confに以下を追記。
+<p>sendmailが次回以降も起動しないように/etc/rc.confに以下を追記。<br />
+君にはお世話になった。</p>
 
-
-
-君にはお世話になった。
-</code></pre>
-
-<pre><code class="language-console">#vi /etc/rc.conf
+<pre><code class="language-console"># vi /etc/rc.conf
 (以下を追記)
 sendmail_enable=&quot;NO&quot;
 sendmail_submit_enable=&quot;NO&quot;
@@ -195,24 +170,16 @@ sendmail_outbound_enable=&quot;NO&quot;
 sendmail_msp_queue_enable=&quot;NO&quot;
 </code></pre>
 
-<pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;ssmtpをインストール&lt;/span&gt;
-</code></pre>
+<h2 id="ssmtpをインストール">ssmtpをインストール</h2>
 
 <pre><code class="language-console"># cd /usr/ports/mail/ssmtp
 # make install clean
 # make replace
 </code></pre>
 
-<pre><code>最後のreplaceは/etc/mail/mailer.confを修正して、sendmailをssmtpに置き換えてくれる。
-
-
-
-sendmailは他のたくさんのプログラムがアクセスするからね。
-
-
-
-/etc/mail/mailer.confを見ると、何が変わったかがわかる。
-</code></pre>
+<p>最後のreplaceは/etc/mail/mailer.confを修正して、sendmailをssmtpに置き換えてくれる。<br />
+sendmailは他のたくさんのプログラムがアクセスするからね。<br />
+/etc/mail/mailer.confを見ると、何が変わったかがわかる。</p>
 
 <pre><code class="language-console">make replace後の/etc/mail/mailer.confの内容
 #sendmail       /usr/libexec/sendmail/sendmail
@@ -229,28 +196,31 @@ hoststat        /usr/bin/true
 purgestat       /usr/bin/true
 </code></pre>
 
-<p><br /> 補足。<br /> pkgからインストールした場合には、もちろんmake replaceが使えない。<br /> その場合には面倒でも手動で書き換える。<br /> 書き換え個所は上記の通りで問題ないはずだが、心配なら以下から最新のMakefileを見れば分かる。<br /> <a href="https://svnweb.freebsd.org/ports/head/mail/ssmtp/Makefile?view=log">https://svnweb.freebsd.org/ports/head/mail/ssmtp/Makefile?view=log</a><br /> ここの最新版をViewして「replace」を見ればよい。<br /> 例。</p>
+<h2 id="補足">補足</h2>
 
-<pre><code class="language-console">55 	replace:
-56 	        @${REINPLACE_CMD} -e 's,^[^#],#&amp;,g' ${MAILERCONF}
-57 	        @${ECHO_CMD} &quot;sendmail  ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
-58 	        @${ECHO_CMD} &quot;send-mail ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
-59 	        @${ECHO_CMD} &quot;mailq             ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
-60 	        @${ECHO_CMD} &quot;newaliases        ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
-61 	        @${ECHO_CMD} &quot;hoststat  /usr/bin/true&quot; &gt;&gt; ${MAILERCONF}
-62 	        @${ECHO_CMD} &quot;purgestat /usr/bin/true&quot; &gt;&gt; ${MAILERCONF}
+<p>pkgからインストールした場合には、もちろんmake replaceが使えない。<br />
+その場合には面倒でも手動で書き換える。<br />
+書き換え個所は上記の通りで問題ないはずだが、心配なら<a href="https://svnweb.freebsd.org/ports/head/mail/ssmtp/Makefile?view=log">https://svnweb.freebsd.org/ports/head/mail/ssmtp/Makefile?view=log</a>から最新のMakefileを見れば分かる</p>
+
+<p>ここの最新版をViewして「replace」を見ればよい。</p>
+
+<p>例。</p>
+
+<pre><code class="language-sh">55  replace:
+56          @${REINPLACE_CMD} -e 's,^[^#],#&amp;,g' ${MAILERCONF}
+57          @${ECHO_CMD} &quot;sendmail  ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
+58          @${ECHO_CMD} &quot;send-mail ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
+59          @${ECHO_CMD} &quot;mailq             ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
+60          @${ECHO_CMD} &quot;newaliases        ${PREFIX}/sbin/ssmtp&quot; &gt;&gt; ${MAILERCONF}
+61          @${ECHO_CMD} &quot;hoststat  /usr/bin/true&quot; &gt;&gt; ${MAILERCONF}
+62          @${ECHO_CMD} &quot;purgestat /usr/bin/true&quot; &gt;&gt; ${MAILERCONF}
 </code></pre>
 
-<pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;ssmtpの設定&lt;/span&gt;
+<h2 id="ssmtpの設定">ssmtpの設定</h2>
 
-
-
-ここでroot宛のメールをgmailに転送する設定をする。
-
-
-
-/usr/local/etc/ssmtp/ssmtp.confを作成
-</code></pre>
+<p>ここでroot宛のメールをgmailに転送する設定をする。<br />
+/usr/local/etc/ssmtp/ssmtp.confを作成<br />
+パスワードは<a href="https://support.google.com/accounts/answer/185833?hl=ja">https://support.google.com/accounts/answer/185833?hl=ja</a>で取得する。</p>
 
 <pre><code class="language-console">root=youremail@gmail.com
 mailhub=smtp.gmail.com:587
@@ -259,8 +229,7 @@ AuthPass=yourpassword
 UseSTARTTLS=YES
 </code></pre>
 
-<pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;実験&lt;/span&gt;
-</code></pre>
+<h2 id="実験">実験</h2>
 
 <pre><code class="language-console">$ mail -v root
 Subject: &lt;件名を入れる&gt;
@@ -268,9 +237,12 @@ Subject: &lt;件名を入れる&gt;
 (Ctrl+Dを押す)
 </code></pre>
 
-<pre><code>これでOK。
-</code></pre>
+<p>これでOK。</p>
 <ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/ssmtp" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">ssmtp</a>
+   </li>
   
 </ul>
 <div class="mt6">
