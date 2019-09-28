@@ -41,7 +41,7 @@
 
 <meta itemprop="datePublished" content="2019-08-10T14:24:05&#43;09:00" />
 <meta itemprop="dateModified" content="2019-08-10T14:24:05&#43;09:00" />
-<meta itemprop="wordCount" content="959">
+<meta itemprop="wordCount" content="1211">
 
 
 
@@ -147,7 +147,8 @@ if (!doNotTrack) {
 
 <p>Windows10にデフォルトで用意されているアンチウイルスソフトWindows Defenderをコマンドラインで操作する。<br />
 コマンドラインで操作することの良い点はバッチ化できることである。<br />
-あるいは、他人への指示がしやすいことである。</p>
+あるいは、他人への指示がしやすいことである。<br />
+講釈はいいから、定義ファイルの更新＞クイックスキャンをするバッチファイルをよこせ、という方は文末へどうぞ。</p>
 
 <h2 id="windows-defenderの本体">Windows Defenderの本体</h2>
 
@@ -190,7 +191,8 @@ Signature update finished. No updates needed
 </code></pre>
 
 <p>どうも定義ファイルのバージョンを表示するオプションはないようだ。<br />
-定義ファイルのバージョンはGUIで確認するしかないが、それはさておき強制的にダウンロードさせるなら以下のように一度定義ファイルを削除してから更新する。</p>
+定義ファイルのバージョンはGUIで確認するしかないが、それはさておき強制的にダウンロードさせるなら以下のように一度定義ファイルを削除してから更新する。<br />
+ただし、定義ファイルの削除には管理者権限が必要。</p>
 
 <pre><code class="language-console">cd %ProgramFiles%\Windows Defender
 MpCmdRun.exe -removedefinitions -dynamicsignatures
@@ -207,6 +209,8 @@ MpCmdRun.exe -SignatureUpdate
 <p>Windows10, 64bitなら以下から。</p>
 
 <p><a href="https://go.microsoft.com/fwlink/?LinkID=121721&amp;arch=x64">https://go.microsoft.com/fwlink/?LinkID=121721&amp;arch=x64</a></p>
+
+<p><img src="/images/20190928windefver.jpg" alt="プロパティ" /></p>
 
 <h2 id="windows-defenderをコマンドラインから開く">Windows Defenderをコマンドラインから開く</h2>
 
@@ -233,6 +237,23 @@ Windows Defenderは以下のコマンドで一発で開く。<br />
 </blockquote>
 
 <p>とメールに書けばよい。</p>
+
+<h2 id="定義ファイルの更新-スキャンバッチファイル">定義ファイルの更新、スキャンバッチファイル</h2>
+
+<p>以下の通り。<br />
+定義ファイルをいったん削除して更新し、そのあとクイックスキャンである。<br />
+定義ファイルを削除して更新するには管理者権限が必要だが、管理者権限なく実行しても削除がエラーになるだけで、更新はできる。気にせず実行。<br />
+フルスキャンしたい場合には-scantypeを2に変えること。</p>
+
+<pre><code class="language-bat">@echo off
+
+cd %ProgramFiles%\Windows Defender
+MpCmdRun.exe -removedefinitions -dynamicsignatures
+MpCmdRun.exe -SignatureUpdate
+mpcmdrun -scan -scantype 1
+
+pause
+</code></pre>
 <ul class="pa0">
   
    <li class="list">
