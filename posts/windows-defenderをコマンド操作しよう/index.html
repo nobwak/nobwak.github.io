@@ -41,7 +41,7 @@
 
 <meta itemprop="datePublished" content="2019-08-10T14:24:05&#43;09:00" />
 <meta itemprop="dateModified" content="2019-08-10T14:24:05&#43;09:00" />
-<meta itemprop="wordCount" content="1211">
+<meta itemprop="wordCount" content="1286">
 
 
 
@@ -240,10 +240,12 @@ Windows Defenderは以下のコマンドで一発で開く。<br />
 
 <h2 id="定義ファイルの更新-スキャンバッチファイル">定義ファイルの更新、スキャンバッチファイル</h2>
 
-<p>以下の通り。<br />
-定義ファイルをいったん削除して更新し、そのあとクイックスキャンである。<br />
+<p>以下の内容をテキストファイルにコピーし、拡張子.batで保存する。</p>
+
+<p>定義ファイルをいったん削除して更新し、そのあとクイックスキャンである。<br />
 定義ファイルを削除して更新するには管理者権限が必要だが、管理者権限なく実行しても削除がエラーになるだけで、更新はできる。気にせず実行。<br />
-フルスキャンしたい場合には-scantypeを2に変えること。</p>
+フルスキャンしたい場合には-scantypeを2に変えること。<br />
+<code>pause</code>コマンドにより、処理が終了しても何かのキーを押すまで画面が閉じないようにしている。</p>
 
 <pre><code class="language-bat">@echo off
 
@@ -254,6 +256,8 @@ mpcmdrun -scan -scantype 1
 
 pause
 </code></pre>
+
+<p>以上</p>
 <ul class="pa0">
   
    <li class="list">
