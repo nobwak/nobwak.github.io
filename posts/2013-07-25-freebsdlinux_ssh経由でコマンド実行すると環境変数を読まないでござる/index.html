@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.58.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -43,9 +43,8 @@ $ ssh user@remotehost /path/command
 なお、複数ホストを用意するのが面倒なので、本記事で実例を示す場合には接続先をlocalhostしている。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/" />
-<meta property="article:published_time" content="2013-07-25T23:21:35&#43;09:00"/>
-<meta property="article:modified_time" content="2013-07-25T23:21:35&#43;09:00"/>
-
+<meta property="article:published_time" content="2013-07-25T23:21:35+09:00" />
+<meta property="article:modified_time" content="2013-07-25T23:21:35+09:00" />
 <meta itemprop="name" content="[FreeBSD][Linux] ssh経由でコマンド実行すると環境変数を読まないでござる">
 <meta itemprop="description" content="ssh経由bashでコマンド実行するときの環境変数を有効にするには。
 
@@ -63,7 +62,7 @@ $ ssh user@remotehost /path/command
 
 <meta itemprop="datePublished" content="2013-07-25T23:21:35&#43;09:00" />
 <meta itemprop="dateModified" content="2013-07-25T23:21:35&#43;09:00" />
-<meta itemprop="wordCount" content="1805">
+<meta itemprop="wordCount" content="1923">
 
 
 
@@ -223,107 +222,130 @@ http://linuxjm.sourceforge.jp/html/GNU_bash/man1/bash.1.html
 
 コマンド実行時に以下のようにしてprofile読み込みを明示する。
 
-``` console
-$ ssh user@host &quot;source ~/.profile; /path/to/command&quot;
 </code></pre>
 
-<p>ご覧の通り。<br />
-``</p>
+<p>console
+$ ssh user@host &ldquo;source ~/.profile; /path/to/command&rdquo;</p>
 
-<pre><code class="language-console">[user01@vanilla ~]$ ssh localhost &quot;source ~/.profile; env&quot;|grep TESTENV
+<pre><code>
+ご覧の通り。  
+``
+
+</code></pre>
+
+<p>console
+[user01@vanilla ~]$ ssh localhost &ldquo;source ~/.profile; env&rdquo;|grep TESTENV
 TESTENV=testenv
-[user01@vanilla ~]$
-</code></pre>
+[user01@vanilla ~]$</p>
 
-<p>後述の対策②を採れない場合、つまりsshdの設定ファイルを変更する権限がない場合には有効。<br />
-その一方で、sshで実行するスクリプトが大量にある場合には、それら全部に対して修正が必要になるので、きびしい。<br />
-単発向けの対策と考えるのがよさそう。</p>
+<pre><code>
+後述の対策②を採れない場合、つまりsshdの設定ファイルを変更する権限がない場合には有効。  
+その一方で、sshで実行するスクリプトが大量にある場合には、それら全部に対して修正が必要になるので、きびしい。  
+単発向けの対策と考えるのがよさそう。
 
-<h3 id="span-style-text-decoration-underline-対策②-sshdの設定permituserenvironmentを変える-span"><span style="text-decoration: underline;">対策②: sshdの設定PermitUserEnvironmentを変える。</span></h3>
+### &lt;span style=&quot;text-decoration: underline;&quot;&gt;対策②: sshdの設定PermitUserEnvironmentを変える。&lt;/span&gt;
 
-<p>sshdの設定を変えて、環境変数を読むようにする。<br />
-以下、sshd_configのマニュアルより抜粋。<br />
-<code>&lt;br /&gt;
+sshdの設定を変えて、環境変数を読むようにする。  
+以下、sshd_configのマニュアルより抜粋。  
+`&lt;br /&gt;
 PermitUserEnvironment&lt;br /&gt;
 Specifies whether ~/.ssh/environment and environment= options in&lt;br /&gt;
 ~/.ssh/authorized_keys are processed by sshd(8). The default is&lt;br /&gt;
-</code><code>no''. Enabling environment processing may enable users to&lt;br /&gt;
+``no''. Enabling environment processing may enable users to&lt;br /&gt;
 bypass access restrictions in some configurations using mecha-&lt;br /&gt;
-nisms such as LD_PRELOAD.</code></p>
+nisms such as LD_PRELOAD.`
 
-<p>~/.ssh/environmentを作っておき、sshd設定でPermitUserEnvironmentをYesに設定すると、その中身を読んでくれる。<br />
-デフォルトではNoになっている。<br />
-セキュリティ上の穴になる可能性があるので推奨はされない。<br />
-加えて、先述の通りサーバのsshd設定を書き換える権限が必要。<br />
-それらがクリアできれば、クライアント側では何も意識しなくてよいので楽。</p>
+~/.ssh/environmentを作っておき、sshd設定でPermitUserEnvironmentをYesに設定すると、その中身を読んでくれる。  
+デフォルトではNoになっている。  
+セキュリティ上の穴になる可能性があるので推奨はされない。  
+加えて、先述の通りサーバのsshd設定を書き換える権限が必要。  
+それらがクリアできれば、クライアント側では何も意識しなくてよいので楽。
 
-<h3 id="span-style-text-decoration-underline-対策②-1-sshd設定変更-span"><span style="text-decoration: underline;">対策②-1:sshd設定変更</span></h3>
+### &lt;span style=&quot;text-decoration: underline;&quot;&gt;対策②-1:sshd設定変更&lt;/span&gt;
 
-<p>sshd_configでPermitUserEnvironment yesにする。<br />
-``</p>
+sshd_configでPermitUserEnvironment yesにする。  
+``
 
-<pre><code class="language-console">$ sudo vi /etc/ssh/sshd_config
-
-#PermitUserEnvironment no
-PermitUserEnvironment yes
 </code></pre>
 
-<p>sshdを再起動。<br />
-<code>&lt;br /&gt;
-</code></p>
+<p>console
+$ sudo vi /etc/ssh/sshd_config</p>
 
-<pre><code class="language-console">$ sudo service sshd restart
+<p>#PermitUserEnvironment no
+PermitUserEnvironment yes</p>
+
+<pre><code>
+sshdを再起動。  
+`&lt;br /&gt;
+` 
+
+</code></pre>
+
+<p>console
+$ sudo service sshd restart
 Stopping sshd.
 Starting sshd.
-$
+$</p>
+
+<pre><code>
+## &lt;span style=&quot;text-decoration: underline;&quot;&gt;対策②-2:environmentの作成&lt;/span&gt;
+
+~/.ssh/environmentを作る。
+
+ここで注意点。  
+environmentは下記の書式しか受け付けない。詳細は実例で後述。
+
 </code></pre>
 
-<h2 id="span-style-text-decoration-underline-対策②-2-environmentの作成-span"><span style="text-decoration: underline;">対策②-2:environmentの作成</span></h2>
+<p>console
+environment=value</p>
 
-<p>~/.ssh/environmentを作る。</p>
+<pre><code>
+再びTESTENVに登場いただき試す。  
+意図した通り、environmentの内容が反映されている。  
+``
 
-<p>ここで注意点。<br />
-environmentは下記の書式しか受け付けない。詳細は実例で後述。</p>
-
-<pre><code class="language-console">environment=value
 </code></pre>
 
-<p>再びTESTENVに登場いただき試す。<br />
-意図した通り、environmentの内容が反映されている。<br />
-``</p>
-
-<pre><code class="language-console">$ sudo su - user01
+<p>console
+$ sudo su - user01
 [user01@vanilla ~]$
-[user01@vanilla ~]$ echo &quot;TESTENV=testenv&quot; &gt;&gt; ~/.ssh/environment
+[user01@vanilla ~]$ echo &ldquo;TESTENV=testenv&rdquo; &gt;&gt; ~/.ssh/environment
 [user01@vanilla ~]$ cat ~/.ssh/environment
 TESTENV=testenv
 [user01@vanilla ~]$
 [user01@vanilla ~]$ ssh localhost env|grep TESTENV
 TESTENV=testenv
-[user01@vanilla ~]$
+[user01@vanilla ~]$</p>
+
+<pre><code>
+しかし$PATHを与えても展開されずそのまま。
+
 </code></pre>
 
-<p>しかし$PATHを与えても展開されずそのまま。</p>
-
-<pre><code class="language-console">$ echo 'TESTENV01=$PATH' &gt;&gt; ~/.ssh/environment
+<p>console
+$ echo &lsquo;TESTENV01=$PATH&rsquo; &gt;&gt; ~/.ssh/environment
 [user01@vanilla ~]$ grep 01 ~/.ssh/environment
 TESTENV01=$PATH
 [user01@vanilla ~]$ ssh localhost env|grep 01
 TESTENV01=$PATH
-[user01@vanilla ~]$
+[user01@vanilla ~]$</p>
+
+<pre><code>
+` `
+
+.profileのつもりで書くと大変なことに。
+
 </code></pre>
 
-<p><code> </code></p>
-
-<p>.profileのつもりで書くと大変なことに。</p>
-
-<pre><code class="language-console">[user01@vanilla ~]$ echo 'TESTENV02=$PATH; export TESTENV02' &gt;&gt; ~/.ssh/environment
+<p>console
+[user01@vanilla ~]$ echo &lsquo;TESTENV02=$PATH; export TESTENV02&rsquo; &gt;&gt; ~/.ssh/environment
 [user01@vanilla ~]$ grep 02 ~/.ssh/environment
 TESTENV02=$PATH; export TESTENV02
 [user01@vanilla ~]$ ssh localhost env|grep 02
 TESTENV02=$PATH; export TESTENV02
 [user01@vanilla ~]$
-</code></pre>
+```</p>
 
 <p>environmentのvalueには変数を使わない。exportも使わないこと。</p>
 
