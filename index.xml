@@ -6,10 +6,19 @@
     <description>Recent content on Nobwak&#39;s Lair</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
-    <lastBuildDate>Tue, 24 Sep 2019 00:27:55 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 13 Oct 2019 20:22:25 +0900</lastBuildDate>
     
 	<atom:link href="https://nobwak.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2019-10-13-my-fxxxing-IPアドレスとDDNS</title>
+      <link>https://nobwak.github.io/posts/2019-10-13-my-fxxxing-ip%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%A8ddns/</link>
+      <pubDate>Sun, 13 Oct 2019 20:22:25 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2019-10-13-my-fxxxing-ip%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%A8ddns/</guid>
+      <description>いわゆる宅鯖を運用していると、外からアクセスしたいこと、させたいことがよくある。 当然ながらその場合には自宅ルータのWAN側IPアドレスでアク</description>
+    </item>
     
     <item>
       <title>2019-09-24-hugoでstaticディレクトリに画像ファイルを置く</title>

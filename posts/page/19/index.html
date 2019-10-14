@@ -36,7 +36,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://nobwak.github.io/posts/" />
 
-<meta property="og:updated_time" content="2019-09-24T00:27:55+09:00" />
+<meta property="og:updated_time" content="2019-10-13T20:22:25+09:00" />
 <meta itemprop="name" content="Posts">
 <meta itemprop="description" content="Where nobwak sleeps">
 
@@ -125,6 +125,21 @@ if (!doNotTrack) {
   <article class="pa3 pa4-ns nested-copy-line-height nested-img">
     <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
     <section class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/2013-08-09-hadoop_hadoop_streaming%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E5%88%86%E5%89%B2%E3%81%95%E3%81%9B%E3%81%AA%E3%81%84%E3%81%9F%E3%82%81%E3%81%AB%E3%81%AF/" class="link black dim">
+        [hadoop] hadoop streamingでファイルを分割させないためには。
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      ※hadoop-1.0.0です。 hadoop streamingで困ること。 作業データ（たとえばログ）を与えると、Hadoopはまず分割をする。 分割され
+    </div>
+  </div>
+</div>
+</div>
       
         <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
   <div class="bg-white mb3 pa4 gray overflow-hidden">
@@ -256,32 +271,6 @@ if (!doNotTrack) {
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       Hadoopを動かすには、いくつか環境変数の設定が必要である。 JAVA_HOMEとか、HADOOP_PREFIXとか。 また同時に、複数ノード
-    </div>
-  </div>
-</div>
-</div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/" class="link black dim">
-        [FreeBSD][Linux] ssh経由でコマンド実行すると環境変数を読まないでござる
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>ssh経由bashでコマンド実行するときの環境変数を有効にするには。</p>
-
-<p>以下のようにして、リモートホストでコマンドを実行する場合、リモートでの環境変数が有効にならない事がある。</p>
-
-<pre><code class="language-console">$ ssh user@remotehost /path/command
-</code></pre>
-
-<p>これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。<br />
-おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。<br />
-以下にまとめる。</p>
-
-<p>なお、複数ホストを用意するのが面倒なので、本記事で実例を示す場合には接続先をlocalhostしている。</p>
     </div>
   </div>
 </div>
