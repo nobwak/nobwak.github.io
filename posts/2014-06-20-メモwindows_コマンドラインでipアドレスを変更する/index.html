@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-06-20T19:33:31+09:00" />
 <meta itemprop="name" content="[メモ][Windows] コマンドラインでIPアドレスを変更する">
 <meta itemprop="description" content="Windowsを複数ネットワークに繋ぎかえるとき、しかも片方がDHCPでの自動割り振りで、もう片方が固定でIPアドレスを指定しないいけない場">
-
-
 <meta itemprop="datePublished" content="2014-06-20T19:33:31&#43;09:00" />
 <meta itemprop="dateModified" content="2014-06-20T19:33:31&#43;09:00" />
-<meta itemprop="wordCount" content="1398">
+<meta itemprop="wordCount" content="1402">
 
 
 
-<meta itemprop="keywords" content="tip,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="tip,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ][Windows] コマンドラインでIPアドレスを変更する"/>
 <meta name="twitter:description" content="Windowsを複数ネットワークに繋ぎかえるとき、しかも片方がDHCPでの自動割り振りで、もう片方が固定でIPアドレスを指定しないいけない場"/>
 
@@ -140,57 +137,39 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Windowsを複数ネットワークに繋ぎかえるとき、しかも片方がDHCPでの自動割り振りで、もう片方が固定でIPアドレスを指定しないいけない場合。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Windowsを複数ネットワークに繋ぎかえるとき、しかも片方がDHCPでの自動割り振りで、もう片方が固定でIPアドレスを指定しないいけない場合。<br>
 いちいちネットワークインターフェースのプロパティからIPアドレスを変更するのは大変に面倒な作業である。</p>
-
 <p>調べてみたらコマンドラインでも変更はできるとか。</p>
-
-<p><a href="http://www.atmarkit.co.jp/ait/articles/1002/05/news097.html" target="_blank">netshコマンドでTCP/IPのパラメータを設定する</a></p>
-
-<p>ならばバッチファイルで手軽に変えられる。<br />
-その経緯を示す。<br />
+<p><!-- raw HTML omitted -->netshコマンドでTCP/IPのパラメータを設定する<!-- raw HTML omitted --></p>
+<p>ならばバッチファイルで手軽に変えられる。<br>
+その経緯を示す。<br>
 対象OSはWindows 7。xpだと動かないかも。</p>
-
-<h2 id="結論">結論</h2>
-
-<p>バッチファイル例を示す。<br />
+<h2 id="heading">結論</h2>
+<p>バッチファイル例を示す。<br>
 拡張子.batの適当な名前で保存し、必要なときに実行すればよい。</p>
-
-<p><span style="text-decoration: underline;">固定IPアドレスを設定するとき</span></p>
-
-<p>IPアドレスを固定で指定したい場合。<br />
-インターフェース名: &ldquo;ローカル エリア接続&rdquo;<br />
-IPアドレス: 192.168.0.100<br />
-ネットマスク: 255.255.255.0<br />
-デフォルトゲートウェイ: 192.168.0.1<br />
+<p><!-- raw HTML omitted -->固定IPアドレスを設定するとき<!-- raw HTML omitted --></p>
+<p>IPアドレスを固定で指定したい場合。<br>
+インターフェース名: &ldquo;ローカル エリア接続&rdquo;<br>
+IPアドレス: 192.168.0.100<br>
+ネットマスク: 255.255.255.0<br>
+デフォルトゲートウェイ: 192.168.0.1<br>
 DNS: 192.168.0.1</p>
-
-<pre><code class="language-console">@echo off
+<pre><code class="language-console" data-lang="console">@echo off
 netsh interface ip set address &quot;ローカル エリア接続&quot; static 192.168.0.100 255.255.255.0 192.168.0.1
 netsh interface ip set dns &quot;ローカル エリア接続&quot; static 172.16.1.11 primary
 ipconfig
 pause
-</code></pre>
-
-<p><span style="text-decoration: underline;">DHCPで設定するとき。</span></p>
-
+</code></pre><p><!-- raw HTML omitted -->DHCPで設定するとき。<!-- raw HTML omitted --></p>
 <p>インターフェース名: &ldquo;ローカル エリア接続&rdquo;</p>
-
-<pre><code class="language-console">@echo off
+<pre><code class="language-console" data-lang="console">@echo off
 netsh interface ip set address &quot;ローカル エリア接続&quot; dhcp
 netsh interface ip set dns &quot;ローカル エリア接続&quot; dhcp
 ipconfig
 pause
-</code></pre>
-
-<p><span style="text-decoration: underline;">書式</span></p>
-
-<p>netsh interface ip setで設定する。<br />
+</code></pre><p><!-- raw HTML omitted -->書式<!-- raw HTML omitted --></p>
+<p>netsh interface ip setで設定する。<br>
 オプションは以下の通り、netsh interface ip setだけで実行すればずらずらと表示される。</p>
-
-<pre><code class="language-console">C:¥&gt;netsh interface ip set
+<pre><code class="language-console" data-lang="console">C:¥&gt;netsh interface ip set
 
 使用できるコマンドは次のとおりです:
 
@@ -206,14 +185,10 @@ set neighbors  - 近隣アドレスを設定します。
 set route      - ルートのパラメーターを変更します。
 set subinterface - サブインターフェイス構成パラメーターを変更します。
 set winsservers - WINS サーバーのモードおよびアドレスを設定します。
-</code></pre>
-
-<p>このうち、よく使うのはaddress, dnsserverだろう。<br />
+</code></pre><p>このうち、よく使うのはaddress, dnsserverだろう。<br>
 なおdnsserverはdnsでも大丈夫のようだ。</p>
-
 <p>address設定方法については;</p>
-
-<pre><code class="language-console">使用法: set address [name=]&lt;文字列&gt;
+<pre><code class="language-console" data-lang="console">使用法: set address [name=]&lt;文字列&gt;
               [[source=]dhcp|static]
               [[address=][/&lt;整数&gt;] [[mask=]]
               [[gateway=]|none [gwmetric=]&lt;整数&gt;]
@@ -240,9 +215,7 @@ set winsservers - WINS サーバーのモードおよびアドレスを設定し
                                        のデフォルト ゲートウェイです。
                       none: デフォルト ゲートウェイは設定されません。
                             これは既定値です。
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

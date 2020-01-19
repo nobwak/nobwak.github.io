@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-12-21T23:34:06+09:00" />
 <meta itemprop="name" content="[memo] CoreOSのインストール">
 <meta itemprop="description" content="CoreOSを自分でインストールする。 目的は、VirtualBoxや、VMWarePlayer, vSphere(ESXi)等で動かす自前のC">
-
-
 <meta itemprop="datePublished" content="2015-12-21T23:34:06&#43;09:00" />
 <meta itemprop="dateModified" content="2015-12-21T23:34:06&#43;09:00" />
 <meta itemprop="wordCount" content="1422">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[memo] CoreOSのインストール"/>
 <meta name="twitter:description" content="CoreOSを自分でインストールする。 目的は、VirtualBoxや、VMWarePlayer, vSphere(ESXi)等で動かす自前のC"/>
 
@@ -140,52 +137,36 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>CoreOSを自分でインストールする。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>CoreOSを自分でインストールする。<br>
 目的は、VirtualBoxや、VMWarePlayer, vSphere(ESXi)等で動かす自前のCoreOSイメージを作成するため。</p>
-
-<h2 id="coreosの初期設定">CoreOSの初期設定</h2>
-
-<p>CoreOSはユーザアカウント等の初期設定をインストール時に一括で行う。<br />
-「一括で」とわざわざ書いたのには理由がある。<br />
-通常、LinuxやFreeBSDなどのインストールでは、インストール時に対話インタフェースが実行され、質問に答える形で各種設定を行う。<br />
-しかしCoreOSでは、あらかじめ準備した設定ファイルを、インストール時に指定する方法を採る。<br />
+<h2 id="coreos">CoreOSの初期設定</h2>
+<p>CoreOSはユーザアカウント等の初期設定をインストール時に一括で行う。<br>
+「一括で」とわざわざ書いたのには理由がある。<br>
+通常、LinuxやFreeBSDなどのインストールでは、インストール時に対話インタフェースが実行され、質問に答える形で各種設定を行う。<br>
+しかしCoreOSでは、あらかじめ準備した設定ファイルを、インストール時に指定する方法を採る。<br>
 つまり設定ファイルさえ書いておけば、コマンド一発でインストールができるということ。</p>
-
 <p>その設定ファイルがCloud-Config。</p>
-
-<h2 id="cloud-configの書き方">Cloud-Configの書き方</h2>
-
-<p>ここに記載がある。<br />
- <a href="https://coreos.com/os/docs/latest/cloud-config.html" target="_blank"><a href="https://coreos.com/os/docs/latest/cloud-config.html">https://coreos.com/os/docs/latest/cloud-config.html</a></a></p>
-
-<p>いきなりここにあるすべての設定を書き込むのは、後述の手順を見てもかなり大変。<br />
-よって、必要最低限のものしか書かない。<br />
-具体的には、CoreOSにターミナルログインするユーザ設定のみ。<br />
+<h2 id="cloud-config">Cloud-Configの書き方</h2>
+<p>ここに記載がある。<br>
+<!-- raw HTML omitted --><a href="https://coreos.com/os/docs/latest/cloud-config.html%3C/a%3E">https://coreos.com/os/docs/latest/cloud-config.html&lt;/a&gt;</a></p>
+<p>いきなりここにあるすべての設定を書き込むのは、後述の手順を見てもかなり大変。<br>
+よって、必要最低限のものしか書かない。<br>
+具体的には、CoreOSにターミナルログインするユーザ設定のみ。<br>
 そこから先は、OSインストール後に実施する。</p>
-
-<h2 id="isoイメージでブート">ISOイメージでブート</h2>
-
-<p><a href="https://coreos.com/os/docs/latest/booting-with-iso.html" target="_blank"><a href="https://coreos.com/os/docs/latest/booting-with-iso.html">https://coreos.com/os/docs/latest/booting-with-iso.html</a></a><br />
-上記からダウンロード。<br />
-VirtualBoxでもなんでも、すきな仮想ソフトウェアに読み込ませて起動する。<br />
+<h2 id="iso">ISOイメージでブート</h2>
+<p><!-- raw HTML omitted --><a href="https://coreos.com/os/docs/latest/booting-with-iso.html%3C/a%3E">https://coreos.com/os/docs/latest/booting-with-iso.html&lt;/a&gt;</a><br>
+上記からダウンロード。<br>
+VirtualBoxでもなんでも、すきな仮想ソフトウェアに読み込ませて起動する。<br>
 なお、仮想マシン作成時、OSを選ぶ際には64bit Linuxを選んでおけばよい。</p>
-
-<h2 id="cloud-configを書く前に">Cloud-Configを書く前に</h2>
-
-<p>必要なのは、作業用アカウントの設定だけ。<br />
-したがって、ID、パスワード、作業用アカウントの権限くらいでよい。<br />
+<h2 id="cloud-config-1">Cloud-Configを書く前に</h2>
+<p>必要なのは、作業用アカウントの設定だけ。<br>
+したがって、ID、パスワード、作業用アカウントの権限くらいでよい。<br>
 当然のことながらパスワードを平文で保存するわけにはいかないから、mkpasswdを使ってハッシュ化したものを書き込むこと。</p>
-
-<h2 id="パスワードハッシュの生成">パスワードハッシュの生成</h2>
-
-<p>作業用アカウントのパスワードハッシュを生成する。<br />
+<h2 id="heading">パスワードハッシュの生成</h2>
+<p>作業用アカウントのパスワードハッシュを生成する。<br>
 もちろん、SSHの公開鍵でもいいのだが、パスワードハッシュの方が楽。</p>
-
 <p>mkpasswdの使い方はmkpasswd -hで得られる。</p>
-
-<pre><code class="language-console">$ mkpasswd -h
+<pre><code class="language-console" data-lang="console">$ mkpasswd -h
 Usage: mkpasswd [OPTIONS]... [PASSWORD [SALT]]
 Crypts the PASSWORD using crypt(3).
 
@@ -202,42 +183,30 @@ Crypts the PASSWORD using crypt(3).
 If PASSWORD is missing then it is asked interactively.
 If no SALT is specified, a random one is generated.
 If TYPE is 'help', available methods are printed.
-</code></pre>
-
-<p>ハッシュ生成方法についてはmkpasswd -m helpで得られる。</p>
-
-<pre><code class="language-console">$ mkpasswd -m help
+</code></pre><p>ハッシュ生成方法についてはmkpasswd -m helpで得られる。</p>
+<pre><code class="language-console" data-lang="console">$ mkpasswd -m help
 Available methods:
 des     standard 56 bit DES-based crypt(3)
 md5     MD5
 sha-256 SHA-256
 sha-512 SHA-512
-</code></pre>
-
-<p>SHA-512までいけますね。<br />
-では、ハッシュ生成。<br />
+</code></pre><p>SHA-512までいけますね。<br>
+では、ハッシュ生成。<br>
 いったんテストして問題ないようなら、テキストファイルに書き込む。</p>
-
-<pre><code class="language-console">$ mkpasswd -m sha-512 avedakedavra
+<pre><code class="language-console" data-lang="console">$ mkpasswd -m sha-512 avedakedavra
 $6$hIKFY6fnAE$gfpPpQu3rAcJMCeO3t93/3jUxVKBe7W/hC1.n5kwge3nnqsQngVnnoM8.jyWv/jYKbsJZoBm/6SSO7Ge4Zx/B0
 $ mkpasswd -m sha-512 avedakedavra &gt; cloud-config
 $
-</code></pre>
-
-<p>以上でカレントディレクトリのcloud-configが生成された。<br />
+</code></pre><p>以上でカレントディレクトリのcloud-configが生成された。<br>
 あとはこのcloud-configに必要な設定を書き加えるだけ。</p>
-
-<h2 id="cloud-configの作成">Cloud-configの作成</h2>
-
-<p>設定ファイルの書式は<a href="https://ja.wikipedia.org/wiki/YAML" target="_blank">YAML</a>。<br />
-YAMLは人間の眼には易しいが、フォーマットが合っているか不安になる。<br />
-その場合はatom等で書いておいてもよい。ハイライトしてくれる<a href="https://atom.io/packages/language-yaml" target="_blank">パッケージもある</a>。</p>
-
-<p>そこで先述の通り必要最低限の記載だけする。<br />
-hostnameでホスト名、追加したいユーザと、そのユーザがsudoとdockerを使えるよう、groupに追加する。<br />
+<h2 id="cloud-config-2">Cloud-configの作成</h2>
+<p>設定ファイルの書式は<!-- raw HTML omitted -->YAML<!-- raw HTML omitted -->。<br>
+YAMLは人間の眼には易しいが、フォーマットが合っているか不安になる。<br>
+その場合はatom等で書いておいてもよい。ハイライトしてくれる<!-- raw HTML omitted -->パッケージもある<!-- raw HTML omitted -->。</p>
+<p>そこで先述の通り必要最低限の記載だけする。<br>
+hostnameでホスト名、追加したいユーザと、そのユーザがsudoとdockerを使えるよう、groupに追加する。<br>
 以下のように。</p>
-
-<pre><code class="language-console">#cloud-config
+<pre><code class="language-console" data-lang="console">#cloud-config
 
   hostname: &quot;coreos&quot;
   users:
@@ -246,17 +215,11 @@ hostnameでホスト名、追加したいユーザと、そのユーザがsudo�
       groups:
         - &quot;sudo&quot;
         - &quot;docker&quot;
-</code></pre>
-
-<h2 id="coreosのインストール">CoreOSのインストール</h2>
-
-<p>作成したcloud-configを指定してインストールすればよい。<br />
+</code></pre><h2 id="coreos-1">CoreOSのインストール</h2>
+<p>作成したcloud-configを指定してインストールすればよい。<br>
 -dでインストール先デバイスを、-Cでチャネルを、-cで先ほど作成したcloud-configを指定する。</p>
-
-<pre><code class="language-console">sudo coreos-install -d /dev/sda -C stable -c cloud-config
-</code></pre>
-
-<p>起動したら、作成したユーザでログインすることを確認する。</p>
+<pre><code class="language-console" data-lang="console">sudo coreos-install -d /dev/sda -C stable -c cloud-config
+</code></pre><p>起動したら、作成したユーザでログインすることを確認する。</p>
 <ul class="pa0">
   
 </ul>

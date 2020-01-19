@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2016-05-19T23:30:06+09:00" />
 <meta itemprop="name" content="[Python][memo] タイムスタンプの差を求める">
 <meta itemprop="description" content="すぐ忘れるのでメモ。 文字列としてのタイムスタンプは、datetime.datetime.strptimeで、フォーマットを指定してdatet">
-
-
 <meta itemprop="datePublished" content="2016-05-19T23:30:06&#43;09:00" />
 <meta itemprop="dateModified" content="2016-05-19T23:30:06&#43;09:00" />
 <meta itemprop="wordCount" content="181">
 
 
 
-<meta itemprop="keywords" content="python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Python][memo] タイムスタンプの差を求める"/>
 <meta name="twitter:description" content="すぐ忘れるのでメモ。 文字列としてのタイムスタンプは、datetime.datetime.strptimeで、フォーマットを指定してdatet"/>
 
@@ -141,31 +138,28 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>すぐ忘れるのでメモ。</p>
-
-<p>文字列としてのタイムスタンプは、datetime.datetime.strptimeで、フォーマットを指定してdatetime.datetime型に変換。<br />
-そうしたら加減算ができる。datetime.timeでは出来ないので注意。<br />
+<p>文字列としてのタイムスタンプは、datetime.datetime.strptimeで、フォーマットを指定してdatetime.datetime型に変換。<br>
+そうしたら加減算ができる。datetime.timeでは出来ないので注意。<br>
 以下、IPythonでの例。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">In [<span style="color:#ae81ff">1</span>]: <span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime
 
-<pre><code class="language-python">In [1]: from datetime import datetime
+In [<span style="color:#ae81ff">2</span>]: t1 <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>strptime(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">14:36:02.0689</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">H:</span><span style="color:#e6db74">%</span><span style="color:#e6db74">M:</span><span style="color:#e6db74">%</span><span style="color:#e6db74">S.</span><span style="color:#e6db74">%f</span><span style="color:#e6db74">&#34;</span>)
 
-In [2]: t1 = datetime.strptime(&quot;14:36:02.0689&quot;, &quot;%H:%M:%S.%f&quot;)
+In [<span style="color:#ae81ff">3</span>]: t2 <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>strptime(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">14:36:03.0102</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%</span><span style="color:#e6db74">H:</span><span style="color:#e6db74">%</span><span style="color:#e6db74">M:</span><span style="color:#e6db74">%</span><span style="color:#e6db74">S.</span><span style="color:#e6db74">%f</span><span style="color:#e6db74">&#34;</span>)
 
-In [3]: t2 = datetime.strptime(&quot;14:36:03.0102&quot;, &quot;%H:%M:%S.%f&quot;)
+In [<span style="color:#ae81ff">4</span>]: <span style="color:#66d9ef">print</span> type(t1)
+<span style="color:#f92672">&lt;</span>type <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">datetime.datetime</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">&gt;</span>
 
-In [4]: print type(t1)
-&lt;type 'datetime.datetime'&gt;
+In [<span style="color:#ae81ff">5</span>]: delta <span style="color:#f92672">=</span> t2 <span style="color:#f92672">-</span> t1
 
-In [5]: delta = t2 - t1
+In [<span style="color:#ae81ff">6</span>]: <span style="color:#66d9ef">print</span> str(delta)
+<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">00</span>:<span style="color:#ae81ff">00.941300</span>
 
-In [6]: print str(delta)
-0:00:00.941300
+In [<span style="color:#ae81ff">7</span>]: <span style="color:#66d9ef">print</span> str(delta)[<span style="color:#ae81ff">6</span>:]
+<span style="color:#ae81ff">0.941300</span>
 
-In [7]: print str(delta)[6:]
-0.941300
-
-In [8]:
-</code></pre>
-<ul class="pa0">
+In [<span style="color:#ae81ff">8</span>]:
+</code></pre></div><ul class="pa0">
   
    <li class="list">
      <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>

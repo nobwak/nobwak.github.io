@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-08-05T20:39:01+09:00" />
 <meta itemprop="name" content="[Python] wxPythonで、タイトルバーにアイコンを表示するには">
 <meta itemprop="description" content="Pythonからpy2exeなどでWindowsアプリケーションを作成したときに、アイコンを設定することができる。 しかし、作成したアプリケー">
-
-
 <meta itemprop="datePublished" content="2015-08-05T20:39:01&#43;09:00" />
 <meta itemprop="dateModified" content="2015-08-05T20:39:01&#43;09:00" />
-<meta itemprop="wordCount" content="480">
+<meta itemprop="wordCount" content="491">
 
 
 
-<meta itemprop="keywords" content="python,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="python,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Python] wxPythonで、タイトルバーにアイコンを表示するには"/>
 <meta name="twitter:description" content="Pythonからpy2exeなどでWindowsアプリケーションを作成したときに、アイコンを設定することができる。 しかし、作成したアプリケー"/>
 
@@ -140,36 +137,25 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Pythonからpy2exeなどでWindowsアプリケーションを作成したときに、アイコンを設定することができる。<br />
-しかし、作成したアプリケーションがGUI版の場合、GUIタイトルバーのアイコンを設定するには、ちょっとしたテクニックが必要である。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Pythonからpy2exeなどでWindowsアプリケーションを作成したときに、アイコンを設定することができる。<br>
+しかし、作成したアプリケーションがGUI版の場合、GUIタイトルバーのアイコンを設定するには、ちょっとしたテクニックが必要である。<br>
 py2exe等でアイコン設定済み、かつGUIはwxPythonで作成している前提で、その方法を示す。</p>
-
-<h2 id="サンプル">サンプル</h2>
-
-<pre><code class="language-console">class MyFrame(wx.Frame):
+<h2 id="heading">サンプル</h2>
+<pre><code class="language-console" data-lang="console">class MyFrame(wx.Frame):
     def __init__(self, *args, **kwds):
 	（略）
 		if os.path.exists(&quot;myWxApp.exe&quot;):
     		self.SetIcon(wx.Icon(&quot;myWxApp.exe&quot;,wx.BITMAP_TYPE_ICO))
-</code></pre>
-
-<p>Frameクラスの初期化defの中で、上記のような記載を加える。<br />
+</code></pre><p>Frameクラスの初期化defの中で、上記のような記載を加える。<br>
 もちろんmyWxApp.exeは最終的なファイル名。</p>
-
-<h2 id="説明">説明</h2>
-
-<p>py2exe等でiconファイルを設定するというのは、つまり実行ファイルに埋め込むということ。<br />
+<h2 id="heading-1">説明</h2>
+<p>py2exe等でiconファイルを設定するというのは、つまり実行ファイルに埋め込むということ。<br>
 上記のようにSetIconで自分自身の実行ファイルを参照すると、埋め込んでおいたアイコンファイルを読み取ることができる。</p>
-
-<p>元ネタ<br />
-<a href="http://stackoverflow.com/questions/2399424/how-to-use-py2exe-icon-resources-in-wxpython-application" target="_blank">How to use py2exe icon_resources in wxPython application?</a></p>
-
+<p>元ネタ<br>
+<!-- raw HTML omitted -->How to use py2exe icon_resources in wxPython application?<!-- raw HTML omitted --></p>
 <p>【参考】wxPython</p>
-
-<p><a href="http://ja.wikipedia.org/wiki/WxPython" target="_blank"><a href="http://ja.wikipedia.org/wiki/WxPython">http://ja.wikipedia.org/wiki/WxPython</a></a><br />
-wxPythonは、「wxPythonはPythonで記述されたクロスプラットフォームなウィジェット・ツールキットである。」<br />
+<p><!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/WxPython%3C/a%3E">http://ja.wikipedia.org/wiki/WxPython&lt;/a&gt;</a><br>
+wxPythonは、「wxPythonはPythonで記述されたクロスプラットフォームなウィジェット・ツールキットである。」<br>
 要するにPythonをGUIで動かすツールキット。OSをまたがって使用できる。</p>
 <ul class="pa0">
   

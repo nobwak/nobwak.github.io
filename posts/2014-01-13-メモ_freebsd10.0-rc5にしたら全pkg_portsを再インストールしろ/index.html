@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-13T04:25:48+09:00" />
 <meta itemprop="name" content="[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ">
 <meta itemprop="description" content="メモ。 FreeBSD 10.0-RC5にしたら、おなじ10.0からのアップグレードであっても、pkg/portsの再インストールが必要。 というのもABIの">
-
-
 <meta itemprop="datePublished" content="2014-01-13T04:25:48&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-13T04:25:48&#43;09:00" />
 <meta itemprop="wordCount" content="193">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ"/>
 <meta name="twitter:description" content="メモ。 FreeBSD 10.0-RC5にしたら、おなじ10.0からのアップグレードであっても、pkg/portsの再インストールが必要。 というのもABIの"/>
 
@@ -141,29 +138,21 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>メモ。</p>
-
-<p>FreeBSD 10.0-RC5にしたら、おなじ10.0からのアップグレードであっても、pkg/portsの再インストールが必要。<br />
+<p>FreeBSD 10.0-RC5にしたら、おなじ10.0からのアップグレードであっても、pkg/portsの再インストールが必要。<br>
 というのもABIの変更があったから。</p>
-
 <p>必ずしもすべてのpkg/ports、というわけではないが、全部やっておいた方が安心。</p>
-
-<p>ソースは以下。<br />
-<a href="http://lists.freebsd.org/pipermail/freebsd-stable/2014-January/076817.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-stable/2014-January/076817.html">http://lists.freebsd.org/pipermail/freebsd-stable/2014-January/076817.html</a></a></p>
-
-<pre><code class="language-console">&gt;&lt;i&gt; &gt; Changes between -RC4 and -RC5 include:
+<p>ソースは以下。<br>
+<!-- raw HTML omitted --><a href="http://lists.freebsd.org/pipermail/freebsd-stable/2014-January/076817.html%3C/a%3E">http://lists.freebsd.org/pipermail/freebsd-stable/2014-January/076817.html&lt;/a&gt;</a></p>
+<pre><code class="language-console" data-lang="console">&gt;&lt;i&gt; &gt; Changes between -RC4 and -RC5 include:
 &lt;/i&gt;&gt;&lt;i&gt; &gt;   o Revert a change to the kinfo_file structure to preserve ABI.
 &lt;/i&gt;
 You should rebuild your ports after upgrading from the previous -RCs,
 since there was an ABI change.
 
 Glen
-</code></pre>
-
-<p>pkgの再インストールは以下のコマンドで。</p>
-
-<pre><code class="language-console">pkg upgrade -fy
-</code></pre>
-<ul class="pa0">
+</code></pre><p>pkgの再インストールは以下のコマンドで。</p>
+<pre><code class="language-console" data-lang="console">pkg upgrade -fy
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

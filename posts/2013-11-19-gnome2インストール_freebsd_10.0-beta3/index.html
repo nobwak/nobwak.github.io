@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-11-19T22:37:57+09:00" />
 <meta itemprop="name" content="Gnome2インストール FreeBSD 10.0-BETA3">
 <meta itemprop="description" content="久しぶりにFreeBSDにGNOME2をインストールしたのでメモ。 前回のまとめはこちら。 FreeBSD 10.0-BETA3, pkgngでGnome2まで設定。 入れたマシンは">
-
-
 <meta itemprop="datePublished" content="2013-11-19T22:37:57&#43;09:00" />
 <meta itemprop="dateModified" content="2013-11-19T22:37:57&#43;09:00" />
 <meta itemprop="wordCount" content="1434">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Gnome2インストール FreeBSD 10.0-BETA3"/>
 <meta name="twitter:description" content="久しぶりにFreeBSDにGNOME2をインストールしたのでメモ。 前回のまとめはこちら。 FreeBSD 10.0-BETA3, pkgngでGnome2まで設定。 入れたマシンは"/>
 
@@ -140,20 +137,14 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>久しぶりにFreeBSDにGNOME2をインストールしたのでメモ。<br />
-前回のまとめは<a href="../../../?p=1804" target="_blank">こちら</a>。</p>
-
-<p>FreeBSD 10.0-BETA3, pkgngでGnome2まで設定。<br />
-入れたマシンはDELL Vostro 1500。GPUはNvdia 8600M GTである。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>久しぶりにFreeBSDにGNOME2をインストールしたのでメモ。<br>
+前回のまとめは<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->。</p>
+<p>FreeBSD 10.0-BETA3, pkgngでGnome2まで設定。<br>
+入れたマシンはDELL Vostro 1500。GPUはNvdia 8600M GTである。<br>
 bash, sudoくらいは入っている。</p>
-
-<h2 id="span-style-text-decoration-underline-xorgのインストール-span"><span style="text-decoration: underline;">Xorgのインストール</span></h2>
-
+<h2 id="span-styletext-decoration-underlinexorgspan"><!-- raw HTML omitted -->Xorgのインストール<!-- raw HTML omitted --></h2>
 <p>pkg installにxorgを指定するだけ。</p>
-
-<pre><code class="language-console">$ sudo pkg install xorg
+<pre><code class="language-console" data-lang="console">$ sudo pkg install xorg
 Updating repository catalogue
 The following 182 packages will be installed:
 &lt;snip&gt;
@@ -163,46 +154,32 @@ The installation will require 156 MB more space
 Proceed with installing packages [y/N]: y
 xwud-1.0.4.txz                      100%   14KB  14.3KB/s  14.3KB/s   00:00
 &lt;snip&gt;
-</code></pre>
-
-<p>hald, dbusを、rc.confに設定してから起動。<br />
-以下の例で使っているsysrcについては<a href="../../../?p=2364" target="_blank">こちら</a>。</p>
-
-<pre><code class="language-console">$ sudo sysrc hald_enable=&quot;YES&quot;
+</code></pre><p>hald, dbusを、rc.confに設定してから起動。<br>
+以下の例で使っているsysrcについては<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->。</p>
+<pre><code class="language-console" data-lang="console">$ sudo sysrc hald_enable=&quot;YES&quot;
 hald_enable:  -&gt; YES
 $ sudo sysrc dbus_enable=&quot;YES&quot;
 dbus_enable:  -&gt; YES
-</code></pre>
-
-<p>起動</p>
-
-<pre><code class="language-console">$ sudo service hald start
+</code></pre><p>起動</p>
+<pre><code class="language-console" data-lang="console">$ sudo service hald start
 Starting hald.
 $ sudo service dbus start
 Starting dbus.
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-xorgの設定の前に-nvidiaのドライバをインストール-span"><span style="text-decoration: underline;">Xorgの設定の前に、nvidiaのドライバをインストール</span></h2>
-
-<p>pkg searchでnvidia driverを確認。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinexorgnvidiaspan"><!-- raw HTML omitted -->Xorgの設定の前に、nvidiaのドライバをインストール<!-- raw HTML omitted --></h2>
+<p>pkg searchでnvidia driverを確認。<br>
 319と304がある。</p>
-
-<pre><code class="language-console">$ pkg search nvidia
+<pre><code class="language-console" data-lang="console">$ pkg search nvidia
 nvidia-driver-319.32
 nvidia-driver-304-304.88_1
 nvidia-settings-310.14
 nvidia-texture-tools-2.0.8.1_3
 nvidia-xconfig-310.14
-</code></pre>
-
-<p><a href="http://www.nvidia.co.jp/Download/index.aspx?lang=jp" target="_blank">ここ</a>でドライバのバージョンを確認して319と304のどちらかを選ぶ。<br />
+</code></pre><p><!-- raw HTML omitted -->ここ<!-- raw HTML omitted -->でドライバのバージョンを確認して319と304のどちらかを選ぶ。<br>
 8600M GT,FreeBSD x64だと319。</p>
-
-<p>driverのほかにsetting, xconfigもセットでインストールする。<br />
-なお、ドライバはカーネルモジュールとして提供される。<br />
+<p>driverのほかにsetting, xconfigもセットでインストールする。<br>
+なお、ドライバはカーネルモジュールとして提供される。<br>
 インストール後にロードすることを忘れずに。</p>
-
-<pre><code class="language-console">$ sudo pkg install nvidia-driver-319.32 nvidia-settings-310.14 nvidia-xconfig-310.14
+<pre><code class="language-console" data-lang="console">$ sudo pkg install nvidia-driver-319.32 nvidia-settings-310.14 nvidia-xconfig-310.14
 Updating repository catalogue
 The following 21 packages will be installed:
 
@@ -214,11 +191,8 @@ The installation will require 381 MB more space
 62 MB to be downloaded
 Proceed with installing packages [y/N]: y
 &lt;snip&gt;
-</code></pre>
-
-<p>kldloadでドライバをロード、kldstatで確認。</p>
-
-<pre><code class="language-console">$ sudo kldload nvidia
+</code></pre><p>kldloadでドライバをロード、kldstatで確認。</p>
+<pre><code class="language-console" data-lang="console">$ sudo kldload nvidia
 $ kldstat
 Id Refs Address            Size     Name
 1   19 0xffffffff80200000 15ef860  kernel
@@ -226,60 +200,34 @@ Id Refs Address            Size     Name
 3    2 0xffffffff81a2b000 6630     opensolaris.ko
 4    1 0xffffffff81c12000 860970   nvidia.ko
 5    1 0xffffffff82473000 43274    linux.ko
-</code></pre>
-
-<p>もちろん、ドライバがシステムブート時に読み込まれるよう、/boot/loader.confに書き込んでおく。</p>
-
-<pre><code class="language-console">/boot/loader.conf
+</code></pre><p>もちろん、ドライバがシステムブート時に読み込まれるよう、/boot/loader.confに書き込んでおく。</p>
+<pre><code class="language-console" data-lang="console">/boot/loader.conf
 nvidia_load=&quot;YES&quot;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-xorgの設定-span"><span style="text-decoration: underline;">Xorgの設定。</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinexorgspan-1"><!-- raw HTML omitted -->Xorgの設定。<!-- raw HTML omitted --></h2>
 <p>rootでXorg -configure。</p>
-
-<pre><code class="language-console"># Xorg -configure
-</code></pre>
-
-<p>同じディレクトリにxorg.conf.newというファイルが出来るはず。<br />
-デフォルトだとNvidiaのドライバにnvが選ばれてしまうので、nvidiaに書き換える。<br />
+<pre><code class="language-console" data-lang="console"># Xorg -configure
+</code></pre><p>同じディレクトリにxorg.conf.newというファイルが出来るはず。<br>
+デフォルトだとNvidiaのドライバにnvが選ばれてしまうので、nvidiaに書き換える。<br>
 以下の部分。</p>
-
-<pre><code class="language-console">Identifier  &quot;Card0&quot;
+<pre><code class="language-console" data-lang="console">Identifier  &quot;Card0&quot;
 Driver      &quot;nv&quot;
 BoardName   &quot;G86M [GeForce 8400M GS]&quot;
-</code></pre>
-
-<p>以下のように。</p>
-
-<pre><code class="language-console">Identifier  &quot;Card0&quot;
+</code></pre><p>以下のように。</p>
+<pre><code class="language-console" data-lang="console">Identifier  &quot;Card0&quot;
 Driver      &quot;nvidia&quot;
 BoardName   &quot;8600M GT&quot;
-</code></pre>
-
-<p>以下のようにしてテスト。</p>
-
-<pre><code class="language-console"># Xorg -config xorg.conf.new -retro
-</code></pre>
-
-<p>細かい市松模様にXのマウスカーソルが出ていれば成功。</p>
-
-<p>Ctrl+Alt+F1を押し、Ctrl+Cで戻る。<br />
-このときコンソールに(EE)が出ていないかチェック。<br />
+</code></pre><p>以下のようにしてテスト。</p>
+<pre><code class="language-console" data-lang="console"># Xorg -config xorg.conf.new -retro
+</code></pre><p>細かい市松模様にXのマウスカーソルが出ていれば成功。</p>
+<p>Ctrl+Alt+F1を押し、Ctrl+Cで戻る。<br>
+このときコンソールに(EE)が出ていないかチェック。<br>
 (EE)が出ているとすると、haldやdbusが立ち上がってないとか、かな。</p>
-
 <p>xorg.conf.newを/usr/local/etc/X11/xorg.confにコピー。</p>
-
-<pre><code class="language-console"># cp xorg.conf.new /usr/local/etc/X11/xorg.conf
-</code></pre>
-
-<p>ではGNOME。</p>
-
-<h2 id="span-style-text-decoration-underline-gnome-span"><span style="text-decoration: underline;">GNOME</span></h2>
-
+<pre><code class="language-console" data-lang="console"># cp xorg.conf.new /usr/local/etc/X11/xorg.conf
+</code></pre><p>ではGNOME。</p>
+<h2 id="span-styletext-decoration-underlinegnomespan"><!-- raw HTML omitted -->GNOME<!-- raw HTML omitted --></h2>
 <p>installでgnome2を指定するだけ。</p>
-
-<pre><code class="language-console">$ sudo pkg install gnome2
+<pre><code class="language-console" data-lang="console">$ sudo pkg install gnome2
 Updating repository catalogue
 The following 385 packages will be installed:
 
@@ -295,18 +243,11 @@ Proceed with installing packages [y/N]: y
 &lt;snip&gt;
 [384/385] Installing gnome-applets-2.32.1.1_4... done
 [385/385] Installing gnome2-2.32.1_5... done
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-フォント-インプットメソッドのインストール-span"><span style="text-decoration: underline;">フォント、インプットメソッドのインストール</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->フォント、インプットメソッドのインストール<!-- raw HTML omitted --></h2>
 <p>ja-uim-anthy, uim-gnomeを。</p>
-
-<pre><code class="language-console">$ sudo pkg install ja-uim-anthy uim-gnome
-</code></pre>
-
-<p>フォントは、ja-fontで検索して好きなものを。</p>
-
-<pre><code class="language-console">$ pkg search ja-font
+<pre><code class="language-console" data-lang="console">$ sudo pkg install ja-uim-anthy uim-gnome
+</code></pre><p>フォントは、ja-fontで検索して好きなものを。</p>
+<pre><code class="language-console" data-lang="console">$ pkg search ja-font
 ja-font-ipa-00303_1
 ja-font-ipa-uigothic-00203
 ja-font-ipaex-00201_2
@@ -324,43 +265,22 @@ ja-font-std-0.0.20130501
 ja-font-takao-003.02.01_1
 ja-font-ume-0.0.456
 ja-font-vlgothic-20130607
-</code></pre>
-
-<p>以下を選んだ。</p>
-
-<pre><code class="language-console">$ sudo pkg install ja-font-ipa ja-font-migu ja-font-motoya-al ja-font-
+</code></pre><p>以下を選んだ。</p>
+<pre><code class="language-console" data-lang="console">$ sudo pkg install ja-font-ipa ja-font-migu ja-font-motoya-al ja-font-
 mplus ja-font-vlgothic ja-font-takao
-</code></pre>
-
-<p>インストールは以上。</p>
-
-<h2 id="span-style-text-decoration-underline-gnome2向けにいくつかファイルを修正-span"><span style="text-decoration: underline;">GNOME2向けにいくつかファイルを修正</span></h2>
-
+</code></pre><p>インストールは以上。</p>
+<h2 id="span-styletext-decoration-underlinegnome2span"><!-- raw HTML omitted -->GNOME2向けにいくつかファイルを修正<!-- raw HTML omitted --></h2>
 <p>ほとんどは一行追加。</p>
-
 <p>/boot/loader.conf</p>
-
-<pre><code class="language-console">kern.maxfiles=&quot;25000&quot;
-</code></pre>
-
-<p>/etc/fstab</p>
-
-<pre><code class="language-console">proc           /proc       procfs  rw  0   0
-</code></pre>
-
-<p>/etc/sysctl.conf</p>
-
-<pre><code class="language-console">vfs.usermount=1
-</code></pre>
-
-<p>/etc/devfs.conf</p>
-
-<pre><code class="language-console">perm    devstat 0444
-</code></pre>
-
-<p>/usr/local/etc/PolicyKit/PolicyKit.confは以下のように修正。</p>
-
-<pre><code class="language-console">
+<pre><code class="language-console" data-lang="console">kern.maxfiles=&quot;25000&quot;
+</code></pre><p>/etc/fstab</p>
+<pre><code class="language-console" data-lang="console">proc           /proc       procfs  rw  0   0
+</code></pre><p>/etc/sysctl.conf</p>
+<pre><code class="language-console" data-lang="console">vfs.usermount=1
+</code></pre><p>/etc/devfs.conf</p>
+<pre><code class="language-console" data-lang="console">perm    devstat 0444
+</code></pre><p>/usr/local/etc/PolicyKit/PolicyKit.confは以下のように修正。</p>
+<pre><code class="language-console" data-lang="console">
 &lt;config version=&quot;0.1&quot;&gt;
 &lt;match action=&quot;org.freedesktop.hal.storage.mount-removable&quot;&gt;
 &lt;return result=&quot;yes&quot;/&gt;
@@ -373,38 +293,24 @@ mplus ja-font-vlgothic ja-font-takao
 &lt;/match&gt;
 &lt;define_admin_auth group=&quot;wheel&quot;/&gt;
 &lt;/config&gt;
-</code></pre>
-
-<p>以上で一通り終わり。</p>
-
-<h2 id="span-style-text-decoration-underline-gnome起動の設定-span"><span style="text-decoration: underline;">GNOME起動の設定</span></h2>
-
+</code></pre><p>以上で一通り終わり。</p>
+<h2 id="span-styletext-decoration-underlinegnomespan-1"><!-- raw HTML omitted -->GNOME起動の設定<!-- raw HTML omitted --></h2>
 <p>gnome_enable, gdm_enableを/etc/rc.confに追加</p>
-
-<pre><code class="language-console">$ sudo sysrc gnome_enable=&quot;YES&quot;
+<pre><code class="language-console" data-lang="console">$ sudo sysrc gnome_enable=&quot;YES&quot;
 gnome_enable:  -&gt; YES
 $ sudo sysrc gdm_enable=&quot;YES&quot;
 gdm_enable:  -&gt; YES
-</code></pre>
-
-<p>gdmが嫌なら、gdm_enableはNOにしておいて、以下を設定。<br />
+</code></pre><p>gdmが嫌なら、gdm_enableはNOにしておいて、以下を設定。<br>
 この場合はログインしてstartxで起動。</p>
-
-<pre><code class="language-console">$ echo '/usr/local/bin/gnome-session' &gt; ~/.xinitrc
+<pre><code class="language-console" data-lang="console">$ echo '/usr/local/bin/gnome-session' &gt; ~/.xinitrc
 
 $ echo '#!/bin/sh' &gt; ~/.xsession
 $ echo '/usr/local/bin/gnome-session' &gt;&gt; ~/.xsession
 $ chmod +x ~/.xsession
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-文字コード設定-span"><span style="text-decoration: underline;">文字コード設定</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->文字コード設定<!-- raw HTML omitted --></h2>
 <p>bashの場合。</p>
-
-<pre><code class="language-console">$ echo 'LANG=&quot;ja_JP.UTF-8&quot;; export LANG' &gt;&gt; ~/.profile
-</code></pre>
-
-<p>以上。<br />
+<pre><code class="language-console" data-lang="console">$ echo 'LANG=&quot;ja_JP.UTF-8&quot;; export LANG' &gt;&gt; ~/.profile
+</code></pre><p>以上。<br>
 あとは再起動で。</p>
 <ul class="pa0">
   

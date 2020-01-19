@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-04-07T01:00:00+09:00" />
 <meta itemprop="name" content="portsnap, freebsd-updateにuser:password@proxy形式のHTTP_PROXYを読ませるには。（phttpgetを改造）">
 <meta itemprop="description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20060501/p1&quot; target=&quot;_blank&quot;&gt;http://d.hatena.ne.jp/flageo/20060501/p1&lt;/a&gt; でも書いたけど、phttpget、つまりはportsnap, freebsd-updateはhttp://user:password@p">
-
-
 <meta itemprop="datePublished" content="2012-04-07T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-04-07T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="542">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="portsnap, freebsd-updateにuser:password@proxy形式のHTTP_PROXYを読ませるには。（phttpgetを改造）"/>
 <meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20060501/p1&quot; target=&quot;_blank&quot;&gt;http://d.hatena.ne.jp/flageo/20060501/p1&lt;/a&gt; でも書いたけど、phttpget、つまりはportsnap, freebsd-updateはhttp://user:password@p"/>
 
@@ -158,17 +155,13 @@ if (!doNotTrack) {
 
 ネタは&lt;a href=&quot;http://www.freebsd.org/cgi/query-pr.cgi?pr=129431&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/cgi/query-pr.cgi?pr=129431&lt;/a&gt;
 </code></pre>
-
-<pre><code class="language-console">$ uname -r
+<pre><code class="language-console" data-lang="console">$ uname -r
 8.2-RELEASE-p3
 $ grep FBSDID ./phttpget.c
 __FBSDID(&amp;#34;$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.14.2.1.6.1 2010/12/21 17:09:25 kensmith Exp $&amp;#34;);
+</code></pre><pre><code>以上の/usr/src/usr.sbin/portsnap/phttpget/phttpget.cに対して以下のような修正を。
 </code></pre>
-
-<pre><code>以上の/usr/src/usr.sbin/portsnap/phttpget/phttpget.cに対して以下のような修正を。
-</code></pre>
-
-<pre><code class="language-console">$ diff -u phttpget.c.orig phttpget.c
+<pre><code class="language-console" data-lang="console">$ diff -u phttpget.c.orig phttpget.c
 --- phttpget.c.orig     2012-04-05 10:58:52.000000000 +0900
 +++ phttpget.c  2012-04-05 11:04:25.000000000 +0900
 @@ -44,7 +44,7 @@
@@ -191,9 +184,7 @@ if (p != NULL)
 p = strchr(env_HTTP_PROXY, &amp;#39;:&amp;#39;);
 if (p != NULL) {
 *p = 0;
-</code></pre>
-
-<pre><code>あとは/usr/src/usr.sbin/portsnap/phttpget/でmakeして、できたphttpgetを/usr/libexec配下にコピーすればOK。
+</code></pre><pre><code>あとは/usr/src/usr.sbin/portsnap/phttpget/でmakeして、できたphttpgetを/usr/libexec配下にコピーすればOK。
 
 
 

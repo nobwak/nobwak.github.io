@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-01-12T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDでmsdosfs上の日本語ファイルを扱うには">
 <meta itemprop="description" content="MSDOSFSの日本語ファイル名に使われる文字コードはCP932(&lt;a href=&quot;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932&quot; target=&quot;_blank&quot;&gt;Sh">
-
-
 <meta itemprop="datePublished" content="2009-01-12T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-01-12T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="973">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDでmsdosfs上の日本語ファイルを扱うには"/>
 <meta name="twitter:description" content="MSDOSFSの日本語ファイル名に使われる文字コードはCP932(&lt;a href=&quot;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932&quot; target=&quot;_blank&quot;&gt;Sh"/>
 
@@ -157,17 +154,14 @@ if (!doNotTrack) {
 
 ◎実行例
 </code></pre>
-
-<pre><code class="language-console"># dmesg|grep da0
+<pre><code class="language-console" data-lang="console"># dmesg|grep da0
 Jan 12 12:37:10 onyx kernel: da0 at umass-sim0 bus 0 target 0 lun 0
 Jan 12 12:37:10 onyx kernel: da0: &amp;#60;Maxtor OneTouch 0200&gt; Fixed Direct Access SCSI-0 device
 Jan 12 12:37:10 onyx kernel: da0: 40.000MB/s transfers
 Jan 12 12:37:10 onyx kernel: da0: 194480MB (398295040 512 byte sectors: 255H 63S/T 24792C)
 ＜略＞
 # mount_msdosfs -o large -Lja_JP.eucJP -D CP932  /dev/da0s1 /mnt
-</code></pre>
-
-<pre><code>これでファイル名はEUC-JPで表示されるので、LANG=ja_JP.eucJP;export LANGとしたうえで、ターミナルの設定を変えてやればOK。
+</code></pre><pre><code>これでファイル名はEUC-JPで表示されるので、LANG=ja_JP.eucJP;export LANGとしたうえで、ターミナルの設定を変えてやればOK。
 
 
 
@@ -180,17 +174,14 @@ UTF-8のターミナルでファイル名を確認したい場合には、nkf( /
 
 ◎実行例
 </code></pre>
-
-<pre><code class="language-console">$ ls /mnt/Document/*.url
+<pre><code class="language-console" data-lang="console">$ ls /mnt/Document/*.url
 /mnt/Document/SUPPORT&amp;#91;Support Info.]Windows 2000 ???????.url
 /mnt/Document/????????????????.url
 $ ls /mnt/Document/*.url|iconv -f EUC-JP -t UTF-8
 /mnt/Document/SUPPORT&amp;#91;Support Info.]Windows 2000 関連情報.url
 /mnt/Document/ファイアウォール.url
 $
-</code></pre>
-
-<pre><code>nkfの場合にはiconvの代わりにnkf -Ewとする。
+</code></pre><pre><code>nkfの場合にはiconvの代わりにnkf -Ewとする。
 
 
 
@@ -208,9 +199,7 @@ $
 
 一部引用。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  Q
 
 
@@ -253,8 +242,7 @@ $
 
   を自分で当てて、対応したカーネルを作成する必要があります。
 </code></pre>
-
-<p></blockquote></p>
+<!-- raw HTML omitted -->
 <ul class="pa0">
   
 </ul>

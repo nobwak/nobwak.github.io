@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-21T22:12:38+09:00" />
 <meta itemprop="name" content="NginxでのFastCGI PHP設定">
 <meta itemprop="description" content="タイトル通り、FreeBSDでnginx、FastCGIでPHPを動かす場合。 lighttpd &#43; phpの場合はこちら。 必要なもの。 nginx spawn-fcgi php（fastCG">
-
-
 <meta itemprop="datePublished" content="2014-01-21T22:12:38&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-21T22:12:38&#43;09:00" />
-<meta itemprop="wordCount" content="1729">
+<meta itemprop="wordCount" content="1728">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,linux,nginx," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,linux,nginx," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="NginxでのFastCGI PHP設定"/>
 <meta name="twitter:description" content="タイトル通り、FreeBSDでnginx、FastCGIでPHPを動かす場合。 lighttpd &#43; phpの場合はこちら。 必要なもの。 nginx spawn-fcgi php（fastCG"/>
 
@@ -140,78 +137,55 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>タイトル通り、FreeBSDでnginx、FastCGIでPHPを動かす場合。<br />
-lighttpd + phpの場合は<a href="../../../2013/10/nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd-php5-fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/" target="_blank">こちら</a>。</p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>タイトル通り、FreeBSDでnginx、FastCGIでPHPを動かす場合。<br>
+lighttpd + phpの場合は<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->。</p>
 <p>必要なもの。</p>
-
 <ul>
 <li>nginx</li>
 <li>spawn-fcgi</li>
 <li>php（fastCGI）</li>
 </ul>
-
-<h2 id="span-style-text-decoration-underline-概要-span"><span style="text-decoration: underline;">概要</span></h2>
-
-<p>nginxは静的コンテンツ向けのwebサーバ。<br />
-そのままでは動的コンテンツは扱えない。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->概要<!-- raw HTML omitted --></h2>
+<p>nginxは静的コンテンツ向けのwebサーバ。<br>
+そのままでは動的コンテンツは扱えない。<br>
 どうしても必要なら、よそで動的コンテンツを生成してもらわなければならない。</p>
-
-<p>その仕組みの一つにFastCGIがある。<br />
-FastCGIは動的コンテンツの受け渡しのためのインタフェースである。<br />
+<p>その仕組みの一つにFastCGIがある。<br>
+FastCGIは動的コンテンツの受け渡しのためのインタフェースである。<br>
 spawn-fcgiはFastCGIプロセスの管理を行う。</p>
-
-<p>ここで、PHPにはFastCGIサーバモードというのがある。<br />
-指定されたポートで待ち受けてリクエストに応えるというもの。<br />
+<p>ここで、PHPにはFastCGIサーバモードというのがある。<br>
+指定されたポートで待ち受けてリクエストに応えるというもの。<br>
 spawn-fcgiとPHPのFastCGIサーバモードを組み合わせれば、PHPのFastCGIインタフェースができあがる。</p>
-
 <p>nginxはPHPコンテンツのリクエストを受けたら、FastCGIを通してphp-cgiにコンテンツを生成してもらう、というわけ。</p>
-
 <p>参考。まあwikipediaなんですけどね。</p>
-
-<p>nginx<br />
-<a href="http://ja.wikipedia.org/wiki/Nginx" target="_blank"><a href="http://ja.wikipedia.org/wiki/Nginx">http://ja.wikipedia.org/wiki/Nginx</a></a><br />
-CGI<br />
-<a href="http://ja.wikipedia.org/wiki/Common_Gateway_Interface" target="_blank"><a href="http://ja.wikipedia.org/wiki/Common_Gateway_Interface">http://ja.wikipedia.org/wiki/Common_Gateway_Interface</a></a><br />
-FastCGI<br />
-<a href="http://ja.wikipedia.org/wiki/FastCGI" target="_blank"><a href="http://ja.wikipedia.org/wiki/FastCGI">http://ja.wikipedia.org/wiki/FastCGI</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
-
-<p>FreeBSDなら、pkgで前章の三つをインストールする。<br />
-特に難しいこともないので割愛。<br />
+<p>nginx<br>
+<!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/Nginx%3C/a%3E">http://ja.wikipedia.org/wiki/Nginx&lt;/a&gt;</a><br>
+CGI<br>
+<!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/Common_Gateway_Interface%3C/a%3E">http://ja.wikipedia.org/wiki/Common_Gateway_Interface&lt;/a&gt;</a><br>
+FastCGI<br>
+<!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/FastCGI%3C/a%3E">http://ja.wikipedia.org/wiki/FastCGI&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->インストール<!-- raw HTML omitted --></h2>
+<p>FreeBSDなら、pkgで前章の三つをインストールする。<br>
+特に難しいこともないので割愛。<br>
 phpはpkgそのままでfastCGI対応になっているので意識する必要なし。</p>
-
-<h2 id="span-style-text-decoration-underline-phpの確認-span"><span style="text-decoration: underline;">PHPの確認</span></h2>
-
-<p>FastCGI対応かどうかを念のため確認。<br />
-/usr/local/bin/php-cgiというのがインストールされていればよい。<br />
+<h2 id="span-styletext-decoration-underlinephpspan"><!-- raw HTML omitted -->PHPの確認<!-- raw HTML omitted --></h2>
+<p>FastCGI対応かどうかを念のため確認。<br>
+/usr/local/bin/php-cgiというのがインストールされていればよい。<br>
 念のため-vで確認。</p>
-
-<pre><code class="language-console">$ php-cgi -v
+<pre><code class="language-console" data-lang="console">$ php-cgi -v
 PHP 5.4.23 (cgi-fcgi) (built: Dec 19 2013 21:06:30)
 Copyright (c) 1997-2013 The PHP Group
 Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-spawn-fcgiの設定-span"><span style="text-decoration: underline;">spawn-fcgiの設定</span></h2>
-
-<p>spawn_fcgiには特定の設定ファイルがないのでrc.confに直接書き込む。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespawn-fcgispan"><!-- raw HTML omitted -->spawn-fcgiの設定<!-- raw HTML omitted --></h2>
+<p>spawn_fcgiには特定の設定ファイルがないのでrc.confに直接書き込む。<br>
 起動スクリプト/usr/local/rc.d/spawn-fcgiの中身を見るとどういったオプションがあるかが分かる。</p>
-
-<p>nginx、spawn-fcgiの起動設定と一緒にやってしまおう。<br />
+<p>nginx、spawn-fcgiの起動設定と一緒にやってしまおう。<br>
 下記を/etc/rc.confにひとまず貼りつける。</p>
-
-<p>コメントアウトしてあるのはデフォルト設定。<br />
+<p>コメントアウトしてあるのはデフォルト設定。<br>
 変えたい箇所があれば#を外して設定する。</p>
-
-<p><span style="text-decoration: underline;">注意！</span><br />
-spawn-fcgiのspawnとfcgiの間はハイフン（ダッシュ）&rdquo;-&ldquo;であるが、/etc/rc.confでの記載にはアンダースコア&rdquo;_&ldquo;にすること。<br />
+<p><!-- raw HTML omitted -->注意！<!-- raw HTML omitted --><br>
+spawn-fcgiのspawnとfcgiの間はハイフン（ダッシュ）&quot;-&ldquo;であるが、/etc/rc.confでの記載にはアンダースコア&rdquo;_&ldquo;にすること。<br>
 言い方を変えると、spawn-fcgi_enableなどと書かないこと。</p>
-
-<pre><code class="language-console">#
+<pre><code class="language-console" data-lang="console">#
 # nginx, with PHP FastCGI
 #
 nginx_enable=&quot;YES&quot;
@@ -226,13 +200,10 @@ spawn_fcgi_enable=&quot;YES&quot;
 ##spawn_fcgi_children=&quot;5&quot;
 ##spawn_fcgi_max_requests=&quot;1000&quot;
 ##spawn_fcgi_path_env=&quot;/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin&quot;
-</code></pre>
-
-<p>最終的に以下のようにした。<br />
-個人用のサーバなのでささやかに。<br />
+</code></pre><p>最終的に以下のようにした。<br>
+個人用のサーバなのでささやかに。<br>
 （冗長なので一部のコメント部分は除く）</p>
-
-<pre><code class="language-console">#
+<pre><code class="language-console" data-lang="console">#
 # nginx, with PHP FastCGI
 #
 nginx_enable=&quot;YES&quot;
@@ -240,36 +211,25 @@ spawn_fcgi_enable=&quot;YES&quot;
 spawn_fcgi_bindport=&quot;8000&quot;
 spawn_fcgi_children=&quot;3&quot;
 spawn_fcgi_max_requests=&quot;100&quot;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-spawn-fcgiの起動確認-span"><span style="text-decoration: underline;">spawn-fcgiの起動確認</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespawn-fcgispan-1"><!-- raw HTML omitted -->spawn-fcgiの起動確認<!-- raw HTML omitted --></h2>
 <p>serviceコマンドで起動。</p>
-
-<pre><code class="language-console">$ sudo service spawn-fcgi start
+<pre><code class="language-console" data-lang="console">$ sudo service spawn-fcgi start
 Starting spawn_fcgi.
 spawn-fcgi: child spawned successfully: PID: 7486
-</code></pre>
-
-<p>sockstatで待ち受けポートを確認</p>
-
-<pre><code class="language-console">$ sockstat -l4
+</code></pre><p>sockstatで待ち受けポートを確認</p>
+<pre><code class="language-console" data-lang="console">$ sockstat -l4
 USER     COMMAND    PID   FD PROTO  LOCAL ADDRESS         FOREIGN ADDRESS
 www      php-cgi    7489  0  tcp4   127.0.0.1:8000        *:*
 www      php-cgi    7488  0  tcp4   127.0.0.1:8000        *:*
 www      php-cgi    7487  0  tcp4   127.0.0.1:8000        *:*
 www      php-cgi    7486  0  tcp4   127.0.0.1:8000        *:*
 （略）
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-phpの動作確認-span"><span style="text-decoration: underline;">phpの動作確認</span></h2>
-
-<p>nginxにはサンプルの設定ファイルがついてくる。<br />
-それをベースに、たとえば以下のような設定ファイルを作る。<br />
-location ~ .php$のブロックが重要。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinephpspan-1"><!-- raw HTML omitted -->phpの動作確認<!-- raw HTML omitted --></h2>
+<p>nginxにはサンプルの設定ファイルがついてくる。<br>
+それをベースに、たとえば以下のような設定ファイルを作る。<br>
+location ~ .php$のブロックが重要。<br>
 fastcgi_pass 127.0.0.1:8000;のポートを先のswawn-fcgiと合わせること。</p>
-
-<pre><code class="language-console">worker_processes  1;
+<pre><code class="language-console" data-lang="console">worker_processes  1;
 events {
     worker_connections  1024;
 }
@@ -290,24 +250,15 @@ http {
         }
     }
 }
-</code></pre>
-
-<p>/usr/local/www/php-testにindex.htmlをつくる。また、test.phpを作る。<br />
+</code></pre><p>/usr/local/www/php-testにindex.htmlをつくる。また、test.phpを作る。<br>
 index.html</p>
-
-<pre><code class="language-console">It works!
-</code></pre>
-
-<p>test.php</p>
-
-<pre><code class="language-console">&lt;?php
+<pre><code class="language-console" data-lang="console">It works!
+</code></pre><p>test.php</p>
+<pre><code class="language-console" data-lang="console">&lt;?php
 phpinfo();
 ?&gt;
-</code></pre>
-
-<p>nginxをスタートしておき;</p>
-
-<pre><code class="language-console">$ sudo service nginx restart
+</code></pre><p>nginxをスタートしておき;</p>
+<pre><code class="language-console" data-lang="console">$ sudo service nginx restart
 Performing sanity check on nginx configuration:
 nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful
@@ -316,24 +267,17 @@ Performing sanity check on nginx configuration:
 nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful
 Starting nginx.
-</code></pre>
-
-<p>ブラウザで繋ぐ。<br />
-スクリーンショット撮るのが面倒なのでw3mで。<br />
+</code></pre><p>ブラウザで繋ぐ。<br>
+スクリーンショット撮るのが面倒なのでw3mで。<br>
 下記の通り/usr/local/www/nginx/index.htmlの内容が表示される。</p>
-
-<pre><code class="language-console">$ w3m 127.0.0.1
+<pre><code class="language-console" data-lang="console">$ w3m 127.0.0.1
 It works!
-</code></pre>
-
-<p>index.htmlの内容が表示された。<br />
+</code></pre><p>index.htmlの内容が表示された。<br>
 これで通常のwebサーバとしては問題なく動作していることが確認できた。</p>
-
-<p>ではphpの動作確認<br />
-PHP infoの結果が表示される。<br />
+<p>ではphpの動作確認<br>
+PHP infoの結果が表示される。<br>
 内部的には、nginxが127.0.0.1:8000で待っているphp-cgiにtest.phpを実行させて、その結果を返している。</p>
-
-<pre><code class="language-console">$ w3m 127.0.0.1/test.php
+<pre><code class="language-console" data-lang="console">$ w3m 127.0.0.1/test.php
 
 PHP Logo
 
@@ -345,9 +289,7 @@ System        15 08:18:20 UTC 2013 root@snap.freebsd.org:/usr/obj/usr/src/
 
 Build Date    Dec 19 2013 21:05:25
 (略)
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

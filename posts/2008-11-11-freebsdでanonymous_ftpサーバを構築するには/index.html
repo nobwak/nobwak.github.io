@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-11-11T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDでanonymous FTPサーバを構築するには">
 <meta itemprop="description" content="最近はanonymous FTPを立てることは少なくなった。 とはいっても、たまにはあるわけで、その時のためにメモする。 （&lt;a href=&quot;http://www.freebsdnews.net/index.php&quot; targe">
-
-
 <meta itemprop="datePublished" content="2008-11-11T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-11-11T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="884">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDでanonymous FTPサーバを構築するには"/>
 <meta name="twitter:description" content="最近はanonymous FTPを立てることは少なくなった。 とはいっても、たまにはあるわけで、その時のためにメモする。 （&lt;a href=&quot;http://www.freebsdnews.net/index.php&quot; targe"/>
 
@@ -165,8 +162,7 @@ if (!doNotTrack) {
 
 シェルは/sbin/nologinにしておくこと。
 </code></pre>
-
-<pre><code class="language-console"># adduser
+<pre><code class="language-console" data-lang="console"># adduser
 Username: ftp
 Full name: Anonymous FTP user
 Uid (Leave empty for default):
@@ -192,9 +188,7 @@ OK? (yes/no): yes
 adduser: INFO: Successfully added (ftp) to the user database.
 Add another user? (yes/no): no
 Goodbye!
-</code></pre>
-
-<pre><code>◎ディレクトリの作成
+</code></pre><pre><code>◎ディレクトリの作成
 
 
 
@@ -204,12 +198,9 @@ Goodbye!
 
 ここがftpユーザにとってはルートディレクトリとなる。
 </code></pre>
-
-<pre><code class="language-console"># mkdir -p /var/ftp/pub
+<pre><code class="language-console" data-lang="console"># mkdir -p /var/ftp/pub
 # chown ftp:ftp /var/ftp/pub
-</code></pre>
-
-<pre><code>◎メッセージの作成
+</code></pre><pre><code>◎メッセージの作成
 
 
 
@@ -234,32 +225,23 @@ Goodbye!
 
 ◎inetd.confの修正
 </code></pre>
-
-<pre><code class="language-console"># echo &quot;ftp stream tcp nowait root /usr/libexec/ftpd ftpd -l -S -A -r&quot; \
+<pre><code class="language-console" data-lang="console"># echo &quot;ftp stream tcp nowait root /usr/libexec/ftpd ftpd -l -S -A -r&quot; \
 &gt;&gt; /etc/inetd.conf
+</code></pre><pre><code>ここで、オプションは下記の通りなので、適宜書き換え。
 </code></pre>
-
-<pre><code>ここで、オプションは下記の通りなので、適宜書き換え。
-</code></pre>
-
-<pre><code class="language-console">-l ftpログインを記録する。
+<pre><code class="language-console" data-lang="console">-l ftpログインを記録する。
 -r 読み取りのみ
 -A anonymous FTP接続のみ許可
 -S ユーザのダウンロード履歴を/var/log/ftpdに記録する。
 　ただし/var/log/ftpdが存在していること。
-</code></pre>
-
-<pre><code>◎ログ出力先の作成
+</code></pre><pre><code>◎ログ出力先の作成
 
 
 
 Sオプションを指定している場合はログの書き込み先ファイルを作る。
 </code></pre>
-
-<pre><code class="language-console"># touch /var/log/ftpd
-</code></pre>
-
-<pre><code>なお、-lで記録することになるログはsyslogに送られ、デフォルトでは/var/log/xferlogに記録される。本ファイルは改めて作らなくても最初からある。
+<pre><code class="language-console" data-lang="console"># touch /var/log/ftpd
+</code></pre><pre><code>なお、-lで記録することになるログはsyslogに送られ、デフォルトでは/var/log/xferlogに記録される。本ファイルは改めて作らなくても最初からある。
 
 
 
@@ -272,18 +254,12 @@ Sオプションを指定している場合はログの書き込み先ファイ�
 
 &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080213/p1&quot; target=&quot;_blank&quot;&gt;こちら&lt;/a&gt;のように、そのとき限りの起動の場合。
 </code></pre>
-
-<pre><code class="language-console"># /etc/rc.d/inetd onestart
+<pre><code class="language-console" data-lang="console"># /etc/rc.d/inetd onestart
+</code></pre><pre><code>リブート後も起動させておきたい場合
 </code></pre>
-
-<pre><code>リブート後も起動させておきたい場合
-</code></pre>
-
-<pre><code class="language-console"># echo 'inetd_enable=&quot;YES&quot;' &gt;&gt; /etc/rc.conf
+<pre><code class="language-console" data-lang="console"># echo 'inetd_enable=&quot;YES&quot;' &gt;&gt; /etc/rc.conf
 # /etc/rc.d/inetd start
-</code></pre>
-
-<pre><code>以上
+</code></pre><pre><code>以上
 </code></pre>
 <ul class="pa0">
   

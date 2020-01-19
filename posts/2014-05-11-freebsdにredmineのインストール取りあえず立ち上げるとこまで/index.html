@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-05-11T22:31:52+09:00" />
 <meta itemprop="name" content="FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）">
 <meta itemprop="description" content="Rubyで作られたプロジェクト管理システムRedmineを、FreeBSDにインストールした。 文字通り、インストールだけ。 というのもインスト">
-
-
 <meta itemprop="datePublished" content="2014-05-11T22:31:52&#43;09:00" />
 <meta itemprop="dateModified" content="2014-05-11T22:31:52&#43;09:00" />
 <meta itemprop="wordCount" content="1487">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,Ruby," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,Ruby," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）"/>
 <meta name="twitter:description" content="Rubyで作られたプロジェクト管理システムRedmineを、FreeBSDにインストールした。 文字通り、インストールだけ。 というのもインスト"/>
 
@@ -140,29 +137,22 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Rubyで作られたプロジェクト管理システムRedmineを、FreeBSDにインストールした。<br />
-文字通り、インストールだけ。<br />
-というのもインストールだけで大変だから。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Rubyで作られたプロジェクト管理システムRedmineを、FreeBSDにインストールした。<br>
+文字通り、インストールだけ。<br>
+というのもインストールだけで大変だから。<br>
 その経緯を示す。</p>
-
-<h2 id="前提">前提</h2>
-
-<p>インストールしたのはredmine-2.5.1。<br />
-基本、公式の以下手順に沿うが、FreeBSD特有の条件で異なる手順を採ることもある。<br />
-<a href="http://www.redmine.org/projects/redmine/wiki/RedmineInstall" target="_blank"><a href="http://www.redmine.org/projects/redmine/wiki/RedmineInstall">http://www.redmine.org/projects/redmine/wiki/RedmineInstall</a></a><br />
-また、redmineはそのデータ格納にデータベースソフトウェアが必要で、sqlite3を使っている。<br />
-複数ユーザで使うならMySQLやPostgreSQLを推奨、というのが公式見解。<br />
+<h2 id="heading">前提</h2>
+<p>インストールしたのはredmine-2.5.1。<br>
+基本、公式の以下手順に沿うが、FreeBSD特有の条件で異なる手順を採ることもある。<br>
+<!-- raw HTML omitted --><a href="http://www.redmine.org/projects/redmine/wiki/RedmineInstall%3C/a%3E">http://www.redmine.org/projects/redmine/wiki/RedmineInstall&lt;/a&gt;</a><br>
+また、redmineはそのデータ格納にデータベースソフトウェアが必要で、sqlite3を使っている。<br>
+複数ユーザで使うならMySQLやPostgreSQLを推奨、というのが公式見解。<br>
 同様にwebサーバもapacheやnginxが推奨されているが、ここではwebrickでテストするところまで。</p>
-
-<h2 id="redmineのインストール">redmineのインストール</h2>
-
-<p>pkgからインストール。<br />
-pkg install redmineでよい。<br />
+<h2 id="redmine">redmineのインストール</h2>
+<p>pkgからインストール。<br>
+pkg install redmineでよい。<br>
 apacheなどのwebサーバはなくてもよいが、なぜかgtk2も付いてくるのが謎だが、jailに入れるからもう気にしない。</p>
-
-<pre><code class="language-console"># pkg install redmine
+<pre><code class="language-console" data-lang="console"># pkg install redmine
 （略）
        Installing cups-image: 1.7.2
         Installing gtk-update-icon-cache: 2.24.22
@@ -179,28 +169,18 @@ The installation will require 651 MB more space
 122 MB to be downloaded
 
 Proceed with installing packages [y/N]: y
-</code></pre>
-
-<p>/usr/local/www/redmineにインストールされる。<br />
+</code></pre><p>/usr/local/www/redmineにインストールされる。<br>
 ユーザ/グループはwwwが使われる。</p>
-
-<h2 id="空のデータベースを作る">空のデータベースを作る</h2>
-
+<h2 id="heading-1">空のデータベースを作る</h2>
 <p>SQLite3を使っているなら不要</p>
-
-<h2 id="redmineでデータベースに繋ぐ設定をする">redmineでデータベースに繋ぐ設定をする</h2>
-
-<p>/usr/local/www/redmine/configの下に各種設定ファイルがある。<br />
-ここでデータベースの設定を行う。<br />
+<h2 id="redmine-1">redmineでデータベースに繋ぐ設定をする</h2>
+<p>/usr/local/www/redmine/configの下に各種設定ファイルがある。<br>
+ここでデータベースの設定を行う。<br>
 database.yml.exampleをdatabase.ymlとしてコピーし、書き換える。</p>
-
-<pre><code class="language-console">/usr/local/www/redmine/config # cp ./database.yml.example ./database.yml
+<pre><code class="language-console" data-lang="console">/usr/local/www/redmine/config # cp ./database.yml.example ./database.yml
 /usr/local/www/redmine/config #
-</code></pre>
-
-<p>「production」から始まる塊を以下のように。</p>
-
-<pre><code class="language-console">#production:
+</code></pre><p>「production」から始まる塊を以下のように。</p>
+<pre><code class="language-console" data-lang="console">#production:
   #adapter: mysql2
   #database: redmine
   #host: localhost
@@ -211,34 +191,21 @@ database.yml.exampleをdatabase.ymlとしてコピーし、書き換える。</p
 production:
   adapter: sqlite3
   database: db/redmine.sqlite3
-</code></pre>
-
-<p>つまり、mysql2を使うような設定を、sqlite3に変えているわけですな。</p>
-
-<h2 id="bundler他のインストール">bundler他のインストール</h2>
-
-<p>公式ドキュメントによればここでbundlerなどのインストールを行うが、FreeBSDでpkg/portsからインストールした場合にはスキップ可。<br />
+</code></pre><p>つまり、mysql2を使うような設定を、sqlite3に変えているわけですな。</p>
+<h2 id="bundler">bundler他のインストール</h2>
+<p>公式ドキュメントによればここでbundlerなどのインストールを行うが、FreeBSDでpkg/portsからインストールした場合にはスキップ可。<br>
 ご覧の通りredmineがインストールされた状態でbundlerもインストールされている。</p>
-
-<pre><code class="language-console">$ pkg info|grep bundler
+<pre><code class="language-console" data-lang="console">$ pkg info|grep bundler
 rubygem-bundler-1.5.3          A tool that manages gem dependencies for ruby applications
-</code></pre>
-
-<h2 id="セッションストア秘密鍵の作成">セッションストア秘密鍵の作成</h2>
-
+</code></pre><h2 id="heading-2">セッションストア秘密鍵の作成</h2>
 <p>クッキーの生成に使用される秘密鍵を作る。</p>
-
-<pre><code class="language-console"># rake generate_secret_token
+<pre><code class="language-console" data-lang="console"># rake generate_secret_token
 (in /usr/local/www/redmine)
 #
-</code></pre>
-
-<h2 id="データベースのスキーマ-テーブル-作成">データベースのスキーマ（テーブル）作成</h2>
-
-<p>テーブル作成<br />
+</code></pre><h2 id="heading-3">データベースのスキーマ（テーブル）作成</h2>
+<p>テーブル作成<br>
 環境変数を使うのでshで。</p>
-
-<pre><code class="language-console"># sh
+<pre><code class="language-console" data-lang="console"># sh
 # RAILS_ENV=production rake db:migrate
 （略）
 ==  StoreRelationTypeInJournalDetails: migrating ==============================
@@ -251,38 +218,25 @@ rubygem-bundler-1.5.3          A tool that manages gem dependencies for
 ==  ChangeChangesetsCommentsLimit: migrated (0.0000s) =========================
 
 #
-</code></pre>
-
-<h2 id="データベースにデフォルトデータを投入">データベースにデフォルトデータを投入</h2>
-
+</code></pre><h2 id="heading-4">データベースにデフォルトデータを投入</h2>
 <p>作ったばかりのテーブルにデータ（default configuration data）を投入</p>
-
-<pre><code class="language-console"># RAILS_ENV=production REDMINE_LANG=ja rake redmine:load_default_data
+<pre><code class="language-console" data-lang="console"># RAILS_ENV=production REDMINE_LANG=ja rake redmine:load_default_data
 (in /usr/local/www/redmine)
 Default configuration data loaded.
 #
-</code></pre>
-
-<h2 id="パーミッション設定">パーミッション設定</h2>
-
-<p>あと少し。<br />
-redmineがファイルを置くディレクトリのパーミッションを設定する。<br />
+</code></pre><h2 id="heading-5">パーミッション設定</h2>
+<p>あと少し。<br>
+redmineがファイルを置くディレクトリのパーミッションを設定する。<br>
 FreeBSDにおいてはユーザ、グループにwww:wwwを使う。</p>
-
-<pre><code class="language-console"># mkdir -p tmp tmp/pdf public/plugin_assets
+<pre><code class="language-console" data-lang="console"># mkdir -p tmp tmp/pdf public/plugin_assets
 
 # chown -R www:www files log tmp public/plugin_assets
 # chmod -R 755 files log tmp public/plugin_assets
 #
-</code></pre>
-
-<p>これでほぼ準備完了</p>
-
-<h2 id="試運転">試運転</h2>
-
+</code></pre><p>これでほぼ準備完了</p>
+<h2 id="heading-6">試運転</h2>
 <p>webrickでredmineを起動し、動くかどうかを確かめる。</p>
-
-<pre><code class="language-console"># ruby script/rails server webrick -e production
+<pre><code class="language-console" data-lang="console"># ruby script/rails server webrick -e production
 =&gt; Booting WEBrick
 =&gt; Rails 3.2.17 application starting in production on http://0.0.0.0:3000
 =&gt; Call with -d to detach
@@ -290,38 +244,23 @@ FreeBSDにおいてはユーザ、グループにwww:wwwを使う。</p>
 [2014-05-11 11:43:43] INFO  WEBrick 1.3.1
 [2014-05-11 11:43:43] INFO  ruby 1.9.3 (2013-11-22) [amd64-freebsd10]
 [2014-05-11 11:43:43] INFO  WEBrick::HTTPServer#start: pid=4187 port=3000
-</code></pre>
-
-<p>ご覧の通り、redmineをインストールしたマシンのポート3000で待ち受け。<br />
+</code></pre><p>ご覧の通り、redmineをインストールしたマシンのポート3000で待ち受け。<br>
 ブラウザで繋ぐと、ターミナルには例えば以下のような反応があるはず。</p>
-
-<pre><code class="language-console">Started GET &quot;/&quot; for 192.168.1.106 at 2014-05-11 11:44:01 +0900
+<pre><code class="language-console" data-lang="console">Started GET &quot;/&quot; for 192.168.1.106 at 2014-05-11 11:44:01 +0900
 Processing by WelcomeController#index as HTML
   Current user: anonymous
   Rendered welcome/index.html.erb within layouts/base (379.0ms)
 Completed 200 OK in 716.5ms (Views: 468.3ms | ActiveRecord: 20.8ms)
-</code></pre>
-
-<p>あとはブラウザから操作。</p>
-
-<h2 id="最初のログイン">最初のログイン</h2>
-
+</code></pre><p>あとはブラウザから操作。</p>
+<h2 id="heading-7">最初のログイン</h2>
 <p>以下のような画面が表示されれば成功で、さっそく右上のログインをクリック</p>
-
-<p><a href="../../../wp-content/uploads/2014/05/redminelogin.png"><img class="alignnone size-thumbnail wp-image-2704" src="../../../wp-content/uploads/2014/05/redminelogin-150x150.png" alt="redminelogin" width="150" height="150" /></a></p>
-
+<p><a href="../../../wp-content/uploads/2014/05/redminelogin.png"><!-- raw HTML omitted --></a></p>
 <p>ID、パスワードはadmin,admin</p>
-
-<p><a href="../../../wp-content/uploads/2014/05/reminefirstlogin.png"><img class="alignnone size-thumbnail wp-image-2706" src="../../../wp-content/uploads/2014/05/reminefirstlogin-150x150.png" alt="reminefirstlogin" width="150" height="150" /></a></p>
-
+<p><a href="../../../wp-content/uploads/2014/05/reminefirstlogin.png"><!-- raw HTML omitted --></a></p>
 <p>以下の画面に遷移</p>
-
-<p><a href="../../../wp-content/uploads/2014/05/redmineafterlogin.png"><img class="alignnone size-thumbnail wp-image-2703" src="../../../wp-content/uploads/2014/05/redmineafterlogin-150x150.png" alt="redmineafterlogin" width="150" height="150" /></a></p>
-
+<p><a href="../../../wp-content/uploads/2014/05/redmineafterlogin.png"><!-- raw HTML omitted --></a></p>
 <p>ためしに「管理」をクリックすると、以下の画面に。</p>
-
-<p><a href="../../../wp-content/uploads/2014/05/redminemanagement.png"><img class="alignnone size-thumbnail wp-image-2705" src="../../../wp-content/uploads/2014/05/redminemanagement-150x150.png" alt="redminemanagement" width="150" height="150" /></a></p>
-
+<p><a href="../../../wp-content/uploads/2014/05/redminemanagement.png"><!-- raw HTML omitted --></a></p>
 <p>以上。</p>
 <ul class="pa0">
   

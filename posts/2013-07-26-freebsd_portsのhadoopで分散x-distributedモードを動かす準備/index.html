@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-07-26T22:28:48+09:00" />
 <meta itemprop="name" content="[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備">
 <meta itemprop="description" content="Hadoopを動かすには、いくつか環境変数の設定が必要である。 JAVA_HOMEとか、HADOOP_PREFIXとか。 また同時に、複数ノード">
-
-
 <meta itemprop="datePublished" content="2013-07-26T22:28:48&#43;09:00" />
 <meta itemprop="dateModified" content="2013-07-26T22:28:48&#43;09:00" />
-<meta itemprop="wordCount" content="1407">
+<meta itemprop="wordCount" content="1427">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備"/>
 <meta name="twitter:description" content="Hadoopを動かすには、いくつか環境変数の設定が必要である。 JAVA_HOMEとか、HADOOP_PREFIXとか。 また同時に、複数ノード"/>
 
@@ -140,48 +137,32 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Hadoopを動かすには、いくつか環境変数の設定が必要である。<br />
-JAVA_HOMEとか、HADOOP_PREFIXとか。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Hadoopを動かすには、いくつか環境変数の設定が必要である。<br>
+JAVA_HOMEとか、HADOOP_PREFIXとか。<br>
 また同時に、複数ノードの制御のために、sshやrsyncだって使う。</p>
-
 <p>以上のことを考えると、専用のユーザを作っておくのが便利である。</p>
-
-<p>ところで、Hadoopをportsから入れると、ユーザhadoopが作られる。<br />
-ユーザhadoopを使うのがよさそうだが、しかしこのユーザhadoopはそのままでは使えない。<br />
+<p>ところで、Hadoopをportsから入れると、ユーザhadoopが作られる。<br>
+ユーザhadoopを使うのがよさそうだが、しかしこのユーザhadoopはそのままでは使えない。<br>
 シェルに/sbin/nologinが設定されているから。</p>
-
-<p>Hadoopをportsからインストールしたとき、そういったことも併せて、擬似分散モード、完全分散モードで動かす準備をまとめる。<br />
+<p>Hadoopをportsからインストールしたとき、そういったことも併せて、擬似分散モード、完全分散モードで動かす準備をまとめる。<br>
 準備は大きく分けて二段階。ユーザhadoopの環境設定と、sshdの設定変更。</p>
-
-<h2 id="span-style-text-decoration-underline-ユーザhadoopのホームディレクトリ-シェル情報の変更-span"><span style="text-decoration: underline;">ユーザhadoopのホームディレクトリ、シェル情報の変更</span></h2>
-
+<h2 id="span-styletext-decoration-underlinehadoopspan"><!-- raw HTML omitted -->ユーザhadoopのホームディレクトリ、シェル情報の変更<!-- raw HTML omitted --></h2>
 <p>vipwでhadoopの行を以下のように書き換える。</p>
-
-<pre><code class="language-console">hadoop:*:955:955::0:0:hadoop user:/nonexistent:/usr/sbin/nologin
+<pre><code class="language-console" data-lang="console">hadoop:*:955:955::0:0:hadoop user:/nonexistent:/usr/sbin/nologin
 ※以下のように書き換え
 hadoop:*:955:955::0:0:hadoop user:/home/hadoop:/usr/local/bin/bash
-</code></pre>
-
-<p>パスワードは変えなくてもよい。<br />
+</code></pre><p>パスワードは変えなくてもよい。<br>
 sudo su - hadoopしたらいいし、リモートから直接hadoopとしてログインしたい場合には鍵を使うから。</p>
-
-<h2 id="span-style-text-decoration-underline-ユーザhadoopのホームディレクトリと-profileの作成-span"><span style="text-decoration: underline;">ユーザhadoopのホームディレクトリと.profileの作成</span></h2>
-
-<p>ホームディレクトリを作り、HADOOP関連の環境変数を.profileに書き込む。<br />
+<h2 id="span-styletext-decoration-underlinehadoopprofilespan"><!-- raw HTML omitted -->ユーザhadoopのホームディレクトリと.profileの作成<!-- raw HTML omitted --></h2>
+<p>ホームディレクトリを作り、HADOOP関連の環境変数を.profileに書き込む。<br>
 追加でHADOOP_PREFIXという変数も加えておく。</p>
-
-<pre><code class="language-console">$ sudo mkdir /home/hadoop
+<pre><code class="language-console" data-lang="console">$ sudo mkdir /home/hadoop
 $ sudo sh -c 'cat /usr/local/etc/hadoop/envvars.d/* &gt;&gt; /home/hadoop/.profile'
 $ sudo sh -c 'echo &quot;PATH=$PATH:/usr/local/share/hadoop/bin;export PATH&quot; &gt;&gt; /home/hadoop/.profile'
 $ sudo sh -c 'echo &quot;export HADOOP_PREFIX=/usr/local/share/hadoop&quot; &gt;&gt; /home/hadoop/.profile'
 $
-</code></pre>
-
-<p>上記の手順を踏むと、.profileの中身は以下のように。</p>
-
-<pre><code class="language-console">$ cat /home/hadoop/.profile
+</code></pre><p>上記の手順を踏むと、.profileの中身は以下のように。</p>
+<pre><code class="language-console" data-lang="console">$ cat /home/hadoop/.profile
 export JAVA_HOME=${JAVA_HOME:-/usr/local/openjdk6}
 
 export HADOOP_HOME=/usr/local/share/hadoop
@@ -190,12 +171,9 @@ export HADOOP_LOG_DIR=/var/log/hadoop
 export HADOOP_PID_DIR=/var/run/hadoop
 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/home/doe/bin:/usr/local/share/hadoop/bin;export PATH
 export HADOOP_PREFIX=/usr/local/share/hadoop
-</code></pre>
-
-<p>実際にログインして環境変数が設定されているか確認。<br />
+</code></pre><p>実際にログインして環境変数が設定されているか確認。<br>
 なってますな。</p>
-
-<pre><code class="language-console">$ sudo su - hadoop
+<pre><code class="language-console" data-lang="console">$ sudo su - hadoop
 [hadoop@vanilla ~]$ env | egrep 'JAVA|HADOOP|PATH'
 HADOOP_LOG_DIR=/var/log/hadoop
 HADOOP_HOME=/usr/local/share/hadoop
@@ -204,23 +182,16 @@ HADOOP_PREFIX=/usr/local/share/hadoop
 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/home/hadoop/bin:/usr/local/share/hadoop/bin
 JAVA_HOME=/usr/local/openjdk6
 HADOOP_CONF_DIR=/usr/local/etc/hadoop
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-ユーザhadoopのssh設定-span"><span style="text-decoration: underline;">ユーザhadoopのssh設定。</span></h2>
-
-<p>これは複数ノードの制御のため。<br />
-ポイントは二つある。<br />
-・パスワードなしでssh接続できるようにしておく。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinehadoopsshspan"><!-- raw HTML omitted -->ユーザhadoopのssh設定。<!-- raw HTML omitted --></h2>
+<p>これは複数ノードの制御のため。<br>
+ポイントは二つある。<br>
+・パスワードなしでssh接続できるようにしておく。<br>
 ・リモート接続したときにも環境変数が有効になるようにしておく。</p>
-
-<h2 id="span-style-text-decoration-underline-パスワードなしのssh接続-span"><span style="text-decoration: underline;">パスワードなしのssh接続。</span></h2>
-
-<p>鍵を作っておいて、パスワードなしでリモートノードに接続できるようにしておく。<br />
+<h2 id="span-styletext-decoration-underlinesshspan"><!-- raw HTML omitted -->パスワードなしのssh接続。<!-- raw HTML omitted --></h2>
+<p>鍵を作っておいて、パスワードなしでリモートノードに接続できるようにしておく。<br>
 （セキュリティ的にはおおらかですな。もちろんセキュリティ向上の取り組みはなされているようだけど）</p>
-
 <p>これはもうお決まりの手順。</p>
-
-<pre><code class="language-console">$ sudo su - hadoop
+<pre><code class="language-console" data-lang="console">$ sudo su - hadoop
 [hadoop@vanilla ~]$
 [hadoop@vanilla ~]$ ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
 Generating public/private dsa key pair.
@@ -252,16 +223,11 @@ Warning: Permanently added 'localhost' (ECDSA) to the list of known hosts.
 FreeBSD 9.1-RELEASE-p4 (GENERIC) #0: Mon Jun 17 11:42:37 UTC 2013
 
 Welcome to FreeBSD!
-</code></pre>
-
-<p>いったん抜ける</p>
-
-<h2 id="span-style-text-decoration-underline-リモート制御-コマンド実行-のためのssh設定-span"><span style="text-decoration: underline;">リモート制御（コマンド実行）のためのssh設定</span></h2>
-
-<p><a href="../../../?p=2086" target="_blank">ここ</a>でまとめた通り、~/.ssh/environment環境変数の記載をする。<br />
+</code></pre><p>いったん抜ける</p>
+<h2 id="span-styletext-decoration-underlinesshspan-1"><!-- raw HTML omitted -->リモート制御（コマンド実行）のためのssh設定<!-- raw HTML omitted --></h2>
+<p><!-- raw HTML omitted -->ここ<!-- raw HTML omitted -->でまとめた通り、~/.ssh/environment環境変数の記載をする。<br>
 $PATHとかの表記をしない。exportも省く。</p>
-
-<pre><code class="language-console">[hadoop@vanilla ~]$ cat ~hadoop/.ssh/environment
+<pre><code class="language-console" data-lang="console">[hadoop@vanilla ~]$ cat ~hadoop/.ssh/environment
 JAVA_HOME=/usr/local/openjdk6
 HADOOP_HOME=/usr/local/share/hadoop
 HADOOP_CONF_DIR=/usr/local/etc/hadoop
@@ -269,13 +235,9 @@ HADOOP_LOG_DIR=/var/log/hadoop
 HADOOP_PID_DIR=/var/run/hadoop
 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/home/doe/bin:/usr/local/share/hadoop/bin
 HADOOP_PREFIX=/usr/local/share/hadoop
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-リモート制御-コマンド実行-のためのssh-d-設定-span"><span style="text-decoration: underline;">リモート制御（コマンド実行）のためのssh「d」設定</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinesshdspan"><!-- raw HTML omitted -->リモート制御（コマンド実行）のためのssh「d」設定<!-- raw HTML omitted --></h2>
 <p>おなじく、sshdの設定を変える。</p>
-
-<pre><code class="language-console">$ sudo cp /etc/ssh/sshd_config{,.org}
+<pre><code class="language-console" data-lang="console">$ sudo cp /etc/ssh/sshd_config{,.org}
 $ sudo vi /etc/ssh/sshd_config
 ※以下のように書き換え
 #PermitUserEnvironment no
@@ -285,12 +247,9 @@ $ sudo service sshd restart
 Stopping sshd.
 Starting sshd.
 $
-</code></pre>
-
-<p>確認。<br />
+</code></pre><p>確認。<br>
 パスワードなしでログインできて、環境変数もOK.</p>
-
-<pre><code class="language-console">$ sudo su - hadoop
+<pre><code class="language-console" data-lang="console">$ sudo su - hadoop
 [hadoop@vanilla ~]$
 [hadoop@vanilla ~]$ ssh localhost env | egrep 'JAVA|HADOOP|PATH'
 HADOOP_LOG_DIR=/var/log/hadoop
@@ -301,16 +260,12 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/ho
 JAVA_HOME=/usr/local/openjdk6
 HADOOP_CONF_DIR=/usr/local/etc/hadoop
 [hadoop@vanilla ~]$
-</code></pre>
-
-<p>以上</p>
-
+</code></pre><p>以上</p>
 <p>関連エントリ。</p>
-
-<p><a href="../../../?p=2068" rel="bookmark">[FreeBSD] Hadoopのportsからのインストール</a><br />
-<a href="../../../?p=2103" rel="bookmark">[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定</a><br />
-<a href="../../../?p=2115" rel="bookmark">[Hadoop]擬似分散モードで実験</a><br />
-<a href="../../../?p=2158" rel="bookmark">[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）</a></p>
+<p><!-- raw HTML omitted -->[FreeBSD] Hadoopのportsからのインストール<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted -->[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted -->[Hadoop]擬似分散モードで実験<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted -->[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）<!-- raw HTML omitted --></p>
 <ul class="pa0">
   
 </ul>

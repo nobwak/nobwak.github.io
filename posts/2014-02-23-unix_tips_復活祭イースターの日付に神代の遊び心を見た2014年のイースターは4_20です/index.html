@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-02-23T13:13:06+09:00" />
 <meta itemprop="name" content="[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）">
 <meta itemprop="description" content="cal/ncalにはイースター（復活祭）を表示するオプションがある。 私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に">
-
-
 <meta itemprop="datePublished" content="2014-02-23T13:13:06&#43;09:00" />
 <meta itemprop="dateModified" content="2014-02-23T13:13:06&#43;09:00" />
 <meta itemprop="wordCount" content="861">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,linux,OS X," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,linux,OS X," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）"/>
 <meta name="twitter:description" content="cal/ncalにはイースター（復活祭）を表示するオプションがある。 私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に"/>
 
@@ -140,27 +137,18 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>cal/ncalにはイースター（復活祭）を表示するオプションがある。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>cal/ncalにはイースター（復活祭）を表示するオプションがある。<br>
 私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に入っていることに感銘したので記録する。</p>
-
-<h2 id="span-style-text-decoration-underline-結論-span"><span style="text-decoration: underline;">結論</span></h2>
-
-<pre><code class="language-console">ncal -e　（西方教会向け）
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->結論<!-- raw HTML omitted --></h2>
+<pre><code class="language-console" data-lang="console">ncal -e　（西方教会向け）
 ncal -o　（東方教会向け）
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>Linux(GNU cal)ならcal -e/cal -oでOK。</li>
 </ul>
-
-<h2 id="span-style-text-decoration-underline-calコマンド-span"><span style="text-decoration: underline;">calコマンド</span></h2>
-
-<p>UNIXにはcalコマンドという、カレンダーを表示するコマンドがある。<br />
+<h2 id="span-styletext-decoration-underlinecalspan"><!-- raw HTML omitted -->calコマンド<!-- raw HTML omitted --></h2>
+<p>UNIXにはcalコマンドという、カレンダーを表示するコマンドがある。<br>
 手許のMacにもきちんと入っていて（MacなのでFreeBSD由来です）、実行してみると以下のように表示される。</p>
-
-<pre><code class="language-console">$ cal
+<pre><code class="language-console" data-lang="console">$ cal
 
 2月 2014
 日 月 火 水 木 金 土
@@ -169,43 +157,30 @@ ncal -o　（東方教会向け）
 9 10 11 12 13 14 15
 16 17 18 19 20 21 22
 23 24 25 26 27 28
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-復活祭とは-span"><span style="text-decoration: underline;">復活祭とは</span></h2>
-
-<p>wikiがこちら。<br />
-<a href="http://ja.wikipedia.org/wiki/復活祭" target="_blank"><a href="http://ja.wikipedia.org/wiki/復活祭">http://ja.wikipedia.org/wiki/復活祭</a></a></p>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->復活祭とは<!-- raw HTML omitted --></h2>
+<p>wikiがこちら。<br>
+<!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/">http://ja.wikipedia.org/wiki/</a>復活祭<!-- raw HTML omitted --></p>
 <p>「復活祭は基本的に「春分の日の後の最初の満月の次の日曜日」に祝われるため、年によって日付が変わる移動祝日である。」ということなので、コンピュータに計算させるニーズは、それなりにあるというわけですな。</p>
-
-<h2 id="span-style-text-decoration-underline-コマンド実行例-span"><span style="text-decoration: underline;">コマンド実行例</span></h2>
-
-<p>OS XやFreeBSDで復活祭の日付を表示させるには、calコマンドではできず、ncalコマンドを使う必要がある。<br />
-GNU calなら問題なし、つまり大半のLinuxでも問題なし。<br />
+<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->コマンド実行例<!-- raw HTML omitted --></h2>
+<p>OS XやFreeBSDで復活祭の日付を表示させるには、calコマンドではできず、ncalコマンドを使う必要がある。<br>
+GNU calなら問題なし、つまり大半のLinuxでも問題なし。<br>
 ncalコマンドは、calコマンドにさらにレイアウトやオプションを追加したもの。</p>
-
-<p>-e、つまりeaster、で復活祭の日付を表示する。<br />
+<p>-e、つまりeaster、で復活祭の日付を表示する。<br>
 -o、つまりOrthodox(正教)での復活祭の日付を表示する。</p>
-
-<pre><code class="language-console">$ ncal -e
+<pre><code class="language-console" data-lang="console">$ ncal -e
 4月 20 2014
 
 $ ncal -o
 4月 20 2014
-</code></pre>
-
-<p>東方、西方、同じようですな。</p>
-
-<h2 id="span-style-text-decoration-underline-おわりに-span"><span style="text-decoration: underline;">おわりに</span></h2>
-
-<p>マニュアルを見ると、calコマンドはAT&amp;T UNIXのVersion 5で現れたとのこと。<br />
-1975年ごろ。<br />
+</code></pre><p>東方、西方、同じようですな。</p>
+<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->おわりに<!-- raw HTML omitted --></h2>
+<p>マニュアルを見ると、calコマンドはAT&amp;T UNIXのVersion 5で現れたとのこと。<br>
+1975年ごろ。<br>
 まさに神代である。</p>
-
-<p>そして、そんな時代でターミナル上にカレンダーを豪快に表示させるという、ロックなコマンドが生まれてるんである。<br />
-「真面目にやれよ」とか怒られなかったんですかね。<br />
-そしていつごろか、そこに復活祭のような移動祝祭日を計算するオプションが入ってくる。<br />
-のびのびしているというか、融通無碍というか。<br />
+<p>そして、そんな時代でターミナル上にカレンダーを豪快に表示させるという、ロックなコマンドが生まれてるんである。<br>
+「真面目にやれよ」とか怒られなかったんですかね。<br>
+そしていつごろか、そこに復活祭のような移動祝祭日を計算するオプションが入ってくる。<br>
+のびのびしているというか、融通無碍というか。<br>
 気持ちよくて、駄文を記した次第でございます。</p>
 <ul class="pa0">
   

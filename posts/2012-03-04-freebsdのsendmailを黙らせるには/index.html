@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-03-04T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDのsendmailを黙らせるには">
 <meta itemprop="description" content="自宅サーバのsendmailは正直不要です。と思うことはしばしば。 てっとり早く結論を言えば、以下を/etc/rc.confに追記すればよい。">
-
-
 <meta itemprop="datePublished" content="2012-03-04T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-04T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1817">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDのsendmailを黙らせるには"/>
 <meta name="twitter:description" content="自宅サーバのsendmailは正直不要です。と思うことはしばしば。 てっとり早く結論を言えば、以下を/etc/rc.confに追記すればよい。"/>
 
@@ -150,27 +147,20 @@ if (!doNotTrack) {
 
 /etc/rc.confへの追記
 </code></pre>
-
-<pre><code class="language-console">sendmail_enable=&amp;#34;NO&amp;#34;
+<pre><code class="language-console" data-lang="console">sendmail_enable=&amp;#34;NO&amp;#34;
 sendmail_submit_enable=&amp;#34;NO&amp;#34;
 sendmail_outbound_enable=&amp;#34;NO&amp;#34;
 sendmail_msp_queue_enable=&amp;#34;NO&amp;#34;
+</code></pre><pre><code>しかし、&lt;a href=&quot;http://www.freebsd.org/doc/handbook/mail-changingmta.html#MAIL-DISABLE-SENDMAIL&quot; target=&quot;_blank&quot;&gt;handbook 29.4.2 Disable sendmail&lt;/a&gt; に記載の通り、以下の懸念がある(2012/3/1)。
 </code></pre>
-
-<pre><code>しかし、&lt;a href=&quot;http://www.freebsd.org/doc/handbook/mail-changingmta.html#MAIL-DISABLE-SENDMAIL&quot; target=&quot;_blank&quot;&gt;handbook 29.4.2 Disable sendmail&lt;/a&gt; に記載の通り、以下の懸念がある(2012/3/1)。
-</code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  Warning: もしこの方法で sendmail のメール送信機能を無効にしたのなら、 完全に動作する代替メール配送システムと置き換えることが重要です。 さもなければ、periodic(8) などのシステム機能は、 それらの結果を通常想定しているようにメールで配送することができなくなるでしょう。
 
 
 
   システムの多くの部分が sendmail 互換のシステムがあることを想定しているかもしれません。 もしそれらを無効にした後に、 アプリケーションがメールを送ろうとするために sendmail のバイナリを使用し続ければ、 メールは使われていない sendmail のキューに入り、そして決して配送されないでしょう。
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>つまりroot等に送られるreportがsendmailのキューにたまり続ける。
 
 
@@ -211,34 +201,22 @@ sendmailを動かしたくない目的にもよるが、現実的なところで
 
 以下のみを/etc/rc.confに追記
 </code></pre>
-
-<pre><code class="language-console">sendmail_enable=&amp;#34;NO&amp;#34;
+<pre><code class="language-console" data-lang="console">sendmail_enable=&amp;#34;NO&amp;#34;
+</code></pre><pre><code>なお、上記はデフォルト
 </code></pre>
-
-<pre><code>なお、上記はデフォルト
-</code></pre>
-
-<pre><code class="language-console">$ uname -v
+<pre><code class="language-console" data-lang="console">$ uname -v
 FreeBSD 8.2-RELEASE-p3 #0: Tue Sep 27 18:07:27 UTC 2011     root@i386-builder.daemonology.net:/usr/obj/usr/src/sys/GENERIC
 $ grep sendmail_enable /etc/defaults/rc.conf
 sendmail_enable=&amp;#34;NO&amp;#34;    # Run the sendmail inbound daemon (YES/NO).
+</code></pre><pre><code>【参考】以下はもう使われていないので注意。
 </code></pre>
-
-<pre><code>【参考】以下はもう使われていないので注意。
+<pre><code class="language-console" data-lang="console">sendmail_enable = &amp;#34;NONE&amp;#34;
+</code></pre><pre><code>man rc.sendmailより
 </code></pre>
-
-<pre><code class="language-console">sendmail_enable = &amp;#34;NONE&amp;#34;
-</code></pre>
-
-<pre><code>man rc.sendmailより
-</code></pre>
-
-<pre><code class="language-console">sendmail_enable
+<pre><code class="language-console" data-lang="console">sendmail_enable
 （中略）
 The ``NONE&amp;#39;&amp;#39; option is deprecated and should not be used.  It will be removed in a future release.
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;さらにkwsk&lt;/span&gt;
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;さらにkwsk&lt;/span&gt;
 
 
 
@@ -248,14 +226,11 @@ FreeBSDにおけるsendmail起動の設定は、以下の変数にYES/NOを代�
 
 使い方はrc.sendmail(8)に記載されている。
 </code></pre>
-
-<pre><code class="language-console">sendmail_enable=
+<pre><code class="language-console" data-lang="console">sendmail_enable=
 sendmail_submit_enable=
 sendmail_outbound_enable=
 sendmail_msp_queue_enable=
-</code></pre>
-
-<pre><code>これらは最初の3つと1つに分かれる。
+</code></pre><pre><code>これらは最初の3つと1つに分かれる。
 
 
 
@@ -284,13 +259,10 @@ sendmail_msp_queue_enable=
 
 内部からのsmtp接続は受け付け、外部への送信は可能。
 </code></pre>
-
-<pre><code class="language-console">sendmail_enable=&amp;#34;NO&amp;#34;
+<pre><code class="language-console" data-lang="console">sendmail_enable=&amp;#34;NO&amp;#34;
 sendmail_submit_enable=&amp;#34;YES&amp;#34;
 sendmail_outbound_enable=&amp;#34;YES&amp;#34;
-</code></pre>
-
-<pre><code>・パターン2:
+</code></pre><pre><code>・パターン2:
 
 
 
@@ -304,28 +276,21 @@ sendmail_outbound_enable=&amp;#34;YES&amp;#34;
 
 ただちょっと分からないのは、「&quot;local mail queue management&quot;を提供する」とmanには記載されているのだが、外部、内部ともにsmtp接続を受け付けない状態でのlocal mail queueとはいったいなんだろうか。一応、この状態ではroot権限でsendmailが「Queue runner」として起動する。
 </code></pre>
-
-<pre><code class="language-console">sendmail_enable=&amp;#34;NO&amp;#34;
+<pre><code class="language-console" data-lang="console">sendmail_enable=&amp;#34;NO&amp;#34;
 sendmail_submit_enable=&amp;#34;NO&amp;#34;
 sendmail_outbound_enable=&amp;#34;YES&amp;#34;
-</code></pre>
-
-<pre><code>パターン3:
+</code></pre><pre><code>パターン3:
 
 
 
 この状態ではroot権限のsendmailは一切起動しない。
 </code></pre>
-
-<pre><code class="language-console">sendmail_enable=&amp;#34;NO&amp;#34;
+<pre><code class="language-console" data-lang="console">sendmail_enable=&amp;#34;NO&amp;#34;
 sendmail_submit_enable=&amp;#34;NO&amp;#34;
 sendmail_outbound_enable=&amp;#34;NO&amp;#34;
+</code></pre><pre><code>上記を別の形で表現すれば以下の通り。（rc.sendmail(8)より引用）
 </code></pre>
-
-<pre><code>上記を別の形で表現すれば以下の通り。（rc.sendmail(8)より引用）
-</code></pre>
-
-<pre><code class="language-console"># MTA
+<pre><code class="language-console" data-lang="console"># MTA
 if (${sendmail_enable} == NONE)
 # Do nothing
 else if (${sendmail_enable} == YES)
@@ -341,9 +306,7 @@ if (${sendmail_enable} != NONE &amp;&amp;
 ${sendmail_msp_queue_enable} == YES)
 start sendmail with ${sendmail_msp_queue_flags}
 endif
-</code></pre>
-
-<pre><code>なお、sendmail_msp_queue_enableは、smmsp権限で動くQueue runnerの動作スイッチ。
+</code></pre><pre><code>なお、sendmail_msp_queue_enableは、smmsp権限で動くQueue runnerの動作スイッチ。
 
 
 

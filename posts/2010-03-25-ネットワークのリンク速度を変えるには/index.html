@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-03-25T01:00:00+09:00" />
 <meta itemprop="name" content="ネットワークのリンク速度を変えるには。">
 <meta itemprop="description" content="Linuxでネットワークデバイスが意図しないリンク速度になったときの対処方法。 といっても、下記のサイトどおりに操作するだけ。 「ETHTOOL">
-
-
 <meta itemprop="datePublished" content="2010-03-25T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-03-25T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="603">
+<meta itemprop="wordCount" content="479">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ネットワークのリンク速度を変えるには。"/>
 <meta name="twitter:description" content="Linuxでネットワークデバイスが意図しないリンク速度になったときの対処方法。 といっても、下記のサイトどおりに操作するだけ。 「ETHTOOL"/>
 
@@ -171,35 +168,14 @@ if (!doNotTrack) {
 
 Redhatのサイトから手順を以下に抜き出す。
 </code></pre>
-
-<p><ul>
-    <li>
-      ・/sbin/ethtoolがあるか確認し、なければインストール
-    </li>
-    <li>
-      ・/etc/sysconfig/network-scripts/ifcfg-eth0に以下の行を追加
-    </li>
-  </ul></p>
-
+<!-- raw HTML omitted -->
 <pre><code>　　（1Gbps, 全二重、オートネゴシエーションオフの場合）
 </code></pre>
-
-<pre><code class="language-console">ETHTOOL_OPTS=&amp;#34;speed 1000 duplex full autoneg off&amp;#34;
-</code></pre>
-
-<p><ul>
-    <li>
-      ・sudo service network restartとする。
-    </li>
-    <li>
-      ・sudo ethtool ＜ネットワークデバイス名＞で結果確認
-    </li>
-  </ul></p>
-
+<pre><code class="language-console" data-lang="console">ETHTOOL_OPTS=&amp;#34;speed 1000 duplex full autoneg off&amp;#34;
+</code></pre><!-- raw HTML omitted -->
 <pre><code>ethtoolに与えられるオプションは以下の通り。
 </code></pre>
-
-<pre><code class="language-console">speed の設定値
+<pre><code class="language-console" data-lang="console">speed の設定値
 10      10Mbps
 100    100Mbps
 1000  1000Mbps
@@ -209,9 +185,7 @@ full full-duplex
 autoneg の設定値
 on    Autonegotiation 有効
 off   Autonegotiation 無効
-</code></pre>
-
-<pre><code>上記は/etc/sysconfig/network-scripts/ifcfg-eth0にethtool向けのコマンドを記載しておき、ネットワークを再起動する方法。
+</code></pre><pre><code>上記は/etc/sysconfig/network-scripts/ifcfg-eth0にethtool向けのコマンドを記載しておき、ネットワークを再起動する方法。
 
 
 

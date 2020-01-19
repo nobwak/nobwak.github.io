@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-03-10T01:00:00+09:00" />
 <meta itemprop="name" content="ZFS優しすぎ涙がでた。">
 <meta itemprop="description" content="前口上 試しにZFSを使ってみて（VMware Playerで気軽に試せるようになったとは、なんと便利な世の中か）本当に驚いた。 ディスク繋いでz">
-
-
 <meta itemprop="datePublished" content="2012-03-10T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-10T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="2725">
+<meta itemprop="wordCount" content="2735">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ZFS優しすぎ涙がでた。"/>
 <meta name="twitter:description" content="前口上 試しにZFSを使ってみて（VMware Playerで気軽に試せるようになったとは、なんと便利な世の中か）本当に驚いた。 ディスク繋いでz"/>
 
@@ -140,36 +137,26 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="前口上">前口上</h2>
-
-<p>試しにZFSを使ってみて（VMware Playerで気軽に試せるようになったとは、なんと便利な世の中か）本当に驚いた。<br />
-ディスク繋いでzpoolコマンド一発ですぐ使える。パーティションに頭を悩ませる必要もない。RAIDだって楽勝。<br />
-ディレクトリごとに圧縮することもできるし、気が変わったら、いつでも止めることもできる。<br />
-スナップショットも早い。<br />
-実は、何年か前にZFSについて調べたときはまだまだバギーな印象だったのと、ZFSを使えるようなパワフルマシンがなく保留にしてたんだけど、すごく損した気分。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="heading">前口上</h2>
+<p>試しにZFSを使ってみて（VMware Playerで気軽に試せるようになったとは、なんと便利な世の中か）本当に驚いた。<br>
+ディスク繋いでzpoolコマンド一発ですぐ使える。パーティションに頭を悩ませる必要もない。RAIDだって楽勝。<br>
+ディレクトリごとに圧縮することもできるし、気が変わったら、いつでも止めることもできる。<br>
+スナップショットも早い。<br>
+実は、何年か前にZFSについて調べたときはまだまだバギーな印象だったのと、ZFSを使えるようなパワフルマシンがなく保留にしてたんだけど、すごく損した気分。<br>
 いままで幾たび、fdiskやnewfs失敗してひどい目にあったことか。電子の海に消えたデータを思う。</p>
-
-<p>そしてRAID。<br />
-ソフトRAIDで言えばlvmも有名だが、俺にはもうコマンドが複雑すぎて覚えられない（lv&hellip;が論理ボリュームを、pv&hellip;が物理ボリュームを扱うんだって？）。<br />
-これはすごく危険。だってソフトRAID含め、こういったディスクを扱うコマンドを使うのは、初期設定と、問題の発生したとき。<br />
-俺みたいなオッチョコチョイが、問題が発生して焦っているときに、コマンドが複雑だと二次災害を引き起こすんだって。<br />
-…正直に言うと実際に引き起こした。<br />
+<p>そしてRAID。<br>
+ソフトRAIDで言えばlvmも有名だが、俺にはもうコマンドが複雑すぎて覚えられない（lv&hellip;が論理ボリュームを、pv&hellip;が物理ボリュームを扱うんだって？）。<br>
+これはすごく危険。だってソフトRAID含め、こういったディスクを扱うコマンドを使うのは、初期設定と、問題の発生したとき。<br>
+俺みたいなオッチョコチョイが、問題が発生して焦っているときに、コマンドが複雑だと二次災害を引き起こすんだって。<br>
+…正直に言うと実際に引き起こした。<br>
 ZFSならとにかくzpool、zfsさえ覚えておけばいいのだ。</p>
-
 <h2 id="zfs">ZFS</h2>
-
-<p>宅鯖ではZFSを使いたいからFreeBSDを選んだ。<br />
-そして、いろいろwebを渉猟するにi386でZFSは辛そうなのでamd64とし、下記の通りzpoolのバージョンもどーんと上がっているので, 9.0-RELEASEを入れた。<br />
+<p>宅鯖ではZFSを使いたいからFreeBSDを選んだ。<br>
+そして、いろいろwebを渉猟するにi386でZFSは辛そうなのでamd64とし、下記の通りzpoolのバージョンもどーんと上がっているので, 9.0-RELEASEを入れた。<br>
 メジャーバージョンの最初はちょっと不安ではあるけれど。</p>
-
-<pre><code class="language-console">ZFSのバージョン8.2+ - zpool v159.0+ - zpool v28
-</code></pre>
-
-<p>あとは、特に難しいこともなく、2.5Tのディスク1本買ってきて、つないで、領域作って、こんな感じ。作業ログは後述。</p>
-
-<pre><code class="language-console">$ sudo zpool status
+<pre><code class="language-console" data-lang="console">ZFSのバージョン8.2+ - zpool v159.0+ - zpool v28
+</code></pre><p>あとは、特に難しいこともなく、2.5Tのディスク1本買ってきて、つないで、領域作って、こんな感じ。作業ログは後述。</p>
+<pre><code class="language-console" data-lang="console">$ sudo zpool status
 パスワード:
 pool: vault
 state: ONLINE
@@ -182,55 +169,35 @@ errors: No known data errors
 $ zpool list
 NAMESIZEALLOC FREECAPDEDUPHEALTHALTROOT
 vault2.27T1007G1.28T43%1.00xONLINE-
-</code></pre>
-
-<p>ディスク1本なので、RAIDも組まず、圧縮もせず（データがjpg写真とか自炊本、自炊DVD、CDとか圧縮の効かないものばかりだから）。<br />
+</code></pre><p>ディスク1本なので、RAIDも組まず、圧縮もせず（データがjpg写真とか自炊本、自炊DVD、CDとか圧縮の効かないものばかりだから）。<br>
 あんなに煽っておいてアレだが、だってまだディスク高いし・・。</p>
-
-<h2 id="チューニング">チューニング</h2>
-
-<p>ただまあ、ここを見てチューニングだけはしておいた。<a href="http://wiki.freebsd.org/ZFSTuningGuide" target="_blank"><a href="http://wiki.freebsd.org/ZFSTuningGuide">http://wiki.freebsd.org/ZFSTuningGuide</a></a>
+<h2 id="heading-1">チューニング</h2>
+<p>ただまあ、ここを見てチューニングだけはしておいた。<!-- raw HTML omitted --><a href="http://wiki.freebsd.org/ZFSTuningGuide%3C/a%3E">http://wiki.freebsd.org/ZFSTuningGuide&lt;/a&gt;</a>
 /boot/loader.confにおけるチューニング</p>
-
-<pre><code class="language-console">vfs.zfs.prefetch_disable=&quot;1&quot;
+<pre><code class="language-console" data-lang="console">vfs.zfs.prefetch_disable=&quot;1&quot;
 vfs.zfs.txg.timeout=&quot;5&quot;
-</code></pre>
-
-<p>1行目ZFSのprefetchを無効にすると全体的にスピードが向上する。<br />
-ただし読み書きが頻繁に発生する状態だとシステムが遅くなる傾向あり。<br />
-なお、4GB以上のメモリが実装されているとデフォルトで0になるとのこと。<br />
+</code></pre><p>1行目ZFSのprefetchを無効にすると全体的にスピードが向上する。<br>
+ただし読み書きが頻繁に発生する状態だとシステムが遅くなる傾向あり。<br>
+なお、4GB以上のメモリが実装されているとデフォルトで0になるとのこと。<br>
 2行目txgが何の意味か分からないけど（task queue?）、こうしておくとスループットが上がる上に、システムが極端に遅くなる問題が改善される。（In my case 50-100% CPU is used by ZFS with <em>no</em> disk activity during the pauses then a burst of rapid disk activity and then another pause. なんて言ってる）なお、これはZFS v28からはデフォルト。</p>
-
-<h2 id="etc-sysctl-confにおける設定">/etc/sysctl.confにおける設定</h2>
-
-<pre><code class="language-console">kern.maxvnodes=250000
+<h2 id="etcsysctlconf">/etc/sysctl.confにおける設定</h2>
+<pre><code class="language-console" data-lang="console">kern.maxvnodes=250000
 vfs.zfs.write_limit_override=131072
-</code></pre>
-
-<p>1行目でvnodes数の上限をデフォルトの約200000（a little over 200,000）から増やす。
-2行目でTXG write limitの値を減らす。<br />
-デフォルト値は知らん。4GBメモリなら256MB、と書いてあるので、2GBを積んでる俺は128MBにした。<br />
+</code></pre><p>1行目でvnodes数の上限をデフォルトの約200000（a little over 200,000）から増やす。
+2行目でTXG write limitの値を減らす。<br>
+デフォルト値は知らん。4GBメモリなら256MB、と書いてあるので、2GBを積んでる俺は128MBにした。<br>
 なお、ZFS v28より前ではvfs.zfs.txg.write_limit_overrideとのこと。</p>
-
-<h2 id="そのほかの設定-periodic-script">そのほかの設定:periodic script</h2>
-
-<p>/etc/periodic/daily/404.status-zfsにスクリプトがある。<br />
-有効にすると、毎日zpoolの状態をしらべて、daily output, security outputでメールしてくれる。<br />
-そうそう、<a href="http://d.hatena.ne.jp/flageo/20120305/p2" target="_blank">root宛のメールは転送設定</a>しておくと便利。</p>
-
-<pre><code class="language-console">$ sudo /etc/periodic/daily/404.status-zfs
+<h2 id="periodic-script">そのほかの設定:periodic script</h2>
+<p>/etc/periodic/daily/404.status-zfsにスクリプトがある。<br>
+有効にすると、毎日zpoolの状態をしらべて、daily output, security outputでメールしてくれる。<br>
+そうそう、<!-- raw HTML omitted -->root宛のメールは転送設定<!-- raw HTML omitted -->しておくと便利。</p>
+<pre><code class="language-console" data-lang="console">$ sudo /etc/periodic/daily/404.status-zfs
 Checking status of zfs pools:
 all pools are healthy
-</code></pre>
-
-<p>/etc/periodic.confに以下を追記しておけばOK</p>
-
-<pre><code class="language-console">daily_status_zfs_enable=&quot;YES&quot;
-</code></pre>
-
-<p>以下は作業ログ## 作業ログディスクをつないで起動、dmesgで確認</p>
-
-<pre><code class="language-console">$ dmesg|grep ada
+</code></pre><p>/etc/periodic.confに以下を追記しておけばOK</p>
+<pre><code class="language-console" data-lang="console">daily_status_zfs_enable=&quot;YES&quot;
+</code></pre><p>以下は作業ログ## 作業ログディスクをつないで起動、dmesgで確認</p>
+<pre><code class="language-console" data-lang="console">$ dmesg|grep ada
 ada0 at ahcich0 bus 0 scbus0 target 0 lun 0
 ada0: &lt;VB0250EAVER HPG7&gt; ATA-8 SATA 2.x device
 ada0: 300.000MB/s transfers (SATA 2.x, UDMA5, PIO 8192bytes)
@@ -243,12 +210,9 @@ ada1: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)
 ada1: Command Queueing enabled
 ada1: 2384658MB (4883781168 512 byte sectors: 16H 63S/T 16383C)
 ada1: Previously was known as ad6
-</code></pre>
-
-<p>ada1が新しく繋いだディスク。<br />
+</code></pre><p>ada1が新しく繋いだディスク。<br>
 ここにZFS用のpoolを作成する。</p>
-
-<pre><code class="language-console">$ sudo zpool create vault ada1
+<pre><code class="language-console" data-lang="console">$ sudo zpool create vault ada1
 Password:
 $ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates)
@@ -259,20 +223,17 @@ Filesystem SizeUsed Avail CapacityMounted on
 /dev/ada0p2228G 15G194G 7%/
 devfs1.0k1.0k0B 100%/dev
 vault2.2T 31k2.2T 0%/vault
-</code></pre>
-
-<p>無事完成。
-なんと勝手にマウントまでしてくれる。これですぐ使える。<br />
-2.5Tなのに数秒程度で完了。<br />
-ビクビクしながらfdiskしたりnewfsしたりする必要がない。電卓も要らない（そういう時代もあったのです）。<br />
-衝撃的です。<br />
-コマンドが簡単なうえに、早いというのは、重ねて言うけど障害復旧に極めて有利な点。<br />
-大きなディスクをnewfsするときの、遅々として進まないカウンタを見てジリジリしたことのある人なら共感してくれるはず。<br />
-なお、この状態では/etc/fstabに何も書き込まれていないので、再起動すればマウントは外れる。<br />
-ではこのpoolからディレクトリを切り出す。<br />
+</code></pre><p>無事完成。
+なんと勝手にマウントまでしてくれる。これですぐ使える。<br>
+2.5Tなのに数秒程度で完了。<br>
+ビクビクしながらfdiskしたりnewfsしたりする必要がない。電卓も要らない（そういう時代もあったのです）。<br>
+衝撃的です。<br>
+コマンドが簡単なうえに、早いというのは、重ねて言うけど障害復旧に極めて有利な点。<br>
+大きなディスクをnewfsするときの、遅々として進まないカウンタを見てジリジリしたことのある人なら共感してくれるはず。<br>
+なお、この状態では/etc/fstabに何も書き込まれていないので、再起動すればマウントは外れる。<br>
+ではこのpoolからディレクトリを切り出す。<br>
 itunes用と、通常の共有ディレクトリ用の二つを作る。</p>
-
-<pre><code class="language-console">$ sudo zfs create vault/itunes
+<pre><code class="language-console" data-lang="console">$ sudo zfs create vault/itunes
 $ sudo zfs create vault/chamber
 $ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates)
@@ -287,12 +248,9 @@ devfs 1.0k1.0k0B 100%/dev
 vault 2.2T 32k2.2T 0%/vault
 vault/itunes2.2T 31k2.2T 0%/vault/itunes
 vault/chamber2.2T 31k2.2T 0%/vault/chamber
-</code></pre>
-
-<p>これらを/export配下に移動させる。<br />
+</code></pre><p>これらを/export配下に移動させる。<br>
 これが既存の考えにはない動作。頭の中でファイルシステムに対する考え方がグニョっとなるのを俺は感じたよ。</p>
-
-<pre><code class="language-console">$ sudo zfs set mountpoint=/export/itunes vault/itunes
+<pre><code class="language-console" data-lang="console">$ sudo zfs set mountpoint=/export/itunes vault/itunes
 $ sudo zfs set mountpoint=/export/chamber vault/chamber
 $ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates)
@@ -300,41 +258,32 @@ devfs on /dev (devfs, local, multilabel)
 vault on /vault (zfs, local, nfsv4acls)
 vault/itunes on /export/itunes (zfs, local, nfsv4acls)
 vault/chamber on /export/chamber (zfs, local, nfsv4acls)
-</code></pre>
-
-<p>そしたら/etc/fstabに書き込んでおしまい。<br />
+</code></pre><p>そしたら/etc/fstabに書き込んでおしまい。<br>
 昔はデバイス名を書き込んでいた場所にZFSのディスクプールを書くわけですな。</p>
-
-<pre><code class="language-console">vault/itunes/export/itunes zfs rw0 0
+<pre><code class="language-console" data-lang="console">vault/itunes/export/itunes zfs rw0 0
 vault/chamber /export/chamberzfs rw0 0
-</code></pre>
-
-<p>afpでファイルをコピーしているのだが、あまり負荷はかかっていない模様。
+</code></pre><p>afpでファイルをコピーしているのだが、あまり負荷はかかっていない模様。
 ZFSはリソース食いと聞いてたのでコワゴワコピーしたんだけど、まあ100Mbpsのネットワーク越しですしな。</p>
-
-<pre><code class="language-console">last pid:1773;load averages:0.11,0.21,0.17up 0+00:45:0323:54:03
+<pre><code class="language-console" data-lang="console">last pid:1773;load averages:0.11,0.21,0.17up 0+00:45:0323:54:03
 42 processes:1 running, 41 sleeping
 CPU:0.2% user,0.0% nice, 15.0% system,0.4% interrupt, 84.4% idle
 Mem: 46M Active, 189M Inact, 1426M Wired, 64M Cache, 200M Buf, 119M Free
 Swap: 907M Total, 556K Used, 906M Free
 PID USERNAME THR PRI NICE SIZERES STATE C TIME WCPU COMMAND
 1697 root 1310 55860K4288K select1 3:55 16.36% afpd
-</code></pre>
-
-<h2 id="そのほか">そのほか</h2>
-
+</code></pre><h2 id="heading-2">そのほか</h2>
 <ul>
 <li>重大な作業をするときは必ず-nオプションを付けること。
-
 <ul>
 <li>ドライランと呼ばれるもので、実際の作業はせずに結果をシミュレートできる。</li>
-</ul></li>
+</ul>
+</li>
 <li>ストレージプールを作業するときには明示的にexportすること。
-
 <ul>
 <li>exportすれば、未書き込みのデータがすべて処理され、システムから削除される。</li>
 <li>そこで引数なしでimportを実行すると、import可能な、言い換えるとexport済みのプールが表示される。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <ul class="pa0">
   

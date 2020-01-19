@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-03-09T21:51:59+09:00" />
 <meta itemprop="name" content="FreeBSDでsmartmontoolsのインストール">
 <meta itemprop="description" content="ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。 FreeBSDではsysutils/sm">
-
-
 <meta itemprop="datePublished" content="2014-03-09T21:51:59&#43;09:00" />
 <meta itemprop="dateModified" content="2014-03-09T21:51:59&#43;09:00" />
-<meta itemprop="wordCount" content="3148">
+<meta itemprop="wordCount" content="3146">
 
 
 
-<meta itemprop="keywords" content="FreeBSD," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDでsmartmontoolsのインストール"/>
 <meta name="twitter:description" content="ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。 FreeBSDではsysutils/sm"/>
 
@@ -140,61 +137,42 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。<br />
-FreeBSDではsysutils/smartmontoolsからインストールできる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。<br>
+FreeBSDではsysutils/smartmontoolsからインストールできる。<br>
 smartmontoolsのインストール、実施例はいろんなところに書かれているので、ここではメモ程度にまとめる。</p>
-
 <p>FreeBSD 9.2-RELEASE-p3(i386), smartmontools-6.2_1での内容。</p>
-
-<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
-
-<p>portsもpkgもsysutils/smartmontoolsからインストールできる。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->インストール<!-- raw HTML omitted --></h2>
+<p>portsもpkgもsysutils/smartmontoolsからインストールできる。<br>
 smartctlとsmartdが/usr/local/sbin/にインストールされる。</p>
-
 <p>smartctlがメインのコマンド。</p>
-
-<p>smartdがデーモンプログラム。<br />
-立ち上げておくと、定期的にディスクチェックを行い、結果をdaemonファシリティのログに書き込んでくれる。<br />
-必要であれば問題発生時にメールも送ってくれる。<br />
+<p>smartdがデーモンプログラム。<br>
+立ち上げておくと、定期的にディスクチェックを行い、結果をdaemonファシリティのログに書き込んでくれる。<br>
+必要であれば問題発生時にメールも送ってくれる。<br>
 設定ファイルは/usr/local/etc/smartd.conf。</p>
-
-<h2 id="span-style-text-decoration-underline-ディスクの確認-span"><span style="text-decoration: underline;">ディスクの確認</span></h2>
-
-<p>何はともあれ、どんなディスクが繋がっているか調べる。<br />
-smartctl -scanで得られる。<br />
-なお、SMARTにアクセスするには管理者権限が必要。<br />
-以下は実行例。<br />
-ここではHDDは/dev/ada0である。<br />
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->ディスクの確認<!-- raw HTML omitted --></h2>
+<p>何はともあれ、どんなディスクが繋がっているか調べる。<br>
+smartctl -scanで得られる。<br>
+なお、SMARTにアクセスするには管理者権限が必要。<br>
+以下は実行例。<br>
+ここではHDDは/dev/ada0である。<br>
 環境により/dev/da0の場合もあるでしょう。</p>
-
-<pre><code class="language-console">$ sudo smartctl --scan
+<pre><code class="language-console" data-lang="console">$ sudo smartctl --scan
 /dev/ada0 -d atacam # /dev/ada0, ATA device
 /dev/cd0 -d atacam # /dev/cd0, ATA device
-</code></pre>
-
-<p>ディスクが分かったら、SMARTに対応しているかどうかを調べる。<br />
+</code></pre><p>ディスクが分かったら、SMARTに対応しているかどうかを調べる。<br>
 smartctlでデバイスファイルを開いてみればよい。</p>
-
-<pre><code class="language-console">$ sudo smartctl /dev/ada0
+<pre><code class="language-console" data-lang="console">$ sudo smartctl /dev/ada0
 smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build)
 Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
 
 ATA device successfully opened
 
 Use 'smartctl -a' (or '-x') to print SMART (and more) information
-</code></pre>
-
-<p>大丈夫そう。</p>
-
-<h2 id="span-style-text-decoration-underline-smartからの情報の取得-span"><span style="text-decoration: underline;">SMARTからの情報の取得</span></h2>
-
+</code></pre><p>大丈夫そう。</p>
+<h2 id="span-styletext-decoration-underlinesmartspan"><!-- raw HTML omitted -->SMARTからの情報の取得<!-- raw HTML omitted --></h2>
 <p>smartctl -a ＜デバイスファイル＞で情報を全部、-xでSMART以外の情報も表示。</p>
-
 <p>実行例</p>
-
-<pre><code class="language-console">$ sudo smartctl -a /dev/ada0
+<pre><code class="language-console" data-lang="console">$ sudo smartctl -a /dev/ada0
 smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build)
 Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
 
@@ -215,26 +193,20 @@ SMART support is: Enabled
 SMART overall-health self-assessment test result: PASSED
 See vendor-specific Attribute list for marginal Attributes.
 （略）
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-ディスクのテスト実行-span"><span style="text-decoration: underline;">ディスクのテスト実行</span></h2>
-
-<p>smartctl -t short ＜デバイスファイル＞で実行する。<br />
--tはテストの種類の指定。<br />
-shortと指定しているが、shortとくればlongもある。<br />
-それ以外にもある。<br />
-詳しくはman smartctl（「-test」で検索するとよい）。<br />
-shortだと10分以内、longだと数十分単位でのテスト。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->ディスクのテスト実行<!-- raw HTML omitted --></h2>
+<p>smartctl -t short ＜デバイスファイル＞で実行する。<br>
+-tはテストの種類の指定。<br>
+shortと指定しているが、shortとくればlongもある。<br>
+それ以外にもある。<br>
+詳しくはman smartctl（「-test」で検索するとよい）。<br>
+shortだと10分以内、longだと数十分単位でのテスト。<br>
 運用中でも可能。</p>
-
-<p>上記のコマンドは、ディスクのSMARTに対して「テストをせい」と指示をするだけ。<br />
-コマンド叩いたときには、「何時何分ごろに終わるからね」と言うだけで結果は表示されない。<br />
-結果はsmartctl -aで確認する。<br />
+<p>上記のコマンドは、ディスクのSMARTに対して「テストをせい」と指示をするだけ。<br>
+コマンド叩いたときには、「何時何分ごろに終わるからね」と言うだけで結果は表示されない。<br>
+結果はsmartctl -aで確認する。<br>
 smartctl -Xでテストを中止する。</p>
-
 <p>以下実行例。</p>
-
-<pre><code class="language-console">$ sudo smartctl -t short /dev/ada0
+<pre><code class="language-console" data-lang="console">$ sudo smartctl -t short /dev/ada0
 パスワード:
 smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build)
 Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
@@ -249,17 +221,12 @@ Test will complete after Thu Feb 27 23:35:37 2014
 Use smartctl -X to abort test.
 
 $
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-結果確認-span"><span style="text-decoration: underline;">結果確認</span></h2>
-
-<p>smartctl -aで確認する。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->結果確認<!-- raw HTML omitted --></h2>
+<p>smartctl -aで確認する。<br>
 見るのはSelf-test execution status、SMART Self-test logの二つのエリア</p>
-
-<p>以下の通り、「Self-test execution status」「SMART Self-test log」ともにエラーなし（without error）となっている。<br />
+<p>以下の通り、「Self-test execution status」「SMART Self-test log」ともにエラーなし（without error）となっている。<br>
 なお、テスト実行をしてすぐsmartctl -aとすると、「いまテストしているところだよ」という表示になるので興味があればご覧ください。</p>
-
-<pre><code class="language-console">（前略）
+<pre><code class="language-console" data-lang="console">（前略）
 Self-test execution status:      (   0) The previous self-test routine completed
                                         without error or no self-test has ever
                                         been run.
@@ -269,175 +236,114 @@ Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA
 # 1  Short offline       Completed without error       00%     41957         -
 # 2  Short offline       Completed without error       00%     41956         -
 # 3  Short offline       Completed without error       00%         0         -
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-常時モニタリングのためのsmartd-span"><span style="text-decoration: underline;">常時モニタリングのためのsmartd</span></h2>
-
-<p>cronでsmartctlを実行してもよいけど、smartdを立ち上げおくのがよい。<br />
-テストの自動実行や、後述するようなディスクの変化についてもレポートしてくれる。<br />
-/usr/local/etc/smartd.confが設定ファイル。<br />
-デフォルトでは問題のあったときにしか報告してくれない。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinesmartdspan"><!-- raw HTML omitted -->常時モニタリングのためのsmartd<!-- raw HTML omitted --></h2>
+<p>cronでsmartctlを実行してもよいけど、smartdを立ち上げおくのがよい。<br>
+テストの自動実行や、後述するようなディスクの変化についてもレポートしてくれる。<br>
+/usr/local/etc/smartd.confが設定ファイル。<br>
+デフォルトでは問題のあったときにしか報告してくれない。<br>
 日々のログを吐き出させたいのなら、syslogd, newsyslogの設定変更も必要。</p>
-
-<h2 id="span-style-text-decoration-underline-smartd-confの変更-span"><span style="text-decoration: underline;">smartd.confの変更</span></h2>
-
-<p>最低限やることは二つ。<br />
-①DEVICESCANはコメントアウト<br />
+<h2 id="span-styletext-decoration-underlinesmartdconfspan"><!-- raw HTML omitted -->smartd.confの変更<!-- raw HTML omitted --></h2>
+<p>最低限やることは二つ。<br>
+①DEVICESCANはコメントアウト<br>
 ②ディスクとテスト種別、スケジュールを指定。</p>
-
-<p><span style="text-decoration: underline;">①DEVICESCANのコメントアウト</span><br />
-デフォルトではDEVICESCANが有効になっている。<br />
-DEVICESCANがあると、smartdはそれ以降の設定をすべて無視して、実行される都度、デバイスのスキャンを行う。<br />
+<p><!-- raw HTML omitted -->①DEVICESCANのコメントアウト<!-- raw HTML omitted --><br>
+デフォルトではDEVICESCANが有効になっている。<br>
+DEVICESCANがあると、smartdはそれ以降の設定をすべて無視して、実行される都度、デバイスのスキャンを行う。<br>
 それよりも、チェックするデバイスを明示した方がよい。</p>
-
-<p><span style="text-decoration: underline;">②ディスクとテスト種別、スケジュールを指定。</span><br />
-書式例は以下の通り。<br />
-＜ディスク＞　＜各種オプション＞　-s ＜スケジュール＞<br />
+<p><!-- raw HTML omitted -->②ディスクとテスト種別、スケジュールを指定。<!-- raw HTML omitted --><br>
+書式例は以下の通り。<br>
+＜ディスク＞　＜各種オプション＞　-s ＜スケジュール＞<br>
 実際の例は以下の通り。</p>
-
-<pre><code class="language-console">/dev/ada0 -a -o on -S on -s S/../.././02
-</code></pre>
-
-<p>＜ディスク＞にはデバイスファイルを指定。<br />
-＜各種オプション＞は以下の通り。<br />
--a: ATAではデフォルト。全部入り。黙ってつけとけ。<br />
--o: ATA専用。SMARTのオフラインテストを有効にするか。ONにしとけ。<br />
--S: autosaveを有効にするか。ONにしとけ。<br />
+<pre><code class="language-console" data-lang="console">/dev/ada0 -a -o on -S on -s S/../.././02
+</code></pre><p>＜ディスク＞にはデバイスファイルを指定。<br>
+＜各種オプション＞は以下の通り。<br>
+-a: ATAではデフォルト。全部入り。黙ってつけとけ。<br>
+-o: ATA専用。SMARTのオフラインテストを有効にするか。ONにしとけ。<br>
+-S: autosaveを有効にするか。ONにしとけ。<br>
 -s: T/MM/DD/d/HH でスケジュール指定。</p>
-
-<p><span style="text-decoration: underline;">T/MM/DD/d/HH</span><br />
-T: テストのタイプ。short（S）かlong（L）か。<br />
-MM: 月。01-12で指定。必ず二桁で指定。<br />
-DD: 日。01-31で指定。必ず二桁で指定。<br />
-d: 曜日。1が月曜、7が日曜。<br />
+<p><!-- raw HTML omitted -->T/MM/DD/d/HH<!-- raw HTML omitted --><br>
+T: テストのタイプ。short（S）かlong（L）か。<br>
+MM: 月。01-12で指定。必ず二桁で指定。<br>
+DD: 日。01-31で指定。必ず二桁で指定。<br>
+d: 曜日。1が月曜、7が日曜。<br>
 HH: 時刻。00-23で指定。必ず二桁で指定。</p>
-
 <p>以下だと毎日の午前2時にshortのテストを実施。</p>
-
-<pre><code class="language-console">-s S/../.././02
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-syslogdの設定-span"><span style="text-decoration: underline;">syslogdの設定</span></h2>
-
-<p>smartdは、デフォルトではdaemonファシリティにログを吐く。<br />
-そのままだと使いにくいので、ログの出力先を変える。<br />
-たとえばlocal3ファシリティにする。<br />
+<pre><code class="language-console" data-lang="console">-s S/../.././02
+</code></pre><h2 id="span-styletext-decoration-underlinesyslogdspan"><!-- raw HTML omitted -->syslogdの設定<!-- raw HTML omitted --></h2>
+<p>smartdは、デフォルトではdaemonファシリティにログを吐く。<br>
+そのままだと使いにくいので、ログの出力先を変える。<br>
+たとえばlocal3ファシリティにする。<br>
 それには/etc/rc.confで、smartd_flagsとして指定する。</p>
-
 <p>/etc/rc.conf</p>
-
-<pre><code class="language-console">#SMART monitor tool
+<pre><code class="language-console" data-lang="console">#SMART monitor tool
 smartd_enable=&quot;YES&quot; # マシン起動時にsmartdも起動させる設定
 smartd_flags=&quot; -l local3 &quot; # ログ出力先の指定
-</code></pre>
-
-<p>そうしておいて、/etc/syslog.confにて以下を追加。<br />
+</code></pre><p>そうしておいて、/etc/syslog.confにて以下を追加。<br>
 /etc/syslog.conf</p>
-
-<pre><code class="language-console">#
+<pre><code class="language-console" data-lang="console">#
 # smartd(smartmontools)
 #
 local3.*                                        /var/log/smartd.log
-</code></pre>
-
-<p>変更したらsyslogdを再起動。</p>
-
-<pre><code class="language-console">$ sudo service syslogd restart
+</code></pre><p>変更したらsyslogdを再起動。</p>
+<pre><code class="language-console" data-lang="console">$ sudo service syslogd restart
 Stopping syslogd.
 Waiting for PIDS: 26185
 Starting syslogd.
 $
-</code></pre>
-
-<p>しかしこのままだとsmartd.logが際限なく大きくなる。<br />
+</code></pre><p>しかしこのままだとsmartd.logが際限なく大きくなる。<br>
 newsyslog.confにも変更を加える。</p>
-
-<h2 id="span-style-text-decoration-underline-newsyslog-confの設定-span"><span style="text-decoration: underline;">newsyslog.confの設定</span></h2>
-
-<p>以下を追加。<br />
+<h2 id="span-styletext-decoration-underlinenewsyslogconfspan"><!-- raw HTML omitted -->newsyslog.confの設定<!-- raw HTML omitted --></h2>
+<p>以下を追加。<br>
 /etc/newsyslog.conf</p>
-
-<pre><code class="language-console">#
+<pre><code class="language-console" data-lang="console">#
 # smartd(smartmontools)
 #
 /var/log/smartd.log                     640  10    1024 *     JC
-</code></pre>
-
-<p>1MBを超えたらログをローテート。bzipで圧縮。10個まで保存。圧縮後のパーミッションは640。</p>
-
+</code></pre><p>1MBを超えたらログをローテート。bzipで圧縮。10個まで保存。圧縮後のパーミッションは640。</p>
 <p>終わったらnewsyslogを一回再起動しておくとよいかな。</p>
-
-<pre><code class="language-console">$ sudo service newsyslog restart
+<pre><code class="language-console" data-lang="console">$ sudo service newsyslog restart
 Creating and/or trimming log files.
 $
-</code></pre>
-
-<p>やっと準備完了。<br />
+</code></pre><p>やっと準備完了。<br>
 smartdを起動しよう。</p>
-
-<h2 id="span-style-text-decoration-underline-smartdの起動-span"><span style="text-decoration: underline;">smartdの起動</span></h2>
-
+<h2 id="span-styletext-decoration-underlinesmartdspan-1"><!-- raw HTML omitted -->smartdの起動<!-- raw HTML omitted --></h2>
 <p>再掲になるけれども、/etc/rc.confを修正してsmartdを起動する。</p>
-
 <p>/etc/rc.conf</p>
-
-<pre><code class="language-console">#SMART monitor tool
+<pre><code class="language-console" data-lang="console">#SMART monitor tool
 smartd_enable=&quot;YES&quot; # マシン起動時にsmartdも起動させる設定
 smartd_flags=&quot; -l local3 &quot; # ログ出力先の指定
-</code></pre>
-
-<p>smartdを起動する。</p>
-
-<pre><code class="language-console">$ sudo service smartd start
+</code></pre><p>smartdを起動する。</p>
+<pre><code class="language-console" data-lang="console">$ sudo service smartd start
 Starting smartd.
 $
-</code></pre>
-
-<p>先ほど指定したログファイルを見る。</p>
-
-<pre><code class="language-console">$ cat /var/log/smartd.log
+</code></pre><p>先ほど指定したログファイルを見る。</p>
+<pre><code class="language-console" data-lang="console">$ cat /var/log/smartd.log
 Mar  4 22:17:59 ascomoid newsyslog[38905]: logfile first created
 Mar  4 22:26:32 ascomoid smartd[53036]: smartd 6.2 
 （略）
 Mar  4 22:26:32 ascomoid smartd[53038]: file /var/run/smartd.pid written containing PID 53038
-</code></pre>
-
-<p>動いていますね。</p>
-
-<p>ただこれだけでは、指定したディスクをチェックしてくれるか、分からない。<br />
-smartdはSIGUSR1シグナルを送ってやるとステータスチェックをしてくれるというので試してみよう。<br />
+</code></pre><p>動いていますね。</p>
+<p>ただこれだけでは、指定したディスクをチェックしてくれるか、分からない。<br>
+smartdはSIGUSR1シグナルを送ってやるとステータスチェックをしてくれるというので試してみよう。<br>
 なお、smartdのpidはさっきのログファイルに書いてあるし、あるいはservice smartd statusとやればpidを知ることができる。</p>
-
-<pre><code class="language-console">$ sudo kill -SIGUSR1 53038
+<pre><code class="language-console" data-lang="console">$ sudo kill -SIGUSR1 53038
 $
-</code></pre>
-
-<p>そのうえでログファイルを見てみると。<br />
-以下のような行が増えているはず。<br />
+</code></pre><p>そのうえでログファイルを見てみると。<br>
+以下のような行が増えているはず。<br>
 /dev/ada0のチェックが出来ていますね。</p>
-
-<pre><code class="language-console">Mar  4 22:35:10 ascomoid smartd[53038]: Signal USR1 - checking devices now rather than in 682 seconds.
+<pre><code class="language-console" data-lang="console">Mar  4 22:35:10 ascomoid smartd[53038]: Signal USR1 - checking devices now rather than in 682 seconds.
 Mar  4 22:35:10 ascomoid smartd[53038]: Device: /dev/ada0, SMART Usage Attribute: 190 Airflow_Temperature_Cel changed from 52 to 53
 Mar  4 22:35:10 ascomoid smartd[53038]: Device: /dev/ada0, SMART Usage Attribute: 194 Temperature_Celsius changed from 48 to 47
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-daily-status-span"><span style="text-decoration: underline;">daily status</span></h2>
-
-<p>以下のような行を/etc/periodic.confに追加するとレポートをroot宛てに送ってくれる。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinedaily-statusspan"><!-- raw HTML omitted -->daily status<!-- raw HTML omitted --></h2>
+<p>以下のような行を/etc/periodic.confに追加するとレポートをroot宛てに送ってくれる。<br>
 複数ディスクの場合は、スペースで区切り。</p>
-
-<p><p class="lang:default decode:true">
-  daily_status_smart_devices=&ldquo;/dev/ada0&#8243;</p>
-
+<!-- raw HTML omitted -->
 <p>下記のようなメールが届く。</p>
-
-<pre><code class="language-console">SMART status:
+<pre><code class="language-console" data-lang="console">SMART status:
  Checking health of /dev/ada0: OK
  Checking health of /dev/ada1: OK
  Checking health of /dev/ada2: OK
-</code></pre>
-
-<p>以上。</p>
+</code></pre><p>以上。</p>
 <ul class="pa0">
   
    <li class="list">

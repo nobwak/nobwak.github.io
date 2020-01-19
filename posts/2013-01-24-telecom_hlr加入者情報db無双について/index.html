@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-01-24T22:55:48+09:00" />
 <meta itemprop="name" content="[telecom] HLR（加入者情報DB）無双について">
 <meta itemprop="description" content="出遅れ感があるが、2012年のドコモ、2013年のau通信障害に関して、個人的にまとめていたものを公開。 ドコモ、障害で会見「スマホ信号量の見">
-
-
 <meta itemprop="datePublished" content="2013-01-24T22:55:48&#43;09:00" />
 <meta itemprop="dateModified" content="2013-01-24T22:55:48&#43;09:00" />
 <meta itemprop="wordCount" content="647">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[telecom] HLR（加入者情報DB）無双について"/>
 <meta name="twitter:description" content="出遅れ感があるが、2012年のドコモ、2013年のau通信障害に関して、個人的にまとめていたものを公開。 ドコモ、障害で会見「スマホ信号量の見"/>
 
@@ -141,43 +138,34 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>出遅れ感があるが、2012年のドコモ、2013年のau通信障害に関して、個人的にまとめていたものを公開。</p>
-
 <p><a href="http://www.nikkei.com/article/DGXBZO38309140W2A120C1000000/?df=3">ドコモ、障害で会見「スマホ信号量の見極め甘かった。ユーザーの信頼損ねた」</a></p>
-
-<p><a href="http://www.itmedia.co.jp/mobile/articles/1301/17/news019.html">KDDIが4G LTE通信障害の詳細を説明――設計・判断ミスが原因</a><br />
+<p><a href="http://www.itmedia.co.jp/mobile/articles/1301/17/news019.html">KDDIが4G LTE通信障害の詳細を説明――設計・判断ミスが原因</a><br>
 2012年の1月にはドコモが、そして今年2013年1月にはauで通信障害が発生したが、これらはいずれも加入者の情報を扱うHLR(Home Location Register)に起因する。</p>
-
-<p>実はこのHLR、日本だけではなく、世界中のキャリアをなぎ倒した歴戦の勇者なのである。<br />
-その輝かしい戦績は後述するが、これを見るとHLRという設計思想そのものに考慮が足らなかったように感じるがどうなんだろうか。<br />
+<p>実はこのHLR、日本だけではなく、世界中のキャリアをなぎ倒した歴戦の勇者なのである。<br>
+その輝かしい戦績は後述するが、これを見るとHLRという設計思想そのものに考慮が足らなかったように感じるがどうなんだろうか。<br>
 どのキャリアにしても、ちょいと輻輳したらHLRが死亡して大惨事というのは百も承知でこの有様なだけに。</p>
-
-<p>◆ドイツ　T-Mobile Deutschland GmbH,<br />
-<sup>2009</sup>&frasl;<sub>4</sub><br />
-HLR死亡により4000万人に影響。<br />
+<p>◆ドイツ　T-Mobile Deutschland GmbH,<br>
+2009/4<br>
+HLR死亡により4000万人に影響。<br>
 NSN製。</p>
-
-<p>◆アメリカ Verizon<br />
-<sup>2011</sup>&frasl;<sub>4</sub><br />
-HSS（HLRのようなもの）の断続的な障害。<br />
+<p>◆アメリカ Verizon<br>
+2011/4<br>
+HSS（HLRのようなもの）の断続的な障害。<br>
 HSSはNSN製。</p>
-
-<p>◆ノルウェー Terenor ASA<br />
-<sup>2011</sup>&frasl;<sub>7</sub><br />
-（装置種別は不明）装置の更新でサービス断<br />
+<p>◆ノルウェー Terenor ASA<br>
+2011/7<br>
+（装置種別は不明）装置の更新でサービス断<br>
 300万に影響</p>
-
-<p>◆フランス orange<br />
-<sup>2012</sup>&frasl;<sub>7</sub><br />
-HLR更新でデータ不整合→過負荷発生→サービス断の黄金リレー<br />
-2600万人に影響<br />
+<p>◆フランス orange<br>
+2012/7<br>
+HLR更新でデータ不整合→過負荷発生→サービス断の黄金リレー<br>
+2600万人に影響<br>
 HLRはAlcatel-Lucent</p>
-
-<p>◆イギリス O2（Telefonica UK）<br />
-<sup>2012</sup>&frasl;<sub>7</sub><br />
+<p>◆イギリス O2（Telefonica UK）<br>
+2012/7<br>
 HLRダウンにより700万人に影響。いまだに原因判明せず。HLRはEricsson製</p>
-
-<p><sup>2012</sup>&frasl;<sub>10</sub><br />
-HLRダウン。<br />
+<p>2012/10<br>
+HLRダウン。<br>
 対策のため現在までに1600万ドル突っ込んでてEricssonに対しては「俺の怒りが有頂天」状態。</p>
 <ul class="pa0">
   

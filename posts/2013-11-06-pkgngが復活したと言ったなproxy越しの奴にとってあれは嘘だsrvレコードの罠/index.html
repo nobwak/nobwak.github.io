@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,25 +29,22 @@
     
 
     <meta property="og:title" content="pkgngが復活したと言ったな。（proxy越しの奴にとって）あれは嘘だ。(SRVレコードの罠）" />
-<meta property="og:description" content="pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。 原因" />
+<meta property="og:description" content="pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html&lt;/a&gt; したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。 原因" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2013-11-06-pkgng%E3%81%8C%E5%BE%A9%E6%B4%BB%E3%81%97%E3%81%9F%E3%81%A8%E8%A8%80%E3%81%A3%E3%81%9F%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AE%E5%A5%B4%E3%81%AB%E3%81%A8%E3%81%A3%E3%81%A6%E3%81%82%E3%82%8C%E3%81%AF%E5%98%98%E3%81%A0srv%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E7%BD%A0/" />
 <meta property="article:published_time" content="2013-11-06T21:27:46+09:00" />
 <meta property="article:modified_time" content="2013-11-06T21:27:46+09:00" />
 <meta itemprop="name" content="pkgngが復活したと言ったな。（proxy越しの奴にとって）あれは嘘だ。(SRVレコードの罠）">
-<meta itemprop="description" content="pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。 原因">
-
-
+<meta itemprop="description" content="pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html&lt;/a&gt; したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。 原因">
 <meta itemprop="datePublished" content="2013-11-06T21:27:46&#43;09:00" />
 <meta itemprop="dateModified" content="2013-11-06T21:27:46&#43;09:00" />
-<meta itemprop="wordCount" content="1778">
+<meta itemprop="wordCount" content="1776">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="pkgngが復活したと言ったな。（proxy越しの奴にとって）あれは嘘だ。(SRVレコードの罠）"/>
-<meta name="twitter:description" content="pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。 原因"/>
+<meta name="twitter:description" content="pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html&lt;/a&gt; したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。 原因"/>
 
       
 <script type="application/javascript">
@@ -140,26 +137,18 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>pkgngの公式サイトがやっと復活した。<br />
-<a href="http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html">http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html</a></a></p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgngの公式サイトがやっと復活した。<br>
+<!-- raw HTML omitted --><a href="http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html%3C/a%3E">http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html&lt;/a&gt;</a></p>
 <p>したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。</p>
-
-<p>原因ははっきりしていて、DNS上、SRVレコードを使っているからだ。<br />
-SRVレコードにしたのはしかし理由があってのものなので、単にAレコードに追加すればよいという話でもない。<br />
+<p>原因ははっきりしていて、DNS上、SRVレコードを使っているからだ。<br>
+SRVレコードにしたのはしかし理由があってのものなので、単にAレコードに追加すればよいという話でもない。<br>
 公式MLでもえらく議論が続いているが、SRVレコードを使うというのは変わりそうにないようだ(2013/11/3現在）。</p>
-
-<p>（2013/12/19追記）<br />
-<a href="../../../2013/12/%E5%A0%B1%E5%91%8Apkg-1-2-3%E3%81%A7proxy%E8%B6%8A%E3%81%97%E3%81%AE%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E6%8E%A5%E7%B6%9A%E3%81%8C%E5%8F%AF%E8%83%BD%E3%81%AB/" target="_blank">pkg-1.2.3で問題が解消された</a>。<br />
+<p>（2013/12/19追記）<br>
+<!-- raw HTML omitted -->pkg-1.2.3で問題が解消された<!-- raw HTML omitted -->。<br>
 （2013/12/19追記ここまで）</p>
-
 <p>というわけで、公式に沿ったpkgサイトの設定のしかたと、proxy越し等で公式pkgサイトのアドレス解決が出来ない場合の回避方法を示す。</p>
-
-<h2 id="span-style-text-decoration-underline-公式の設定方法-span"><span style="text-decoration: underline;">公式の設定方法</span></h2>
-
-<pre><code class="language-console">1. Ensure your pkg(8) is up-to-date. 'pkg -v' should say at least
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->公式の設定方法<!-- raw HTML omitted --></h2>
+<pre><code class="language-console" data-lang="console">1. Ensure your pkg(8) is up-to-date. 'pkg -v' should say at least
    1.1.4_8. If it does not, first upgrade from ports.
 2. Remove any repository-specific configuration from
    /usr/local/etc/pkg.conf, such as PACKAGESITE, MIRROR_TYPE, PUBKEY.
@@ -171,62 +160,41 @@ FreeBSD: {
   mirror_type: &quot;srv&quot;,
   enabled: &quot;yes&quot;
 }
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-事前準備-span"><span style="text-decoration: underline;">事前準備</span></h2>
-
-<p>pkg-1.1.4_8にする。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->事前準備<!-- raw HTML omitted --></h2>
+<p>pkg-1.1.4_8にする。<br>
 インストール済みの場合、公式などはpkg -vで確認しろというが、pkg -vで表示されるのは以下の通りで1.1.4_8かどうかはわからない。</p>
-
-<pre><code class="language-console">$ pkg -v
+<pre><code class="language-console" data-lang="console">$ pkg -v
 1.1.4
-</code></pre>
-
-<p>なので、pkg infoで調べよう。</p>
-
-<pre><code class="language-console">$ pkg info|grep pkg
+</code></pre><p>なので、pkg infoで調べよう。</p>
+<pre><code class="language-console" data-lang="console">$ pkg info|grep pkg
 pkg-1.1.4_8                    New generation package manager
-</code></pre>
-
-<p>インストールしていなければ以下のように。<br />
+</code></pre><p>インストールしていなければ以下のように。<br>
 ※freebsd:10:x86:64はOSに合わせて変更する。</p>
-
-<pre><code class="language-console"># sh
+<pre><code class="language-console" data-lang="console"># sh
 # PACKAGESITE=&quot;http://pkg1.nyi.freebsd.org/freebsd:10:x86:64/latest/Latest/&quot; pkg install pkg
 # pkg info|grep pkg
-</code></pre>
-
-<p>何らかの理由でpkgが死んでてpkgそのものが使えない場合。<br />
-pkg.txzをダウンロードして、手動で展開する。<br />
+</code></pre><p>何らかの理由でpkgが死んでてpkgそのものが使えない場合。<br>
+pkg.txzをダウンロードして、手動で展開する。<br>
 ルート（/）にゴミが残るから後で掃除しとけ。</p>
-
-<pre><code class="language-console"># fetch http://pkg1.nyi.freebsd.org/freebsd%3A10%3Ax86%3A64/latest/Latest/pkg.txz
+<pre><code class="language-console" data-lang="console"># fetch http://pkg1.nyi.freebsd.org/freebsd%3A10%3Ax86%3A64/latest/Latest/pkg.txz
 # tar -C / -xvzf ./pkg.txz
 # pkg info | grep pkg
 # ls /
 +COMPACT_MANIFEST       etc                     root
 +MANIFEST               home                    sbin
 +MTREE_DIRS             lib                     sys
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-設定ファイルの書き換え-span"><span style="text-decoration: underline;">設定ファイルの書き換え</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->設定ファイルの書き換え<!-- raw HTML omitted --></h2>
 <p>/usr/local/etc/pkg.confは捨てて/usr/local/etc/pkg/reposの下に設定ファイルを入れることになる。</p>
-
-<p>/usr/local/etc/pkg.confは捨てるかリネームする。<br />
-ディレクトリ/usr/local/etc/pkg/reposを作る。<br />
-そこにFreeBSD.confというファイルを作る。<br />
+<p>/usr/local/etc/pkg.confは捨てるかリネームする。<br>
+ディレクトリ/usr/local/etc/pkg/reposを作る。<br>
+そこにFreeBSD.confというファイルを作る。<br>
 ただ末尾が.confであれば名前はなんでもよい。</p>
-
-<pre><code class="language-console"># sudo mv /usr/local/etc/pkg.conf /usr/local/etc/pkg.conf.obsolete
+<pre><code class="language-console" data-lang="console"># sudo mv /usr/local/etc/pkg.conf /usr/local/etc/pkg.conf.obsolete
 # mkdir -p /usr/local/etc/pkg/repos
 # vi /usr/local/etc/pkg/repos/FreeBSD.conf
-</code></pre>
-
-<p>以下がファイル例。<br />
+</code></pre><p>以下がファイル例。<br>
 コメント部分は、まあお好きに。</p>
-
-<pre><code class="language-console">#
+<pre><code class="language-console" data-lang="console">#
 # FreeBSD official pkg site
 #
 # See:
@@ -243,76 +211,51 @@ FreeBSD: {
   mirror_type: &quot;srv&quot;,
   enabled: &quot;yes&quot;
 }
-</code></pre>
-
-<p>準備完了</p>
-
-<h2 id="span-style-text-decoration-underline-実行-span"><span style="text-decoration: underline;">実行</span></h2>
-
+</code></pre><p>準備完了</p>
+<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->実行<!-- raw HTML omitted --></h2>
 <p>問題なければ、pkg update, pkg upgradeでファイルを取得できるはず。</p>
-
 <p>下記の通りであれば、毎週末～月曜くらいにpkg repositoryが更新されるようだ。</p>
-
 <blockquote>
-<p>（水曜01:00(UTC)にportsのスナップショットから&rdquo;a few days&rdquo;かけてパッケージ作成）<br />
-Packages are built weekly from a snapshot of the Ports Collection every<br />
-Wednesday morning 01:00 UTC. They typically will be available in the<br />
+<p>（水曜01:00(UTC)にportsのスナップショットから&quot;a few days&quot;かけてパッケージ作成）<br>
+Packages are built weekly from a snapshot of the Ports Collection every<br>
+Wednesday morning 01:00 UTC. They typically will be available in the<br>
 repository after a few days.</p>
 </blockquote>
-
-<h2 id="span-style-text-decoration-underline-service-unavailable-span"><span style="text-decoration: underline;">&ldquo;Service Unavailable&rdquo;</span></h2>
-
-<p>さて。<br />
+<h2 id="span-styletext-decoration-underlineservice-unavailablespan"><!-- raw HTML omitted -->&quot;Service Unavailable&quot;<!-- raw HTML omitted --></h2>
+<p>さて。<br>
 以下のようになったら、あなたのproxyサーバかDNSはSRVレコードに対応していないということ。</p>
-
-<pre><code class="language-console">$ sudo pkg update
+<pre><code class="language-console" data-lang="console">$ sudo pkg update
 Updating repository catalogue
 pkg: http://pkg.FreeBSD.org/freebsd:10:x86:64/latest/digests.txz: Service Unavailable
 pkg: No digest falling back on legacy catalog format
 pkg: http://pkg.FreeBSD.org/freebsd:10:x86:64/latest/repo.txz: Service Unavailable
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-対策-mirrorサイトを直接指定-span"><span style="text-decoration: underline;">対策（mirrorサイトを直接指定）</span></h2>
-
-<p>対策っても大したことはなくて、mirrorサイトを直接指定するだけ。<br />
-これで問題なく動くが、もちろん制限はある。<br />
-mirrorサイトがダウンしたときには、手動で接続先を変える必要がある。<br />
-今のところmirrorサイトは米国東西海岸、欧にしかない。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinemirrorspan"><!-- raw HTML omitted -->対策（mirrorサイトを直接指定）<!-- raw HTML omitted --></h2>
+<p>対策っても大したことはなくて、mirrorサイトを直接指定するだけ。<br>
+これで問題なく動くが、もちろん制限はある。<br>
+mirrorサイトがダウンしたときには、手動で接続先を変える必要がある。<br>
+今のところmirrorサイトは米国東西海岸、欧にしかない。<br>
 ゆくゆくは日本にもmirrorサーバが立つといいな。</p>
-
-<p>さて手順。<br />
-以下に沿う。<br />
-ただ間違いがあって、そのままコピペすると失敗するので注意。<br />
-<a href="http://lists.freebsd.org/pipermail/freebsd-current/2013-November/046122.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-current/2013-November/046122.html">http://lists.freebsd.org/pipermail/freebsd-current/2013-November/046122.html</a></a></p>
-
+<p>さて手順。<br>
+以下に沿う。<br>
+ただ間違いがあって、そのままコピペすると失敗するので注意。<br>
+<!-- raw HTML omitted --><a href="http://lists.freebsd.org/pipermail/freebsd-current/2013-November/046122.html%3C/a%3E">http://lists.freebsd.org/pipermail/freebsd-current/2013-November/046122.html&lt;/a&gt;</a></p>
 <p>流れとしては、最初に作ったFreeBSD.confを無効にし、mirrorサイトを直接指定する設定ファイルを作る。</p>
-
-<p>/usr/local/etc/pkg/repos/FreeBSD.confをリネームする。<br />
+<p>/usr/local/etc/pkg/repos/FreeBSD.confをリネームする。<br>
 （消してもいいけど、将来使うかもしれないし。）</p>
-
-<pre><code class="language-console"># cd /usr/local/etc/pkg/repos
+<pre><code class="language-console" data-lang="console"># cd /usr/local/etc/pkg/repos
 # mv FreeBSD.conf FreeBSD.conf.old
-</code></pre>
-
-<p>以下からmirrorサイトを選ぶ。<br />
+</code></pre><p>以下からmirrorサイトを選ぶ。<br>
 日本からだったらUS Westですかね。</p>
-
-<pre><code class="language-console">pkg0.isc.freebsd.org   (US West)
+<pre><code class="language-console" data-lang="console">pkg0.isc.freebsd.org   (US West)
  pkg1.nyi.freebsd.org   (US East)
  pkg0.bme.freebsd.org   (Europe)
-</code></pre>
-
-<p>設定ファイルを作る。<br />
+</code></pre><p>設定ファイルを作る。<br>
 例によって名前はなんでもよい。末尾が.confであれば。</p>
-
-<pre><code class="language-console"># cd /usr/local/etc/pkg/repos
+<pre><code class="language-console" data-lang="console"># cd /usr/local/etc/pkg/repos
 # vi us-west.conf
-</code></pre>
-
-<p>ファイルの例。<br />
+</code></pre><p>ファイルの例。<br>
 コメントはまあ適当に。</p>
-
-<pre><code class="language-console">#
+<pre><code class="language-console" data-lang="console">#
 # freebsd pkg mirror server located on us-west
 #
 # $Id: us-west.conf,v 1.1 2013/11/05 00:27:05 root Exp root $
@@ -338,9 +281,7 @@ us-west: {
         enabled:        &quot;yes&quot;,
         mirror_type:    &quot;none&quot;,
 }
-</code></pre>
-
-<p>あとはpkg update, pkg upgradeでよいでしょう。</p>
+</code></pre><p>あとはpkg update, pkg upgradeでよいでしょう。</p>
 <ul class="pa0">
   
 </ul>

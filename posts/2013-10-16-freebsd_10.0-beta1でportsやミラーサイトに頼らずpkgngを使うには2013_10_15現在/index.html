@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-10-16T00:17:28+09:00" />
 <meta itemprop="name" content="FreeBSD 10.0-BETA1でportsやミラーサイトに頼らずpkgngを使うには（2013/10/15現在）">
 <meta itemprop="description" content="FreeBSD 10.0もBETA1がリリースされた。 ウホッとばかり突撃して、pkg_*の無いのに仰け反り、それなのにpkgではインストールのしようが無い">
-
-
 <meta itemprop="datePublished" content="2013-10-16T00:17:28&#43;09:00" />
 <meta itemprop="dateModified" content="2013-10-16T00:17:28&#43;09:00" />
-<meta itemprop="wordCount" content="1980">
+<meta itemprop="wordCount" content="2002">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSD 10.0-BETA1でportsやミラーサイトに頼らずpkgngを使うには（2013/10/15現在）"/>
 <meta name="twitter:description" content="FreeBSD 10.0もBETA1がリリースされた。 ウホッとばかり突撃して、pkg_*の無いのに仰け反り、それなのにpkgではインストールのしようが無い"/>
 
@@ -140,62 +137,45 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>FreeBSD 10.0もBETA1がリリースされた。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSD 10.0もBETA1がリリースされた。<br>
 ウホッとばかり突撃して、pkg_*の無いのに仰け反り、それなのにpkgではインストールのしようが無い現状に絶望した日本のFreeBSDユーザの方（絶対に少ねえ）に捧げます。</p>
-
-<p>改めて背景を。<br />
-10.0からは、従来のパッケージ管理システムであるpkg_*に代わり、pkgngが登場する。<br />
-しかし。<br />
-2013/10/15現在、いまだ公式のpkgng向けPACKAGESITEが用意されていないのである。<br />
-なぜ、というのは<a href="../../../?p=1947" target="_blank">ここ</a>でも触れたとおり。<br />
-となれば、現時点ではportsからしか各種ソフトウェアをインストール出来ない。<br />
+<p>改めて背景を。<br>
+10.0からは、従来のパッケージ管理システムであるpkg_*に代わり、pkgngが登場する。<br>
+しかし。<br>
+2013/10/15現在、いまだ公式のpkgng向けPACKAGESITEが用意されていないのである。<br>
+なぜ、というのは<!-- raw HTML omitted -->ここ<!-- raw HTML omitted -->でも触れたとおり。<br>
+となれば、現時点ではportsからしか各種ソフトウェアをインストール出来ない。<br>
 うわ面倒くせえ。</p>
-
-<p>PACKAGESITEは、さすがに10.0-RELEASEのときまでには準備がなされるはずであるが、現時点で外部の<span style="text-decoration: underline;">ミラーサイトを参照せずに</span>pkgngを使う方法を示す。</p>
-
-<p>（追記:2013/11/7）<br />
-公式のpkgngが公開されている。詳しくは以下を。<br />
-<a href="../../../?p=2357" target="_blank">../../../?p=2357</a><br />
+<p>PACKAGESITEは、さすがに10.0-RELEASEのときまでには準備がなされるはずであるが、現時点で外部の<!-- raw HTML omitted -->ミラーサイトを参照せずに<!-- raw HTML omitted -->pkgngを使う方法を示す。</p>
+<p>（追記:2013/11/7）<br>
+公式のpkgngが公開されている。詳しくは以下を。<br>
+<!-- raw HTML omitted -->../../../?p=2357<!-- raw HTML omitted --><br>
 （追記ここまで）</p>
-
-<h2 id="span-style-text-decoration-underline-その名もpkg-test-freebsd-org-しかし-span"><span style="text-decoration: underline;">その名もpkg-test.freebsd.org。しかし。</span></h2>
-
-<p>実は、ゆくゆくオフィシャルなPACKAGESITEになる予定のサーバはもうある。<br />
+<h2 id="span-styletext-decoration-underlinepkg-testfreebsdorgspan"><!-- raw HTML omitted -->その名もpkg-test.freebsd.org。しかし。<!-- raw HTML omitted --></h2>
+<p>実は、ゆくゆくオフィシャルなPACKAGESITEになる予定のサーバはもうある。<br>
 それがpkg-test.freebsd.orgである。</p>
-
-<p>じゃ、これをPACKAGESITEに指定すればいいじゃないか。<br />
+<p>じゃ、これをPACKAGESITEに指定すればいいじゃないか。<br>
 しかしですね、ブラウザでpkg-test.freebsd.orgに繋ごうとすると分かるが、No address recordとなるわけですよ。</p>
-
-<p>というのも、pkg-test.freebsd.orgはDNS上、AレコードではなくSRVレコードだそうであり、かつRFCに沿ってないからだという、もうほんといい加減にせえよ…。<br />
-詳細は下記を。<br />
-<a href="http://lists.freebsd.org/pipermail/freebsd-questions/2013-October/253569.html" target="_blank">Where is pkg repository for 9.2-RELEASE (amd64)?</a></p>
-
+<p>というのも、pkg-test.freebsd.orgはDNS上、AレコードではなくSRVレコードだそうであり、かつRFCに沿ってないからだという、もうほんといい加減にせえよ…。<br>
+詳細は下記を。<br>
+<!-- raw HTML omitted -->Where is pkg repository for 9.2-RELEASE (amd64)?<!-- raw HTML omitted --></p>
 <p>よろしい。ではIPアドレス直打ちでどうだということで、まっさらのFreeBSD 10.0-BETA1でpkgngを使う方法を示す。</p>
-
-<h2 id="span-style-text-decoration-underline-さいしょの一歩-pkgコマンドのインストール-span"><span style="text-decoration: underline;">さいしょの一歩(pkgコマンドのインストール)</span></h2>
-
-<p>何はともあれ、まずはpkgコマンドそのものをインストールしなければならない。<br />
+<h2 id="span-styletext-decoration-underlinepkgspan"><!-- raw HTML omitted -->さいしょの一歩(pkgコマンドのインストール)<!-- raw HTML omitted --></h2>
+<p>何はともあれ、まずはpkgコマンドそのものをインストールしなければならない。<br>
 pkgと叩けばいいのだが、さっそくこれですよ。</p>
-
-<pre><code class="language-console"># pkg
+<pre><code class="language-console" data-lang="console"># pkg
 The package management tool is not yet installed on your system.
 Do you want to fetch and install it now? [y/N]: y
 Bootstrapping pkg please wait
 pkg: Error fetching http://pkg.FreeBSD.org/freebsd:10:x86:64/latest/Latest/pkg.txz: No address record
 A pre-built version of pkg could not be found for your system.
 Consider changing PACKAGESITE or installing it from ports: 'ports-mgmt/pkg'.
-</code></pre>
-
-<p>そこで、環境変数PACKAGESITEに以下のアドレスを与えてpkgコマンドを実行。<br />
-下記の例では<a href="http://96.47.72.120/pkg-test-freebsd:10:x86:64/latestである。">http://96.47.72.120/pkg-test-freebsd:10:x86:64/latestである。</a><br />
-96.47.72.120は<a href="http://lists.freebsd.org/pipermail/freebsd-questions/2013-October/253680.html" target="_blank">pkg-test.freebsd.orgのIPアドレス</a>。<br />
-i386だったら、<a href="http://96.47.72.120/pkg-test-freebsd:10:x86:32/latestにしてね。">http://96.47.72.120/pkg-test-freebsd:10:x86:32/latestにしてね。</a></p>
-
+</code></pre><p>そこで、環境変数PACKAGESITEに以下のアドレスを与えてpkgコマンドを実行。<br>
+下記の例ではhttp://96.47.72.120/pkg-test-freebsd:10:x86:64/latestである。<br>
+96.47.72.120は<!-- raw HTML omitted -->pkg-test.freebsd.orgのIPアドレス<!-- raw HTML omitted -->。<br>
+i386だったら、http://96.47.72.120/pkg-test-freebsd:10:x86:32/latestにしてね。</p>
 <p>もちろん、pkg-test.freebsd.orgが参照しているpkg1.nyi.freebsd.orgでもOK。</p>
-
-<pre><code class="language-console"># sh
+<pre><code class="language-console" data-lang="console"># sh
 # PACKAGESITE=&quot;http://96.47.72.120/pkg-test-freebsd:10:x86:64/latest&quot; pkg
 The package management tool is not yet installed on your system.
 Do you want to fetch and install it now? [y/N]: y
@@ -207,62 +187,40 @@ Commands provided by plugins:
 
 For more information on the different commands see 'pkg help &lt;command&gt;'.
 #
-</code></pre>
-
-<p>これでpkgコマンドがインストールされた。<br />
+</code></pre><p>これでpkgコマンドがインストールされた。<br>
 つぎはpkgコマンドの設定。</p>
-
-<h2 id="span-style-text-decoration-underline-pkgの設定-span"><span style="text-decoration: underline;">pkgの設定</span></h2>
-
-<p>/usr/local/etc/pkg.confというファイルが出来ているはず。<br />
-ここのPACKAGESITEを確認。<br />
-ちなみに書式はYAML。<br />
+<h2 id="span-styletext-decoration-underlinepkgspan-1"><!-- raw HTML omitted -->pkgの設定<!-- raw HTML omitted --></h2>
+<p>/usr/local/etc/pkg.confというファイルが出来ているはず。<br>
+ここのPACKAGESITEを確認。<br>
+ちなみに書式はYAML。<br>
 以下のようになっているはず。</p>
-
-<pre><code class="language-console">packagesite: http://96.47.72.120/pkg-test-freebsd:10:x86:64/latest
-</code></pre>
-
-<p>今後のことを考えて、以下のように書き換えておきましょう。</p>
-
-<pre><code class="language-console">PACKAGESITE     : http://96.47.72.120/pkg-test-${ABI}/latest
-</code></pre>
-
-<p>オフィシャルのPACKAGESITE（きっとpkg.freebsd.orgになるはず）が準備出来たら、ここはすぐに書き換えること。</p>
-
-<p>なお、/etc/make.confへのWITH_PKGNG= yesは要りません。<br />
-必要なのはFreeBSD 10.0より前のバージョン。<br />
-<a href="http://www.freebsd.org/doc/handbook/pkgng-intro.html" target="_blank">FreeBSD HandBook</a>より</p>
-
+<pre><code class="language-console" data-lang="console">packagesite: http://96.47.72.120/pkg-test-freebsd:10:x86:64/latest
+</code></pre><p>今後のことを考えて、以下のように書き換えておきましょう。</p>
+<pre><code class="language-console" data-lang="console">PACKAGESITE     : http://96.47.72.120/pkg-test-${ABI}/latest
+</code></pre><p>オフィシャルのPACKAGESITE（きっとpkg.freebsd.orgになるはず）が準備出来たら、ここはすぐに書き換えること。</p>
+<p>なお、/etc/make.confへのWITH_PKGNG= yesは要りません。<br>
+必要なのはFreeBSD 10.0より前のバージョン。<br>
+<!-- raw HTML omitted -->FreeBSD HandBook<!-- raw HTML omitted -->より</p>
 <blockquote>
 <p>To ensure that the FreeBSD Ports Collection registers new software with pkgng, and not the traditional packages format, FreeBSD versions earlier than 10.X require this line in /etc/make.conf</p>
 </blockquote>
-
 <p>そうしたらpkg updateしておしまい。</p>
-
-<h2 id="span-style-text-decoration-underline-pkg-updateとpkgのインストール-span"><span style="text-decoration: underline;">pkg updateとpkgのインストール</span></h2>
-
-<pre><code class="language-console"># pkg update
+<h2 id="span-styletext-decoration-underlinepkg-updatepkgspan"><!-- raw HTML omitted -->pkg updateとpkgのインストール<!-- raw HTML omitted --></h2>
+<pre><code class="language-console" data-lang="console"># pkg update
 Updating repository catalogue
 digests.txz                         100%  955KB 238.7KB/s 214.8KB/s   00:04
 packagesite.txz                     100% 5209KB 274.1KB/s 418.6KB/s   00:19
 Incremental update completed, 0 packages processed:
 0 packages updated, 0 removed and 21607 added.
-</code></pre>
-
-<p>2013/10/15の時点で約21000のパッケージがあるようですな。<br />
+</code></pre><p>2013/10/15の時点で約21000のパッケージがあるようですな。<br>
 念のためpkg upgrade。</p>
-
-<pre><code class="language-console"># pkg upgrade
+<pre><code class="language-console" data-lang="console"># pkg upgrade
 Updating repository catalogue
 Nothing to do
 #
-</code></pre>
-
-<p>まあ何もないよね。</p>
-
+</code></pre><p>まあ何もないよね。</p>
 <p>試しにいくつかパッケージをインストールしてみましょう。</p>
-
-<pre><code class="language-console"># pkg install bash tmux sudo portaudit
+<pre><code class="language-console" data-lang="console"># pkg install bash tmux sudo portaudit
 Updating repository catalogue
 The following 6 packages will be installed:
 
@@ -296,17 +254,12 @@ Checking integrity... done
  done
 [5/6] Installing bash-4.2.45... done
 [6/6] Installing tmux-1.8_1... done
-</code></pre>
-
-<p>パッケージも新しく、pkg auditで確認しても脆弱性の報告はない。</p>
-
-<pre><code class="language-console"># pkg audit -F
+</code></pre><p>パッケージも新しく、pkg auditで確認しても脆弱性の報告はない。</p>
+<pre><code class="language-console" data-lang="console"># pkg audit -F
 auditfile.tbz                       100%   90KB  90.0KB/s  90.0KB/s   00:01
 0 problem(s) in your installed packages found.
 #
-</code></pre>
-
-<p>というわけで、いろいろ問題はあるけれど、pkg-test.freebsd.orgは現時点で十分使えるということでございます。</p>
+</code></pre><p>というわけで、いろいろ問題はあるけれど、pkg-test.freebsd.orgは現時点で十分使えるということでございます。</p>
 <ul class="pa0">
   
 </ul>

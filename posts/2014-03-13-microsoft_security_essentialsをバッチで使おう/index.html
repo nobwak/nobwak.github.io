@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,25 +29,22 @@
     
 
     <meta property="og:title" content="Microsoft Security Essentialsをバッチで使おう" />
-<meta property="og:description" content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。 普通はGUIで使うものだが、実は" />
+<meta property="og:description" content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。普通はGUIで使うものだが、実は" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/" />
 <meta property="article:published_time" content="2014-03-13T20:45:33+09:00" />
 <meta property="article:modified_time" content="2014-03-13T20:45:33+09:00" />
 <meta itemprop="name" content="Microsoft Security Essentialsをバッチで使おう">
-<meta itemprop="description" content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。 普通はGUIで使うものだが、実は">
-
-
+<meta itemprop="description" content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。普通はGUIで使うものだが、実は">
 <meta itemprop="datePublished" content="2014-03-13T20:45:33&#43;09:00" />
 <meta itemprop="dateModified" content="2014-03-13T20:45:33&#43;09:00" />
 <meta itemprop="wordCount" content="1113">
 
 
 
-<meta itemprop="keywords" content="Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Microsoft Security Essentialsをバッチで使おう"/>
-<meta name="twitter:description" content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。 普通はGUIで使うものだが、実は"/>
+<meta name="twitter:description" content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。普通はGUIで使うものだが、実は"/>
 
       
 <script type="application/javascript">
@@ -140,48 +137,32 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p><span style="line-height: 1.5em;">Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。</span></p>
-
-<p>普通はGUIで使うものだが、実はコマンドラインからも使える。<br />
-コマンドラインから使えると、バッチ処理ができる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><!-- raw HTML omitted -->Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。<!-- raw HTML omitted --></p>
+<p>普通はGUIで使うものだが、実はコマンドラインからも使える。<br>
+コマンドラインから使えると、バッチ処理ができる。<br>
 あらいいですね。</p>
-
 <p>バッチ処理できると何が便利か。</p>
-
-<p>たとえばフォルダA、B、C配下すべてのファイルをスキャンしたい。<br />
-しかも定期的に。<br />
-これをGUIでやろうとすると、その都度、いちいちフォルダをマウスやキーボードで選ばないといけない。<br />
-ノーグッドである。<br />
-ランチャーに登録したバッチファイルを実行するほうがはるかにビウティフルである。<br />
-以下に方法を示す。<br />
+<p>たとえばフォルダA、B、C配下すべてのファイルをスキャンしたい。<br>
+しかも定期的に。<br>
+これをGUIでやろうとすると、その都度、いちいちフォルダをマウスやキーボードで選ばないといけない。<br>
+ノーグッドである。<br>
+ランチャーに登録したバッチファイルを実行するほうがはるかにビウティフルである。<br>
+以下に方法を示す。<br>
 なおMSEは4.4.304.0、Windows 7での内容である。</p>
-
-<h2 id="span-style-text-decoration-underline-コマンドライン版mseのありか-span"><span style="text-decoration: underline;">コマンドライン版MSEのありか</span></h2>
-
-<p><a href="http://windows.microsoft.com/ja-jp/windows/security-essentials-download" target="_blank">Microsoftのサイト</a>からインストール済みなら、以下の場所にある。</p>
-
-<pre><code class="language-console">%ProgramFiles%\Microsoft Security Client\MpCmdRun.exe
-</code></pre>
-
-<p>フォルダを開きたいならWindowsキー+Rで開いたウインドウに以下を貼り付けて実行せよ。</p>
-
-<pre><code class="language-console">%ProgramFiles%\Microsoft Security Client\
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-使うべきmseのオプション-span"><span style="text-decoration: underline;">使うべきMSEのオプション</span></h2>
-
-<p>定義ファイルのアップデート<br />
--SignatureUpdate<br />
-スキャン<br />
+<h2 id="span-styletext-decoration-underlinemsespan"><!-- raw HTML omitted -->コマンドライン版MSEのありか<!-- raw HTML omitted --></h2>
+<p><!-- raw HTML omitted -->Microsoftのサイト<!-- raw HTML omitted -->からインストール済みなら、以下の場所にある。</p>
+<pre><code class="language-console" data-lang="console">%ProgramFiles%\Microsoft Security Client\MpCmdRun.exe
+</code></pre><p>フォルダを開きたいならWindowsキー+Rで開いたウインドウに以下を貼り付けて実行せよ。</p>
+<pre><code class="language-console" data-lang="console">%ProgramFiles%\Microsoft Security Client\
+</code></pre><h2 id="span-styletext-decoration-underlinemsespan-1"><!-- raw HTML omitted -->使うべきMSEのオプション<!-- raw HTML omitted --></h2>
+<p>定義ファイルのアップデート<br>
+-SignatureUpdate<br>
+スキャン<br>
 -Scan -ScanType 3 -File ＜ファイル、あるいはフォルダのパス＞</p>
-
-<p>なおScanTypeには0〜3がある。<br />
-一見、選択肢がありそうだが、ファイル/フォルダを指定したい場合には3の一択である。<br />
+<p>なおScanTypeには0〜3がある。<br>
+一見、選択肢がありそうだが、ファイル/フォルダを指定したい場合には3の一択である。<br>
 以下は参考。</p>
-
-<pre><code class="language-console">-Scan [-ScanType value]
+<pre><code class="language-console" data-lang="console">-Scan [-ScanType value]
     0  Default, according to your configuration
     1  Quick scan
     2  Full system scan
@@ -189,15 +170,11 @@ if (!doNotTrack) {
 
        [-File ]
             Indicates the file path to be scanned, only valid for custom scan
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-バッチファイルの例-span"><span style="text-decoration: underline;">バッチファイルの例</span></h2>
-
-<p>下記の通り、-Fileに続けてスキャン対象フォルダを並べるだけ。<br />
-フォルダはリモートフォルダでもよい。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->バッチファイルの例<!-- raw HTML omitted --></h2>
+<p>下記の通り、-Fileに続けてスキャン対象フォルダを並べるだけ。<br>
+フォルダはリモートフォルダでもよい。<br>
 となると、使い勝手は格段によくなりますな。</p>
-
-<pre><code class="language-console">@echo off
+<pre><code class="language-console" data-lang="console">@echo off
 setlocal
 set path=%programfiles%\Microsoft Security Client\;%path%
 @echo on
@@ -205,20 +182,14 @@ MpCmdRun.exe -SignatureUpdate
 MpCmdRun.exe -Scan -ScanType 3 -File c:¥data
 MpCmdRun.exe -Scan -ScanType 3 -File \\192.168.0.5\sharedfolder
 pause
-</code></pre>
-
-<p>またこの例では、結果を目視確認したいので、最後にpauseを入れてスキャン終了後もコマンドプロンプトを開いたままにしている。<br />
-それが嫌ならpauseを消して、最初に@echo offをつければよろしい。<br />
+</code></pre><p>またこの例では、結果を目視確認したいので、最後にpauseを入れてスキャン終了後もコマンドプロンプトを開いたままにしている。<br>
+それが嫌ならpauseを消して、最初に@echo offをつければよろしい。<br>
 でもその場合、結果はどうやったらわかるのか。</p>
-
-<h2 id="span-style-text-decoration-underline-結果はどこに出るの-span"><span style="text-decoration: underline;">結果はどこに出るの？</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->結果はどこに出るの？<!-- raw HTML omitted --></h2>
 <p>C:\WINDOWS\Temp\MpCmdRun.log にスキャン結果が記録されるので、ゆっくりご覧になればよい。</p>
-
-<p>以下はログの例<br />
+<p>以下はログの例<br>
 「MpScan() has detected 0 threats.」とのこと。</p>
-
-<pre><code class="language-console">-------------------------------------------------------------------------------------
+<pre><code class="language-console" data-lang="console">-------------------------------------------------------------------------------------
 MpCmdRun: Command Line: &quot;C:\Program Files\Microsoft Security Client\Antimalware\MpCmdRun.exe&quot; -scan -Scantype 3 -File \\192.168.0.5\sharedfolder
 Start Time: ‎日 ‎2 ‎16 ‎2014 17:15:32
 
@@ -232,22 +203,17 @@ Scanning \\192.168.0.5\sharedfolder found no threats.
 MpScan() has detected 0 threats.
 MpCmdRun: End Time: ‎日 ‎2 ‎16 ‎2014 19:23:59
 -------------------------------------------------------------------------------------
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-応用例-span"><span style="text-decoration: underline;">応用例</span></h2>
-
-<p>以下のようなバッチファイルを例えばvscan.batという名前で保存する。<br />
-保存先はパスの通った場所にする。<br />
-こうしておけば、Windows + Rでウインドウを開き、vscan ＜スキャンしたいフォルダ＞ と叩けば素早くスキャンできる。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->応用例<!-- raw HTML omitted --></h2>
+<p>以下のようなバッチファイルを例えばvscan.batという名前で保存する。<br>
+保存先はパスの通った場所にする。<br>
+こうしておけば、Windows + Rでウインドウを開き、vscan ＜スキャンしたいフォルダ＞ と叩けば素早くスキャンできる。<br>
 ビウティフル。</p>
-
-<pre><code class="language-console">@echo off
+<pre><code class="language-console" data-lang="console">@echo off
 setlocal
 set path=%programfiles%\Microsoft Security Client\;%path%
 MpCmdRun.exe -Scan -ScanType 3 -File %1
 pause
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/windows" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Windows</a>

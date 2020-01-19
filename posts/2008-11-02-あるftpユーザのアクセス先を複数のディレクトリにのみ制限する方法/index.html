@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-11-02T01:00:00+09:00" />
 <meta itemprop="name" content="あるftpユーザのアクセス先を「複数の」ディレクトリにのみ制限する方法。">
 <meta itemprop="description" content="俺メモ。 ftpユーザがアクセス出来るディレクトリを「一つに」制限する方法はよく知られているが、まったく別の場所にある「複数の」のディレクトリ">
-
-
 <meta itemprop="datePublished" content="2008-11-02T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-11-02T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="188">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="あるftpユーザのアクセス先を「複数の」ディレクトリにのみ制限する方法。"/>
 <meta name="twitter:description" content="俺メモ。 ftpユーザがアクセス出来るディレクトリを「一つに」制限する方法はよく知られているが、まったく別の場所にある「複数の」のディレクトリ"/>
 
@@ -157,37 +154,26 @@ ftpユーザがアクセス出来るディレクトリを「一つに」制限�
 
 アクセスを許可したいディレクトリ
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  /usr/local/dir1
 
 
 
   /usr/local/dir2
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>ユーザsmithは以下のディレクトリに対するアクセス権限はあるものとする。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  /home/smith
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>◎こうする。
 </code></pre>
-
-<pre><code class="language-console">mkdir /home/smith/dir1 /home/smith/dir2
+<pre><code class="language-console" data-lang="console">mkdir /home/smith/dir1 /home/smith/dir2
 mount -t nullfs /usr/local/dir1 /home/smith/dir1
 mount -t nullfs /usr/local/dir2 /home/smith/dir2
-</code></pre>
-
-<pre><code>mountオプションに-o roをつければ読み取り専用に。
+</code></pre><pre><code>mountオプションに-o roをつければ読み取り専用に。
 </code></pre>
 <ul class="pa0">
   

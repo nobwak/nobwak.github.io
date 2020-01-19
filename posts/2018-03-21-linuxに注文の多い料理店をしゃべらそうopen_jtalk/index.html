@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2018-03-21T20:13:48+09:00" />
 <meta itemprop="name" content="Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）">
 <meta itemprop="description" content="Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。 Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト">
-
-
 <meta itemprop="datePublished" content="2018-03-21T20:13:48&#43;09:00" />
 <meta itemprop="dateModified" content="2018-03-21T20:13:48&#43;09:00" />
-<meta itemprop="wordCount" content="1734">
+<meta itemprop="wordCount" content="1706">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）"/>
 <meta name="twitter:description" content="Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。 Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト"/>
 
@@ -141,14 +138,11 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。</p>
-
-<p>Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト音声合成システム」とのこと。<br />
+<p>Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト音声合成システム」とのこと。<br>
 <a href="http://open-jtalk.sp.nitech.ac.jp/">http://open-jtalk.sp.nitech.ac.jp/</a></p>
-
-<p>open-jtalk、辞書をインストールする。<br />
+<p>open-jtalk、辞書をインストールする。<br>
 open-jtalkをインストールすれば辞書もついてくる。</p>
-
-<pre><code class="language-console">$ apt search open-jtalk  
+<pre><code class="language-console" data-lang="console">$ apt search open-jtalk  
 ソート中... 完了  
 全文検索... 完了  
 open-jtalk/artful 1.10-1 amd64  
@@ -166,94 +160,73 @@ hts-voice-nitech-jp-atr503-m001
 以下のパッケージが新たにインストールされます:  
 open-jtalk　open-jtalk-mecab-naist-jdic  
 (略)
-</code></pre>
-
-<p>提案パッケージであるhts-voice-nitech-jp-atr503-m001も。<br />
+</code></pre><p>提案パッケージであるhts-voice-nitech-jp-atr503-m001も。<br>
 これは音声データ。男性の声。</p>
-
-<pre><code class="language-console">hts-voice-nitech-jp-atr503-m001 - Japanese male voice data for Open JTalk
-</code></pre>
-
-<p>open-jtalkのコマンドはopen_jtalk（間はアンダースコア）として、open_jtalkの辞書は/var/lib/mecab/dic/open-jtalk/naist-jdicに、音声データは/usr/share/hts-voice/にインストールされる。<br />
+<pre><code class="language-console" data-lang="console">hts-voice-nitech-jp-atr503-m001 - Japanese male voice data for Open JTalk
+</code></pre><p>open-jtalkのコマンドはopen_jtalk（間はアンダースコア）として、open_jtalkの辞書は/var/lib/mecab/dic/open-jtalk/naist-jdicに、音声データは/usr/share/hts-voice/にインストールされる。<br>
 「こんにちは」と書いたvoice.txtを作り、open_jtalkに食わす。</p>
-
-<pre><code class="language-console">$ cat ./voice.txt  
+<pre><code class="language-console" data-lang="console">$ cat ./voice.txt  
 こんにちは
 
 $ open_jtalk -m /usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice -x /var/lib/mecab/dic/open-jtalk/naist-jdic -ow test.wav ./voice.txt
-</code></pre>
-
-<p>喋ってくれるはず。<br />
-やはり女性の声のほうが良いので、名工大のMMDAgentを使う。<br />
-<a href="http://share.udialogue.org/meissen/login.htm">http://share.udialogue.org/meissen/login.htm</a><br />
-2018/3/21時点で1.7が最新<br />
-ダウンロードして展開し、/usr/share/hts-voice/に格納する。<br />
-使うのは中身の「mei」ディレクトリ配下のみ。<br />
+</code></pre><p>喋ってくれるはず。<br>
+やはり女性の声のほうが良いので、名工大のMMDAgentを使う。<br>
+<a href="http://share.udialogue.org/meissen/login.htm">http://share.udialogue.org/meissen/login.htm</a><br>
+2018/3/21時点で1.7が最新<br>
+ダウンロードして展開し、/usr/share/hts-voice/に格納する。<br>
+使うのは中身の「mei」ディレクトリ配下のみ。<br>
 Meiさんは名工大キャラクターだそうな。</p>
-
-<pre><code class="language-console">$ wget https://sourceforge.net/projects/mmdagent/files/MMDAgent\_Example/MMDAgent\_Example-1.7/MMDAgent_Example-1.7.zip
+<pre><code class="language-console" data-lang="console">$ wget https://sourceforge.net/projects/mmdagent/files/MMDAgent\_Example/MMDAgent\_Example-1.7/MMDAgent_Example-1.7.zip
 $
 $ unzip ./MMDAgent_Example-1.7.zip  
 $ sudo cp -R ./MMDAgent_Example-1.7/Voice/mei /usr/share/hts-voice/
-</code></pre>
-
-<p>声には以下の5種類がある。実際に発声させる際に選ぶ。<br />
-mei_angry.htsvoice mei_happy.htsvoice mei_sad.htsvoice<br />
+</code></pre><p>声には以下の5種類がある。実際に発声させる際に選ぶ。<br>
+mei_angry.htsvoice mei_happy.htsvoice mei_sad.htsvoice<br>
 mei_bashful.htsvoice mei_normal.htsvoice</p>
-
-<p>以下のスクリプトを用意する。<br />
-どこかのサイトから持ってきたんですが、どのサイトからだったか忘れてしもうた…。<br />
-これをjtalk.pyとして保存する。1行目は環境に応じて変えること。<br />
-htsvoiceは上記の通り喜怒哀通常から選べる。<br />
-speedも選べる。<br />
+<p>以下のスクリプトを用意する。<br>
+どこかのサイトから持ってきたんですが、どのサイトからだったか忘れてしもうた…。<br>
+これをjtalk.pyとして保存する。1行目は環境に応じて変えること。<br>
+htsvoiceは上記の通り喜怒哀通常から選べる。<br>
+speedも選べる。<br>
 このあたりは試行錯誤。</p>
-
 <p>あとはこれをimportして使う。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python</span>
+<span style="color:#75715e">#coding: utf-8</span>
+<span style="color:#f92672">import</span> subprocess
+<span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> datetime
 
-<pre><code class="language-python">#!/usr/bin/python
-#coding: utf-8
-import subprocess
-from datetime import datetime
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">jtalk</span>(t):
+    open_jtalk<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/usr/bin/open_jtalk</span><span style="color:#e6db74">&#39;</span>]
+    mech<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-x</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/var/lib/mecab/dic/open-jtalk/naist-jdic</span><span style="color:#e6db74">&#39;</span>]
+    htsvoice<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-m</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/usr/share/hts-voice/mei/mei_normal.htsvoice</span><span style="color:#e6db74">&#39;</span>]
+    speed<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-r</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">1.0</span><span style="color:#e6db74">&#39;</span>]
+    outwav<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-ow</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/tmp/open_jtalk.wav</span><span style="color:#e6db74">&#39;</span>]
+    cmd<span style="color:#f92672">=</span>open_jtalk<span style="color:#f92672">+</span>mech<span style="color:#f92672">+</span>htsvoice<span style="color:#f92672">+</span>speed<span style="color:#f92672">+</span>outwav
+    c <span style="color:#f92672">=</span> subprocess<span style="color:#f92672">.</span>Popen(cmd,stdin<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>PIPE)
+    c<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>write(t<span style="color:#f92672">.</span>encode(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">utf-8</span><span style="color:#e6db74">&#39;</span>))
+    c<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>close()
+    c<span style="color:#f92672">.</span>wait()
+    aplay <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">aplay</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-q</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/tmp/open_jtalk.wav</span><span style="color:#e6db74">&#39;</span>]
+    wr <span style="color:#f92672">=</span> subprocess<span style="color:#f92672">.</span>Popen(aplay)
 
-def jtalk(t):
-    open_jtalk=['/usr/bin/open_jtalk']
-    mech=['-x','/var/lib/mecab/dic/open-jtalk/naist-jdic']
-    htsvoice=['-m','/usr/share/hts-voice/mei/mei_normal.htsvoice']
-    speed=['-r','1.0']
-    outwav=['-ow','/tmp/open_jtalk.wav']
-    cmd=open_jtalk+mech+htsvoice+speed+outwav
-    c = subprocess.Popen(cmd,stdin=subprocess.PIPE)
-    c.stdin.write(t.encode('utf-8'))
-    c.stdin.close()
-    c.wait()
-    aplay = ['aplay','-q','/tmp/open_jtalk.wav']
-    wr = subprocess.Popen(aplay)
-
-def say_datetime():
-    d = datetime.now()
-    text = '%s月%s日、%s時%s分%s秒' % (d.month, d.day, d.hour, d.minute, d.second)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">say_datetime</span>():
+    d <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>now()
+    text <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">月</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">日、</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">時</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">分</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">秒</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (d<span style="color:#f92672">.</span>month, d<span style="color:#f92672">.</span>day, d<span style="color:#f92672">.</span>hour, d<span style="color:#f92672">.</span>minute, d<span style="color:#f92672">.</span>second)
     jtalk(text)
 
-if __name__ == '__main__':
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
     say_datetime()
-</code></pre>
+</code></pre></div><p>先ほどのファイルをimportして、jtalk.jtalk(string)で、発話させたい文章を渡せばOK。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python</span>
+<span style="color:#75715e">#coding: utf-8</span>
+<span style="color:#f92672">import</span> jtalk
 
-<p>先ほどのファイルをimportして、jtalk.jtalk(string)で、発話させたい文章を渡せばOK。</p>
-
-<pre><code class="language-python">#!/usr/bin/python
-#coding: utf-8
-import jtalk
-
-jtalk.jtalk('何か話してください')
-</code></pre>
-
-<p>さあテストである。<br />
-青空文庫「注文の多い料理店」を朗読させてみる。<br />
-「新字新仮名」版をダウンロード。<br />
+jtalk<span style="color:#f92672">.</span>jtalk(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">何か話してください</span><span style="color:#e6db74">&#39;</span>)
+</code></pre></div><p>さあテストである。<br>
+青空文庫「注文の多い料理店」を朗読させてみる。<br>
+「新字新仮名」版をダウンロード。<br>
 <a href="http://www.aozora.gr.jp/cards/000081/card43754.html">http://www.aozora.gr.jp/cards/000081/card43754.html</a></p>
-
 <p>そのままではOpen Jtalkに渡せないので、以下の変更を加える。</p>
-
 <ul>
 <li>文字コードをShift-JISからUTF-8へ</li>
 <li>ルビを削除（正規表現パターンは<code>&quot;《.*?》&quot;</code>）</li>
@@ -261,62 +234,46 @@ jtalk.jtalk('何か話してください')
 <li>構成を示す注釈を削る（正規表現パターンは<code>&quot;\［.*?\］&quot;</code>）</li>
 <li>改行コードをCR+LFをLFのみに。（\rを削る）</li>
 </ul>
-
 <p>できれば以下も。</p>
-
 <ul>
 <li>行頭字下げ、要するに行頭の全角スペースを削除（正規表現パターンは<code>&quot;^　&quot;</code>）</li>
 <li>セリフのカギかっこを削る。行頭のものだけでよい。（正規表現パターンは<code>&quot;^「&quot;</code>）</li>
 </ul>
-
 <p>以下までできれば完璧</p>
-
 <ul>
 <li>改行をいったん全て削り、句点のあとに改行コード（\n）を挿入</li>
 </ul>
-
 <p>neko.txtとでも保存し、以下のPythonスクリプトを実行。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/python</span>
 
-<pre><code class="language-python">#!/usr/bin/python
+<span style="color:#f92672">import</span> jtalk
 
-import jtalk
-
-for line in open('neko.txt','r'):
-    print(line)
-    jtalk.jtalk(line)
-</code></pre>
-
-<p>こんな感じ。
-<blockquote class="twitter-tweet" data-lang="ja">
-<p lang="ja" dir="ltr">Open JTalk、面白いので注文の多い料理店を朗読していただいた。 <a href="https://t.co/DknzkTiIHk">pic.twitter.com/DknzkTiIHk</a></p>&mdash; nobwak (@nobwak) <a href="https://twitter.com/nobwak/status/950304091338547200?ref_src=twsrc%5Etfw">2018年1月8日</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
-<p>試してみるとわかるが、漢字の読み方が変だったり（山猫軒を「やまねこのき」と読んだり）、読めない漢字があったりする。<br />
+<span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">neko.txt</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;</span>):
+    <span style="color:#66d9ef">print</span>(line)
+    jtalk<span style="color:#f92672">.</span>jtalk(line)
+</code></pre></div><p>こんな感じ。</p>
+<!-- raw HTML omitted -->
+<p>試してみるとわかるが、漢字の読み方が変だったり（山猫軒を「やまねこのき」と読んだり）、読めない漢字があったりする。<br>
 そりゃまあ仕方ないよね。</p>
-
-<p>それはさておき。<br />
-十分なスペックがあるときに複数行の文章を読ませると、発話が終わっていないのに次の行の処理を始めてしまって困ることがある。<br />
-そういうときは発話の終了を待つよう、wait()を入れればよい。<br />
+<p>それはさておき。<br>
+十分なスペックがあるときに複数行の文章を読ませると、発話が終わっていないのに次の行の処理を始めてしまって困ることがある。<br>
+そういうときは発話の終了を待つよう、wait()を入れればよい。<br>
 関数jtalk()の最後に一行追加。</p>
-
-<pre><code class="language-python">def jtalk(t):
-    open_jtalk=['/usr/bin/open_jtalk']
-    mech=['-x','/var/lib/mecab/dic/open-jtalk/naist-jdic']
-    htsvoice=['-m','/usr/share/hts-voice/mei/mei_normal.htsvoice']
-    speed=['-r','1.0']
-    outwav=['-ow','/tmp/open_jtalk.wav']
-    cmd=open_jtalk+mech+htsvoice+speed+outwav
-    c = subprocess.Popen(cmd,stdin=subprocess.PIPE)
-    c.stdin.write(t.encode('utf-8'))
-    c.stdin.close()
-    c.wait()
-    aplay = ['aplay','-q','/tmp/open_jtalk.wav']
-    wr = subprocess.Popen(aplay)
-    wr.wait()
-</code></pre>
-
-<p>参考サイト</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">jtalk</span>(t):
+    open_jtalk<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/usr/bin/open_jtalk</span><span style="color:#e6db74">&#39;</span>]
+    mech<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-x</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/var/lib/mecab/dic/open-jtalk/naist-jdic</span><span style="color:#e6db74">&#39;</span>]
+    htsvoice<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-m</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/usr/share/hts-voice/mei/mei_normal.htsvoice</span><span style="color:#e6db74">&#39;</span>]
+    speed<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-r</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">1.0</span><span style="color:#e6db74">&#39;</span>]
+    outwav<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-ow</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/tmp/open_jtalk.wav</span><span style="color:#e6db74">&#39;</span>]
+    cmd<span style="color:#f92672">=</span>open_jtalk<span style="color:#f92672">+</span>mech<span style="color:#f92672">+</span>htsvoice<span style="color:#f92672">+</span>speed<span style="color:#f92672">+</span>outwav
+    c <span style="color:#f92672">=</span> subprocess<span style="color:#f92672">.</span>Popen(cmd,stdin<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>PIPE)
+    c<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>write(t<span style="color:#f92672">.</span>encode(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">utf-8</span><span style="color:#e6db74">&#39;</span>))
+    c<span style="color:#f92672">.</span>stdin<span style="color:#f92672">.</span>close()
+    c<span style="color:#f92672">.</span>wait()
+    aplay <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">aplay</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">-q</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/tmp/open_jtalk.wav</span><span style="color:#e6db74">&#39;</span>]
+    wr <span style="color:#f92672">=</span> subprocess<span style="color:#f92672">.</span>Popen(aplay)
+    wr<span style="color:#f92672">.</span>wait()
+</code></pre></div><p>参考サイト</p>
 <p>Raspberry piで日本語音声合成(Open JTalk)を試してみる。
 <a href="https://qiita.com/lutecia16v/items/8d220885082e40ace252#%E5%A5%B3%E6%80%A7%E3%81%AE%E5%A3%B0%E3%81%AB%E5%A4%89%E3%81%88%E3%81%A6%E3%81%BF%E3%82%8B">https://qiita.com/lutecia16v/items/8d220885082e40ace252#%E5%A5%B3%E6%80%A7%E3%81%AE%E5%A3%B0%E3%81%AB%E5%A4%89%E3%81%88%E3%81%A6%E3%81%BF%E3%82%8B</a></p>
 <ul class="pa0">

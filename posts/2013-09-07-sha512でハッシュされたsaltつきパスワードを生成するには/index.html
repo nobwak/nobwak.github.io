@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-09-07T21:34:46+09:00" />
 <meta itemprop="name" content="sha512でハッシュされたsaltつきパスワードを生成するには">
 <meta itemprop="description" content="バッチファイルにパスワードを書くときの悩み ユーザの追加や、属性の変更をバッチファイルで処理したいことがある。 しかしこういった作業には、しばし">
-
-
 <meta itemprop="datePublished" content="2013-09-07T21:34:46&#43;09:00" />
 <meta itemprop="dateModified" content="2013-09-07T21:34:46&#43;09:00" />
-<meta itemprop="wordCount" content="1136">
+<meta itemprop="wordCount" content="1128">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="sha512でハッシュされたsaltつきパスワードを生成するには"/>
 <meta name="twitter:description" content="バッチファイルにパスワードを書くときの悩み ユーザの追加や、属性の変更をバッチファイルで処理したいことがある。 しかしこういった作業には、しばし"/>
 
@@ -140,42 +137,26 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="span-style-text-decoration-underline-バッチファイルにパスワードを書くときの悩み-span"><span style="text-decoration: underline;">バッチファイルにパスワードを書くときの悩み</span></h2>
-
-<p>ユーザの追加や、属性の変更をバッチファイルで処理したいことがある。<br />
-しかしこういった作業には、しばしばパスワードの操作が含まれる。<br />
-しかしパスワードを平文のまま扱うわけにもいかない。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->バッチファイルにパスワードを書くときの悩み<!-- raw HTML omitted --></h2>
+<p>ユーザの追加や、属性の変更をバッチファイルで処理したいことがある。<br>
+しかしこういった作業には、しばしばパスワードの操作が含まれる。<br>
+しかしパスワードを平文のまま扱うわけにもいかない。<br>
 パスワードの設定・変更をするコマンドが、暗号化されたパスワードも受け付けるようになっているのは、そのためだ。</p>
-
-<p>たとえばLinuxには<a href="http://linuxjm.sourceforge.jp/html/shadow/man8/chpasswd.8.html" target="_blank">chpasswd</a>というコマンドがある。chpasswdは暗号化されたパスワードを受け付ける。<br />
+<p>たとえばLinuxには<!-- raw HTML omitted -->chpasswd<!-- raw HTML omitted -->というコマンドがある。chpasswdは暗号化されたパスワードを受け付ける。<br>
 もしバッチファイルを覗かれても、パスワードが暗号化されていれば、まあ大丈夫と言える。</p>
-
-<h2 id="span-style-text-decoration-underline-md5からsha512へ-span"><span style="text-decoration: underline;">MD5からSHA512へ</span></h2>
-
-<p>ところで、<a href="../../../?p=1839">こちらの記事</a>でも触れたとおり、MD5は今そこにある危機であるからして、パスワードのハッシュ方法をSHA512に変えるOSもぼちぼち出てきた。<br />
+<h2 id="span-styletext-decoration-underlinemd5sha512span"><!-- raw HTML omitted -->MD5からSHA512へ<!-- raw HTML omitted --></h2>
+<p>ところで、<a href="../../../?p=1839">こちらの記事</a>でも触れたとおり、MD5は今そこにある危機であるからして、パスワードのハッシュ方法をSHA512に変えるOSもぼちぼち出てきた。<br>
 そういったOSにおいて、暗号化したパスワードでユーザ情報の操作をするには、とうぜんパスワードをSHA512で暗号化しなければならない。</p>
-
 <p>ということで、ある文字列をSHA512暗号化する方法を示す。</p>
-
-<h2 id="span-style-text-decoration-underline-パスワードの書式での暗号化-span"><span style="text-decoration: underline;">パスワードの書式での暗号化</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->パスワードの書式での暗号化<!-- raw HTML omitted --></h2>
 <p>SHA512で暗号化だなんていうのは簡単なのだが、しかし、パスワードファイルで使われる形式での暗号化となると、ちょっと工夫が必要だ。</p>
-
 <p>パスワードファイルの形式は以下の通り。</p>
-
-<pre><code class="language-console">$＜ハッシュ方式＞$＜salt＞$＜ハッシュ後のパスワード＞
-</code></pre>
-
-<p>要するにこういう形式での出力をしてくれるコマンドなりスクリプトでなければならない。<br />
+<pre><code class="language-console" data-lang="console">$＜ハッシュ方式＞$＜salt＞$＜ハッシュ後のパスワード＞
+</code></pre><p>要するにこういう形式での出力をしてくれるコマンドなりスクリプトでなければならない。<br>
 代表的なものでは、opensslコマンド。</p>
-
-<h2 id="span-style-text-decoration-underline-opensslコマンドのつかいかた-span"><span style="text-decoration: underline;">Opensslコマンドのつかいかた</span></h2>
-
+<h2 id="span-styletext-decoration-underlineopensslspan"><!-- raw HTML omitted -->Opensslコマンドのつかいかた<!-- raw HTML omitted --></h2>
 <p>openssl passwdという書式で使う。</p>
-
-<pre><code class="language-console">$ openssl version
+<pre><code class="language-console" data-lang="console">$ openssl version
 OpenSSL 0.9.8y 5 Feb 2013
 ＜中略＞
 Usage: passwd [options] [passwords]
@@ -190,41 +171,24 @@ where options are
 -quiet             no warnings
 -table             format output as table
 -reverse           switch table columns
-</code></pre>
-
-<p>だからたとえば、MD5形式で、saltを&rdquo;SALTsalt&rdquo;とし、パスワードを&rdquo;test&rdquo;とするならば、 以下のようにする。</p>
-
-<pre><code class="language-console">$ openssl passwd -1 -salt &quot;SALTsalt&quot; &quot;test&quot;
+</code></pre><p>だからたとえば、MD5形式で、saltを&quot;SALTsalt&quot;とし、パスワードを&quot;test&quot;とするならば、 以下のようにする。</p>
+<pre><code class="language-console" data-lang="console">$ openssl passwd -1 -salt &quot;SALTsalt&quot; &quot;test&quot;
 $1$SALTsalt$CEvzkj.qgOcLTyU2B5Kg3.
-</code></pre>
-
-<p>しかし上述のオプション一覧を見ると分かるのだが、sha512形式には対応していない。</p>
-
-<h2 id="span-style-text-decoration-underline-sha512は-いまならperlとかpython-span"><span style="text-decoration: underline;">SHA512は…いまならperlとかpython</span></h2>
-
-<p>ここまで引っ張ってナニだが、一発でSHA512ハッシュしてくれるコマンドは見つけられなかった。<br />
-Linuxのmkpasswdも新しければ対応しているようなのだがまだ一般的ではない。<br />
-そこでperl, pythonを使う。<br />
+</code></pre><p>しかし上述のオプション一覧を見ると分かるのだが、sha512形式には対応していない。</p>
+<h2 id="span-styletext-decoration-underlinesha512perlpythonspan"><!-- raw HTML omitted -->SHA512は…いまならperlとかpython<!-- raw HTML omitted --></h2>
+<p>ここまで引っ張ってナニだが、一発でSHA512ハッシュしてくれるコマンドは見つけられなかった。<br>
+Linuxのmkpasswdも新しければ対応しているようなのだがまだ一般的ではない。<br>
+そこでperl, pythonを使う。<br>
 以下のようにする。</p>
-
-<p>saltを&rdquo;SALTsalt&rdquo;とし、パスワードを&rdquo;test&rdquo;とする。</p>
-
+<p>saltを&quot;SALTsalt&quot;とし、パスワードを&quot;test&quot;とする。</p>
 <p>perl</p>
-
-<pre><code class="language-console">$ perl -e 'print crypt(&quot;test&quot;, &quot;\$6\$SALTsalt&quot;);'
+<pre><code class="language-console" data-lang="console">$ perl -e 'print crypt(&quot;test&quot;, &quot;\$6\$SALTsalt&quot;);'
 $6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5ggew6RXLpl1eA72TpgX5pGDpr/.
-</code></pre>
-
-<p>python</p>
-
-<pre><code class="language-console">$ python -c &quot;import crypt, getpass, pwd; print crypt.crypt('test','\$6\$SALTsalt\$')&quot;
+</code></pre><p>python</p>
+<pre><code class="language-console" data-lang="console">$ python -c &quot;import crypt, getpass, pwd; print crypt.crypt('test','\$6\$SALTsalt\$')&quot;
 $6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5ggew6RXLpl1eA72TpgX5pGDpr/.
-</code></pre>
-
-<p>FreeBSDにおける実際の使いどころは以下の記事にて。</p>
-
+</code></pre><p>FreeBSDにおける実際の使いどころは以下の記事にて。</p>
 <p><a href="../../../?p=2214">[FreeBSD] 無人でのユーザ追加</a></p>
-
 <p>おしまい。</p>
 <ul class="pa0">
   

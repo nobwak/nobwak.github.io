@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-09-17T23:40:11+09:00" />
 <meta itemprop="name" content="[メモ][Windows] VirtualBoxの仮想マシンからvagrantのboxを作る">
 <meta itemprop="description" content="VirtualBox上の仮想マシンをvagrantのboxにする方法はありきたりだが、たいていはLinux、OS Xでの話で、Windowsで">
-
-
 <meta itemprop="datePublished" content="2015-09-17T23:40:11&#43;09:00" />
 <meta itemprop="dateModified" content="2015-09-17T23:40:11&#43;09:00" />
-<meta itemprop="wordCount" content="1020">
+<meta itemprop="wordCount" content="1019">
 
 
 
-<meta itemprop="keywords" content="Vagrant,VM,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Vagrant,VM,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ][Windows] VirtualBoxの仮想マシンからvagrantのboxを作る"/>
 <meta name="twitter:description" content="VirtualBox上の仮想マシンをvagrantのboxにする方法はありきたりだが、たいていはLinux、OS Xでの話で、Windowsで"/>
 
@@ -140,39 +137,28 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>VirtualBox上の仮想マシンをvagrantのboxにする方法はありきたりだが、たいていはLinux、OS Xでの話で、Windowsでのメモはあまりない。そこでメモ。</p>
-
-<h2 id="packageの作成">packageの作成</h2>
-
-<p>VirtualBox上の仮想マシンをパッケージする。<br />
-vagrant packageの-baseオプションにVirtualBox上の仮想マシン名を与える。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>VirtualBox上の仮想マシンをvagrantのboxにする方法はありきたりだが、たいていはLinux、OS Xでの話で、Windowsでのメモはあまりない。そこでメモ。</p>
+<h2 id="package">packageの作成</h2>
+<p>VirtualBox上の仮想マシンをパッケージする。<br>
+vagrant packageの-baseオプションにVirtualBox上の仮想マシン名を与える。<br>
 なお、そのまえにUSB、サウンドは無効にしておいたほうがよい。</p>
-
-<pre><code class="language-console">C:\Users\nobwak\vagrant&gt;vagrant package --base centos64
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak\vagrant&gt;vagrant package --base centos64
 ==&gt; centos64: Exporting VM...
 ==&gt; centos64: Compressing package to: C:/Users/doe/vagrant/package.box
-</code></pre>
-
-<p>カレントディレクトリにpackage.boxができた。<br />
-この中に仮想マシンが入っている。<br />
-あとはこれをどこに移動してもよい。<br />
-うーん、ポータブル。<br />
+</code></pre><p>カレントディレクトリにpackage.boxができた。<br>
+この中に仮想マシンが入っている。<br>
+あとはこれをどこに移動してもよい。<br>
+うーん、ポータブル。<br>
 次にこの中の仮想マシンをvagrantから参照する方法。</p>
-
-<h2 id="package-boxをvagrantから参照する">package.boxをvagrantから参照する。</h2>
-
-<p>vagrant init ＜新規に作成する仮想マシンの名前＞ ＜package.boxの場所＞と指定してvagrantfileを作る。<br />
+<h2 id="packageboxvagrant">package.boxをvagrantから参照する。</h2>
+<p>vagrant init ＜新規に作成する仮想マシンの名前＞ ＜package.boxの場所＞と指定してvagrantfileを作る。<br>
 もちろんvagrant initと空撃ちして手で書き換えてもよい。後述。</p>
-
-<p>package.boxはローカルに置いてあるので、場所の指定は「file://」に続けてパスを書く。<br />
-windowsの場合は「/C:/path/to/package.box」のように書く。<br />
-結果、「file:///C:/&hellip;.」となる。<br />
-スラッシュが多くて不安になるけど、これでよい。<br />
+<p>package.boxはローカルに置いてあるので、場所の指定は「file://」に続けてパスを書く。<br>
+windowsの場合は「/C:/path/to/package.box」のように書く。<br>
+結果、「file:///C:/&hellip;.」となる。<br>
+スラッシュが多くて不安になるけど、これでよい。<br>
 なお、windowsっぽく円マークあるいはバックスラッシュを使ってしまうとエスケープされてしまい、vagrantがpackage.boxを見つけられない。注意。</p>
-
-<pre><code class="language-console">C:\Users\nobwak\vagrant&gt;vagrant init centosTest file:///c:/Users/doe/vagrant/package.
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak\vagrant&gt;vagrant init centosTest file:///c:/Users/doe/vagrant/package.
 box
 A `Vagrantfile` has been placed in this directory. You are now
 ready to `vagrant up` your first virtual environment! Please read
@@ -180,42 +166,28 @@ the comments in the Vagrantfile as well as documentation on
 `vagrantup.com` for more information on using Vagrant.
 
 C:\Users\nobwak\vagrant&gt;
-</code></pre>
-
-<p>Vagrantfileが以下のようになっていること。<br />
+</code></pre><p>Vagrantfileが以下のようになっていること。<br>
 vagrant initを空撃ちした場合には、以下の二行を加えること。</p>
-
-<pre><code class="language-console">config.vm.box = &quot;centosTest&quot;
+<pre><code class="language-console" data-lang="console">config.vm.box = &quot;centosTest&quot;
   config.vm.box_url = &quot;file:///c:/Users/nobwak/vagrant/package.box&quot;
-</code></pre>
-
-<p>あとはvagrant upでよい。</p>
-
-<pre><code class="language-console">C:\Users\nobwak\vagrant&gt;vagrant up
+</code></pre><p>あとはvagrant upでよい。</p>
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak\vagrant&gt;vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
 ==&gt; default: Box 'centos64' could not be found. Attempting to find and install..
 ＜中略＞
 ==&gt; default: Booting VM...
 ＜後略＞
-</code></pre>
-
-<h2 id="別の方法-box-listに登録する">別の方法:box listに登録する。</h2>
-
+</code></pre><h2 id="box-list">別の方法:box listに登録する。</h2>
 <p>package.boxをvagrantのbox listに登録しておけば、いちいちpackage.boxの場所を指定しなくてもいいようになる。</p>
-
-<pre><code class="language-console">C:\Users\doe\vagrant&gt;vagrant box add centosSkel package.box
+<pre><code class="language-console" data-lang="console">C:\Users\doe\vagrant&gt;vagrant box add centosSkel package.box
 ==&gt; box: Box file was not detected as metadata. Adding it directly...
 ==&gt; box: Adding box 'centosSkel' (v0) for provider:
     box: Unpacking necessary files from: file://C:/Users/nobwak/vagrant/package.box
 
     box: Progress: 100% (Rate: 9737k/s, Estimated time remaining: --:--:--)
 ==&gt; box: Successfully added box 'centosSkel' (v0) for 'virtualbox'!
-</code></pre>
-
-<p>あとは定石で。</p>
-
-<p><code>console
-C:\Users\nobwak\vagrant&gt;vagrant init centosSkel
+</code></pre><p>あとは定石で。</p>
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak\vagrant&gt;vagrant init centosSkel
 ＜略＞
 C:\Users\nobwak\vagrant&gt;vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
@@ -227,8 +199,7 @@ Bringing machine 'default' up with 'virtualbox' provider...
     default: Adapter 1: nat
 ==&gt; default: Forwarding ports...
     default: 22 =&gt; 2222 (adapter 1)
-==&gt; default: Booting VM...</code></p>
-<ul class="pa0">
+==&gt; default: Booting VM...```</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/vagrant" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Vagrant</a>

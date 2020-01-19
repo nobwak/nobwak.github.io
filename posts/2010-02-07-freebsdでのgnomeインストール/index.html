@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-02-07T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDでのGNOMEインストール">
 <meta itemprop="description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071125/p1&quot; target=&quot;_blank&quot;&gt;これ&lt;/a&gt;、古い記事なのに未だに見られているようなのでアップデー">
-
-
 <meta itemprop="datePublished" content="2010-02-07T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-02-07T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="2298">
+<meta itemprop="wordCount" content="2191">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDでのGNOMEインストール"/>
 <meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071125/p1&quot; target=&quot;_blank&quot;&gt;これ&lt;/a&gt;、古い記事なのに未だに見られているようなのでアップデー"/>
 
@@ -173,12 +170,9 @@ if (!doNotTrack) {
 
 portsでインストールした日には何日かかるかわからないので、全部パッケージで入れることにする。
 </code></pre>
-
-<pre><code class="language-console"># PACKAGEROOT=&amp;#34;ftp://ftp2.jp.freebsd.org&amp;#34;;export PACKAGEROOT
+<pre><code class="language-console" data-lang="console"># PACKAGEROOT=&amp;#34;ftp://ftp2.jp.freebsd.org&amp;#34;;export PACKAGEROOT
 # pkg_add -r xorg bsdadminsctips
-</code></pre>
-
-<pre><code>とすれば、xorgに関係するパッケージを全部入れてくれる(Bシェル系の場合)。
+</code></pre><pre><code>とすれば、xorgに関係するパッケージを全部入れてくれる(Bシェル系の場合)。
 
 
 
@@ -207,24 +201,18 @@ mousedが動いていたら止める。
 
 ◎/etc/rc.conf
 </code></pre>
-
-<pre><code class="language-console">#For X
+<pre><code class="language-console" data-lang="console">#For X
 dbus_enable=&amp;#34;YES&amp;#34;
 hald_enable=&amp;#34;YES&amp;#34;
 moused_enable=&amp;#34;NO&amp;#34;
+</code></pre><pre><code>で、起動。
 </code></pre>
-
-<pre><code>で、起動。
-</code></pre>
-
-<pre><code class="language-console"># rcstart dbus
+<pre><code class="language-console" data-lang="console"># rcstart dbus
 Starting dbus.
 # rcstart hald
 Starting hald.
 # pkill moused
-</code></pre>
-
-<pre><code>rcstartはbsdadminscriptsでインストールされるコマンド。
+</code></pre><pre><code>rcstartはbsdadminscriptsでインストールされるコマンド。
 
 
 
@@ -267,11 +255,8 @@ fdiファイルを作って適切な場所に置いたら、必ずhaldをrcresta
 
 &lt;span style=&quot;font-weight:bold;&quot;&gt;GNOMEのインストール&lt;/span&gt;
 </code></pre>
-
-<pre><code class="language-console"># pkg_add -r gnome2-lite
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;GNOMEの設定&lt;/span&gt;
+<pre><code class="language-console" data-lang="console"># pkg_add -r gnome2-lite
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;GNOMEの設定&lt;/span&gt;
 
 
 
@@ -281,12 +266,9 @@ fdiファイルを作って適切な場所に置いたら、必ずhaldをrcresta
 
 /etc/rc.confに下記のとおり追加。
 </code></pre>
-
-<pre><code class="language-console">gdm_enable=&amp;#34;YES&amp;#34;
+<pre><code class="language-console" data-lang="console">gdm_enable=&amp;#34;YES&amp;#34;
 gnome_enable=&amp;#34;YES&amp;#34;
-</code></pre>
-
-<pre><code>gnome_enable=&quot;YES&quot;とすればgnome関連デーモンの起動もしてくれる。
+</code></pre><pre><code>gnome_enable=&quot;YES&quot;とすればgnome関連デーモンの起動もしてくれる。
 
 
 
@@ -295,11 +277,8 @@ gnome_enable=&amp;#34;YES&amp;#34;
 
 &lt;span style=&quot;font-weight:bold;&quot;&gt;インプットメソッドのインストール&lt;/span&gt;
 </code></pre>
-
-<pre><code class="language-console">pkg_add -r ja-vlgothic uim-gtk ja-uim-anthy
-</code></pre>
-
-<pre><code>としてinput methodをインストール。
+<pre><code class="language-console" data-lang="console">pkg_add -r ja-vlgothic uim-gtk ja-uim-anthy
+</code></pre><pre><code>としてinput methodをインストール。
 
 
 
@@ -328,41 +307,20 @@ gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。
 
 大まかな流れ。
 </code></pre>
-
-<p><ol>
-    <li>
-      サウンド向けメタドライバをロードして、メジャーなサウンドドライバを片っ端から読み込む。
-    </li>
-    <li>
-      勝手に適当なドライバを判断してくれるのでそれを確認。
-    </li>
-    <li>
-      音を鳴らしてみて確認。OKなら、
-    </li>
-    <li>
-      見つけたドライバを起動時に読み込むよう設定。
-    </li>
-  </ol></p>
-
+<!-- raw HTML omitted -->
 <pre><code>具体的な手順は以下のとおり。
 </code></pre>
-
-<pre><code class="language-console"># kldload snd_driver
+<pre><code class="language-console" data-lang="console"># kldload snd_driver
 # kldstat
 （大量のメッセージ）
 # cat /dev/sndstat
 FreeBSD Audio Driver (newpcm: 32bit 2007061600/i386)
 Installed devices:
 pcm0: &amp;#60;Intel ICH3 (82801CA)&gt; at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld &amp;#60;span style=&amp;#34;font-weight:bold;&amp;#34;&gt;snd_ich&amp;#60;/span&gt;　&amp;#91;MPSAFE] (1p:1v/1r:1v channels duplex default)
+</code></pre><pre><code>ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。
 </code></pre>
-
-<pre><code>ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。
-</code></pre>
-
-<pre><code class="language-console">snd_ich_load=&amp;#34;YES&amp;#34;
-</code></pre>
-
-<pre><code>以上
+<pre><code class="language-console" data-lang="console">snd_ich_load=&amp;#34;YES&amp;#34;
+</code></pre><pre><code>以上
 </code></pre>
 <ul class="pa0">
   

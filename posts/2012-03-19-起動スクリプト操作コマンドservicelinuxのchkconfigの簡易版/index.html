@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-03-19T01:00:00+09:00" />
 <meta itemprop="name" content="起動スクリプト操作コマンドservice（Linuxのchkconfigの簡易版）">
 <meta itemprop="description" content="FreeBSDにおいて、各種サーバソフトウェアの起動・停止を行う起動スクリプトは/etc/rc.d、/usr/local/etc/rc.dに">
-
-
 <meta itemprop="datePublished" content="2012-03-19T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-19T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="804">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="起動スクリプト操作コマンドservice（Linuxのchkconfigの簡易版）"/>
 <meta name="twitter:description" content="FreeBSDにおいて、各種サーバソフトウェアの起動・停止を行う起動スクリプトは/etc/rc.d、/usr/local/etc/rc.dに"/>
 
@@ -158,27 +155,20 @@ if (!doNotTrack) {
 
 書式。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  　service &lt;起動スクリプト&gt; start|stop|restart等々
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>使用例
 </code></pre>
-
-<pre><code class="language-console">$ sudo service dovecot status
+<pre><code class="language-console" data-lang="console">$ sudo service dovecot status
 Password:
 dovecot is running as pid 1026.
 $ sudo service dovecot restart
 Stopping dovecot.
 Waiting for PIDS: 1026.
 Starting dovecot.
-</code></pre>
-
-<pre><code>注意点としては、引数で与えるのはあくまでも起動スクリプト名であって、サーバソフトウェアの名前ではない、という点。
+</code></pre><pre><code>注意点としては、引数で与えるのはあくまでも起動スクリプト名であって、サーバソフトウェアの名前ではない、という点。
 
 
 
@@ -195,8 +185,7 @@ Starting dovecot.
 
 &lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;そのほかの使い方:起動スクリプトに関する情報が得られる。&lt;/span&gt;
 </code></pre>
-
-<pre><code class="language-console">service -e
+<pre><code class="language-console" data-lang="console">service -e
 　有効になっているサービスを表示する。
 　起動順（rcorder）に表示
 service -r
@@ -210,12 +199,9 @@ service -l
 -v
 　ほんの少しだけ説明が増える。
 　（試してみたら本当に少しだけだった）
+</code></pre><pre><code>例えば。-rだと、-eのときにはない起動スクリプトも表示されていることが分かる。
 </code></pre>
-
-<pre><code>例えば。-rだと、-eのときにはない起動スクリプトも表示されていることが分かる。
-</code></pre>
-
-<pre><code class="language-console">$ service -e|grep &amp;#34;/usr/local&amp;#34;
+<pre><code class="language-console" data-lang="console">$ service -e|grep &amp;#34;/usr/local&amp;#34;
 /usr/local/etc/rc.d/mrtg_daemon
 /usr/local/etc/rc.d/jenkins
 /usr/local/etc/rc.d/dovecot
@@ -234,8 +220,7 @@ $ service -r|grep &amp;#34;/usr/local&amp;#34;
 /usr/local/etc/rc.d/clamav-clamd
 /usr/local/etc/rc.d/clamav-freshclam
 /usr/local/etc/rc.d/apache22
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

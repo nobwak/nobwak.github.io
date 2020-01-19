@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-08-29T22:32:03+09:00" />
 <meta itemprop="name" content="リビジョン管理rcsのすすめ（xxx.conf.20130829とかはもう止めよう）">
 <meta itemprop="description" content="一人だけで管理しているサーバの設定ファイルを更新するとき、皆さんはどのように管理しているだろうか。 私は以下のようにしていた。 例えば、http">
-
-
 <meta itemprop="datePublished" content="2013-08-29T22:32:03&#43;09:00" />
 <meta itemprop="dateModified" content="2013-08-29T22:32:03&#43;09:00" />
-<meta itemprop="wordCount" content="3105">
+<meta itemprop="wordCount" content="3102">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="リビジョン管理rcsのすすめ（xxx.conf.20130829とかはもう止めよう）"/>
 <meta name="twitter:description" content="一人だけで管理しているサーバの設定ファイルを更新するとき、皆さんはどのように管理しているだろうか。 私は以下のようにしていた。 例えば、http"/>
 
@@ -140,62 +137,43 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>一人だけで管理しているサーバの設定ファイルを更新するとき、皆さんはどのように管理しているだろうか。<br />
-私は以下のようにしていた。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>一人だけで管理しているサーバの設定ファイルを更新するとき、皆さんはどのように管理しているだろうか。<br>
+私は以下のようにしていた。<br>
 例えば、httpd.confを2013/8/25に変更しようとするとき。</p>
-
-<pre><code class="language-console"># vi httpd.conf
+<pre><code class="language-console" data-lang="console"># vi httpd.conf
 # cp -p httpd.conf httpd.conf.20130825
-</code></pre>
-
-<p>経験のある方はご存じだろうが、長い間これを続けると、ディレクトリが散らかって酷い事になる。</p>
-
-<p>ではバージョン管理を導入すべきか？<br />
+</code></pre><p>経験のある方はご存じだろうが、長い間これを続けると、ディレクトリが散らかって酷い事になる。</p>
+<p>ではバージョン管理を導入すべきか？<br>
 でも、一人で管理しているサーバなのに、わざわざsubversionを入れる？それはちょっと。</p>
-
-<p>というのが長らくの悩みであったのだが、実はrcsという簡便なリビジョン管理ツールがあることを知った。今さらではあるが。<br />
-しかし、これがまた実に快適であった。<br />
+<p>というのが長らくの悩みであったのだが、実はrcsという簡便なリビジョン管理ツールがあることを知った。今さらではあるが。<br>
+しかし、これがまた実に快適であった。<br>
 快適すぎて、今ではどこのディレクトリでもRCSディレクトリ（後述）を掘ってしまうくらいになってしまった。</p>
-
 <p>そんなRCSについて以下に記す。</p>
-
-<h2 id="span-style-text-decoration-underline-rcsとは-span"><span style="text-decoration: underline;">RCSとは。</span></h2>
-
-<p>RCSとは<a href="http://ja.wikipedia.org/wiki/Revision_Control_System" target="_blank">Revision Control System</a>。<br />
-きわめて軽量単純なGNU製のリビジョン管理システムである。<br />
-一人で使う分には十分（いちおう、ロック機能はあるよ！）。<br />
-だいたいのUNIX系OSには最初から入っている。<br />
-FreeBSDはベースシステムに入っているので、インストール不要。これはポイント。<br />
+<h2 id="span-styletext-decoration-underlinercsspan"><!-- raw HTML omitted -->RCSとは。<!-- raw HTML omitted --></h2>
+<p>RCSとは<!-- raw HTML omitted -->Revision Control System<!-- raw HTML omitted -->。<br>
+きわめて軽量単純なGNU製のリビジョン管理システムである。<br>
+一人で使う分には十分（いちおう、ロック機能はあるよ！）。<br>
+だいたいのUNIX系OSには最初から入っている。<br>
+FreeBSDはベースシステムに入っているので、インストール不要。これはポイント。<br>
 もちろんLinuxにも（Redhatの5にあることは確認）</p>
-
-<p>コマンドの使い方を示す。FreeBSD環境下のもの。<br />
-Linux向けmanはこちら。<br />
- <a href=" http://linuxjm.sourceforge.jp/html/GNU_rcs/man1/co.1.html" target="_blank"><a href="http://linuxjm.sourceforge.jp/html/GNU_rcs/man1/co.1.html">http://linuxjm.sourceforge.jp/html/GNU_rcs/man1/co.1.html</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-rcsのコマンド-span"><span style="text-decoration: underline;">RCSのコマンド</span></h2>
-
-<p>使うコマンドはおおよそ以下のようなもの。<br />
+<p>コマンドの使い方を示す。FreeBSD環境下のもの。<br>
+Linux向けmanはこちら。<br>
+<!-- raw HTML omitted --><a href="http://linuxjm.sourceforge.jp/html/GNU_rcs/man1/co.1.html%3C/a%3E">http://linuxjm.sourceforge.jp/html/GNU_rcs/man1/co.1.html&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinercsspan-1"><!-- raw HTML omitted -->RCSのコマンド<!-- raw HTML omitted --></h2>
+<p>使うコマンドはおおよそ以下のようなもの。<br>
 詳しくはman。</p>
-
-<pre><code class="language-console">co - check out RCS revisions
+<pre><code class="language-console" data-lang="console">co - check out RCS revisions
 ci - check in RCS revisions
 rlog - print log messages and other information about RCS files
 rcsdiff - compare RCS revisions
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-rcsへの登録-span"><span style="text-decoration: underline;">RCSへの登録</span></h2>
-
-<p>ためしに、/etc/rc.confを、RCSで管理してみる。<br />
-最初にやることはRCSに登録すること。<br />
-ci(check in)コマンドを使う。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinercsspan-2"><!-- raw HTML omitted -->RCSへの登録<!-- raw HTML omitted --></h2>
+<p>ためしに、/etc/rc.confを、RCSで管理してみる。<br>
+最初にやることはRCSに登録すること。<br>
+ci(check in)コマンドを使う。<br>
 ciにrc.confを渡してやるだけ。</p>
-
-<p>初回は「ファイルの説明を入れろ」と聞いてくるので、&rdquo;System Setting file&rdquo;などと入れてみる。<br />
+<p>初回は「ファイルの説明を入れろ」と聞いてくるので、&ldquo;System Setting file&quot;などと入れてみる。<br>
 ドット「.」を入れれば完了。</p>
-
-<pre><code class="language-console">$ cd /etc
+<pre><code class="language-console" data-lang="console">$ cd /etc
 $ sudo ci rc.conf
 Password:
 rc.conf,v  &lt;--  rc.conf
@@ -205,45 +183,31 @@ NOTE: This is NOT the log message!
 &gt;&gt; .
 initial revision: 1.1
 done
-</code></pre>
-
-<p>最初のバージョンは1.1になる。</p>
-
-<h2 id="span-style-text-decoration-underline-初回チェックインの注意-span"><span style="text-decoration: underline;">初回チェックインの注意</span></h2>
-
-<p>驚くことに、初めてチェックインするとファイルが消える。<br />
+</code></pre><p>最初のバージョンは1.1になる。</p>
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->初回チェックインの注意<!-- raw HTML omitted --></h2>
+<p>驚くことに、初めてチェックインするとファイルが消える。<br>
 代わりと言ってはなんだが、ファイル名末尾に「,v」と付いたファイルが現れる。</p>
-
-<pre><code class="language-console">$ ls -l rc.conf
+<pre><code class="language-console" data-lang="console">$ ls -l rc.conf
 ls: rc.conf: No such file or directory
 $ ls -l rc.conf*
 -r--r--r--  1 root  wheel  353 Aug 25 12:50 rc.conf,v
-</code></pre>
-
-<p>RCSはそれぞれのファイルを、この「,v」ファイルで管理しているのである。<br />
-しかしrc.confが無くなられては困る。<br />
+</code></pre><p>RCSはそれぞれのファイルを、この「,v」ファイルで管理しているのである。<br>
+しかしrc.confが無くなられては困る。<br>
 そこでco(check out)コマンドにより、「,v」からrc.confを取り出す。</p>
-
-<pre><code class="language-console">$ sudo co rc.conf
+<pre><code class="language-console" data-lang="console">$ sudo co rc.conf
 rc.conf,v  --&gt;  rc.conf
 revision 1.1
 done
 $ ls -l rc.conf*
 -r--r--r--  1 root  wheel  156 Aug 25 12:55 rc.conf
 -r--r--r--  1 root  wheel  353 Aug 25 12:50 rc.conf,v
-</code></pre>
-
-<p>並べてみると「,v」には管理情報が含まれているせいでサイズが少し増えている。</p>
-
+</code></pre><p>並べてみると「,v」には管理情報が含まれているせいでサイズが少し増えている。</p>
 <p>しかしちょっと待て。</p>
-
-<h2 id="span-style-text-decoration-underline-v-が散らかる-rcsディレクトリで解決-span"><span style="text-decoration: underline;">「,v」が散らかる→RCSディレクトリで解決</span></h2>
-
-<p>新しいファイルをRCSに登録する都度、「,v」が増えていくのではたまらない。<br />
-しかし、そこはさすがに考えられていて、同じディレクトリにRCSというディレクトリがあれば、その下に「,v」を作ってくれる。<br />
+<h2 id="span-styletext-decoration-underlinevrcsspan"><!-- raw HTML omitted -->「,v」が散らかる→RCSディレクトリで解決<!-- raw HTML omitted --></h2>
+<p>新しいファイルをRCSに登録する都度、「,v」が増えていくのではたまらない。<br>
+しかし、そこはさすがに考えられていて、同じディレクトリにRCSというディレクトリがあれば、その下に「,v」を作ってくれる。<br>
 さきほど作ったrc.conf,vを消してから試してみる。</p>
-
-<pre><code class="language-console">$ sudo rm rc.conf,v
+<pre><code class="language-console" data-lang="console">$ sudo rm rc.conf,v
 $ sudo mkdir RCS
 $ sudo ci ./rc.conf
 ./RCS/rc.conf,v  &lt;--  ./rc.conf
@@ -252,57 +216,41 @@ initial revision: 1.1
 done
 $ ls ./RCS
 rc.conf,v
-</code></pre>
-
-<p>と、ご覧の通り/etc/RCSの下に「,v」が作られる。<br />
-こうしておけば「,v」ファイルが散らかって困ることはない。<br />
-忘れずにチェックアウト。<br />
+</code></pre><p>と、ご覧の通り/etc/RCSの下に「,v」が作られる。<br>
+こうしておけば「,v」ファイルが散らかって困ることはない。<br>
+忘れずにチェックアウト。<br>
 RCS/rc.conf,vから取り出されていることが分かる。</p>
-
-<pre><code class="language-console">$ sudo co rc.conf
+<pre><code class="language-console" data-lang="console">$ sudo co rc.conf
 RCS/rc.conf,v  --&gt;  rc.conf
 revision 1.1
 done
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-ファイルの更新-チェックアウト-span"><span style="text-decoration: underline;">ファイルの更新（チェックアウト）</span></h2>
-
-<p>今度はファイルを更新してみる。<br />
-修正したファイルをチェックイン（ci）するだけなのだが、それに先立つチェックアウト（co）の時に考慮すべきことがある。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->ファイルの更新（チェックアウト）<!-- raw HTML omitted --></h2>
+<p>今度はファイルを更新してみる。<br>
+修正したファイルをチェックイン（ci）するだけなのだが、それに先立つチェックアウト（co）の時に考慮すべきことがある。<br>
 それはファイルのロック。</p>
-
 <p>単にcoしただけのrc.confのパーミッションを見てみると、読み取り専用（444）になってしまっている（本来は644）。</p>
-
-<pre><code class="language-console">$ ls -l rc.conf
+<pre><code class="language-console" data-lang="console">$ ls -l rc.conf
 -r--r--r--  1 root  wheel  156 Aug 25 12:55 rc.conf
-</code></pre>
-
-<p>なにも無計画にしているわけではない。<br />
-「RCSで管理しているファイルを迂闊に書き換えないように」というRCS師匠のありがたい配慮である。<br />
-これを避けるには、ファイルのロックをしてからチェックアウトをすればよい。<br />
+</code></pre><p>なにも無計画にしているわけではない。<br>
+「RCSで管理しているファイルを迂闊に書き換えないように」というRCS師匠のありがたい配慮である。<br>
+これを避けるには、ファイルのロックをしてからチェックアウトをすればよい。<br>
 coの際に-lオプション（lock）を与えるだけ。</p>
-
-<pre><code class="language-console">$ sudo co -l rc.conf
+<pre><code class="language-console" data-lang="console">$ sudo co -l rc.conf
 Password:
 RCS/rc.conf,v  --&gt;  rc.conf
 revision 1.1 (locked)
 done
 $ ls -l ./rc.conf
 -rw-r--r--  1 root  wheel  156 Aug 25 12:56 ./rc.conf
-</code></pre>
-
-<p>（locked）という表示が増えている。<br />
-また、パーミッションも644になっている。<br />
+</code></pre><p>（locked）という表示が増えている。<br>
+また、パーミッションも644になっている。<br>
 これでファイル変更の準備ができた。</p>
-
-<h2 id="span-style-text-decoration-underline-ファイルの更新-チェックイン-span"><span style="text-decoration: underline;">ファイルの更新（チェックイン）</span></h2>
-
-<p>修正が済んだらチェックイン。<br />
-チェックアウトの時と同じように、ロックの考慮が必要。<br />
-端的に言えばロックを解除する。<br />
+<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->ファイルの更新（チェックイン）<!-- raw HTML omitted --></h2>
+<p>修正が済んだらチェックイン。<br>
+チェックアウトの時と同じように、ロックの考慮が必要。<br>
+端的に言えばロックを解除する。<br>
 ciの際に-uオプション（unlock）を与える。</p>
-
-<pre><code class="language-console">$ sudo ci -u ./rc.conf
+<pre><code class="language-console" data-lang="console">$ sudo ci -u ./rc.conf
 ./RCS/rc.conf,v  &lt;--  ./rc.conf
 new revision: 1.2; previous revision: 1.1
 enter log message, terminated with single '.' or end of file:
@@ -310,20 +258,13 @@ enter log message, terminated with single '.' or end of file:
 &gt;&gt; .
 done
 $
-</code></pre>
-
-<p>log message、つまり修正内容の記入が求められるので書き入れたのちドット「.」で終了。<br />
+</code></pre><p>log message、つまり修正内容の記入が求められるので書き入れたのちドット「.」で終了。<br>
 そしてロック解除したために、再びファイルのバーミッションが444に戻っている。</p>
-
-<pre><code class="language-console">$ ls -l ./rc.conf
+<pre><code class="language-console" data-lang="console">$ ls -l ./rc.conf
 -r--r--r--  1 root  wheel  283 Aug 25 19:29 ./rc.conf
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-履歴の確認-span"><span style="text-decoration: underline;">履歴の確認</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->履歴の確認<!-- raw HTML omitted --></h2>
 <p>RCSで管理しているファイルに対しrlogを発行すると履歴が表示される。</p>
-
-<pre><code class="language-console">$ rlog ./rc.conf
+<pre><code class="language-console" data-lang="console">$ rlog ./rc.conf
 
 RCS file: ./RCS/rc.conf,v
 Working file: ./rc.conf
@@ -347,14 +288,11 @@ Initial revision
 ----------------------------
 
 =============================================================================
-</code></pre>
-
-<p>revisoin 1.2では9行追加されていることを示している。<br />
-デフォルトではタイムスタンプがUTC。<br />
-これは分かりにくいので、ローカルタイムで表示する。<br />
+</code></pre><p>revisoin 1.2では9行追加されていることを示している。<br>
+デフォルトではタイムスタンプがUTC。<br>
+これは分かりにくいので、ローカルタイムで表示する。<br>
 そのためには-zLTを与える。</p>
-
-<pre><code class="language-console">$ rlog -zLT ./rc.conf
+<pre><code class="language-console" data-lang="console">$ rlog -zLT ./rc.conf
 
 RCS file: ./RCS/rc.conf,v
 Working file: ./rc.conf
@@ -377,13 +315,9 @@ date: 2013-08-25 13:07:09+09;  author: root;  state: Exp;
 Initial revision
 ----------------------------
 =============================================================================
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-差分の確認-span"><span style="text-decoration: underline;">差分の確認</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-4"><!-- raw HTML omitted -->差分の確認<!-- raw HTML omitted --></h2>
 <p>二つのバージョン間の差分を確認するには、rcsdiffを使う。</p>
-
-<pre><code class="language-console">$ rcsdiff -r1.1 -r1.2 ./rc.conf
+<pre><code class="language-console" data-lang="console">$ rcsdiff -r1.1 -r1.2 ./rc.conf
 ===================================================================
 RCS file: ./RCS/rc.conf,v
 retrieving revision 1.1
@@ -396,63 +330,42 @@ diff -r1.1 -r1.2
 &gt; sendmail_submit_enable=&quot;NO&quot;
 &gt; sendmail_outbound_enable=&quot;NO&quot;
 &gt; sendmail_msp_queue_enable=&quot;NO&quot;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-特定のバージョンを取り出す-span"><span style="text-decoration: underline;">特定のバージョンを取り出す。</span></h2>
-
-<p>coに-rオプションでバージョンナンバを指定する。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-5"><!-- raw HTML omitted -->特定のバージョンを取り出す。<!-- raw HTML omitted --></h2>
+<p>coに-rオプションでバージョンナンバを指定する。<br>
 1.1を取り出したいなら-r1.1。</p>
-
-<pre><code class="language-console">$ sudo co -r1.1 rc.conf
+<pre><code class="language-console" data-lang="console">$ sudo co -r1.1 rc.conf
 RCS/rc.conf,v  --&gt;  rc.conf
 revision 1.1
 done
-</code></pre>
-
-<p>しかしこれでは手元にあるファイルが上書きされる。<br />
-都合が悪い場合には-pオプションを使う。<br />
+</code></pre><p>しかしこれでは手元にあるファイルが上書きされる。<br>
+都合が悪い場合には-pオプションを使う。<br>
 -pオプションは結果を標準出力に表示させるもの。</p>
-
-<pre><code class="language-console">$ sudo co -p -r1.1 rc.conf &gt; /tmp/rc.conf
+<pre><code class="language-console" data-lang="console">$ sudo co -p -r1.1 rc.conf &gt; /tmp/rc.conf
 RCS/rc.conf,v  --&gt;  standard output
 revision 1.1
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-ident文字列の埋め込み-span"><span style="text-decoration: underline;">ident文字列の埋め込み</span></h2>
-
-<p>ファイルを特定しやすくするための仕組みがident文字列。<br />
-ある文字列を埋め込んでおくと、RCSが自動的に置換・更新をしてくれる。<br />
+</code></pre><h2 id="span-styletext-decoration-underlineidentspan"><!-- raw HTML omitted -->ident文字列の埋め込み<!-- raw HTML omitted --></h2>
+<p>ファイルを特定しやすくするための仕組みがident文字列。<br>
+ある文字列を埋め込んでおくと、RCSが自動的に置換・更新をしてくれる。<br>
 実際に見てもらった方が早い。</p>
-
-<p>rc.confに埋め込んでみる。<br />
+<p>rc.confに埋め込んでみる。<br>
 ident文字列には何種類かあるが、ここでは「$Id$」を使う。</p>
-
-<p>しかし、$Id$といきなり書いてはいけない。コメントとして埋め込もう。<br />
-すなわち、#のあとに続ける。<br />
-（同様に、たとえばxmlなら&rdquo;&lt;!-&ldquo;と&rdquo;-&gt;&ldquo;の間、というようにフォーマットに合わせたコメント文に埋め込むとよい）</p>
-
+<p>しかし、$Id$といきなり書いてはいけない。コメントとして埋め込もう。<br>
+すなわち、#のあとに続ける。<br>
+（同様に、たとえばxmlなら&quot;&lt;!-&ldquo;と&rdquo;-&gt;&quot;の間、というようにフォーマットに合わせたコメント文に埋め込むとよい）</p>
 <p>rc.confの例</p>
-
-<pre><code class="language-console">#$Id$
+<pre><code class="language-console" data-lang="console">#$Id$
 hostname=&quot;hogehoge&quot;
 keymap=&quot;jp.106.kbd&quot;
 ifconfig_em0=&quot;DHCP&quot;
 sshd_enable=&quot;YES&quot;
-</code></pre>
-
-<p>これをチェックインすると、自動的に以下のように変換してくれる。</p>
-
-<pre><code class="language-console">$ head -1 /etc/rc.conf
+</code></pre><p>これをチェックインすると、自動的に以下のように変換してくれる。</p>
+<pre><code class="language-console" data-lang="console">$ head -1 /etc/rc.conf
 #$Id: rc.conf,v 1.2 2013/08/24 10:52:27 root Exp $
-</code></pre>
-
-<p>これは便利である。<br />
+</code></pre><p>これは便利である。<br>
 実はこの文字列、よく見かけたのだが、やっとその秘密が分かった。</p>
-
-<p>しかしタイムスタンプはUTCである。<br />
+<p>しかしタイムスタンプはUTCである。<br>
 チェックインのときに-zLTと指定すればローカルタイムで置換してくれる。</p>
-
-<pre><code class="language-console">$ sudo ci -u -zLT ./rc.conf
+<pre><code class="language-console" data-lang="console">$ sudo ci -u -zLT ./rc.conf
 ./RCS/rc.conf,v  &lt;--  ./rc.conf
 new revision: 1.4; previous revision: 1.3
 enter log message, terminated with single '.' or end of file:
@@ -461,14 +374,10 @@ enter log message, terminated with single '.' or end of file:
 done
 $ head -1 ./rc.conf
 #$Id: rc.conf,v 1.4 2013-08-24 20:18:36+09 root Exp $
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-ident文字列のちょっとしたノウハウ-span"><span style="text-decoration: underline;">ident文字列のちょっとしたノウハウ</span></h2>
-
-<p>ident文字列の場所はどこでもよい。<br />
+</code></pre><h2 id="span-styletext-decoration-underlineidentspan-1"><!-- raw HTML omitted -->ident文字列のちょっとしたノウハウ<!-- raw HTML omitted --></h2>
+<p>ident文字列の場所はどこでもよい。<br>
 しかし、1行目か2行目がよいでしょう。</p>
-
-<p>ident文字列はファイルのIDとして埋め込んでいる。<br />
+<p>ident文字列はファイルのIDとして埋め込んでいる。<br>
 IDの場所がバージョンごとに違うと、のちのち差分を確認するときに見にくくなってしまうから。</p>
 <ul class="pa0">
   

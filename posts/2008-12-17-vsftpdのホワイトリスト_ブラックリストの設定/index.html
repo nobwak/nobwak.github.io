@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-12-17T01:00:00+09:00" />
 <meta itemprop="name" content="vsftpdのホワイトリスト/ブラックリストの設定">
 <meta itemprop="description" content="仕事でvsftpdを入れたのでメモ。 ホワイトリスト/ブラックリストの設定 userlist_fileで指定するファイル（以降、userlist">
-
-
 <meta itemprop="datePublished" content="2008-12-17T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-12-17T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="673">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="vsftpdのホワイトリスト/ブラックリストの設定"/>
 <meta name="twitter:description" content="仕事でvsftpdを入れたのでメモ。 ホワイトリスト/ブラックリストの設定 userlist_fileで指定するファイル（以降、userlist"/>
 
@@ -153,9 +150,7 @@ if (!doNotTrack) {
 
 userlist_fileで指定するファイル（以降、userlist_file）には、ユーザをリストするのだが、このファイルの扱いは、vfstpd.confの設定により180度変わる。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  userlist_enable=YES かつ userlist_deny=YESのとき;
 
 
@@ -177,9 +172,7 @@ userlist_fileで指定するファイル（以降、userlist_file）には、ユ
 
   　しかし、uselist_fileにリストされているユーザについてはログイン許可
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>つまり、userlist_fileがホワイトリストになったり、ブラックリストになったりする。
 
 
@@ -202,8 +195,7 @@ userlist_fileで指定するファイル（以降、userlist_file）には、ユ
 
 PAM設定（CentOSでの内容）
 </code></pre>
-
-<pre><code class="language-console"># grep pam_service ./vsftpd.conf
+<pre><code class="language-console" data-lang="console"># grep pam_service ./vsftpd.conf
 pam_service_name=vsftpd
 # cat  /etc/pam.d/vsftpd
 #%PAM-1.0
@@ -215,8 +207,7 @@ auth       include      system-auth
 account    include      system-auth
 session    include      system-auth
 session    required     pam_loginuid.so
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

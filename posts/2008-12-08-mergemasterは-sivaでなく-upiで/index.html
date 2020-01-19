@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-12-08T01:00:00+09:00" />
 <meta itemprop="name" content="mergemasterは-sivaでなく-UPiで。">
 <meta itemprop="description" content="mergemasterについて、FreeBSD-questionsに面白い投稿（&lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&quot; target=&quot;_blank&quot">
-
-
 <meta itemprop="datePublished" content="2008-12-08T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-12-08T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1229">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="mergemasterは-sivaでなく-UPiで。"/>
 <meta name="twitter:description" content="mergemasterについて、FreeBSD-questionsに面白い投稿（&lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&quot; target=&quot;_blank&quot"/>
 
@@ -184,17 +181,14 @@ mergemasterにはかなり前に自動アップデート機能が追加されて
 
 実行例
 </code></pre>
-
-<pre><code class="language-console">$ mergemaster
+<pre><code class="language-console" data-lang="console">$ mergemaster
 *** Unable to find mtree database. Skipping auto-upgrade.
 *** Creating the temporary root environment in /var/tmp/temproot
 *** /var/tmp/temproot ready for use
 *** Creating and populating directory structure in /var/tmp/temproot
 mtree -eU  -f /usr/src/etc/mtree/BSD.root.dist -p /var/tmp/temproot/
 (略)
-</code></pre>
-
-<pre><code>こうしておけば、次からmergemaster -Uとやるだけで、かなりのファイルを自動アップデートしてくれて楽になるはず。
+</code></pre><pre><code>こうしておけば、次からmergemaster -Uとやるだけで、かなりのファイルを自動アップデートしてくれて楽になるはず。
 
 
 
@@ -223,16 +217,13 @@ mtree -eU  -f /usr/src/etc/mtree/BSD.root.dist -p /var/tmp/temproot/
 
 /etc/mergemaster.rc
 </code></pre>
-
-<pre><code class="language-console">AUTO_INSTALL=yes
+<pre><code class="language-console" data-lang="console">AUTO_INSTALL=yes
 AUTO_UPGRADE=yes
 PRESERVE_FILES=yes
 PRESERVE_FILES_DIR=/var/tmp/mergemaster/preserved-files-`date +%y%m%d-%H%M%S`
 IGNORE_MOTD=yes
 VERBOSE=yes
-</code></pre>
-
-<pre><code>AUTO_UPGRADEが-Uオプションに対応するが、現時点（7.1-BETA2）ではマニュアルに記載されていない。
+</code></pre><pre><code>AUTO_UPGRADEが-Uオプションに対応するが、現時点（7.1-BETA2）ではマニュアルに記載されていない。
 
 
 

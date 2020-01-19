@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2006-10-16T01:00:00+09:00" />
 <meta itemprop="name" content="WindowsでもOpenSSLでファイルの暗号化を">
 <meta itemprop="description" content="会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(&lt;a href=&quot;http://www.openssl.org/related/binaries.html&quot; target=&quot;_blank&quot;&">
-
-
 <meta itemprop="datePublished" content="2006-10-16T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2006-10-16T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1535">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="WindowsでもOpenSSLでファイルの暗号化を"/>
 <meta name="twitter:description" content="会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(&lt;a href=&quot;http://www.openssl.org/related/binaries.html&quot; target=&quot;_blank&quot;&"/>
 
@@ -249,19 +246,13 @@ OpenSSLは使えるオプションがクソ多くて混乱するが、&lt;a href
 
 書式
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  openssl &lt;暗号化方式&gt; &lt;-e:暗号/-d:復号&gt; -in &lt;オリジナルのファイル名&gt; -out &lt;暗号化されたファイル名&gt;
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>サンプル
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  (暗号化)
 
 
@@ -276,9 +267,7 @@ OpenSSLは使えるオプションがクソ多くて混乱するが、&lt;a href
 
   openssl des -d -in test.doc.crypted -out test.doc
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>試しに暗号化されたファイルの頭をダンプしてみたらSaltedになっていた。きちんと暗号化されてるようだ。
 </code></pre>
 <ul class="pa0">

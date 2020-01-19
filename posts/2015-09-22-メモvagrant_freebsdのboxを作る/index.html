@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-09-22T11:53:28+09:00" />
 <meta itemprop="name" content="[メモ][Vagrant] FreeBSDのboxを作る。">
 <meta itemprop="description" content="インストール時設定 容量節約のためにgame, srcはインストールしない。 rootのパスワードはvagrantに。 ユーザvagrantを追加、">
-
-
 <meta itemprop="datePublished" content="2015-09-22T11:53:28&#43;09:00" />
 <meta itemprop="dateModified" content="2015-09-22T11:53:28&#43;09:00" />
 <meta itemprop="wordCount" content="1174">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,Vagrant," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,Vagrant," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ][Vagrant] FreeBSDのboxを作る。"/>
 <meta name="twitter:description" content="インストール時設定 容量節約のためにgame, srcはインストールしない。 rootのパスワードはvagrantに。 ユーザvagrantを追加、"/>
 
@@ -140,67 +137,42 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="インストール時設定">インストール時設定</h2>
-
-<p>容量節約のためにgame, srcはインストールしない。<br />
-rootのパスワードはvagrantに。<br />
-ユーザvagrantを追加、パスワードもvagrantに。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="heading">インストール時設定</h2>
+<p>容量節約のためにgame, srcはインストールしない。<br>
+rootのパスワードはvagrantに。<br>
+ユーザvagrantを追加、パスワードもvagrantに。<br>
 sshdは有効に、dumpdevは無効に。</p>
-
 <p>/etc/rc.confの中身</p>
-
-<pre><code class="language-console">hostname=&quot;freebsd10&quot;
+<pre><code class="language-console" data-lang="console">hostname=&quot;freebsd10&quot;
 keymap=&quot;jp.106.kbd&quot;
 ifconfig_em0=&quot;DHCP&quot;
 sshd_enable=&quot;YES&quot;
 # Set dumpdev to &quot;AUTO&quot; to enable crash dumps, &quot;NO&quot; to disable
 dumpdev=&quot;NO&quot;
-</code></pre>
-
-<h2 id="インストール後設定">インストール後設定</h2>
-
+</code></pre><h2 id="heading-1">インストール後設定</h2>
 <p>まずはOSの更新。</p>
-
-<pre><code class="language-console"># freebsd-update fetch install
+<pre><code class="language-console" data-lang="console"># freebsd-update fetch install
 src component not installed, skipped
 Looking up update.FreeBSD.org mirrors... none found.
 Fetching public key from update.FreeBSD.org... done.
 （略）
-</code></pre>
-
-<h2 id="pkgのインストール">pkgのインストール</h2>
-
+</code></pre><h2 id="pkg">pkgのインストール</h2>
 <p>pkgをインストールするには、pkg listでもなんでも叩けばインストールしてくれる。</p>
-
-<pre><code class="language-console"># pkg list
+<pre><code class="language-console" data-lang="console"># pkg list
 The package management tool is not yet installed on your system.
 Do you want to fetch install it now? [y/N]: y
 （略）
-</code></pre>
-
-<h2 id="sudoのインストール">sudoのインストール</h2>
-
+</code></pre><h2 id="sudo">sudoのインストール</h2>
 <p>vagrant用に。</p>
-
-<pre><code class="language-console"># pkg install sudo
-</code></pre>
-
-<p>ユーザvagrantにパスワードなしのsudo権限を与える。</p>
-
+<pre><code class="language-console" data-lang="console"># pkg install sudo
+</code></pre><p>ユーザvagrantにパスワードなしのsudo権限を与える。</p>
 <p>requirettyがあればコメントアウト。</p>
-
-<pre><code class="language-console"># visudo
+<pre><code class="language-console" data-lang="console"># visudo
 
 vagrant ALL=(ALL) NOPASSWD: ALL
-</code></pre>
-
-<h2 id="ユーザvagrantのssh-key設定">ユーザvagrantのssh key設定</h2>
-
+</code></pre><h2 id="vagrantssh-key">ユーザvagrantのssh key設定</h2>
 <p>定番のキーをauthorized_keysとしてダウンロードし、パーミッションを設定する。</p>
-
-<pre><code class="language-console"># mkdir -p /home/vagrant/.ssh
+<pre><code class="language-console" data-lang="console"># mkdir -p /home/vagrant/.ssh
 # cd /home/vagrant/.ssh
 # fetch --no-verify-peer -o authorized_keys https://github.com/mitchellh/vagrant/blob/master/keys/vagrant.pub
 fetch: https://github.com/mitchellh/vagrant/blob/master/keys/vagrant.pub: size of remote file is not known
@@ -209,66 +181,47 @@ authorized_keys                                         80 kB  225 kBps 00m00s
 # chmod 700 ~vagrant/.ssh
 # chmod 600 ~vagrant/.ssh/authorized_keys
 # chown -R vagrant:vagrant ~vagrant
-</code></pre>
-
-<h2 id="sshd設定の変更">sshd設定の変更</h2>
-
+</code></pre><h2 id="sshd">sshd設定の変更</h2>
 <p>/etc/ssh/sshd_configに以下を追加。</p>
-
-<pre><code class="language-console">Port 22
+<pre><code class="language-console" data-lang="console">Port 22
 PubkeyAuthentication yes
 AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys2
 PermitEmptyPasswords no
 UseDNS no
-</code></pre>
-
-<p>空行、コメント行を除くとこんな感じ。</p>
-
-<pre><code class="language-console"># egrep -v '^ *#|^ *$' ./sshd_config
+</code></pre><p>空行、コメント行を除くとこんな感じ。</p>
+<pre><code class="language-console" data-lang="console"># egrep -v '^ *#|^ *$' ./sshd_config
 Port 22
 PubkeyAuthentication yes
 AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys2
 PermitEmptyPasswords no
 UseDNS no
 Subsystem       sftp    /usr/libexec/sftp-server
-</code></pre>
-
-<p>sshdを再起動</p>
-
-<pre><code class="language-console"># service sshd restart
+</code></pre><p>sshdを再起動</p>
+<pre><code class="language-console" data-lang="console"># service sshd restart
 Performing sanity check on sshd configuration.
 Stopping sshd.
 Performing sanity check on sshd configuration.
 Starting sshd.
-</code></pre>
-
-<h2 id="virtualbox-guest-additonsは必要か">VirtualBox Guest Additonsは必要か。</h2>
-
-<p>FreeBSDのGuest Additionsで以下が可能になる。<br />
- <a href="https://wiki.freebsd.org/VirtualBox" target="_blank"><a href="https://wiki.freebsd.org/VirtualBox">https://wiki.freebsd.org/VirtualBox</a></a></p>
-
-<pre><code class="language-console">Clipboard sharing
+</code></pre><h2 id="virtualbox-guest-additons">VirtualBox Guest Additonsは必要か。</h2>
+<p>FreeBSDのGuest Additionsで以下が可能になる。<br>
+<!-- raw HTML omitted --><a href="https://wiki.freebsd.org/VirtualBox%3C/a%3E">https://wiki.freebsd.org/VirtualBox&lt;/a&gt;</a></p>
+<pre><code class="language-console" data-lang="console">Clipboard sharing
 Mouse pointer integration
 Host Time synchronization
 Window scaling
 Seamless mode
-</code></pre>
-
-<p>逆に言うと、以上が必要なければわざわざ入れることもない。<br />
-もしXを入れないのであれば、インストールしないほうがよい。<br />
-pkgのGuest AdditionsはX11のサポートがOnになっており、そのままインストールすると山ほどpackageを追加されるから。<br />
-ではportsからコンパイルする？<br />
-まずportsディレクトリが必要。<br />
-さらに、実はGuest AdditionsのコンパイルにはKernelソースが必要なので、/usr/srcも必要。<br />
-しかもportsからのコンパイルするとperlやらgmakeやら、いろんなもののコンパイルが発生する。<br />
+</code></pre><p>逆に言うと、以上が必要なければわざわざ入れることもない。<br>
+もしXを入れないのであれば、インストールしないほうがよい。<br>
+pkgのGuest AdditionsはX11のサポートがOnになっており、そのままインストールすると山ほどpackageを追加されるから。<br>
+ではportsからコンパイルする？<br>
+まずportsディレクトリが必要。<br>
+さらに、実はGuest AdditionsのコンパイルにはKernelソースが必要なので、/usr/srcも必要。<br>
+しかもportsからのコンパイルするとperlやらgmakeやら、いろんなもののコンパイルが発生する。<br>
 本当におすすめしない。</p>
-
-<h2 id="guest-additionsのインストール">Guest Additionsのインストール</h2>
-
-<p>インストールする場合には、pkgからvirtualbo-ose-additonsを。<br />
+<h2 id="guest-additions">Guest Additionsのインストール</h2>
+<p>インストールする場合には、pkgからvirtualbo-ose-additonsを。<br>
 search -fすると分かるが、X11がOnになっている。</p>
-
-<pre><code class="language-console">$ pkg search -f virtualbox-ose-additions
+<pre><code class="language-console" data-lang="console">$ pkg search -f virtualbox-ose-additions
 virtualbox-ose-additions-4.3.30
 Name           : virtualbox-ose-additions
 Comment        : VirtualBox additions for FreeBSD guests
@@ -283,31 +236,20 @@ Options        :
 $ pkg install virtualbox-ose-additions&lt;\pre&gt;
 
 /etc/rc.confの変更
-</code></pre>
-
-<pre><code class="language-console">$ sudo sysrc vboxguest_enbale=YES
+</code></pre><pre><code class="language-console" data-lang="console">$ sudo sysrc vboxguest_enbale=YES
 vboxguest_enbale:  -&gt; YES
 $ sudo sysrc vboxservice_enable=YES
 vboxservice_enable:  -&gt; YES
-</code></pre>
-
-<p>念のため確認</p>
-
-<pre><code class="language-console">$ sudo sysrc vboxservice_enable
+</code></pre><p>念のため確認</p>
+<pre><code class="language-console" data-lang="console">$ sudo sysrc vboxservice_enable
 vboxservice_enable: YES
 $ sudo sysrc vboxguest_enbale
 vboxguest_enbale: YES
-</code></pre>
-
-<h2 id="仮想マシンをパッケージする">仮想マシンをパッケージする</h2>
-
-<p>シャットダウンしたのち、ホストマシンで梱包<br />
+</code></pre><h2 id="heading-2">仮想マシンをパッケージする</h2>
+<p>シャットダウンしたのち、ホストマシンで梱包<br>
 -boxに続けてVirtualBox上の名前を入れる。</p>
-
-<pre><code class="language-console">vagrant package --box FreeBSD10
-</code></pre>
-
-<p>できたpackage.boxは約1Gバイト。うーん。ちょっとでかいなあ。</p>
+<pre><code class="language-console" data-lang="console">vagrant package --box FreeBSD10
+</code></pre><p>できたpackage.boxは約1Gバイト。うーん。ちょっとでかいなあ。</p>
 <ul class="pa0">
   
    <li class="list">

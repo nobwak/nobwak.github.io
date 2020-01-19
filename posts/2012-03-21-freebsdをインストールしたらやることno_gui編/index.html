@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-03-21T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDをインストールしたらやること。（no GUI編）">
 <meta itemprop="description" content="FreeBSDをインストールしてやることをまとめたよ。 まずrootでログイン シェル、sudo、screen、vim-lite(日本語OKなv">
-
-
 <meta itemprop="datePublished" content="2012-03-21T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-21T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="682">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDをインストールしたらやること。（no GUI編）"/>
 <meta name="twitter:description" content="FreeBSDをインストールしてやることをまとめたよ。 まずrootでログイン シェル、sudo、screen、vim-lite(日本語OKなv"/>
 
@@ -153,23 +150,14 @@ if (!doNotTrack) {
 
 シェル、sudo、screen、vim-lite(日本語OKなvi)をインストール。
 </code></pre>
-
-<pre><code class="language-console"># pkg_add -r bash sudo screen vim-lite
+<pre><code class="language-console" data-lang="console"># pkg_add -r bash sudo screen vim-lite
+</code></pre><pre><code>以降、viはvim等と読み替えておくれ。
 </code></pre>
-
-<pre><code>以降、viはvim等と読み替えておくれ。
+<pre><code class="language-console" data-lang="console"># vipw
+</code></pre><pre><code>自アカウントのシェルを変更。
 </code></pre>
-
-<pre><code class="language-console"># vipw
-</code></pre>
-
-<pre><code>自アカウントのシェルを変更。
-</code></pre>
-
-<pre><code class="language-console"># vi /etc/group
-</code></pre>
-
-<pre><code>wheelに自アカウントを追加。
+<pre><code class="language-console" data-lang="console"># vi /etc/group
+</code></pre><pre><code>wheelに自アカウントを追加。
 
 
 
@@ -182,14 +170,11 @@ sudoが使えるように。
 
 これ以降、原則としてrootは使わない。
 </code></pre>
-
-<pre><code class="language-console"># visudo
+<pre><code class="language-console" data-lang="console"># visudo
 （以下の%wheelの行をアンコメントする。）
 ## Uncomment to allow members of group wheel to execute any command
 %wheel ALL=(ALL) ALL
-</code></pre>
-
-<pre><code>自分のアカウントでログイン。
+</code></pre><pre><code>自分のアカウントでログイン。
 
 
 
@@ -199,30 +184,21 @@ sudoが使えるように。
 
 言語設定とパッケージの取得先変更。
 </code></pre>
-
-<pre><code class="language-console">#
+<pre><code class="language-console" data-lang="console">#
 # modified
 #
 LANG=ja_JP.UTF-8;export LANG
 PACKAGEROOT=&amp;#34;ftp://ftp2.jp.freebsd.org&amp;#34;;export PACKAGEROOT
+</code></pre><pre><code>上記設定を読み込み。
 </code></pre>
-
-<pre><code>上記設定を読み込み。
+<pre><code class="language-console" data-lang="console">$ . ~/.profile
+</code></pre><pre><code>portsの更新
 </code></pre>
-
-<pre><code class="language-console">$ . ~/.profile
-</code></pre>
-
-<pre><code>portsの更新
-</code></pre>
-
-<pre><code class="language-console">$ sudo vi /etc/portsnap.conf
+<pre><code class="language-console" data-lang="console">$ sudo vi /etc/portsnap.conf
 （portsnapの取得先をfreebsd.orgからallbsd.orgへ変更(感謝））
 #SERVERNAME=portsnap.FreeBSD.org
 SERVERNAME=portsnap.allbsd.org
-</code></pre>
-
-<pre><code>既存のportsは一回捨てる。
+</code></pre><pre><code>既存のportsは一回捨てる。
 
 
 
@@ -232,15 +208,12 @@ rmするのも時間がかかるので、いったんmvして消す。
 
 で、portsnapで取り直し。
 </code></pre>
-
-<pre><code class="language-console">$ sudo mv /usr/ports /usr/ports.org
+<pre><code class="language-console" data-lang="console">$ sudo mv /usr/ports /usr/ports.org
 $ sudo rm -Rf /usr/ports.org
 （このあとバックグラウンドにするとよい）
 $ mkdir /usr/ports
 $ sudo portsnap fetch extract
-</code></pre>
-
-<pre><code>時間がかかるのでさらにターミナルを起動。
+</code></pre><pre><code>時間がかかるのでさらにターミナルを起動。
 
 
 
@@ -249,8 +222,7 @@ $ sudo portsnap fetch extract
 
 起動時のサービスの設定
 </code></pre>
-
-<pre><code class="language-console">$ sudo vi /etc/rc.conf
+<pre><code class="language-console" data-lang="console">$ sudo vi /etc/rc.conf
 以下を（なければ）追加。
 sshd_enable=&amp;#34;YES&amp;#34;
 powerd_enable=&amp;#34;YES&amp;#34;	#低負荷の時にクロック等を下げる
@@ -262,38 +234,24 @@ sendmail_enable=&amp;#34;NO&amp;#34;
 sendmail_submit_enable=&amp;#34;NO&amp;#34;
 sendmail_outbound_enable=&amp;#34;NO&amp;#34;
 sendmail_msp_queue_enable=&amp;#34;NO&amp;#34;
+</code></pre><pre><code>powerd, ntpdateを起動。sendmailはまあ...後で再起動か。
 </code></pre>
-
-<pre><code>powerd, ntpdateを起動。sendmailはまあ...後で再起動か。
-</code></pre>
-
-<pre><code class="language-console">$ sudo service powerd start
+<pre><code class="language-console" data-lang="console">$ sudo service powerd start
 $ sudo service ntpdate start
-</code></pre>
-
-<pre><code>locateデータベースの作成
+</code></pre><pre><code>locateデータベースの作成
 
 
 
 放っておけば一週間に一回更新してくれるのだが、すぐに使いたいので。
 </code></pre>
-
-<pre><code class="language-console">$ sudo /etc/periodic/weekly/310.locate
+<pre><code class="language-console" data-lang="console">$ sudo /etc/periodic/weekly/310.locate
+</code></pre><pre><code>あとはports管理とか。
 </code></pre>
-
-<pre><code>あとはports管理とか。
+<pre><code class="language-console" data-lang="console">$ sudo pkg_add -r psearch pkg_replace portmaster portaudit
+</code></pre><pre><code>でかい言語系。
 </code></pre>
-
-<pre><code class="language-console">$ sudo pkg_add -r psearch pkg_replace portmaster portaudit
-</code></pre>
-
-<pre><code>でかい言語系。
-</code></pre>
-
-<pre><code class="language-console">$ sudo pkg_add -r perl python
-</code></pre>
-
-<pre><code>とりあえずこんなもん。
+<pre><code class="language-console" data-lang="console">$ sudo pkg_add -r perl python
+</code></pre><pre><code>とりあえずこんなもん。
 </code></pre>
 <ul class="pa0">
   

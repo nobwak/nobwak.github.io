@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2016-01-16T22:28:39+09:00" />
 <meta itemprop="name" content="[docker]dockerのimageを更新し、不要なimageを削除する">
 <meta itemprop="description" content="docker pullしてimageを更新し、結果として山ほどできるnoneなimageを削除するのが面倒くさいのでシェルスクリプトにした。 upimage.sh #!/bin/sh docker images | grep">
-
-
 <meta itemprop="datePublished" content="2016-01-16T22:28:39&#43;09:00" />
 <meta itemprop="dateModified" content="2016-01-16T22:28:39&#43;09:00" />
 <meta itemprop="wordCount" content="92">
 
 
 
-<meta itemprop="keywords" content="coreos,docker," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="coreos,docker," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[docker]dockerのimageを更新し、不要なimageを削除する"/>
 <meta name="twitter:description" content="docker pullしてimageを更新し、結果として山ほどできるnoneなimageを削除するのが面倒くさいのでシェルスクリプトにした。 upimage.sh #!/bin/sh docker images | grep"/>
 
@@ -141,14 +138,12 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>docker pullしてimageを更新し、結果として山ほどできるnoneなimageを削除するのが面倒くさいのでシェルスクリプトにした。</p>
-
-<pre><code class="language-console">upimage.sh
+<pre><code class="language-console" data-lang="console">upimage.sh
 #!/bin/sh
 
 docker images | grep -v REPO | cut -f1 -d&quot; &quot; | uniq | xargs -n1 docker pull
 docker images -f dangling=true -q | docker rmi
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/coreos" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">coreos</a>

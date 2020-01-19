@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2016-04-16T22:20:53+09:00" />
 <meta itemprop="name" content="[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う">
 <meta itemprop="description" content="slackにhubotを住まわせる記事は山のようにあるが、それを「hubotを自前サーバ」「それもFreeBSDに」という条件にすると記事数">
-
-
 <meta itemprop="datePublished" content="2016-04-16T22:20:53&#43;09:00" />
 <meta itemprop="dateModified" content="2016-04-16T22:20:53&#43;09:00" />
 <meta itemprop="wordCount" content="1220">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,hubot,jail,slack," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,hubot,jail,slack," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う"/>
 <meta name="twitter:description" content="slackにhubotを住まわせる記事は山のようにあるが、それを「hubotを自前サーバ」「それもFreeBSDに」という条件にすると記事数"/>
 
@@ -140,76 +137,46 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>slackにhubotを住まわせる記事は山のようにあるが、それを「hubotを自前サーバ」「それもFreeBSDに」という条件にすると記事数が激減する。</p>
-
-<p>そんななか、四苦八苦してなんとか達成したのでここに採録。<br />
-なお、そっけなく不親切に見えるのは、ここまでたどり着くのに疲労困憊したから。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>slackにhubotを住まわせる記事は山のようにあるが、それを「hubotを自前サーバ」「それもFreeBSDに」という条件にすると記事数が激減する。</p>
+<p>そんななか、四苦八苦してなんとか達成したのでここに採録。<br>
+なお、そっけなく不親切に見えるのは、ここまでたどり着くのに疲労困憊したから。<br>
 ではどうぞ。</p>
-
-<h2 id="jailの作成">jailの作成</h2>
-
-<p>フッツーに。<br />
+<h2 id="jail">jailの作成</h2>
+<p>フッツーに。<br>
 以下ではqjailを使っているがezjailでもなんでも、好きなのを使いたまえ。</p>
-
-<pre><code class="language-console">sudo qjail create hubot -4 192.168.200.1
-</code></pre>
-
-<h2 id="npmのインストール">npmのインストール</h2>
-
-<p>まずjailをスタートさせて中に入ろうか。<br />
+<pre><code class="language-console" data-lang="console">sudo qjail create hubot -4 192.168.200.1
+</code></pre><h2 id="npm">npmのインストール</h2>
+<p>まずjailをスタートさせて中に入ろうか。<br>
 そしてnpmのインストール。</p>
-
-<pre><code class="language-console">sudo qjail console ex02
+<pre><code class="language-console" data-lang="console">sudo qjail console ex02
 pkg install npm
-</code></pre>
-
-<p>node, npmのバージョンを確認しておく。<br />
+</code></pre><p>node, npmのバージョンを確認しておく。<br>
 問題なくインストールされているかの確認でもある。</p>
-
-<pre><code class="language-console">node -v
+<pre><code class="language-console" data-lang="console">node -v
 npm -v
-</code></pre>
-
-<h2 id="generatorのインストール">generatorのインストール</h2>
-
-<pre><code class="language-console">npm install -g yo generator-hubot
-</code></pre>
-
-<h2 id="hubot用ユーザの作成">hubot用ユーザの作成</h2>
-
-<p>jailの中でadduserし、お好きなユーザを作る。<br />
+</code></pre><h2 id="generator">generatorのインストール</h2>
+<pre><code class="language-console" data-lang="console">npm install -g yo generator-hubot
+</code></pre><h2 id="hubot">hubot用ユーザの作成</h2>
+<p>jailの中でadduserし、お好きなユーザを作る。<br>
 以下では「bot」というユーザ。</p>
-
-<pre><code class="language-console">adduser bot
-</code></pre>
-
-<h2 id="hubot用ユーザでhubotレポジトリ作成">hubot用ユーザでhubotレポジトリ作成</h2>
-
-<pre><code class="language-console">su - bot
+<pre><code class="language-console" data-lang="console">adduser bot
+</code></pre><h2 id="hubothubot">hubot用ユーザでhubotレポジトリ作成</h2>
+<pre><code class="language-console" data-lang="console">su - bot
 mkdir hubot
 cd hubot
 yo hubot --adapter slack
-</code></pre>
-
-<p>botホストの作業はいったんはここまで。<br />
+</code></pre><p>botホストの作業はいったんはここまで。<br>
 以降、slack側で。</p>
-
-<h2 id="slackにhubotのインストール">slackにhubotのインストール</h2>
-
-<p>slackのteamメニューからApp&amp;Integrations &gt; Hubotをインストール<br />
-表示されるAPI Tokenを記録する。<br />
+<h2 id="slackhubot">slackにhubotのインストール</h2>
+<p>slackのteamメニューからApp&amp;Integrations &gt; Hubotをインストール<br>
+表示されるAPI Tokenを記録する。<br>
 hubotがslackへアクセスするためのトークン。</p>
-
-<h2 id="botホストで起動スクリプトの作成">botホストで起動スクリプトの作成</h2>
-
-<p>再びbotホスト<br />
-/usr/local/etc/rc.d/hubotとして以下を作成。<br />
-試行錯誤で作ったから雑なスクリプトであることに注意。<br />
+<h2 id="bot">botホストで起動スクリプトの作成</h2>
+<p>再びbotホスト<br>
+/usr/local/etc/rc.d/hubotとして以下を作成。<br>
+試行錯誤で作ったから雑なスクリプトであることに注意。<br>
 それから実行権限付けるのを忘れないこと。</p>
-
-<pre><code class="language-console">#! /bin/sh
+<pre><code class="language-console" data-lang="console">#! /bin/sh
 #
 #
 # PROVIDE: hubot
@@ -243,38 +210,26 @@ hubot_start()
 
 load_rc_config $name
 run_rc_command &quot;$1&quot;
-</code></pre>
-
-<h2 id="起動確認">起動確認</h2>
-
-<p>/etc/rc.confにhubot_enable=YESを記載。<br />
+</code></pre><h2 id="heading">起動確認</h2>
+<p>/etc/rc.confにhubot_enable=YESを記載。<br>
 service -l でhubotがリストされることを確認したら、service hubot startで起動。</p>
-
 <p>以下のような表示が出ればOK。</p>
-
-<pre><code class="language-console">[Sat Apr 16 2016 21:55:52 GMT+0900 (JST)] INFO Connecting...
+<pre><code class="language-console" data-lang="console">[Sat Apr 16 2016 21:55:52 GMT+0900 (JST)] INFO Connecting...
 [Sat Apr 16 2016 21:55:53 GMT+0900 (JST)] INFO Logged in as xxx of xxxxxx, but not yet connected
 [Sat Apr 16 2016 21:55:54 GMT+0900 (JST)] INFO Slack client now connected
 [Sat Apr 16 2016 21:55:55 GMT+0900 (JST)] ERROR hubot-heroku-alive included, but missing HUBOT_HEROKU_KEEPALIVE_URL. `heroku config:set HUBOT_HEROKU_KEEPALIVE_URL=$(heroku apps:info -s  | grep web-url | cut -d= -f2)`
 [Sat Apr 16 2016 21:55:55 GMT+0900 (JST)] INFO hubot-redis-brain: Using default redis on localhost:6379
-</code></pre>
-
-<h2 id="ポートフォワーディングの設定">ポートフォワーディングの設定。</h2>
-
-<p>前章の起動時メッセージ、「INFO hubot-redis-brain: Using default redis on localhost:6379」に注目。<br />
-6379でポート待ち受けている。<br />
-ご家庭のサーバで動かしている場合には、ルータでのポートフォワーディング設定を忘れずに。<br />
+</code></pre><h2 id="heading-1">ポートフォワーディングの設定。</h2>
+<p>前章の起動時メッセージ、「INFO hubot-redis-brain: Using default redis on localhost:6379」に注目。<br>
+6379でポート待ち受けている。<br>
+ご家庭のサーバで動かしている場合には、ルータでのポートフォワーディング設定を忘れずに。<br>
 なお2016/4/16現在、slackの側でサーバのIPアドレスを指定したりするような設定は不要。</p>
-
-<h2 id="slack側の確認">slack側の確認</h2>
-
-<p>slackでbotを住まわせたいchannelにInvite。<br />
-botの名前の左側に在席マークが点いているのを確認し、「@＜bot名＞ ping」とし、botからPONGと帰ってきたら成功。<br />
+<h2 id="slack">slack側の確認</h2>
+<p>slackでbotを住まわせたいchannelにInvite。<br>
+botの名前の左側に在席マークが点いているのを確認し、「@＜bot名＞ ping」とし、botからPONGと帰ってきたら成功。<br>
 もし起動時メッセージが不要であれば、以下のように/usr/sbin/daemonのオプションに-fを加えるとよい。</p>
-
-<pre><code class="language-console">/usr/sbin/daemon -f -p ${pidfile} -u .....
-</code></pre>
-<ul class="pa0">
+<pre><code class="language-console" data-lang="console">/usr/sbin/daemon -f -p ${pidfile} -u .....
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

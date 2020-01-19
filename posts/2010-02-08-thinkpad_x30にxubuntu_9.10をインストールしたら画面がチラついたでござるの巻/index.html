@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-02-08T01:00:00+09:00" />
 <meta itemprop="name" content="Thinkpad X30にXubuntu 9.10をインストールしたら画面がチラついたでござるの巻">
 <meta itemprop="description" content="色気を出してThinkpad X30にXubuntuを入れてみたが画面がチラつきっぱなしで参った。 やっぱりIntel Driverは地雷だと思う">
-
-
 <meta itemprop="datePublished" content="2010-02-08T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-02-08T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="189">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Thinkpad X30にXubuntu 9.10をインストールしたら画面がチラついたでござるの巻"/>
 <meta name="twitter:description" content="色気を出してThinkpad X30にXubuntuを入れてみたが画面がチラつきっぱなしで参った。 やっぱりIntel Driverは地雷だと思う"/>
 
@@ -150,25 +147,17 @@ if (!doNotTrack) {
 
 X30のチップセットはIntel 830MG(82830)。
 </code></pre>
-
-<pre><code class="language-console">$ lspci|grep Grap
+<pre><code class="language-console" data-lang="console">$ lspci|grep Grap
 00:02.0 VGA compatible controller: Intel Corporation 82830 CGC &amp;#91;Chipset Graphics Controller] (rev 04)
 00:02.1 Display controller: Intel Corporation 82830 CGC &amp;#91;Chipset Graphics Controller]
+</code></pre><pre><code>/etc/defaults/grubを以下のように修正して、grubをアップデートすればよい。
 </code></pre>
-
-<pre><code>/etc/defaults/grubを以下のように修正して、grubをアップデートすればよい。
-</code></pre>
-
-<pre><code class="language-console">#GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;quiet splash&amp;#34;
+<pre><code class="language-console" data-lang="console">#GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;quiet splash&amp;#34;
 GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;quiet splash i915.modeset=0&amp;#34;
+</code></pre><pre><code>で、アップデート。
 </code></pre>
-
-<pre><code>で、アップデート。
-</code></pre>
-
-<pre><code class="language-console">sudo update-grub
-</code></pre>
-<ul class="pa0">
+<pre><code class="language-console" data-lang="console">sudo update-grub
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-28T22:33:29+09:00" />
 <meta itemprop="name" content="zfs snapshotの差分send/recvについて">
 <meta itemprop="description" content="zfs snapshotの差分send/recvについて zfsのバックアップは、snapshotを撮っておいて、自ホストの別zpool、あるいは他">
-
-
 <meta itemprop="datePublished" content="2014-01-28T22:33:29&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-28T22:33:29&#43;09:00" />
 <meta itemprop="wordCount" content="941">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,linux,OS X,zfs," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,linux,OS X,zfs," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="zfs snapshotの差分send/recvについて"/>
 <meta name="twitter:description" content="zfs snapshotの差分send/recvについて zfsのバックアップは、snapshotを撮っておいて、自ホストの別zpool、あるいは他"/>
 
@@ -140,60 +137,38 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="span-style-text-decoration-underline-zfs-snapshotの差分send-recvについて-span"><span style="text-decoration: underline;">zfs snapshotの差分send/recvについて</span></h2>
-
-<p>zfsのバックアップは、snapshotを撮っておいて、自ホストの別zpool、あるいは他ホストの別zpoolに移すことで行われる。<br />
-バックアップは定期的に行われるものであるが、ではそのsnapshotを移す際、毎回毎回まるまる送っていたんでは帯域も時間もディスク寿命も無駄である。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlinezfs-snapshotsendrecvspan"><!-- raw HTML omitted -->zfs snapshotの差分send/recvについて<!-- raw HTML omitted --></h2>
+<p>zfsのバックアップは、snapshotを撮っておいて、自ホストの別zpool、あるいは他ホストの別zpoolに移すことで行われる。<br>
+バックアップは定期的に行われるものであるが、ではそのsnapshotを移す際、毎回毎回まるまる送っていたんでは帯域も時間もディスク寿命も無駄である。<br>
 zfsはそこも考慮していて、差分だけを送ればいいようにincrementalオプションがきちんと用意されている。</p>
-
-<p>書式は以下の通りsendに-iオプションを与えるだけ。<br />
+<p>書式は以下の通りsendに-iオプションを与えるだけ。<br>
 （recv側にはsnapshotAがすでに転送済みの前提）</p>
-
-<pre><code class="language-console">zfs send -i ＜snapshotA＞ ＜snapshotB＞ | zfs recv ＜target pool＞
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-よろしい-では次回からは-span"><span style="text-decoration: underline;">よろしい。では次回からは…？</span></h2>
-
-<p>ふむ。<br />
-では二回目以降はどうするのだろう？<br />
-上記の書式例でsnapshotCが出来たらどうするのだろう？<br />
+<pre><code class="language-console" data-lang="console">zfs send -i ＜snapshotA＞ ＜snapshotB＞ | zfs recv ＜target pool＞
+</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->よろしい。では次回からは…？<!-- raw HTML omitted --></h2>
+<p>ふむ。<br>
+では二回目以降はどうするのだろう？<br>
+上記の書式例でsnapshotCが出来たらどうするのだろう？<br>
 まさかsnapshotA, B, Cを全部並べるのか？と思ったけどそれは間違いで、snapshotB, Cだけでよい。</p>
-
-<p>recv側にはsnapshotAがすでにあるとき。<br />
-zfs send -i snapshotA snapshotBでAとBの差分のみが送られる。<br />
+<p>recv側にはsnapshotAがすでにあるとき。<br>
+zfs send -i snapshotA snapshotBでAとBの差分のみが送られる。<br>
 つぎにzfs send -i snapshotB snapshotCでBとCの差分のみが送られる、というわけ。</p>
-
 <p>では早速試してみる。が。</p>
-
-<h2 id="span-style-text-decoration-underline-転送先が更新されているため差分を転送できません-span"><span style="text-decoration: underline;">「転送先が更新されているため差分を転送できません」</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->「転送先が更新されているため差分を転送できません」<!-- raw HTML omitted --></h2>
 <p>こんなエラーがでる。</p>
-
-<pre><code class="language-console">cannot receive incremental stream: destination warehouse/dir has been modified
+<pre><code class="language-console" data-lang="console">cannot receive incremental stream: destination warehouse/dir has been modified
 since most recent snapshot
-</code></pre>
-
-<p>まあ文字通りなんですが。<br />
+</code></pre><p>まあ文字通りなんですが。<br>
 バックアップ用の転送先が更新されるのはなぜか分からないが（atimeだろうか？）。</p>
-
-<p>こういう場合には、recv側で-Fオプションを与えればよい。<br />
+<p>こういう場合には、recv側で-Fオプションを与えればよい。<br>
 -Fオプションによりrecv側は最新snapshotに強制rollbackして、それからsnapshotを受け取る。</p>
-
 <p>下記の例だと、recv側は@20131226にいったんrollbackしてから受け取る。</p>
-
-<pre><code class="language-console">$ sudo sh -c &quot;zfs send -i vault/chamber@20131226 vault/chamber@2014010
+<pre><code class="language-console" data-lang="console">$ sudo sh -c &quot;zfs send -i vault/chamber@20131226 vault/chamber@2014010
 2 | zfs recv -F warehouse/chamber&quot;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-atimeのoff-span"><span style="text-decoration: underline;">atimeのoff</span></h2>
-
-<p>recv側がなぜ更新されてるのか、atimeが怪しいのでoffにしておく。<br />
-recv側のzpoolに対してzfs set atime=offするだけ。<br />
+</code></pre><h2 id="span-styletext-decoration-underlineatimeoffspan"><!-- raw HTML omitted -->atimeのoff<!-- raw HTML omitted --></h2>
+<p>recv側がなぜ更新されてるのか、atimeが怪しいのでoffにしておく。<br>
+recv側のzpoolに対してzfs set atime=offするだけ。<br>
 （zpoolから切り出されたzfsすべてに適用される）</p>
-
-<pre><code class="language-console">$ zfs get atime warehouse
+<pre><code class="language-console" data-lang="console">$ zfs get atime warehouse
 NAME       PROPERTY  VALUE  SOURCE
 warehouse  atime     on     default
 $ sudo zfs set atime=off warehouse
@@ -203,8 +178,7 @@ warehouse  atime     off    local
 $ zfs get atime warehouse/chamber
 NAME               PROPERTY  VALUE  SOURCE
 warehouse/chamber  atime     off    inherited from warehouse
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

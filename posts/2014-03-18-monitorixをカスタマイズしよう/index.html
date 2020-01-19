@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-03-18T20:02:55+09:00" />
 <meta itemprop="name" content="Monitorixをカスタマイズしよう">
 <meta itemprop="description" content="ママも安心。軽量手軽な監視ツールMonitorix の続き 素の状態でもだいたいのところを監視してくれるMonitorixであるが、それでも設定">
-
-
 <meta itemprop="datePublished" content="2014-03-18T20:02:55&#43;09:00" />
 <meta itemprop="dateModified" content="2014-03-18T20:02:55&#43;09:00" />
-<meta itemprop="wordCount" content="2276">
+<meta itemprop="wordCount" content="2295">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,monitoring," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,monitoring," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Monitorixをカスタマイズしよう"/>
 <meta name="twitter:description" content="ママも安心。軽量手軽な監視ツールMonitorix の続き 素の状態でもだいたいのところを監視してくれるMonitorixであるが、それでも設定"/>
 
@@ -140,29 +137,20 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p><a href="../../../2014/03/%e8%bb%bd%e9%87%8f%e6%89%8b%e8%bb%bd%e3%81%aa%e7%9b%a3%e8%a6%96%e3%83%84%e3%83%bc%e3%83%abmonitorix/" title="ママも安心。軽量手軽な監視ツールMonitorix">ママも安心。軽量手軽な監視ツールMonitorix </a>の続き</p>
-
-<p>素の状態でもだいたいのところを監視してくれるMonitorixであるが、それでも設定変更したほうがいいところ、変更するとよいところがある。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><a href="../../../2014/03/%e8%bb%bd%e9%87%8f%e6%89%8b%e8%bb%bd%e3%81%aa%e7%9b%a3%e8%a6%96%e3%83%84%e3%83%bc%e3%83%abmonitorix/" title="ママも安心。軽量手軽な監視ツールMonitorix">ママも安心。軽量手軽な監視ツールMonitorix </a>の続き</p>
+<p>素の状態でもだいたいのところを監視してくれるMonitorixであるが、それでも設定変更したほうがいいところ、変更するとよいところがある。<br>
 変更例を示す。</p>
-
-<p><a href="../../../wp-content/uploads/2014/03/monitorixtheme.png"><img class="alignnone size-thumbnail wp-image-2663" alt="monitorixtheme" src="../../../wp-content/uploads/2014/03/monitorixtheme-150x150.png" width="150" height="150" /></a></p>
-
-<h2 id="span-style-text-decoration-underline-概要-span"><span style="text-decoration: underline;">概要</span></h2>
-
-<p>monitorixの設定ファイルは大きく三つに分かれる。<br />
-①全体的な設定をする箇所<br />
-②個々の監視内容をOn/Offするスイッチ箇所<br />
-③個々の監視内容の設定をする箇所<br />
+<p><a href="../../../wp-content/uploads/2014/03/monitorixtheme.png"><!-- raw HTML omitted --></a></p>
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->概要<!-- raw HTML omitted --></h2>
+<p>monitorixの設定ファイルは大きく三つに分かれる。<br>
+①全体的な設定をする箇所<br>
+②個々の監視内容をOn/Offするスイッチ箇所<br>
+③個々の監視内容の設定をする箇所<br>
 以下、それぞれについて扱うとともに、ログの設定も行う。</p>
-
-<h2 id="span-style-text-decoration-underline-①全体の設定-span"><span style="text-decoration: underline;">①全体の設定</span></h2>
-
-<p>設定ファイルの冒頭部分。<br />
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->①全体の設定<!-- raw HTML omitted --></h2>
+<p>設定ファイルの冒頭部分。<br>
 Monitorixの全体的な設定を行う箇所。</p>
-
-<pre><code class="language-console"># グラフの置かれるページのタイトル(ブラウザのバーに表示されるもの)
+<pre><code class="language-console" data-lang="console"># グラフの置かれるページのタイトル(ブラウザのバーに表示されるもの)
 title = copper, poudirere server
 # グラフの置かれるページで表示されるタイトル
 hostname = copper
@@ -173,30 +161,22 @@ refresh_rate = 150
 # ネットワーク速度の表示をbpsにするか（デフォルトはBps）
 # yでいいのでは
 netstats_in_bps = y
-</code></pre>
-
-<p>そしてログファイルの場所を指定するエリアがある。<br />
-log_fileの行のみ性質が異なる、と理解している。<br />
-この行に関しては「monitorixのログの吐き出し箇所を指定する」という意味。<br />
+</code></pre><p>そしてログファイルの場所を指定するエリアがある。<br>
+log_fileの行のみ性質が異なる、と理解している。<br>
+この行に関しては「monitorixのログの吐き出し箇所を指定する」という意味。<br>
 残りは、「Monitorixが見に行くログの場所」という意味になる。</p>
-
-<pre><code class="language-console"># Log files pathnames
+<pre><code class="language-console" data-lang="console"># Log files pathnames
 # monitorixが確認するログファイル
 # ----------------------------
 log_file        = /var/log/monitorix
 secure_log      = /var/log/auth.log
 （略）
-</code></pre>
-
-<p>以上に続いて、Monitorixで監視する項目の設定を行うエリアがある。</p>
-
-<h2 id="span-style-text-decoration-underline-②個々の監視内容をon-offするスイッチ箇所-span"><span style="text-decoration: underline;">②個々の監視内容をOn/Offするスイッチ箇所</span></h2>
-
-<p>Monitorixでは、出来合いの監視項目をON/OFFする、というスタイルを取る。<br />
-だからこそ手軽。<br />
+</code></pre><p>以上に続いて、Monitorixで監視する項目の設定を行うエリアがある。</p>
+<h2 id="span-styletext-decoration-underlineonoffspan"><!-- raw HTML omitted -->②個々の監視内容をOn/Offするスイッチ箇所<!-- raw HTML omitted --></h2>
+<p>Monitorixでは、出来合いの監視項目をON/OFFする、というスタイルを取る。<br>
+だからこそ手軽。<br>
 ここにない内容を監視したいなら、他の監視ツールに変えたほうがいいでしょう。</p>
-
-<pre><code class="language-console"># Graphs (de)activation
+<pre><code class="language-console" data-lang="console"># Graphs (de)activation
 # 有効にするグラフを指定する。yで有効、nで無効
 # グラフの詳細はman monitorix.confで確認のこと。
 #
@@ -209,86 +189,65 @@ secure_log      = /var/log/auth.log
         kern            = y
         proc            = y
 （略）
-</code></pre>
-
-<p>では、それぞれの監視項目の設定を。</p>
-
-<h2 id="span-style-text-decoration-underline-③個々の監視内容の設定をする箇所-span"><span style="text-decoration: underline;">③個々の監視内容の設定をする箇所</span></h2>
-
+</code></pre><p>では、それぞれの監視項目の設定を。</p>
+<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->③個々の監視内容の設定をする箇所<!-- raw HTML omitted --></h2>
 <p>以下、監視項目をいくつかピックアップして触れる。</p>
-
-<p><span style="text-decoration: underline;">lmsense</span><br />
-Linuxのlmsensorsが入ってないとダメ。<br />
+<p><!-- raw HTML omitted -->lmsense<!-- raw HTML omitted --><br>
+Linuxのlmsensorsが入ってないとダメ。<br>
 つまりFreeBSDでは無理。</p>
-
-<p><span style="text-decoration: underline;">nvidia</span><br />
-Nvidiaグラフィックカードの温度を測定する。<br />
+<p><!-- raw HTML omitted -->nvidia<!-- raw HTML omitted --><br>
+Nvidiaグラフィックカードの温度を測定する。<br>
 オフィシャルドライバーが入っていれば大丈夫そうな記載だけどもFreeBSDだとどうやら無理。</p>
-
-<p><span style="text-decoration: underline;">disk</span><br />
-ディスクの温度などを測定する。<br />
-測定にはsmartmontools, hddtempのいずれかが必要。<br />
-FreeBSDの場合はsmartmontools。<br />
+<p><!-- raw HTML omitted -->disk<!-- raw HTML omitted --><br>
+ディスクの温度などを測定する。<br>
+測定にはsmartmontools, hddtempのいずれかが必要。<br>
+FreeBSDの場合はsmartmontools。<br>
 sysutils/smartmontoolsからインストールできる。</p>
-
-<p>sudo smartctl -scanで表示されるディスクのうち、監視したいディスクを下記の0 =に続けて並べる。<br />
+<p>sudo smartctl -scanで表示されるディスクのうち、監視したいディスクを下記の0 =に続けて並べる。<br>
 区切りはカンマ</p>
-
 <p>例</p>
-
-<pre><code class="language-console">&lt;disk&gt;
+<pre><code class="language-console" data-lang="console">&lt;disk&gt;
         &lt;list&gt;
                 0 = /dev/ada0, /dev/ada1
         &lt;/list&gt;
 （略）
-</code></pre>
-
-<p><span style="text-decoration: underline;">fs</span><br />
-ファイルシステムの使用容量、I/Oなどを調べる。<br />
-カンマで並べる。<br />
+</code></pre><p><!-- raw HTML omitted -->fs<!-- raw HTML omitted --><br>
+ファイルシステムの使用容量、I/Oなどを調べる。<br>
+カンマで並べる。<br>
 例</p>
-
-<pre><code class="language-console">&lt;fs&gt;
+<pre><code class="language-console" data-lang="console">&lt;fs&gt;
         &lt;list&gt;
                 0 = /, swap, /usr/local
         &lt;/list&gt;
-</code></pre>
-
-<p><span style="text-decoration: underline;">net</span><br />
-ネットワークインターフェースの入出力を調べる。<br />
-listでインタフェースを指定。<br />
-デフォルトだとeth0になってるから、FreeBSDでは変更必須。<br />
+</code></pre><p><!-- raw HTML omitted -->net<!-- raw HTML omitted --><br>
+ネットワークインターフェースの入出力を調べる。<br>
+listでインタフェースを指定。<br>
+デフォルトだとeth0になってるから、FreeBSDでは変更必須。<br>
 記載例。</p>
-
-<pre><code class="language-console">&lt;net&gt;
+<pre><code class="language-console" data-lang="console">&lt;net&gt;
 	list = bge0
 	&lt;desc&gt;
 		bge0 = GbE LAN, 0, 100000000
 	&lt;/desc&gt;
 	gateway = bge0
 &lt;/net&gt;
-</code></pre>
-
-<p>descには、listで指定した各インタフェースの詳細を記載する。<br />
-ここにはグラフの最大値も指定する必要がある。<br />
-この時に注意点がひとつ。<br />
-単位はbpsではなく、Bpsである、ということ。<br />
-ざっくり、100MbpsのNICであれば10000000を。<br />
+</code></pre><p>descには、listで指定した各インタフェースの詳細を記載する。<br>
+ここにはグラフの最大値も指定する必要がある。<br>
+この時に注意点がひとつ。<br>
+単位はbpsではなく、Bpsである、ということ。<br>
+ざっくり、100MbpsのNICであれば10000000を。<br>
 GbEのNICであれば、100000000を指定する。</p>
-
-<p>どういうことかと言えば、つまり下記の通り。<br />
-100Mbps = 最大でも10MBpsは超えない = 10,000,000 と指定。<br />
+<p>どういうことかと言えば、つまり下記の通り。<br>
+100Mbps = 最大でも10MBpsは超えない = 10,000,000 と指定。<br>
 1000Mbps = 最大でも100MBpsは超えない = 100,000,000と指定。</p>
-
-<p><span style="text-decoration: underline;">port</span><br />
-portの監視。<br />
-FreeBSDの場合、ipfwを動かしておく必要がある。<br />
-Linuxではiptabelsで。<br />
-listに監視したいポートを並べる。<br />
-descでポートの詳細を指定。<br />
+<p><!-- raw HTML omitted -->port<!-- raw HTML omitted --><br>
+portの監視。<br>
+FreeBSDの場合、ipfwを動かしておく必要がある。<br>
+Linuxではiptabelsで。<br>
+listに監視したいポートを並べる。<br>
+descでポートの詳細を指定。<br>
 記載例。</p>
-
-<pre><code class="language-console">&lt;port&gt;
+<pre><code class="language-console" data-lang="console">&lt;port&gt;
 	max = 9
 	rule = 24000
 	list = 21, 80, 22, 110, 139
@@ -300,55 +259,34 @@ descでポートの詳細を指定。<br />
 		139	= NETBIOS, tcp, in, 0, 1000
 	&lt;/desc&gt;
 （略）
-</code></pre>
-
-<p>descの22ではtcp, inと指定している。<br />
-これは「ポート22にtcp接続してくる/ポート22からtcpで出て行く通信を監視する」という意味。<br />
+</code></pre><p>descの22ではtcp, inと指定している。<br>
+これは「ポート22にtcp接続してくる/ポート22からtcpで出て行く通信を監視する」という意味。<br>
 outだと「ポート22へtcp接続し、ポート22からやってくるtcp接続を監視する」という意味。</p>
-
-<p>ruleはipfwを使う時だけ有効。<br />
+<p>ruleはipfwを使う時だけ有効。<br>
 ipfwのルール2400番を使うよ、と指定している。</p>
-
 <p>ipfwのルールを見てみると（ポート22のところだけ抜粋）。</p>
-
-<pre><code class="language-console">24000 count tcp from me 22 to any
+<pre><code class="language-console" data-lang="console">24000 count tcp from me 22 to any
 24000 count tcp from any to me dst-port 22
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-br-ログのローテート設定-span"><span style="text-decoration: underline;"><br /> ログのローテート設定</span></h2>
-
-<p>/var/log/には以下のようにログが吐かれる。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinebr--span"><!-- raw HTML omitted --><!-- raw HTML omitted --> ログのローテート設定<!-- raw HTML omitted --></h2>
+<p>/var/log/には以下のようにログが吐かれる。<br>
 このまま放っておくと、ログは一方的にたまるだけなので、newsyslogに設定しておく。</p>
-
-<pre><code class="language-console">-rw-r--r--  1 root  wheel  349949  2月 20 17:54 ./monitorix
+<pre><code class="language-console" data-lang="console">-rw-r--r--  1 root  wheel  349949  2月 20 17:54 ./monitorix
 -rw-r--r--  1 www   www    165818  2月 20 17:17 ./monitorix-httpd
-</code></pre>
-
-<p>/etc/newsyslog.conf</p>
-
-<pre><code class="language-console"># for monitorix
+</code></pre><p>/etc/newsyslog.conf</p>
+<pre><code class="language-console" data-lang="console"># for monitorix
 /var/log/monitorix                      600  7     100  *     JC
 /var/log/monitorix-httpd www:www        600  7     100  *     JC
-</code></pre>
-
-<p>newsyslogの再起動。</p>
-
-<pre><code class="language-console">$ sudo service newsyslog restart
+</code></pre><p>newsyslogの再起動。</p>
+<pre><code class="language-console" data-lang="console">$ sudo service newsyslog restart
 Creating and/or trimming log files.
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-テーマについて-span"><span style="text-decoration: underline;">テーマについて</span></h2>
-
-<p>デフォルトのテーマblackは、前世紀のwebみたいで、ちょっといただけない。<br />
-かと言って、もう一方の選択肢whiteもあんまりである。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->テーマについて<!-- raw HTML omitted --></h2>
+<p>デフォルトのテーマblackは、前世紀のwebみたいで、ちょっといただけない。<br>
+かと言って、もう一方の選択肢whiteもあんまりである。<br>
 試行錯誤の末、白基調で冒頭の様なテーマにしている。</p>
-
-<p>設定ファイルの下の方にある、whiteのところを書き換えた。<br />
-全体設定でthemeをwhiteにしておくこと。<br />
+<p>設定ファイルの下の方にある、whiteのところを書き換えた。<br>
+全体設定でthemeをwhiteにしておくこと。<br>
 参考までに。</p>
-
-<p><code>console
-&lt;white&gt;
+<pre><code class="language-console" data-lang="console">&lt;white&gt;
                 canvas          = FFFFFF
                 back            = 101010
                 font            = C0C0C0
@@ -367,8 +305,7 @@ Creating and/or trimming log files.
                 title_fg        = 34495e
                 graph_bg        = bdc3c7
                 gap             = FFFFFF
-        &lt;/white&gt;</code></p>
-<ul class="pa0">
+        &lt;/white&gt;```</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

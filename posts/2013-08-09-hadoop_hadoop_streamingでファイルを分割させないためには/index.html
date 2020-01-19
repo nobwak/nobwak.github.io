@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-08-09T22:26:04+09:00" />
 <meta itemprop="name" content="[hadoop] hadoop streamingでファイルを分割させないためには。">
 <meta itemprop="description" content="※hadoop-1.0.0です。 hadoop streamingで困ること。 作業データ（たとえばログ）を与えると、Hadoopはまず分割をする。 分割され">
-
-
 <meta itemprop="datePublished" content="2013-08-09T22:26:04&#43;09:00" />
 <meta itemprop="dateModified" content="2013-08-09T22:26:04&#43;09:00" />
 <meta itemprop="wordCount" content="1457">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[hadoop] hadoop streamingでファイルを分割させないためには。"/>
 <meta name="twitter:description" content="※hadoop-1.0.0です。 hadoop streamingで困ること。 作業データ（たとえばログ）を与えると、Hadoopはまず分割をする。 分割され"/>
 
@@ -140,70 +137,49 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>※hadoop-1.0.0です。</p>
-
-<h2 id="span-style-text-decoration-underline-hadoop-streamingで困ること-span"><span style="text-decoration: underline;">hadoop streamingで困ること。</span></h2>
-
-<p>作業データ（たとえばログ）を与えると、Hadoopはまず分割をする。<br />
-分割されたものはinput splits, あるいは単にsplitsと呼ばれる。<br />
-splitsのサイズはデフォルトで64MBytesだ。<br />
-Hadoop（JobTracker）は作業ノード（TaskTracker）にsplitsを割り当てる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>※hadoop-1.0.0です。</p>
+<h2 id="span-styletext-decoration-underlinehadoop-streamingspan"><!-- raw HTML omitted -->hadoop streamingで困ること。<!-- raw HTML omitted --></h2>
+<p>作業データ（たとえばログ）を与えると、Hadoopはまず分割をする。<br>
+分割されたものはinput splits, あるいは単にsplitsと呼ばれる。<br>
+splitsのサイズはデフォルトで64MBytesだ。<br>
+Hadoop（JobTracker）は作業ノード（TaskTracker）にsplitsを割り当てる。<br>
 作業ノードはsplitsに対してmapタスクを行う。</p>
-
-<p>なお、作業ノードの割り当てにあたっては、splitsの物理的な場所との近さも考慮される。<br />
+<p>なお、作業ノードの割り当てにあたっては、splitsの物理的な場所との近さも考慮される。<br>
 要するにsplitsの実データが置かれている作業ノードが選ばれる。</p>
-
-<p>これは素晴らしい仕組みなのだが、困ることもある。<br />
+<p>これは素晴らしい仕組みなのだが、困ることもある。<br>
 例えば以下のような場合。</p>
-
 <ul>
-<li>ファイルの冒頭にあるヘッダが処理に必要な場合。<br />
+<li>ファイルの冒頭にあるヘッダが処理に必要な場合。<br>
 →分割されると、ヘッダのないsplitsが出来てしまう。</li>
-<li>ログ上の2点間の時間差分を知りたい場合。<br />
+<li>ログ上の2点間の時間差分を知りたい場合。<br>
 →2点の間で分割されると計算できない。</li>
 </ul>
-
-<h2 id="span-style-text-decoration-underline-回避策-span"><span style="text-decoration: underline;">回避策</span></h2>
-
+<h2 id="heading"></h2>
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->回避策<!-- raw HTML omitted --></h2>
 <p>下記の通り。</p>
-
 <p>How do I process files, one per map?</p>
-
-<p>つまり、hadoopへの入力に、いきなり「ファイルの内容」を送り込むのではなく、「ファイルのリスト」を渡す。<br />
-ファイルのリストだから、いくら分割してもファイル自体は分割されない。<br />
+<p>つまり、hadoopへの入力に、いきなり「ファイルの内容」を送り込むのではなく、「ファイルのリスト」を渡す。<br>
+ファイルのリストだから、いくら分割してもファイル自体は分割されない。<br>
 なるほど。</p>
-
-<h2 id="span-style-text-decoration-underline-回避策とはいっても-span"><span style="text-decoration: underline;">回避策とはいっても。</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->回避策とはいっても。<!-- raw HTML omitted --></h2>
 <p>しかし、この場合mapper側に工夫が必要になる。</p>
-
-<p>通常であれば、標準入力からファイルの中身がドバドバやってくる。<br />
-PythonだろうとRubyだろうとstdinをforループで読むだけ。<br />
+<p>通常であれば、標準入力からファイルの中身がドバドバやってくる。<br>
+PythonだろうとRubyだろうとstdinをforループで読むだけ。<br>
 楽ちん。</p>
-
-<p>ところがこの回避策だと、ファイルリストが入力されるわけだから、ファイルを開くことから始めなければならない。<br />
-そしてファイルを開くには、mapperスクリプト内で「hadoop dfs -cat ＜ファイル＞」しないといけない<br />
+<p>ところがこの回避策だと、ファイルリストが入力されるわけだから、ファイルを開くことから始めなければならない。<br>
+そしてファイルを開くには、mapperスクリプト内で「hadoop dfs -cat ＜ファイル＞」しないといけない<br>
 （ファイルがHDFSにあるとして）。</p>
-
 <p>それも面倒だし、加えて、無駄な通信が発生する可能性がある点も懸念。</p>
-
-<p>先述の通り、Hadoopは作業の振り分けにあたって、実データに近い作業ノードを選ぶ。<br />
+<p>先述の通り、Hadoopは作業の振り分けにあたって、実データに近い作業ノードを選ぶ。<br>
 しかしファイル「リスト」を渡すということは、ファイル「リスト」と作業ノードの近さは考慮してくれるものの、リストに書かれたファイルと作業ノードの近さは考慮外になるということ。</p>
-
-<p>つまり、作業ノードと実際のデータのある場所が一致するとは限らない。<br />
+<p>つまり、作業ノードと実際のデータのある場所が一致するとは限らない。<br>
 一致しなければ、作業ノードはデータを別ノードからダウンロードしなければならない。</p>
-
 <p>ノード間通信はコスト高なのでなるべく避けよう、というHadoopの思想にはそぐわない。</p>
-
-<h2 id="span-style-text-decoration-underline-mapperの例-span"><span style="text-decoration: underline;">mapperの例</span></h2>
-
-<p>しかし選択肢はないので進める。<br />
-以下はpythonでファイルリストを受けた場合の処理例。<br />
+<h2 id="span-styletext-decoration-underlinemapperspan"><!-- raw HTML omitted -->mapperの例<!-- raw HTML omitted --></h2>
+<p>しかし選択肢はないので進める。<br>
+以下はpythonでファイルリストを受けた場合の処理例。<br>
 作業データはHDFS上にあるので、subprocessで「hadoop dfs -cat ＜ファイル＞」する。</p>
-
-<pre><code class="language-console">#!/usr/bin/env python
+<pre><code class="language-console" data-lang="console">#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import sys os subprocess
@@ -218,23 +194,15 @@ for line in sys.stdin:
         for logline in cat.stdout:
 		#処理
 		print line
-</code></pre>
-
-<p>大したことではないけれど、下記のように必ずテストしてからhdoopに投入すること。</p>
-
-<pre><code class="language-console">$ cat filelist.txt | mapper.py | sort | reducer.py
-</code></pre>
-
-<p>hadoopは自前mapper, reducerが失敗しても、エラー内容を教えてはくれないので（たぶん）。</p>
-
-<h2 id="span-style-text-decoration-underline-注意点-span"><span style="text-decoration: underline;">注意点</span></h2>
-
-<p>HDFS上にファイルを置いている場合、絶対パスで指定すること。<br />
-相対パスではダメだった。<br />
+</code></pre><p>大したことではないけれど、下記のように必ずテストしてからhdoopに投入すること。</p>
+<pre><code class="language-console" data-lang="console">$ cat filelist.txt | mapper.py | sort | reducer.py
+</code></pre><p>hadoopは自前mapper, reducerが失敗しても、エラー内容を教えてはくれないので（たぶん）。</p>
+<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->注意点<!-- raw HTML omitted --></h2>
+<p>HDFS上にファイルを置いている場合、絶対パスで指定すること。<br>
+相対パスではダメだった。<br>
 また、HDFSでは「/user/hadoop/input」のように、「user」であって「usr」でないことに注意。</p>
-
-<p>作業データがローカルディスクにあるなら、hadoop dfs -getとか。<br />
-しかしそうするとすべての作業ノードがローカルディスクにアクセスしてくることになる。<br />
+<p>作業データがローカルディスクにあるなら、hadoop dfs -getとか。<br>
+しかしそうするとすべての作業ノードがローカルディスクにアクセスしてくることになる。<br>
 それは避けたいので、HDFS上に置いた方がよいでしょう。</p>
 <ul class="pa0">
   

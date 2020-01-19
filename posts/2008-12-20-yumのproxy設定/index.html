@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-12-20T01:00:00+09:00" />
 <meta itemprop="name" content="yumのproxy設定">
 <meta itemprop="description" content="CentOSをインストールした。 DISCイメージが何枚かあってよくわからない。雑誌付録のDVDを借りた。 特に問題なくインストールは完了したが">
-
-
 <meta itemprop="datePublished" content="2008-12-20T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-12-20T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="396">
+<meta itemprop="wordCount" content="378">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="yumのproxy設定"/>
 <meta name="twitter:description" content="CentOSをインストールした。 DISCイメージが何枚かあってよくわからない。雑誌付録のDVDを借りた。 特に問題なくインストールは完了したが"/>
 
@@ -158,15 +155,12 @@ yumのproxy設定
 
 &lt;a href=&quot;http://www.centos.org/docs/5/html/yum/sn-yum-proxy-server.html&quot; target=&quot;_blank&quot;&gt;http://www.centos.org/docs/5/html/yum/sn-yum-proxy-server.html&lt;/a&gt;
 </code></pre>
-
-<pre><code class="language-console"># The proxy server - proxy server:port number
+<pre><code class="language-console" data-lang="console"># The proxy server - proxy server:port number
 proxy=http://mycache.mydomain.com:3128
 # The account details for yum connections
 proxy_username=yum-user
 proxy_password=qwerty
-</code></pre>
-
-<pre><code>と、書いてあるが、なぜか効かない。&lt;span class=&quot;footnote&quot;&gt;*1&lt;/span&gt;
+</code></pre><pre><code>と、書いてあるが、なぜか効かない。&lt;span class=&quot;footnote&quot;&gt;*1&lt;/span&gt;
 
 
 
@@ -191,8 +185,7 @@ proxy_password=qwerty
 
 /etc/yum.repos.d/CentOS-Base.repo
 </code></pre>
-
-<pre><code class="language-console"># PUT YOUR REPOS HERE OR IN separate files named file.repo
+<pre><code class="language-console" data-lang="console"># PUT YOUR REPOS HERE OR IN separate files named file.repo
 # in /etc/yum.repos.d
 &amp;#91;base]
 name=CentOS-$releasever - Base
@@ -217,11 +210,7 @@ name=CentOS-$releasever - Plus
 baseurl=http://ftp.riken.jp/Linux/centos/$releasever/centosplus/$basearch/
 gpgcheck=1
 enabled=1
-</code></pre>
-
-<p><div class="footnote">
-  <p class="footnote">
-    *1：Fedora9は大丈夫だった。</p>
+</code></pre><!-- raw HTML omitted -->
 <ul class="pa0">
   
 </ul>

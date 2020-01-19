@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-01-13T01:00:00+09:00" />
 <meta itemprop="name" content="パスワードハッシュにmd5を使うのは小学生までだよねー">
 <meta itemprop="description" content="おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。 しかし、MD5は1996年に脆弱性">
-
-
 <meta itemprop="datePublished" content="2013-01-13T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2013-01-13T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1991">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="パスワードハッシュにmd5を使うのは小学生までだよねー"/>
 <meta name="twitter:description" content="おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。 しかし、MD5は1996年に脆弱性"/>
 
@@ -176,9 +173,7 @@ if (!doNotTrack) {
 
 そのシステムがどのハッシュを採っているかは、ハッシュ文字列先頭から判断できる。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  $1$: MD5
 
 
@@ -193,9 +188,7 @@ if (!doNotTrack) {
 
   $6$: SHA-2(SHA-512)
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>FreeBSD 9.1-RELEASEはsha512(SHA-2)がデフォルト。手元にLinuxがないので確認できないのだが、UbuntuはまだMD5のよう。
 
 
@@ -224,21 +217,15 @@ FreeBSDでは/etc/login.confで制御する。
 
 以下の行を書き換えればOK。
 </code></pre>
-
-<pre><code class="language-console">:passwd_format=sha512:&amp;#92;
-</code></pre>
-
-<pre><code>md5ならmd5, SHA-2ならsha512, Blowfishならblfである。
+<pre><code class="language-console" data-lang="console">:passwd_format=sha512:&amp;#92;
+</code></pre><pre><code>md5ならmd5, SHA-2ならsha512, Blowfishならblfである。
 
 
 
 書き換えた後、以下のコマンドでlogin.conf.dbを作り直すこと。
 </code></pre>
-
-<pre><code class="language-console">cap_mkdb /etc/login.conf
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;パスワードを再設定しないと新ハッシュになりません!&lt;/span&gt;
+<pre><code class="language-console" data-lang="console">cap_mkdb /etc/login.conf
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;パスワードを再設定しないと新ハッシュになりません!&lt;/span&gt;
 
 
 
@@ -282,54 +269,41 @@ FreeBSDでは/etc/login.confで制御する。
 
 実際に俺のマシンは9.0で新規インストールし、ついこの間9.1にアップグレードした。
 </code></pre>
-
-<pre><code class="language-console">$ uname -a
+<pre><code class="language-console" data-lang="console">$ uname -a
 FreeBSD sylph 9.1-RELEASE FreeBSD 9.1-RELEASE #0 r243825: Tue Dec  4 09:23:10 UTC 2012     root@farrell.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC  amd64
 $ grep passwd /etc/login.conf|grep -v &amp;#34;^#&amp;#34;
 :passwd_format=sha512:&amp;#92;
-</code></pre>
-
-<pre><code>とまあこの通り、SHA-2になっている。しかし以下のログで示すように、先頭が$1$になっておりMD5ハッシュであることを示している。
+</code></pre><pre><code>とまあこの通り、SHA-2になっている。しかし以下のログで示すように、先頭が$1$になっておりMD5ハッシュであることを示している。
 
 
 
 cap_mkdbしても同じ。（なおハッシュの核心部分はさすがにマスクしている）
 </code></pre>
-
-<pre><code class="language-console">$ sudo grep harukiya /etc/master.passwd
+<pre><code class="language-console" data-lang="console">$ sudo grep harukiya /etc/master.passwd
 パスワード:
 harukiya:$1$xxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash
 $ sudo cap_mkdb /etc/login.conf
 $ sudo grep doe /etc/master.passwd
 harukiya:$1$xxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash
-</code></pre>
-
-<pre><code>で、passwdコマンドでパスワードを設定してやると、めでたく先頭が$6$に変化した。
+</code></pre><pre><code>で、passwdコマンドでパスワードを設定してやると、めでたく先頭が$6$に変化した。
 
 
 
 （なおここではマスクしているが、実際にやってみるとハッシュがmd5に比べて長くなっていることが分かる）
 </code></pre>
-
-<pre><code class="language-console">$ passwd
+<pre><code class="language-console" data-lang="console">$ passwd
 Changing local password for harukiya
 Old Password:
 New Password:
 Retype New Password:
 $ sudo grep harukiya /etc/master.passwd
 harukiya:$6$xxxxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash
+</code></pre><pre><code>このままでもいいけど、せっかくだからblowfishに変更。/etc/login.confでsha512をblfへ。
 </code></pre>
-
-<pre><code>このままでもいいけど、せっかくだからblowfishに変更。/etc/login.confでsha512をblfへ。
+<pre><code class="language-console" data-lang="console">:passwd_format=blf:&amp;#92;
+</code></pre><pre><code>めでたくハッシュ先頭が$2a$に。
 </code></pre>
-
-<pre><code class="language-console">:passwd_format=blf:&amp;#92;
-</code></pre>
-
-<pre><code>めでたくハッシュ先頭が$2a$に。
-</code></pre>
-
-<pre><code class="language-console">$ sudo cap_mkdb /etc/login.conf
+<pre><code class="language-console" data-lang="console">$ sudo cap_mkdb /etc/login.conf
 $ passwd
 Changing local password for harukiya
 Old Password:
@@ -337,9 +311,7 @@ New Password:
 Retype New Password:
 $ sudo grep harukiya /etc/master.passwd
 harukiya:$2a$xxxxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash
-</code></pre>
-
-<pre><code>もちろん、このあとrootのパスワードも設定しました。
+</code></pre><pre><code>もちろん、このあとrootのパスワードも設定しました。
 </code></pre>
 <ul class="pa0">
   

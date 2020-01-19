@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-08-24T20:56:28+09:00" />
 <meta itemprop="name" content="FreeBSD(FreeNAS)にPlex Media Serverをインストール">
 <meta itemprop="description" content="Plexというメディア共有ソフトウェア群がある。 Plex Media ServerとPlex Media Clientの二つから成っている。 Plex Media Serverというサーバを">
-
-
 <meta itemprop="datePublished" content="2013-08-24T20:56:28&#43;09:00" />
 <meta itemprop="dateModified" content="2013-08-24T20:56:28&#43;09:00" />
 <meta itemprop="wordCount" content="1314">
 
 
 
-<meta itemprop="keywords" content="FreeBSD," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSD(FreeNAS)にPlex Media Serverをインストール"/>
 <meta name="twitter:description" content="Plexというメディア共有ソフトウェア群がある。 Plex Media ServerとPlex Media Clientの二つから成っている。 Plex Media Serverというサーバを"/>
 
@@ -140,107 +137,66 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p><a href="https://my.plexapp.com/">Plex</a>というメディア共有ソフトウェア群がある。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><a href="https://my.plexapp.com/">Plex</a>というメディア共有ソフトウェア群がある。<br>
 Plex Media ServerとPlex Media Clientの二つから成っている。</p>
-
 <p>Plex Media Serverというサーバを立てておけば、Plex Media Centerのインストールされた端末から動画や音楽を視聴することができる。</p>
-
 <p>もっと具体的に言うと、自宅でPlex Media Serverを立てておけば、宅内はもちろん、外出先のモバイル端末からでもメディアへアクセスできる。</p>
-
-<p>動画や音楽をため込んでいるNASにPlex Media Centerをインストールできればとても便利というわけ。<br />
-クライアントは、Windows, Linux, iOS, Android向けに用意されており、PS3, XBOX360はデフォルトで対応。<br />
-しかしiOSやAndroid向けのアプリは\450と、なかなかのお値段であって、そこまでして外出先で見たいか？と一考する余地はあると思う。<br />
+<p>動画や音楽をため込んでいるNASにPlex Media Centerをインストールできればとても便利というわけ。<br>
+クライアントは、Windows, Linux, iOS, Android向けに用意されており、PS3, XBOX360はデフォルトで対応。<br>
+しかしiOSやAndroid向けのアプリは\450と、なかなかのお値段であって、そこまでして外出先で見たいか？と一考する余地はあると思う。<br>
 私も買ってません。</p>
-
 <p>(追記）2015/8 にjailにインストールしたときの顛末は<a href="https://nobwak.github.io/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">ここ</a></p>
-
-<h2 id="plex-media-serverがfreebsd-freenasに対応">Plex Media ServerがFreeBSD/FreeNASに対応</h2>
-
-<p>Plex Media Serverは長らくWindows/OS X/Linuxにしか対応していなかったのだが、近ごろFreeBSDにも対応した。<br />
-FreeBSDに対応ということはつまりFreeNASにも対応したということである。<br />
+<h2 id="plex-media-serverfreebsdfreenas">Plex Media ServerがFreeBSD/FreeNASに対応</h2>
+<p>Plex Media Serverは長らくWindows/OS X/Linuxにしか対応していなかったのだが、近ごろFreeBSDにも対応した。<br>
+FreeBSDに対応ということはつまりFreeNASにも対応したということである。<br>
 すなわち冒頭で書いたような、「NASに動画や音楽をため込んで、しかもNASに動画共有させる」事が出来る。</p>
-
 <p>以下、FreeBSDでのインストール、設定方法を示す。</p>
-
-<h2 id="インストール">インストール</h2>
-
+<h2 id="heading">インストール</h2>
 <p>pkgから入れてよい。</p>
-
-<h2 id="起動">起動</h2>
-
-<p>/usr/local/etc/rc.dに起動スクリプトがインストールされる。<br />
+<h2 id="heading-1">起動</h2>
+<p>/usr/local/etc/rc.dに起動スクリプトがインストールされる。<br>
 サーバ起動時にPlex Media Serverも起動するには、/etc/rc.confに以下の一行を追加する。</p>
-
-<pre><code class="language-console">plexmediaserver_enable=&quot;YES&quot;
-</code></pre>
-
-<p>ただ今回は実験のため以下のようにして起動。</p>
-
-<pre><code class="language-console">$ sudo service plexmediaserver onestart
+<pre><code class="language-console" data-lang="console">plexmediaserver_enable=&quot;YES&quot;
+</code></pre><p>ただ今回は実験のため以下のようにして起動。</p>
+<pre><code class="language-console" data-lang="console">$ sudo service plexmediaserver onestart
 $
 $ service plexmediaserver onestatus
 plexmediaserver is running with pid: 789
 $
-</code></pre>
-
-<p>設定</p>
-
-<p>plex media serverを動かしているサーバにブラウザで繋ぐ。<br />
+</code></pre><p>設定</p>
+<p>plex media serverを動かしているサーバにブラウザで繋ぐ。<br>
 サーバが192.168.1.1なら以下のように。</p>
-
-<pre><code class="language-console">http://192.168.1.1:32400/manage/index.html
-</code></pre>
-
-<p>こんな画面になるはず。<br />
-<img src="/wp-content/uploads/2013/08/plex0010.png" alt="plex0010" /><br />
+<pre><code class="language-console" data-lang="console">http://192.168.1.1:32400/manage/index.html
+</code></pre><p>こんな画面になるはず。<br>
+<img src="/wp-content/uploads/2013/08/plex0010.png" alt="plex0010"><br>
 まあ、agreeですな。</p>
-
-<p><img src="/wp-content/uploads/2013/08/plex0020.png" alt="plex0020" /></p>
-
-<p><img src="/wp-content/uploads/2013/08/plex0030.png" alt="plex0030" /></p>
-
+<p><img src="/wp-content/uploads/2013/08/plex0020.png" alt="plex0020"></p>
+<p><img src="/wp-content/uploads/2013/08/plex0030.png" alt="plex0030"></p>
 <p>開始。</p>
-
-<p><img src="/wp-content/uploads/2013/08/plex0040.png" alt="plex0040" /></p>
-
-<p>Friendly Nameを入れろと言われる。<br />
-Friendly Nameとは、クライアントからPlex Media Serverを見つけやすいように付ける名前。たとえばPlex Serverとか。<br />
+<p><img src="/wp-content/uploads/2013/08/plex0040.png" alt="plex0040"></p>
+<p>Friendly Nameを入れろと言われる。<br>
+Friendly Nameとは、クライアントからPlex Media Serverを見つけやすいように付ける名前。たとえばPlex Serverとか。<br>
 ブランクのままにすれば、サーバのホスト名がそのまま使われる。</p>
-
 <p>あとはまあ、言われたとおりに。</p>
-
-<p><img src="/wp-content/uploads/2013/08/plex0050.png" alt="plex0050" /></p>
-
-<p><img src="/wp-content/uploads/2013/08/plex0060.png" alt="plex0060" /></p>
-
-<p>myPlexアカウントを入れろ、と言われる。<br />
-外出先のモバイル端末からPlex Media Serverにアクセスするなら、<a href="https://my.plexapp.com/">Plexのサイト</a>に行って作ったアカウントをここに入れる。<br />
+<p><img src="/wp-content/uploads/2013/08/plex0050.png" alt="plex0050"></p>
+<p><img src="/wp-content/uploads/2013/08/plex0060.png" alt="plex0060"></p>
+<p>myPlexアカウントを入れろ、と言われる。<br>
+外出先のモバイル端末からPlex Media Serverにアクセスするなら、<a href="https://my.plexapp.com/">Plexのサイト</a>に行って作ったアカウントをここに入れる。<br>
 自宅内だけで共有するなら、skipしてもOK.</p>
-
-<p><img src="/wp-content/uploads/2013/08/plex0070.png" alt="plex0070" /></p>
-
-<h2 id="アクセス">アクセス</h2>
-
+<p><img src="/wp-content/uploads/2013/08/plex0070.png" alt="plex0070"></p>
+<h2 id="heading-2">アクセス</h2>
 <p>Plex Media Serverにアクセスする方法はいくつかある。</p>
-
 <ol>
 <li>Plex Media CenterをインストールしたWindows, OS X, Linuxからアクセス</li>
 <li>PlexをインストールしたiOS, Androidからアクセス</li>
 <li>PS3, XBOX360からアクセス</li>
 <li>ブラウザからアクセス</li>
 </ol>
-
 <p>ここでは4の方法だけ示す。</p>
-
-<p>ブラウザでのアクセスには「:32400/web/index.html」へ繋ぐ。<br />
+<p>ブラウザでのアクセスには「:32400/web/index.html」へ繋ぐ。<br>
 サーバが192.168.1.1なら以下のように。</p>
-
-<pre><code class="language-console">http://192.168.1.1:32400/manage/index.html
-</code></pre>
-
-<p>たとえばps3だと、XMCのフォト、ミュージック、ビデオにサーバが表示されるようになるので、そこから。</p>
+<pre><code class="language-console" data-lang="console">http://192.168.1.1:32400/manage/index.html
+</code></pre><p>たとえばps3だと、XMCのフォト、ミュージック、ビデオにサーバが表示されるようになるので、そこから。</p>
 <ul class="pa0">
   
    <li class="list">

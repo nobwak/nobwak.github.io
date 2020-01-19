@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-02-16T01:00:00+09:00" />
 <meta itemprop="name" content="mergemasterをさらにさらにさらに早く">
 <meta itemprop="description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/1追記:&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090501/p1&quot; target=&quot">
-
-
 <meta itemprop="datePublished" content="2009-02-16T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-02-16T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="729">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="mergemasterをさらにさらにさらに早く"/>
 <meta name="twitter:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/1追記:&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090501/p1&quot; target=&quot"/>
 
@@ -164,23 +161,17 @@ mergemasterについては、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080
 
 ◎/etc/mergemaster.rc
 </code></pre>
-
-<pre><code class="language-console">AUTO_UPGRADE=yes
+<pre><code class="language-console" data-lang="console">AUTO_UPGRADE=yes
 AUTO_INSTALL=yes
 IGNORE_FILES=&amp;#39;/etc/motd&amp;#39;
 PRESERVE_FILES=yes
 VERBOSE=yes
 DIFF_OPTIONS=&amp;#39;-I$FreeBSD:.*&amp;#91;$]&amp;#39;
+</code></pre><pre><code>manから引用すると下記の通り。
 </code></pre>
-
-<pre><code>manから引用すると下記の通り。
-</code></pre>
-
-<pre><code class="language-console">#Additional options for diff.  This will get unset when using -s.
+<pre><code class="language-console" data-lang="console">#Additional options for diff.  This will get unset when using -s.
 #DIFF_OPTIONS=&amp;#39;-I$FreeBSD:.*&amp;#91;$]&amp;#39;        # Ignores CVS Id tags
-</code></pre>
-
-<pre><code>注意すべきは、この設定はコマンドラインオプションでは指定できず、/etc/mergemaster.rcに記載しておく必要がある点。
+</code></pre><pre><code>注意すべきは、この設定はコマンドラインオプションでは指定できず、/etc/mergemaster.rcに記載しておく必要がある点。
 
 
 

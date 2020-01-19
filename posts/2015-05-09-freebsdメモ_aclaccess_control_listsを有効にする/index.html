@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-05-09T20:35:44+09:00" />
 <meta itemprop="name" content="[FreeBSD][メモ] ACL（Access Control Lists）を有効にする">
 <meta itemprop="description" content="ACLとは、一般的なUNIXのパーミッション制御をさらに拡張したものである。 FreeBSDのハンドブックは以下の通りであるが、どうも実動作と">
-
-
 <meta itemprop="datePublished" content="2015-05-09T20:35:44&#43;09:00" />
 <meta itemprop="dateModified" content="2015-05-09T20:35:44&#43;09:00" />
 <meta itemprop="wordCount" content="1400">
 
 
 
-<meta itemprop="keywords" content="FreeBSD," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD][メモ] ACL（Access Control Lists）を有効にする"/>
 <meta name="twitter:description" content="ACLとは、一般的なUNIXのパーミッション制御をさらに拡張したものである。 FreeBSDのハンドブックは以下の通りであるが、どうも実動作と"/>
 
@@ -140,110 +137,70 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>ACLとは、一般的なUNIXのパーミッション制御をさらに拡張したものである。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>ACLとは、一般的なUNIXのパーミッション制御をさらに拡張したものである。<br>
 FreeBSDのハンドブックは以下の通りであるが、どうも実動作とハンドブックの内容に食い違いがあるようなのでメモ。</p>
-
-<p><a href="https://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/fs-acl.html" target="_blank"><a href="https://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/fs-acl.html">https://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/fs-acl.html</a></a><br />
-<a href="https://www.freebsd.org/doc/en/books/handbook/fs-acl.html" target="_blank"><a href="https://www.freebsd.org/doc/en/books/handbook/fs-acl.html">https://www.freebsd.org/doc/en/books/handbook/fs-acl.html</a></a></p>
-
-<p>ACLはファイルシステムごとに有効/無効を設定できる。<br />
-設定変更は、そのファイルシステムをumountするか、リードオンリーの状態でしかできない。<br />
+<p><!-- raw HTML omitted --><a href="https://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/fs-acl.html%3C/a%3E">https://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/fs-acl.html&lt;/a&gt;</a><br>
+<!-- raw HTML omitted --><a href="https://www.freebsd.org/doc/en/books/handbook/fs-acl.html%3C/a%3E">https://www.freebsd.org/doc/en/books/handbook/fs-acl.html&lt;/a&gt;</a></p>
+<p>ACLはファイルシステムごとに有効/無効を設定できる。<br>
+設定変更は、そのファイルシステムをumountするか、リードオンリーの状態でしかできない。<br>
 したがって、ルートファイルシステムの設定変更は、通常起動した後ではできない。</p>
-
-<h2 id="span-style-text-decoration-underline-aclの有効-無効化-span"><span style="text-decoration: underline;">ACLの有効/無効化</span></h2>
-
+<h2 id="span-styletext-decoration-underlineaclspan"><!-- raw HTML omitted -->ACLの有効/無効化<!-- raw HTML omitted --></h2>
 <p>GENERICカーネルであればACLが使える。</p>
-
-<p>ACLを有効にするには、/etc/fstabの当該ファイルシステムオプションにaclsを追加し、再起動すればよい。<br />
-もちろん、ルートファイルシステム以外なら、再起動しないまでも、いったんumount、mountすればよい。<br />
-mount -uによる再マウントでは有効にならないので注意<br />
+<p>ACLを有効にするには、/etc/fstabの当該ファイルシステムオプションにaclsを追加し、再起動すればよい。<br>
+もちろん、ルートファイルシステム以外なら、再起動しないまでも、いったんumount、mountすればよい。<br>
+mount -uによる再マウントでは有効にならないので注意<br>
 fstab設定例は後述</p>
-
-<h2 id="span-style-text-decoration-underline-aclの有効-無効化のしくみ-span"><span style="text-decoration: underline;">ACLの有効/無効化のしくみ</span></h2>
-
-<p>ファイルシステムヘッダのスーパーブロックにACLの有効/無効フラグがある。tunefsコマンドでフラグを変更できる。<br />
+<h2 id="span-styletext-decoration-underlineaclspan-1"><!-- raw HTML omitted -->ACLの有効/無効化のしくみ<!-- raw HTML omitted --></h2>
+<p>ファイルシステムヘッダのスーパーブロックにACLの有効/無効フラグがある。tunefsコマンドでフラグを変更できる。<br>
 fstabでaclsが指定されていると、マシン起動時に、tunefsでスーパーブロックを書き換えののち、マウントされる。</p>
-
-<h2 id="span-style-text-decoration-underline-注意点-一度aclを有効にしたら永続-span"><span style="text-decoration: underline;">注意点（一度ACLを有効にしたら永続…?）</span></h2>
-
-<p>ハンドブックによれば、一度ACLを有効にしたらその設定が永続する、という。<br />
-「スーパブロックフラグを設定すると、fstab に記述されていなかったり、デバイスの順番が変わってしまっても、常に ACLs が有効な状態でマウントされます」<br />
+<h2 id="span-styletext-decoration-underlineaclspan-2"><!-- raw HTML omitted -->注意点（一度ACLを有効にしたら永続…?）<!-- raw HTML omitted --></h2>
+<p>ハンドブックによれば、一度ACLを有効にしたらその設定が永続する、という。<br>
+「スーパブロックフラグを設定すると、fstab に記述されていなかったり、デバイスの順番が変わってしまっても、常に ACLs が有効な状態でマウントされます」<br>
 ※英語版も同じ。</p>
-
-<h2 id="span-style-text-decoration-underline-ハンドブックとの違い-span"><span style="text-decoration: underline;">ハンドブックとの違い？</span></h2>
-
-<p>ところが手元のマシンの動作を見ると、tunefsによる設定に関わらず、fstabのオプションしか参照していないようだ。<br />
-つまり、fstabでaclsを削ると、ACL無効でマウントされるようだ。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->ハンドブックとの違い？<!-- raw HTML omitted --></h2>
+<p>ところが手元のマシンの動作を見ると、tunefsによる設定に関わらず、fstabのオプションしか参照していないようだ。<br>
+つまり、fstabでaclsを削ると、ACL無効でマウントされるようだ。<br>
 （fstabにaclsが無い場合、tunefs -a disableが実行される?）</p>
-
 <p>それはともかく、上記を踏まえた設定例を示す。</p>
-
-<h2 id="span-style-text-decoration-underline-fstabの設定変更-span"><span style="text-decoration: underline;">fstabの設定変更</span></h2>
-
-<p>fstabのOptionsのところ、カンマに続けて「acls」と記載。<br />
-ルートファイルシステムなら、再起動。<br />
-ルートファイルシステム以外なら、umount,mountでよい。<br />
+<h2 id="span-styletext-decoration-underlinefstabspan"><!-- raw HTML omitted -->fstabの設定変更<!-- raw HTML omitted --></h2>
+<p>fstabのOptionsのところ、カンマに続けて「acls」と記載。<br>
+ルートファイルシステムなら、再起動。<br>
+ルートファイルシステム以外なら、umount,mountでよい。<br>
 ACLの設定はハンドブック参照。</p>
-
 <p>設定前</p>
-
-<pre><code class="language-console"># Device        Mountpoint      FStype  Options Dump    Pass#
+<pre><code class="language-console" data-lang="console"># Device        Mountpoint      FStype  Options Dump    Pass#
 /dev/ada0p2     /               ufs     rw      1       1
-</code></pre>
-
-<p>設定後</p>
-
-<pre><code class="language-console"># Device        Mountpoint      FStype  Options Dump    Pass#
+</code></pre><p>設定後</p>
+<pre><code class="language-console" data-lang="console"># Device        Mountpoint      FStype  Options Dump    Pass#
 /dev/ada0p2     /               ufs     rw,acls  1       1
-</code></pre>
-
-<p>以上。tunefsは考えなくてよし。</p>
-
+</code></pre><p>以上。tunefsは考えなくてよし。</p>
 <p>以下は記録。</p>
-
-<h2 id="span-style-text-decoration-underline-tunefsのうごき-span"><span style="text-decoration: underline;">tunefsのうごき</span></h2>
-
+<h2 id="span-styletext-decoration-underlinetunefsspan"><!-- raw HTML omitted -->tunefsのうごき<!-- raw HTML omitted --></h2>
 <p>tunefs -pでACLの状態を確認できる。</p>
-
-<pre><code class="language-console"># tunefs -p /dev/ada0p2
+<pre><code class="language-console" data-lang="console"># tunefs -p /dev/ada0p2
 tunefs: POSIX.1e ACLs: (-a)   disabled
-</code></pre>
-
-<p>tunefs -a enable/disableでACLの有効、無効を設定できる</p>
-
-<pre><code class="language-console"># tunefs -a enable /dev/ada0p2
+</code></pre><p>tunefs -a enable/disableでACLの有効、無効を設定できる</p>
+<pre><code class="language-console" data-lang="console"># tunefs -a enable /dev/ada0p2
 tunefs: POSIX.1e ACLs set
 
 # tunefs -p /dev/ada0p2
 tunefs: POSIX.1e ACLs: (-a)   enabled
-</code></pre>
-
-<p>/dev/ada0p2 は、ルートファイルシステムなのだが、そのまま起動すると、あるいは再起動するとtunefs -pの結果がdisabledに戻ってしまう。<br />
+</code></pre><p>/dev/ada0p2 は、ルートファイルシステムなのだが、そのまま起動すると、あるいは再起動するとtunefs -pの結果がdisabledに戻ってしまう。<br>
 さらに分からないのは、fstabにaclsの記載あるなしに関わらずdisabledになること。</p>
-
-<h2 id="span-style-text-decoration-underline-実験-fstabしか見ていない-span"><span style="text-decoration: underline;">実験（fstabしか見ていない…?）</span></h2>
-
-<p>fstabにaclsを記載し、あるファイルにsetfaclでACLを設定する。<br />
+<h2 id="span-styletext-decoration-underlinefstabspan-1"><!-- raw HTML omitted -->実験（fstabしか見ていない…?）<!-- raw HTML omitted --></h2>
+<p>fstabにaclsを記載し、あるファイルにsetfaclでACLを設定する。<br>
 ls -laで確認すると以下のように+が付く。</p>
-
-<pre><code class="language-console">$ setfacl -m u:nobwak:r,o:: file.txt
+<pre><code class="language-console" data-lang="console">$ setfacl -m u:nobwak:r,o:: file.txt
 $ ls -la ./file.txt
 -rw-r-----+ 1 doe  doe  8  4月 23 13:45 ./file.txt
 $ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates, acls)
-</code></pre>
-
-<p>その後、fstabからaclsを削除し、再起動したのち、ls -laで確認すると+がない。</p>
-
-<pre><code class="language-console">$ ls -la ./file.txt
+</code></pre><p>その後、fstabからaclsを削除し、再起動したのち、ls -laで確認すると+がない。</p>
+<pre><code class="language-console" data-lang="console">$ ls -la ./file.txt
 -rw-r-----  1 doe  doe  8  4月 23 13:45 ./file.txt
 $ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates)
-</code></pre>
-
-<p>なお、上記の再起動前後を通してtunefs -pの結果はdisabled.</p>
+</code></pre><p>なお、上記の再起動前後を通してtunefs -pの結果はdisabled.</p>
 <ul class="pa0">
   
    <li class="list">

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-02-13T01:00:00+09:00" />
 <meta itemprop="name" content="portsからインストールしたデーモンプログラムのスタート方法">
 <meta itemprop="description" content="FreeBSDでportsからapacheなどのdaemonプログラムをインストールした場合、起動用スクリプトは/usr/local/etc">
-
-
 <meta itemprop="datePublished" content="2008-02-13T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-02-13T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="898">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="portsからインストールしたデーモンプログラムのスタート方法"/>
 <meta name="twitter:description" content="FreeBSDでportsからapacheなどのdaemonプログラムをインストールした場合、起動用スクリプトは/usr/local/etc"/>
 
@@ -174,11 +171,8 @@ if (!doNotTrack) {
 
 そういったわけで、/etc/rc.confに値を設定せず、テスト用として一回だけ起動したい場合には、引数にstartではなくonestartを与えて実行kすればよい。たとえば下記のように。
 </code></pre>
-
-<pre><code class="language-console">/usr/local/etc/rc.d/apache22 onestart
-</code></pre>
-
-<pre><code>このほかに俺がonestartを使うのは、sftpがなく、ftpしか使えないクライアントに対し/etc/inetd onestartとしてinetdを起動させるくらい、かな。
+<pre><code class="language-console" data-lang="console">/usr/local/etc/rc.d/apache22 onestart
+</code></pre><pre><code>このほかに俺がonestartを使うのは、sftpがなく、ftpしか使えないクライアントに対し/etc/inetd onestartとしてinetdを起動させるくらい、かな。
 
 
 

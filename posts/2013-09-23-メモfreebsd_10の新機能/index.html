@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-09-23T21:28:55+09:00" />
 <meta itemprop="name" content="メモ: FreeBSD 10の新機能">
 <meta itemprop="description" content="FreeBSD 10が年明けあたりにリリースされる。 今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。 その変更点を以下">
-
-
 <meta itemprop="datePublished" content="2013-09-23T21:28:55&#43;09:00" />
 <meta itemprop="dateModified" content="2013-09-23T21:28:55&#43;09:00" />
-<meta itemprop="wordCount" content="1132">
+<meta itemprop="wordCount" content="367">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="メモ: FreeBSD 10の新機能"/>
 <meta name="twitter:description" content="FreeBSD 10が年明けあたりにリリースされる。 今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。 その変更点を以下"/>
 
@@ -140,57 +137,31 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>FreeBSD 10が年明けあたりにリリースされる。<br />
-今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSD 10が年明けあたりにリリースされる。<br>
+今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。<br>
 その変更点を以下にまとめる。あくまでも本日時点。</p>
-
-<p>なお元ネタは<a href="https://wiki.freebsd.org/WhatsNew/FreeBSD10  " target="_blank"><a href="https://wiki.freebsd.org/WhatsNew/FreeBSD10">https://wiki.freebsd.org/WhatsNew/FreeBSD10</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-freebsd-10での変更点-span"><span style="text-decoration: underline;">FreeBSD 10での変更点</span></h2>
-
-<p><span style="text-decoration: underline;">システム</span></p>
-
-<p><p style="padding-left: 30px;">
-  GCCアウト。<a href="http://ja.wikipedia.org/wiki/Clang" target="_blank">CLANG</a>に入れ替え。<br /> また、デフォルトのコンパイラもclangに。<br /> [コメント]GPLv3問題のためですな。<br /> そしてシステム全部がclangでコンパイルされている、というのは大きなこと。<br /> ある意味、オープンソース・ソフトウェアを支えてきたgccと決別したわけだから。</p>
-
-<p><span style="text-decoration: underline;">pkg</span></p>
-
-<p><p style="padding-left: 30px;">
-  pkg<em>*アウト。pkgngイン。<br /> [コメント]FreeBSD 10-ALPHAでpkg</em>*の無いことに驚いた。<br /> しかしpkgngのオフィシャルリポジトリはまだ復活していない。<br /> 10-RELEASEの暁にはpkg-test.freebsd.orgが本格運用されるであろう。</p>
-
-<p><p style="padding-left: 30px;"></p>
-
+<p>なお元ネタは<!-- raw HTML omitted --><a href="https://wiki.freebsd.org/WhatsNew/FreeBSD10%3C/a%3E">https://wiki.freebsd.org/WhatsNew/FreeBSD10&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinefreebsd-10span"><!-- raw HTML omitted -->FreeBSD 10での変更点<!-- raw HTML omitted --></h2>
+<p><!-- raw HTML omitted -->システム<!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted -->pkg<!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;サーバソフトウェア&lt;/span&gt;
 </code></pre>
-
-<p><p style="padding-left: 30px;">
-    （作業中）BINDアウト。UnboundとLNDSがイン。<br /> [コメント]BINDちゃんセキュリティホール多かったしのう。</p>
-
+<!-- raw HTML omitted -->
 <pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;仮想化&lt;/span&gt;
 </code></pre>
-
-<p><p style="padding-left: 30px;">
-    bhyveイン。 LinuxのKVMのようなもの<br /> [コメント]bhyveってなんぞや。<a href="http://d.hatena.ne.jp/k32ru/20120928/1348848993" target="_blank">ここ</a>で概要つかめるかも。</p>
-
+<!-- raw HTML omitted -->
 <pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;ファイルシステム&lt;/span&gt;
 </code></pre>
-
-<p><p style="padding-left: 30px;">
-    <a href="../../../?p=2264">インストーラでのZFS on root対応</a><br /> ZFSでTRIMサポート<br /> ZFSでLZ4圧縮のサポート<br /> L2ARC圧縮もサポート<br /> FUSEがベースシステムでサポートされる。<br /> UFSのライブリサイズがサポートされる。つまりサービス断なくディスクを増加させられる。<br /> [コメント]LZ4については手前味噌ですが<a href="../../../?p=1885" target="_blank">こちら</a>を。<br /> ZFSがばんばん更新されるのは嬉しいのだが、ZFS自体のアップデートはすごく緊張する。</p>
-
+<!-- raw HTML omitted -->
 <pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;起動&lt;/span&gt;
 </code></pre>
-
-<p><p style="padding-left: 30px;">
-    UEFIブートローダのサポート<br /> ブート時のアニメーションsplashスクリーンサポート</p>
-
+<!-- raw HTML omitted -->
 <pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;その他&lt;/span&gt;
 </code></pre>
-
-<p><p style="padding-left: 30px;">
-    ログインIDが32文字までに延長<br /> CVS終了。portsのアップデートに{csup|cvsup}使ってる奴はsvnliteかsvnupを使え。<br /> svnliteはベースシステムに、svnupはportsにある。<br /> 10以降で作られたUFSはfsckが早い。<br /> [コメント]ログインIDの文字数は地味に助かる。FreeBSDでメールサーバ立てた時、苦労した覚えが。</p>
+<!-- raw HTML omitted -->
 <ul class="pa0">
   
 </ul>

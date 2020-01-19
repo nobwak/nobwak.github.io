@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-11-24T22:47:09+09:00" />
 <meta itemprop="name" content="FreeBSD 10.1-RELEASEのvt(4)でconsoleをうつくしく">
 <meta itemprop="description" content="10.1-RELEASEの目玉機能の一つにvt(4)がある。 有名すぎるけど改めてvtが何かというと、殺風景で絶望的にクソダサいFreeBSD">
-
-
 <meta itemprop="datePublished" content="2014-11-24T22:47:09&#43;09:00" />
 <meta itemprop="dateModified" content="2014-11-24T22:47:09&#43;09:00" />
 <meta itemprop="wordCount" content="962">
 
 
 
-<meta itemprop="keywords" content="FreeBSD," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSD 10.1-RELEASEのvt(4)でconsoleをうつくしく"/>
 <meta name="twitter:description" content="10.1-RELEASEの目玉機能の一つにvt(4)がある。 有名すぎるけど改めてvtが何かというと、殺風景で絶望的にクソダサいFreeBSD"/>
 
@@ -140,40 +137,27 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>10.1-RELEASEの目玉機能の一つに<a href="https://www.freebsd.org/cgi/man.cgi?query=vt&sektion=4" target="_blank">vt(4)</a>がある。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>10.1-RELEASEの目玉機能の一つに<!-- raw HTML omitted -->vt(4)<!-- raw HTML omitted -->がある。<br>
 有名すぎるけど改めてvtが何かというと、殺風景で絶望的にクソダサいFreeBSDのコンソールを美しくするドライバである。</p>
-
-<p>LANGを日本語設定にしたままコンソールでログインし、メッセージが文字化けしまくる情けなさ。<br />
-そうでなくとも、コンソールで使われるフォントはカッコ悪いように思う。<br />
-そんなガッカリ感ともサヨナラである（ただし日本語表示にはひと手間かかる！）。<br />
+<p>LANGを日本語設定にしたままコンソールでログインし、メッセージが文字化けしまくる情けなさ。<br>
+そうでなくとも、コンソールで使われるフォントはカッコ悪いように思う。<br>
+そんなガッカリ感ともサヨナラである（ただし日本語表示にはひと手間かかる！）。<br>
 みんな。今日限りコンソールドライバはvtにしちまおうぜ。</p>
-
-<h2 id="vt-4-とは">vt(4)とは</h2>
-
-<p>使い方を示すまえにvtについてもう少しだけ詳しく。<br />
-もとはNewcons（NEW CONSoleですな）として進められていたプロジェクトで、コンソールでの2バイト文字を含むユニコードを使えるようにしたコンソールドライバ。<br />
-くわえて、Xを使ってる時でもバーチャルターミナルを使えるし、コンソールなのにマウスでコピー＆ペーストができたり、ScrLockして画面をスクロールバックしたりできる。<br />
+<h2 id="vt4">vt(4)とは</h2>
+<p>使い方を示すまえにvtについてもう少しだけ詳しく。<br>
+もとはNewcons（NEW CONSoleですな）として進められていたプロジェクトで、コンソールでの2バイト文字を含むユニコードを使えるようにしたコンソールドライバ。<br>
+くわえて、Xを使ってる時でもバーチャルターミナルを使えるし、コンソールなのにマウスでコピー＆ペーストができたり、ScrLockして画面をスクロールバックしたりできる。<br>
 （FreeBSDにおいて）これはすごい。</p>
-
-<p>ただ、意外にもスクリーンセーバはできないようだ。<br />
-詳細はNewcons wikiをどうぞ。<br />
-<a href="https://wiki.freebsd.org/Newcons" target="_blank"><a href="https://wiki.freebsd.org/Newcons">https://wiki.freebsd.org/Newcons</a></a></p>
-
+<p>ただ、意外にもスクリーンセーバはできないようだ。<br>
+詳細はNewcons wikiをどうぞ。<br>
+<!-- raw HTML omitted --><a href="https://wiki.freebsd.org/Newcons%3C/a%3E">https://wiki.freebsd.org/Newcons&lt;/a&gt;</a></p>
 <p>なお、従来のドライバはsyscons。</p>
-
-<h2 id="vtの使い方">vtの使い方</h2>
-
-<p>10.1-RELEASEではデフォルトで有効にはならない。<br />
+<h2 id="vt">vtの使い方</h2>
+<p>10.1-RELEASEではデフォルトで有効にはならない。<br>
 有効にするには、/boot/loader.confに以下の記述が必要。</p>
-
-<pre><code class="language-console">kern.vty=vt
-</code></pre>
-
-<p>私は以下のように追記している。</p>
-
-<pre><code class="language-console">#
+<pre><code class="language-console" data-lang="console">kern.vty=vt
+</code></pre><p>私は以下のように追記している。</p>
+<pre><code class="language-console" data-lang="console">#
 # Virtual Terminal settings
 # see vt(4)
 #
@@ -181,36 +165,25 @@ if (!doNotTrack) {
 hw.vga.textmode=0
 # set vt to enable vt on console
 kern.vty=vt
-</code></pre>
-
-<p>これで再起動。</p>
-
-<h2 id="見た目の変化">見た目の変化</h2>
-
-<p>これがオリジナルのコンソール。<br />
-この、フォントが気に入らないんですよ。<br />
-<a href="../../../wp-content/uploads/2014/11/vt03.png"><img class="alignnone size-thumbnail wp-image-2882" src="../../../wp-content/uploads/2014/11/vt03-150x150.png" alt="vt03" width="150" height="150" /></a></p>
-
-<p>こうなる。<br />
-なんだろう…。20世紀の8bitパソコンのような趣がありますな。<br />
-<a href="../../../wp-content/uploads/2014/11/vt01.png"><img class="alignnone size-thumbnail wp-image-2880" src="../../../wp-content/uploads/2014/11/vt01-150x150.png" alt="vt01" width="150" height="150" /></a></p>
-
-<h2 id="日本語フォント">日本語フォント</h2>
-
-<p>よしじゃあ次は日本語フォント！と思ったのだが、冒頭のnewcons Wikiを見るとCJKフォントは「In progress」、つまり「まだ」である。（2014/11/23現在）<br />
-とはいえ全く表示できないか、というとそうではなく。<a href="https://gihyo.jp/admin/clip/01/fdt/201404/24" target="_blank">このあたり</a>を参考に進めてみた。<br />
-具体的には、ユニコードなビットマップフォントをダウンロードしてきてvidcontrolで指定してあげればよい。<br />
+</code></pre><p>これで再起動。</p>
+<h2 id="heading">見た目の変化</h2>
+<p>これがオリジナルのコンソール。<br>
+この、フォントが気に入らないんですよ。<br>
+<a href="../../../wp-content/uploads/2014/11/vt03.png"><!-- raw HTML omitted --></a></p>
+<p>こうなる。<br>
+なんだろう…。20世紀の8bitパソコンのような趣がありますな。<br>
+<a href="../../../wp-content/uploads/2014/11/vt01.png"><!-- raw HTML omitted --></a></p>
+<h2 id="heading-1">日本語フォント</h2>
+<p>よしじゃあ次は日本語フォント！と思ったのだが、冒頭のnewcons Wikiを見るとCJKフォントは「In progress」、つまり「まだ」である。（2014/11/23現在）<br>
+とはいえ全く表示できないか、というとそうではなく。<!-- raw HTML omitted -->このあたり<!-- raw HTML omitted -->を参考に進めてみた。<br>
+具体的には、ユニコードなビットマップフォントをダウンロードしてきてvidcontrolで指定してあげればよい。<br>
 vidcontrolでの操作はコンソールでやること。</p>
-
-<pre><code class="language-console"># fetch http://people.freebsd.org/~emaste/newcons/b16.fnt
+<pre><code class="language-console" data-lang="console"># fetch http://people.freebsd.org/~emaste/newcons/b16.fnt
 fetch: http://people.freebsd.org/~emaste/newcons/b16.fnt: size of remote file is not known
 b16.fnt                                                772 kB  238 kBps 00m03s
 # vidcontrol -f ./b16.fnt
-</code></pre>
-
-<p>さすればこのように。<br />
-<a href="../../../wp-content/uploads/2014/11/vt02.png"><img class="alignnone size-thumbnail wp-image-2881" src="../../../wp-content/uploads/2014/11/vt02-150x150.png" alt="vt02" width="150" height="150" /></a></p>
-
+</code></pre><p>さすればこのように。<br>
+<a href="../../../wp-content/uploads/2014/11/vt02.png"><!-- raw HTML omitted --></a></p>
 <p>以上</p>
 <ul class="pa0">
   

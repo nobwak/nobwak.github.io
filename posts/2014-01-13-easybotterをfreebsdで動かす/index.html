@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-13T20:19:01+09:00" />
 <meta itemprop="name" content="EasyBotterをFreeBSDで動かす">
 <meta itemprop="description" content="EasyBotterとはTwitter Botツールで、pha氏の手になるもの。 phpで作られている。 設定は以下に沿うとして、このツールをFr">
-
-
 <meta itemprop="datePublished" content="2014-01-13T20:19:01&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-13T20:19:01&#43;09:00" />
 <meta itemprop="wordCount" content="531">
 
 
 
-<meta itemprop="keywords" content="FreeBSD," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="EasyBotterをFreeBSDで動かす"/>
 <meta name="twitter:description" content="EasyBotterとはTwitter Botツールで、pha氏の手になるもの。 phpで作られている。 設定は以下に沿うとして、このツールをFr"/>
 
@@ -140,46 +137,31 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>EasyBotterとはTwitter Botツールで、<a href="http://d.hatena.ne.jp/pha/" target="_blank">pha氏</a>の手になるもの。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>EasyBotterとはTwitter Botツールで、<!-- raw HTML omitted -->pha氏<!-- raw HTML omitted -->の手になるもの。<br>
 phpで作られている。</p>
-
-<p>設定は以下に沿うとして、このツールをFreeBSDで動かすために必要な事を記す。<br />
-<a href="http://pha22.net/twitterbot/" target="_blank"><a href="http://pha22.net/twitterbot/">http://pha22.net/twitterbot/</a></a><br />
-<a href="http://www26.atwiki.jp/easybotter_wiki/pages/1.html" target="_blank"><a href="http://www26.atwiki.jp/easybotter_wiki/pages/1.html">http://www26.atwiki.jp/easybotter_wiki/pages/1.html</a></a></p>
-
+<p>設定は以下に沿うとして、このツールをFreeBSDで動かすために必要な事を記す。<br>
+<!-- raw HTML omitted --><a href="http://pha22.net/twitterbot/%3C/a%3E">http://pha22.net/twitterbot/&lt;/a&gt;</a><br>
+<!-- raw HTML omitted --><a href="http://www26.atwiki.jp/easybotter_wiki/pages/1.html%3C/a%3E">http://www26.atwiki.jp/easybotter_wiki/pages/1.html&lt;/a&gt;</a></p>
 <p>FreeBSD 10.0-RC1, pkgngで実施。</p>
-
-<h2 id="span-style-text-decoration-underline-easybotterの展開-span"><span style="text-decoration: underline;">EasyBotterの展開</span></h2>
-
-<p>ダウンロードしたEasyBotterを展開する。<br />
+<h2 id="span-styletext-decoration-underlineeasybotterspan"><!-- raw HTML omitted -->EasyBotterの展開<!-- raw HTML omitted --></h2>
+<p>ダウンロードしたEasyBotterを展開する。<br>
 どこでもよい。</p>
-
-<pre><code class="language-console">$ ls
+<pre><code class="language-console" data-lang="console">$ ls
 EasyBotter.php          bot.php                 license.txt
 PEAR                    data.txt                log.dat
 RCS                     path.txt                 reply_pattern.php
 __MACOSX                index.html              setting.php
-</code></pre>
-
-<p>設定は冒頭のリンクに沿ってどうぞ。</p>
-
-<h2 id="span-style-text-decoration-underline-phpのインストール-span"><span style="text-decoration: underline;">phpのインストール</span></h2>
-
-<p>最低限必要なものは以下の三つ。2013/12/16現在。<br />
-php5-5.4.21                    PHP Scripting Language<br />
-php5-hash-5.4.21               The hash shared extension for php<br />
+</code></pre><p>設定は冒頭のリンクに沿ってどうぞ。</p>
+<h2 id="span-styletext-decoration-underlinephpspan"><!-- raw HTML omitted -->phpのインストール<!-- raw HTML omitted --></h2>
+<p>最低限必要なものは以下の三つ。2013/12/16現在。<br>
+php5-5.4.21                    PHP Scripting Language<br>
+php5-hash-5.4.21               The hash shared extension for php<br>
 php5-json-5.4.21               The json shared extension for php</p>
-
 <p>botの喋る内容はUTF-8で書くので、vimも入れておくとよいかも。</p>
-
-<h2 id="span-style-text-decoration-underline-テスト-span"><span style="text-decoration: underline;">テスト</span></h2>
-
-<p>bot.phpを実行する。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->テスト<!-- raw HTML omitted --></h2>
+<p>bot.phpを実行する。<br>
 以下のようになれば成功。</p>
-
-<pre><code class="language-console">$ php ./bot.php
+<pre><code class="language-console" data-lang="console">$ php ./bot.php
 &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
 &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; lang=&quot;ja&quot; xml:lang=&quot;ja&quot;&gt;
 &lt;head&gt;
@@ -187,25 +169,16 @@ php5-json-5.4.21               The json shared extension for php</
 &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
 &lt;title&gt;EasyBotter&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;pre&gt;Twitterへの投稿に成功しました。
 &lt;br /&gt;@&lt;a href='http://twitter.com/samplebot' target='_blank'&gt;samplebot&lt;/a&gt;に投稿したメッセージ：....
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-cronに設定-span"><span style="text-decoration: underline;">cronに設定</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinecronspan"><!-- raw HTML omitted -->cronに設定<!-- raw HTML omitted --></h2>
 <p>以下のようなどうってことないシェルスクリプトを作って;</p>
-
-<pre><code class="language-console">#!/bin/sh
+<pre><code class="language-console" data-lang="console">#!/bin/sh
 
 cd /home/nobody/files/EasyBotter/
 /usr/local/bin/php ./bot.php
-</code></pre>
-
-<p>crontabに設定。</p>
-
-<pre><code class="language-console">$ crontab -l
+</code></pre><p>crontabに設定。</p>
+<pre><code class="language-console" data-lang="console">$ crontab -l
 10 * * * * /home/nobody/bin/bot.sh
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

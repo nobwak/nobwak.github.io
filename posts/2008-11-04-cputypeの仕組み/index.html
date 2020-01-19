@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-11-04T01:00:00+09:00" />
 <meta itemprop="name" content="CPUTYPEの仕組み">
 <meta itemprop="description" content="make.confで設定するCPUTYPEの話。 make.confでは、コンパイラに対して通知するCPUTYPEを設定することができる（効果">
-
-
 <meta itemprop="datePublished" content="2008-11-04T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-11-04T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="548">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CPUTYPEの仕組み"/>
 <meta name="twitter:description" content="make.confで設定するCPUTYPEの話。 make.confでは、コンパイラに対して通知するCPUTYPEを設定することができる（効果"/>
 
@@ -150,22 +147,17 @@ make.confでは、コンパイラに対して通知するCPUTYPEを設定する�
 
 そして、FreeBSDが認識するCPUTYPEは、/usr/share/examples/etc/make.confで確認できる。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  $ uname -sr
 
 
 
   FreeBSD 7.0-STABLE-200803
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>上記のシステム（ちょっと古いなあ）から抜粋すると;
 </code></pre>
-
-<pre><code class="language-console">#   Intel x86 architecture:
+<pre><code class="language-console" data-lang="console">#   Intel x86 architecture:
 #       (AMD CPUs)      opteron athlon64 athlon-mp athlon-xp athlon-4
 #                       athlon-tbird athlon k8 k6-3 k6-2 k6 k5
 #       (Intel CPUs)    core2 core nocona pentium4m pentium4 prescott
@@ -173,9 +165,7 @@ make.confでは、コンパイラに対して通知するCPUTYPEを設定する�
 #                       pentiumpro pentium-mmx pentium i486 i386
 #       (Via CPUs)      c3 c3-2
 #   AMD64 architecture: opteron, athlon64, nocona, prescott, core2
-</code></pre>
-
-<pre><code>ただし、上記はあくまでもFreeBSDが認識するというだけ。
+</code></pre><pre><code>ただし、上記はあくまでもFreeBSDが認識するというだけ。
 
 
 
@@ -185,14 +175,11 @@ make.confでは、コンパイラに対して通知するCPUTYPEを設定する�
 
 中身をのぞいてみると;
 </code></pre>
-
-<pre><code class="language-console">.  if ${CPUTYPE} == &quot;nocona&quot;
+<pre><code class="language-console" data-lang="console">.  if ${CPUTYPE} == &quot;nocona&quot;
 CPUTYPE = prescott
 .  elif ${CPUTYPE} == &quot;core&quot; || ${CPUTYPE} == &quot;core2&quot;
 CPUTYPE = prescott
-</code></pre>
-
-<pre><code>現時点ではCPUTYPEをcore, core2にしてもnoconaとひっくるめてprescottにされてしまうという衝撃の事実。…まあ、そのうちbsd.cpu.mkもgccのバージョンに合わせてアップデートされることでしょう。
+</code></pre><pre><code>現時点ではCPUTYPEをcore, core2にしてもnoconaとひっくるめてprescottにされてしまうという衝撃の事実。…まあ、そのうちbsd.cpu.mkもgccのバージョンに合わせてアップデートされることでしょう。
 
 
 

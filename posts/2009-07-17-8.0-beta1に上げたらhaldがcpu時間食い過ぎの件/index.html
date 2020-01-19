@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-07-17T01:00:00+09:00" />
 <meta itemprop="name" content="8.0-BETA1に上げたらhaldがCPU時間食い過ぎの件">
 <meta itemprop="description" content="件名の通り。 まだ8.0にはデバッグ用の設定が残っていて、そのせいで遅いのかと思ったら、haldがCPU時間を食いまくってたでござる。 hald">
-
-
 <meta itemprop="datePublished" content="2009-07-17T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-07-17T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="417">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="8.0-BETA1に上げたらhaldがCPU時間食い過ぎの件"/>
 <meta name="twitter:description" content="件名の通り。 まだ8.0にはデバッグ用の設定が残っていて、そのせいで遅いのかと思ったら、haldがCPU時間を食いまくってたでござる。 hald"/>
 
@@ -157,8 +154,7 @@ haldを作り直したら直った。やっぱり横着せずportsは作り直�
 
 システム起動直後はこんな感じ。
 </code></pre>
-
-<pre><code class="language-console">$ top|head
+<pre><code class="language-console" data-lang="console">$ top|head
 last pid:  1407;  load averages:  1.14,  0.55,  0.22  up 0+00:02:36    00:11:30
 52 processes:  4 running, 48 sleeping
 Mem: 32M Active, 13M Inact, 26M Wired, 52K Cache, 14M Buf, 909M Free
@@ -166,12 +162,9 @@ Swap: 512M Total, 512M Free
 PID USERNAME      THR PRI NICE   SIZE    RES STATE    TIME   WCPU COMMAND
 1162 haldaemon       1 116    0  6928K  4376K RUN      1:27 86.18% hald
 1174 root            1  49    0  5716K  2544K select   0:00  0.00% hald-addon-
+</code></pre><pre><code>haldをkillした後。load avarageが1未満に減っている。
 </code></pre>
-
-<pre><code>haldをkillした後。load avarageが1未満に減っている。
-</code></pre>
-
-<pre><code class="language-console">$ top|head
+<pre><code class="language-console" data-lang="console">$ top|head
 last pid:  1693;  load averages:  0.71,  0.78,  0.39  up 0+00:05:36    00:14:30
 45 processes:  1 running, 44 sleeping
 Mem: 26M Active, 12M Inact, 26M Wired, 52K Cache, 14M Buf, 915M Free
@@ -179,9 +172,7 @@ Swap: 512M Total, 512M Free
 PID USERNAME      THR PRI NICE   SIZE    RES STATE    TIME   WCPU COMMAND
 1379 root            1  44    0  4524K  2644K wait     0:00  0.10% bash
 1007 root            1  44    0  3296K  1380K select   0:00  0.00% powerd
-</code></pre>
-
-<pre><code>あと、8.0に上げたらUSBマウスが動かなくなった。マウスパッドは効くのに。
+</code></pre><pre><code>あと、8.0に上げたらUSBマウスが動かなくなった。マウスパッドは効くのに。
 
 
 

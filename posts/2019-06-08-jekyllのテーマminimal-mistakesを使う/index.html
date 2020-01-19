@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-06-08T00:00:00+00:00" />
 <meta itemprop="name" content="Jekyllのテーマminimal-mistakesを使う">
 <meta itemprop="description" content="Jekyllのデフォルトテーマminimaはあまりにも素っ気ないので、人気のテーマminimal-mistakesに変える。 FreeBSDで">
-
-
 <meta itemprop="datePublished" content="2019-06-08T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-06-08T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="2278">
 
 
 
-<meta itemprop="keywords" content="jekyll,blog," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="jekyll,blog," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Jekyllのテーマminimal-mistakesを使う"/>
 <meta name="twitter:description" content="Jekyllのデフォルトテーマminimaはあまりにも素っ気ないので、人気のテーマminimal-mistakesに変える。 FreeBSDで"/>
 
@@ -140,42 +137,31 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Jekyllのデフォルトテーマminimaはあまりにも素っ気ないので、人気のテーマminimal-mistakesに変える。<br />
-FreeBSDで実施しているが、インストール後はどの環境でも同じ。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Jekyllのデフォルトテーマminimaはあまりにも素っ気ないので、人気のテーマminimal-mistakesに変える。<br>
+FreeBSDで実施しているが、インストール後はどの環境でも同じ。<br>
 Jekyllに展開するガイドなどはあるものの、結局minimal-mistakesのgithubからダウンロードした環境で作業したほうが楽なのでそうする。</p>
-
-<p>しかし&hellip;。<br />
-試してみたものの、そもそもjekyllによるビルドが糞遅いうえに、minimal-mistakesみたいなゴージャスなテーマを使うとさらに糞糞遅くなる。<br />
+<p>しかし&hellip;。<br>
+試してみたものの、そもそもjekyllによるビルドが糞遅いうえに、minimal-mistakesみたいなゴージャスなテーマを使うとさらに糞糞遅くなる。<br>
 ストレスなくblogを書きたいのにこれではストレスばかり溜まるのでjekyllは今は使ってません。</p>
-
-<h2 id="minimal-mistakesとは">minimal-mistakesとは</h2>
-
+<h2 id="minimal-mistakes">minimal-mistakesとは</h2>
 <p>Jekyllでは超有名なテーマ。</p>
-
 <ul>
 <li>公式サイト: <a href="https://mmistakes.github.io/minimal-mistakes/">https://mmistakes.github.io/minimal-mistakes/</a></li>
 <li>見た目: <a href="https://mmistakes.github.io/minimal-mistakes/year-archive/">https://mmistakes.github.io/minimal-mistakes/year-archive/</a></li>
 <li>github: <a href="https://github.com/mmistakes/minimal-mistakes">https://github.com/mmistakes/minimal-mistakes</a></li>
 <li>Quickstart guide: <a href="https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/">https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/</a></li>
 </ul>
-
-<h2 id="インストール-freebsd">インストール(FreeBSD)</h2>
-
-<p>pkgから以下をインストール。<br />
+<h2 id="freebsd">インストール(FreeBSD)</h2>
+<p>pkgから以下をインストール。<br>
 gitは、先々、github hubにアップロードするため。</p>
-
 <ul>
 <li>rubygem-jekyll</li>
 <li>rubygem-bundler</li>
 <li>git</li>
 </ul>
-
-<p>ログ。<br />
+<p>ログ。<br>
 rootでインストールしているが、これはjailの中なんで気にしない！</p>
-
-<pre><code class="language-console"># pkg install rubygem-jekyll
+<pre><code class="language-console" data-lang="console"># pkg install rubygem-jekyll
 Updating FreeBSD repository catalogue...
 FreeBSD repository is up to date.
 All repositories are up to date.
@@ -216,23 +202,16 @@ New packages to be INSTALLED:
         git: 2.21.0
         p5-CGI: 4.42
 （略）
-</code></pre>
-
-<h2 id="minimal-mistakesのダウンロード">minimal-mistakesのダウンロード</h2>
-
+</code></pre><h2 id="minimal-mistakes-1">minimal-mistakesのダウンロード</h2>
 <p>git cloneする。</p>
-
-<pre><code class="language-console"># git clone https://github.com/mmistakes/minimal-mistakes.git
+<pre><code class="language-console" data-lang="console"># git clone https://github.com/mmistakes/minimal-mistakes.git
 Cloning into 'minimal-mistakes'...
 remote: Enumerating objects: 15858, done.
 remote: Total 15858 (delta 0), reused 0 (delta 0), pack-reused 15858
 Receiving objects: 100% (15858/15858), 41.61 MiB | 9.43 MiB/s, done.
 Resolving deltas: 100% (9338/9338), done.
-</code></pre>
-
-<p>出来上がったディレクトリ構造は以下の通り。</p>
-
-<pre><code class="language-console"># tree minimal-mistakes -L 1
+</code></pre><p>出来上がったディレクトリ構造は以下の通り。</p>
+<pre><code class="language-console" data-lang="console"># tree minimal-mistakes -L 1
 minimal-mistakes
 |-- CHANGELOG.md
 |-- Gemfile
@@ -255,12 +234,9 @@ minimal-mistakes
 |-- screenshot.png
 |-- staticman.yml
 `-- test
-</code></pre>
-
-<p>できたディレクトリに降りてbundle install。<br />
+</code></pre><p>できたディレクトリに降りてbundle install。<br>
 rootでやってるが気にしない。</p>
-
-<pre><code class="language-console"># bundle install
+<pre><code class="language-console" data-lang="console"># bundle install
 Don't run Bundler as root. Bundler can ask for sudo if it is needed, and installing your bundle as root will break
 this application for all non-root users on this machine.
 Fetching gem metadata from https://rubygems.org/..........
@@ -269,131 +245,123 @@ Resolving dependencies...
 Fetching rake 10.5.0
 Installing rake 10.5.0
 (略)
-</code></pre>
-
-<h2 id="config-ymlを編集">_config.ymlを編集</h2>
-
-<p>量があって疲れる。<br />
-変えた個所をdiff形式で示す。<br />
-重要なのはloaleやpermalink, timezone, サイト情報。<br />
+</code></pre><h2 id="-configyml">_config.ymlを編集</h2>
+<p>量があって疲れる。<br>
+変えた個所をdiff形式で示す。<br>
+重要なのはloaleやpermalink, timezone, サイト情報。<br>
 あとは適当に。</p>
-
-<pre><code class="language-diff">18,19c18,19
-&lt; locale                   : &quot;ja-JP&quot;
-&lt; title                    : &quot;nobwak's lair&quot;
----
-&gt; locale                   : &quot;en-US&quot;
-&gt; title                    : &quot;Site Title&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">18,19c18,19
+&lt; locale                   : &#34;ja-JP&#34;
+&lt; title                    : &#34;nobwak&#39;s lair&#34;
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt; locale                   : &#34;en-US&#34;
+&gt; title                    : &#34;Site Title&#34;
 21,23c21,23
-&lt; name                     : &quot;nobwak&quot;
-&lt; description              : &quot;where nobwak sleeps&quot;
+&lt; name                     : &#34;nobwak&#34;
+&lt; description              : &#34;where nobwak sleeps&#34;
 
----
-&gt; words_per_minute         : 200
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt; words_per_minute         : 200
 79c79
 &lt; google_site_verification : googlexxxx.html
----
-&gt; google_site_verification :
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt; google_site_verification :
 86,90c86,90
 &lt;   username               : nobwak
 &lt; #facebook:
 &lt;   #username               :
 &lt;   #app_id                 :
 &lt;   #publisher              :
----
-&gt;   username               :
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;   username               :
 &gt; facebook:
 &gt;   username               :
 &gt;   app_id                 :
 &gt;   publisher              :
 101c101
-&lt;   provider               : google # false (default), &quot;google&quot;, &quot;google-universal&quot;, &quot;custom&quot;
----
-&gt;   provider               : false # false (default), &quot;google&quot;, &quot;google-universal&quot;, &quot;custom&quot;
+&lt;   provider               : google # false (default), &#34;google&#34;, &#34;google-universal&#34;, &#34;custom&#34;
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;   provider               : false # false (default), &#34;google&#34;, &#34;google-universal&#34;, &#34;custom&#34;
 103c103
 &lt;     tracking_id          : UA-xxxx-x
----
-&gt;     tracking_id          :
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;     tracking_id          :
 109c109
-&lt;   name             : &quot;nobwak&quot;
----
-&gt;   name             : &quot;Your Name&quot;
+&lt;   name             : &#34;nobwak&#34;
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;   name             : &#34;Your Name&#34;
 111,112c111,112
-&lt;   bio              : &quot;Cum mortuis in lingua mortua&quot;
-&lt;   location         : &quot;/dev/null&quot;
----
-&gt;   bio              : &quot;I am an amazing person.&quot;
-&gt;   location         : &quot;Somewhere&quot;
+&lt;   bio              : &#34;Cum mortuis in lingua mortua&#34;
+&lt;   location         : &#34;/dev/null&#34;
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;   bio              : &#34;I am an amazing person.&#34;
+&gt;   location         : &#34;Somewhere&#34;
 115,116c115,116
-&lt;     #- label: &quot;Email&quot;
-&lt;       #icon: &quot;fas fa-fw fa-envelope-square&quot;
----
-&gt;     - label: &quot;Email&quot;
-&gt;       icon: &quot;fas fa-fw fa-envelope-square&quot;
+&lt;     #- label: &#34;Email&#34;
+&lt;       #icon: &#34;fas fa-fw fa-envelope-square&#34;
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;     - label: &#34;Email&#34;
+&gt;       icon: &#34;fas fa-fw fa-envelope-square&#34;
 118,119c118,119
-&lt;     #- label: &quot;Website&quot;
-&lt;       #icon: &quot;fas fa-fw fa-link&quot;
----
-&gt;     - label: &quot;Website&quot;
-&gt;       icon: &quot;fas fa-fw fa-link&quot;
+&lt;     #- label: &#34;Website&#34;
+&lt;       #icon: &#34;fas fa-fw fa-link&#34;
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;     - label: &#34;Website&#34;
+&gt;       icon: &#34;fas fa-fw fa-link&#34;
 
-&lt;     #- label: &quot;Instagram&quot;
-&lt;       #icon: &quot;fab fa-fw fa-instagram&quot;
----
-&gt;     - label: &quot;Instagram&quot;
-&gt;       icon: &quot;fab fa-fw fa-instagram&quot;
+&lt;     #- label: &#34;Instagram&#34;
+&lt;       #icon: &#34;fab fa-fw fa-instagram&#34;
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;     - label: &#34;Instagram&#34;
+&gt;       icon: &#34;fab fa-fw fa-instagram&#34;
 139d138
-&lt;       url: &quot;https://twitter.com/nobwak&quot;
+&lt;       url: &#34;https://twitter.com/nobwak&#34;
 141,151c140,141
-&lt;     #- label: &quot;Facebook&quot;
-&lt;       #icon: &quot;fab fa-fw fa-facebook-square&quot;
+&lt;     #- label: &#34;Facebook&#34;
+&lt;       #icon: &#34;fab fa-fw fa-facebook-square&#34;
 &lt;       ## url:
-&lt;     #- label: &quot;GitHub&quot;
-&lt;       #icon: &quot;fab fa-fw fa-github&quot;
+&lt;     #- label: &#34;GitHub&#34;
+&lt;       #icon: &#34;fab fa-fw fa-github&#34;
 &lt;       ## url:
-&lt;     #- label: &quot;GitLab&quot;
-&lt;       #icon: &quot;fab fa-fw fa-gitlab&quot;
+&lt;     #- label: &#34;GitLab&#34;
+&lt;       #icon: &#34;fab fa-fw fa-gitlab&#34;
 &lt;       ## url:
-&lt;     #- label: &quot;Bitbucket&quot;
-&lt;       #icon: &quot;fab fa-fw fa-bitbucket&quot;
----
-&gt;     - label: &quot;Facebook&quot;
-&gt;       icon: &quot;fab fa-fw fa-facebook-square&quot;
+&lt;     #- label: &#34;Bitbucket&#34;
+&lt;       #icon: &#34;fab fa-fw fa-bitbucket&#34;
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;     - label: &#34;Facebook&#34;
+&gt;       icon: &#34;fab fa-fw fa-facebook-square&#34;
 153,155c143,154
-&lt;     #- label: &quot;Instagram&quot;
-&lt;       #icon: &quot;fab fa-fw fa-instagram&quot;
+&lt;     #- label: &#34;Instagram&#34;
+&lt;       #icon: &#34;fab fa-fw fa-instagram&#34;
 &lt;       ## url:
----
-&gt;     - label: &quot;GitHub&quot;
-&gt;       icon: &quot;fab fa-fw fa-github&quot;
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;     - label: &#34;GitHub&#34;
+&gt;       icon: &#34;fab fa-fw fa-github&#34;
 &gt;       # url:
-&gt;     - label: &quot;GitLab&quot;
-&gt;       icon: &quot;fab fa-fw fa-gitlab&quot;
+&gt;     - label: &#34;GitLab&#34;
+&gt;       icon: &#34;fab fa-fw fa-gitlab&#34;
 &gt;       # url:
-&gt;     - label: &quot;Bitbucket&quot;
-&gt;       icon: &quot;fab fa-fw fa-bitbucket&quot;
+&gt;     - label: &#34;Bitbucket&#34;
+&gt;       icon: &#34;fab fa-fw fa-bitbucket&#34;
 &gt;       # url:
-&gt;     - label: &quot;Instagram&quot;
-&gt;       icon: &quot;fab fa-fw fa-instagram&quot;
+&gt;     - label: &#34;Instagram&#34;
+&gt;       icon: &#34;fab fa-fw fa-instagram&#34;
 &gt;       # url:
 222,223c221
 &lt; #permalink: /:categories/:title/
 &lt; permalink: /:year/:month/:day-:slug:output_ext
----
-&gt; permalink: /:categories/:title/
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt; permalink: /:categories/:title/
 226c224
 &lt; timezone: Asia/Tokyo # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
----
-&gt; timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-</code></pre>
-
-<h2 id="navigation-ymlを編集">navigation.ymlを編集</h2>
-
-<p>デフォルトだとminima-mistakesのクイックスタートガイドへのリンクが貼られるので削る。<br />
-<code>_data/navigation.yml</code>を編集。<br />
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt; timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+</code></pre></div><h2 id="navigationyml">navigation.ymlを編集</h2>
+<p>デフォルトだとminima-mistakesのクイックスタートガイドへのリンクが貼られるので削る。<br>
+<code>_data/navigation.yml</code>を編集。<br>
 以下が編集後。</p>
-
-<pre><code class="language-console"># main links
+<pre><code class="language-console" data-lang="console"># main links
 main:
   #- title: &quot;Quick-Start Guide&quot;
     # url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
@@ -405,16 +373,12 @@ main:
   #   url: /collection-archive/
   # - title: &quot;Sitemap&quot;
   #   url: /sitemap/
-</code></pre>
-
-<h2 id="layout-post向けのテンプレートを作る-wordpressからexport-to-jekyllした場合のみ">layout:post向けのテンプレートを作る（Wordpressからexport to jekyllした場合のみ）</h2>
-
-<p>Jekyllはfront matterのlayoutで指定されたテンプレートを使う。<br />
-Wordpressからexport to jekyllで作ったファイルは、すべてlayoutが「post」になっている。<br />
-一方、minimal-mistakesのlayoutには「post」はなく「posts」しかない。<br />
+</code></pre><h2 id="layoutpostwordpressexport-to-jekyll">layout:post向けのテンプレートを作る（Wordpressからexport to jekyllした場合のみ）</h2>
+<p>Jekyllはfront matterのlayoutで指定されたテンプレートを使う。<br>
+Wordpressからexport to jekyllで作ったファイルは、すべてlayoutが「post」になっている。<br>
+一方、minimal-mistakesのlayoutには「post」はなく「posts」しかない。<br>
 そこで「posts」を丸々コピーする。</p>
-
-<pre><code class="language-console"># cd _layouts/
+<pre><code class="language-console" data-lang="console"># cd _layouts/
 # ls
 archive-taxonomy.html   collection.html         posts.html              tag.html
 archive.html            compress.html           search.html             tags.html
@@ -426,15 +390,11 @@ archive-taxonomy.html   collection.html         post.html               splash.h
 archive.html            compress.html           posts.html              tag.html
 categories.html         default.html            search.html             tags.html
 category.html           home.html               single.html
-</code></pre>
-
-<h2 id="記事の作成-ビルド">記事の作成、ビルド</h2>
-
-<p><code>_posts</code>というディレクトリを作ってそこに記事を入れたら、ビルド。<br />
-完成品は<code>_site</code>の中。<br />
+</code></pre><h2 id="heading">記事の作成、ビルド</h2>
+<p><code>_posts</code>というディレクトリを作ってそこに記事を入れたら、ビルド。<br>
+完成品は<code>_site</code>の中。<br>
 下記ログで示すように、文字コードは日本語にしておこうな。</p>
-
-<pre><code class="language-console"># bundle exec jekyll serve
+<pre><code class="language-console" data-lang="console"># bundle exec jekyll serve
 Configuration file: /usr/home/lair/minimal-mistakes/_config.yml
             Source: /usr/home/lair/minimal-mistakes
        Destination: /usr/home/lair/minimal-mistakes/_site
@@ -450,17 +410,12 @@ jekyll 3.8.5 | Error:  Invalid US-ASCII character &quot;\xE2&quot; on line 54
 # echo $LANG
 ja_JP.UTF-8
 # bundle exec jekyll
-</code></pre>
-
-<h2 id="ビルド時間の計測">ビルド時間の計測</h2>
-
-<p>ビルドは<code>bundle exec jekyll build</code>などとするが、ここに<code>--profile</code>をつけると要素ごとにかかった時間を測ってくれる。<br />
-460件の記事で10分である。<br />
+</code></pre><h2 id="heading-1">ビルド時間の計測</h2>
+<p>ビルドは<code>bundle exec jekyll build</code>などとするが、ここに<code>--profile</code>をつけると要素ごとにかかった時間を測ってくれる。<br>
+460件の記事で10分である。<br>
 本来なら、ここから最適化を進めるんだが、チューニングしてまでjekyllを使うモチベーションはない。</p>
-
 <p>ビルドする記事を制限する等の回避策はあるけど（ビルドする数を制限するオプションを使う）、一挙手一投足すべて遅いのでjekyllはやめようかな。</p>
-
-<pre><code class="language-console"># bundle exec jekyll --profile
+<pre><code class="language-console" data-lang="console"># bundle exec jekyll --profile
 （略）
 
 Filename                                   | Count |      Bytes |    Time
@@ -499,9 +454,7 @@ _includes/browser-upgrade.html             |     1 |      0.24K |   0.000
 
                     done in 609.748 seconds.
  Auto-regeneration: disabled. Use --watch to enable.
-</code></pre>
-
-<p>以上。</p>
+</code></pre><p>以上。</p>
 <ul class="pa0">
   
    <li class="list">

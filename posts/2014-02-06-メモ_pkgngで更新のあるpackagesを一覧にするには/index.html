@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,25 +29,22 @@
     
 
     <meta property="og:title" content="[メモ] pkgngで更新のあるpackagesを一覧にするには" />
-<meta property="og:description" content="pkg updateとやったあと、更新のあったpackagesを一覧するには。 スマート: &ldquo;pkg version -vRL=&ldquo;とすればよい。 かっこよくない:" />
+<meta property="og:description" content="pkg updateとやったあと、更新のあったpackagesを一覧するには。 スマート: &ldquo;pkg version -vRL=&quot;とすればよい。 かっこよくない: い" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/" />
 <meta property="article:published_time" content="2014-02-06T20:44:55+09:00" />
 <meta property="article:modified_time" content="2014-02-06T20:44:55+09:00" />
 <meta itemprop="name" content="[メモ] pkgngで更新のあるpackagesを一覧にするには">
-<meta itemprop="description" content="pkg updateとやったあと、更新のあったpackagesを一覧するには。 スマート: &ldquo;pkg version -vRL=&ldquo;とすればよい。 かっこよくない:">
-
-
+<meta itemprop="description" content="pkg updateとやったあと、更新のあったpackagesを一覧するには。 スマート: &ldquo;pkg version -vRL=&quot;とすればよい。 かっこよくない: い">
 <meta itemprop="datePublished" content="2014-02-06T20:44:55&#43;09:00" />
 <meta itemprop="dateModified" content="2014-02-06T20:44:55&#43;09:00" />
-<meta itemprop="wordCount" content="483">
+<meta itemprop="wordCount" content="482">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] pkgngで更新のあるpackagesを一覧にするには"/>
-<meta name="twitter:description" content="pkg updateとやったあと、更新のあったpackagesを一覧するには。 スマート: &ldquo;pkg version -vRL=&ldquo;とすればよい。 かっこよくない:"/>
+<meta name="twitter:description" content="pkg updateとやったあと、更新のあったpackagesを一覧するには。 スマート: &ldquo;pkg version -vRL=&quot;とすればよい。 かっこよくない: い"/>
 
       
 <script type="application/javascript">
@@ -140,51 +137,33 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>pkg updateとやったあと、更新のあったpackagesを一覧するには。</p>
-
-<p>スマート: &ldquo;pkg version -vRL=&ldquo;とすればよい。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkg updateとやったあと、更新のあったpackagesを一覧するには。</p>
+<p>スマート: &ldquo;pkg version -vRL=&quot;とすればよい。<br>
 かっこよくない: いきなりpkg upgradeして表示させる。</p>
-
-<h2 id="span-style-text-decoration-underline-実行例-span"><span style="text-decoration: underline;">実行例</span></h2>
-
-<pre><code class="language-console">$ pkg version -vRL=
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->実行例<!-- raw HTML omitted --></h2>
+<pre><code class="language-console" data-lang="console">$ pkg version -vRL=
 gvfs-1.12.3_1                      ?   orphaned: devel/gvfs
 mate-file-archiver-1.6.0           ?   orphaned: archivers/mate-file-archiver
 mate-file-manager-1.6.2            ?   orphaned: x11-fm/mate-file-manager
 mate-text-editor-1.6.0             ?   orphaned: editors/mate-text-editor
-</code></pre>
-
-<p>…なんか面倒くさいことになってるけど、この通り。</p>
-
-<h2 id="span-style-text-decoration-underline-portsのindexを使う場合-span"><span style="text-decoration: underline;">portsのINDEXを使う場合</span></h2>
-
-<p>/usr/portsがあり、OSバージョンに合ったINDEXがあれば、version -vIL=も使える。<br />
-INDEXとは、/usr/ports/INDEX-10などの、portsの目次。<br />
+</code></pre><p>…なんか面倒くさいことになってるけど、この通り。</p>
+<h2 id="span-styletext-decoration-underlineportsindexspan"><!-- raw HTML omitted -->portsのINDEXを使う場合<!-- raw HTML omitted --></h2>
+<p>/usr/portsがあり、OSバージョンに合ったINDEXがあれば、version -vIL=も使える。<br>
+INDEXとは、/usr/ports/INDEX-10などの、portsの目次。<br>
 portsを使わない場合は不要だけど、poudriereで自家製packagesを使うときには重宝するかも。</p>
-
-<pre><code class="language-console">$ pkg version -vIL=
+<pre><code class="language-console" data-lang="console">$ pkg version -vIL=
 gnutls-2.12.23_2                   &lt;   needs updating (index has 2.12.23_3)
 libXfont-1.4.6,1                   &lt;   needs updating (index has 1.4.7,1)
 pkg-1.2.4_1                        &lt;   needs updating (index has 1.2.5)
 zsh-5.0.4                          &lt;   needs updating (index has 5.0.5)
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-オプション補足-span"><span style="text-decoration: underline;">オプション補足</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->オプション補足<!-- raw HTML omitted --></h2>
 <p>-Iと-Rの違いは下記の通り。</p>
-
-<pre><code class="language-console">-I　　portsのINDEXを使う。
+<pre><code class="language-console" data-lang="console">-I　　portsのINDEXを使う。
 -R リポジトリのカタログを使う。
-</code></pre>
-
-<p>-vと-Lの意味は以下の通り。</p>
-
-<pre><code class="language-console">-v 出力を詳細にする。ないと更新の有無しか表示しない。
+</code></pre><p>-vと-Lの意味は以下の通り。</p>
+<pre><code class="language-console" data-lang="console">-v 出力を詳細にする。ないと更新の有無しか表示しない。
 -L &quot;-L =&quot;とすると、&quot;=&quot;を含まない場合だけ表示。すなわち、更新のある場合のみ表示。
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

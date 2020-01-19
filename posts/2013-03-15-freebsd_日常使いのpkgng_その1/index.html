@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-03-15T23:40:13+09:00" />
 <meta itemprop="name" content="[FreeBSD] 日常使いのpkgng その1">
 <meta itemprop="description" content="pkgngをしばらく使ってみて感じるのは、情報を十分に与えてくれること。 適当に使っても、あれしろ、これしろ、と教えてくれるから戸惑いが少ない">
-
-
 <meta itemprop="datePublished" content="2013-03-15T23:40:13&#43;09:00" />
 <meta itemprop="dateModified" content="2013-03-15T23:40:13&#43;09:00" />
 <meta itemprop="wordCount" content="1205">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] 日常使いのpkgng その1"/>
 <meta name="twitter:description" content="pkgngをしばらく使ってみて感じるのは、情報を十分に与えてくれること。 適当に使っても、あれしろ、これしろ、と教えてくれるから戸惑いが少ない"/>
 
@@ -140,39 +137,25 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p><a href="../../../?p=1947" target="_blank">pkgngをしばらく使ってみて</a>感じるのは、情報を十分に与えてくれること。<br />
-適当に使っても、あれしろ、これしろ、と教えてくれるから戸惑いが少ない。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><!-- raw HTML omitted -->pkgngをしばらく使ってみて<!-- raw HTML omitted -->感じるのは、情報を十分に与えてくれること。<br>
+適当に使っても、あれしろ、これしろ、と教えてくれるから戸惑いが少ない。<br>
 それでも、pkgngでやりたいこと別にまとめておくのは有用だと思うので記す。</p>
-
 <p>pkgngへの移行については<a href="../../../?p=1947">こちら</a>。</p>
-
-<h3 id="span-style-text-decoration-underline-まずやること-span"><span style="text-decoration: underline;">まずやること</span>。</h3>
-
-<p>/etc/periodic.confに以下を追加しよう。<br />
+<h3 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->まずやること<!-- raw HTML omitted -->。</h3>
+<p>/etc/periodic.confに以下を追加しよう。<br>
 periodic.confがなければ/etc/defaults/periodic.confを/etc/peridoc.confとしてコピーして末尾に追加。</p>
-
-<pre><code class="language-console">daily_backup_pkgng_enable=&quot;YES&quot;
+<pre><code class="language-console" data-lang="console">daily_backup_pkgng_enable=&quot;YES&quot;
 daily_status_security_pkgaudit_enable=&quot;YES&quot;
-</code></pre>
-
-<p>1行目はpkgngのdbを/var/db/backupsにバックアップさせるもの。<br />
+</code></pre><p>1行目はpkgngのdbを/var/db/backupsにバックアップさせるもの。<br>
 2行目はインストール済みのpkgにセキュリティの問題がないかを確認し、メールで報告させるもの。</p>
-
 <p>詳しくは以下スクリプトを。</p>
-
-<pre><code class="language-console">/usr/local/etc/periodic/daily/411.pkg-backup
+<pre><code class="language-console" data-lang="console">/usr/local/etc/periodic/daily/411.pkg-backup
 /usr/local/etc/periodic/security/410.pkg-audit
-</code></pre>
-
-<h3 id="span-style-text-decoration-underline-インストール済みのpkgをアップグレードするには-span"><span style="text-decoration: underline;">インストール済みのpkgをアップグレードするには。</span></h3>
-
-<p>pkg upgradeを叩くだけでOK。<br />
-pkg upgradeを実行すると、まずpkg updateしてからインストール済みpkgに更新がないかをチェックする。<br />
+</code></pre><h3 id="span-styletext-decoration-underlinepkgspan"><!-- raw HTML omitted -->インストール済みのpkgをアップグレードするには。<!-- raw HTML omitted --></h3>
+<p>pkg upgradeを叩くだけでOK。<br>
+pkg upgradeを実行すると、まずpkg updateしてからインストール済みpkgに更新がないかをチェックする。<br>
 updateとはrepository catalogueをアップデートすることで、repository catalogueとは、pkgダウンロード先サイトのpkg一覧がsqliteのDBでまとまっているもの。</p>
-
-<pre><code class="language-console">$ sudo pkg update
+<pre><code class="language-console" data-lang="console">$ sudo pkg update
 Updating repository catalogue
 repo.txz   
 $ sudo pkg upgrade
@@ -193,14 +176,10 @@ xterm-291.txz                       100%  245KB 244.7KB/s 244.7KB/s   00:00
 Checking integrity... done
 Upgrading p5-Tie-IxHash from 1.22 to 1.23... done
 Upgrading xterm from 290 to 291... done
-</code></pre>
-
-<h3 id="span-style-text-decoration-underline-不要なpkgを削除したい-span"><span style="text-decoration: underline;">不要なpkgを削除したい。</span></h3>
-
-<p>autoremoveを使う。<br />
+</code></pre><h3 id="span-styletext-decoration-underlinepkgspan-1"><!-- raw HTML omitted -->不要なpkgを削除したい。<!-- raw HTML omitted --></h3>
+<p>autoremoveを使う。<br>
 pkg_cutleavesのようなものですな。</p>
-
-<pre><code class="language-console">$ sudo pkg autoremove
+<pre><code class="language-console" data-lang="console">$ sudo pkg autoremove
 パスワード:
 Packages to be autoremoved:
 linux_base-f10-10_5
@@ -219,40 +198,28 @@ o  remove/comment linprocfs from /etc/fstab if present
 done
 Deleting nvidia-settings-310.14... done
 Deleting nvidia-xconfig-310.14... done
-</code></pre>
-
-<h3 id="span-style-text-decoration-underline-あるpkgが依存している他のpkgを調べるには-span"><span style="text-decoration: underline;">あるpkgが依存している他のpkgを調べるには</span>。</h3>
-
-<p>-dオプションを与える。DependのDなので覚えやすい。もうこれで間違えないよ！<br />
+</code></pre><h3 id="span-styletext-decoration-underlinepkgpkgspan"><!-- raw HTML omitted -->あるpkgが依存している他のpkgを調べるには<!-- raw HTML omitted -->。</h3>
+<p>-dオプションを与える。DependのDなので覚えやすい。もうこれで間違えないよ！<br>
 Rとrで意味を違えるどこかのシステムは猛省していただきたいものである。</p>
-
-<pre><code class="language-console">$ pkg info -d bash
+<pre><code class="language-console" data-lang="console">$ pkg info -d bash
 bash-4.2.42 depends on:
 libiconv-1.14
 gettext-0.18.1.1
-</code></pre>
-
-<h3 id="span-style-text-decoration-underline-あるpkgに-どのpkgが依存しているかを調べるには-span"><span style="text-decoration: underline;">あるpkgに、どのpkgが依存しているかを調べるには。</span></h3>
-
+</code></pre><h3 id="span-styletext-decoration-underlinepkgpkgspan-1"><!-- raw HTML omitted -->あるpkgに、どのpkgが依存しているかを調べるには。<!-- raw HTML omitted --></h3>
 <p>requiredのrですな。</p>
-
-<pre><code class="language-console">$ pkg info -r bash
+<pre><code class="language-console" data-lang="console">$ pkg info -r bash
 bash-4.2.42 is required by:
 gnome-doc-utils-0.20.3
 rarian-0.8.1
 gnome-desktop-2.32.1_2
 policykit-gnome-0.9.2_6
-</code></pre>
-
-<h3 id="span-style-text-decoration-underline-pkgngにおけるportaudit的なものはないの-span"><span style="text-decoration: underline;">pkgngにおけるportaudit的なものはないの?</span></h3>
-
-<p>pkg auditを使う。-Fとセットがいいでしょうな。<br />
-package nameを与えるとそのpkgだけをチェックしてくれる。<br />
-ただ、package nameはバージョンまで指定しないとダメな模様。<br />
-問題なければ何も出力されない。これはちょっとさみしい。<br />
+</code></pre><h3 id="span-styletext-decoration-underlinepkgngportauditspan"><!-- raw HTML omitted -->pkgngにおけるportaudit的なものはないの?<!-- raw HTML omitted --></h3>
+<p>pkg auditを使う。-Fとセットがいいでしょうな。<br>
+package nameを与えるとそのpkgだけをチェックしてくれる。<br>
+ただ、package nameはバージョンまで指定しないとダメな模様。<br>
+問題なければ何も出力されない。これはちょっとさみしい。<br>
 まあこれは冒頭で触れたように、periodic.confからやるものですなあ。</p>
-
-<pre><code class="language-console">$ pkg audit
+<pre><code class="language-console" data-lang="console">$ pkg audit
 pkg: unable to open audit file, try running 'pkg audit -F' first
 $ sudo pkg audit -F
 パスワード:
@@ -268,11 +235,8 @@ bash-4.2.42                    The GNU Project's Bourne Again SHell
 $ sudo pkg audit -F bash-4.2.42
 Audit file up-to-date.
 $
-</code></pre>
-
-<p>うわapache&hellip;</p>
-
-<p>（追記）<a href="../../../?p=1988" target="_blank">日常使いのpkgその2</a></p>
+</code></pre><p>うわapache&hellip;</p>
+<p>（追記）<!-- raw HTML omitted -->日常使いのpkgその2<!-- raw HTML omitted --></p>
 <ul class="pa0">
   
 </ul>

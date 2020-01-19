@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,25 +29,22 @@
     
 
     <meta property="og:title" content="[FreeBSD][メモ] PlexConnectに関する情報" />
-<meta property="og:description" content="PlexConnect https://github.com/iBaa/PlexConnect 最低限入れておくべきもの（jailを想定） plexmediaserver（これは当然） ca_root_nss python2.* スタートアップスクリプト /usr/local/" />
+<meta property="og:description" content="PlexConnect https://github.com/iBaa/PlexConnect&lt;/a&gt; 最低限入れておくべきもの（jailを想定） plexmediaserver（これは当然） ca_root_nss python2.* スタートアップスクリプト /usr/local/" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/" />
 <meta property="article:published_time" content="2015-08-27T23:16:28+09:00" />
 <meta property="article:modified_time" content="2015-08-27T23:16:28+09:00" />
 <meta itemprop="name" content="[FreeBSD][メモ] PlexConnectに関する情報">
-<meta itemprop="description" content="PlexConnect https://github.com/iBaa/PlexConnect 最低限入れておくべきもの（jailを想定） plexmediaserver（これは当然） ca_root_nss python2.* スタートアップスクリプト /usr/local/">
-
-
+<meta itemprop="description" content="PlexConnect https://github.com/iBaa/PlexConnect&lt;/a&gt; 最低限入れておくべきもの（jailを想定） plexmediaserver（これは当然） ca_root_nss python2.* スタートアップスクリプト /usr/local/">
 <meta itemprop="datePublished" content="2015-08-27T23:16:28&#43;09:00" />
 <meta itemprop="dateModified" content="2015-08-27T23:16:28&#43;09:00" />
-<meta itemprop="wordCount" content="159">
+<meta itemprop="wordCount" content="158">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,jail," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,jail," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD][メモ] PlexConnectに関する情報"/>
-<meta name="twitter:description" content="PlexConnect https://github.com/iBaa/PlexConnect 最低限入れておくべきもの（jailを想定） plexmediaserver（これは当然） ca_root_nss python2.* スタートアップスクリプト /usr/local/"/>
+<meta name="twitter:description" content="PlexConnect https://github.com/iBaa/PlexConnect&lt;/a&gt; 最低限入れておくべきもの（jailを想定） plexmediaserver（これは当然） ca_root_nss python2.* スタートアップスクリプト /usr/local/"/>
 
       
 <script type="application/javascript">
@@ -140,26 +137,18 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="plexconnect">PlexConnect</h2>
-
-<p><a href="https://github.com/iBaa/PlexConnect" target="_blank"><a href="https://github.com/iBaa/PlexConnect">https://github.com/iBaa/PlexConnect</a></a></p>
-
-<h2 id="最低限入れておくべきもの-jailを想定">最低限入れておくべきもの（jailを想定）</h2>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="plexconnect">PlexConnect</h2>
+<p><!-- raw HTML omitted --><a href="https://github.com/iBaa/PlexConnect%3C/a%3E">https://github.com/iBaa/PlexConnect&lt;/a&gt;</a></p>
+<h2 id="jail">最低限入れておくべきもの（jailを想定）</h2>
 <ul>
 <li>plexmediaserver（これは当然）</li>
 <li>ca_root_nss</li>
 <li>python2.*</li>
 </ul>
-
-<h2 id="スタートアップスクリプト">スタートアップスクリプト</h2>
-
-<p>/usr/local/etc/rc.dに設置。<br />
-/etc/rc.confにplexconnect_enable=&ldquo;YES&rdquo;</p>
-
-<pre><code class="language-console">#! /bin/sh
+<h2 id="heading">スタートアップスクリプト</h2>
+<p>/usr/local/etc/rc.dに設置。<br>
+/etc/rc.confにplexconnect_enable=&quot;YES&rdquo;</p>
+<pre><code class="language-console" data-lang="console">#! /bin/sh
 #
 #
 # PROVIDE: plexconnect
@@ -179,8 +168,7 @@ eval ${name}_flags=\&quot;${plexconnect_flags}\&quot;
 load_rc_config $name
 run_rc_command &quot;$1&quot;
 
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

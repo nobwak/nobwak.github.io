@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2006-04-27T13:44:46+09:00" />
 <meta itemprop="name" content="DebianをFreeBSDのqemuにインストール。">
 <meta itemprop="description" content="・qemuのインストール portsからqemu, kqemu-kmodをインストール。 # portinstall -m-DWITH_KQEMU qemu # portinstall kqemu-kmod kqemu-kmodはqemuのアクセラレ">
-
-
 <meta itemprop="datePublished" content="2006-04-27T13:44:46&#43;09:00" />
 <meta itemprop="dateModified" content="2006-04-27T13:44:46&#43;09:00" />
 <meta itemprop="wordCount" content="1688">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="DebianをFreeBSDのqemuにインストール。"/>
 <meta name="twitter:description" content="・qemuのインストール portsからqemu, kqemu-kmodをインストール。 # portinstall -m-DWITH_KQEMU qemu # portinstall kqemu-kmod kqemu-kmodはqemuのアクセラレ"/>
 
@@ -146,18 +143,14 @@ if (!doNotTrack) {
 
 portsからqemu, kqemu-kmodをインストール。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  # portinstall -m-DWITH_KQEMU qemu
 
 
 
   # portinstall kqemu-kmod
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>kqemu-kmodはqemuのアクセラレータ。
 
 
@@ -172,9 +165,7 @@ portsからqemu, kqemu-kmodをインストール。
 
 また、下記のようにして、アクセラレータをロードすること。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  # kldload kqemu (←モジュールのロード)
 
 
@@ -209,9 +200,7 @@ portsからqemu, kqemu-kmodをインストール。
 
   #
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>このアクセラレータで動作がかなり速くなる。
 
 
@@ -221,14 +210,10 @@ portsからqemu, kqemu-kmodをインストール。
 
 ・ゲストOS用ディスクの確保
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  $ qemu-img create -f raw /usr/home/linux/debian.dsk 10G
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>として10Gを割り当て
 
 
@@ -266,14 +251,10 @@ AES暗号化、zlibベースの圧縮に対応していて便利。
 
 DebianのインストールCDイメージをダウンロードし、下記のようにして起動。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  $ qemu -kernel-kqemu -hda /usr/home/linux/debian.dsk -cdrom /usr/home/linux/debian.iso -boot d
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>-hdaでHDDイメージを指定、-cdromでCDROMイメージを指定、-bootで起動ディスクを指定。cならHDD、dならCDROMイメージから起動。
 
 
@@ -299,14 +280,10 @@ DebianのインストールCDイメージをダウンロードし、下記のよ
 
 ゲストOSから外へは繋げるものの、外からゲストOSには繋げない。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  $ qemu -hda /usr/home/linux/debian.dsk -boot c -redir :8022::22
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>上記のように、-redirオプションの後で、:ホストOSのポート::ゲストOSのポート: と指定したうえでホストOSの8022へ繋げば、ゲストOSの22に接続できる。
 
 
@@ -332,9 +309,7 @@ Ctrl+Alt+1で元に戻る。
 
 なお、アクセラレータが有効になっているかどうかは、下記のように確認する。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  ・OKの場合
 
 
@@ -375,9 +350,7 @@ Ctrl+Alt+1で元に戻る。
 
   kqemu support: disabled
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>・スナップショット
 
 

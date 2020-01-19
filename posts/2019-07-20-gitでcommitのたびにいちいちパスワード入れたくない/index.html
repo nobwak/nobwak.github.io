@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-07-20T00:00:00+00:00" />
 <meta itemprop="name" content="git pushのたびにいちいちパスワードをタイプしないようにするには">
 <meta itemprop="description" content="なんどもgit pushするときにいちいちパスワードをタイプしたくない blogをgithub pagesにpushしたあとにすぐ間違いに気づく法">
-
-
 <meta itemprop="datePublished" content="2019-07-20T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-07-20T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="401">
 
 
 
-<meta itemprop="keywords" content="git," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="git," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="git pushのたびにいちいちパスワードをタイプしないようにするには"/>
 <meta name="twitter:description" content="なんどもgit pushするときにいちいちパスワードをタイプしたくない blogをgithub pagesにpushしたあとにすぐ間違いに気づく法"/>
 
@@ -140,44 +137,26 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="なんどもgit-pushするときにいちいちパスワードをタイプしたくない">なんどもgit pushするときにいちいちパスワードをタイプしたくない</h2>
-
-<p>blogをgithub pagesにpushしたあとにすぐ間違いに気づく法則がある。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="git-push">なんどもgit pushするときにいちいちパスワードをタイプしたくない</h2>
+<p>blogをgithub pagesにpushしたあとにすぐ間違いに気づく法則がある。<br>
 それはともかくとして、要するに短い時間になんどもgit pushすることがよくある。
-当然ながら、git pushでリモートサーバにファイルをアップロードするわけだから、都度、IDとパスワードを聞かれることになる。<br />
+当然ながら、git pushでリモートサーバにファイルをアップロードするわけだから、都度、IDとパスワードを聞かれることになる。<br>
 これがとても面倒なので、なんとかしたい。</p>
-
-<h2 id="credential-helperを使う">credential helperを使う</h2>
-
+<h2 id="credential-helper">credential helperを使う</h2>
 <p><a href="https://help.github.com/en/articles/caching-your-github-password-in-git">https://help.github.com/en/articles/caching-your-github-password-in-git</a></p>
-
-<p>上記に書いてある通りで、<code>git config --global credential.helper cache</code>とすればよいだけ。<br />
+<p>上記に書いてある通りで、<code>git config --global credential.helper cache</code>とすればよいだけ。<br>
 デフォルトで15分間はパスワードをキャッシュしてくれる。</p>
-
-<pre><code class="language-console">$ git config --global credential.helper cache
+<pre><code class="language-console" data-lang="console">$ git config --global credential.helper cache
 $
-</code></pre>
-
-<p>特に応答は返らないが、こうすると<code>~/.gitconfig</code>に以下が追加される。</p>
-
-<pre><code class="language-sh">[credential]
-        helper = cache
-</code></pre>
-
-<p>キャッシュする時間を変えるなら、以下の通り指定する。単位は秒。</p>
-
-<pre><code class="language-console">git config --global credential.helper 'cache --timeout=3600'
-</code></pre>
-
-<p>この場合の<code>.gitconfig</code>はこのようになる。</p>
-
-<pre><code class="language-sh">[credential]
-        helper = cache --timeout=3600
-</code></pre>
-
-<p>これで問題なく動いた。<br />
+</code></pre><p>特に応答は返らないが、こうすると<code>~/.gitconfig</code>に以下が追加される。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>credential<span style="color:#f92672">]</span>
+        helper <span style="color:#f92672">=</span> cache
+</code></pre></div><p>キャッシュする時間を変えるなら、以下の通り指定する。単位は秒。</p>
+<pre><code class="language-console" data-lang="console">git config --global credential.helper 'cache --timeout=3600'
+</code></pre><p>この場合の<code>.gitconfig</code>はこのようになる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>credential<span style="color:#f92672">]</span>
+        helper <span style="color:#f92672">=</span> cache --timeout<span style="color:#f92672">=</span>3600
+</code></pre></div><p>これで問題なく動いた。<br>
 とても楽。</p>
 <ul class="pa0">
   

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2018-11-18T11:58:47+09:00" />
 <meta itemprop="name" content="[zfs][zpool] zfsの別ディスクへの移行">
 <meta itemprop="description" content="zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずsc">
-
-
 <meta itemprop="datePublished" content="2018-11-18T11:58:47&#43;09:00" />
 <meta itemprop="dateModified" content="2018-11-18T11:58:47&#43;09:00" />
 <meta itemprop="wordCount" content="2155">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,zfs,zpool," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,zfs,zpool," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[zfs][zpool] zfsの別ディスクへの移行"/>
 <meta name="twitter:description" content="zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずsc"/>
 
@@ -140,43 +137,34 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>zpoolを容量の多い別HDDに移したのでメモ。<br />
-一度、同じようなことはやっているが、時間も経っているので。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>zpoolを容量の多い別HDDに移したのでメモ。<br>
+一度、同じようなことはやっているが、時間も経っているので。<br>
 最初に書いておくが移行元でまずscrubしておくこと。</p>
-
 <p>流れとしては以下の通り。</p>
-
 <ol>
 <li>移行元HDD
-
 <ol>
 <li>scrubしておく</li>
 <li>snapshot</li>
-</ol></li>
+</ol>
+</li>
 <li>移行先HDD
-
 <ol>
 <li>GPTでzfsのパーティションを作成</li>
 <li>zpool作成</li>
-</ol></li>
+</ol>
+</li>
 <li>zfs send, recvで丸々コピー</li>
 </ol>
-
 <p>以下、実作業に触れる前に補足。</p>
-
-<h3 id="方針についての補足">方針についての補足</h3>
-
-<h4 id="なぜmirrorにしないのか">なぜmirrorにしないのか</h4>
-
-<p>上記の方法のほかには、追加のディスクをmirrorとしてzpoolに追加し、resilveringが終わったら旧ディスクを外してexpandという手がある。<br />
-が、その手は採らない。<br />
-実は、zpool statusをする都度、以下のメッセージが表示されていた。<br />
-旧ディスクは512Bセクタになっていると文句を言っているのである。<br />
+<h3 id="heading">方針についての補足</h3>
+<h4 id="mirror">なぜmirrorにしないのか</h4>
+<p>上記の方法のほかには、追加のディスクをmirrorとしてzpoolに追加し、resilveringが終わったら旧ディスクを外してexpandという手がある。<br>
+が、その手は採らない。<br>
+実は、zpool statusをする都度、以下のメッセージが表示されていた。<br>
+旧ディスクは512Bセクタになっていると文句を言っているのである。<br>
 ディスクを交換するか、新Poolに移せ、と。</p>
-
-<pre><code class="language-console"> pool: vault  
+<pre><code class="language-console" data-lang="console"> pool: vault  
 state: ONLINE  
 status: One or more devices are configured to use a non-native block size.  
 Expect reduced performance.  
@@ -189,52 +177,36 @@ config:
 NAME STATE READ WRITE CKSUM  
 vault ONLINE 0 0 0  
 ada1 ONLINE 0 0 0 block size: 512B configured, 4096B native  
-</code></pre>
-
-<p>512Bセクタのpoolにmirrorを追加したら、やっぱり512Bになるんではと心配になったので、mirrorではなく新規ディスクの新規Poolに移す。</p>
-
-<h4 id="なぜディスクをまるっと使わずgptでパーティションを切るのか">なぜディスクをまるっと使わずgptでパーティションを切るのか</h4>
-
-<p>zpoolは、わざわざgptパーティションにしなくても、ディスクをまるっと使ってzpoolに指定できる。<br />
-できるのだが、/dev/ada2なんて名前よりも、gptラベルでpoolを作成したいのである。<br />
-これの有利な点は、例えば当該ディスクの物理的な位置で名前を付けることができる点である。<br />
-具体的には、slot_1とか名前を付けておくと、ディスク交換の時に楽。<br />
-幸いにもFreeBSDにおいては、gptパーティションを切ってもディスクをそのまま使っても、いずれもパフォーマンスに違いはない。<br />
+</code></pre><p>512Bセクタのpoolにmirrorを追加したら、やっぱり512Bになるんではと心配になったので、mirrorではなく新規ディスクの新規Poolに移す。</p>
+<h4 id="gpt">なぜディスクをまるっと使わずgptでパーティションを切るのか</h4>
+<p>zpoolは、わざわざgptパーティションにしなくても、ディスクをまるっと使ってzpoolに指定できる。<br>
+できるのだが、/dev/ada2なんて名前よりも、gptラベルでpoolを作成したいのである。<br>
+これの有利な点は、例えば当該ディスクの物理的な位置で名前を付けることができる点である。<br>
+具体的には、slot_1とか名前を付けておくと、ディスク交換の時に楽。<br>
+幸いにもFreeBSDにおいては、gptパーティションを切ってもディスクをそのまま使っても、いずれもパフォーマンスに違いはない。<br>
 それならgptにしましょう。</p>
-
-<p><a href="https://www.freebsd.org/doc/handbook/zfs-zpool.html" target="_blank" rel="noopener"><a href="https://www.freebsd.org/doc/handbook/zfs-zpool.html">https://www.freebsd.org/doc/handbook/zfs-zpool.html</a></a><br />
-There is no performance penalty on FreeBSD when using a partition rather than a whole disk.<br />
+<p><!-- raw HTML omitted --><a href="https://www.freebsd.org/doc/handbook/zfs-zpool.html%3C/a%3E">https://www.freebsd.org/doc/handbook/zfs-zpool.html&lt;/a&gt;</a><br>
+There is no performance penalty on FreeBSD when using a partition rather than a whole disk.<br>
 (2018/11/09)</p>
-
 <p>ではさっそく作業を。</p>
-
-<h3 id="実作業-移行元ディスクの準備">実作業（移行元ディスクの準備）</h3>
-
-<h4 id="scrubをしておく">scrubをしておく。</h4>
-
-<p>zpool scrub で。<br />
-かなり時間がかかるので覚悟しておくように。<br />
-なおscrubは最低3か月に一回が推奨<br />
-<a href="https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub" target="_blank" rel="noopener"><a href="https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub">https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub</a></a><br />
+<h3 id="heading-1">実作業（移行元ディスクの準備）</h3>
+<h4 id="scrub">scrubをしておく。</h4>
+<p>zpool scrub で。<br>
+かなり時間がかかるので覚悟しておくように。<br>
+なおscrubは最低3か月に一回が推奨<br>
+<!-- raw HTML omitted --><a href="https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub%3C/a%3E">https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub&lt;/a&gt;</a><br>
 recommended at least once every three months</p>
-
-<h4 id="作業直前にsnapshot">作業直前にsnapshot。</h4>
-
-<p>pool内に複数のディレクトリがある場合、最上階層でsnapshot -r（recursive）すればよい。<br />
+<h4 id="snapshot">作業直前にsnapshot。</h4>
+<p>pool内に複数のディレクトリがある場合、最上階層でsnapshot -r（recursive）すればよい。<br>
 たとえばvaultというpoolにchamber, itunesがある場合に;</p>
-
-<pre><code class="language-console">vault  
+<pre><code class="language-console" data-lang="console">vault  
 vault/chamber  
 vault/chamber@20170503  
 vault/itunes  
 vault/itunes@20170503
-</code></pre>
-
-<p>※zfs list -t allの出力を一部削除したもの</p>
-
+</code></pre><p>※zfs list -t allの出力を一部削除したもの</p>
 <p>zfs snapshot vault@20181109とすれば;</p>
-
-<pre><code class="language-console">vault  
+<pre><code class="language-console" data-lang="console">vault  
 vault@20181109  
 vault/chamber  
 vault/chamber@20180503  
@@ -242,31 +214,21 @@ vault/chamber@20181109
 vault/itunes  
 vault/itunes@20180503  
 vault/itunes@20181109
-</code></pre>
-
-<p>※zfs list -t allの出力を一部削除したもの</p>
-
+</code></pre><p>※zfs list -t allの出力を一部削除したもの</p>
 <p>となる。いちいち各ディレクトリ配下でコマンドを叩かなくてよい。</p>
-
-<h3 id="移行先作業">移行先作業</h3>
-
-<h4 id="gptパーティションの作成">GPTパーティションの作成</h4>
-
+<h3 id="heading-2">移行先作業</h3>
+<h4 id="gpt-1">GPTパーティションの作成</h4>
 <p>以下のようなディスク</p>
-
-<pre><code class="language-console">ada3 at ahcich3 bus 0 scbus3 target 0 lun 0  
+<pre><code class="language-console" data-lang="console">ada3 at ahcich3 bus 0 scbus3 target 0 lun 0  
 ada3: ACS-3 ATA SATA 3.x device  
 ada3: Serial Number WD-WCC7K3PU64NE  
 ada3: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)  
 ada3: Command Queueing enabled  
 ada3: 3815447MB (7814037168 512 byte sectors)
-</code></pre>
-
-<p>GPTスキームをcreateし、全領域をfreebsd-zfsに割り当てる。<br />
-このとき、-lオプションでラベルを付ける。<br />
+</code></pre><p>GPTスキームをcreateし、全領域をfreebsd-zfsに割り当てる。<br>
+このとき、-lオプションでラベルを付ける。<br>
 同じくgpart showに-lオプションを付ければ名前を確認できる。</p>
-
-<pre><code class="language-console"># gpart create -s GPT ada3  
+<pre><code class="language-console" data-lang="console"># gpart create -s GPT ada3  
 ada3 created  
 # gpart add -l slot_4 -t freebsd-zfs /dev/ada3  
 ada3p1 added  
@@ -277,14 +239,10 @@ $ gpart show ada3
 $ gpart show -l /dev/ada3  
 40 7814037088 ada3 GPT (3.6T)  
 40 7814037088 1 slot_4 (3.6T)
-</code></pre>
-
-<h4 id="zpoolの作成">zpoolの作成</h4>
-
-<p>/dev/ada3ではなくGPTラベルで指定する。<br />
+</code></pre><h4 id="zpool">zpoolの作成</h4>
+<p>/dev/ada3ではなくGPTラベルで指定する。<br>
 GPTラベルで指定するときは、gpt/＜GPTラベル＞というように指定する。</p>
-
-<pre><code class="language-console"># zpool create warehouse gpt/slot_4  
+<pre><code class="language-console" data-lang="console"># zpool create warehouse gpt/slot_4  
 # zpool status warehouse  
 pool: warehouse  
 state: ONLINE  
@@ -293,18 +251,14 @@ config:
 NAME STATE READ WRITE CKSUM  
 warehouse ONLINE 0 0 0  
 gpt/slot_4 ONLINE 0 0 0
-</code></pre>
-
-<h4 id="プロパティの変更">プロパティの変更</h4>
-
-<p>zfsを作成する前に。<br />
-圧縮モードをlz4にする。lz4は<a href="../../../2013/02/%e3%82%a2%e3%83%bc%e3%82%ab%e3%82%a4%e3%83%90lz4%e3%82%92%e8%a9%a6%e3%81%97%e3%81%a6%e3%81%bf%e3%81%9f%e3%82%89%ef%bc%88%e5%9c%a7%e7%b8%ae%e3%81%af%ef%bc%89%e9%80%9f%e3%81%99%e3%81%8e%e7%ac%91/" target="_blank" rel="noopener">CPU負荷の割には非常に効率が良い</a>ので積極的に有効にしたい。<br />
-また、atime（アクセスタイムの記録）もoffに。これがonだと差分snapshotが失敗するから、というのが一つと、これをoffにするとパフォーマンスが上がる（can result in significant performance gains）から。<br />
-zfs get &lt;プロパティ名&gt; で現在の値を取得。<br />
-zfs set &lt;プロパティ名&gt;=&lt;値&gt; で値のセット。<br />
+</code></pre><h4 id="heading-3">プロパティの変更</h4>
+<p>zfsを作成する前に。<br>
+圧縮モードをlz4にする。lz4は<!-- raw HTML omitted -->CPU負荷の割には非常に効率が良い<!-- raw HTML omitted -->ので積極的に有効にしたい。<br>
+また、atime（アクセスタイムの記録）もoffに。これがonだと差分snapshotが失敗するから、というのが一つと、これをoffにするとパフォーマンスが上がる（can result in significant performance gains）から。<br>
+zfs get &lt;プロパティ名&gt; で現在の値を取得。<br>
+zfs set &lt;プロパティ名&gt;=&lt;値&gt; で値のセット。<br>
 圧縮モードのプロパティ名はcompression、atimeはatime。</p>
-
-<pre><code class="language-console">$ zfs get compression warehouse  
+<pre><code class="language-console" data-lang="console">$ zfs get compression warehouse  
 NAME PROPERTY VALUE SOURCE  
 warehouse compression off default  
 $ zfs get atime warehouse  
@@ -319,51 +273,30 @@ warehouse compression lz4 local
 $ zfs get atime warehouse  
 NAME PROPERTY VALUE SOURCE  
 warehouse atime off local
-</code></pre>
-
-<h4 id="ディレクトリの用意とsend-recv">ディレクトリの用意とsend/recv</h4>
-
-<pre><code class="language-console"># zfs create warehouse/itunes  
+</code></pre><h4 id="sendrecv">ディレクトリの用意とsend/recv</h4>
+<pre><code class="language-console" data-lang="console"># zfs create warehouse/itunes  
 # zfs create warehouse/chamber  
-</code></pre>
-
-<p>このとき、勝手にマウントされないようにすべきだった。-uを付ければよかったかな。<br />
+</code></pre><p>このとき、勝手にマウントされないようにすべきだった。-uを付ければよかったかな。<br>
 いずれにせよzfs set mountpointで後から変えられる。</p>
-
 <p>sendに-Rを付けると、子孫やスナップショットもまとめてsendされる。</p>
-
-<pre><code class="language-console"># zfs send -R vault/chamber@20181109 | zfs receive warehouse/chamber  
+<pre><code class="language-console" data-lang="console"># zfs send -R vault/chamber@20181109 | zfs receive warehouse/chamber  
 # zfs send -R vault/itunes@20181109 | zfs receive warehouse/itunes  
-</code></pre>
-
-<p>かかった時間、容量は以下の通り。うーむ。ちょっとかかったかな。</p>
-
-<pre><code class="language-console"> 991GiB 3:09:00 [89.5MiB/s]  
+</code></pre><p>かかった時間、容量は以下の通り。うーむ。ちょっとかかったかな。</p>
+<pre><code class="language-console" data-lang="console"> 991GiB 3:09:00 [89.5MiB/s]  
 1.10TiB 3:58:24 [80.3MiB/s]  
-</code></pre>
-
-<p>このとき適当にhtopを叩いた結果。CPU負荷はそんなんでもないので、ボトルネックは別のところにあるように思われる。</p>
-
-<pre><code class="language-console">1 [||||||||||||||||||||| 47.6%] Tasks: 43, 0 thr; 2 running  
+</code></pre><p>このとき適当にhtopを叩いた結果。CPU負荷はそんなんでもないので、ボトルネックは別のところにあるように思われる。</p>
+<pre><code class="language-console" data-lang="console">1 [||||||||||||||||||||| 47.6%] Tasks: 43, 0 thr; 2 running  
 2 [||||||||||||||||| 37.7%] Load average: 0.91 1.77 1.86  
 Mem[||||||||||||||||||||||||||||||||642M/1.84G] Uptime: 12:03:30  
 Swp[||||||||| 176M/907M]  
-</code></pre>
-
-<p>なおCPUはAMDのTurionである。</p>
-
-<p>compression=lz4の結果は.<br />
+</code></pre><p>なおCPUはAMDのTurionである。</p>
+<p>compression=lz4の結果は.<br>
 プロパティused（HDD上の容量）とlogicalused（圧縮前容量）で調べられる。</p>
-
-<pre><code class="language-console">warehouse used 2.00T -  
+<pre><code class="language-console" data-lang="console">warehouse used 2.00T -  
 warehouse logicalused 2.02T -  
 
-</code></pre>
-
-<p>本来なら2.02Tのところ、2.00Tで済んでる。</p>
-
+</code></pre><p>本来なら2.02Tのところ、2.00Tで済んでる。</p>
 <p>これで引っ越し完了。</p>
-
 <p>以上</p>
 <ul class="pa0">
   

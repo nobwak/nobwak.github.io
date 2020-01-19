@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-02-19T01:00:00+09:00" />
 <meta itemprop="name" content="シェルスクリプトで、ファイル名から拡張子を判定する">
 <meta itemprop="description" content="あくまでも、ファイル名から拡張子を判断するだけ。 以下に、$filenameとして与えられたファイルが拡張子.gzを持つかどうかを確認するシェ">
-
-
 <meta itemprop="datePublished" content="2008-02-19T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-02-19T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="344">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="シェルスクリプトで、ファイル名から拡張子を判定する"/>
 <meta name="twitter:description" content="あくまでも、ファイル名から拡張子を判断するだけ。 以下に、$filenameとして与えられたファイルが拡張子.gzを持つかどうかを確認するシェ"/>
 
@@ -154,8 +151,7 @@ Caseを使うケース。
 
 非常に素直。
 </code></pre>
-
-<pre><code class="language-console">#!/bin/sh
+<pre><code class="language-console" data-lang="console">#!/bin/sh
 case &quot;$filename&quot; in
 *\.gz)
 echo &quot;Found .gz suffix&quot;
@@ -164,20 +160,15 @@ echo &quot;Found .gz suffix&quot;
 echo &quot;Not a .gz suffix&quot;
 ;;
 esac
+</code></pre><pre><code>basenameを使うケース。
 </code></pre>
-
-<pre><code>basenameを使うケース。
-</code></pre>
-
-<pre><code class="language-console">#!/bin/sh
+<pre><code class="language-console" data-lang="console">#!/bin/sh
 # `basename $filename .gz` returns `basename $filename`
 # *unless*  it has a .gz suffix.
 [ `basename $filename .gz` = `basename $filename` ] || {
 echo $filename has a .gz suffix
 }
-</code></pre>
-
-<pre><code>そもそもbasenameは、与えられた文字列からディレクトリ名を削除し、ファイル名部分を抜き出すコマンド。
+</code></pre><pre><code>そもそもbasenameは、与えられた文字列からディレクトリ名を削除し、ファイル名部分を抜き出すコマンド。
 
 
 

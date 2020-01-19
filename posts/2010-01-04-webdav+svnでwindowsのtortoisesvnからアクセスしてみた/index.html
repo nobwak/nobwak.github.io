@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-01-04T01:00:00+09:00" />
 <meta itemprop="name" content="webdav&#43;svnで、WindowsのTortoiseSVNからアクセスしてみた。">
 <meta itemprop="description" content="webdavが出来上がったので、今度はここにSVNを組み込んでみた。 Excel, Wordファイルのバージョン管理をしたいだけなので、headとかそうい">
-
-
 <meta itemprop="datePublished" content="2010-01-04T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-01-04T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="874">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="webdav&#43;svnで、WindowsのTortoiseSVNからアクセスしてみた。"/>
 <meta name="twitter:description" content="webdavが出来上がったので、今度はここにSVNを組み込んでみた。 Excel, Wordファイルのバージョン管理をしたいだけなので、headとかそうい"/>
 
@@ -154,8 +151,7 @@ Excel, Wordファイルのバージョン管理をしたいだけなので、hea
 
 そのうえで/usr/local/etc/apache22/extra/httpd-dav.confを編集
 </code></pre>
-
-<pre><code class="language-console">DavLockDB &amp;#34;/usr/local/var/DavLock&amp;#34;
+<pre><code class="language-console" data-lang="console">DavLockDB &amp;#34;/usr/local/var/DavLock&amp;#34;
 &amp;#60;Location /repo&gt;
 DAV svn
 SVNPath /usr/local/var/svn/repo
@@ -165,9 +161,7 @@ AuthUserFile &amp;#34;/usr/local/www/.davsvn.passwd&amp;#34;
 require valid-user
 Order deny,allow
 &amp;#60;/Location&gt;
-</code></pre>
-
-<pre><code>httpd-dav.confに書きこんだ設定に合わせて環境を整える。
+</code></pre><pre><code>httpd-dav.confに書きこんだ設定に合わせて環境を整える。
 
 
 
@@ -197,33 +191,24 @@ AuthTypeはBasicでもいいけど、せっかくなのでDigest。
 
 以下は実行例
 </code></pre>
-
-<pre><code class="language-console">$ htdigest --help
+<pre><code class="language-console" data-lang="console">$ htdigest --help
 Usage: htdigest &amp;#91;-c] passwordfile realm username
 The -c flag creates a new file.
 $ sudo htdigest -c &amp;#34;/usr/local/www/.davsvn.passwd&amp;#34; &amp;#34;svn sandbox&amp;#34;  harukiya
-</code></pre>
-
-<pre><code>次にレポジトリとレポジトリを置くディレクトリの作成。
+</code></pre><pre><code>次にレポジトリとレポジトリを置くディレクトリの作成。
 
 
 
 もちろんhttp-dav.confで指定した場所に作ること。
 </code></pre>
-
-<pre><code class="language-console">$ sudo mkdir -p /usr/local/var/svn/repo
+<pre><code class="language-console" data-lang="console">$ sudo mkdir -p /usr/local/var/svn/repo
 $ sudo svnadmin create /usr/local/var/svn/repo
 $ sudo chown -R www:www /usr/local/var/svn/repo
 $ sudo chmod -R 770 /usr/local/var/svn/repo
+</code></pre><pre><code>あとはapacheを再起動する。
 </code></pre>
-
-<pre><code>あとはapacheを再起動する。
-</code></pre>
-
-<pre><code class="language-console">$ sudo /usr/local/etc/rc.d/apache22 restart
-</code></pre>
-
-<pre><code>Windowsで&lt;a href=&quot;http://tortoisesvn.net/&quot; target=&quot;_blank&quot;&gt;TortoiseSVN&lt;/a&gt;をインストールして再起動。
+<pre><code class="language-console" data-lang="console">$ sudo /usr/local/etc/rc.d/apache22 restart
+</code></pre><pre><code>Windowsで&lt;a href=&quot;http://tortoisesvn.net/&quot; target=&quot;_blank&quot;&gt;TortoiseSVN&lt;/a&gt;をインストールして再起動。
 
 
 

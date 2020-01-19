@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-08-25T23:42:59+09:00" />
 <meta itemprop="name" content="[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール">
 <meta itemprop="description" content="件名の通り。 FreeBSDホストに格納してある写真、動画を各種メディアプレイヤー向けに公開したいが、オリジナルのホストを直接は公開したくない">
-
-
 <meta itemprop="datePublished" content="2015-08-25T23:42:59&#43;09:00" />
 <meta itemprop="dateModified" content="2015-08-25T23:42:59&#43;09:00" />
 <meta itemprop="wordCount" content="1261">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,jail," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,jail," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール"/>
 <meta name="twitter:description" content="件名の通り。 FreeBSDホストに格納してある写真、動画を各種メディアプレイヤー向けに公開したいが、オリジナルのホストを直接は公開したくない"/>
 
@@ -140,34 +137,24 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>件名の通り。<br />
-FreeBSDホストに格納してある写真、動画を各種メディアプレイヤー向けに公開したいが、オリジナルのホストを直接は公開したくないな、というときのため。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>件名の通り。<br>
+FreeBSDホストに格納してある写真、動画を各種メディアプレイヤー向けに公開したいが、オリジナルのホストを直接は公開したくないな、というときのため。<br>
 jailなら物理的に同じマシンを使いつつ、論理的には別マシンとして振る舞えるので適任である。</p>
-
-<h2 id="jailの作成">jailの作成</h2>
-
-<p>jailとくればezjailが定番だが、私はqjailが好き。<br />
+<h2 id="jail">jailの作成</h2>
+<p>jailとくればezjailが定番だが、私はqjailが好き。<br>
 qjailについては<a href="../../../2013/10/qjail%e3%81%8c%e9%9b%a3%e8%a7%a3%e9%81%8e%e3%81%8e%e3%82%8bjail%e3%81%ae%e9%9d%a2%e5%80%92%e3%82%92%e8%a6%8b%e3%81%a6%e3%81%8f%e3%82%8c%e3%81%a6%e6%84%9f%e8%ac%9d%e3%81%97%e3%81%9f%e4%bb%b6%e3%81%ab/">こちら</a>を。</p>
-
 <p>以下、qjail installまで終わっている前提で勧める。</p>
-
 <p>flavorにssh-defaultを選んでplexという名前で作成。</p>
-
-<pre><code class="language-console">$ sudo qjail create -f ssh-default -4 192.168.200.19 plex
+<pre><code class="language-console" data-lang="console">$ sudo qjail create -f ssh-default -4 192.168.200.19 plex
 Successfully created  plex
 $ sudo qjail list
 
 STA JID  NIC IP              Jailname
 --- ---- --- --------------- --------------------------------------------------
 DS  N/A  bge0 192.168.200.19     plex
-</code></pre>
-
-<p>jail plexをスタートし、pkgをインストール<br />
+</code></pre><p>jail plexをスタートし、pkgをインストール<br>
 インストールはとにかくpkgコマンドを叩けばOK。</p>
-
-<pre><code class="language-console">$ sudo qjail start plex
+<pre><code class="language-console" data-lang="console">$ sudo qjail start plex
 Jail successfully started  plex
 $ sudo qjail console plex
 FreeBSD 10.2-RELEASE (GENERIC) #0 r286666: Wed Aug 12 15:26:37 UTC 2015
@@ -184,14 +171,10 @@ If you are upgrading from the old package format, first run:
 
   # pkg2ng
 （略）
-</code></pre>
-
-<h2 id="plexmediaserverインストール">plexmediaserverインストール</h2>
-
-<p>そのままplexmediaserverをインストール。<br />
+</code></pre><h2 id="plexmediaserver">plexmediaserverインストール</h2>
+<p>そのままplexmediaserverをインストール。<br>
 もちろん、マシンは64bitです。</p>
-
-<pre><code class="language-console">plex /root &gt;uname -a
+<pre><code class="language-console" data-lang="console">plex /root &gt;uname -a
 FreeBSD plex 10.2-RELEASE FreeBSD 10.2-RELEASE #0 r286666: Wed Aug 12 15:26:37 UTC 2015     root@releng1.nyi.freebsd.org:/usr/obj/usr/src/sys/GENERIC  amd64
 plex /root &gt;pkg install plexmediaserver
 （略）
@@ -225,50 +208,31 @@ http://localhost:32400/web
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 plex /root &gt;
-</code></pre>
-
-<h2 id="plexmediaserver起動">plexmediaserver起動</h2>
-
+</code></pre><h2 id="plexmediaserver-1">plexmediaserver起動</h2>
 <p>rc.confに一行加えてさっさと起動。</p>
-
-<pre><code class="language-console">plex /root &gt;sysrc plexmediaserver_enable=YES
+<pre><code class="language-console" data-lang="console">plex /root &gt;sysrc plexmediaserver_enable=YES
 plexmediaserver_enable:  -&gt; YES
 plex /root &gt;service plexmediaserver start
 Starting plexmediaserver.
 plex /root &gt;
-</code></pre>
-
-<p>ブラウザからhttp://＜IPアドレス＞:32400/webに繋ぐ。<br />
-もし「このサーバに権限（permission）がない」というようなことを言われたなら、以下のファイルを変更するといいかもしれない。<br />
-「かもしれない」というのは、以下の通り変更したら症状が改善したので、確認のために戻してみたら、二度と症状が再現しないから。<br />
+</code></pre><p>ブラウザからhttp://＜IPアドレス＞:32400/webに繋ぐ。<br>
+もし「このサーバに権限（permission）がない」というようなことを言われたなら、以下のファイルを変更するといいかもしれない。<br>
+「かもしれない」というのは、以下の通り変更したら症状が改善したので、確認のために戻してみたら、二度と症状が再現しないから。<br>
 うーん…。</p>
-
-<pre><code class="language-console">/usr/local/plexdata/Plex Media Server/Preferences.xml
+<pre><code class="language-console" data-lang="console">/usr/local/plexdata/Plex Media Server/Preferences.xml
 
 Preferences （略）allowedNetworks=&quot;192.168.1.0/255.255.255.0&quot;
-</code></pre>
-
-<p>いったんそのままにしておく。</p>
-
-<h2 id="plexmediaserver向けにディレクトリをマウント">plexmediaserver向けにディレクトリをマウント</h2>
-
-<p>jailから抜けてホスト側で作業<br />
-jailであるplexのファイルシステムは、ホスト側では/usr/jails/plexにある。<br />
-/usr/jails/plex/がjail plexのルートディレクトリ。<br />
+</code></pre><p>いったんそのままにしておく。</p>
+<h2 id="plexmediaserver-2">plexmediaserver向けにディレクトリをマウント</h2>
+<p>jailから抜けてホスト側で作業<br>
+jailであるplexのファイルシステムは、ホスト側では/usr/jails/plexにある。<br>
+/usr/jails/plex/がjail plexのルートディレクトリ。<br>
 だからホストの/warehouseにデータがあるとして、/usr/jails/plex/mediaにマウントすれば、jail plexでは/mediaとして見える。</p>
-
 <p>せっかくだからread onlyでね。</p>
-
-<pre><code class="language-console">$ sudo mount_nullfs -o ro /warehouse /usr/jails/plex/media
-</code></pre>
-
-<p>jail plexから見えるのを確認したら、ホスト側のfstabに書き込み。</p>
-
-<pre><code class="language-console">$ sudo sh -c &quot;mount -p|grep /usr/jails/plex/media &gt;&gt; /etc/fstab&quot;
-</code></pre>
-
-<p>あとはブラウザからplex media serverにつないで、メディアの追加で/mediaを選ぶだけ</p>
-
+<pre><code class="language-console" data-lang="console">$ sudo mount_nullfs -o ro /warehouse /usr/jails/plex/media
+</code></pre><p>jail plexから見えるのを確認したら、ホスト側のfstabに書き込み。</p>
+<pre><code class="language-console" data-lang="console">$ sudo sh -c &quot;mount -p|grep /usr/jails/plex/media &gt;&gt; /etc/fstab&quot;
+</code></pre><p>あとはブラウザからplex media serverにつないで、メディアの追加で/mediaを選ぶだけ</p>
 <p>以上</p>
 <ul class="pa0">
   

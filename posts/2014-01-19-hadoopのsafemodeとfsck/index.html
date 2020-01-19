@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-19T20:02:43+09:00" />
 <meta itemprop="name" content="hadoopのsafemodeとfsck">
 <meta itemprop="description" content="Hadoopのnamenode兼datanodeが電源瞬断のせいで壊れてしもうた。 勉強用のHadoopなのでダメージはないのだが、せっかくな">
-
-
 <meta itemprop="datePublished" content="2014-01-19T20:02:43&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-19T20:02:43&#43;09:00" />
-<meta itemprop="wordCount" content="1581">
+<meta itemprop="wordCount" content="1579">
 
 
 
-<meta itemprop="keywords" content="hadoop," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="hadoop," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="hadoopのsafemodeとfsck"/>
 <meta name="twitter:description" content="Hadoopのnamenode兼datanodeが電源瞬断のせいで壊れてしもうた。 勉強用のHadoopなのでダメージはないのだが、せっかくな"/>
 
@@ -140,15 +137,11 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Hadoopのnamenode兼datanodeが電源瞬断のせいで壊れてしもうた。<br />
-勉強用のHadoopなのでダメージはないのだが、せっかくなのでfsckなどを試した結果を記す。<br />
-hadoop-1.0.0。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Hadoopのnamenode兼datanodeが電源瞬断のせいで壊れてしもうた。<br>
+勉強用のHadoopなのでダメージはないのだが、せっかくなのでfsckなどを試した結果を記す。<br>
+hadoop-1.0.0。<br>
 OS側でもfsckはしておいた。</p>
-
-<h2 id="span-style-text-decoration-underline-サマリ-span"><span style="text-decoration: underline;">サマリ</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->サマリ<!-- raw HTML omitted --></h2>
 <ul>
 <li>HDFSにもfsckがある。</li>
 <li>hadoop fsckでチェック、修正できる。</li>
@@ -156,13 +149,10 @@ OS側でもfsckはしておいた。</p>
 <li>namenodeがsafemodeのためにHDFSが読み取り専用になっていることがある。</li>
 <li>読み取り専用ではfsckで修正できないので、safemodeから出る必要がある。</li>
 </ul>
-
-<h2 id="span-style-text-decoration-underline-hdfsでのfsck-span"><span style="text-decoration: underline;">HDFSでのfsck</span></h2>
-
-<p>hadoop fsck ＜path＞と指定すればよい。<br />
+<h2 id="span-styletext-decoration-underlinehdfsfsckspan"><!-- raw HTML omitted -->HDFSでのfsck<!-- raw HTML omitted --></h2>
+<p>hadoop fsck ＜path＞と指定すればよい。<br>
 CORRUPT!とのことで、壊れておりますなあ。</p>
-
-<pre><code class="language-console">$ hadoop fsck /
+<pre><code class="language-console" data-lang="console">$ hadoop fsck /
 FSCK started by hadoop from /172.29.17.159 for path / at Wed Dec 25 18:51:37 JST 2013
 （略）
 /var/hadoop/mapred/system/jobtracker.info: MISSING 1 blocks of total size 4 B.Status: CORRUPT
@@ -189,16 +179,12 @@ Number of racks: 1
 FSCK ended at Wed Dec 25 18:51:38 JST 2013 in 1185 milliseconds
 
 The filesystem under path '/' is CORRUPT
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-壊れている場合の対処-消去か移動-span"><span style="text-decoration: underline;">壊れている場合の対処:消去か移動</span></h2>
-
-<p>壊れている場合には対処が二つ。<br />
-壊れているブロックを消すか、lost+foundに移すか。<br />
-消す場合には-delete, 移す場合には-moveを指定する。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->壊れている場合の対処:消去か移動<!-- raw HTML omitted --></h2>
+<p>壊れている場合には対処が二つ。<br>
+壊れているブロックを消すか、lost+foundに移すか。<br>
+消す場合には-delete, 移す場合には-moveを指定する。<br>
 以下は消した場合の例&hellip;.なのだが、namenodeがsafemodeにいるので変更が出来ないとのこと。</p>
-
-<pre><code class="language-console">$ hadoop fsck / -delete
+<pre><code class="language-console" data-lang="console">$ hadoop fsck / -delete
 FSCK started by hadoop from /172.29.17.159 for path / at Wed Dec 25 18:58:29 JST 2013
 .
 /tmp/hadoop-hadoop/mapred/staging/hadoop/.staging/job_201308300823_0001/job.jar: CORRUPT block blk_3947350403157044322
@@ -208,42 +194,34 @@ Cannot delete /tmp/hadoop-hadoop/mapred/staging/hadoop/.staging/job_201308300823
 The ratio of reported blocks 0.7456 has not reached the threshold 0.9990. Safe mode will be turned off automatically.
 
 Fsck on path '/' FAILED
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-safemodeとは-span"><span style="text-decoration: underline;">safemodeとは</span></h2>
-
-<p>そもそもnameodeは通常の動作として、起動時には状態がsafemodeである。<br />
-safenodeのまま待機をしているうちに、datanodeが起動し、保管しているブロックの報告をnamenodeに行う。<br />
-namenodeは、充分なブロックの確認ができれば自動的にsafemodeを出る。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinesafemodespan"><!-- raw HTML omitted -->safemodeとは<!-- raw HTML omitted --></h2>
+<p>そもそもnameodeは通常の動作として、起動時には状態がsafemodeである。<br>
+safenodeのまま待機をしているうちに、datanodeが起動し、保管しているブロックの報告をnamenodeに行う。<br>
+namenodeは、充分なブロックの確認ができれば自動的にsafemodeを出る。<br>
 「充分なブロック」がどれくらいか、は設定できる。</p>
-
 <p>safemodeのときは読み取り専用になり、複製や消去もできないが、手動でsafemodeに入ったり出たりすることができる。</p>
-
-<p>以下、<a href="https://hadoop.apache.org/docs/r1.2.1/commands_manual.html" target="_blank">公式</a>からの引用</p>
-
+<p>以下、<!-- raw HTML omitted -->公式<!-- raw HTML omitted -->からの引用</p>
 <blockquote>
-<p>Safe mode is entered automatically at Namenode startup, and leaves safe mode automatically when the configured minimum percentage of blocks satisfies the minimum replication condition. Safe mode can also be entered manually, but then it can only be turned off manually as well.<br />
-Safe mode maintenance command. Safe mode is a Namenode state in which it<br />
-1. does not accept changes to the name space (read-only)<br />
-2. does not replicate or delete blocks.</p>
+<p>Safe mode is entered automatically at Namenode startup, and leaves safe mode automatically when the configured minimum percentage of blocks satisfies the minimum replication condition. Safe mode can also be entered manually, but then it can only be turned off manually as well.<br>
+Safe mode maintenance command. Safe mode is a Namenode state in which it</p>
+<ol>
+<li>does not accept changes to the name space (read-only)</li>
+<li>does not replicate or delete blocks.</li>
+</ol>
 </blockquote>
-
-<p>今回、問題の発生したnamenodeはdatanodeも兼ねている。<br />
-電源瞬断でブロックが壊れているからブロックの報告はできないし、そもそもnamenodeが保管しているメタデータも壊れている。<br />
-ボロボロである。<br />
-したがって、いつまで待ってもsafemodeから出るはずがない。<br />
+<p>今回、問題の発生したnamenodeはdatanodeも兼ねている。<br>
+電源瞬断でブロックが壊れているからブロックの報告はできないし、そもそもnamenodeが保管しているメタデータも壊れている。<br>
+ボロボロである。<br>
+したがって、いつまで待ってもsafemodeから出るはずがない。<br>
 そこで手動でsafemodeを解除する。</p>
-
-<h2 id="span-style-text-decoration-underline-safemodeの操作-span"><span style="text-decoration: underline;">safemodeの操作</span></h2>
-
-<p>safemodeの操作はhadoop dfsadmin -safemodeに続けて行う。<br />
-getで状態を得る。<br />
-enterでsafemodeに入る。<br />
-leaveでsafemodeから出る。<br />
-面白いのは、wait。<br />
+<h2 id="span-styletext-decoration-underlinesafemodespan-1"><!-- raw HTML omitted -->safemodeの操作<!-- raw HTML omitted --></h2>
+<p>safemodeの操作はhadoop dfsadmin -safemodeに続けて行う。<br>
+getで状態を得る。<br>
+enterでsafemodeに入る。<br>
+leaveでsafemodeから出る。<br>
+面白いのは、wait。<br>
 safemodeから出たらコマンド実行する、というもの。</p>
-
-<pre><code class="language-console"># 状態を得る。
+<pre><code class="language-console" data-lang="console"># 状態を得る。
 $ hadoop dfsadmin -safemode get
 
 # 終わってからコマンド実行
@@ -254,22 +232,16 @@ $ hadoop dfsadmin -safemode enter
 
 # safemodeから出る。
 $ hadoop dfsadmin -safemode leave
-</code></pre>
-
-<p>以下、実際の例。<br />
+</code></pre><p>以下、実際の例。<br>
 safe modeがONになっているので、OFFに。</p>
-
-<pre><code class="language-console">$ hadoop dfsadmin -safemode get
+<pre><code class="language-console" data-lang="console">$ hadoop dfsadmin -safemode get
 Safe mode is ON
 
 $ hadoop dfsadmin -safemode leave
 Safe mode is OFF
-</code></pre>
-
-<p>改めてfsck / -delete<br />
+</code></pre><p>改めてfsck / -delete<br>
 blockが2000個くらい消えた。ま、まあ勉強用だし（震え声）</p>
-
-<pre><code class="language-console">$ hadoop fsck / -delete
+<pre><code class="language-console" data-lang="console">$ hadoop fsck / -delete
 FSCK started by hadoop from /172.29.17.159 for path / at Wed Dec 25 19:05:54 JST 2013
 （略）
 .......Status: HEALTHY
@@ -290,9 +262,7 @@ Number of racks: 1
 FSCK ended at Wed Dec 25 19:05:55 JST 2013 in 1696 milliseconds
 
 The filesystem under path '/' is HEALTHY
-</code></pre>
-
-<p>HEALTYになったので、これでhadoopが使える状態に戻った。<br />
+</code></pre><p>HEALTYになったので、これでhadoopが使える状態に戻った。<br>
 以上。</p>
 <ul class="pa0">
   

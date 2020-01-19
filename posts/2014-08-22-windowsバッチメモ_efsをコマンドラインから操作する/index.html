@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,25 +29,22 @@
     
 
     <meta property="og:title" content="[Windows][バッチ][メモ] EFSをコマンドラインから操作する。" />
-<meta property="og:description" content="EFSとは、Windowsの暗号化機能。 使用するとファイル名とかフォルダ名とかが緑になるアレな。 以下、Microsoftのサイトより。 http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7 暗号" />
+<meta property="og:description" content="EFSとは、Windowsの暗号化機能。 使用するとファイル名とかフォルダ名とかが緑になるアレな。 以下、Microsoftのサイトより。 http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7&lt;/a&gt; 暗号" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2014-08-22-windows%E3%83%90%E3%83%83%E3%83%81%E3%83%A1%E3%83%A2_efs%E3%82%92%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%8B%E3%82%89%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B/" />
 <meta property="article:published_time" content="2014-08-22T19:57:41+09:00" />
 <meta property="article:modified_time" content="2014-08-22T19:57:41+09:00" />
 <meta itemprop="name" content="[Windows][バッチ][メモ] EFSをコマンドラインから操作する。">
-<meta itemprop="description" content="EFSとは、Windowsの暗号化機能。 使用するとファイル名とかフォルダ名とかが緑になるアレな。 以下、Microsoftのサイトより。 http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7 暗号">
-
-
+<meta itemprop="description" content="EFSとは、Windowsの暗号化機能。 使用するとファイル名とかフォルダ名とかが緑になるアレな。 以下、Microsoftのサイトより。 http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7&lt;/a&gt; 暗号">
 <meta itemprop="datePublished" content="2014-08-22T19:57:41&#43;09:00" />
 <meta itemprop="dateModified" content="2014-08-22T19:57:41&#43;09:00" />
-<meta itemprop="wordCount" content="4424">
+<meta itemprop="wordCount" content="4422">
 
 
 
-<meta itemprop="keywords" content="BATCH,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="BATCH,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Windows][バッチ][メモ] EFSをコマンドラインから操作する。"/>
-<meta name="twitter:description" content="EFSとは、Windowsの暗号化機能。 使用するとファイル名とかフォルダ名とかが緑になるアレな。 以下、Microsoftのサイトより。 http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7 暗号"/>
+<meta name="twitter:description" content="EFSとは、Windowsの暗号化機能。 使用するとファイル名とかフォルダ名とかが緑になるアレな。 以下、Microsoftのサイトより。 http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7&lt;/a&gt; 暗号"/>
 
       
 <script type="application/javascript">
@@ -140,41 +137,27 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>EFSとは、Windowsの暗号化機能。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>EFSとは、Windowsの暗号化機能。<br>
 使用するとファイル名とかフォルダ名とかが緑になるアレな。</p>
-
 <p>以下、Microsoftのサイトより。</p>
-
-<p><a href="http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7" target="_blank"><a href="http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7">http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7</a></a></p>
-
+<p><!-- raw HTML omitted --><a href="http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7%3C/a%3E">http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7&lt;/a&gt;</a></p>
 <p>暗号化ファイル システム (EFS) は、情報をハード ディスク上に暗号化された形式で格納するための Windows の機能です。暗号化は、情報のセキュリティを保護するために Windows が提供する最も強力な保護手段です。</p>
-
 <blockquote>
 <p>EFS の主な機能の一部を紹介します。</p>
-
-<p>暗号化が簡単です。ファイルまたはフォルダーのプロパティのチェック ボックスをオンにするだけで有効になります。<br />
-ファイルを読むことができるユーザーを制限できます。<br />
-ファイルは閉じたときに暗号化されますが、開くときに自動的に使用できる状態になります。<br />
+<p>暗号化が簡単です。ファイルまたはフォルダーのプロパティのチェック ボックスをオンにするだけで有効になります。<br>
+ファイルを読むことができるユーザーを制限できます。<br>
+ファイルは閉じたときに暗号化されますが、開くときに自動的に使用できる状態になります。<br>
 ファイルの暗号化を解除する場合は、ファイルのプロパティでチェック ボックスをオフにします。</p>
-
 <p>EFS は、Windows 7 Starter、Windows 7 Home Basic、および Windows 7 Home Premium では完全にはサポートされていません。</p>
 </blockquote>
-
 <p>末文に注意。Professional以上ということですな。</p>
-
-<h2 id="使いかた">使いかた</h2>
-
+<h2 id="heading">使いかた</h2>
 <p>crypt /?で使い方が表示される。長いので本記事末尾に示す。</p>
-
-<h2 id="ファイルを暗号化-復号する">ファイルを暗号化、復号する。</h2>
-
-<p>暗号化はcipher /e ＜ファイル名＞、復号にはcipher /d ＜ファイル名＞と指定する。<br />
-Encrypt, Decrypt、ですな。<br />
+<h2 id="heading-1">ファイルを暗号化、復号する。</h2>
+<p>暗号化はcipher /e ＜ファイル名＞、復号にはcipher /d ＜ファイル名＞と指定する。<br>
+Encrypt, Decrypt、ですな。<br>
 以下、ひみつ.txtを暗号化する例。</p>
-
-<pre><code class="language-console">c:¥&gt;cipher /e c:¥vault¥crypt¥ひみつ.txt
+<pre><code class="language-console" data-lang="console">c:¥&gt;cipher /e c:¥vault¥crypt¥ひみつ.txt
 
  c:¥vault¥crypt¥ のファイルを暗号化しています
 
@@ -194,15 +177,10 @@ c:¥&gt;cipher /d c:¥vault¥crypt¥ひみつ.txt
 ひみつ.txt             [OK]
 
 1 ディレクトリ内の 1 ファイル [またはディレクトリ] の暗号化が解除されました。
-</code></pre>
-
-<p>簡単ですな。</p>
-
-<h2 id="ワイルドカードも使用可能">ワイルドカードも使用可能</h2>
-
+</code></pre><p>簡単ですな。</p>
+<h2 id="heading-2">ワイルドカードも使用可能</h2>
 <p>ファイルの指定にはワイルドカードが使える。</p>
-
-<pre><code class="language-console">c:¥&gt;cipher /e c:¥vault¥crypt¥*.txt
+<pre><code class="language-console" data-lang="console">c:¥&gt;cipher /e c:¥vault¥crypt¥*.txt
 
  c:¥vault¥crypt¥ のファイルを暗号化しています
 
@@ -219,17 +197,12 @@ c:¥&gt;cipher /d c:¥vault¥crypt¥*.txt
 ひみつ.txt             [OK]
 
 1 ディレクトリ内の 2 ファイル [またはディレクトリ] の暗号化が解除されました。
-</code></pre>
-
-<p>これもまあ、普通。</p>
-
-<h2 id="ディレクトリの暗号化-復号">ディレクトリの暗号化、復号</h2>
-
-<p>ファイルではなくディレクトリを指定することもできる。<br />
-この場合、「それ以降に」当該ディレクトリに置かれるファイルが暗号化されるか/されないかが決まる。<br />
+</code></pre><p>これもまあ、普通。</p>
+<h2 id="heading-3">ディレクトリの暗号化、復号</h2>
+<p>ファイルではなくディレクトリを指定することもできる。<br>
+この場合、「それ以降に」当該ディレクトリに置かれるファイルが暗号化されるか/されないかが決まる。<br>
 もともと置いてあったファイルには影響しない。</p>
-
-<pre><code class="language-console">C:¥&gt;cipher /e c:¥vault¥crypt¥
+<pre><code class="language-console" data-lang="console">C:¥&gt;cipher /e c:¥vault¥crypt¥
 
  新しいファイルを暗号化するようにディレクトリ c:¥vault¥crypt¥ を設定
 しています [OK]
@@ -243,13 +216,9 @@ C:¥&gt;cipher /d c:¥vault¥crypt¥
 定しています [OK]
 
 1 ディレクトリ内の 1 ファイル [またはディレクトリ] の暗号化が解除されました。
-</code></pre>
-
-<h2 id="フォルダ配下全部を暗号化-復号">フォルダ配下全部を暗号化/復号</h2>
-
+</code></pre><h2 id="heading-4">フォルダ配下全部を暗号化/復号</h2>
 <p>/s:に続けてディレクトリを指定すると、再帰的な処理ができる。</p>
-
-<pre><code class="language-console">c:¥&gt;cipher /e /s:c:¥vault¥crypt
+<pre><code class="language-console" data-lang="console">c:¥&gt;cipher /e /s:c:¥vault¥crypt
 
  新しいファイルを暗号化するようにディレクトリ c:¥vault¥crypt を設定
 しています [OK]
@@ -271,16 +240,12 @@ c:¥&gt;cipher /d /s:c:¥vault¥crypt
 ひみつ.txt             [OK]
 
 2 ディレクトリ内の 2 ファイル [またはディレクトリ] の暗号化が解除されました。
-</code></pre>
-
-<h2 id="状態確認">状態確認</h2>
-
-<p>暗号化されているか/されていないかは、ファイル名の色で判断できる。<br />
-緑色なら暗号化されていて、黒なら暗号化されていない。<br />
-もちろん、コマンドからも確認できる。<br />
+</code></pre><h2 id="heading-5">状態確認</h2>
+<p>暗号化されているか/されていないかは、ファイル名の色で判断できる。<br>
+緑色なら暗号化されていて、黒なら暗号化されていない。<br>
+もちろん、コマンドからも確認できる。<br>
 オプション指定なくファイル名、ディレクトリ名を渡せば暗号化状況を得られる。</p>
-
-<pre><code class="language-console">c:¥&gt;cipher c:¥vault¥crypt
+<pre><code class="language-console" data-lang="console">c:¥&gt;cipher c:¥vault¥crypt
 
  c:¥vault¥ の一覧を作成しています
  このディレクトリに追加されるファイルは暗号化されません。
@@ -293,52 +258,45 @@ c:¥&gt;cipher c:¥vault¥crypt¥ひみつ.txt
  このディレクトリに追加される新しいファイルは暗号化されます。
 
 E ひみつ.txt
-</code></pre>
-
-<p>もちろん、再帰オプションも使用可能。</p>
-
-<pre><code class="language-console">c:¥&gt;cipher /s:c:¥vault¥crypt¥
+</code></pre><p>もちろん、再帰オプションも使用可能。</p>
+<pre><code class="language-console" data-lang="console">c:¥&gt;cipher /s:c:¥vault¥crypt¥
 
  c:¥users¥0066945¥out¥crypt¥ の一覧を作成しています
  このディレクトリに追加される新しいファイルは暗号化されます。
 
 E とてもひみつ.txt
 U ひみつ.txt
-</code></pre>
+</code></pre><h2 id="heading-6">ヘルプ</h2>
+<pre><code class="language-console" data-lang="console">c:¥&gt;cipher /?
+NTFS パーティション上のディレクトリ [ファイル] の暗号化を表示または変更します。
 
-<h2 id="ヘルプ">ヘルプ</h2>
+CIPHER [/E | /D | /C]
+[/S:ディレクトリ] [/B] [/H] [パス名 [...]]
 
-<p>``` console
-c:¥&gt;cipher /?
-NTFS パーティション上のディレクトリ [ファイル] の暗号化を表示または変更します。</p>
+CIPHER /K [/ECC:256|384|521]
 
-<p>CIPHER [/E | /D | /C]
-[/S:ディレクトリ] [/B] [/H] [パス名 [&hellip;]]</p>
+CIPHER /R:ファイル名 [/SMARTCARD] [/ECC:256|384|521]
 
-<p>CIPHER /K [/ECC:256|384|521]</p>
+CIPHER /U [/N]
 
-<p>CIPHER /R:ファイル名 [/SMARTCARD] [/ECC:256|384|521]</p>
+CIPHER /W:ディレクトリ
 
-<p>CIPHER /U [/N]</p>
+CIPHER /X[:EFS ファイル] [ファイル名]
 
-<p>CIPHER /W:ディレクトリ</p>
+CIPHER /Y
 
-<p>CIPHER /X[:EFS ファイル] [ファイル名]</p>
-
-<p>CIPHER /Y</p>
-
-<p>CIPHER /ADDUSER
+CIPHER /ADDUSER
 [/CERTHASH:ハッシュ | /CERTFILE:ファイル名 | /USER:ユーザー名]
-[/S:ディレクトリ] [/B] [/H] [パス名 [&hellip;]]</p>
+[/S:ディレクトリ] [/B] [/H] [パス名 [...]]
 
-<p>CIPHER /FLUSHCACHE [/SERVER:サーバー名]</p>
+CIPHER /FLUSHCACHE [/SERVER:サーバー名]
 
-<p>CIPHER /REMOVEUSER /CERTHASH:ハッシュ
-[/S:ディレクトリ] [/B] [/H] [パス名 [&hellip;]]</p>
+CIPHER /REMOVEUSER /CERTHASH:ハッシュ
+[/S:ディレクトリ] [/B] [/H] [パス名 [...]]
 
-<p>CIPHER /REKEY [パス名 [&hellip;]]</p>
+CIPHER /REKEY [パス名 [...]]
 
-<p>/B エラーが発生した場合に中断します。既定では、CIPHER は
+/B エラーが発生した場合に中断します。既定では、CIPHER は
 エラーが発生しても実行を続行します。
 /C 暗号化されたファイルに関する情報を表示します。
 /D 指定されたファイルまたはディレクトリの暗号化を解除します。
@@ -351,13 +309,13 @@ NTFS パーティション上のディレクトリ [ファイル] の暗号化�
 これらのファイルは省略されます。
 /K EFS で使用するための新しい証明書およびキーを作成します。
 このオプションが指定されると、その他のオプションはすべて無視
-されます。</p>
+されます。
 
-<p>注意: 既定では、/K によって現在のグループ ポリシーに準拠する
+注意: 既定では、/K によって現在のグループ ポリシーに準拠する
 証明書とキーが作成されます。ECC が指定されている場合、
-指定のキー サイズによる自己署名証明書が作成されます。</p>
+指定のキー サイズによる自己署名証明書が作成されます。
 
-<p>/N このオプションは /U を指定した場合にのみ動作します。
+/N このオプションは /U を指定した場合にのみ動作します。
 このオプションにより、キーが更新されなくなります。ローカル
 ドライブ上のすべての暗号化ファイルを探すために使用されます。
 /R EFS 回復キーと証明書を作成してから、それらを .PFX ファイル
@@ -367,13 +325,13 @@ NTFS パーティション上のディレクトリ [ファイル] の暗号化�
 .PFX ファイルをインポートすることができます。SMARTCARD
 が指定されている場合は、回復キーと証明書をスマート カードに
 書き込みます。.CER ファイルが生成されます (証明書のみ)。.PFX
-ファイルは生成されません。</p>
+ファイルは生成されません。
 
-<p>注意: 既定では、/R は 2048 ビット RSA 回復キーと証明書を作成しま
+注意: 既定では、/R は 2048 ビット RSA 回復キーと証明書を作成しま
 す。ECC が指定されている場合、その後にキー サイズ 256、384
-または 521 が指定されている必要があります。</p>
+または 521 が指定されている必要があります。
 
-<p>/S 指定されたディレクトリと、その下にあるすべてのファイルとサブ
+/S 指定されたディレクトリと、その下にあるすべてのファイルとサブ
 ディレクトリに対して指定された操作を実行します。
 /U ローカル ドライブのすべての暗号化ファイルを参照しようとします。
 これにより、現在のユーザーのファイル暗号化キー、または回復キーに
@@ -404,18 +362,17 @@ CERTFILE が指定されている場合は、ファイルから証明書が抽�
 /REKEY 指定した暗号化ファイルを、構成済みの EFS の現在のキーを使用する
 ように更新します。
 /REMOVEUSER 指定されたファイルからユーザーを削除します。CERTHASH
-は削除する証明書の SHA1 ハッシュである必要があります。</p>
+は削除する証明書の SHA1 ハッシュである必要があります。
 
-<p>ディレクトリ ディレクトリのパスです。
+ディレクトリ ディレクトリのパスです。
 ファイル名 拡張子を伴わないファイル名です。
 パス名 パターン、ファイル、またはディレクトリを指定します。
-EFS ファイル 暗号化されたファイルのパスです。</p>
+EFS ファイル 暗号化されたファイルのパスです。
 
-<p>パラメーターを指定せずに CIPHER を実行すると、現在のディレクトリとディレクト
+パラメーターを指定せずに CIPHER を実行すると、現在のディレクトリとディレクト
 リに含まれるすべてのファイルの暗号化状態を表示します。複数のディレクトリ名
 やワイルドカードを指定できます。複数のパラメーターを指定する場合は、パラ
-メーターをスペースで区切ってください。```</p>
-<ul class="pa0">
+メーターをスペースで区切ってください。```</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/batch" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">BATCH</a>

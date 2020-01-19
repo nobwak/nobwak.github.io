@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-02-23T01:00:00+09:00" />
 <meta itemprop="name" content="baseシステムに入ってるシステムモニタsystat">
 <meta itemprop="description" content="systaはCUI上で分かりやすくシステムの状況を表示してくれる。 こんなコマンドがあることを今まで知らなかった。 引数無しだとこんな感じ。 /0 /1">
-
-
 <meta itemprop="datePublished" content="2009-02-23T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-02-23T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="224">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="baseシステムに入ってるシステムモニタsystat"/>
 <meta name="twitter:description" content="systaはCUI上で分かりやすくシステムの状況を表示してくれる。 こんなコマンドがあることを今まで知らなかった。 引数無しだとこんな感じ。 /0 /1"/>
 
@@ -150,30 +147,23 @@ if (!doNotTrack) {
 
 引数無しだとこんな感じ。
 </code></pre>
-
-<pre><code class="language-console">/0   /1   /2   /3   /4   /5   /6   /7   /8   /9   /10
+<pre><code class="language-console" data-lang="console">/0   /1   /2   /3   /4   /5   /6   /7   /8   /9   /10
 Load Average   |
 /0%  /10  /20  /30  /40  /50  /60  /70  /80  /90  /100
 root     idle: cpu0 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 root     swi4: cloc XX
+</code></pre><pre><code>systat -ifstatでこんな感じ。
 </code></pre>
-
-<pre><code>systat -ifstatでこんな感じ。
-</code></pre>
-
-<pre><code class="language-console">/0   /1   /2   /3   /4   /5   /6   /7   /8   /9   /10
+<pre><code class="language-console" data-lang="console">/0   /1   /2   /3   /4   /5   /6   /7   /8   /9   /10
 Load Average   |
 Interface           Traffic               Peak                Total
 ed1  in      0.000 KB/s          0.000 KB/s          328.699 MB
 out     0.000 KB/s          0.000 KB/s            1.284 GB
 lo0  in      0.000 KB/s          0.000 KB/s         1001.810 KB
 out     0.000 KB/s          0.000 KB/s         1001.810 KB
+</code></pre><pre><code>systat -iostatでこんな感じ。
 </code></pre>
-
-<pre><code>systat -iostatでこんな感じ。
-</code></pre>
-
-<pre><code class="language-console">/0   /1   /2   /3   /4   /5   /6   /7   /8   /9   /10
+<pre><code class="language-console" data-lang="console">/0   /1   /2   /3   /4   /5   /6   /7   /8   /9   /10
 Load Average   |
 /0%  /10  /20  /30  /40  /50  /60  /70  /80  /90  /100
 cpu  user|
@@ -184,8 +174,7 @@ idle|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 /0%  /10  /20  /30  /40  /50  /60  /70  /80  /90  /100
 ad0   MB/s
 tps|
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

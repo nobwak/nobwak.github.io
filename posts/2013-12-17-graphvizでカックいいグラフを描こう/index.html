@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-12-17T20:57:50+09:00" />
 <meta itemprop="name" content="Graphvizでカックいいグラフを描こう">
 <meta itemprop="description" content="Graphvizとは、AT&amp;T研究所の作ったグラフ描画ソフトである。 ここでのグラフとは棒グラフのグラフではなく、ソーシャルグラフとか">
-
-
 <meta itemprop="datePublished" content="2013-12-17T20:57:50&#43;09:00" />
 <meta itemprop="dateModified" content="2013-12-17T20:57:50&#43;09:00" />
 <meta itemprop="wordCount" content="2396">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Graphvizでカックいいグラフを描こう"/>
 <meta name="twitter:description" content="Graphvizとは、AT&amp;T研究所の作ったグラフ描画ソフトである。 ここでのグラフとは棒グラフのグラフではなく、ソーシャルグラフとか"/>
 
@@ -140,59 +137,41 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Graphvizとは、AT&amp;T研究所の作ったグラフ描画ソフトである。<br />
-ここでのグラフとは棒グラフのグラフではなく、ソーシャルグラフとかのグラフである。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Graphvizとは、AT&amp;T研究所の作ったグラフ描画ソフトである。<br>
+ここでのグラフとは棒グラフのグラフではなく、ソーシャルグラフとかのグラフである。<br>
 点（ノード）と線（エッジ）で表されるもので、例えば、何らかの状態遷移や、路線図や、ネットワークなどの「関係」の表現に使われる。</p>
-
-<p>もともとオイラーの<a href="http://ja.wikipedia.org/wiki/一筆書き" target="_blank">一筆書き</a>のような経路探索の分野があって、それを視覚的に表現するためのツールとしてこういったソフトがある（たぶん）。<br />
-そんな分野はとても手に負えない。<br />
+<p>もともとオイラーの<!-- raw HTML omitted -->一筆書き<!-- raw HTML omitted -->のような経路探索の分野があって、それを視覚的に表現するためのツールとしてこういったソフトがある（たぶん）。<br>
+そんな分野はとても手に負えない。<br>
 しかし、グラフ描画に注目するだけでも、とても面白いんである。</p>
-
 <p>例えば、ふだん利用する路線の、各駅の関係と乗降数をグラフに書いてみるだけでも、表で見たときは比べ物にならないくらいのインパクトがある。</p>
-
-<p><a href="../../../wp-content/uploads/2013/11/keikyu.png"><img class="alignnone size-thumbnail wp-image-2457" alt="keikyu" src="../../../wp-content/uploads/2013/11/keikyu-150x150.png" width="150" height="150" srcset="../../../wp-content/uploads/2013/11/keikyu-150x150.png 150w, ../../../wp-content/uploads/2013/11/keikyu-300x298.png 300w, ../../../wp-content/uploads/2013/11/keikyu-620x616.png 620w, ../../../wp-content/uploads/2013/11/keikyu.png 658w" sizes="(max-width: 150px) 100vw, 150px" /></a><br />
-これは、京浜急行の駅の繋がりと乗降者数をグラフにしてみたもの。<br />
-隣り合う駅は繋ぐし、特急などで途中の駅をすっ飛ばす場合も繋ぐ。<br />
-乗降者数に応じて駅の大きさを変えてみた。<br />
+<p><a href="../../../wp-content/uploads/2013/11/keikyu.png"><!-- raw HTML omitted --></a><br>
+これは、京浜急行の駅の繋がりと乗降者数をグラフにしてみたもの。<br>
+隣り合う駅は繋ぐし、特急などで途中の駅をすっ飛ばす場合も繋ぐ。<br>
+乗降者数に応じて駅の大きさを変えてみた。<br>
 （何気なく作ったら一辺が10,000ピクセルを超える巨大画像になったので泣く泣く縮小した。）</p>
-
 <p>そういったわけで、この記事では(Python経由で)graphvizのグラフ描画についてまとめた。</p>
-
 <p>以下、特に指定のないかぎり、グラフと記載があれば、それは上記の意味でのグラフである。</p>
-
-<h2 id="span-style-text-decoration-underline-graphvizについて-span"><span style="text-decoration: underline;">Graphvizについて</span></h2>
-
-<p>手っ取り早くどんなグラフが描けるのかを知りたければ<a href="http://graphviz.org/Gallery.php" target="_blank">こちら</a>のサンプルグラフなどを。</p>
-
+<h2 id="span-styletext-decoration-underlinegraphvizspan"><!-- raw HTML omitted -->Graphvizについて<!-- raw HTML omitted --></h2>
+<p>手っ取り早くどんなグラフが描けるのかを知りたければ<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->のサンプルグラフなどを。</p>
 <p>関連のwebsiteは以下のとおり。</p>
-
-<p>Graphviz(公式) <a href="http://www.graphviz.org/" target="_blank"><a href="http://www.graphviz.org/">http://www.graphviz.org/</a></a><br />
-Graphviz(wiki) <a href="http://ja.wikipedia.org/wiki/Graphviz " target="_blank"><a href="http://ja.wikipedia.org/wiki/Graphviz">http://ja.wikipedia.org/wiki/Graphviz</a> </a></p>
-
-<p>Graphvizでは、DOTという形式でグラフを描画する。<br />
-しかしDOT形式をそのまま扱うのはちょっと難しい。<br />
-そこで他の言語を通して使う。<br />
-具体的にはpygraphviz。<br />
+<p>Graphviz(公式) <!-- raw HTML omitted --><a href="http://www.graphviz.org/%3C/a%3E">http://www.graphviz.org/&lt;/a&gt;</a><br>
+Graphviz(wiki) <!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/Graphviz">http://ja.wikipedia.org/wiki/Graphviz</a> <!-- raw HTML omitted --></p>
+<p>Graphvizでは、DOTという形式でグラフを描画する。<br>
+しかしDOT形式をそのまま扱うのはちょっと難しい。<br>
+そこで他の言語を通して使う。<br>
+具体的にはpygraphviz。<br>
 PyGraphvizはGraphvizのpythonインタフェースである。</p>
-
-<h2 id="span-style-text-decoration-underline-pygraphvizのインストール-span"><span style="text-decoration: underline;">PyGraphvizのインストール</span></h2>
-
-<p>FreeBSD, OS Xでのインストールは確認済みである。<br />
-しかし意外や意外、WindowsのActivePythonではPyGraphvizをインストールできない。PyPMにないのである。<br />
+<h2 id="span-styletext-decoration-underlinepygraphvizspan"><!-- raw HTML omitted -->PyGraphvizのインストール<!-- raw HTML omitted --></h2>
+<p>FreeBSD, OS Xでのインストールは確認済みである。<br>
+しかし意外や意外、WindowsのActivePythonではPyGraphvizをインストールできない。PyPMにないのである。<br>
 素のPythonなら出来るのかもしれないが。</p>
-
 <p>しかし、Graphviz単体ならインストールできる。DOT形式のファイル（以降、DOTファイル）を別マシンからもらえば、WIndows上でもグラフ描画は可能。</p>
-
-<h2 id="span-style-text-decoration-underline-freebsdでのインストール-span"><span style="text-decoration: underline;">FreeBSDでのインストール</span></h2>
-
-<p>portsでもpkgでも、pygraphvizで探せば出てくるのでそれをインストールすればよい。<br />
-以下はpkgでの例。<br />
-gccを連れてきてダウロードサイズが100MBを超えた。驚いた。<br />
+<h2 id="span-styletext-decoration-underlinefreebsdspan"><!-- raw HTML omitted -->FreeBSDでのインストール<!-- raw HTML omitted --></h2>
+<p>portsでもpkgでも、pygraphvizで探せば出てくるのでそれをインストールすればよい。<br>
+以下はpkgでの例。<br>
+gccを連れてきてダウロードサイズが100MBを超えた。驚いた。<br>
 ついでnumpyも入れた。</p>
-
-<pre><code class="language-console">$ pkg search graphviz
+<pre><code class="language-console" data-lang="console">$ pkg search graphviz
 graphviz-2.34.0
 py27-graphviz-1.1_1
 rubygem-graphviz-1.0.9
@@ -217,14 +196,10 @@ The following 12 packages will be installed:
 The installation will require 685 MB more space
 
 110 MB to be downloaded
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-os-xでのインストール-span"><span style="text-decoration: underline;">OS Xでのインストール</span></h2>
-
-<p>graphvizをインストールし、そのあとPython上でpygraphvizをインストールすればよろし。<br />
+</code></pre><h2 id="span-styletext-decoration-underlineos-xspan"><!-- raw HTML omitted -->OS Xでのインストール<!-- raw HTML omitted --></h2>
+<p>graphvizをインストールし、そのあとPython上でpygraphvizをインストールすればよろし。<br>
 以下の例ではbrewでgraphvizを、そのあとpipでpygraphvizをインストールしている。</p>
-
-<pre><code class="language-console">$ brew install graphviz
+<pre><code class="language-console" data-lang="console">$ brew install graphviz
 ==&gt; Downloading http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-2.3
 ######################################################################## 100.0%
 ==&gt; Downloading patches
@@ -245,81 +220,50 @@ Downloading/unpacking pygraphviz
 Successfully installed pygraphviz
 Cleaning up...
 $
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-windowsでのインストール-graphvizだけ-span"><span style="text-decoration: underline;">Windowsでのインストール（graphvizだけ）</span></h2>
-
-<p>WindowsのActivePythonではpygraphvizが使えない。<br />
-素のgraphvizをインストールする。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinewindowsgraphvizspan"><!-- raw HTML omitted -->Windowsでのインストール（graphvizだけ）<!-- raw HTML omitted --></h2>
+<p>WindowsのActivePythonではpygraphvizが使えない。<br>
+素のgraphvizをインストールする。<br>
 以下あたりからダウンロードする。</p>
-
-<p><a href="http://www.graphviz.org/Download_windows.php" target="_blank"><a href="http://www.graphviz.org/Download_windows.php">http://www.graphviz.org/Download_windows.php</a></a></p>
-
-<p>インストーラがよければmsiを、レジストリを汚したくないならzipをダウンロード。<br />
-zipは展開するとreleaseというフォルダが出来る。<br />
-リネームしてどこにでも置けばよい。<br />
-実行ファイルはbinの下にある。<br />
+<p><!-- raw HTML omitted --><a href="http://www.graphviz.org/Download_windows.php%3C/a%3E">http://www.graphviz.org/Download_windows.php&lt;/a&gt;</a></p>
+<p>インストーラがよければmsiを、レジストリを汚したくないならzipをダウンロード。<br>
+zipは展開するとreleaseというフォルダが出来る。<br>
+リネームしてどこにでも置けばよい。<br>
+実行ファイルはbinの下にある。<br>
 必要ならパスを通しておく。</p>
-
 <p>実際に使う実行ファイルはdot、circo、neatoあたりでしょう。</p>
-
-<h2 id="span-style-text-decoration-underline-pygraphvizインストールの確認-span"><span style="text-decoration: underline;">pygraphvizインストールの確認</span></h2>
-
-<p>pygraphvizをimportしてみてエラーの出ないことを確認しておこう。<br />
+<h2 id="span-styletext-decoration-underlinepygraphvizspan-1"><!-- raw HTML omitted -->pygraphvizインストールの確認<!-- raw HTML omitted --></h2>
+<p>pygraphvizをimportしてみてエラーの出ないことを確認しておこう。<br>
 たとえばIDLEで。</p>
-
-<pre><code class="language-console">Python 2.7.5 (default, Oct 17 2013, 07:35:17)
+<pre><code class="language-console" data-lang="console">Python 2.7.5 (default, Oct 17 2013, 07:35:17)
 [GCC 4.2.1 Compatible FreeBSD Clang 3.3 (tags/RELEASE_33/final 183502)] on freebsd10
 Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license()&quot; for more information.
 &gt;&gt;&gt; import pygraphviz
 &gt;&gt;&gt;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-pygraphvizを使ってみよう-span"><span style="text-decoration: underline;">PyGraphvizを使ってみよう。</span></h2>
-
-<p>基本はここのチュートリアルに沿えばよい。<br />
-<a href="http://networkx.lanl.gov/pygraphviz/tutorial.html" target="_blank"><a href="http://networkx.lanl.gov/pygraphviz/tutorial.html">http://networkx.lanl.gov/pygraphviz/tutorial.html</a></a></p>
-
+</code></pre><h2 id="span-styletext-decoration-underlinepygraphvizspan-2"><!-- raw HTML omitted -->PyGraphvizを使ってみよう。<!-- raw HTML omitted --></h2>
+<p>基本はここのチュートリアルに沿えばよい。<br>
+<!-- raw HTML omitted --><a href="http://networkx.lanl.gov/pygraphviz/tutorial.html%3C/a%3E">http://networkx.lanl.gov/pygraphviz/tutorial.html&lt;/a&gt;</a></p>
 <p>pygraphvizをimportし、AGraphクラスを作る。</p>
-
-<pre><code class="language-console">import pygraphviz as pgv
+<pre><code class="language-console" data-lang="console">import pygraphviz as pgv
 G = pgv.AGraph()
-</code></pre>
-
-<p>ノードの追加</p>
-
-<pre><code class="language-console">G.add_node('a')
+</code></pre><p>ノードの追加</p>
+<pre><code class="language-console" data-lang="console">G.add_node('a')
 G.add_node('b')
-</code></pre>
-
-<p>エッジの追加</p>
-
-<pre><code class="language-console">G.add_edge('c','d')
+</code></pre><p>エッジの追加</p>
+<pre><code class="language-console" data-lang="console">G.add_edge('c','d')
 G.add_edge('e','f')
-</code></pre>
-
-<p>そして描画。<br />
+</code></pre><p>そして描画。<br>
 layoutを指示すると各ノード、エッジの配置がなされ、drawで画像に書き込める。</p>
-
-<pre><code class="language-console">G.layout()
+<pre><code class="language-console" data-lang="console">G.layout()
 G.draw('sample01.png')
-</code></pre>
-
-<p>dotファイルを書き出すには。</p>
-
-<pre><code class="language-console">G.write(&quot;sample01.dot&quot;)
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-サンプルスクリプト-span"><span style="text-decoration: underline;">サンプルスクリプト</span></h2>
-
-<p>以下、サンプルスクリプトとその結果つくられるグラフを列挙する。<br />
-先述の通りWindowsではpygraphvizが使えない。<br />
-Windowsでグラフを描こうとするなら、MacやFreeBSD他、pygraphvizで生成しておいたdotをWindows上のgraphvizで読みこむしかない。<br />
+</code></pre><p>dotファイルを書き出すには。</p>
+<pre><code class="language-console" data-lang="console">G.write(&quot;sample01.dot&quot;)
+</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->サンプルスクリプト<!-- raw HTML omitted --></h2>
+<p>以下、サンプルスクリプトとその結果つくられるグラフを列挙する。<br>
+先述の通りWindowsではpygraphvizが使えない。<br>
+Windowsでグラフを描こうとするなら、MacやFreeBSD他、pygraphvizで生成しておいたdotをWindows上のgraphvizで読みこむしかない。<br>
 その方法は最後に触れる。</p>
-
-<h3 id="サンプル1">サンプル1</h3>
-
-<pre><code class="language-console">#!/bin/env python
+<h3 id="1">サンプル1</h3>
+<pre><code class="language-console" data-lang="console">#!/bin/env python
 
 import pygraphviz as pgv
 
@@ -333,15 +277,10 @@ G.add_edge('e','f')
 
 G.layout()
 G.draw('sample01.png')
-</code></pre>
-
-<p><a href="../../../wp-content/uploads/2013/11/sample01.png"><img class="alignnone size-thumbnail wp-image-2455" alt="sample01" src="../../../wp-content/uploads/2013/11/sample01-150x150.png" width="150" height="150" /></a></p>
-
-<h3 id="サンプル2">サンプル2</h3>
-
+</code></pre><p><a href="../../../wp-content/uploads/2013/11/sample01.png"><!-- raw HTML omitted --></a></p>
+<h3 id="2">サンプル2</h3>
 <p>ノードの追加は、リストでまとめてできる。</p>
-
-<pre><code class="language-console">#!/bin/env python
+<pre><code class="language-console" data-lang="console">#!/bin/env python
 
 import pygraphviz as pgv
 
@@ -356,15 +295,10 @@ G.add_edge('e','f')
 
 G.layout()
 G.draw('sample02.png')
-</code></pre>
-
-<p><a href="../../../wp-content/uploads/2013/11/sample02.png"><img class="alignnone size-thumbnail wp-image-2456" alt="sample02" src="../../../wp-content/uploads/2013/11/sample02-150x150.png" width="150" height="150" /></a></p>
-
-<h3 id="サンプル3">サンプル3</h3>
-
+</code></pre><p><a href="../../../wp-content/uploads/2013/11/sample02.png"><!-- raw HTML omitted --></a></p>
+<h3 id="3">サンプル3</h3>
 <p>同じエッジを二回追加しても変わらない。</p>
-
-<pre><code class="language-console">#!/bin/env python
+<pre><code class="language-console" data-lang="console">#!/bin/env python
 
 import pygraphviz as pgv
 
@@ -379,15 +313,10 @@ G.add_edge('h','i')
 
 G.layout()
 G.draw('sample03.png')
-</code></pre>
-
-<p><a href="../../../wp-content/uploads/2013/11/sample03.png"><img class="alignnone size-thumbnail wp-image-2451" alt="sample03" src="../../../wp-content/uploads/2013/11/sample03-150x133.png" width="150" height="133" /></a></p>
-
+</code></pre><p><a href="../../../wp-content/uploads/2013/11/sample03.png"><!-- raw HTML omitted --></a></p>
 <p>サンプル4</p>
-
 <p>しかし、最初のクラス作成時にstrict=Falseと指定すれば。</p>
-
-<pre><code class="language-console">#!/bin/env python
+<pre><code class="language-console" data-lang="console">#!/bin/env python
 
 import pygraphviz as pgv
 
@@ -402,16 +331,11 @@ G.add_edge('h','i')
 
 G.layout()
 G.draw('sample04.png')
-</code></pre>
-
-<p><a href="../../../wp-content/uploads/2013/11/sample04.png"><img class="alignnone size-thumbnail wp-image-2452" alt="sample04" src="../../../wp-content/uploads/2013/11/sample04-150x133.png" width="150" height="133" /></a><br />
+</code></pre><p><a href="../../../wp-content/uploads/2013/11/sample04.png"><!-- raw HTML omitted --></a><br>
 二本になる。</p>
-
-<h3 id="サンプル5">サンプル5</h3>
-
+<h3 id="5">サンプル5</h3>
 <p>さらにdirectを指定すれば。</p>
-
-<pre><code class="language-console">#!/bin/env python
+<pre><code class="language-console" data-lang="console">#!/bin/env python
 
 import pygraphviz as pgv
 
@@ -426,16 +350,11 @@ G.add_edge('h','i')
 
 G.layout()
 G.draw('sample05.png')
-</code></pre>
-
-<p><a href="../../../wp-content/uploads/2013/11/sample05.png"><img class="alignnone size-thumbnail wp-image-2453" alt="sample05" src="../../../wp-content/uploads/2013/11/sample05-150x133.png" width="150" height="133" /></a><br />
+</code></pre><p><a href="../../../wp-content/uploads/2013/11/sample05.png"><!-- raw HTML omitted --></a><br>
 矢印になる。</p>
-
 <p>サンプル6</p>
-
 <p>ここまでは殺風景であったが、色だって形だって変更できる。</p>
-
-<pre><code class="language-console">#!/bin/env python
+<pre><code class="language-console" data-lang="console">#!/bin/env python
 
 import pygraphviz as pgv
 
@@ -450,27 +369,18 @@ G.add_edge('h','i')
 
 G.layout()
 G.draw('sample05.png')
-</code></pre>
-
-<p><a href="../../../wp-content/uploads/2013/11/sample06.png"><img class="alignnone size-thumbnail wp-image-2454" alt="sample06" src="../../../wp-content/uploads/2013/11/sample06-150x150.png" width="150" height="150" /></a></p>
-
-<h2 id="span-style-text-decoration-underline-参考-span"><span style="text-decoration: underline;">参考</span></h2>
-
-<p>ここから先は、以下を参考にして各自素敵なグラフを作ってくれたまえ。<br />
-<a href="https://github.com/pygraphviz/pygraphviz/blob/master/examples/miles.py" target="_blank"><a href="https://github.com/pygraphviz/pygraphviz/blob/master/examples/miles.py">https://github.com/pygraphviz/pygraphviz/blob/master/examples/miles.py</a></a></p>
-
-<p>pygraphviz attrの一覧<br />
-<a href="http://www.graphviz.org/doc/info/attrs.html" target="_blank"><a href="http://www.graphviz.org/doc/info/attrs.html">http://www.graphviz.org/doc/info/attrs.html</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-windowsでdotからグラフを描画する-span"><span style="text-decoration: underline;">Windowsでdotからグラフを描画する。</span></h2>
-
+</code></pre><p><a href="../../../wp-content/uploads/2013/11/sample06.png"><!-- raw HTML omitted --></a></p>
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->参考<!-- raw HTML omitted --></h2>
+<p>ここから先は、以下を参考にして各自素敵なグラフを作ってくれたまえ。<br>
+<!-- raw HTML omitted --><a href="https://github.com/pygraphviz/pygraphviz/blob/master/examples/miles.py%3C/a%3E">https://github.com/pygraphviz/pygraphviz/blob/master/examples/miles.py&lt;/a&gt;</a></p>
+<p>pygraphviz attrの一覧<br>
+<!-- raw HTML omitted --><a href="http://www.graphviz.org/doc/info/attrs.html%3C/a%3E">http://www.graphviz.org/doc/info/attrs.html&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinewindowsdotspan"><!-- raw HTML omitted -->Windowsでdotからグラフを描画する。<!-- raw HTML omitted --></h2>
 <p>インストールしたdot, circo, neatoのいずれかに、-Tで出力形式を、-oで出力ファイル名を指定したうえで、dotファイルを与えればよい。</p>
-
-<pre><code class="language-console">dot -Tpng -o filename.png filename.dot
+<pre><code class="language-console" data-lang="console">dot -Tpng -o filename.png filename.dot
 circo -Tpng -o filename.png filename.dot
 neato -Tpng -o filename.png filename.dot
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2016-06-02T22:22:39+09:00" />
 <meta itemprop="name" content="[Windows] ファイルサーバへの接続ユーザを変えよう">
 <meta itemprop="description" content="Sambaサーバのセットアップをしているとき、動作確認のために、Windowsから接続することがある。 このとき、権限も確認するために、ユーザ">
-
-
 <meta itemprop="datePublished" content="2016-06-02T22:22:39&#43;09:00" />
 <meta itemprop="dateModified" content="2016-06-02T22:22:39&#43;09:00" />
 <meta itemprop="wordCount" content="365">
 
 
 
-<meta itemprop="keywords" content="BATCH,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="BATCH,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Windows] ファイルサーバへの接続ユーザを変えよう"/>
 <meta name="twitter:description" content="Sambaサーバのセットアップをしているとき、動作確認のために、Windowsから接続することがある。 このとき、権限も確認するために、ユーザ"/>
 
@@ -140,18 +137,15 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Sambaサーバのセットアップをしているとき、動作確認のために、Windowsから接続することがある。<br />
-このとき、権限も確認するために、ユーザを変えて接続しようとする。<br />
-しかしWindowsは、ファイルサーバの認証を一回してしまうと、再起動するまで記憶する（たぶん）。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Sambaサーバのセットアップをしているとき、動作確認のために、Windowsから接続することがある。<br>
+このとき、権限も確認するために、ユーザを変えて接続しようとする。<br>
+しかしWindowsは、ファイルサーバの認証を一回してしまうと、再起動するまで記憶する（たぶん）。<br>
 それはそれで便利なのだが、検証するとなると障害になる。</p>
-
-<p>netコマンドを使えば、再起動なく認証をやり直すことができる。<br />
-コマンドなので、バッチ化も可能。<br />
+<p>netコマンドを使えば、再起動なく認証をやり直すことができる。<br>
+コマンドなので、バッチ化も可能。<br>
 以下、使用例。</p>
-
 <p>net useで現在、記憶している接続を表示</p>
-
-<pre><code class="language-console">C:\&gt; net use
+<pre><code class="language-console" data-lang="console">C:\&gt; net use
 新しい接続は記憶されます。
 
 ステータス  ローカル名 リモート名                ネットワーク名
@@ -160,20 +154,13 @@ if (!doNotTrack) {
 切断                   \\192.168.0.200\share     Microsoft Windows Network
 切断                   \\windowsShare\IPC$       Microsoft Windows Network
 コマンドは正常に終了しました。
-</code></pre>
-
-<p>net use /deleteで接続を削除</p>
-
-<pre><code class="language-console">C:\&gt; net use /delete \\192.168.0.200\share
+</code></pre><p>net use /deleteで接続を削除</p>
+<pre><code class="language-console" data-lang="console">C:\&gt; net use /delete \\192.168.0.200\share
 \\192.168.0.200\share が削除されました。
-</code></pre>
-
-<p>以下のようにすれば認証もできる。</p>
-
-<pre><code class="language-console">C:\&gt; net use \\192.168.0.200\share /user:administrator password
+</code></pre><p>以下のようにすれば認証もできる。</p>
+<pre><code class="language-console" data-lang="console">C:\&gt; net use \\192.168.0.200\share /user:administrator password
 コマンドは正常に終了しました。
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/batch" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">BATCH</a>

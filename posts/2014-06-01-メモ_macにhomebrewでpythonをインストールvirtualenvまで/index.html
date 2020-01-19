@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-06-01T06:06:42+09:00" />
 <meta itemprop="name" content="[メモ] MacにhomebrewでPythonをインストール（virtualenvまで）">
 <meta itemprop="description" content="brewでpythonをインストールする 10.9.3にはPython 2.7.5が入っている。 brewでこれを新しいものに。 またvirtual">
-
-
 <meta itemprop="datePublished" content="2014-06-01T06:06:42&#43;09:00" />
 <meta itemprop="dateModified" content="2014-06-01T06:06:42&#43;09:00" />
 <meta itemprop="wordCount" content="447">
 
 
 
-<meta itemprop="keywords" content="OSX,python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="OSX,python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] MacにhomebrewでPythonをインストール（virtualenvまで）"/>
 <meta name="twitter:description" content="brewでpythonをインストールする 10.9.3にはPython 2.7.5が入っている。 brewでこれを新しいものに。 またvirtual"/>
 
@@ -140,20 +137,14 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>brewでpythonをインストールする<br />
-10.9.3にはPython 2.7.5が入っている。<br />
-brewでこれを新しいものに。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>brewでpythonをインストールする<br>
+10.9.3にはPython 2.7.5が入っている。<br>
+brewでこれを新しいものに。<br>
 またvirtualenvも入れてしまう。</p>
-
-<pre><code class="language-console">$ python --version
+<pre><code class="language-console" data-lang="console">$ python --version
 Python 2.7.5
-</code></pre>
-
-<h2 id="brewでインストール">brewでインストール</h2>
-
-<pre><code class="language-console">$ brew install python --framework --universal
+</code></pre><h2 id="brew">brewでインストール</h2>
+<pre><code class="language-console" data-lang="console">$ brew install python --framework --universal
 ==&gt; Installing dependencies for python: pkg-config, readline, sqlite, gdb
 ==&gt; Installing python dependency: pkg-config
 ==&gt; Downloading https://downloads.sf.net/project/machomebrew/Bottles/pkg-config-
@@ -167,34 +158,23 @@ Run `brew linkapps` to symlink these to /Applications.
 ==&gt; Summary
 /usr/local/Cellar/python/2.7.6_1: 5945 files, 101M, built in 3.5 minutes
 $
-</code></pre>
-
-<p>すっ飛ばした途中にいろいろと重要なことが表示されている。<br />
-すなわち、Pythonのインストールに必要なソフトウェアはOS Xにもあるけど、いろいろと問題もあるから新しいの入れとくわなどなど。<br />
+</code></pre><p>すっ飛ばした途中にいろいろと重要なことが表示されている。<br>
+すなわち、Pythonのインストールに必要なソフトウェアはOS Xにもあるけど、いろいろと問題もあるから新しいの入れとくわなどなど。<br>
 また、pipとsetuptoolsもインストールされている。</p>
-
-<pre><code class="language-console">Setuptools and Pip have been installed. To update them
+<pre><code class="language-console" data-lang="console">Setuptools and Pip have been installed. To update them
   pip install --upgrade setuptools
   pip install --upgrade pip
-</code></pre>
-
-<p>いずれにせよpythonのインストールはできた。<br />
+</code></pre><p>いずれにせよpythonのインストールはできた。<br>
 ターミナルで調べてみると2.7.6に変化していますね。</p>
-
-<pre><code class="language-console">$ python --version
+<pre><code class="language-console" data-lang="console">$ python --version
 Python 2.7.6
 $ which python
 /usr/local/bin/python
 $
-</code></pre>
-
-<p>そのままvirtualenvなどのツールをインストール。</p>
-
-<h2 id="virtualenvのインストール">virtualenvのインストール</h2>
-
+</code></pre><p>そのままvirtualenvなどのツールをインストール。</p>
+<h2 id="virtualenv">virtualenvのインストール</h2>
 <p>pipでインストールするだけ。</p>
-
-<pre><code class="language-console">$ pip install virtualenv
+<pre><code class="language-console" data-lang="console">$ pip install virtualenv
 （略）
 Successfully installed virtualenv
 Cleaning up...
@@ -202,8 +182,7 @@ $ pip install virtualenvwrapper
 （略）
 Successfully installed virtualenvwrapper virtualenv-clone stevedore
 Cleaning up...
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/osx" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">OSX</a>

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-08-10T14:24:05+09:00" />
 <meta itemprop="name" content="Windows Defenderをコマンド操作しよう">
 <meta itemprop="description" content="はじめに Windows10にデフォルトで用意されているアンチウイルスソフトWindows Defenderをコマンドラインで操作する。 コマンド">
-
-
 <meta itemprop="datePublished" content="2019-08-10T14:24:05&#43;09:00" />
 <meta itemprop="dateModified" content="2019-08-10T14:24:05&#43;09:00" />
 <meta itemprop="wordCount" content="1286">
 
 
 
-<meta itemprop="keywords" content="Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Windows Defenderをコマンド操作しよう"/>
 <meta name="twitter:description" content="はじめに Windows10にデフォルトで用意されているアンチウイルスソフトWindows Defenderをコマンドラインで操作する。 コマンド"/>
 
@@ -140,123 +137,81 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="はじめに">はじめに</h2>
-
-<p>Windows10にデフォルトで用意されているアンチウイルスソフトWindows Defenderをコマンドラインで操作する。<br />
-コマンドラインで操作することの良い点はバッチ化できることである。<br />
-あるいは、他人への指示がしやすいことである。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="heading">はじめに</h2>
+<p>Windows10にデフォルトで用意されているアンチウイルスソフトWindows Defenderをコマンドラインで操作する。<br>
+コマンドラインで操作することの良い点はバッチ化できることである。<br>
+あるいは、他人への指示がしやすいことである。<br>
 講釈はいいから、定義ファイルの更新＞クイックスキャンをするバッチファイルをよこせ、という方は文末へどうぞ。</p>
-
-<h2 id="windows-defenderの本体">Windows Defenderの本体</h2>
-
+<h2 id="windows-defender">Windows Defenderの本体</h2>
 <p>以下が本体</p>
-
-<pre><code class="language-console">%ProgramFiles%\Windows Defender\MpCmdRun.exe
-</code></pre>
-
-<p><code>mpcmdrun</code>なんてWindows Defenderをまったく想像できない名前だな。<br />
-<code>-h</code>を与えればいろいろと情報を得られる。割愛。<br />
+<pre><code class="language-console" data-lang="console">%ProgramFiles%\Windows Defender\MpCmdRun.exe
+</code></pre><p><code>mpcmdrun</code>なんてWindows Defenderをまったく想像できない名前だな。<br>
+<code>-h</code>を与えればいろいろと情報を得られる。割愛。<br>
 なお、パスは通ってないので、コマンド実行時にはフルパスで指定するか、<code>cd</code>でディレクトリを移ってから。</p>
-
-<h2 id="スキャンする">スキャンする</h2>
-
+<h2 id="heading-1">スキャンする</h2>
 <p><code>-h</code>を参照すると;</p>
-
-<pre><code class="language-console">   -Scan [-ScanType value]
+<pre><code class="language-console" data-lang="console">   -Scan [-ScanType value]
         0  Default, according to your configuration
         1  Quick scan
         2  Full system scan
-</code></pre>
-
-<p>とのことである。<br />
-つまりQuick scanなら<code>mpcmdrun -scan -scantype 1</code>とすればよい。<br />
+</code></pre><p>とのことである。<br>
+つまりQuick scanなら<code>mpcmdrun -scan -scantype 1</code>とすればよい。<br>
 以下、実行例.</p>
-
-<pre><code class="language-console">C:\Users\nobwak&gt;&quot;%ProgramFiles%\Windows Defender\MpCmdRun.exe&quot; -scan -scantype 1
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak&gt;&quot;%ProgramFiles%\Windows Defender\MpCmdRun.exe&quot; -scan -scantype 1
 Scan starting...
 Scan finished.
-</code></pre>
-
-<h2 id="定義ファイルのアップデート">定義ファイルのアップデート</h2>
-
-<p><code>-SignatureUpdate</code>を与えればよい。<br />
+</code></pre><h2 id="heading-2">定義ファイルのアップデート</h2>
+<p><code>-SignatureUpdate</code>を与えればよい。<br>
 以下、実行例。</p>
-
-<pre><code class="language-console">C:\Users\nobwak&gt;&quot;%ProgramFiles%\Windows Defender\MpCmdRun.exe&quot; -signatureupdate
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak&gt;&quot;%ProgramFiles%\Windows Defender\MpCmdRun.exe&quot; -signatureupdate
 Signature update started . . .
 Signature update finished. No updates needed
-</code></pre>
-
-<p>どうも定義ファイルのバージョンを表示するオプションはないようだ。<br />
-定義ファイルのバージョンはGUIで確認するしかないが、それはさておき強制的にダウンロードさせるなら以下のように一度定義ファイルを削除してから更新する。<br />
+</code></pre><p>どうも定義ファイルのバージョンを表示するオプションはないようだ。<br>
+定義ファイルのバージョンはGUIで確認するしかないが、それはさておき強制的にダウンロードさせるなら以下のように一度定義ファイルを削除してから更新する。<br>
 ただし、定義ファイルの削除には管理者権限が必要。</p>
-
-<pre><code class="language-console">cd %ProgramFiles%\Windows Defender
+<pre><code class="language-console" data-lang="console">cd %ProgramFiles%\Windows Defender
 MpCmdRun.exe -removedefinitions -dynamicsignatures
 MpCmdRun.exe -SignatureUpdate
-</code></pre>
-
-<h2 id="オフライン用定義ファイル">オフライン用定義ファイル</h2>
-
-<p>インターネット接続されていないPCへUSBメモリ等で定義ファイルをコピーするなど、オフラインPC用に定義ファイルだけをダウンロードするには、以下の場所から。<br />
+</code></pre><h2 id="heading-3">オフライン用定義ファイル</h2>
+<p>インターネット接続されていないPCへUSBメモリ等で定義ファイルをコピーするなど、オフラインPC用に定義ファイルだけをダウンロードするには、以下の場所から。<br>
 ダウンロードしたファイルのプロパティを見るとバージョンを確認できる。</p>
-
 <p><a href="https://www.microsoft.com/en-us/wdsi/definitions">https://www.microsoft.com/en-us/wdsi/definitions</a></p>
-
 <p>Windows10, 64bitなら以下から。</p>
-
 <p><a href="https://go.microsoft.com/fwlink/?LinkID=121721&amp;arch=x64">https://go.microsoft.com/fwlink/?LinkID=121721&amp;arch=x64</a></p>
-
-<p><img src="/images/20190928windefver.jpg" alt="プロパティ" /></p>
-
-<h2 id="windows-defenderをコマンドラインから開く">Windows Defenderをコマンドラインから開く</h2>
-
+<p><img src="/images/20190928windefver.jpg" alt="プロパティ"></p>
+<h2 id="windows-defender-1">Windows Defenderをコマンドラインから開く</h2>
 <p>電話、メールで他人にWindows Defenderを開かせるときのストレスたるや。</p>
-
 <blockquote>
-<p>「画面右下のタスクバーのところに、カタカナの『へ』みたいなのがあるでしょう。それをクリックして盾のアイコンをクリックしてください。」<br />
+<p>「画面右下のタスクバーのところに、カタカナの『へ』みたいなのがあるでしょう。それをクリックして盾のアイコンをクリックしてください。」<br>
 「え？たて？」</p>
 </blockquote>
-
 <p>あるいは</p>
-
 <blockquote>
-<p>「画面左下の田マークをクリックし、歯車アイコンをクリック、そこで『セキュリティ』とタイプ」<br />
+<p>「画面左下の田マークをクリックし、歯車アイコンをクリック、そこで『セキュリティ』とタイプ」<br>
 「え？歯車？」</p>
 </blockquote>
-
-<p>という具合である。<br />
-Windows Defenderは以下のコマンドで一発で開く。<br />
+<p>という具合である。<br>
+Windows Defenderは以下のコマンドで一発で開く。<br>
 <code>ms-settings:windowsdefender</code></p>
-
 <blockquote>
 <p>田+Rで「ファイル名を指定して実行」が開くので、そこに<code>ms-settings:windowsdefender</code>とタイプし、実行してください。</p>
 </blockquote>
-
 <p>とメールに書けばよい。</p>
-
-<h2 id="定義ファイルの更新-スキャンバッチファイル">定義ファイルの更新、スキャンバッチファイル</h2>
-
+<h2 id="heading-4">定義ファイルの更新、スキャンバッチファイル</h2>
 <p>以下の内容をテキストファイルにコピーし、拡張子.batで保存する。</p>
-
-<p>定義ファイルをいったん削除して更新し、そのあとクイックスキャンである。<br />
-定義ファイルを削除して更新するには管理者権限が必要だが、管理者権限なく実行しても削除がエラーになるだけで、更新はできる。気にせず実行。<br />
-フルスキャンしたい場合には-scantypeを2に変えること。<br />
+<p>定義ファイルをいったん削除して更新し、そのあとクイックスキャンである。<br>
+定義ファイルを削除して更新するには管理者権限が必要だが、管理者権限なく実行しても削除がエラーになるだけで、更新はできる。気にせず実行。<br>
+フルスキャンしたい場合には-scantypeを2に変えること。<br>
 <code>pause</code>コマンドにより、処理が終了しても何かのキーを押すまで画面が閉じないようにしている。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bat" data-lang="bat">@<span style="color:#66d9ef">echo</span> off
 
-<pre><code class="language-bat">@echo off
-
-cd %ProgramFiles%\Windows Defender
+<span style="color:#66d9ef">cd</span> %ProgramFiles%\Windows Defender
 MpCmdRun.exe -removedefinitions -dynamicsignatures
 MpCmdRun.exe -SignatureUpdate
 mpcmdrun -scan -scantype 1
 
-pause
-</code></pre>
-
-<p>以上</p>
+<span style="color:#66d9ef">pause</span>
+</code></pre></div><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

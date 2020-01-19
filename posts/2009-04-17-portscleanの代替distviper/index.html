@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-04-17T01:00:00+09:00" />
 <meta itemprop="name" content="portscleanの代替distviper">
 <meta itemprop="description" content="sysutils/bsdadminscriptsには便利ツールがたくさん入っている。 たとえばdistviper。 portsの運用を続けると、">
-
-
 <meta itemprop="datePublished" content="2009-04-17T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-04-17T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="655">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="portscleanの代替distviper"/>
 <meta name="twitter:description" content="sysutils/bsdadminscriptsには便利ツールがたくさん入っている。 たとえばdistviper。 portsの運用を続けると、"/>
 
@@ -173,8 +170,7 @@ thoroughモードは時間がかかるので、portsビルド専用（つまり�
 
 実行例
 </code></pre>
-
-<pre><code class="language-console">$ distviper -d fast
+<pre><code class="language-console" data-lang="console">$ distviper -d fast
 delete zsh-4.3.9.tar.bz2
 （中略）
 $ sudo distviper fast
@@ -196,16 +192,13 @@ delete audiofile-0.2.6.tar.gz
 delete samba-3.0.34.tar.gz
 delete thunderbird-2.0.0.19-source.tar.bz2
 $
-</code></pre>
-
-<pre><code>ということで、/usr/local/etc/periodic/weeklyというディレクトリを（無ければ）作って、998.deldist.shとか適当な名前で下記のスクリプトを置いて、週1で自動的に実行されるようにしておいた。
+</code></pre><pre><code>ということで、/usr/local/etc/periodic/weeklyというディレクトリを（無ければ）作って、998.deldist.shとか適当な名前で下記のスクリプトを置いて、週1で自動的に実行されるようにしておいた。
 
 
 
 /etc/local/etc/periodic/weekly/998.deldist.sh
 </code></pre>
-
-<pre><code class="language-console">#!/bin/sh
+<pre><code class="language-console" data-lang="console">#!/bin/sh
 DELCMD=&amp;#39;/usr/local/sbin/distviper&amp;#39;
 DELOPT=&amp;#39;fast&amp;#39;
 rc=0
@@ -218,8 +211,7 @@ echo &amp;#34;$DELCMD is not installed and I gave up.&amp;#34;
 rc=2
 fi
 exit &amp;#34;$rc&amp;#34;
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

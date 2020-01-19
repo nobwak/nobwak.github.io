@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-07-16T23:29:13+09:00" />
 <meta itemprop="name" content="[メモ] FreeBSD10にhadoopインストール">
 <meta itemprop="description" content="素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。 2014/7/4時点でのpkgにはhadoop-1.2.">
-
-
 <meta itemprop="datePublished" content="2014-07-16T23:29:13&#43;09:00" />
 <meta itemprop="dateModified" content="2014-07-16T23:29:13&#43;09:00" />
 <meta itemprop="wordCount" content="630">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,hadoop,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,hadoop,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] FreeBSD10にhadoopインストール"/>
 <meta name="twitter:description" content="素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。 2014/7/4時点でのpkgにはhadoop-1.2."/>
 
@@ -140,19 +137,13 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。</p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。</p>
 <p>2014/7/4時点でのpkgにはhadoop-1.2.1が入ってる。</p>
-
-<h2 id="pkgのインストール">pkgのインストール</h2>
-
-<p>pkgの初回インストールに成功した試しがない。<br />
-pkgのpackageをダウンロードしてインストール。<br />
+<h2 id="pkg">pkgのインストール</h2>
+<p>pkgの初回インストールに成功した試しがない。<br>
+pkgのpackageをダウンロードしてインストール。<br>
 具体的には、pkg-staticを取り出し、pkg-staticでpkgのpackageをインストール。</p>
-
-<pre><code class="language-console">$ fetch http://pkg0.isc.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz
+<pre><code class="language-console" data-lang="console">$ fetch http://pkg0.isc.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz
 pkg.txz                                       100% of 2013 kB  552 kBps 00m03s
 $
 $  tar xvzf ./pkg.txz --include &quot;*pkg-static&quot; --strip-components 4
@@ -165,24 +156,17 @@ If you are upgrading from the old package format, first run:
 
   # pkg2ng
 root@hdmock:/home/doe #
-</code></pre>
-
-<p>pkg update。</p>
-
-<pre><code class="language-console"># pkg update
+</code></pre><p>pkg update。</p>
+<pre><code class="language-console" data-lang="console"># pkg update
 Updating repository catalogue
 digests.txz                         100% 1112KB 556.1KB/s 192.2KB/s   00:02
 packagesite.txz                     100% 5014KB 626.7KB/s 373.9KB/s   00:08
 Incremental update completed, 23278 packages processed:
 0 packages updated, 0 removed and 23278 added.
 #
-</code></pre>
-
-<p>シェルとか、sudoとか、必要なものがあればインストールする。</p>
-
-<h2 id="hadoopのインストール">hadoopのインストール</h2>
-
-<pre><code class="language-console">$ pkg search hadoop
+</code></pre><p>シェルとか、sudoとか、必要なものがあればインストールする。</p>
+<h2 id="hadoop">hadoopのインストール</h2>
+<pre><code class="language-console" data-lang="console">$ pkg search hadoop
 apache-hadoop-1.2.1_1
 $ sudo pkg install hadoop
 Updating repository catalogue
@@ -195,14 +179,10 @@ The following 39 packages will be installed:
 Creating group 'hadoop' with gid '955'.
 Creating user 'hadoop' with uid '955'.
  done
-</code></pre>
-
-<h2 id="openjdkのための設定">OpenJDKのための設定</h2>
-
-<p>hadoopについてくるOpenJDKのためにfstabに設定を加える。<br />
+</code></pre><h2 id="openjdk">OpenJDKのための設定</h2>
+<p>hadoopについてくるOpenJDKのためにfstabに設定を加える。<br>
 OpenJDKインストール時のメッセージに沿って進める。</p>
-
-<pre><code class="language-console">======================================================================
+<pre><code class="language-console" data-lang="console">======================================================================
 
 This OpenJDK implementation requires fdescfs(5) mounted on /dev/fd and
 procfs(5) mounted on /proc.
@@ -218,27 +198,19 @@ To make it permanent, you need the following lines in /etc/fstab:
         proc    /proc           procfs          rw      0       0
 
 =====================================================================
-</code></pre>
-
-<p>fstabに以下に行を追加。区切りはtab。</p>
-
-<pre><code class="language-console">fdesc           /dev/fd         fdescfs rw      0       0
+</code></pre><p>fstabに以下に行を追加。区切りはtab。</p>
+<pre><code class="language-console" data-lang="console">fdesc           /dev/fd         fdescfs rw      0       0
 proc            /proc           procfs  rw      0       0
-</code></pre>
-
-<p>mount。<br />
+</code></pre><p>mount。<br>
 mountと叩いてmountされていることを確認。</p>
-
-<pre><code class="language-console">$ sudo mount -a
+<pre><code class="language-console" data-lang="console">$ sudo mount -a
 $ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates)
 devfs on /dev (devfs, local, multilabel)
 fdescfs on /dev/fd (fdescfs)
 procfs on /proc (procfs, local)
-</code></pre>
-
-<p>以上。<br />
-続きは<a title="[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定" href="../../../2013/07/hadoop-%e6%93%ac%e4%bc%bc%e5%88%86%e6%95%a3%ef%bc%88psuedo-distributed%ef%bc%89%e3%83%a2%e3%83%bc%e3%83%89%e3%81%ae%e8%a8%ad%e5%ae%9a/" target="_blank">こちら</a>。</p>
+</code></pre><p>以上。<br>
+続きは<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->。</p>
 <ul class="pa0">
   
    <li class="list">

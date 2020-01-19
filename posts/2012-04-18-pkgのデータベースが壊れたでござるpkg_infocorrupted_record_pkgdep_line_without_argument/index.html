@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-04-18T01:00:00+09:00" />
 <meta itemprop="name" content="pkgのデータベースが壊れたでござる（pkg_info: corrupted record (pkgdep line without argument)）">
 <meta itemprop="description" content="pkg_info: corrupted record (pkgdep line without argument), ignoringが出たときの対処法。 まずこのコマンドを叩く。 $ grep -A1 &quot;^@pkgdep $&quot; /var/db/pkg/*/&#43;CONTENTS 例えばこういう応答が返る。 /var/db/pkg/php5-xmlwriter-5.3.10/&#43;CONTENTS:@pkgdep /var/db/pkg/php5-xmlwriter-5.3.10/&#43;CONTENTS-@comment DEPORIGIN:lang/php5 2行目に表示されている">
-
-
 <meta itemprop="datePublished" content="2012-04-18T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-04-18T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="92">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="pkgのデータベースが壊れたでござる（pkg_info: corrupted record (pkgdep line without argument)）"/>
 <meta name="twitter:description" content="pkg_info: corrupted record (pkgdep line without argument), ignoringが出たときの対処法。 まずこのコマンドを叩く。 $ grep -A1 &quot;^@pkgdep $&quot; /var/db/pkg/*/&#43;CONTENTS 例えばこういう応答が返る。 /var/db/pkg/php5-xmlwriter-5.3.10/&#43;CONTENTS:@pkgdep /var/db/pkg/php5-xmlwriter-5.3.10/&#43;CONTENTS-@comment DEPORIGIN:lang/php5 2行目に表示されている"/>
 
@@ -146,18 +143,12 @@ if (!doNotTrack) {
 
 まずこのコマンドを叩く。
 </code></pre>
-
-<pre><code class="language-console">$ grep -A1 &quot;^@pkgdep $&quot; /var/db/pkg/*/+CONTENTS
+<pre><code class="language-console" data-lang="console">$ grep -A1 &quot;^@pkgdep $&quot; /var/db/pkg/*/+CONTENTS
+</code></pre><pre><code>例えばこういう応答が返る。
 </code></pre>
-
-<pre><code>例えばこういう応答が返る。
-</code></pre>
-
-<pre><code class="language-console">/var/db/pkg/php5-xmlwriter-5.3.10/+CONTENTS:@pkgdep
+<pre><code class="language-console" data-lang="console">/var/db/pkg/php5-xmlwriter-5.3.10/+CONTENTS:@pkgdep
 /var/db/pkg/php5-xmlwriter-5.3.10/+CONTENTS-@comment DEPORIGIN:lang/php5
-</code></pre>
-
-<pre><code>2行目に表示されているlang/php5をインストールすればOK。
+</code></pre><pre><code>2行目に表示されているlang/php5をインストールすればOK。
 </code></pre>
 <ul class="pa0">
   

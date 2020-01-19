@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-12-18T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDでリムーバブルメディアを自動マウントさせるには">
 <meta itemprop="description" content="今日の今日まで、FreeBSDにCDとかDVDとかUSBメモリを自動マウントすることができなかったが、思わぬ落とし穴に気がついたおかげで、な">
-
-
 <meta itemprop="datePublished" content="2009-12-18T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-12-18T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="677">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDでリムーバブルメディアを自動マウントさせるには"/>
 <meta name="twitter:description" content="今日の今日まで、FreeBSDにCDとかDVDとかUSBメモリを自動マウントすることができなかったが、思わぬ落とし穴に気がついたおかげで、な"/>
 
@@ -176,12 +173,9 @@ if (!doNotTrack) {
 
 　/etc/fstabの例（デリミタ（区切り）はタブ）
 </code></pre>
-
-<pre><code class="language-console">#/dev/acd0		/cdrom		cd9660	ro,noauto	0	0
+<pre><code class="language-console" data-lang="console">#/dev/acd0		/cdrom		cd9660	ro,noauto	0	0
 proc			/proc		procfs	rw		0	0
-</code></pre>
-
-<pre><code>　このあとsudo mount /procする。
+</code></pre><pre><code>　このあとsudo mount /procする。
 
 
 
@@ -198,14 +192,11 @@ proc			/proc		procfs	rw		0	0
 
 　そして、ああなんと、俺が今まで自動マウント出来なかったのは、区切りをスペースにしてたのが問題であったよ。
 </code></pre>
-
-<pre><code class="language-console">perm    cd0     0666
+<pre><code class="language-console" data-lang="console">perm    cd0     0666
 perm    acd0    0666
 perm    xpt0    0666
 perm    pass0   0666
-</code></pre>
-
-<pre><code>3./usr/local/etc/PolicyKit/PolicyKit.confの編集
+</code></pre><pre><code>3./usr/local/etc/PolicyKit/PolicyKit.confの編集
 
 
 
@@ -219,33 +210,24 @@ perm    pass0   0666
 
 ◎編集前
 </code></pre>
-
-<pre><code class="language-console">&amp;#60;config version=&amp;#34;0.1&amp;#34;&gt;
+<pre><code class="language-console" data-lang="console">&amp;#60;config version=&amp;#34;0.1&amp;#34;&gt;
 &amp;#60;match user=&amp;#34;root&amp;#34;&gt;
 &amp;#60;return result=&amp;#34;yes&amp;#34;/&gt;
 &amp;#60;/match&gt;
+</code></pre><pre><code>◎編集後（自分のユーザ名がoreの場合）
 </code></pre>
-
-<pre><code>◎編集後（自分のユーザ名がoreの場合）
-</code></pre>
-
-<pre><code class="language-console">&amp;#60;config version=&amp;#34;0.1&amp;#34;&gt;
+<pre><code class="language-console" data-lang="console">&amp;#60;config version=&amp;#34;0.1&amp;#34;&gt;
 &amp;#60;match user=&amp;#34;root|ore&amp;#34;&gt;
 &amp;#60;return result=&amp;#34;yes&amp;#34;/&gt;
 &amp;#60;/match&gt;
-</code></pre>
-
-<pre><code>4./etc/sysctl.confの編集
+</code></pre><pre><code>4./etc/sysctl.confの編集
 
 
 
 これは必須ではないけど以下を追加。
 </code></pre>
-
-<pre><code class="language-console">vfs.usermount=1
-</code></pre>
-
-<pre><code>んでrebootすればOK。
+<pre><code class="language-console" data-lang="console">vfs.usermount=1
+</code></pre><pre><code>んでrebootすればOK。
 </code></pre>
 <ul class="pa0">
   

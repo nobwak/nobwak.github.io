@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-01-07T01:00:00+09:00" />
 <meta itemprop="name" content="GENERIC kernelでもfreebsd-updateでupdateしてくれない件">
 <meta itemprop="description" content="8.0から8.0-p1のアップデートは、カーネルに修正が入らないので、そのままだとunameコマンドで両者の区別を出来ない。 /usr/src">
-
-
 <meta itemprop="datePublished" content="2010-01-07T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-01-07T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="529">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="GENERIC kernelでもfreebsd-updateでupdateしてくれない件"/>
 <meta name="twitter:description" content="8.0から8.0-p1のアップデートは、カーネルに修正が入らないので、そのままだとunameコマンドで両者の区別を出来ない。 /usr/src"/>
 
@@ -158,8 +155,7 @@ if (!doNotTrack) {
 
 本日、FreeBSDに&lt;a href=&quot;http://www.freebsd.org/security/advisories.html&quot; target=&quot;_blank&quot;&gt;Security Adisoryが出た&lt;/a&gt;ので、さっそくfreebsd-updateして8.0-p2に上げてみたのだが、/boot/kernel配下のカーネルが対象になっていない。
 </code></pre>
-
-<pre><code class="language-console">$ uname -a
+<pre><code class="language-console" data-lang="console">$ uname -a
 FreeBSD xxxx 8.0-RELEASE-p1 FreeBSD 8.0-RELEASE-p1 #2: Wed Dec  9 09:18:02
 JST 2009     root@xxxx:/usr/obj/usr/src/sys/GENERIC  i386
 $ freebsd-update fetch
@@ -186,21 +182,17 @@ The following files will be updated as part of updating to 8.0-RELEASE-p2:
 /boot/kernel.old/zfs.ko.symbols
 /lib/libzpool.so.2
 ＜略＞
-</code></pre>
-
-<pre><code>ひとまず/boot/GENERICと/boot/kernelにコピーして再起動、unameで8.0-p2になっていることを確認した。
+</code></pre><pre><code>ひとまず/boot/GENERICと/boot/kernelにコピーして再起動、unameで8.0-p2になっていることを確認した。
 
 
 
 今後も念のため/boot/GENERICを置いとこうと思った。
 </code></pre>
-
-<pre><code class="language-console">$ uname -a
+<pre><code class="language-console" data-lang="console">$ uname -a
 FreeBSD xxxx 8.0-RELEASE-p2 FreeBSD 8.0-RELEASE-p2 #0: Tue Jan  5 16:02:27
 UTC 2010     root@i386-builder.daemonology.net:/usr/obj/usr/src/sys/GENERIC
 i386
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

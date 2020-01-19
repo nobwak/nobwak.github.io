@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-02-28T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDのグラフィカルインストーラ”finstall”">
 <meta itemprop="description" content="FreeBSDのインストーラは、「殺風景すぐる」と言われ、「ちょっとFreeBSDをインストールしてみようかな？」と思い立った人々の心を折っ">
-
-
 <meta itemprop="datePublished" content="2008-02-28T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-02-28T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="2080">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDのグラフィカルインストーラ”finstall”"/>
 <meta name="twitter:description" content="FreeBSDのインストーラは、「殺風景すぐる」と言われ、「ちょっとFreeBSDをインストールしてみようかな？」と思い立った人々の心を折っ"/>
 
@@ -194,12 +191,9 @@ rootのパスワードの設定、ユーザの追加、シェルの選択、ホ�
 
 特にxdmなどは立ち上がってこず、いわゆるCUIでのログインだが、X、xfce4はしっかりインストールされている。後述するがFirefoxやThunderbirdもインストールされる。そのほか、perl、sudoなどもインストールされていて、むむむこれはと調べてみると、
 </code></pre>
-
-<pre><code class="language-console">$ ls /var/db/pkg|wc -l
+<pre><code class="language-console" data-lang="console">$ ls /var/db/pkg|wc -l
 326
-</code></pre>
-
-<pre><code>というように、300個以上のパッケージがインストールされていた。将来的にはインストールできるパッケージを選択できるようになればいいな。
+</code></pre><pre><code>というように、300個以上のパッケージがインストールされていた。将来的にはインストールできるパッケージを選択できるようになればいいな。
 
 
 

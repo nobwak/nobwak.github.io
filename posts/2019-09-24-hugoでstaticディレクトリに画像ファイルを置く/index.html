@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-09-24T00:27:55+09:00" />
 <meta itemprop="name" content="2019-09-24-hugoでstaticディレクトリに画像ファイルを置く">
 <meta itemprop="description" content="blogをhugoで作るとき、記事の中で画像を表示させたいことがある。 その時の方法について。 staticディレクトリに置けばよい ある特殊なフ">
-
-
 <meta itemprop="datePublished" content="2019-09-24T00:27:55&#43;09:00" />
 <meta itemprop="dateModified" content="2019-09-24T00:27:55&#43;09:00" />
 <meta itemprop="wordCount" content="379">
 
 
 
-<meta itemprop="keywords" content="hugo," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="hugo," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="2019-09-24-hugoでstaticディレクトリに画像ファイルを置く"/>
 <meta name="twitter:description" content="blogをhugoで作るとき、記事の中で画像を表示させたいことがある。 その時の方法について。 staticディレクトリに置けばよい ある特殊なフ"/>
 
@@ -140,17 +137,12 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>blogをhugoで作るとき、記事の中で画像を表示させたいことがある。
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>blogをhugoで作るとき、記事の中で画像を表示させたいことがある。
 その時の方法について。</p>
-
-<h2 id="staticディレクトリに置けばよい">staticディレクトリに置けばよい</h2>
-
-<p>ある特殊なフォルダに画像を入れると、例えば<code>/images/hoge.jpg</code>のように参照できるようになる。<br />
+<h2 id="static">staticディレクトリに置けばよい</h2>
+<p>ある特殊なフォルダに画像を入れると、例えば<code>/images/hoge.jpg</code>のように参照できるようになる。<br>
 それがstaticディレクトリ。</p>
-
-<pre><code class="language-console">.
+<pre><code class="language-console" data-lang="console">.
 |-- archetypes
 |-- config.toml
 |-- content
@@ -160,25 +152,15 @@ if (!doNotTrack) {
 |-- resources
 |-- static  # ここ
 `-- themes
-</code></pre>
-
-<p>staticディレクトリの下にimagesというディレクトリを作り、そこにhoge.jpgというファイルを作れば、記事からは<code>/images/hoge.jpg</code>として参照できる。</p>
-
-<h2 id="static以外にもそういうディレクトリを作りたい">static以外にもそういうディレクトリを作りたい</h2>
-
-<p>なお、staticディレクトリ以外にもこういったディレクトリを作ることができる。<br />
-<code>config.toml</code>で<code>staticDir</code>として指定すればよい。<br />
+</code></pre><p>staticディレクトリの下にimagesというディレクトリを作り、そこにhoge.jpgというファイルを作れば、記事からは<code>/images/hoge.jpg</code>として参照できる。</p>
+<h2 id="static-1">static以外にもそういうディレクトリを作りたい</h2>
+<p>なお、staticディレクトリ以外にもこういったディレクトリを作ることができる。<br>
+<code>config.toml</code>で<code>staticDir</code>として指定すればよい。<br>
 複数指定できる。以下は例。</p>
-
-<pre><code class="language-console">staticDir = [&quot;static&quot;, &quot;images&quot;, &quot;wp-content&quot;]
-</code></pre>
-
-<h2 id="画像のインライン表示">画像のインライン表示</h2>
-
-<pre><code class="language-console">![title](/images/hoge.jpg)  
-</code></pre>
-
-<p>以上のようにすればよい。</p>
+<pre><code class="language-console" data-lang="console">staticDir = [&quot;static&quot;, &quot;images&quot;, &quot;wp-content&quot;]
+</code></pre><h2 id="heading">画像のインライン表示</h2>
+<pre><code class="language-console" data-lang="console">![title](/images/hoge.jpg)  
+</code></pre><p>以上のようにすればよい。</p>
 <ul class="pa0">
   
    <li class="list">

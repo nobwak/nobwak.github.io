@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-03-18T01:00:00+09:00" />
 <meta itemprop="name" content="Xorg7.4のキーボード設定をkwsk その２">
 <meta itemprop="description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090316/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その1&lt;/a&gt;の続き。 で話">
-
-
 <meta itemprop="datePublished" content="2009-03-18T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-03-18T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="810">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Xorg7.4のキーボード設定をkwsk その２"/>
 <meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090316/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その1&lt;/a&gt;の続き。 で話"/>
 
@@ -150,15 +147,12 @@ if (!doNotTrack) {
 
 俺はxorg.confに&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071125/p1&quot; target=&quot;_blank&quot;&gt;以下のように&lt;/a&gt;設定していたわけだ。
 </code></pre>
-
-<pre><code class="language-console">Option          &amp;#34;XkbRules&amp;#34;      &amp;#34;xorg&amp;#34;
+<pre><code class="language-console" data-lang="console">Option          &amp;#34;XkbRules&amp;#34;      &amp;#34;xorg&amp;#34;
 Option          &amp;#34;XkbModel&amp;#34;      &amp;#34;jp106&amp;#34;
 Option          &amp;#34;XkbLayout&amp;#34;     &amp;#34;jp&amp;#34;
 #CTRLとCAPSLOCK入れ替え
 Option          &amp;#34;XkbOptions&amp;#34;    &amp;#34;ctrl:swapcaps&amp;#34;
-</code></pre>
-
-<pre><code>これをXorg7.4でもXKBに伝えてやればいいのだが、方法は3つある。
+</code></pre><pre><code>これをXorg7.4でもXKBに伝えてやればいいのだが、方法は3つある。
 
 
 
@@ -199,18 +193,14 @@ Option          &amp;#34;XkbOptions&amp;#34;    &amp;#34;ctrl:swapcaps&amp;#34;
 
 ここを見ると、xorg.confのオプションをそれぞれ以下の指定に当てはめていけばいいことが分かる。
 </code></pre>
-
-<pre><code class="language-console">input.x11_options.XkbRules
+<pre><code class="language-console" data-lang="console">input.x11_options.XkbRules
 input.x11_options.XkbModel
 input.x11_options.XkbLayout
 input.x11_options.XkbVariant
 input.x11_options.XkbOptions
+</code></pre><pre><code>なのでこうなる。
 </code></pre>
-
-<pre><code>なのでこうなる。
-</code></pre>
-
-<pre><code class="language-console">&amp;#60;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;ISO-8859-1&amp;#34;?&gt;
+<pre><code class="language-console" data-lang="console">&amp;#60;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;ISO-8859-1&amp;#34;?&gt;
 &amp;#60;deviceinfo version=&amp;#34;0.2&amp;#34;&gt;
 &amp;#60;device&gt;
 &amp;#60;match key=&amp;#34;info.capabilities&amp;#34; contains=&amp;#34;input.keyboard&amp;#34;&gt;
@@ -230,9 +220,7 @@ string=&amp;#34;Linux&amp;#34;&gt;
 &amp;#60;/match&gt;
 &amp;#60;/device&gt;
 &amp;#60;/deviceinfo&gt;
-</code></pre>
-
-<pre><code>名前は適当に/usr/local/etc/hal/fdi/policy/10-x11-input-jp106-capsctrl.fdiとして、haldを再起動してからXを起動すればOK。
+</code></pre><pre><code>名前は適当に/usr/local/etc/hal/fdi/policy/10-x11-input-jp106-capsctrl.fdiとして、haldを再起動してからXを起動すればOK。
 
 
 

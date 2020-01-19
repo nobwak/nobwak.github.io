@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-29T22:08:42+09:00" />
 <meta itemprop="name" content="[メモ] FreeBSD 10.0 で libc_nonshared.aが見つからないときには">
 <meta itemprop="description" content="10.0-RCxから10.0-RELEASEへの移行期に下記のようなエラーに遭遇した場合。 /usr/bin/ld: cannot find /usr/lib/libc_nonshared.a cc: error: linker command failed with exit code 1 (use -v to see invocation) 以下のようにし">
-
-
 <meta itemprop="datePublished" content="2014-01-29T22:08:42&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-29T22:08:42&#43;09:00" />
 <meta itemprop="wordCount" content="291">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] FreeBSD 10.0 で libc_nonshared.aが見つからないときには"/>
 <meta name="twitter:description" content="10.0-RCxから10.0-RELEASEへの移行期に下記のようなエラーに遭遇した場合。 /usr/bin/ld: cannot find /usr/lib/libc_nonshared.a cc: error: linker command failed with exit code 1 (use -v to see invocation) 以下のようにし"/>
 
@@ -141,45 +138,29 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>10.0-RCxから10.0-RELEASEへの移行期に下記のようなエラーに遭遇した場合。</p>
-
-<pre><code class="language-console">/usr/bin/ld: cannot find /usr/lib/libc_nonshared.a
+<pre><code class="language-console" data-lang="console">/usr/bin/ld: cannot find /usr/lib/libc_nonshared.a
 cc: error: linker command failed with exit code 1 (use -v to see
 invocation)
-</code></pre>
-
-<p>以下のようにしてlibc_nonshared.aをインストールすれば回避できる。</p>
-
-<pre><code class="language-console"># cd /usr/src/lib/libc_nonshared
+</code></pre><p>以下のようにしてlibc_nonshared.aをインストールすれば回避できる。</p>
+<pre><code class="language-console" data-lang="console"># cd /usr/src/lib/libc_nonshared
 # make &amp;&amp; make install &amp;&amp; make clean
-</code></pre>
-
-<p>srcが無いなら、以下からダウンロードする。（i386の例）<br />
-<a href="ftp://ftp.iij.ad.jp/pub/FreeBSD/releases/i386/10.0-RELEASE/src.txz" target="_blank"><a href="ftp://ftp.iij.ad.jp/pub/FreeBSD/releases/i386/10.0-RELEASE/src.txz">ftp://ftp.iij.ad.jp/pub/FreeBSD/releases/i386/10.0-RELEASE/src.txz</a></a></p>
-
+</code></pre><p>srcが無いなら、以下からダウンロードする。（i386の例）<br>
+<!-- raw HTML omitted --><a href="ftp://ftp.iij.ad.jp/pub/FreeBSD/releases/i386/10.0-RELEASE/src.txz%3C/a%3E">ftp://ftp.iij.ad.jp/pub/FreeBSD/releases/i386/10.0-RELEASE/src.txz&lt;/a&gt;</a></p>
 <p>src.txzを展開して（依存があるから全部展開するのがよいあるね）;</p>
-
-<pre><code class="language-console">$ tar xvzf ./src.txz
+<pre><code class="language-console" data-lang="console">$ tar xvzf ./src.txz
 x usr/src/
 x usr/src/share/monetdef/sr_YU.ISO8859-2.src
 x usr/src/share/monetdef/es_ES.UTF-8.src
 (略)
-</code></pre>
-
-<p>ディレクトリに降りてmake install clean;</p>
-
-<pre><code class="language-console">$ cd usr/src/lib/libc_nonshared/
+</code></pre><p>ディレクトリに降りてmake install clean;</p>
+<pre><code class="language-console" data-lang="console">$ cd usr/src/lib/libc_nonshared/
 $ sudo make install clean
 Warning: Object directory not changed from original /usr/home/vanilla/files/10.0/usr/src/lib/libc_nonshared
 cc  -O2 -pipe  -fpic -DPIC -fvisibility=hidden（略）
-</code></pre>
-
-<p>きちんとありますな。</p>
-
-<pre><code class="language-console">$ ls -la /usr/lib/libc_nonshared.a
+</code></pre><p>きちんとありますな。</p>
+<pre><code class="language-console" data-lang="console">$ ls -la /usr/lib/libc_nonshared.a
 -r--r--r--  1 root  wheel  16658  1月 28 23:22 /usr/lib/libc_nonshared.a
-</code></pre>
-
-<p>終わったらsrcは消してOK。</p>
+</code></pre><p>終わったらsrcは消してOK。</p>
 <ul class="pa0">
   
 </ul>

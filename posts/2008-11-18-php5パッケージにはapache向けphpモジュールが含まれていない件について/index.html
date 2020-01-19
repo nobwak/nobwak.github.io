@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-11-18T01:00:00+09:00" />
 <meta itemprop="name" content="php5パッケージにはApache向けphpモジュールが含まれていない件について">
 <meta itemprop="description" content="知らなかった。 FreeBSDを載せてサーバにしている自宅マシンは、CPUがセレロン300MHzの化石だ。 OS自体のアップグレードを自前ビルド">
-
-
 <meta itemprop="datePublished" content="2008-11-18T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-11-18T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="527">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="php5パッケージにはApache向けphpモジュールが含まれていない件について"/>
 <meta name="twitter:description" content="知らなかった。 FreeBSDを載せてサーバにしている自宅マシンは、CPUがセレロン300MHzの化石だ。 OS自体のアップグレードを自前ビルド"/>
 
@@ -166,16 +163,13 @@ OS自体のアップグレードを自前ビルドでやるのはとうの昔に
 
 ただ、引数としてバージョンも含めたパッケージ名を与えなければならないので、/var/db/pkg配下のディレクトリ名を調べるか、pkg_info -Ixで調べる。
 </code></pre>
-
-<pre><code class="language-console">$ pkg_info -L php5|grep libphp5.so
+<pre><code class="language-console" data-lang="console">$ pkg_info -L php5|grep libphp5.so
 pkg_info: can't find package 'php5' installed or in a file!
 $ pkg_info -Ix php5
 php5-5.2.6_2        PHP Scripting Language
 $ pkg_info -L php5-5.2.6_2|grep libphp5.so
 $
-</code></pre>
-
-<pre><code>まあ、確かにApacheモジュールのインストールを標準設定にするわけにはいかないので、これは仕方ないと思う。
+</code></pre><pre><code>まあ、確かにApacheモジュールのインストールを標準設定にするわけにはいかないので、これは仕方ないと思う。
 
 
 
@@ -185,11 +179,9 @@ $
 
 pkg_info -Lの内容も当然ながら変化している。
 </code></pre>
-
-<pre><code class="language-console">$ pkg_info -L php5-5.2.6_2|grep libphp5.so
+<pre><code class="language-console" data-lang="console">$ pkg_info -L php5-5.2.6_2|grep libphp5.so
 /usr/local/libexec/apache22/libphp5.so
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

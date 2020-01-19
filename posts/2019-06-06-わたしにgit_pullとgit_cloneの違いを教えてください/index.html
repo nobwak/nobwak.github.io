@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-06-06T00:00:00+00:00" />
 <meta itemprop="name" content="わたしにgit pullとgit cloneの違いを教えてください">
 <meta itemprop="description" content="日曜プログラマのわしもバージョン管理としてrcsではなくgitを使い始めた。 いろいろとドキュメントは揃っているのだが、それぞれのサブコマンド">
-
-
 <meta itemprop="datePublished" content="2019-06-06T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-06-06T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="636">
 
 
 
-<meta itemprop="keywords" content="git," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="git," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="わたしにgit pullとgit cloneの違いを教えてください"/>
 <meta name="twitter:description" content="日曜プログラマのわしもバージョン管理としてrcsではなくgitを使い始めた。 いろいろとドキュメントは揃っているのだが、それぞれのサブコマンド"/>
 
@@ -140,78 +137,54 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>日曜プログラマのわしもバージョン管理として<a href="https://www.gnu.org/software/rcs/">rcs</a>ではなくgitを使い始めた。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>日曜プログラマのわしもバージョン管理として<a href="https://www.gnu.org/software/rcs/">rcs</a>ではなくgitを使い始めた。<br>
 いろいろとドキュメントは揃っているのだが、それぞれのサブコマンドの使用用途、目的まで説明してくれるものは少なく、理解に手間取っている。</p>
-
-<p>その一つが<code>git clone</code>と<code>git pull</code>の違い。<br />
+<p>その一つが<code>git clone</code>と<code>git pull</code>の違い。<br>
 いろいろ調べて理解したのだが、また忘れそうなので備忘のため記す。</p>
-
-<h2 id="git-cloneとpull">git cloneとpull</h2>
-
+<h2 id="git-clonepull">git cloneとpull</h2>
 <p>それぞれのマニュアルから引くと;</p>
-
 <ul>
-<li>git clone</li>
-</ul>
-
+<li>
+<p>git clone</p>
 <blockquote>
 <p>Clone a repository into a new directory</p>
 </blockquote>
-
-<ul>
-<li>git pull</li>
-</ul>
-
+</li>
+<li>
+<p>git pull</p>
 <blockquote>
 <p>Fetch from and integrate with another repository or a local branch</p>
 </blockquote>
-
-<p><a href="https://git-scm.com/docs/git-clone">https://git-scm.com/docs/git-clone</a><br />
+</li>
+</ul>
+<p><a href="https://git-scm.com/docs/git-clone">https://git-scm.com/docs/git-clone</a><br>
 <a href="https://git-scm.com/docs/git-pull">https://git-scm.com/docs/git-pull</a></p>
-
-<h2 id="違い">違い</h2>
-
-<p>以下、わしの理解<br />
+<h2 id="heading">違い</h2>
+<p>以下、わしの理解<br>
 cloneとpullは、使用タイミングが異なる。</p>
-
-<p>cloneは、あるリポジトリの作業用コピーを作る。<br />
+<p>cloneは、あるリポジトリの作業用コピーを作る。<br>
 したがって、たいていは一回限りの実行。</p>
-
-<p>なお、元のレポジトリの更新を追えるような手がかりも併せて取得する。<br />
+<p>なお、元のレポジトリの更新を追えるような手がかりも併せて取得する。<br>
 これによって先々のpullができるようになる。</p>
-
-<p>pullは、すでに作業用コピーが手元にある前提で使用する。<br />
-元になったリモートのリポジトリについて、コピーを作った時点（cloneをした時点）から現時点までの更新を取得し、手元の作業用コピーにマージする。<br />
+<p>pullは、すでに作業用コピーが手元にある前提で使用する。<br>
+元になったリモートのリポジトリについて、コピーを作った時点（cloneをした時点）から現時点までの更新を取得し、手元の作業用コピーにマージする。<br>
 したがって、複数回実行する。</p>
-
-<h2 id="pullのイメージ図">pullのイメージ図</h2>
-
+<h2 id="pull">pullのイメージ図</h2>
 <p><code>git pull</code>のマニュアルにある図をもとに。</p>
-
-<pre><code class="language-console">      A---B------C master on origin
+<pre><code class="language-console" data-lang="console">      A---B------C master on origin
      /
     D---E---F---G cloneした作業用コピー
-</code></pre>
-
-<p>Aをcloneし、D, E, F, Gと更新した。<br />
-その間にコピー元はB, Cと更新が進む。<br />
+</code></pre><p>Aをcloneし、D, E, F, Gと更新した。<br>
+その間にコピー元はB, Cと更新が進む。<br>
 ここでpull。</p>
-
-<pre><code class="language-console">      A---B-------C master on origin
+<pre><code class="language-console" data-lang="console">      A---B-------C master on origin
      /             \
     D---E---F---G---H cloneした作業用コピー
 
-</code></pre>
-
-<p>手元の作業用コピーに、コピー元の更新B, Cを取り込み、Hとする。
+</code></pre><p>手元の作業用コピーに、コピー元の更新B, Cを取り込み、Hとする。
 （内部的にはgit fetch, git mergeを実行）</p>
-
-<h2 id="参考">参考</h2>
-
+<h2 id="heading-1">参考</h2>
 <p><a href="https://stackoverflow.com/questions/3620633/what-is-the-difference-between-pull-and-clone-in-git">https://stackoverflow.com/questions/3620633/what-is-the-difference-between-pull-and-clone-in-git</a></p>
-
 <p>以上。</p>
 <ul class="pa0">
   

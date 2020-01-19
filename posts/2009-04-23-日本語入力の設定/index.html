@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-04-23T01:00:00+09:00" />
 <meta itemprop="name" content="日本語入力の設定">
 <meta itemprop="description" content="日本語入力は、GNOMEだと勝手にやってくれたような気がしたが、XFCE4とかfluxboxだと自分でやる必要がある。 ただ、そんなに難しいわ">
-
-
 <meta itemprop="datePublished" content="2009-04-23T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-04-23T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="267">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="日本語入力の設定"/>
 <meta name="twitter:description" content="日本語入力は、GNOMEだと勝手にやってくれたような気がしたが、XFCE4とかfluxboxだと自分でやる必要がある。 ただ、そんなに難しいわ"/>
 
@@ -150,19 +147,13 @@ if (!doNotTrack) {
 
 japanese/uim-anthy、textproc/uim-gtkでmake install cleanでもいいし、portmasterでもいい。
 </code></pre>
-
-<pre><code class="language-console"># portmaster japanese/uim-anthy textproc/uim-gtk
+<pre><code class="language-console" data-lang="console"># portmaster japanese/uim-anthy textproc/uim-gtk
+</code></pre><pre><code>Xをstartxから起動している場合には、~/.xinitrcに以下の行を加える。
 </code></pre>
-
-<pre><code>Xをstartxから起動している場合には、~/.xinitrcに以下の行を加える。
-</code></pre>
-
-<pre><code class="language-console">export GTK_IM_MODULE=uim-anthy
+<pre><code class="language-console" data-lang="console">export GTK_IM_MODULE=uim-anthy
 export XMODIFIERS=&amp;#39;@im=uim-anthy&amp;#39;
 exec uim-xim &amp;
-</code></pre>
-
-<pre><code>XDMとかから起動してる場合には、~/.xsessionrcでいいと思う。
+</code></pre><pre><code>XDMとかから起動してる場合には、~/.xsessionrcでいいと思う。
 </code></pre>
 <ul class="pa0">
   

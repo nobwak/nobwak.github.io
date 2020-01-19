@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-05-30T22:24:38+09:00" />
 <meta itemprop="name" content="[メモ] MacのパッケージマネージャHomebrewのインストール">
 <meta itemprop="description" content="Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。 Rubyで作られて">
-
-
 <meta itemprop="datePublished" content="2014-05-30T22:24:38&#43;09:00" />
 <meta itemprop="dateModified" content="2014-05-30T22:24:38&#43;09:00" />
-<meta itemprop="wordCount" content="660">
+<meta itemprop="wordCount" content="659">
 
 
 
-<meta itemprop="keywords" content="homebrew,OSX,Ruby," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="homebrew,OSX,Ruby," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] MacのパッケージマネージャHomebrewのインストール"/>
 <meta name="twitter:description" content="Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。 Rubyで作られて"/>
 
@@ -140,22 +137,16 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。<br>
 Rubyで作られている。</p>
-
-<p>インストールは<br />
-<a href="http://brew.sh/index_ja.html" target="_blank"><a href="http://brew.sh/index_ja.html">http://brew.sh/index_ja.html</a></a><br />
+<p>インストールは<br>
+<!-- raw HTML omitted --><a href="http://brew.sh/index_ja.html%3C/a%3E">http://brew.sh/index_ja.html&lt;/a&gt;</a><br>
 ここの手順に沿う。</p>
-
-<h2 id="インストール">インストール</h2>
-
-<p>githubからダウンロード、インストールする。<br />
-<a href="http://brew.sh/index_ja.htmlの下の方にあるコマンドをそのまま実行すればよい。">http://brew.sh/index_ja.htmlの下の方にあるコマンドをそのまま実行すればよい。</a><br />
+<h2 id="heading">インストール</h2>
+<p>githubからダウンロード、インストールする。<br>
+<a href="http://brew.sh/index_ja.html">http://brew.sh/index_ja.html</a>の下の方にあるコマンドをそのまま実行すればよい。<br>
 以下が実行例。</p>
-
-<pre><code class="language-console">$ which ruby
+<pre><code class="language-console" data-lang="console">$ which ruby
 /usr/bin/ruby
 $ ruby -e &quot;$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)&quot;
 ==&gt; This script will install:
@@ -174,71 +165,48 @@ HEAD is now at 17eceb1 pdf2htmlex: upstream patch to fix build with latest poppl
 Run `brew doctor` before you install anything
 Run `brew help` to get started
 $
-</code></pre>
-
-<p>まずbrew doctorをせい、ということなので。</p>
-
-<pre><code class="language-console">$ brew doctor
+</code></pre><p>まずbrew doctorをせい、ということなので。</p>
+<pre><code class="language-console" data-lang="console">$ brew doctor
 Your system is ready to brew.
-</code></pre>
-
-<p>以上はうまくいった場合。<br />
-少しでも気を抜くとこんな風に怒られる。<br />
-24時間updateしてないだけで。<br />
+</code></pre><p>以上はうまくいった場合。<br>
+少しでも気を抜くとこんな風に怒られる。<br>
+24時間updateしてないだけで。<br>
 brewで作業するならまずbrew updateしてから、にしたほうが良さそう。</p>
-
-<pre><code class="language-console">$ brew doctor
+<pre><code class="language-console" data-lang="console">$ brew doctor
 Warning: Your Homebrew is outdated.
 You haven't updated for at least 24 hours, this is a long time in brewland!
 To update Homebrew, run `brew update`.
-</code></pre>
-
-<p>update。</p>
-
-<pre><code class="language-console">$ brew update
+</code></pre><p>update。</p>
+<pre><code class="language-console" data-lang="console">$ brew update
 Updated Homebrew from 17eceb1a to 8510ebcd.
 ==&gt; New Formulae
 aces_container		   libltc	
 （略）
-</code></pre>
-
-<h2 id="pathの変更">PATHの変更</h2>
-
-<p>せっかくbrewでソフトウェアをインストールするなら、それを使ってくれるようPATHを修正する。<br />
+</code></pre><h2 id="path">PATHの変更</h2>
+<p>せっかくbrewでソフトウェアをインストールするなら、それを使ってくれるようPATHを修正する。<br>
 profileに以下の一行を加える。</p>
-
-<pre><code class="language-console">$ vi ~/.bash_profile
+<pre><code class="language-console" data-lang="console">$ vi ~/.bash_profile
 
 export PATH=/usr/local/bin:$PATH
-</code></pre>
-
-<p>試してみよう<br />
-ドット「 . 」に続けてprofileを指定すれば読み込んでくれる。<br />
+</code></pre><p>試してみよう<br>
+ドット「 . 」に続けてprofileを指定すれば読み込んでくれる。<br>
 そのあとにPATHの中身を確認。</p>
-
-<pre><code class="language-console">$ . ~/.bash_profile
+<pre><code class="language-console" data-lang="console">$ . ~/.bash_profile
 $
 $ echo $PATH
 /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
-</code></pre>
-
-<p>/usr/local/binが二回続けて出てくるけど、まあよしとする。</p>
-
-<h2 id="使い方">使い方</h2>
-
-<p>使い方は以下のとおり。<br />
+</code></pre><p>/usr/local/binが二回続けて出てくるけど、まあよしとする。</p>
+<h2 id="heading-1">使い方</h2>
+<p>使い方は以下のとおり。<br>
 まあ、一般的ですよね。</p>
-
-<p><code>console
-brew [info | home | options ] [FORMULA...]
+<pre><code class="language-console" data-lang="console">brew [info | home | options ] [FORMULA...]
   brew install FORMULA...
   brew uninstall FORMULA...
   brew search [foo]
   brew list [FORMULA...]
   brew update
   brew upgrade [FORMULA...]
-  brew pin/unpin [FORMULA...]</code></p>
-<ul class="pa0">
+  brew pin/unpin [FORMULA...]```</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/homebrew" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">homebrew</a>

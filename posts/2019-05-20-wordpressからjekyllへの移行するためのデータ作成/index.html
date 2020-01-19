@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-05-20T00:00:00+00:00" />
 <meta itemprop="name" content="WordpressからJekyllへ移行するためのデータ作成">
 <meta itemprop="description" content="レンタルサーバにさよならを ブログをあるレンタルサーバに置いていた。 値段もそこそこで、Wordpressも一発で構築できるので重宝していたのだ">
-
-
 <meta itemprop="datePublished" content="2019-05-20T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-05-20T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2936">
+<meta itemprop="wordCount" content="2934">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="WordpressからJekyllへ移行するためのデータ作成"/>
 <meta name="twitter:description" content="レンタルサーバにさよならを ブログをあるレンタルサーバに置いていた。 値段もそこそこで、Wordpressも一発で構築できるので重宝していたのだ"/>
 
@@ -140,87 +137,53 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="レンタルサーバにさよならを">レンタルサーバにさよならを</h2>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="heading">レンタルサーバにさよならを</h2>
 <p>ブログをあるレンタルサーバに置いていた。
 値段もそこそこで、Wordpressも一発で構築できるので重宝していたのだが、SSL対応をすると素の時とは違うアドレスでアクセスしないとダメ、という不条理な仕様のせいで引っ越しをする。</p>
-
 <p>引っ越しはgithub pagesに決めているのだが、その経緯は別の項に譲り、本稿ではWordpressからJekyllに移行&ndash;正しくはJekyllへインポートできるデータの作成について備忘のため記す。</p>
-
-<h2 id="プラグインのwordpress-to-jekyll-exporterを使う">プラグインのWordPress to Jekyll Exporterを使う</h2>
-
+<h2 id="wordpress-to-jekyll-exporter">プラグインのWordPress to Jekyll Exporterを使う</h2>
 <p>これはもう定番で、WordpressのプラグインであるWordPress to Jekyll Exporterを使う。あとはJekyllで読めばよい。</p>
-
 <p>それだけで終了といえば終了なのだが、いろいろと苦労があったのでこの記事を書いている。</p>
-
-<h2 id="jekyll-exporterとは">Jekyll Exporterとは</h2>
-
+<h2 id="jekyll-exporter">Jekyll Exporterとは</h2>
 <p>このプラグインを使うと、Wordpressのデータを根こそぎzipファイルにまとめてくれる。</p>
-
 <p>Wordpress自体にもエクスポート機能はあるが、こちらは記事をマークダウン形式に変換してくれるし、画像もまとめてくれるのが大きな違い。</p>
-
 <p>インストールするとダッシュボードの「ツール」に「Export to Jekyll」というメニューが生まれるので、これをクリックするだけ、なのだが。</p>
-
 <p>いくつか注意点がある。みんなあまりこの辺のことを書かないんだよな。</p>
-
-<h2 id="export-to-jekyllするときの注意">Export to Jekyllするときの注意</h2>
-
+<h2 id="export-to-jekyll">Export to Jekyllするときの注意</h2>
 <ol>
-<li>データが多いと失敗する</li>
-</ol>
-
-<p>wordpress（あるいはそれを動かしているphp）では、プロセスの実行にタイムアウト時間を設けている。データがあまりに多いと作業がこのタイムアウト時間を超えてしまい、強制終了されてしまう。エクスポートが失敗し、エラーメッセージが&rdquo;Maximum execution time of 30 seconds exceeded&rdquo;であるなら、まさにこれ。（もちろん、数字は設定によって異なる）</p>
-
+<li>
+<p>データが多いと失敗する</p>
+<p>wordpress（あるいはそれを動かしているphp）では、プロセスの実行にタイムアウト時間を設けている。データがあまりに多いと作業がこのタイムアウト時間を超えてしまい、強制終了されてしまう。エクスポートが失敗し、エラーメッセージが&quot;Maximum execution time of 30 seconds exceeded&quot;であるなら、まさにこれ。（もちろん、数字は設定によって異なる）</p>
 <p>対処方法としては、wordpressのwp-config.phpで以下の一行を加える。</p>
-
-<pre><code class="language-php">   set_time_limit(300);
-</code></pre>
-
-<p>値は秒なので心ゆくまで延ばせ。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">set_time_limit(300);
+</code></pre></div><p>値は秒なので心ゆくまで延ばせ。</p>
 <p>あるいは以下にあるように、.htaccessやphp.iniで対応する手もある。
-   <a href="https://codex.wordpress.org/Common_WordPress_Errors#Maximum_execution_time_exceeded">https://codex.wordpress.org/Common_WordPress_Errors#Maximum_execution_time_exceeded</a></p>
-
-<ol>
-<li>プラグインは無効化を</li>
-</ol>
-
+<a href="https://codex.wordpress.org/Common_WordPress_Errors#Maximum_execution_time_exceeded">https://codex.wordpress.org/Common_WordPress_Errors#Maximum_execution_time_exceeded</a></p>
+</li>
+<li>
+<p>プラグインは無効化を</p>
 <p>プラグインを使って記事内に「いいね」ボタン等を自動挿入している場合。
-   そのままにしていると、Jekyllに書き出したときに以下のようなタグが大量に含まれる。</p>
-
-<pre><code class="language-html">   &lt;div class=&quot;wsbl_facebook_like&quot;&gt;
-</code></pre>
-
-<p>私の場合、このほかにも記事内の目次を自動生成するプラグインを使っている。
-   エクスポートするのは記事内容なので、こういった付加情報は無いほうがいいだろう。</p>
-
+そのままにしていると、Jekyllに書き出したときに以下のようなタグが大量に含まれる。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wsbl_facebook_like&#34;</span>&gt;
+</code></pre></div><p>私の場合、このほかにも記事内の目次を自動生成するプラグインを使っている。
+エクスポートするのは記事内容なので、こういった付加情報は無いほうがいいだろう。</p>
 <p>というわけで、エクスポートにあたっては、Export to Jekyll以外のプラグインは無効化する。</p>
-
-<ol>
-<li>permalinkは「基本」がいいでしょう（未検証）</li>
-</ol>
-
+</li>
+<li>
+<p>permalinkは「基本」がいいでしょう（未検証）</p>
 <p>SEO目的等でpermalinkに投稿名を含める設定にしていると、Jekyllがうまく処理できない。</p>
-
 <p>日本語permalinkのままJekyllでhtml化すると、なぜかhtmlリンクが働かない記事がいくつか発生した。いろいろ調べたものの原因が分からず、後の工程でpermalinkを無視して進めた。「基本」、つまり記事のアドレスが「?p=記事番号」になる設定にすれば、あるいは道が見つかるかもしれないが&hellip;未検証。もうやりとうない。</p>
-
-<ol>
-<li>作成したzipファイルは7-zip等で伸張を</li>
-</ol>
-
+</li>
+<li>
+<p>作成したzipファイルは7-zip等で伸張を</p>
 <p>Export to Jekyllで作成したzipファイルは、なぜかWindows10で伸張できない。7-zip等のアーカイバを使うこと。FreeBSDのunzipでも伸張できた。</p>
-
-<h2 id="export-to-jekyllで得たデータの整形">Export to Jekyllで得たデータの整形</h2>
-
+</li>
+</ol>
+<h2 id="export-to-jekyll-1">Export to Jekyllで得たデータの整形</h2>
 <p>前述のような注意点を踏まえても、出力したデータにはさらに手を加える必要がある。</p>
-
-<h3 id="画像リンク修正">画像リンク修正</h3>
-
+<h3 id="heading-1">画像リンク修正</h3>
 <p>Export to Jekyllで出力したzipを展開するとおおよそ以下のようなディレクトリ構成になる。</p>
-
-<pre><code class="language-bash">.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.
 ├── _config.yml
 ├── _drafts
 ├── _posts
@@ -229,22 +192,15 @@ if (!doNotTrack) {
         ├── 2017
         ├── 2018
         └── 2019
-</code></pre>
-
-<p>Wordpressでせっせと書きためた記事は_postsの直下に置かれる（なお拡張子はすべて&rdquo;.md&rdquo;（markdown）になっている）</p>
-
+</code></pre></div><p>Wordpressでせっせと書きためた記事は_postsの直下に置かれる（なお拡張子はすべて&rdquo;.md&rdquo;（markdown）になっている）</p>
 <p>wp-content/uploadsの下には、年に加え、さらに月ごとにディレクトリがあって、そこに画像が格納されている。</p>
-
 <p>Wordpressの設定によるかもしれないが、画像リンクは絶対アドレスで書かれているので、そのまま使うと画像だけは引っ越し元から読み込むことになってしまう。これはマズいのでリンクを書き換える必要がある。</p>
-
 <p>手っ取り早いのは相対パスにしてしまうことだ。</p>
-
 <p>Jekyllで処理をすると最終的なディレクトリ構成は以下のようになる。</p>
-
-<pre><code class="language-bash">_site
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">_site
 ├── 2019
-│   ├── 01 (記事がある)
-│   └── 05 (記事がある)
+│   ├── <span style="color:#ae81ff">01</span> <span style="color:#f92672">(</span>記事がある<span style="color:#f92672">)</span>
+│   └── <span style="color:#ae81ff">05</span> <span style="color:#f92672">(</span>記事がある<span style="color:#f92672">)</span>
 ├── about
 ├── assets
 │   ├── main.css
@@ -253,85 +209,57 @@ if (!doNotTrack) {
 └── wp-content
     └── uploads
         └── 2019
-            ├── 01 (画像がある)
-            └── 05 (画像がある)
-</code></pre>
-
-<p>記事はたとえば2019/05の下に置かれ、画像はwp-content/uploadsの下に置かれるわけだから、以下の通りリンクを書き換えればよい。</p>
-
-<pre><code class="language-bash">   変更前: http://hogehoge.hoge/blogs/wp-content/uploads/2019/05/hoge.jpg
+            ├── <span style="color:#ae81ff">01</span> <span style="color:#f92672">(</span>画像がある<span style="color:#f92672">)</span>
+            └── <span style="color:#ae81ff">05</span> <span style="color:#f92672">(</span>画像がある<span style="color:#f92672">)</span>
+</code></pre></div><p>記事はたとえば2019/05の下に置かれ、画像はwp-content/uploadsの下に置かれるわけだから、以下の通りリンクを書き換えればよい。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">   変更前: http://hogehoge.hoge/blogs/wp-content/uploads/2019/05/hoge.jpg
    変更後: ../../wp-content/uploads/2019/05/hoge.jpg
-</code></pre>
-
-<p>ということで、_postsディレクトリに降りてsedすればよい。</p>
-
-<pre><code class="language-console">$ sed -i.bak -e 's#http\://hogehoge.hoge/blogs/#\.\./\.\./#g' *.md
+</code></pre></div><p>ということで、_postsディレクトリに降りてsedすればよい。</p>
+<pre><code class="language-console" data-lang="console">$ sed -i.bak -e 's#http\://hogehoge.hoge/blogs/#\.\./\.\./#g' *.md
 $
-</code></pre>
-
-<p>そのままだとスラッシュ、コロン、ドットすべてをエスケープしないといけないので、デリミタを#にして、せめてスラッシュくらいは使えるようにしている</p>
-
-<h2 id="front-matterにあるpermalinkの削除">front matterにあるpermalinkの削除</h2>
-
+</code></pre><p>そのままだとスラッシュ、コロン、ドットすべてをエスケープしないといけないので、デリミタを#にして、せめてスラッシュくらいは使えるようにしている</p>
+<h2 id="front-matterpermalink">front matterにあるpermalinkの削除</h2>
 <p>Jekyllで記事を書く時には、冒頭にfront matterというエリアを設け、そこに設定を書き込むようになっている。
 例えば以下のようなものだ。</p>
-
-<pre><code class="language-yaml">---
-id: 3201
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">--<span style="color:#e6db74">-</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">id: 3201</span>
 title: FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）
-date: 2019-05-12T20:30:48+09:00
+date: <span style="color:#e6db74">2019-05-12T20:30:48</span><span style="color:#ae81ff">+09</span>:<span style="color:#ae81ff">00</span>
 author: nobwak
 layout: post
-guid: ../../?p=3201
-permalink: /?p=3201
-image: /wp-content/uploads/2019/05/18-620x483.jpg
+guid: ../../?p=<span style="color:#ae81ff">3201</span>
+permalink: /?p=<span style="color:#ae81ff">3201</span>
+image: /wp-content/uploads/<span style="color:#ae81ff">2019</span>/<span style="color:#ae81ff">05</span>/<span style="color:#ae81ff">18</span>-620x483.jpg
 categories:
   - bhyve
----
-</code></pre>
-
-<p>ここに「permalink」という行がある。
+--<span style="color:#e6db74">-</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74"></span></code></pre></div><p>ここに「permalink」という行がある。
 これはJekyllがhtmlのリンク構成を作るときに、どうpermalinkを設定するかを制御する。
 参考:<a href="https://jekyllrb.com/docs/front-matter/">https://jekyllrb.com/docs/front-matter/</a></p>
-
 <p>デフォルトだと年/月/日/タイトル.htmlだが、front matterにこう書かれてしまうとpermalinkが滅茶苦茶になる。
 （記事名で作ればよいが先述の通り日本語記事だとどうもうまくいかない）</p>
-
 <p>そこでfront matterから一律でpermalinkを削る。</p>
-
 <p>とんでもない荒療治だが、いい手が思い浮かばないのでこうする。
 ただ、こうするとJekyllはデフォルト設定に従って、構成を/カテゴリ/年/月/日/タイトル.htmlとする。もしこれが気に入らないのなら、Jekyllの設定ファイルである_config.ymlで指定を行う。これは後述。</p>
-
 <p>さて削除。前項と同様、_postsでsed。permalinkは8行目だから;</p>
-
-<pre><code class="language-console">$ sed -i.bak2 -e '8d' *.md
+<pre><code class="language-console" data-lang="console">$ sed -i.bak2 -e '8d' *.md
 $
-</code></pre>
-
-<p>無事に削除された。</p>
-
-<pre><code class="language-yaml">---
-id: 3201
+</code></pre><p>無事に削除された。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">--<span style="color:#e6db74">-</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">id: 3201</span>
 title: FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）
-date: 2019-05-12T20:30:48+09:00
+date: <span style="color:#e6db74">2019-05-12T20:30:48</span><span style="color:#ae81ff">+09</span>:<span style="color:#ae81ff">00</span>
 author: nobwak
 layout: post
-guid: ../../?p=3201
-image: /wp-content/uploads/2019/05/18-620x483.jpg
+guid: ../../?p=<span style="color:#ae81ff">3201</span>
+image: /wp-content/uploads/<span style="color:#ae81ff">2019</span>/<span style="color:#ae81ff">05</span>/<span style="color:#ae81ff">18</span>-620x483.jpg
 categories:
   - bhyve
----
-</code></pre>
-
-<h2 id="jekyllのディレクトリ構成を変えたい">Jekyllのディレクトリ構成を変えたい</h2>
-
+--<span style="color:#e6db74">-</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74"></span></code></pre></div><h2 id="jekyll">Jekyllのディレクトリ構成を変えたい</h2>
 <p>Jekyllの設定ファイルである_config.ymlに以下の行を追加すればよいだけ。</p>
-
-<pre><code class="language-yaml">permalink: /:year/:month/:day-:slug:output_ext
-</code></pre>
-
-<p>書式はJekyll<a href="https://jekyllrb.com/docs/permalinks/">公式サイト</a>の説明を見ればよろしい。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">permalink: /:year/:month/:day-:slug:output_ext
+</code></pre></div><p>書式はJekyll<a href="https://jekyllrb.com/docs/permalinks/">公式サイト</a>の説明を見ればよろしい。</p>
 <p>以上。</p>
 <ul class="pa0">
   

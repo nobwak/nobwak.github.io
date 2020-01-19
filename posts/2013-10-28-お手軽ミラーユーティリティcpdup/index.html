@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-10-28T22:00:10+09:00" />
 <meta itemprop="name" content="お手軽ミラーユーティリティcpdup">
 <meta itemprop="description" content="rsyncの悩み ディレクトリの同期とくればrsyncが定番でありオンリーワンと言えよう。 ただこのrsync、久しぶりに使うとコマンド書式を忘">
-
-
 <meta itemprop="datePublished" content="2013-10-28T22:00:10&#43;09:00" />
 <meta itemprop="dateModified" content="2013-10-28T22:00:10&#43;09:00" />
 <meta itemprop="wordCount" content="2328">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="お手軽ミラーユーティリティcpdup"/>
 <meta name="twitter:description" content="rsyncの悩み ディレクトリの同期とくればrsyncが定番でありオンリーワンと言えよう。 ただこのrsync、久しぶりに使うとコマンド書式を忘"/>
 
@@ -140,91 +137,61 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="span-style-text-decoration-underline-rsyncの悩み-span"><span style="text-decoration: underline;">rsyncの悩み</span></h2>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlinersyncspan"><!-- raw HTML omitted -->rsyncの悩み<!-- raw HTML omitted --></h2>
 <p>ディレクトリの同期とくればrsyncが定番でありオンリーワンと言えよう。</p>
-
-<p>ただこのrsync、久しぶりに使うとコマンド書式を忘れてて苦労するのですよ。<br />
+<p>ただこのrsync、久しぶりに使うとコマンド書式を忘れてて苦労するのですよ。<br>
 「確かオプションは-avzだったかな」「リモートホストの指定方法はなんだっけ・・・」とmanとしばらく格闘するわけですな。</p>
-
-<h2 id="span-style-text-decoration-underline-ディレクトリ指定の複雑さ-span"><span style="text-decoration: underline;">ディレクトリ指定の複雑さ</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->ディレクトリ指定の複雑さ<!-- raw HTML omitted --></h2>
 <p>加えてディレクトリの指定の仕方も理解しにくい。</p>
-
-<p>例えば、二つのディレクトリを同期させたいとき。<br />
+<p>例えば、二つのディレクトリを同期させたいとき。<br>
 rsync -avz dirA dirBを実行すると、こんなことが起こる（確かこうだった…。スラッシュがあるかないかで違ったかも）。</p>
-
 <ul>
-<li>dirBがないとき<br />
+<li>dirBがないとき<br>
 →dirBが作られる。</li>
-<li>すでにdirBがあるとき<br />
+<li>すでにdirBがあるとき<br>
 →dirB/dirAが作られる。</li>
 </ul>
-
-<p>前者をイメージしていたのに、後者のパターンにゲンナリすることがよくある。<br />
+<p>前者をイメージしていたのに、後者のパターンにゲンナリすることがよくある。<br>
 そこで使えるのがcpdupである。</p>
-
-<h2 id="span-style-text-decoration-underline-お手軽ミラーユーティリティcpdup-span"><span style="text-decoration: underline;">お手軽ミラーユーティリティcpdup</span></h2>
-
-<p>cpdupはファイルシステムのミラーを作るユーティリティである。<br />
+<h2 id="span-styletext-decoration-underlinecpdupspan"><!-- raw HTML omitted -->お手軽ミラーユーティリティcpdup<!-- raw HTML omitted --></h2>
+<p>cpdupはファイルシステムのミラーを作るユーティリティである。<br>
 「ファイルシステムの」と書いたのは、ハードリンク、ソフトリンク、デバイス、パーミッションなども面倒見てくれるからである。</p>
-
-<p>リモートホストと同期させる場合のプロトコルにはsshが使われる。<br />
+<p>リモートホストと同期させる場合のプロトコルにはsshが使われる。<br>
 また、リモートホストにもインストールが必要。</p>
-
 <p>rsyncの代替にはならないけれども、手軽で、わかりやすいインタフェースを持つ。</p>
-
-<p>manはこちら。<br />
-<a href="http://linux.die.net/man/1/cpdup" target="_blank"><a href="http://linux.die.net/man/1/cpdup">http://linux.die.net/man/1/cpdup</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-cpdupのインストール-span"><span style="text-decoration: underline;">cpdupのインストール</span></h2>
-
-<p>FreeBSDだと、portsならsysutils/cpdup。pkgでもOK。<br />
-Linuxでもパッケージから手に入るでしょう。<br />
+<p>manはこちら。<br>
+<!-- raw HTML omitted --><a href="http://linux.die.net/man/1/cpdup%3C/a%3E">http://linux.die.net/man/1/cpdup&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinecpdupspan-1"><!-- raw HTML omitted -->cpdupのインストール<!-- raw HTML omitted --></h2>
+<p>FreeBSDだと、portsならsysutils/cpdup。pkgでもOK。<br>
+Linuxでもパッケージから手に入るでしょう。<br>
 リモートと同期させる場合には、リモートホストにもcpdup入れておくこと。</p>
-
-<h2 id="span-style-text-decoration-underline-cpdup書式-span"><span style="text-decoration: underline;">cpdup書式</span></h2>
-
-<p>書式は以下の通り。<br />
+<h2 id="span-styletext-decoration-underlinecpdupspan-2"><!-- raw HTML omitted -->cpdup書式<!-- raw HTML omitted --></h2>
+<p>書式は以下の通り。<br>
 オプションは一部。全部見たいならmanでどうぞ。</p>
-
-<pre><code class="language-console">cpdup [-C] [-v[v]] [-d] [-I] [-i0] [-o] [-q] ＜ソースDir＞ ＜tターゲットDir＞
-</code></pre>
-
-<p>通常的に使うオプションは、「-C -vv -d -I]でよいと思う。</p>
-
-<pre><code class="language-console">-C    リモートホストとファイル送受をするとき、sshコネクションを圧縮する。
+<pre><code class="language-console" data-lang="console">cpdup [-C] [-v[v]] [-d] [-I] [-i0] [-o] [-q] ＜ソースDir＞ ＜tターゲットDir＞
+</code></pre><p>通常的に使うオプションは、「-C -vv -d -I]でよいと思う。</p>
+<pre><code class="language-console" data-lang="console">-C    リモートホストとファイル送受をするとき、sshコネクションを圧縮する。
 -vv   処理状況を表示させる。v一つだと変更のあったときしかメッセージが表示されないので、v二つがよい。
 -d    処理の行われるディレクトリを表示させる。
 -I    処理が終わったあとにサマリを表示させる。
 -i0   確認せずにファイルやディレクトリを削除する。
 -o    削除を一切しない。追加か上書きのみ。
 -q    表示をさせない。
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-br-cpdup実行例-span"><span style="text-decoration: underline;"><br /> cpdup実行例</span></h2>
-
-<p>まず手元にファイルを含むディレクトリを作る。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinebr--cpdupspan"><!-- raw HTML omitted --><!-- raw HTML omitted --> cpdup実行例<!-- raw HTML omitted --></h2>
+<p>まず手元にファイルを含むディレクトリを作る。<br>
 下記の例ではtestDirディレクトリに、a, b, c, d, e, fというファイルを作った。</p>
-
-<pre><code class="language-console">$ mkdir testDir
+<pre><code class="language-console" data-lang="console">$ mkdir testDir
 $ cd testDir/
 $ touch a b c d e f
 $ ls
 a       b       c       d       e       f
 $ cd ..
-</code></pre>
-
-<p><span style="text-decoration: underline;">典型例</span></p>
-
-<p>ではこれをcpdupしてみよう。<br />
-リモートの192.168.154.241にコピーする。<br />
-基本の「-C -vv -d -I」で。<br />
+</code></pre><p><!-- raw HTML omitted -->典型例<!-- raw HTML omitted --></p>
+<p>ではこれをcpdupしてみよう。<br>
+リモートの192.168.154.241にコピーする。<br>
+基本の「-C -vv -d -I」で。<br>
 出力がとても分かりやすい。</p>
-
-<pre><code class="language-console">$ cpdup -C -vv -d -I ./testDir 192.168.154.241:~/testDir
+<pre><code class="language-console" data-lang="console">$ cpdup -C -vv -d -I ./testDir 192.168.154.241:~/testDir
 Password:
 Handshaked with cal01
 ~/testDir
@@ -240,15 +207,11 @@ cpdup completed successfully
 0 bytes written (nanX speedup)
 6 source items, 6 items copied, 0 items linked, 0 things deleted
 2.5 seconds     0 Kbytes/sec synced     0 Kbytes/sec scanned
-</code></pre>
-
-<p><span style="text-decoration: underline;">ターゲットにすでにディレクトリがあってもOK.</span></p>
-
-<p>そこでもう一度同じコマンドを実行してみる。<br />
-何もコピーされない。<br />
+</code></pre><p><!-- raw HTML omitted -->ターゲットにすでにディレクトリがあってもOK.<!-- raw HTML omitted --></p>
+<p>そこでもう一度同じコマンドを実行してみる。<br>
+何もコピーされない。<br>
 これがもしrsyncだと、testDir/testDirが作られることになる。</p>
-
-<pre><code class="language-console">$ cpdup -C -vv -d -I ./testDir 192.168.154.241:~/testDir
+<pre><code class="language-console" data-lang="console">$ cpdup -C -vv -d -I ./testDir 192.168.154.241:~/testDir
 Password:
 Handshaked with cal01
 ~/testDir
@@ -258,14 +221,10 @@ cpdup completed successfully
 0 bytes written (nanX speedup)
 6 source items, 0 items copied, 0 items linked, 0 things deleted
 2.6 seconds     0 Kbytes/sec synced     0 Kbytes/sec scanned
-</code></pre>
-
-<p><span style="text-decoration: underline;">ターゲットのファイルを削除するときは確認あり。</span></p>
-
-<p>では手元の./testDir/aを削除してもう一度。<br />
+</code></pre><p><!-- raw HTML omitted -->ターゲットのファイルを削除するときは確認あり。<!-- raw HTML omitted --></p>
+<p>では手元の./testDir/aを削除してもう一度。<br>
 ターゲットのtestDir/aを削除するか、聞いてくれる。</p>
-
-<pre><code class="language-console">$ rm ./testDir/a
+<pre><code class="language-console" data-lang="console">$ rm ./testDir/a
 
 $ cpdup -C -vv -d -I ./testDir 192.168.154.241:~/testDir
 Password:
@@ -278,14 +237,10 @@ cpdup completed successfully
 0 bytes written (nanX speedup)
 5 source items, 0 items copied, 0 items linked, 1 things deleted
 4.3 seconds     0 Kbytes/sec synced     0 Kbytes/sec scanned
-</code></pre>
-
-<p><span style="text-decoration: underline;">-i0で削除時の確認を抑制</span></p>
-
-<p>今度は手元の./testDir/bを削除し、-i0を付けてみる。<br />
+</code></pre><p><!-- raw HTML omitted -->-i0で削除時の確認を抑制<!-- raw HTML omitted --></p>
+<p>今度は手元の./testDir/bを削除し、-i0を付けてみる。<br>
 確認なくターゲットのbを削除している。</p>
-
-<pre><code class="language-console">$ rm ./testDir/b
+<pre><code class="language-console" data-lang="console">$ rm ./testDir/b
 $
 $ cpdup -C -vv -d -I -i0 ./testDir 192.168.154.241:~/testDir
 Password:
@@ -298,14 +253,10 @@ cpdup completed successfully
 0 bytes written (nanX speedup)
 4 source items, 0 items copied, 0 items linked, 1 things deleted
 2.6 seconds     0 Kbytes/sec synced     0 Kbytes/sec scanned
-</code></pre>
-
-<p><span style="text-decoration: underline;">-oでターゲットの削除を抑制</span></p>
-
-<p>さらに手元の./testDir/cを削除し、-oを付けてみる。<br />
+</code></pre><p><!-- raw HTML omitted -->-oでターゲットの削除を抑制<!-- raw HTML omitted --></p>
+<p>さらに手元の./testDir/cを削除し、-oを付けてみる。<br>
 ターゲットのcの削除はされない。</p>
-
-<pre><code class="language-console">$ rm ./testDir/c
+<pre><code class="language-console" data-lang="console">$ rm ./testDir/c
 $
 $ cpdup -C -vv -d -I -o ./testDir 192.168.154.241:~/testDir
 Password:
@@ -318,55 +269,36 @@ cpdup completed successfully
 0 bytes written (nanX speedup)
 3 source items, 0 items copied, 0 items linked, 0 things deleted
 2.6 seconds     0 Kbytes/sec synced     0 Kbytes/sec scanned
-</code></pre>
-
-<p><span style="text-decoration: underline;">メッセージの抑制</span></p>
-
-<p>メッセージ表示のオプションをすべて外してみる。<br />
+</code></pre><p><!-- raw HTML omitted -->メッセージの抑制<!-- raw HTML omitted --></p>
+<p>メッセージ表示のオプションをすべて外してみる。<br>
 出力がかなり減った。</p>
-
-<pre><code class="language-console">$ cpdup -C -o ./testDir 192.168.154.241:~/testDir
+<pre><code class="language-console" data-lang="console">$ cpdup -C -o ./testDir 192.168.154.241:~/testDir
 Password:
 Handshaked with cal01
 $
-</code></pre>
-
-<p>さらに-qを付けてみる。<br />
+</code></pre><p>さらに-qを付けてみる。<br>
 出力が一切ない。</p>
-
-<pre><code class="language-console">$ cpdup -C -q -o ./testDir 192.168.154.241:~/testDir
+<pre><code class="language-console" data-lang="console">$ cpdup -C -q -o ./testDir 192.168.154.241:~/testDir
 Password:
 $
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-たいへん結構-ではスピードは-span"><span style="text-decoration: underline;">たいへん結構。ではスピードは？</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->たいへん結構。ではスピードは？<!-- raw HTML omitted --></h2>
 <p>rsyncとどれくらい違うか、実験してみた。</p>
-
-<p>FreeBSD 9.2-RELEASEのソースをミラーリングしてみた。<br />
+<p>FreeBSD 9.2-RELEASEのソースをミラーリングしてみた。<br>
 5696のディレクトリに52315のファイルがあり、サイズは800MBである。</p>
-
-<p>ハードウェアのスペックは割愛。<br />
+<p>ハードウェアのスペックは割愛。<br>
 Windows上のVMがソース、古いDELLマシンがターゲットなので…。</p>
-
 <p>rsyncには-avzを、cpdupには-C -vv -d -Iを与えた。</p>
-
 <p>結果。</p>
-
 <p>rsyncは6分。</p>
-
-<pre><code class="language-console">sent 191011733 bytes  received 1016783 bytes  518295.59 bytes/sec
+<pre><code class="language-console" data-lang="console">sent 191011733 bytes  received 1016783 bytes  518295.59 bytes/sec
 total size is 686599114  speedup is 3.58
 
 real    6m10.328s
 user    0m38.497s
 sys     0m33.395s
-</code></pre>
-
-<p>cpdupは30分。<br />
+</code></pre><p>cpdupは30分。<br>
 …30分!?</p>
-
-<pre><code class="language-console">686599114 bytes source, 686599114 src bytes read, 0 tgt bytes read
+<pre><code class="language-console" data-lang="console">686599114 bytes source, 686599114 src bytes read, 0 tgt bytes read
 686599114 bytes written (1.0X speedup)
 52315 source items, 58011 items copied, 0 items linked, 0 things deleted
 1893.2 seconds   708 Kbytes/sec synced   354 Kbytes/sec scanned
@@ -374,16 +306,11 @@ sys     0m33.395s
 real    31m33.236s
 user    0m8.380s
 sys     0m16.133s
-</code></pre>
-
-<p>ま、まあ、スピードの点では、cpdupはまったく話にならないですな…。<br />
+</code></pre><p>ま、まあ、スピードの点では、cpdupはまったく話にならないですな…。<br>
 （転送量を見るとcpdupの方はspeedupがあまり効いてないように見えるなあ。）</p>
-
-<p>ミラーリングとは言っても、初回のフルコピーだから、差分コピーだとまた違った結果が得られるかもしれない。<br />
+<p>ミラーリングとは言っても、初回のフルコピーだから、差分コピーだとまた違った結果が得られるかもしれない。<br>
 ただちょっとここまで差があると試す気にもなりまへん。</p>
-
-<h2 id="span-style-text-decoration-underline-まとめ-span"><span style="text-decoration: underline;">まとめ</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->まとめ<!-- raw HTML omitted --></h2>
 <p>cpdupはちょっとしたミラーリングの時に使うには、手軽で書式もわかりやすいので有用、いっぽう、気合い入れてやるミラーリングはrsyncで、って事でいいんじゃないでしょうかね。</p>
 <ul class="pa0">
   

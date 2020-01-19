@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2018-03-21T15:20:02+09:00" />
 <meta itemprop="name" content="Linuxで音声の出力先をUSBスピーカーにする">
 <meta itemprop="description" content="Nano Pi Neo2にスピーカーを繋いだのだが、ノイズが入ってたまらない。 そこでUSBスピーカーから音を出すようにしてみる。 USBスピーカーはこれ。">
-
-
 <meta itemprop="datePublished" content="2018-03-21T15:20:02&#43;09:00" />
 <meta itemprop="dateModified" content="2018-03-21T15:20:02&#43;09:00" />
 <meta itemprop="wordCount" content="1096">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linuxで音声の出力先をUSBスピーカーにする"/>
 <meta name="twitter:description" content="Nano Pi Neo2にスピーカーを繋いだのだが、ノイズが入ってたまらない。 そこでUSBスピーカーから音を出すようにしてみる。 USBスピーカーはこれ。"/>
 
@@ -140,17 +137,15 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Nano Pi Neo2にスピーカーを繋いだのだが、ノイズが入ってたまらない。<br />
-そこでUSBスピーカーから音を出すようにしてみる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Nano Pi Neo2にスピーカーを繋いだのだが、ノイズが入ってたまらない。<br>
+そこでUSBスピーカーから音を出すようにしてみる。<br>
 USBスピーカーはこれ。USBケーブル一本でいいので重宝している。</p>
-
-<p>まずalsamixerで音量を確かめておく。<br />
-<a href="../../../wp-content/uploads/2018/03/alsamixer.png">alsamixer</a><br />
-次。<br />
-aplayコマンドを使って、音声出力のハードウェアデバイスのcardとdevice番号を調べる。<br />
+<p>まずalsamixerで音量を確かめておく。<br>
+<a href="../../../wp-content/uploads/2018/03/alsamixer.png">alsamixer</a><br>
+次。<br>
+aplayコマンドを使って、音声出力のハードウェアデバイスのcardとdevice番号を調べる。<br>
 <code>-help</code>オプションで使い方を。</p>
-
-<pre><code class="language-console">$ aplay -help  
+<pre><code class="language-console" data-lang="console">$ aplay -help  
 Usage: aplay [OPTION]... [FILE]...
 
 -h, -help help  
@@ -159,11 +154,8 @@ Usage: aplay [OPTION]... [FILE]...
 -L, -list-pcms list device names  
 （略）
 
-</code></pre>
-
-<p>-lオプションで一覧を得る。</p>
-
-<pre><code class="language-console">$ aplay -l  
+</code></pre><p>-lオプションで一覧を得る。</p>
+<pre><code class="language-console" data-lang="console">$ aplay -l  
 &lt;span class=&quot;gs&quot;&gt;*\*\\*\*&lt;/span&gt; List of PLAYBACK Hardware Devices &lt;span class=&quot;gs&quot;&gt;\*\***&lt;/span&gt;  
 card 0: Codec &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;H3 Audio Codec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;, device 0: CDC PCM Codec-0 &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;]  
 Subdevices: 1/1  
@@ -174,15 +166,11 @@ Subdevice #0: subdevice #0
 card 2: MicroII &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Audio Advantage MicroII&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;, device 0: USB Audio &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;USB Audio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  
 Subdevices: 1/1  
 Subdevice #0: subdevice #0  
-</code></pre>
-
-<p>USBスピーカーだから最後のものが該当。<br />
+</code></pre><p>USBスピーカーだから最後のものが該当。<br>
 MicroIIということがわかる。</p>
-
-<p>speaker-testコマンドでテストする。<br />
+<p>speaker-testコマンドでテストする。<br>
 -helpで確認するのが定石</p>
-
-<pre><code class="language-console">$ speaker-test -help
+<pre><code class="language-console" data-lang="console">$ speaker-test -help
 
 speaker-test 1.1.0
 
@@ -206,12 +194,9 @@ Usage: speaker-test [OPTION]...
 -S,-scale Scale of generated test tones in percent (default=80)
 
 Recognized sample formats are: S8 S16\_LE S16\_BE FLOAT\_LE S32\_LE S32_BE  
-</code></pre>
-
-<p>-Dオプションで出力先を選ぶ。<br />
+</code></pre><p>-Dオプションで出力先を選ぶ。<br>
 出力先の指定はデバイスネームだからさっきのaplayコマンドで再チェック</p>
-
-<pre><code class="language-console">$ aplay -L|grep MicroII  
+<pre><code class="language-console" data-lang="console">$ aplay -L|grep MicroII  
 sysdefault:CARD=MicroII  
 Audio Advantage MicroII, USB Audio  
 front:CARD=MicroII,DEV=0  
@@ -238,11 +223,8 @@ hw:CARD=MicroII,DEV=0
 Audio Advantage MicroII, USB Audio  
 plughw:CARD=MicroII,DEV=0  
 Audio Advantage MicroII, USB Audio
-</code></pre>
-
-<p>ということで、hw:MicroIIで試す。</p>
-
-<pre><code class="language-console">$ speaker-test -Dhw:MicroII
+</code></pre><p>ということで、hw:MicroIIで試す。</p>
+<pre><code class="language-console" data-lang="console">$ speaker-test -Dhw:MicroII
 
 speaker-test 1.1.0
 
@@ -251,14 +233,10 @@ Stream parameters are 48000Hz, S16_LE, 1 channels
 Using 16 octaves of pink noise  
 Channels count (1) not available for playbacks: Invalid argument  
 Setting of hwparams failed: Invalid argument
-</code></pre>
-
-<p>鳴らない。</p>
-
-<p>この辺を読み、hwではなくplughwにしてみる。<br />
+</code></pre><p>鳴らない。</p>
+<p>この辺を読み、hwではなくplughwにしてみる。<br>
 <a href="http://www.volkerschatz.com/noise/alsa.html">http://www.volkerschatz.com/noise/alsa.html</a></p>
-
-<pre><code class="language-console">$ speaker-test -Dplughw:MicroII
+<pre><code class="language-console" data-lang="console">$ speaker-test -Dplughw:MicroII
 
 speaker-test 1.1.0
 
@@ -276,12 +254,9 @@ was set buffer_size = 262144
 Time per period = 2.769702  
 0 - Front Left  
 ^CTime per period = 2.426893  
-</code></pre>
-
-<p>鳴った。<br />
+</code></pre><p>鳴った。<br>
 チャンネル2つにしてみると</p>
-
-<pre><code class="language-console">$ speaker-test -c2 -Dplughw:MicroII
+<pre><code class="language-console" data-lang="console">$ speaker-test -c2 -Dplughw:MicroII
 
 speaker-test 1.1.0
 
@@ -298,30 +273,19 @@ was set buffer_size = 262144
 0 - Front Left  
 1 - Front Right  
 ^CTime per period = 3.587277
-</code></pre>
-
-<p>左右で鳴る。<br />
+</code></pre><p>左右で鳴る。<br>
 さらにaplayで試す。</p>
-
-<pre><code class="language-console">$ aplay /usr/share/sounds/alsa/Front_Center.wav -D plughw:MicroII  
+<pre><code class="language-console" data-lang="console">$ aplay /usr/share/sounds/alsa/Front_Center.wav -D plughw:MicroII  
 Playing WAVE -/usr/share/sounds/alsa/Front_Center.wav' : Signed 16 bit Little Endian, Rate 48000 Hz, Mono
-</code></pre>
-
-<p>よさそう。<br />
-これでmpg123などを使えば、mp3ファイルなども鳴らすことができる。<br />
+</code></pre><p>よさそう。<br>
+これでmpg123などを使えば、mp3ファイルなども鳴らすことができる。<br>
 mpg123でデバイスを指定するには-aオプションで。</p>
-
-<pre><code class="language-console">mpg123 -q -a plughw:MicroII XXXX.mp3
-</code></pre>
-
-<p>ためしにデバイスにdefaultを指定すると文字通り標準設定のデバイスから出力を試みる。<br />
+<pre><code class="language-console" data-lang="console">mpg123 -q -a plughw:MicroII XXXX.mp3
+</code></pre><p>ためしにデバイスにdefaultを指定すると文字通り標準設定のデバイスから出力を試みる。<br>
 USBスピーカーはならないはず。</p>
-
-<pre><code class="language-console">$ aplay /usr/share/sounds/alsa/Front_Center.wav -D default
+<pre><code class="language-console" data-lang="console">$ aplay /usr/share/sounds/alsa/Front_Center.wav -D default
 $
-</code></pre>
-
-<p>デフォルトの出力先を変えるには、以下の手順に沿えばよい。<br />
+</code></pre><p>デフォルトの出力先を変えるには、以下の手順に沿えばよい。<br>
 <a href="https://www.alsa-project.org/main/index.php/Setting_the_default_device">https://www.alsa-project.org/main/index.php/Setting_the_default_device</a></p>
 <ul class="pa0">
   

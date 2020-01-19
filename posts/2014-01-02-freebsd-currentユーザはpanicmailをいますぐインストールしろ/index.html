@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-02T22:15:22+09:00" />
 <meta itemprop="name" content="FreeBSD-currentユーザはpanicmailをいますぐインストールしろ">
 <meta itemprop="description" content="FreeBSDダイモン（守護霊）の一人であらせられるコリン・パーシバル（Colin Percival）神がpanicmailをインストールせい">
-
-
 <meta itemprop="datePublished" content="2014-01-02T22:15:22&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-02T22:15:22&#43;09:00" />
 <meta itemprop="wordCount" content="883">
 
 
 
-<meta itemprop="keywords" content="FreeBSD," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSD-currentユーザはpanicmailをいますぐインストールしろ"/>
 <meta name="twitter:description" content="FreeBSDダイモン（守護霊）の一人であらせられるコリン・パーシバル（Colin Percival）神がpanicmailをインストールせい"/>
 
@@ -140,31 +137,22 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>FreeBSDダイモン（守護霊）の一人であらせられるコリン・パーシバル（Colin Percival）神が<a href="http://lists.freebsd.org/pipermail/freebsd-current/2013-November/046175.html" target="_blank">panicmailをインストールせい</a>、と仰せになったので入れた。</p>
-
-<h2 id="span-style-text-decoration-underline-panicmailとは-span"><span style="text-decoration: underline;">panicmailとは</span></h2>
-
-<p>panicmailとは、FreeBSDがkernel panicを起こしたとき、panic reportをFreeBSDの開発者に送るツールのこと。<br />
-もちろん、panic reportにはセンシティブな情報は含まれないうえに、暗号化された状態で送られる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSDダイモン（守護霊）の一人であらせられるコリン・パーシバル（Colin Percival）神が<!-- raw HTML omitted -->panicmailをインストールせい<!-- raw HTML omitted -->、と仰せになったので入れた。</p>
+<h2 id="span-styletext-decoration-underlinepanicmailspan"><!-- raw HTML omitted -->panicmailとは<!-- raw HTML omitted --></h2>
+<p>panicmailとは、FreeBSDがkernel panicを起こしたとき、panic reportをFreeBSDの開発者に送るツールのこと。<br>
+もちろん、panic reportにはセンシティブな情報は含まれないうえに、暗号化された状態で送られる。<br>
 開発者は、受け取ったレポートをもとに開発を進める。</p>
-
-<h2 id="span-style-text-decoration-underline-kernel-panic-だと-span"><span style="text-decoration: underline;">kernel panic&hellip;だと？</span></h2>
-
-<p>そもそも安定しているOSなのでpanicなんて滅多にしない。<br />
-するのはcurrentくらい。<br />
-currentでなければ最初のOSインストールのときくらいではないだろうか。<br />
-それだけにコリン神のアナウンスもcurrentメーリングリストである。<br />
-だからインストールするのはcurrentユーザだけでいいんじゃないですかね。<br />
+<h2 id="span-styletext-decoration-underlinekernel-panicspan"><!-- raw HTML omitted -->kernel panic&hellip;だと？<!-- raw HTML omitted --></h2>
+<p>そもそも安定しているOSなのでpanicなんて滅多にしない。<br>
+するのはcurrentくらい。<br>
+currentでなければ最初のOSインストールのときくらいではないだろうか。<br>
+それだけにコリン神のアナウンスもcurrentメーリングリストである。<br>
+だからインストールするのはcurrentユーザだけでいいんじゃないですかね。<br>
 RELEASEユーザならまあ保険程度に。</p>
-
-<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
-
-<p>panicmailはsysutils/panicmailから入れられる。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->インストール<!-- raw HTML omitted --></h2>
+<p>panicmailはsysutils/panicmailから入れられる。<br>
 以下はpkgngでのインストール例。</p>
-
-<pre><code class="language-console">$ sudo pkg search panicmail
+<pre><code class="language-console" data-lang="console">$ sudo pkg search panicmail
 panicmail-1.0
 $ sudo pkg install panicmail
 Updating repository catalogue
@@ -193,23 +181,17 @@ them if they do not contain any sensitive information. To automatically
 submit panic reports directly, add
 panicmail_autosubmit=&quot;YES&quot;
 to your /etc/rc.conf in addition.
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-設定-span"><span style="text-decoration: underline;">設定</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->設定<!-- raw HTML omitted --></h2>
 <p>panicmailを送るには以下が必要。</p>
-
 <ol>
 <li>dumpdevが有効であること</li>
 <li>panicmail_enableがrc.confで設定されていること</li>
 </ol>
-
-<p>この状態でkernel panicが起こると、レポートはいったん当該システムのrootに送られる。<br />
-レビューをして問題なければFreeBSD開発者にメールを送る。<br />
-そのレビューをすっ飛ばしたいなら、panicmail_autosubmitをrc.confで設定すればよい。<br />
+<p>この状態でkernel panicが起こると、レポートはいったん当該システムのrootに送られる。<br>
+レビューをして問題なければFreeBSD開発者にメールを送る。<br>
+そのレビューをすっ飛ばしたいなら、panicmail_autosubmitをrc.confで設定すればよい。<br>
 以下、/etc/rc.conf設定例。</p>
-
-<pre><code class="language-console">#
+<pre><code class="language-console" data-lang="console">#
 # enable kernel panic reports
 #
 # see:
@@ -217,9 +199,7 @@ to your /etc/rc.conf in addition.
 # http://lists.freebsd.org/pipermail/freebsd-current/2013-November/046175.html
 panicmail_enable=&quot;YES&quot;
 panicmail_autosubmit=&quot;YES&quot;
-</code></pre>
-
-<p>テストをしてみるべきなんだろうけど、やってません。</p>
+</code></pre><p>テストをしてみるべきなんだろうけど、やってません。</p>
 <ul class="pa0">
   
    <li class="list">

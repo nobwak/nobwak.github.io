@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-03-16T01:00:00+09:00" />
 <meta itemprop="name" content="trは一文字ごとに判断する件について">
 <meta itemprop="description" content="$ cat sample.txt &amp;#60;a&gt;&amp;#60;b&gt; 上記のテキストに対して以下のtrを実行するとどうなるか。 tr &amp;#34;ab&amp;#34; &amp;#34;cd&amp;#34; 試してみる。 $ tr &amp;#34;ab&amp;#34; &amp;#34;cd&amp;#34; &amp;#60; ./sample.txt &amp;#60;c&gt;&amp;#60;d&gt; げえっ。 つまり、trは1文字ずつ判断する。 a">
-
-
 <meta itemprop="datePublished" content="2012-03-16T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-16T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="161">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="trは一文字ごとに判断する件について"/>
 <meta name="twitter:description" content="$ cat sample.txt &amp;#60;a&gt;&amp;#60;b&gt; 上記のテキストに対して以下のtrを実行するとどうなるか。 tr &amp;#34;ab&amp;#34; &amp;#34;cd&amp;#34; 試してみる。 $ tr &amp;#34;ab&amp;#34; &amp;#34;cd&amp;#34; &amp;#60; ./sample.txt &amp;#60;c&gt;&amp;#60;d&gt; げえっ。 つまり、trは1文字ずつ判断する。 a"/>
 
@@ -140,24 +137,16 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code class="language-console">$ cat sample.txt
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code class="language-console" data-lang="console">$ cat sample.txt
 &amp;#60;a&gt;&amp;#60;b&gt;
+</code></pre><pre><code>上記のテキストに対して以下のtrを実行するとどうなるか。
 </code></pre>
-
-<pre><code>上記のテキストに対して以下のtrを実行するとどうなるか。
+<pre><code class="language-console" data-lang="console">tr &amp;#34;ab&amp;#34; &amp;#34;cd&amp;#34;
+</code></pre><pre><code>試してみる。
 </code></pre>
-
-<pre><code class="language-console">tr &amp;#34;ab&amp;#34; &amp;#34;cd&amp;#34;
-</code></pre>
-
-<pre><code>試してみる。
-</code></pre>
-
-<pre><code class="language-console">$ tr &amp;#34;ab&amp;#34; &amp;#34;cd&amp;#34; &amp;#60; ./sample.txt
+<pre><code class="language-console" data-lang="console">$ tr &amp;#34;ab&amp;#34; &amp;#34;cd&amp;#34; &amp;#60; ./sample.txt
 &amp;#60;c&gt;&amp;#60;d&gt;
-</code></pre>
-
-<pre><code>げえっ。
+</code></pre><pre><code>げえっ。
 
 
 
@@ -186,12 +175,9 @@ if (!doNotTrack) {
 
 同じファイルに対して。
 </code></pre>
-
-<pre><code class="language-console">$ tr -d &amp;#34;&amp;#60;&gt;&amp;#34; &amp;#60; sample.txt
+<pre><code class="language-console" data-lang="console">$ tr -d &amp;#34;&amp;#60;&gt;&amp;#34; &amp;#60; sample.txt
 ab
-</code></pre>
-
-<pre><code>「&lt;&gt;」ではなく「&lt;」「&gt;」を消去していることに注意。
+</code></pre><pre><code>「&lt;&gt;」ではなく「&lt;」「&gt;」を消去していることに注意。
 </code></pre>
 <ul class="pa0">
   

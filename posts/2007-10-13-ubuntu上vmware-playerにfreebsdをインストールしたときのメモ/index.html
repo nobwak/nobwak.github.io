@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2007-10-13T01:00:00+09:00" />
 <meta itemprop="name" content="ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ">
 <meta itemprop="description" content="VMware Playerの入手 &lt;a href=&quot;http://www.vmware.com/download/player/&quot; target=&quot;_blank&quot;&gt;http://www.vmware.com/download/player/&lt;/a&gt; tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeの">
-
-
 <meta itemprop="datePublished" content="2007-10-13T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2007-10-13T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="735">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ"/>
 <meta name="twitter:description" content="VMware Playerの入手 &lt;a href=&quot;http://www.vmware.com/download/player/&quot; target=&quot;_blank&quot;&gt;http://www.vmware.com/download/player/&lt;/a&gt; tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeの"/>
 
@@ -176,14 +173,10 @@ apt-get install qemuなどとしてインストール。
 
 引数などはググれば山盛り出てくるんで省略。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  qemu-img create -f vmdk fbsd.vmdk 8G
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>同じディレクトリに上記ディスクイメージ用の設定ファイルを作成。
 
 
@@ -205,8 +198,7 @@ vmware-playerを実行して設定ファイルを選ぶだけ。
 
 ○template.vmx
 </code></pre>
-
-<pre><code class="language-console">###########################
+<pre><code class="language-console" data-lang="console">###########################
 # vmxテンプレートファイル
 #  vmware-player 2.x用
 ###########################
@@ -285,8 +277,7 @@ ethernet0.connectionType = &quot;bridged&quot;
 # 動かない場合にはe1000をvlanceに変更
 ethernet0.virtualDev = &quot;e1000&quot;
 #ethernet0.virtualDev = &quot;vlance&quot;
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

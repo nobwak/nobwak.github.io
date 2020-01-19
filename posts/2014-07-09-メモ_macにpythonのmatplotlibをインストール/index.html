@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-07-09T20:53:38+09:00" />
 <meta itemprop="name" content="[メモ] MacにPythonのmatplotlibをインストール">
 <meta itemprop="description" content="matplotlibには、gfortran、freetypeが必要で、こちらはbrewでインストールする。 あとはpipでnumpy, scip">
-
-
 <meta itemprop="datePublished" content="2014-07-09T20:53:38&#43;09:00" />
 <meta itemprop="dateModified" content="2014-07-09T20:53:38&#43;09:00" />
 <meta itemprop="wordCount" content="330">
 
 
 
-<meta itemprop="keywords" content="OSX,python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="OSX,python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] MacにPythonのmatplotlibをインストール"/>
 <meta name="twitter:description" content="matplotlibには、gfortran、freetypeが必要で、こちらはbrewでインストールする。 あとはpipでnumpy, scip"/>
 
@@ -140,23 +137,15 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>matplotlibには、gfortran、freetypeが必要で、こちらはbrewでインストールする。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>matplotlibには、gfortran、freetypeが必要で、こちらはbrewでインストールする。<br>
 あとはpipでnumpy, scipyをインストールし、やっとmatplotlibをインストールできる。</p>
-
-<h2 id="gfortran-freetypeのインストール">gfortran, freetypeのインストール</h2>
-
+<h2 id="gfortran-freetype">gfortran, freetypeのインストール</h2>
 <p>gfortran。</p>
-
-<pre><code class="language-console">$ brew install gfortran
+<pre><code class="language-console" data-lang="console">$ brew install gfortran
 ==&gt; Summary
  /usr/local/Cellar/gfortran/4.8.2: 960 files, 113M
-</code></pre>
-
-<p>freetype。libpngも入る。</p>
-
-<pre><code class="language-console">$ brew install freetype
+</code></pre><p>freetype。libpngも入る。</p>
+<pre><code class="language-console" data-lang="console">$ brew install freetype
 ==&gt; Installing freetype dependency: libpng
 ==&gt; Downloading https://downloads.sf.net/project/machomebrew/Bottles/libpng-1.6.
 ######################################################################## 100.0%
@@ -168,50 +157,35 @@ if (!doNotTrack) {
 ==&gt; Pouring freetype-2.5.3_1.mavericks.bottle.1.tar.gz
 /usr/local/Cellar/freetype/2.5.3_1: 60 files, 2.5M
 $
-</code></pre>
-
-<h2 id="numpy-scipyのインストール">numpy, scipyのインストール</h2>
-
-<pre><code class="language-console">$ pip install numpy
+</code></pre><h2 id="numpy-scipy">numpy, scipyのインストール</h2>
+<pre><code class="language-console" data-lang="console">$ pip install numpy
 Successfully installed numpy
 Cleaning up...
 $
 $ pip install scipy
 Successfully installed scipy
 Cleaning up...
-</code></pre>
-
-<p>numpy, scipyのテスト<br />
+</code></pre><p>numpy, scipyのテスト<br>
 以下のようなスクリプトを実行</p>
-
-<pre><code class="language-console">import numpy
+<pre><code class="language-console" data-lang="console">import numpy
 print numpy.__version__
 import scipy
 print scipy.__version__
 quit()
-</code></pre>
-
-<p>実行結果</p>
-
-<pre><code class="language-console">$ python ./test.py 
+</code></pre><p>実行結果</p>
+<pre><code class="language-console" data-lang="console">$ python ./test.py 
 1.8.1
 0.14.0
-</code></pre>
-
-<h2 id="matplotlibのインストール">matplotlibのインストール</h2>
-
+</code></pre><h2 id="matplotlib">matplotlibのインストール</h2>
 <p>やっとmatplotlib</p>
-
-<pre><code class="language-console">$ pip install matplotlib
+<pre><code class="language-console" data-lang="console">$ pip install matplotlib
 Downloading/unpacking matplotlib
   Downloading matplotlib-1.3.1.tar.gz (42.7MB):  69%  29.5MB
 （略）
 Successfully installed matplotlib python-dateutil tornado pyparsing nose six backports.ssl-match-hostname
 Cleaning up...
 $
-</code></pre>
-
-<p>おしまい。</p>
+</code></pre><p>おしまい。</p>
 <ul class="pa0">
   
    <li class="list">

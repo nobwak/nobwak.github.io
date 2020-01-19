@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-01-05T01:00:00+09:00" />
 <meta itemprop="name" content="portsにsubversionとsubversion-freebsdの二つがある件について">
 <meta itemprop="description" content="/usr/ports/develにsubversionとsubversion-freebsdがあってちょっと驚いた。 どうもsubversio">
-
-
 <meta itemprop="datePublished" content="2010-01-05T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-01-05T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="339">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="portsにsubversionとsubversion-freebsdの二つがある件について"/>
 <meta name="twitter:description" content="/usr/ports/develにsubversionとsubversion-freebsdがあってちょっと驚いた。 どうもsubversio"/>
 
@@ -146,20 +143,16 @@ if (!doNotTrack) {
 
 どうもsubversion-freebsdにはFreeBSDのソースレポジトリにアクセスする際に便利なよう、ちょっとしたカスタマイズがされているものらしい。
 </code></pre>
-
-<pre><code class="language-console">$ cat ./subversion-freebsd/pkg-descr
+<pre><code class="language-console" data-lang="console">$ cat ./subversion-freebsd/pkg-descr
 Subversion is a version control system designed to be as similar to cvs(1)
 as possible, while fixing many outstanding problems with cvs(1).
 This version adds patches that at this time are specific to the needs of
 the FreeBSD Project src repository.  If you do not need to access that
 repository you will want to use devel/subversion.
 WWW: http://subversion.tigris.org/
+</code></pre><pre><code>&lt;a href=&quot;http://forums.freebsd.org/showthread.php?t=2740&quot; target=&quot;_blank&quot;&gt;FreeBSDのForum&lt;/a&gt;より、subversion-freebsdに入っているもの。
 </code></pre>
-
-<pre><code>&lt;a href=&quot;http://forums.freebsd.org/showthread.php?t=2740&quot; target=&quot;_blank&quot;&gt;FreeBSDのForum&lt;/a&gt;より、subversion-freebsdに入っているもの。
-</code></pre>
-
-<pre><code class="language-console">There&amp;#39;s 4 things in there:
+<pre><code class="language-console" data-lang="console">There&amp;#39;s 4 things in there:
 - supply the repository location in keyword substitution
 - set &amp;#34;display original&amp;#34; to true for merges
 - provide 3 extra format characters in substitution
@@ -171,8 +164,7 @@ WWW: http://subversion.tigris.org/
 + &amp;#34;Obtained from:&amp;#34;,
 + &amp;#34;MFC after:&amp;#34;,
 + &amp;#34;Security:&amp;#34;,
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-11-20T01:00:00+09:00" />
 <meta itemprop="name" content="インストールしたportsのpkgを作るには">
 <meta itemprop="description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081118/p1&quot; target=&quot;_blank&quot;&gt;こんなこと&lt;/a&gt;があったので、やはり曲がりなりにもサーバたるもの">
-
-
 <meta itemprop="datePublished" content="2008-11-20T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-11-20T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="911">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="インストールしたportsのpkgを作るには"/>
 <meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081118/p1&quot; target=&quot;_blank&quot;&gt;こんなこと&lt;/a&gt;があったので、やはり曲がりなりにもサーバたるもの"/>
 
@@ -150,11 +147,8 @@ if (!doNotTrack) {
 
 ビルドするときにパッケージも作っておく方法はいくらでもあるが、すでにビルド済みのマシンでパッケージを作るのはあまり経験が無かったのでメモ。
 </code></pre>
-
-<pre><code class="language-console"># pkg_create -Rvb php5-5.2.6_2
-</code></pre>
-
-<pre><code>このように、バージョン名も含めてターゲットを指定すると、カレントディレクトリにpkgが作成されるので、それを移す。
+<pre><code class="language-console" data-lang="console"># pkg_create -Rvb php5-5.2.6_2
+</code></pre><pre><code>このように、バージョン名も含めてターゲットを指定すると、カレントディレクトリにpkgが作成されるので、それを移す。
 
 
 
@@ -172,8 +166,7 @@ if (!doNotTrack) {
 
 以下が実行例。
 </code></pre>
-
-<pre><code class="language-console">$ pkg_create -Rvb php5-5.2.6_2
+<pre><code class="language-console" data-lang="console">$ pkg_create -Rvb php5-5.2.6_2
 Creating package php5-5.2.6_2
 Creating bzip'd tar ball in '/usr/home/flageo/php5-5.2.6_2.tbz'
 Creating package expat-2.0.1
@@ -192,9 +185,7 @@ Creating package apache-2.2.9_5
 Creating bzip'd tar ball in '/usr/home/flageo/apache-2.2.9_5.tbz'
 Creating package libxml2-2.6.32_1
 Creating bzip'd tar ball in '/usr/home/flageo/libxml2-2.6.32_1.tbz'
-</code></pre>
-
-<pre><code>ところで、php5の場合はphp5-extensionsでインストールしたphp拡張機能も作っておく必要がある。
+</code></pre><pre><code>ところで、php5の場合はphp5-extensionsでインストールしたphp拡張機能も作っておく必要がある。
 
 
 
@@ -212,8 +203,7 @@ Creating bzip'd tar ball in '/usr/home/flageo/libxml2-2.6.32_1.tbz'
 
 下記が実行例。-Rオプションはここでは外している。
 </code></pre>
-
-<pre><code class="language-console">$ pkg_info -Ix php5|cut -d&quot; &quot; -f 1 |xargs -n 1 pkg_create -vb
+<pre><code class="language-console" data-lang="console">$ pkg_info -Ix php5|cut -d&quot; &quot; -f 1 |xargs -n 1 pkg_create -vb
 Creating package php5-5.2.6_2
 Creating bzip'd tar ball in '/usr/home/flageo/php5-5.2.6_2.tbz'
 Creating package php5-bz2-5.2.6_2
@@ -221,20 +211,16 @@ Creating bzip'd tar ball in '/usr/home/flageo/php5-bz2-5.2.6_2.tbz'
 （略）
 Creating package php5-zlib-5.2.6_2
 Creating bzip'd tar ball in '/usr/home/flageo/php5-zlib-5.2.6_2.tbz'
+</code></pre><pre><code>こういうまだるっこしいことをせず、インストールされているportsのすべてをpkgにするには、pkg_infoにEaオプションを与えてpkg_createに渡す。
 </code></pre>
-
-<pre><code>こういうまだるっこしいことをせず、インストールされているportsのすべてをpkgにするには、pkg_infoにEaオプションを与えてpkg_createに渡す。
-</code></pre>
-
-<pre><code class="language-console">$ pkg_info -Ea|xargs -n 1 pkg_create -vb
+<pre><code class="language-console" data-lang="console">$ pkg_info -Ea|xargs -n 1 pkg_create -vb
 Creating package ORBit2-2.14.14
 Creating bzip'd tar ball in '/usr/home/flageo/ORBit2-2.14.14.tbz'
 Creating package aalib-1.4.r5_4
 Creating bzip'd tar ball in '/usr/home/flageo/aalib-1.4.r5_4.tbz'
 Creating package alacarte-0.11.5_1
 （略）
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

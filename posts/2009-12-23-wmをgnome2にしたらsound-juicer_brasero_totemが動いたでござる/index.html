@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-12-23T01:00:00+09:00" />
 <meta itemprop="name" content="WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。">
 <meta itemprop="description" content="納得いかないが、とりあえずメモだけしとく。 sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev">
-
-
 <meta itemprop="datePublished" content="2009-12-23T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-12-23T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1047">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。"/>
 <meta name="twitter:description" content="納得いかないが、とりあえずメモだけしとく。 sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev"/>
 
@@ -154,8 +151,7 @@ sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/de
 
 /etc/fstabを修正して、/dev/acd0をコメントアウト、さらにprocを作っておく。
 </code></pre>
-
-<pre><code class="language-console">$ cat /etc/fstab
+<pre><code class="language-console" data-lang="console">$ cat /etc/fstab
 # Device		Mountpoint	FStype	Options		Dump	Pass#
 /dev/ad0s1b		none		swap	sw		0	0
 /dev/ad0s1a		/		ufs	rw		1	1
@@ -172,20 +168,15 @@ devfs on /dev (devfs, local, multilabel)
 /dev/ad0s1e on /usr (ufs, local)
 /dev/ad0s1d on /var (ufs, local)
 procfs on /proc (procfs, local)
-</code></pre>
-
-<pre><code>◎atapicamをロードするよう、/boot/loader.confを修正する。
+</code></pre><pre><code>◎atapicamをロードするよう、/boot/loader.confを修正する。
 
 
 
 &lt;a href=&quot;http://www.freebsd.org/gnome/docs/faq2.html#q15&quot; target=&quot;_blank&quot;&gt;FreeBSD公式サイト&lt;/a&gt;を見るとKernelにdevice atapicamを入れろとか書いてあるが、そんなことしたらGENERICカーネルが使えずfreebsd-updateに影響するので、カーネルモジュールをロードすることにした。
 </code></pre>
-
-<pre><code class="language-console">$ grep atapicam /boot/loader.conf
+<pre><code class="language-console" data-lang="console">$ grep atapicam /boot/loader.conf
 atapicam_load=&amp;#34;YES&amp;#34;
-</code></pre>
-
-<pre><code>loader.confが正しく設定されているか、いったんリブートして確認するのがよいが、どうせ後でdevfs.confを修正した時にリブートするのでその時に確認するとして、ここではsudo kldload atapicamする。
+</code></pre><pre><code>loader.confが正しく設定されているか、いったんリブートして確認するのがよいが、どうせ後でdevfs.confを修正した時にリブートするのでその時に確認するとして、ここではsudo kldload atapicamする。
 
 
 
@@ -195,8 +186,7 @@ kldstatしてatapicamがロードされているか見る。
 
 さらにcamcontrolでデバイスが認識されていることも確認すること。
 </code></pre>
-
-<pre><code class="language-console">$ kldstat
+<pre><code class="language-console" data-lang="console">$ kldstat
 Id Refs Address    Size     Name
 1   19 0xc0400000 b6dfe0   kernel
 2    1 0xc0f6e000 7224     snd_ich.ko
@@ -207,9 +197,7 @@ Id Refs Address    Size     Name
 7    1 0xc48e3000 14000    drm.ko
 $ camcontrol devlist
 &amp;#60;HL-DT-ST RW/DVD GCC-4160N 0013&gt;   at scbus1 target 0 lun 0 (cd0,pass0)
-</code></pre>
-
-<pre><code>◎camcontrol devlistで表示されたデバイス名に合わせて/etc/devfs.confを修正する。
+</code></pre><pre><code>◎camcontrol devlistで表示されたデバイス名に合わせて/etc/devfs.confを修正する。
 
 
 
@@ -227,8 +215,7 @@ $ camcontrol devlist
 
 その他にxpt0, pass0も同様に。
 </code></pre>
-
-<pre><code class="language-console">$ tail /etc/devfs.conf
+<pre><code class="language-console" data-lang="console">$ tail /etc/devfs.conf
 #####
 own	cd0	root:operator
 perm	cd0	0666
@@ -247,9 +234,7 @@ $ ls -la /dev/cd0 /dev/xpt0 /dev/pass0
 crw-rw----  1 root  operator    0,  92 12 21 23:52 /dev/cd0
 crw-rw----  1 root  operator    0,  91 12 21 23:52 /dev/pass0
 crw-rw----  1 root  operator    0,  90 12 21 23:52 /dev/xpt0
-</code></pre>
-
-<pre><code>GNOMEだったらこれで行けた。XFCE4だったらダメ。
+</code></pre><pre><code>GNOMEだったらこれで行けた。XFCE4だったらダメ。
 </code></pre>
 <ul class="pa0">
   

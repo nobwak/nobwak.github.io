@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2006-05-01T01:00:00+09:00" />
 <meta itemprop="name" content="認証の必要なPROXY越しのportsnap">
 <meta itemprop="description" content="認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが">
-
-
 <meta itemprop="datePublished" content="2006-05-01T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2006-05-01T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="780">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="認証の必要なPROXY越しのportsnap"/>
 <meta name="twitter:description" content="認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが"/>
 
@@ -153,9 +150,7 @@ if (!doNotTrack) {
 
 先に結論:
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  　portsnapで認証要のPROXYを突破するときは、下記環境変数を設定すること。
 
 
@@ -166,9 +161,7 @@ if (!doNotTrack) {
 
   　　HTTP_PROXY_AUTH=&quot;basic:*:username:pass&quot;
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>以下、顛末
 
 
@@ -198,14 +191,10 @@ portsnapはファイルの取得にfetch等を使用せず、独自のphttpget�
 
 phttpgetはportsnapとともにFreeBSDに取り込まれているので、ソースは下記の場所にある。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  /usr/src/usr/sbin/portsnap/phttpget/phttpget.c
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>中をのぞいて見ると、環境変数HTTP_PROXY内にユーザネーム、パスワードを入れる方法は受け付けない事が分かる。
 
 
@@ -219,9 +208,7 @@ HTTP_PROXY_AUTHに書かないといけない。また、&quot;basic:*:username:
 
 下記が該当部分
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  /usr/src/usr/sbin/portsnap/phttpget/phttpget.c
 
 
@@ -280,8 +267,7 @@ HTTP_PROXY_AUTHに書かないといけない。また、&quot;basic:*:username:
 
   }
 </code></pre>
-
-<p></blockquote></p>
+<!-- raw HTML omitted -->
 <ul class="pa0">
   
 </ul>

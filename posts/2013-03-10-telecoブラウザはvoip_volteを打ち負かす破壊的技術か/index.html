@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,25 +29,22 @@
     
 
     <meta property="og:title" content="[teleco]ブラウザはVoIP/VoLTEを打ち負かす破壊的技術か？" />
-<meta property="og:description" content="さきに結論。 SIPベースのVoIP端末/VoLTE端末が、相互接続で四苦八苦している間に、ブラウザベースでの音声通話に席巻されてしまうんじゃ" />
+<meta property="og:description" content="さきに結論。SIPベースのVoIP端末/VoLTE端末が、相互接続で四苦八苦している間に、ブラウザベースでの音声通話に席巻されてしまうんじゃ" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2013-03-10-teleco%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%AFvoip_volte%E3%82%92%E6%89%93%E3%81%A1%E8%B2%A0%E3%81%8B%E3%81%99%E7%A0%B4%E5%A3%8A%E7%9A%84%E6%8A%80%E8%A1%93%E3%81%8B/" />
 <meta property="article:published_time" content="2013-03-10T22:02:45+09:00" />
 <meta property="article:modified_time" content="2013-03-10T22:02:45+09:00" />
 <meta itemprop="name" content="[teleco]ブラウザはVoIP/VoLTEを打ち負かす破壊的技術か？">
-<meta itemprop="description" content="さきに結論。 SIPベースのVoIP端末/VoLTE端末が、相互接続で四苦八苦している間に、ブラウザベースでの音声通話に席巻されてしまうんじゃ">
-
-
+<meta itemprop="description" content="さきに結論。SIPベースのVoIP端末/VoLTE端末が、相互接続で四苦八苦している間に、ブラウザベースでの音声通話に席巻されてしまうんじゃ">
 <meta itemprop="datePublished" content="2013-03-10T22:02:45&#43;09:00" />
 <meta itemprop="dateModified" content="2013-03-10T22:02:45&#43;09:00" />
-<meta itemprop="wordCount" content="1411">
+<meta itemprop="wordCount" content="1400">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[teleco]ブラウザはVoIP/VoLTEを打ち負かす破壊的技術か？"/>
-<meta name="twitter:description" content="さきに結論。 SIPベースのVoIP端末/VoLTE端末が、相互接続で四苦八苦している間に、ブラウザベースでの音声通話に席巻されてしまうんじゃ"/>
+<meta name="twitter:description" content="さきに結論。SIPベースのVoIP端末/VoLTE端末が、相互接続で四苦八苦している間に、ブラウザベースでの音声通話に席巻されてしまうんじゃ"/>
 
       
 <script type="application/javascript">
@@ -140,89 +137,58 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p><span style="text-decoration: underline;"><strong>さきに結論。</strong></span></p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><!-- raw HTML omitted --><!-- raw HTML omitted -->さきに結論。<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <p>SIPベースのVoIP端末/VoLTE端末が、相互接続で四苦八苦している間に、ブラウザベースでの音声通話に席巻されてしまうんじゃないだろうかという話。</p>
-
-<p>もちろん、これは後述の文章中で引用する記事、データをもとにつらつら書くだけのもの。本当に詳しい人からすれば床屋談義レベルかもしれない。<br />
+<p>もちろん、これは後述の文章中で引用する記事、データをもとにつらつら書くだけのもの。本当に詳しい人からすれば床屋談義レベルかもしれない。<br>
 と、逃げ道をつくったところで。</p>
-
 <p><strong>VoIPとは。</strong></p>
-
-<p>SIPあるいはH.323などをセッションプロトコルに使い、IP（インターネットプロトコル）でリアルタイムに音声を伝送するもの、とする。<br />
-<a href="http://ja.wikipedia.org/wiki/VOIP" target="_blank"><a href="http://ja.wikipedia.org/wiki/VOIP">http://ja.wikipedia.org/wiki/VOIP</a></a></p>
-
-<p>そして携帯電話をVoIP端末にするのなら、どこのキャリアもLTEを選びたいだろう。<br />
+<p>SIPあるいはH.323などをセッションプロトコルに使い、IP（インターネットプロトコル）でリアルタイムに音声を伝送するもの、とする。<br>
+<!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/VOIP%3C/a%3E">http://ja.wikipedia.org/wiki/VOIP&lt;/a&gt;</a></p>
+<p>そして携帯電話をVoIP端末にするのなら、どこのキャリアもLTEを選びたいだろう。<br>
 というのも2G、3Gでは荷が重すぎるから。つまりVoLTE(Voice Over LTE)。</p>
-
-<h3 id="volteとは"><strong>VoLTEとは。</strong></h3>
-
+<h3 id="volte"><strong>VoLTEとは。</strong></h3>
 <p>これも定義が難しいけれど、セッションプロトコルにSIPを使い、無線アクセス区間、有線区間では音声用リアルタイム伝送のためのチューニングを加えたものとする。</p>
-
-<h3 id="volteへすすめー"><strong>VoLTEへすすめー！</strong></h3>
-
+<h3 id="volte-1"><strong>VoLTEへすすめー！</strong></h3>
 <p>携帯各社にとっては、データ通信が急速に伸びている以上、電波を効率的に使えるLTEへ移行したい。</p>
-
-<p>しかし音声通話はダウントレンドであるものの面倒は見なければいけない。<br />
+<p>しかし音声通話はダウントレンドであるものの面倒は見なければいけない。<br>
 ではいかにしてLTE上で音声通話を実現するか、の一つの解が先述のVoLTEである。</p>
-
 <p>検索してみて驚いたのだが、VoLTEは総務省推しだったりもする。2012年7月の記事</p>
-
 <blockquote>
-<p>総務省がVoLTE技術基準策定、LTE通信・音声通話の一本化で省電力や災害時対策などにメリット<br />
-<a href="http://appllio.com/news/20120707-2289-volte" target="_blank"><a href="http://appllio.com/news/20120707-2289-volte">http://appllio.com/news/20120707-2289-volte</a></a></p>
+<p>総務省がVoLTE技術基準策定、LTE通信・音声通話の一本化で省電力や災害時対策などにメリット<br>
+<!-- raw HTML omitted --><a href="http://appllio.com/news/20120707-2289-volte%3C/a%3E">http://appllio.com/news/20120707-2289-volte&lt;/a&gt;</a></p>
 </blockquote>
-
-<h3 id="船頭多くして-相互接続-interoperability-の悩み"><strong>船頭多くして&hellip;相互接続(InterOperability)の悩み</strong></h3>
-
-<p>しかし、である。<br />
+<h3 id="interoperability"><strong>船頭多くして&hellip;相互接続(InterOperability)の悩み</strong></h3>
+<p>しかし、である。<br>
 VoIP, VoLTEのセッションプロトコルで使われているSIPは、どうも相互接続に難があるようなんである。</p>
-
 <blockquote>
-<p>SIP is hard, let&rsquo;s go shopping!<br />
-<a href="http://www.slideshare.net/saghul/sip-is-hard-lets-go-shopping" target="_blank"><a href="http://www.slideshare.net/saghul/sip-is-hard-lets-go-shopping">http://www.slideshare.net/saghul/sip-is-hard-lets-go-shopping</a></a></p>
-
-<p>Does WebRTC Standardization Matter?<br />
-<a href="http://lphs.acmepacket.com/blog/bid/172081/Does-WebRTC-Standardization-Matter" target="_blank"><a href="http://lphs.acmepacket.com/blog/bid/172081/Does-WebRTC-Standardization-Matter">http://lphs.acmepacket.com/blog/bid/172081/Does-WebRTC-Standardization-Matter</a></a></p>
-
-<p>WebRTC Browser Interoperability: Heroic. Important. And&hellip;Expected<br />
-<a href="http://www.nojitter.com/post/240147955/webrtc-browser-interoperability-heroic-important-andexpected" target="_blank"><a href="http://www.nojitter.com/post/240147955/webrtc-browser-interoperability-heroic-important-andexpected">http://www.nojitter.com/post/240147955/webrtc-browser-interoperability-heroic-important-andexpected</a></a></p>
+<p>SIP is hard, let's go shopping!<br>
+<!-- raw HTML omitted --><a href="http://www.slideshare.net/saghul/sip-is-hard-lets-go-shopping%3C/a%3E">http://www.slideshare.net/saghul/sip-is-hard-lets-go-shopping&lt;/a&gt;</a></p>
+<p>Does WebRTC Standardization Matter?<br>
+<!-- raw HTML omitted --><a href="http://lphs.acmepacket.com/blog/bid/172081/Does-WebRTC-Standardization-Matter%3C/a%3E">http://lphs.acmepacket.com/blog/bid/172081/Does-WebRTC-Standardization-Matter&lt;/a&gt;</a></p>
+<p>WebRTC Browser Interoperability: Heroic. Important. And&hellip;Expected<br>
+<!-- raw HTML omitted --><a href="http://www.nojitter.com/post/240147955/webrtc-browser-interoperability-heroic-important-andexpected%3C/a%3E">http://www.nojitter.com/post/240147955/webrtc-browser-interoperability-heroic-important-andexpected&lt;/a&gt;</a></p>
 </blockquote>
-
 <p>SIPはとても複雑なうえに、たくさんのベンダが関わっているので、いつまで経っても相互接続試験が進まない、ということ。</p>
-
 <p>そして後ろ二つの記事で推されているWebRTC、である。</p>
-
 <h3 id="webrtc"><strong>WebRTC</strong></h3>
-
-<p>WebRTCは簡単に言ってしまえばブラウザ間で音声通話してしまうことである。<br />
+<p>WebRTCは簡単に言ってしまえばブラウザ間で音声通話してしまうことである。<br>
 (音声通話以外も出来る）</p>
-
-<p><a href="http://ja.wikipedia.org/wiki/WebRTC" target="_blank"><a href="http://ja.wikipedia.org/wiki/WebRTC">http://ja.wikipedia.org/wiki/WebRTC</a></a><br />
-SIPと違って、Googleがさっさとコード書いてオープンソースにしてしまったので、まさにいまグイグイと流行りだしている。<br />
-SIPと比べて有利な点はなんといっても相互接続である。<br />
-要はブラウザさえあればよく、相互接続と言ったってたかが知れている。<br />
-先述のnojitterで触れられている通り、相互接続試験に参加するのはブラウザ&rdquo;ベンダ&rdquo;である以下の5社。5社といえどこれだけ確認してもらえば問題ないでしょう。</p>
-
-<p><p style="padding-left: 30px;">
-  Google (Chrome)<br /> Mozilla (Firefox)<br /> Opera<br /> Microsoft (IE)<br /> Apple (Safari)</p>
-
-<h3 id="音声通話のyoutube"><strong>音声通話のYoutube</strong></h3>
-
-<p>いうまでもなくWebRTCはアプリレイヤのサービスである。<br />
-オーバーヘッドは大きいし、低いレイヤでは他のデータ通信と変わらず扱われる訳だから、遅延は欠落はあるだろう。<br />
-携帯キャリア、ベンダからしてみれば、通話品質は噴飯ものかもしれない。<br />
+<p><!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/WebRTC%3C/a%3E">http://ja.wikipedia.org/wiki/WebRTC&lt;/a&gt;</a><br>
+SIPと違って、Googleがさっさとコード書いてオープンソースにしてしまったので、まさにいまグイグイと流行りだしている。<br>
+SIPと比べて有利な点はなんといっても相互接続である。<br>
+要はブラウザさえあればよく、相互接続と言ったってたかが知れている。<br>
+先述のnojitterで触れられている通り、相互接続試験に参加するのはブラウザ&quot;ベンダ&quot;である以下の5社。5社といえどこれだけ確認してもらえば問題ないでしょう。</p>
+<!-- raw HTML omitted -->
+<h3 id="youtube"><strong>音声通話のYoutube</strong></h3>
+<p>いうまでもなくWebRTCはアプリレイヤのサービスである。<br>
+オーバーヘッドは大きいし、低いレイヤでは他のデータ通信と変わらず扱われる訳だから、遅延は欠落はあるだろう。<br>
+携帯キャリア、ベンダからしてみれば、通話品質は噴飯ものかもしれない。<br>
 また呼制御の点でも、ブラウザで電話だなんて、携帯「電話」キャリアからしたら大雑把すぎて許せないかもしれない。</p>
-
 <p>しかし、この世の中グズグズ画質/音質の動画サイトが賑わっているのを見ると、WebRTCほかXMPP, RCSなどが破壊的技術になってもおかしくないんじゃなかろうか。</p>
-
 <p>携帯電話キャリア自ら無料通話アプリを始めるとこだって出てきてるのである。</p>
-
 <blockquote>
-<p>Orange launches smartphone app for free calls, texts<br />
-<a href="http://uk.mobile.reuters.com/article/idUKBRE8AL0B720121122?irpc=932" target="_blank"><a href="http://uk.mobile.reuters.com/article/idUKBRE8AL0B720121122?irpc=932">http://uk.mobile.reuters.com/article/idUKBRE8AL0B720121122?irpc=932</a></a></p>
+<p>Orange launches smartphone app for free calls, texts<br>
+<!-- raw HTML omitted --><a href="http://uk.mobile.reuters.com/article/idUKBRE8AL0B720121122?irpc=932%3C/a%3E">http://uk.mobile.reuters.com/article/idUKBRE8AL0B720121122?irpc=932&lt;/a&gt;</a></p>
 </blockquote>
 <ul class="pa0">
   

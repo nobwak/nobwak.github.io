@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-12-19T01:00:00+09:00" />
 <meta itemprop="name" content="vsftpdでchrootの設定を行うには。">
 <meta itemprop="description" content="ローカルユーザの場合と、anonymousユーザの場合で対応が異なる。 anonymousユーザ向けには、anon_rootでchroot先の">
-
-
 <meta itemprop="datePublished" content="2008-12-19T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-12-19T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="610">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="vsftpdでchrootの設定を行うには。"/>
 <meta name="twitter:description" content="ローカルユーザの場合と、anonymousユーザの場合で対応が異なる。 anonymousユーザ向けには、anon_rootでchroot先の"/>
 
@@ -146,13 +143,10 @@ if (!doNotTrack) {
 
 anonymousユーザ向けには、anon_rootでchroot先のディレクトリを設定するだけで終了。
 </code></pre>
-
-<pre><code class="language-console"># grep anon_root /etc/vsftpd/vsftpd.conf
+<pre><code class="language-console" data-lang="console"># grep anon_root /etc/vsftpd/vsftpd.conf
 anon_root=/var/ftp/pub
 #
-</code></pre>
-
-<pre><code>ローカルユーザ向けの場合には、少々手間が必要。
+</code></pre><pre><code>ローカルユーザ向けの場合には、少々手間が必要。
 
 
 
@@ -188,15 +182,13 @@ sftpならともかくとして、ftpでユーザのホームディレクトリ�
 
 /etc/vsftpd/vsftpd.conf
 </code></pre>
-
-<pre><code class="language-console"># chroot settings for local user
+<pre><code class="language-console" data-lang="console"># chroot settings for local user
 chroot_list_enable=YES
 chroot_list_file=/etc/vsftpd/chroot_list
 local_root=/var/ftp
 # chroot settings for anon user
 anon_root=/var/ftp
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

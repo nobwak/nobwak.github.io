@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2016-02-15T22:20:43+09:00" />
 <meta itemprop="name" content="[coreos]CoreOSインストール時に使ったcloud-configはどこに行ったの？">
 <meta itemprop="description" content="自分でCoreOSをインストールするときには、初期設定を書き込んだcloud-configを読み込ませる。 ファイル一つでOSの設定を全部、賄">
-
-
 <meta itemprop="datePublished" content="2016-02-15T22:20:43&#43;09:00" />
 <meta itemprop="dateModified" content="2016-02-15T22:20:43&#43;09:00" />
 <meta itemprop="wordCount" content="677">
 
 
 
-<meta itemprop="keywords" content="coreos,docker," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="coreos,docker," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[coreos]CoreOSインストール時に使ったcloud-configはどこに行ったの？"/>
 <meta name="twitter:description" content="自分でCoreOSをインストールするときには、初期設定を書き込んだcloud-configを読み込ませる。 ファイル一つでOSの設定を全部、賄"/>
 
@@ -140,42 +137,30 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>自分でCoreOSをインストールするときには、初期設定を書き込んだcloud-configを読み込ませる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>自分でCoreOSをインストールするときには、初期設定を書き込んだcloud-configを読み込ませる。<br>
 ファイル一つでOSの設定を全部、賄えるとは、なんてお手軽なんだろう。</p>
-
-<p>あれ？<br />
-ではインストール後に、そういった設定を変更したい場合にはどうしたらよいのだろう。<br />
-もちろん、CoreOSだってLinuxなんだから、/etc下に設定ファイルが転がっているのは百も承知。<br />
+<p>あれ？<br>
+ではインストール後に、そういった設定を変更したい場合にはどうしたらよいのだろう。<br>
+もちろん、CoreOSだってLinuxなんだから、/etc下に設定ファイルが転がっているのは百も承知。<br>
 しかしCoreOSなんだから、一つのファイルで全部、管理したいじゃないか。</p>
-
 <p>インストール後のcloud-configの場所</p>
-
-<p>答え:<br />
+<p>答え:<br>
 インストール時に使用したcloud-configは、/var/lib/coreos-install/user_dataに保存されているので、これを書き換えればよい。</p>
-
-<p>例。<br />
-インストール後に、CoreOSの更新方法を変える。<br />
+<p>例。<br>
+インストール後に、CoreOSの更新方法を変える。<br>
 更新方法は/etc/coreos/update.confでも設定できるが、上述の理由から、敢えてuser_dateで操作する。</p>
-
-<p>では早速。<br />
-/var/lib/coreos-install/user_dataに以下の行を加えればよい。<br />
+<p>では早速。<br>
+/var/lib/coreos-install/user_dataに以下の行を加えればよい。<br>
 ※以下の例ではreboot-strategyにbest-effortを指定している。</p>
-
-<pre><code class="language-console">coreos:
+<pre><code class="language-console" data-lang="console">coreos:
    update:
      reboot-strategy: best-effort
-</code></pre>
-
-<p>CoreOSをリブートすると、/etc/coreos/update.confに以下の通り、最後の一行が増えている。</p>
-
-<pre><code class="language-console">$ cat update.conf
+</code></pre><p>CoreOSをリブートすると、/etc/coreos/update.confに以下の通り、最後の一行が増えている。</p>
+<pre><code class="language-console" data-lang="console">$ cat update.conf
 GROUP=stable
 REBOOT_STRATEGY=best-effort
-</code></pre>
-
-<p>なお、CoreOSのバージョンは/etc/os-releaseに記載あり。</p>
-
-<pre><code class="language-console">$ cat /etc/os-release
+</code></pre><p>なお、CoreOSのバージョンは/etc/os-releaseに記載あり。</p>
+<pre><code class="language-console" data-lang="console">$ cat /etc/os-release
 NAME=CoreOS
 ID=coreos
 VERSION=835.11.0
@@ -185,16 +170,12 @@ PRETTY_NAME=&quot;CoreOS 835.11.0&quot;
 ANSI_COLOR=&quot;1;32&quot;
 HOME_URL=&quot;https://coreos.com/&quot;
 BUG_REPORT_URL=&quot;https://github.com/coreos/bugs/issues&quot;
-</code></pre>
-
-<p>参考<br />
-<a href="https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md#update" target="_blank"><a href="https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md#update">https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md#update</a></a><br />
-<a href="https://coreos.com/os/docs/latest/update-strategies.html" target="_blank"><a href="https://coreos.com/os/docs/latest/update-strategies.html">https://coreos.com/os/docs/latest/update-strategies.html</a></a></p>
-
-<p><a href="https://coreos.com/os/docs/latest/cloud-config-locations.html" target="_blank"><a href="https://coreos.com/os/docs/latest/cloud-config-locations.html">https://coreos.com/os/docs/latest/cloud-config-locations.html</a></a><br />
+</code></pre><p>参考<br>
+<!-- raw HTML omitted --><a href="https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md#update%3C/a%3E">https://github.com/coreos/coreos-cloudinit/blob/master/Documentation/cloud-config.md#update&lt;/a&gt;</a><br>
+<!-- raw HTML omitted --><a href="https://coreos.com/os/docs/latest/update-strategies.html%3C/a%3E">https://coreos.com/os/docs/latest/update-strategies.html&lt;/a&gt;</a></p>
+<p><!-- raw HTML omitted --><a href="https://coreos.com/os/docs/latest/cloud-config-locations.html%3C/a%3E">https://coreos.com/os/docs/latest/cloud-config-locations.html&lt;/a&gt;</a><br>
 On every boot, coreos-cloudinit looks for a config file to configure your host. Here is a list of locations which are used by the Cloud-Config utility, depending on your CoreOS platform:</p>
-
-<p>/var/lib/coreos-install/user_data<br />
+<p>/var/lib/coreos-install/user_data<br>
 When you install CoreOS manually using the coreos-install tool. Usually used in bare metal installations.</p>
 <ul class="pa0">
   

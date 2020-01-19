@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,25 +29,22 @@
     
 
     <meta property="og:title" content="[FreeBSD] 10.2-RELEASEから適用されるpkg quarterlyてなんだ。" />
-<meta property="og:description" content="10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&rdquo;quartely&rdquo;のものになる。 ◎pkg.con" />
+<meta property="og:description" content="10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&quot;quartely&quot;のものになる。 ◎pkg.confの" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2015-08-05-freebsd_10.2-release%E3%81%8B%E3%82%89%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%82%8Bpkg_quarterly%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0/" />
 <meta property="article:published_time" content="2015-08-05T21:12:38+09:00" />
 <meta property="article:modified_time" content="2015-08-05T21:12:38+09:00" />
 <meta itemprop="name" content="[FreeBSD] 10.2-RELEASEから適用されるpkg quarterlyてなんだ。">
-<meta itemprop="description" content="10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&rdquo;quartely&rdquo;のものになる。 ◎pkg.con">
-
-
+<meta itemprop="description" content="10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&quot;quartely&quot;のものになる。 ◎pkg.confの">
 <meta itemprop="datePublished" content="2015-08-05T21:12:38&#43;09:00" />
 <meta itemprop="dateModified" content="2015-08-05T21:12:38&#43;09:00" />
-<meta itemprop="wordCount" content="507">
+<meta itemprop="wordCount" content="504">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] 10.2-RELEASEから適用されるpkg quarterlyてなんだ。"/>
-<meta name="twitter:description" content="10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&rdquo;quartely&rdquo;のものになる。 ◎pkg.con"/>
+<meta name="twitter:description" content="10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&quot;quartely&quot;のものになる。 ◎pkg.confの"/>
 
       
 <script type="application/javascript">
@@ -140,44 +137,32 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&rdquo;quartely&rdquo;のものになる。</p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&quot;quartely&quot;のものになる。</p>
 <p>◎pkg.confの変更</p>
-
-<pre><code class="language-diff">-# $FreeBSD: releng/10.1/etc/pkg/FreeBSD.conf 263938 2014-03-30 15:29:54Z bdrewery $
-+# $FreeBSD: releng/10.2/etc/pkg/FreeBSD.conf 285830 2015-07-23 23:31:40Z gjb $
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">-# $FreeBSD: releng/10.1/etc/pkg/FreeBSD.conf 263938 2014-03-30 15:29:54Z bdrewery $
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+# $FreeBSD: releng/10.2/etc/pkg/FreeBSD.conf 285830 2015-07-23 23:31:40Z gjb $
+</span><span style="color:#a6e22e"></span>
  FreeBSD: {
--  url: &quot;pkg+http://pkg.FreeBSD.org/${ABI}/latest&quot;,
-+  url: &quot;pkg+http://pkg.FreeBSD.org/${ABI}/quarterly&quot;,
-}
-</code></pre>
-
-<p>ご覧のとおり、いままでは&rdquo;latest&rdquo;。<br />
+<span style="color:#f92672">-  url: &#34;pkg+http://pkg.FreeBSD.org/${ABI}/latest&#34;,
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+  url: &#34;pkg+http://pkg.FreeBSD.org/${ABI}/quarterly&#34;,
+</span><span style="color:#a6e22e"></span>}
+</code></pre></div><p>ご覧のとおり、いままでは&quot;latest&rdquo;。<br>
 これは言わばpkgのheadのようなもので、最新のpkgは手に入るものの、うっかりインストールすると地雷を踏むことがが多かった。</p>
-
-<p>quarterlyは上記の問題を解決するために設けられる。<br />
-中の人によれば「意図的に更新速度を控えめにすることで、問題の発生を抑える一方、セキュリティ更新は受け取れるようにする」とのこと。<br />
+<p>quarterlyは上記の問題を解決するために設けられる。<br>
+中の人によれば「意図的に更新速度を控えめにすることで、問題の発生を抑える一方、セキュリティ更新は受け取れるようにする」とのこと。<br>
 もちろん、望ならば今まで通りlatestを参照することもできる。</p>
-
 <blockquote>
-<p>&ldquo;In general, the quarterly package set is less prone to having build failures, since the changes in the branch are (by intent) less intrusive, while still receiving security updates. &ldquo;</p>
+<p>&ldquo;In general, the quarterly package set is less prone to having build failures, since the changes in the branch are (by intent) less intrusive, while still receiving security updates. &quot;</p>
 </blockquote>
-
 <p>latestからquarterlyに変更してバージョンチェックしてみると、すでにインストール済みのpackageからバージョンの下がるケースも見られた。</p>
-
-<pre><code class="language-console">python27-2.7.10                    &gt;   succeeds remote (remote has 2.7.9_1)
-</code></pre>
-
-<p>詳細は待て10.2-RELEASEのアナウンス。</p>
-
+<pre><code class="language-console" data-lang="console">python27-2.7.10                    &gt;   succeeds remote (remote has 2.7.9_1)
+</code></pre><p>詳細は待て10.2-RELEASEのアナウンス。</p>
 <blockquote>
-<p>&rdquo;(This will be noted in the final 10.2-RELEASE announcement, as well as<br />
-the release notes, and will also include instructions on how to switch<br />
+<p>&ldquo;(This will be noted in the final 10.2-RELEASE announcement, as well as<br>
+the release notes, and will also include instructions on how to switch<br>
 to the -latest&rsquo; branch if that is what is desired.)&rdquo;</p>
 </blockquote>
-
-<p>中の人の発言は以下から引用。<br />
+<p>中の人の発言は以下から引用。<br>
 <a href="https://lists.freebsd.org/pipermail/freebsd-stable/2015-July/082905.html">https://lists.freebsd.org/pipermail/freebsd-stable/2015-July/082905.html</a></p>
 <ul class="pa0">
   

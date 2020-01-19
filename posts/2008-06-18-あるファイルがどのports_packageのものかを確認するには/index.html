@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-06-18T01:00:00+09:00" />
 <meta itemprop="name" content="あるファイルがどのports/packageのものかを確認するには。">
 <meta itemprop="description" content="無節操にportsをインストールすると/usr/local/bin配下に謎のコマンドが増えていくが、そのコマンドはどのportsに属するかを">
-
-
 <meta itemprop="datePublished" content="2008-06-18T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-06-18T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="385">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="あるファイルがどのports/packageのものかを確認するには。"/>
 <meta name="twitter:description" content="無節操にportsをインストールすると/usr/local/bin配下に謎のコマンドが増えていくが、そのコマンドはどのportsに属するかを"/>
 
@@ -142,12 +139,9 @@ if (!doNotTrack) {
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>無節操にportsをインストールすると/usr/local/bin配下に謎のコマンドが増えていくが、そのコマンドはどのportsに属するかを調べる方法。pkg_infoを-Wオプションとあわせて使う。
 </code></pre>
-
-<pre><code class="language-console">[hal@fb /usr/local/bin]$ pkg_info -W zip
+<pre><code class="language-console" data-lang="console">[hal@fb /usr/local/bin]$ pkg_info -W zip
 /usr/local/bin/zip was installed by package zip-2.32
-</code></pre>
-
-<pre><code>zipはzip-2.32というports/packageに含まれるということがわかる。
+</code></pre><pre><code>zipはzip-2.32というports/packageに含まれるということがわかる。
 
 
 
@@ -157,26 +151,18 @@ if (!doNotTrack) {
 
 なお、指定対象のファイルがカレントディレクトリにない場合には、パスの通っているディレクトリを探してくれる。
 </code></pre>
-
-<pre><code class="language-console">[hal@fb ~]$ pkg_info -W zip
+<pre><code class="language-console" data-lang="console">[hal@fb ~]$ pkg_info -W zip
 /usr/local/bin/zip was installed by package zip-2.32
 [hal@fb ~]$
+</code></pre><pre><code>また、指定対象のファイルがports/packageからインストールされたものではない場合、特に応答は返らない。
 </code></pre>
-
-<pre><code>また、指定対象のファイルがports/packageからインストールされたものではない場合、特に応答は返らない。
-</code></pre>
-
-<pre><code class="language-console">[hal@fb ~]$ pkg_info -W tar
+<pre><code class="language-console" data-lang="console">[hal@fb ~]$ pkg_info -W tar
 [hal@fb ~]$
+</code></pre><pre><code>pkg_info -Wの他にも同じことをしてくれるコマンドがあったと思うが、pkg_infoはベースシステムに含まれているので、こっちを覚えておいた方がいいと思う。
 </code></pre>
-
-<pre><code>pkg_info -Wの他にも同じことをしてくれるコマンドがあったと思うが、pkg_infoはベースシステムに含まれているので、こっちを覚えておいた方がいいと思う。
-</code></pre>
-
-<pre><code class="language-console">[hal@fb ~]$ pkg_info -W pkg_info
+<pre><code class="language-console" data-lang="console">[hal@fb ~]$ pkg_info -W pkg_info
 [hal@fb ~]$
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

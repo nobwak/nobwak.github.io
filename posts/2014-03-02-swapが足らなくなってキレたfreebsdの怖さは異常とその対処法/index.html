@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-03-02T21:44:11+09:00" />
 <meta itemprop="name" content="swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）">
 <meta itemprop="description" content="ある日、デスクトップ用途で使用しているFreeBSDマシンで、いきなりデスクトップ環境がブラックアウトしました。 ログを見たところこんな感じ。">
-
-
 <meta itemprop="datePublished" content="2014-03-02T21:44:11&#43;09:00" />
 <meta itemprop="dateModified" content="2014-03-02T21:44:11&#43;09:00" />
 <meta itemprop="wordCount" content="974">
 
 
 
-<meta itemprop="keywords" content="FreeBSD," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）"/>
 <meta name="twitter:description" content="ある日、デスクトップ用途で使用しているFreeBSDマシンで、いきなりデスクトップ環境がブラックアウトしました。 ログを見たところこんな感じ。"/>
 
@@ -140,124 +137,81 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>ある日、デスクトップ用途で使用しているFreeBSDマシンで、いきなりデスクトップ環境がブラックアウトしました。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>ある日、デスクトップ用途で使用しているFreeBSDマシンで、いきなりデスクトップ環境がブラックアウトしました。<br>
 ログを見たところこんな感じ。</p>
-
-<pre><code class="language-console">swap_pager_getswapspace(4): failed
+<pre><code class="language-console" data-lang="console">swap_pager_getswapspace(4): failed
 swap_pager_getswapspace(3): failed
 pid 1218 (mate-settings-daemo), uid 1001, was killed: out of swap space
 pid 1228 (mate-panel), uid 1001, was killed: out of swap space
 pid 1025 (clamd), uid 106, was killed: out of swap space
 pid 1203 (Xorg), uid 0, was killed: out of swap space
-</code></pre>
-
-<p>swapが足りなくて無実のプロセスを血祭りにした証拠であります。<br />
+</code></pre><p>swapが足りなくて無実のプロセスを血祭りにした証拠であります。<br>
 恐ろしい。怖い。</p>
-
-<p>これは、ちょっと洒落にならんのじゃないかと思って、調べたのだが。<br />
-たとえば以下スレッドで議論が持ち上がってるようなんだけど、私の理解の限度を超えている。<br />
-<a href="http://lists.freebsd.org/pipermail/freebsd-current/2012-August/036080.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-current/2012-August/036080.html">http://lists.freebsd.org/pipermail/freebsd-current/2012-August/036080.html</a></a></p>
-
-<p>よろしい。<br />
-理解は諦めた。<br />
-対症療法的ではあるが、swapを後から補う方法はあるので、ここに採録。<br />
-なお、このようにswapが枯渇するのはよっぽどのこと。<br />
+<p>これは、ちょっと洒落にならんのじゃないかと思って、調べたのだが。<br>
+たとえば以下スレッドで議論が持ち上がってるようなんだけど、私の理解の限度を超えている。<br>
+<!-- raw HTML omitted --><a href="http://lists.freebsd.org/pipermail/freebsd-current/2012-August/036080.html%3C/a%3E">http://lists.freebsd.org/pipermail/freebsd-current/2012-August/036080.html&lt;/a&gt;</a></p>
+<p>よろしい。<br>
+理解は諦めた。<br>
+対症療法的ではあるが、swapを後から補う方法はあるので、ここに採録。<br>
+なお、このようにswapが枯渇するのはよっぽどのこと。<br>
 末尾の後日談を参照の事。</p>
-
-<h2 id="span-style-text-decoration-underline-後から-スワップを追加する方法-span"><span style="text-decoration: underline;">「後から」スワップを追加する方法</span></h2>
-
-<p>ここに書いてある通り。<br />
-<a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html" target="_blank"><a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html">http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html</a></a></p>
-
-<p>ddでファイルを作り、それをswapとしてマウントする、という仕組み。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->「後から」スワップを追加する方法<!-- raw HTML omitted --></h2>
+<p>ここに書いてある通り。<br>
+<!-- raw HTML omitted --><a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html%3C/a%3E">http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html&lt;/a&gt;</a></p>
+<p>ddでファイルを作り、それをswapとしてマウントする、という仕組み。<br>
 物理ディスクに余裕があれば、好きな容量を追加できる。</p>
-
-<h2 id="span-style-text-decoration-underline-現状確認-span"><span style="text-decoration: underline;">現状確認</span></h2>
-
-<p>まず、現状確認。<br />
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->現状確認<!-- raw HTML omitted --></h2>
+<p>まず、現状確認。<br>
 swapinfoでできる。</p>
-
-<pre><code class="language-console">$ swapinfo
+<pre><code class="language-console" data-lang="console">$ swapinfo
 Device          1K-blocks     Used    Avail Capacity
 /dev/ada0s1b       524288    25960   498328     5%
-</code></pre>
-
-<p>500MBしか確保してなかった…。<br />
+</code></pre><p>500MBしか確保してなかった…。<br>
 古いマシンでOSアップグレードしながら使ってたからなあ。</p>
-
-<p>物理ディスクを確認。<br />
+<p>物理ディスクを確認。<br>
 7.2GBあるので、いっちょう奢って2GB確保しよう。</p>
-
-<pre><code class="language-console">$ df -h
+<pre><code class="language-console" data-lang="console">$ df -h
 Filesystem     Size    Used   Avail Capacity  Mounted on
 /dev/ad4s1a     71G     58G    7.2G    89%    /
 devfs          1.0k    1.0k      0B   100%    /dev
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-swapファイルの作成-span"><span style="text-decoration: underline;">swapファイルの作成</span></h2>
-
-<p>ddでファイルを作る。<br />
-置き場所は物理ディスク上でも余裕のあるところにしよう。<br />
-以下の例では/var/cache下にファイルを作っている。<br />
+</code></pre><h2 id="span-styletext-decoration-underlineswapspan"><!-- raw HTML omitted -->swapファイルの作成<!-- raw HTML omitted --></h2>
+<p>ddでファイルを作る。<br>
+置き場所は物理ディスク上でも余裕のあるところにしよう。<br>
+以下の例では/var/cache下にファイルを作っている。<br>
 /var/cacheは/dev/ad4s1aの上に載っていて、上で確認した通り、容量も十分。</p>
-
-<pre><code class="language-console">$ sudo dd if=/dev/zero of=/var/cache/swapfile bs=1m count=2048
+<pre><code class="language-console" data-lang="console">$ sudo dd if=/dev/zero of=/var/cache/swapfile bs=1m count=2048
 パスワード:
 2048+0 records in
 2048+0 records out
 2147483648 bytes transferred in 45.843033 secs (46844275 bytes/sec)
-</code></pre>
-
-<p>念のためファイルのサイズ確認。<br />
+</code></pre><p>念のためファイルのサイズ確認。<br>
 2GBになっている。</p>
-
-<pre><code class="language-console">$ du -sh /var/cache/swapfile
+<pre><code class="language-console" data-lang="console">$ du -sh /var/cache/swapfile
 2.0G    /var/cache/swapfile
-</code></pre>
-
-<p>オーナ、グループ、パーミッションを設定。</p>
-
-<pre><code class="language-console">$ sudo chmod 0600 /var/cache/swapfile
+</code></pre><p>オーナ、グループ、パーミッションを設定。</p>
+<pre><code class="language-console" data-lang="console">$ sudo chmod 0600 /var/cache/swapfile
 $ sudo chown root:wheel /var/cache/swapfile
 $ ls -la /var/cache/swapfile
 -rw-------  1 root  wheel  2147483648  2月 10 17:20 /var/cache/swapfile
-</code></pre>
-
-<p>準備完了。</p>
-
-<h2 id="span-style-text-decoration-underline-swapファイルの追加-span"><span style="text-decoration: underline;">swapファイルの追加</span></h2>
-
+</code></pre><p>準備完了。</p>
+<h2 id="span-styletext-decoration-underlineswapspan-1"><!-- raw HTML omitted -->swapファイルの追加<!-- raw HTML omitted --></h2>
 <p>以下のようにすればswapが増える。</p>
-
-<pre><code class="language-console">$ sudo mdconfig -a -t vnode -f /var/cache/swapfile -u 0 &amp;&amp; sudo swapon /dev/md0
-</code></pre>
-
-<p>おお二段になった。</p>
-
-<pre><code class="language-console">$ swapinfo
+<pre><code class="language-console" data-lang="console">$ sudo mdconfig -a -t vnode -f /var/cache/swapfile -u 0 &amp;&amp; sudo swapon /dev/md0
+</code></pre><p>おお二段になった。</p>
+<pre><code class="language-console" data-lang="console">$ swapinfo
 Device          1K-blocks     Used    Avail Capacity
 /dev/ada0s1b       524288    25596   498692     5%
 /dev/md0          2097152        0  2097152     0%
 Total             2621440    25596  2595844     1%
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-etc-rc-confの修正-span"><span style="text-decoration: underline;">/etc/rc.confの修正</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlineetcrcconfspan"><!-- raw HTML omitted -->/etc/rc.confの修正<!-- raw HTML omitted --></h2>
 <p>/etc/rc.confに以下を追加して、再起動しても設定が残るように。</p>
-
-<pre><code class="language-console"># add swapfile
+<pre><code class="language-console" data-lang="console"># add swapfile
 # See:
 # http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html
 swapfile=&quot;/var/cache/swapfile&quot;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-後日談-span"><span style="text-decoration: underline;">後日談</span></h2>
-
-<p>swapの枯渇は、後から追加したソフトウェアが原因だった。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->後日談<!-- raw HTML omitted --></h2>
+<p>swapの枯渇は、後から追加したソフトウェアが原因だった。<br>
 ソフトウェアを更新したらswapの枯渇はなくなった。</p>
-
 <p>以上</p>
 <ul class="pa0">
   

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-02-19T23:55:32+09:00" />
 <meta itemprop="name" content="FreeBSDのSecurity Advisory対応方法">
 <meta itemprop="description" content="FreeBSDのSecurity Advisory（以降, SA）。bind, libcに問題あり。 せっかくなので久しぶりにメモっておく。 BIND remote DoS with">
-
-
 <meta itemprop="datePublished" content="2013-02-19T23:55:32&#43;09:00" />
 <meta itemprop="dateModified" content="2013-02-19T23:55:32&#43;09:00" />
 <meta itemprop="wordCount" content="357">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDのSecurity Advisory対応方法"/>
 <meta name="twitter:description" content="FreeBSDのSecurity Advisory（以降, SA）。bind, libcに問題あり。 せっかくなので久しぶりにメモっておく。 BIND remote DoS with"/>
 
@@ -140,20 +137,16 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSDのSecurity Advisory（以降, SA）。bind, libcに問題あり。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSDのSecurity Advisory（以降, SA）。bind, libcに問題あり。<br>
 せっかくなので久しぶりにメモっておく。</p>
-
 <blockquote>
-<p>BIND remote DoS with deliberately crafted DNS64 query（FreeBSD 9.x以降のみ）<br />
-<a href="http://www.freebsd.org/security/advisories/FreeBSD-SA-13:01.bind.asc" target="_blank"><a href="http://www.freebsd.org/security/advisories/FreeBSD-SA-13:01.bind.asc">http://www.freebsd.org/security/advisories/FreeBSD-SA-13:01.bind.asc</a></a></p>
-
-<p>glob(3) related resource exhaustion<br />
-<a href="http://www.freebsd.org/security/advisories/FreeBSD-SA-13:02.libc.asc" target="_blank"><a href="http://www.freebsd.org/security/advisories/FreeBSD-SA-13:02.libc.asc">http://www.freebsd.org/security/advisories/FreeBSD-SA-13:02.libc.asc</a></a></p>
+<p>BIND remote DoS with deliberately crafted DNS64 query（FreeBSD 9.x以降のみ）<br>
+<!-- raw HTML omitted --><a href="http://www.freebsd.org/security/advisories/FreeBSD-SA-13:01.bind.asc%3C/a%3E">http://www.freebsd.org/security/advisories/FreeBSD-SA-13:01.bind.asc&lt;/a&gt;</a></p>
+<p>glob(3) related resource exhaustion<br>
+<!-- raw HTML omitted --><a href="http://www.freebsd.org/security/advisories/FreeBSD-SA-13:02.libc.asc%3C/a%3E">http://www.freebsd.org/security/advisories/FreeBSD-SA-13:02.libc.asc&lt;/a&gt;</a></p>
 </blockquote>
-
-<p>淡々と<a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.html" target="_blank">Handbook</a>、およびSA沿って作業すればよろし。</p>
-
-<pre><code class="language-console">V.   Solution
+<p>淡々と<!-- raw HTML omitted -->Handbook<!-- raw HTML omitted -->、およびSA沿って作業すればよろし。</p>
+<pre><code class="language-console" data-lang="console">V.   Solution
 Perform one of the following:
 （略）
 3) To update your vulnerable system via a binary patch:
@@ -165,19 +158,12 @@ platforms can be updated via the freebsd-update(8) utility:
 # freebsd-update install
 
 Restart all daemons, or reboot the system.
-</code></pre>
-
-<p>Restart all daemonsは面倒なので再起動しておしまい。</p>
-
+</code></pre><p>Restart all daemonsは面倒なので再起動しておしまい。</p>
 <p>なおkernelにパッチがなければuname -aなどで表示されるパッチレベルやリビジョン番号は変わらない。</p>
-
 <p>本当にパッチがシステムに適用されてるか不安なら、/usr/src/sys/conf/newvers.shのBRANCHを見ればまあよし。</p>
-
-<pre><code class="language-console">$ grep &quot;^BRANCH&quot; /usr/src/sys/conf/newvers.sh
+<pre><code class="language-console" data-lang="console">$ grep &quot;^BRANCH&quot; /usr/src/sys/conf/newvers.sh
 BRANCH=&quot;RELEASE-p1&quot;
-</code></pre>
-
-<p>しかしbindはしょっちゅうSA発表されるなあ。</p>
+</code></pre><p>しかしbindはしょっちゅうSA発表されるなあ。</p>
 <ul class="pa0">
   
 </ul>

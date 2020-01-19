@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-01-03T06:29:22+09:00" />
 <meta itemprop="name" content="[FreeBSD][メモ] pkgngで複数レポジトリ使ってる奴は1.4.3に上げておけ">
 <meta itemprop="description" content="pkgngが1.4.3に上がった。 これより前のpkgngでは、複数レポジトリをうまく扱えない。 したがって、レポジトリ参照先にpourdrie">
-
-
 <meta itemprop="datePublished" content="2015-01-03T06:29:22&#43;09:00" />
 <meta itemprop="dateModified" content="2015-01-03T06:29:22&#43;09:00" />
-<meta itemprop="wordCount" content="433">
+<meta itemprop="wordCount" content="440">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD][メモ] pkgngで複数レポジトリ使ってる奴は1.4.3に上げておけ"/>
 <meta name="twitter:description" content="pkgngが1.4.3に上がった。 これより前のpkgngでは、複数レポジトリをうまく扱えない。 したがって、レポジトリ参照先にpourdrie"/>
 
@@ -140,34 +137,26 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgngが1.4.3に上がった。<br />
-これより前のpkgngでは、複数レポジトリをうまく扱えない。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgngが1.4.3に上がった。<br>
+これより前のpkgngでは、複数レポジトリをうまく扱えない。<br>
 したがって、レポジトリ参照先にpourdriere等による自前レポジトリと公式レポジトリを設定している諸氏は1.4.3に上げるのが得策。</p>
-
-<p>具体的には以下。<br />
-<a href="https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=192703" target="_blank">ports-mgmt/pkg: pkg install uses the wrong repository for some packages</a><br />
+<p>具体的には以下。<br>
+<!-- raw HTML omitted -->ports-mgmt/pkg: pkg install uses the wrong repository for some packages<!-- raw HTML omitted --><br>
 要するに、追加したレポジトリからpkgをインストールしても、pkgngが公式レポジトリからpkgをダウンロードしようとする。</p>
-
-<p>1.4.3では複数レポジトリを扱うための仕組みが追加された。<br />
-端的に言えば、複数レポジトリに優先度設定ができる。<br />
+<p>1.4.3では複数レポジトリを扱うための仕組みが追加された。<br>
+端的に言えば、複数レポジトリに優先度設定ができる。<br>
 まずpkg.confでCONSERVATIVE_UPGRADEを有効にし、各レポジトリの設定でPRIORITYを整数値で指定すれば、複数レポジトリの優先度を決められる。</p>
-
-<p>詳細はman pkg.confせよ。<br />
+<p>詳細はman pkg.confせよ。<br>
 CONSERVATIVE_UPGRADEはこちら。</p>
-
-<pre><code class="language-console">CONSERVATIVE_UPGRADE: boolean
+<pre><code class="language-console" data-lang="console">CONSERVATIVE_UPGRADE: boolean
  Ensure in multi repository mode that the priority is given
  as much as possible to the repository where a package was
  first installed from.  Default: NO.
-</code></pre>
-
-<p>PRIORITYはこちら。</p>
-
-<pre><code class="language-console">PRIORITY: integer    Set the priority of the repository the
+</code></pre><p>PRIORITYはこちら。</p>
+<pre><code class="language-console" data-lang="console">PRIORITY: integer    Set the priority of the repository the
                      higher is the prefered repository.
                      Default: 0
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

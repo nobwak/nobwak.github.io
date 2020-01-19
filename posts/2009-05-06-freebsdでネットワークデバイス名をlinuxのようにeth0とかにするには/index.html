@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-05-06T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDでネットワークデバイス名をLinuxのようにeth0とかにするには。">
 <meta itemprop="description" content="FreeBSDでは、読み込まれたドライバによってネットワークインターフェースのデバイス名が変化する。 たとえばIntelだったらfxp0とかB">
-
-
 <meta itemprop="datePublished" content="2009-05-06T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-05-06T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="303">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDでネットワークデバイス名をLinuxのようにeth0とかにするには。"/>
 <meta name="twitter:description" content="FreeBSDでは、読み込まれたドライバによってネットワークインターフェースのデバイス名が変化する。 たとえばIntelだったらfxp0とかB"/>
 
@@ -158,8 +155,7 @@ if (!doNotTrack) {
 
 以下、manからの引用。
 </code></pre>
-
-<pre><code class="language-console">IFCONFIG(8)             FreeBSD System Manager's Manual            IFCONFIG(8)
+<pre><code class="language-console" data-lang="console">IFCONFIG(8)             FreeBSD System Manager's Manual            IFCONFIG(8)
 NAME
 ifconfig -- configure network interface parameters
 (略)
@@ -167,16 +163,11 @@ The following parameters may be set with ifconfig:
 (略)
 name &lt;span style=&quot;font-style:italic;&quot;&gt;name&lt;/span&gt;
 Set the interface name to &lt;span style=&quot;font-style:italic;&quot;&gt;name&lt;/span&gt;.
+</code></pre><pre><code>以下をrc.confに書いておけば、デバイス名fxp0がnet0に変更できる。
 </code></pre>
-
-<pre><code>以下をrc.confに書いておけば、デバイス名fxp0がnet0に変更できる。
-</code></pre>
-
-<pre><code class="language-console">ifconfig_fxp0_name=&amp;#34;net0&amp;#34;
+<pre><code class="language-console" data-lang="console">ifconfig_fxp0_name=&amp;#34;net0&amp;#34;
 ifconfig_net0=&amp;#34;DHCP&amp;#34;
-</code></pre>
-
-<pre><code>net0をeth0とすればLinux風に。
+</code></pre><pre><code>net0をeth0とすればLinux風に。
 
 
 

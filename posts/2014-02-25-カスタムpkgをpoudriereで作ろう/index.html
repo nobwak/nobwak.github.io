@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-02-25T15:14:08+09:00" />
 <meta itemprop="name" content="カスタムpkgをpoudriereで作ろう">
 <meta itemprop="description" content="poudriereとは 中の人曰く: primarily designed to test package production on FreeBSD. However, most people will find it useful to bulk build ports for FreeBSD. 「package生成のテストを主眼にデザインされたツールである。">
-
-
 <meta itemprop="datePublished" content="2014-02-25T15:14:08&#43;09:00" />
 <meta itemprop="dateModified" content="2014-02-25T15:14:08&#43;09:00" />
-<meta itemprop="wordCount" content="3579">
+<meta itemprop="wordCount" content="3415">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="カスタムpkgをpoudriereで作ろう"/>
 <meta name="twitter:description" content="poudriereとは 中の人曰く: primarily designed to test package production on FreeBSD. However, most people will find it useful to bulk build ports for FreeBSD. 「package生成のテストを主眼にデザインされたツールである。"/>
 
@@ -140,190 +137,120 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="span-style-text-decoration-underline-poudriereとは-span"><span style="text-decoration: underline;">poudriereとは</span></h2>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlinepoudrierespan"><!-- raw HTML omitted -->poudriereとは<!-- raw HTML omitted --></h2>
 <p>中の人曰く:</p>
-
 <blockquote>
-<p>primarily designed to test package production on FreeBSD. However, most people will find it useful to bulk build ports for FreeBSD.<br />
+<p>primarily designed to test package production on FreeBSD. However, most people will find it useful to bulk build ports for FreeBSD.<br>
 「package生成のテストを主眼にデザインされたツールである。しかしながら、ほとんどの人はportsをまとめてコンパイルする点を有用と考えるだろう。」</p>
 </blockquote>
-
 <p>とのこと。</p>
-
-<p><span style="line-height: 1.5em;">ちなみにpoudriereとはフランス語であり、英語にするとgunpowder magazine、つまり弾薬庫のことだそうな。</span></p>
-
-<p>物騒であるな。<br />
+<p><!-- raw HTML omitted -->ちなみにpoudriereとはフランス語であり、英語にするとgunpowder magazine、つまり弾薬庫のことだそうな。<!-- raw HTML omitted --></p>
+<p>物騒であるな。<br>
 あと、poudriereって綴りが覚えづらくて困る。</p>
-
-<h2 id="span-style-text-decoration-underline-カスタムpackageのためのツール-span"><span style="text-decoration: underline;">カスタムpackageのためのツール？</span></h2>
-
-<p>一方で、poudriereはカスタムpackageを欲する人にも勧められてたりする。<br />
-というのも。<br />
-現時点では、pkgでインストールするpackageのオプションは決め打ちされていて自由に選ぶことができない。<br />
-有名なところで例を挙げると、PHPのpackageにapacheモジュールが付属しない。<br />
+<h2 id="span-styletext-decoration-underlinepackagespan"><!-- raw HTML omitted -->カスタムpackageのためのツール？<!-- raw HTML omitted --></h2>
+<p>一方で、poudriereはカスタムpackageを欲する人にも勧められてたりする。<br>
+というのも。<br>
+現時点では、pkgでインストールするpackageのオプションは決め打ちされていて自由に選ぶことができない。<br>
+有名なところで例を挙げると、PHPのpackageにapacheモジュールが付属しない。<br>
 したがって、apacheモジュールが欲しければ自分でコンパイルするしかない。</p>
-
-<p>コンパイルとくればportsである。<br />
-poudriereもコンパイルを行うが、こちらはpackageを作ることができる。<br />
-packageを作ってしまえば、pkgコマンドで手軽に管理できる。<br />
-おお。<br />
+<p>コンパイルとくればportsである。<br>
+poudriereもコンパイルを行うが、こちらはpackageを作ることができる。<br>
+packageを作ってしまえば、pkgコマンドで手軽に管理できる。<br>
+おお。<br>
 これは便利なのか？</p>
-
 <p>しかしながら準備段階でコンパイルが発生しているわけで、わざわざpkgコマンドなんて経由しないで、portsからコンパイルしてさっさと入れてしまったほうが効率的だろう。</p>
-
-<h2 id="span-style-text-decoration-underline-それでもpoudriereが有用なケース①-複数ホストが対象のとき-span"><span style="text-decoration: underline;">それでもpoudriereが有用なケース①: 複数ホストが対象のとき</span></h2>
-
-<p>ずいぶんネガティブなことを書いたけれども、もしもカスタムpackageを複数ホストで使うのならば、poudriereの利点が活きてくる。<br />
-poudriereの優れているところは、公式のpackageレポジトリの構成とまったく同じものを作る点だ。<br />
-そのディレクトリをwebサーバで公開するだけで、自前のレポジトリができてしまう。<br />
+<h2 id="span-styletext-decoration-underlinepoudriere-span"><!-- raw HTML omitted -->それでもpoudriereが有用なケース①: 複数ホストが対象のとき<!-- raw HTML omitted --></h2>
+<p>ずいぶんネガティブなことを書いたけれども、もしもカスタムpackageを複数ホストで使うのならば、poudriereの利点が活きてくる。<br>
+poudriereの優れているところは、公式のpackageレポジトリの構成とまったく同じものを作る点だ。<br>
+そのディレクトリをwebサーバで公開するだけで、自前のレポジトリができてしまう。<br>
 クライアントでは、pkgコマンドの見に行く場所を自前レポジトリに向けるだけでよい。</p>
-
-<p>やってみると分かるけど、同じLANにあるレポジトリはめっぽう速くて気分がよい。速いのはあたりまえだけど。<br />
+<p>やってみると分かるけど、同じLANにあるレポジトリはめっぽう速くて気分がよい。速いのはあたりまえだけど。<br>
 こうしたことから、カスタムpackageを複数ホストにばら撒くならpoudriereはとても有用である。</p>
-
-<h2 id="span-style-text-decoration-underline-それでもpoudriereが有用なケース②-オフラインマシン向け-span"><span style="text-decoration: underline;">それでもpoudriereが有用なケース②: オフラインマシン向け</span></h2>
-
+<h2 id="span-styletext-decoration-underlinepoudriere-span-1"><!-- raw HTML omitted -->それでもpoudriereが有用なケース②: オフラインマシン向け<!-- raw HTML omitted --></h2>
 <p>もう一つ加えるとすれば、オフラインのマシンにpackageを展開する場合だろう。</p>
-
-<p>pkgコマンドにはcreateというサブコマンドがあり、インストール済みのpakcageからpackageを再生成できる。<br />
+<p>pkgコマンドにはcreateというサブコマンドがあり、インストール済みのpakcageからpackageを再生成できる。<br>
 これを利用して、ネットに繋がるマシン（たいていはセキュリティポリシー上許可されたマシン（多くはWindows）の「上で」動く仮想マシン）でpackageをインストールしてpkg create、ネットに繋げないマシンにまるまる移すことができる。</p>
-
 <p>また別の考え方をすると、テスト環境でpackageをインストールして検証し、問題のないことを確認したら、packageを本番環境に移す、ということもできるだろう。</p>
-
 <p>ただこの方法には問題があって、現時点のpkgコマンドにはインストール済みのpackageをリプレイスする仕組みがないのである。</p>
-
-<p>例えばターゲットとなるマシンのbashを更新したいとする。<br />
-通常であればpkg upgradeを使うところだが、このコマンドは手許にあるpackageを読んでくれないのである。<br />
-（もしできるのなら教えてください本当に）<br />
+<p>例えばターゲットとなるマシンのbashを更新したいとする。<br>
+通常であればpkg upgradeを使うところだが、このコマンドは手許にあるpackageを読んでくれないのである。<br>
+（もしできるのなら教えてください本当に）<br>
 どうしようもないので、いったんbashをアンインストールしてから再インストールするという、なんだかすごく頭の悪いことをする羽目になる。</p>
-
-<p>bashなら悠長なこと言ってられるかもしれないが、これがサーバソフトウェアなら大変である。<br />
+<p>bashなら悠長なこと言ってられるかもしれないが、これがサーバソフトウェアなら大変である。<br>
 またこれが１つ２つではなく、数百個になったらどうするのか。</p>
-
-<p>ここで告白するが、私はとても面倒くさくなって、packageを根こそぎ削除して新規にまるまるインストールしようとした。<br />
-そしたら、pkgコマンドも削除されててリアルでorzとなった。<br />
+<p>ここで告白するが、私はとても面倒くさくなって、packageを根こそぎ削除して新規にまるまるインストールしようとした。<br>
+そしたら、pkgコマンドも削除されててリアルでorzとなった。<br>
 みんなは気をつけるように。</p>
-
 <p>話を戻すと、こういうウッカリさんには、poudriereは便利、かもしれない。</p>
-
-<h2 id="span-style-text-decoration-underline-注意点-span"><span style="text-decoration: underline;">注意点</span></h2>
-
-<p>仮想マシンでpoudriereを動かす人は以下の点に注意すべき。<br />
-端的に言って、firefox等のブラウザ、libreofficeなどの巨大packageを作る際には、膨大なメモリ、swapが必要である。メモリ、swapそれぞれ1GBでは失敗した。<br />
-メモリを用意できない場合には、出来合いのpackageを持ってくるしかないだろう。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->注意点<!-- raw HTML omitted --></h2>
+<p>仮想マシンでpoudriereを動かす人は以下の点に注意すべき。<br>
+端的に言って、firefox等のブラウザ、libreofficeなどの巨大packageを作る際には、膨大なメモリ、swapが必要である。メモリ、swapそれぞれ1GBでは失敗した。<br>
+メモリを用意できない場合には、出来合いのpackageを持ってくるしかないだろう。<br>
 なお、ブラウザに限って言えば、operaなら悠々とコンパイルできたことをお伝えしておく。</p>
-
 <p>ながながと前置きをしたが、以下にpoudriereでカスタムpackageを作る方法を示す。</p>
-
-<h2 id="span-style-text-decoration-underline-前提-span"><span style="text-decoration: underline;">前提</span></h2>
-
-<p>便宜上、「インターネットに繋がっていない」ことを「オフライン」と表現する。<br />
-「オフラインマシン」であれば、「インターネットには繋がっていないマシン」とする。<br />
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->前提<!-- raw HTML omitted --></h2>
+<p>便宜上、「インターネットに繋がっていない」ことを「オフライン」と表現する。<br>
+「オフラインマシン」であれば、「インターネットには繋がっていないマシン」とする。<br>
 ただしオフラインマシンであっても、LANには接続されている前提。</p>
-
 <p>ネット接続可能で、poudriereのインストールされているマシンをオンラインマシンとする。</p>
-
-<p>オンラインマシンでpackageを作り、「レポジトリをオフラインマシンにコピーしてから」、オフラインマシンにインストールするという手順にする。<br />
+<p>オンラインマシンでpackageを作り、「レポジトリをオフラインマシンにコピーしてから」、オフラインマシンにインストールするという手順にする。<br>
 つまりこれは複数のオフラインマシンを前提にしているというわけ。</p>
-
-<h2 id="span-style-text-decoration-underline-事前準備-span"><span style="text-decoration: underline;">事前準備</span></h2>
-
-<p>オンラインマシンにpoudriereの環境があること。<br />
-作り方は本記事の前編である<a href="../../../2014/02/poudriereでhomebrew-pkgリポジトリを/" target="_blank">こちら</a>をどうぞ。<br />
+<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->事前準備<!-- raw HTML omitted --></h2>
+<p>オンラインマシンにpoudriereの環境があること。<br>
+作り方は本記事の前編である<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->をどうぞ。<br>
 オフラインマシンには、pkgコマンド、webサーバ（nginx, lighttpd, apacheのいずれか。Pythonでもよい。 Python? ええPythonです）、あとはまあ転送用に、rsyncがあると便利。なくてもよい。</p>
-
-<p>オフラインマシンへのpkgインストールは<a href="../../../2014/02/pkgngが死んで詰んだときには/" target="_blank">こちら</a>を。<br />
-オフラインマシンへのpackageインストールは、poudriereに関する<a href="../../../2014/02/poudriere%e3%81%a7homebrew-pkg%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa%e3%82%92/" target="_blank">こちら</a>を。</p>
-
-<h2 id="span-style-text-decoration-underline-全体の流れ-span"><span style="text-decoration: underline;">全体の流れ</span></h2>
-
+<p>オフラインマシンへのpkgインストールは<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->を。<br>
+オフラインマシンへのpackageインストールは、poudriereに関する<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->を。</p>
+<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->全体の流れ<!-- raw HTML omitted --></h2>
 <p>poudriereでカスタムpackageを作るときの流れは以下のようなものである。</p>
-
-<p><p style="padding-left: 30px;">
-  1.おもむろにテキストファイルを開く<br /> 2.カスタマイズしたいpackageの一覧をズラズラと並べる。<br /> 3.このとき、origin付きで並べること。php5ならlang/php5というように。<br /> 4.poudirereのサブコマンドoptionsを使って一括でoption設定をする。<br /> 5.あとは同じファイルでbulkコンパイルすればよい。</p>
-
+<!-- raw HTML omitted -->
 <p>では。</p>
-
-<p><span style="text-decoration: underline;">カスタマイズしたいpackage一覧の作成</span></p>
-
-<p>一例として、以下のようなファイルを作る。<br />
+<p><!-- raw HTML omitted -->カスタマイズしたいpackage一覧の作成<!-- raw HTML omitted --></p>
+<p>一例として、以下のようなファイルを作る。<br>
 pkg.custom.txt</p>
-
-<pre><code class="language-console">lang/php5
+<pre><code class="language-console" data-lang="console">lang/php5
 lang/php5-extensions
-</code></pre>
-
-<p>originの探し方はpkg search -o phpなどとすればよい。</p>
-
-<p><span style="text-decoration: underline;">optionの設定</span></p>
-
+</code></pre><p>originの探し方はpkg search -o phpなどとすればよい。</p>
+<p><!-- raw HTML omitted -->optionの設定<!-- raw HTML omitted --></p>
 <p>以下のようにする。</p>
-
-<pre><code class="language-console">poudriere options -n ＜package一覧＞ -j ＜jail name＞
-</code></pre>
-
-<p>optionsサブコマンドにテキストファイルを与えると、書かれているpackageのoptionを根こそぎ聞いてくれる。</p>
-
-<p>実態は、おそらく当該portsに移ってmake config-recursiveをしている。<br />
-それはともかく、素のままoptionsを実行すると、再帰的にmake configされるので大変である。<br />
-大量の依存を抱えているといつまで経ってもoption選択が終わらない。ウンザリする。<br />
-そもそもカスタマイズしたいpackageだけを書いているのにこんなことをされては迷惑である。<br />
+<pre><code class="language-console" data-lang="console">poudriere options -n ＜package一覧＞ -j ＜jail name＞
+</code></pre><p>optionsサブコマンドにテキストファイルを与えると、書かれているpackageのoptionを根こそぎ聞いてくれる。</p>
+<p>実態は、おそらく当該portsに移ってmake config-recursiveをしている。<br>
+それはともかく、素のままoptionsを実行すると、再帰的にmake configされるので大変である。<br>
+大量の依存を抱えているといつまで経ってもoption選択が終わらない。ウンザリする。<br>
+そもそもカスタマイズしたいpackageだけを書いているのにこんなことをされては迷惑である。<br>
 そこで-nオプションを与えて、option設定を一階層に限るというわけ。</p>
-
-<p><span style="text-decoration: underline;">packageの作成</span></p>
-
-<p>あとは同じテキストファイルを、bulkコマンドに与えて上げればよい。<br />
+<p><!-- raw HTML omitted -->packageの作成<!-- raw HTML omitted --></p>
+<p>あとは同じテキストファイルを、bulkコマンドに与えて上げればよい。<br>
 待つだけ。</p>
-
-<p><span style="text-decoration: underline;">リポジトリの展開</span></p>
-
-<p>オンラインマシン（”オンラインマシン”の定義は「前提」章を参照のこと）からオフラインマシンに移す。<br />
+<p><!-- raw HTML omitted -->リポジトリの展開<!-- raw HTML omitted --></p>
+<p>オンラインマシン（”オンラインマシン”の定義は「前提」章を参照のこと）からオフラインマシンに移す。<br>
 オンラインマシンでいきなりリポジトリを公開するケースはこちらを。</p>
-
 <p>さて以下の場所にリポジトリができたとする。</p>
-
-<pre><code class="language-console">/usr/local/poudriere/data/packages/92i386-default
-</code></pre>
-
-<p>それをオフラインマシンに転送。</p>
-
-<p>rsyncを使った。<br />
-ないならtarでもなんでも固めて持っていけ。<br />
-ここでは192.168.200.100がオフラインマシン。<br />
+<pre><code class="language-console" data-lang="console">/usr/local/poudriere/data/packages/92i386-default
+</code></pre><p>それをオフラインマシンに転送。</p>
+<p>rsyncを使った。<br>
+ないならtarでもなんでも固めて持っていけ。<br>
+ここでは192.168.200.100がオフラインマシン。<br>
 オフラインマシンにいる普通のユーザのディレクトリに置いているが、気にしない。</p>
-
-<pre><code class="language-console">$ cd /usr/local/poudriere/data/
+<pre><code class="language-console" data-lang="console">$ cd /usr/local/poudriere/data/
 $ rsync -avz —-delete ./packages/ vanilla@192.168.200.100:/home/vanilla/poudriere/
-</code></pre>
-
-<p>その後、オフラインマシンに移って該当箇所をwebで公開。</p>
-
+</code></pre><p>その後、オフラインマシンに移って該当箇所をwebで公開。</p>
 <p>pythonが入っていれば以下のコマンドですぐに公開できる（Python 2の例）。</p>
-
-<pre><code class="language-console">$ cd /home/vanilla/poudriere
+<pre><code class="language-console" data-lang="console">$ cd /home/vanilla/poudriere
 $ python -m SimpleHTTPServer
 Serving HTTP on 0.0.0.0 port 8000 ...
-</code></pre>
-
-<p><span style="text-decoration: underline;">オフラインマシンでの設定</span></p>
-
+</code></pre><p><!-- raw HTML omitted -->オフラインマシンでの設定<!-- raw HTML omitted --></p>
 <p>以下のような設定を書けばOK。</p>
-
-<pre><code class="language-console">/usr/local/etc/pkg/repos/localpkg.conf
+<pre><code class="language-console" data-lang="console">/usr/local/etc/pkg/repos/localpkg.conf
 
 localpkg: {
 url: &quot;http://192.168.200.100:8000/92i386-default&quot;,
 mirror_type: &quot;http&quot;,
 enabled: yes
 }
-</code></pre>
-
-<p>リポジトリの設定を変えたら必ずpkg -vvで確認。</p>
-
-<pre><code class="language-console">pkg -vv
+</code></pre><p>リポジトリの設定を変えたら必ずpkg -vvで確認。</p>
+<pre><code class="language-console" data-lang="console">pkg -vv
 
 Repositories:
 localpkg: {
@@ -331,19 +258,14 @@ url : &quot;http://192.168.200.100:8000/92i386-default&quot;,
 enabled : yes,
 mirror_type : &quot;HTTP&quot;
 }
-</code></pre>
-
-<p>あとはpkg updateしていつもの流れ。</p>
-
-<pre><code class="language-console">$ sudo pkg update
+</code></pre><p>あとはpkg updateしていつもの流れ。</p>
+<pre><code class="language-console" data-lang="console">$ sudo pkg update
 Updating repository catalogue
 digests.txz 100% 26KB 25.6KB/s 25.6KB/s 00:00
 packagesite.txz 100% 114KB 114.0KB/s 114.0KB/s 00:00
 Incremental update completed, 537 packages processed:
 0 packages updated, 0 removed and 537 added.
-</code></pre>
-
-<p>以上。</p>
+</code></pre><p>以上。</p>
 <ul class="pa0">
   
    <li class="list">

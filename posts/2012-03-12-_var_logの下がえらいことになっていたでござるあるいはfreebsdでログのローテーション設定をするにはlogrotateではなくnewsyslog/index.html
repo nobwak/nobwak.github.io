@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-03-12T01:00:00+09:00" />
 <meta itemprop="name" content="/var/logの下がえらいことになっていたでござる。（あるいはFreeBSDでログのローテーション設定をするには(logrotateではなくnewsyslog))。">
 <meta itemprop="description" content="ある日、ふと/var/logの下を見てみたら、1.5GBytesに膨れ上がった某ログファイルがあって腰を抜かした件について。 思えば、サーバソ">
-
-
 <meta itemprop="datePublished" content="2012-03-12T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-12T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1756">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="/var/logの下がえらいことになっていたでござる。（あるいはFreeBSDでログのローテーション設定をするには(logrotateではなくnewsyslog))。"/>
 <meta name="twitter:description" content="ある日、ふと/var/logの下を見てみたら、1.5GBytesに膨れ上がった某ログファイルがあって腰を抜かした件について。 思えば、サーバソ"/>
 
@@ -224,39 +221,27 @@ man newsyslog.confを見ればだいたい分かる。以降、英文はここ�
 
 以下の順番で並べるだけ。間はスペースで埋めること（separated with whitespace）。
 </code></pre>
-
-<pre><code class="language-console"># filename          &amp;#91;owner:group]    mode count size when &amp;#91;ZB] &amp;#91;/pid_file] &amp;#91;sig_num]
+<pre><code class="language-console" data-lang="console"># filename          &amp;#91;owner:group]    mode count size when &amp;#91;ZB] &amp;#91;/pid_file] &amp;#91;sig_num]
+</code></pre><pre><code>以下、サンプル。
 </code></pre>
-
-<pre><code>以下、サンプル。
-</code></pre>
-
-<pre><code class="language-console">/var/log/local7.log    600  10 1024 * JC
-</code></pre>
-
-<pre><code>/var/log/local7.logが、1MBytesを超えた時点でローテーション。
+<pre><code class="language-console" data-lang="console">/var/log/local7.log    600  10 1024 * JC
+</code></pre><pre><code>/var/log/local7.logが、1MBytesを超えた時点でローテーション。
 
 
 
 生成されたログのパーミッションは600で、bzip2で圧縮され（J）、10個保存される。
 </code></pre>
-
-<pre><code class="language-console">/var/log/httpd-access.log    644  7 * @T03 JC
-</code></pre>
-
-<pre><code>apacheのログを毎日午前3時にローテーション、圧縮して7日分残す。
+<pre><code class="language-console" data-lang="console">/var/log/httpd-access.log    644  7 * @T03 JC
+</code></pre><pre><code>apacheのログを毎日午前3時にローテーション、圧縮して7日分残す。
 
 
 
 設定を変えたらnewsyslogdを再起動。
 </code></pre>
-
-<pre><code class="language-console"># /etc/rc.d/newsyslog restart
+<pre><code class="language-console" data-lang="console"># /etc/rc.d/newsyslog restart
 Creating and/or trimming log files.
 #
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;設定について&lt;/span&gt;
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;設定について&lt;/span&gt;
 
 
 
@@ -365,19 +350,13 @@ Creating and/or trimming log files.
 
 newsyslog.conf(5)より抜粋
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  If a time is specified, the log file will only be trimmed if newsyslog(8) is run within one hour of the specified time. If an interval is specified, the log file will be trimmed if that many hours have passed since the last rotation.
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>　書式
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  　@で書くもの、$で書くものの二つ。
 
 
@@ -416,9 +395,7 @@ newsyslog.conf(5)より抜粋
 
   　$M5D6　毎月5日の午前6時。@05T06と同じ意味
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>&lt;span style=&quot;font-style:italic;&quot; class=&quot;deco&quot;&gt;flags&lt;/span&gt; 一部のみ。基本JCでよい。
 
 

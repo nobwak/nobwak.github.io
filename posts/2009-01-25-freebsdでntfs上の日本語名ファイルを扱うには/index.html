@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-01-25T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDでNTFS上の日本語名ファイルを扱うには。">
 <meta itemprop="description" content="FreeBSDでは、先日の&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090112/p1&quot; target=&quot;_blank&quot;&gt;MSDOSFSの件と同じく&lt;/a&gt">
-
-
 <meta itemprop="datePublished" content="2009-01-25T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-01-25T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="1279">
+<meta itemprop="wordCount" content="1255">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDでNTFS上の日本語名ファイルを扱うには。"/>
 <meta name="twitter:description" content="FreeBSDでは、先日の&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090112/p1&quot; target=&quot;_blank&quot;&gt;MSDOSFSの件と同じく&lt;/a&gt"/>
 
@@ -173,16 +170,13 @@ if (!doNotTrack) {
 
 ◎実行例
 </code></pre>
-
-<pre><code class="language-console"># pwd
+<pre><code class="language-console" data-lang="console"># pwd
 /usr/src
 # patch -C &amp;#60; ~/ntfs.patch/01.k.patch
 (略)
 # patch &amp;#60; ~/ntfs.patch/01.k.patch
 (略)
-</code></pre>
-
-<pre><code>次に、kernelの再構築と、libkiconvのmake install。
+</code></pre><pre><code>次に、kernelの再構築と、libkiconvのmake install。
 
 
 
@@ -200,8 +194,7 @@ libkiconvは/usr/src/lib/libkiconvでmake, make installする。
 
 ◎実行例
 </code></pre>
-
-<pre><code class="language-console"># pwd
+<pre><code class="language-console" data-lang="console"># pwd
 /usr/src/lib/libkiconv
 # make clean
 rm -f kiconv.3.gz kiconv.3.cat.gz
@@ -212,27 +205,20 @@ cc -O2 -fno-strict-aliasing -pipe  -I/usr/src/lib/libkiconv/../../sys  -c /usr/s
 # make install
 install -C -o root -g wheel -m 444   libkiconv.a /usr/lib
 （略）
-</code></pre>
-
-<pre><code>あとは再起動して新しいkernelを読み込ませ、mout_ntfsに-CUTF-8オプションを与えるだけ。
+</code></pre><pre><code>あとは再起動して新しいkernelを読み込ませ、mout_ntfsに-CUTF-8オプションを与えるだけ。
 
 
 
 ◎実行例
 </code></pre>
-
-<pre><code class="language-console"># mount_ntfs -o ro -CUTF-8 /dev/da0s1 /mnt
-</code></pre>
-
-<pre><code>FreeBSD初心者スレにもちょうど同じ話題があったのでコピーしておく。シンクロニシティ・・。
+<pre><code class="language-console" data-lang="console"># mount_ntfs -o ro -CUTF-8 /dev/da0s1 /mnt
+</code></pre><pre><code>FreeBSD初心者スレにもちょうど同じ話題があったのでコピーしておく。シンクロニシティ・・。
 
 
 
 初心者もOK! FreeBSD質問スレッド その99
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  445 : 名無しさん＠お腹いっぱい。 : sage : 2009/01/13(火) 08:13:53
 
 
@@ -271,12 +257,8 @@ install -C -o root -g wheel -m 444   libkiconv.a /usr/lib
 
   へけけ
 </code></pre>
-
-<p></blockquote></p>
-
-<p><div class="footnote">
-  <p class="footnote">
-    *1：mount_ntfs(8)の-Cの項参照。</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <ul class="pa0">
   
 </ul>

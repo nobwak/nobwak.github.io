@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-08-18T07:29:49+09:00" />
 <meta itemprop="name" content="[VM] VMWareのイメージをVirtualBoxで読み込むには（OVF経由での読み込み）">
 <meta itemprop="description" content="VMware Playerにはsnapshot機能がない。 仮想マシンを使う目的の一つは、本番マシンではできない、いろいろな実験をすることだ。 snapsh">
-
-
 <meta itemprop="datePublished" content="2013-08-18T07:29:49&#43;09:00" />
 <meta itemprop="dateModified" content="2013-08-18T07:29:49&#43;09:00" />
 <meta itemprop="wordCount" content="849">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[VM] VMWareのイメージをVirtualBoxで読み込むには（OVF経由での読み込み）"/>
 <meta name="twitter:description" content="VMware Playerにはsnapshot機能がない。 仮想マシンを使う目的の一つは、本番マシンではできない、いろいろな実験をすることだ。 snapsh"/>
 
@@ -140,78 +137,51 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>VMware Playerにはsnapshot機能がない。<br />
-仮想マシンを使う目的の一つは、本番マシンではできない、いろいろな実験をすることだ。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>VMware Playerにはsnapshot機能がない。<br>
+仮想マシンを使う目的の一つは、本番マシンではできない、いろいろな実験をすることだ。<br>
 snapshot機能がないと実験が途端に面倒になる。</p>
-
-<p>こればかりはどうしようもない。仕方がないので、手元の仮想マシンはすべてVirtualBoxに移行する。<br />
+<p>こればかりはどうしようもない。仕方がないので、手元の仮想マシンはすべてVirtualBoxに移行する。<br>
 そのときのメモ。</p>
-
-<h2 id="span-style-text-decoration-underline-全体の流れ-span"><span style="text-decoration: underline;">全体の流れ</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->全体の流れ<!-- raw HTML omitted --></h2>
 <ol>
 <li>VMWare Player付属のツールでOVFに変換する。</li>
 <li>それをVirtualBoxでインポート。</li>
 </ol>
-
-<p>OVFとはOpen Virtualization Formatのこと。詳しくは<a href="http://ja.wikipedia.org/wiki/OVF" target="_blank">Wikipedia</a>。</p>
-
+<p>OVFとはOpen Virtualization Formatのこと。詳しくは<!-- raw HTML omitted -->Wikipedia<!-- raw HTML omitted -->。</p>
 <p>VMWare Player付属のovftool.exeについて</p>
-
-<p>VMWareのイメージをOVFフォーマットに変換するツール。<br />
-コマンドプロンプトで使う。<br />
+<p>VMWareのイメージをOVFフォーマットに変換するツール。<br>
+コマンドプロンプトで使う。<br>
 書式は以下の通り。</p>
-
-<pre><code class="language-console">ovftool &lt;変換元イメージ&gt; &lt;変換先イメージ&gt;
-</code></pre>
-
-<p>実際にやってみる。</p>
-
-<h2 id="span-style-text-decoration-underline-ovfへの変換-span"><span style="text-decoration: underline;">OVFへの変換。</span></h2>
-
-<p>ovftool.exeはVMWare Playerのインストールフォルダにある。<br />
-作業はコマンドプロンプトで行う。<br />
+<pre><code class="language-console" data-lang="console">ovftool &lt;変換元イメージ&gt; &lt;変換先イメージ&gt;
+</code></pre><p>実際にやってみる。</p>
+<h2 id="span-styletext-decoration-underlineovfspan"><!-- raw HTML omitted -->OVFへの変換。<!-- raw HTML omitted --></h2>
+<p>ovftool.exeはVMWare Playerのインストールフォルダにある。<br>
+作業はコマンドプロンプトで行う。<br>
 いちいちcdしていくのが面倒なので、以下のようにしてコマンドプロンプトを開く。</p>
-
-<p><a href="../../../wp-content/uploads/2013/08/convert001.png"><img class="alignnone size-medium wp-image-2168" alt="convert001" src="../../../wp-content/uploads/2013/08/convert001-300x178.png" width="300" height="178" srcset="../../../wp-content/uploads/2013/08/convert001-300x178.png 300w, ../../../wp-content/uploads/2013/08/convert001.png 632w" sizes="(max-width: 300px) 100vw, 300px" /></a><br />
-<a href="../../../wp-content/uploads/2013/08/convert002.png"><img class="alignnone size-medium wp-image-2169" alt="convert002" src="../../../wp-content/uploads/2013/08/convert002-300x218.png" width="300" height="218" srcset="../../../wp-content/uploads/2013/08/convert002-300x218.png 300w, ../../../wp-content/uploads/2013/08/convert002.png 677w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
-
+<p><a href="../../../wp-content/uploads/2013/08/convert001.png"><!-- raw HTML omitted --></a><br>
+<a href="../../../wp-content/uploads/2013/08/convert002.png"><!-- raw HTML omitted --></a></p>
 <p>そして変換元ディスクイメージの指定も面倒なので、いったんエクスプローラに戻り、パスを取得する。</p>
-
-<p><a href="../../../wp-content/uploads/2013/08/convert003.png"><img class="alignnone size-medium wp-image-2170" alt="convert003" src="../../../wp-content/uploads/2013/08/convert003-300x199.png" width="300" height="199" srcset="../../../wp-content/uploads/2013/08/convert003-300x199.png 300w, ../../../wp-content/uploads/2013/08/convert003.png 709w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
-
+<p><a href="../../../wp-content/uploads/2013/08/convert003.png"><!-- raw HTML omitted --></a></p>
 <p>コマンドプロンプトに戻って貼り付け。その後、変換先イメージの場所を指定。</p>
-
-<p><a href="../../../wp-content/uploads/2013/08/convert004.png"><img class="alignnone size-medium wp-image-2171" alt="convert004" src="../../../wp-content/uploads/2013/08/convert004-300x218.png" width="300" height="218" srcset="../../../wp-content/uploads/2013/08/convert004-300x218.png 300w, ../../../wp-content/uploads/2013/08/convert004.png 677w" sizes="(max-width: 300px) 100vw, 300px" /></a><br />
-<a href="../../../wp-content/uploads/2013/08/convert005.png"><img class="alignnone size-medium wp-image-2172" alt="convert005" src="../../../wp-content/uploads/2013/08/convert005-300x218.png" width="300" height="218" srcset="../../../wp-content/uploads/2013/08/convert005-300x218.png 300w, ../../../wp-content/uploads/2013/08/convert005.png 677w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
-
-<h2 id="span-style-text-decoration-underline-virtualboxでのインポート-span"><span style="text-decoration: underline;">VirtualBoxでのインポート</span></h2>
-
-<p>大して難しいことはない。<br />
+<p><a href="../../../wp-content/uploads/2013/08/convert004.png"><!-- raw HTML omitted --></a><br>
+<a href="../../../wp-content/uploads/2013/08/convert005.png"><!-- raw HTML omitted --></a></p>
+<h2 id="span-styletext-decoration-underlinevirtualboxspan"><!-- raw HTML omitted -->VirtualBoxでのインポート<!-- raw HTML omitted --></h2>
+<p>大して難しいことはない。<br>
 が、注意点が一つだけ。</p>
-
-<p>OVFファイルのあるフォルダに、拡張子.mfを持つファイルがある。<br />
-VirtualBoxでのインポート前に削除しておくこと。<br />
-.mfとはManifestファイルであり、これがあると<a href="http://davejsteele.wordpress.com/2012/08/12/virtualbox-ovf-import-error-verr_manifest_file_mismatch-failed-to-import-appliance/" target="_blank">インポートに失敗する</a>。</p>
-
-<p><a href="../../../wp-content/uploads/2013/08/convert0071.png"><img class="alignnone size-medium wp-image-2177" alt="convert0071" src="../../../wp-content/uploads/2013/08/convert0071-300x185.png" width="300" height="185" srcset="../../../wp-content/uploads/2013/08/convert0071-300x185.png 300w, ../../../wp-content/uploads/2013/08/convert0071.png 638w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
-
+<p>OVFファイルのあるフォルダに、拡張子.mfを持つファイルがある。<br>
+VirtualBoxでのインポート前に削除しておくこと。<br>
+.mfとはManifestファイルであり、これがあると<!-- raw HTML omitted -->インポートに失敗する<!-- raw HTML omitted -->。</p>
+<p><a href="../../../wp-content/uploads/2013/08/convert0071.png"><!-- raw HTML omitted --></a></p>
 <p>後は素直に。英語ならpretty straightforwardとかいうでしょうか。</p>
-
-<p><a href="../../../wp-content/uploads/2013/08/convert006.png"><img class="alignnone size-medium wp-image-2173" alt="convert006" src="../../../wp-content/uploads/2013/08/convert006-300x155.png" width="300" height="155" srcset="../../../wp-content/uploads/2013/08/convert006-300x155.png 300w, ../../../wp-content/uploads/2013/08/convert006.png 684w" sizes="(max-width: 300px) 100vw, 300px" /></a><br />
+<p><a href="../../../wp-content/uploads/2013/08/convert006.png"><!-- raw HTML omitted --></a><br>
 ファイル→仮想アプライアンスのインポート。</p>
-
-<p><a href="../../../wp-content/uploads/2013/08/convert007.png"><img class="alignnone size-medium wp-image-2174" alt="convert007" src="../../../wp-content/uploads/2013/08/convert007-300x264.png" width="300" height="264" srcset="../../../wp-content/uploads/2013/08/convert007-300x264.png 300w, ../../../wp-content/uploads/2013/08/convert007.png 531w" sizes="(max-width: 300px) 100vw, 300px" /></a><br />
-変換してできたovfを選ぶと、設定が表示される。<br />
+<p><a href="../../../wp-content/uploads/2013/08/convert007.png"><!-- raw HTML omitted --></a><br>
+変換してできたovfを選ぶと、設定が表示される。<br>
 メモリ256MBってなんだよ&hellip;。あとで設定を変えよう。</p>
-
-<p><a href="../../../wp-content/uploads/2013/08/convert008.png"><img class="alignnone size-medium wp-image-2175" alt="convert008" src="../../../wp-content/uploads/2013/08/convert008-300x186.png" width="300" height="186" srcset="../../../wp-content/uploads/2013/08/convert008-300x186.png 300w, ../../../wp-content/uploads/2013/08/convert008.png 741w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
-
-<p><a href="../../../wp-content/uploads/2013/08/convert009.png"><img class="alignnone size-medium wp-image-2176" alt="convert009" src="../../../wp-content/uploads/2013/08/convert009-300x224.png" width="300" height="224" srcset="../../../wp-content/uploads/2013/08/convert009-300x224.png 300w, ../../../wp-content/uploads/2013/08/convert009.png 786w" sizes="(max-width: 300px) 100vw, 300px" /></a><br />
-できあがり。<br />
-このあと設定を変えればVirtualBoxで使えます。<br />
+<p><a href="../../../wp-content/uploads/2013/08/convert008.png"><!-- raw HTML omitted --></a></p>
+<p><a href="../../../wp-content/uploads/2013/08/convert009.png"><!-- raw HTML omitted --></a><br>
+できあがり。<br>
+このあと設定を変えればVirtualBoxで使えます。<br>
 なお、OVFファイルは捨ててしまっても問題なし。</p>
 <ul class="pa0">
   

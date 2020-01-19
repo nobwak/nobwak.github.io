@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2016-06-08T21:51:45+09:00" />
 <meta itemprop="name" content="[メモ][Python] AnacondaをWindows xpにインストールしようとすると失敗する">
 <meta itemprop="description" content="Anacondaは、Pythonのほかに、IPython、Spyder、pandas他便利ライブラリが一式でついてくるお手軽Python環境">
-
-
 <meta itemprop="datePublished" content="2016-06-08T21:51:45&#43;09:00" />
 <meta itemprop="dateModified" content="2016-06-08T21:51:45&#43;09:00" />
 <meta itemprop="wordCount" content="366">
 
 
 
-<meta itemprop="keywords" content="python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ][Python] AnacondaをWindows xpにインストールしようとすると失敗する"/>
 <meta name="twitter:description" content="Anacondaは、Pythonのほかに、IPython、Spyder、pandas他便利ライブラリが一式でついてくるお手軽Python環境"/>
 
@@ -141,29 +138,19 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Anacondaは、Pythonのほかに、IPython、Spyder、pandas他便利ライブラリが一式でついてくるお手軽Python環境である。</p>
-
-<p>しかしAnacondaをWindows xpにインストールしようとすると失敗する。<br />
-具体的には、インストール途中の「メニューを作る」ステップで失敗。<br />
+<p>しかしAnacondaをWindows xpにインストールしようとすると失敗する。<br>
+具体的には、インストール途中の「メニューを作る」ステップで失敗。<br>
 無視して進めると、C:\Anaconda3に実行ファイルは揃っているので、「なんだ気のせいか」と安心して起動しようとすると「有効なWin32アプリケーションではありません」という旨のエラーが発生する。</p>
-
-<p>原因は、最新版がxpに対応していないせい。<br />
+<p>原因は、最新版がxpに対応していないせい。<br>
 以下から2.2.0をダウンロードし、インストールする。</p>
-
 <p><a href="https://repo.continuum.io/archive/">https://repo.continuum.io/archive/</a></p>
-
 <p>念のためファイル名とハッシュ値も残す。</p>
-
-<p><code>Anaconda3-2.2.0-Windows-x86.exe&lt;br /&gt;
-7c49a4e76e1c383038c4a1e8c4ac506f</code></p>
-
-<p>Anaconda-2.2.0-Windows-x86.exe<br />
+<p><code>Anaconda3-2.2.0-Windows-x86.exe&lt;br /&gt; 7c49a4e76e1c383038c4a1e8c4ac506f</code></p>
+<p>Anaconda-2.2.0-Windows-x86.exe<br>
 32246b48658d4c3faeef425cec64a131</p>
-
 <p>AnacondaのFAQにしっかり記載がある。</p>
-
 <p><a href="https://docs.continuum.io/anaconda/faq">https://docs.continuum.io/anaconda/faq</a></p>
-
-<p><em>How can I use Anaconda on Windows XP?</em><br />
+<p><em>How can I use Anaconda on Windows XP?</em><br>
 <em>Windows XP is supported on Anaconda versions 2.2 and earlier. Download it from our archive.</em></p>
 <ul class="pa0">
   

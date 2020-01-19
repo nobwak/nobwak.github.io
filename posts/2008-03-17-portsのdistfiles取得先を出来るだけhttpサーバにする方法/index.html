@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-03-17T01:00:00+09:00" />
 <meta itemprop="name" content="portsのdistfiles取得先を出来るだけhttpサーバにする方法。">
 <meta itemprop="description" content="FreeBSD-questionsに流れていたのでメモ。 /etc/make.confに下記の行を加えると、portsのdistfileを取得">
-
-
 <meta itemprop="datePublished" content="2008-03-17T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-03-17T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="100">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="portsのdistfiles取得先を出来るだけhttpサーバにする方法。"/>
 <meta name="twitter:description" content="FreeBSD-questionsに流れていたのでメモ。 /etc/make.confに下記の行を加えると、portsのdistfileを取得"/>
 
@@ -146,10 +143,8 @@ if (!doNotTrack) {
 
 /etc/make.confに下記の行を加えると、portsのdistfileを取得する際、httpサーバを優先的に選んでくれるようになる。
 </code></pre>
-
-<pre><code class="language-console">MASTER_SORT_REGEX?= ^http://
-</code></pre>
-<ul class="pa0">
+<pre><code class="language-console" data-lang="console">MASTER_SORT_REGEX?= ^http://
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

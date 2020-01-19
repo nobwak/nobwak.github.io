@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-05-01T22:21:41+09:00" />
 <meta itemprop="name" content="[Python2] Hex文字列とBin文字列でコンバート">
 <meta itemprop="description" content="メモでござる。 Hex文字列をBin文字列に変換したり、その逆に変換するには。 Bin-&gt;Hex まずサンプル。 bindata = &quot;00001011&quot; hexdata = &quot;&quot; scale = 2 num_of_digits = 2 hexdata = hex(int(bindata,scale))[2:].zfill(num_of_digits) print &quot;%s ====&gt; %s&quot; % (bindata, hexdata) 実行">
-
-
 <meta itemprop="datePublished" content="2014-05-01T22:21:41&#43;09:00" />
 <meta itemprop="dateModified" content="2014-05-01T22:21:41&#43;09:00" />
 <meta itemprop="wordCount" content="232">
 
 
 
-<meta itemprop="keywords" content="python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Python2] Hex文字列とBin文字列でコンバート"/>
 <meta name="twitter:description" content="メモでござる。 Hex文字列をBin文字列に変換したり、その逆に変換するには。 Bin-&gt;Hex まずサンプル。 bindata = &quot;00001011&quot; hexdata = &quot;&quot; scale = 2 num_of_digits = 2 hexdata = hex(int(bindata,scale))[2:].zfill(num_of_digits) print &quot;%s ====&gt; %s&quot; % (bindata, hexdata) 実行"/>
 
@@ -140,17 +137,11 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>メモでござる。</p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>メモでござる。</p>
 <p>Hex文字列をBin文字列に変換したり、その逆に変換するには。</p>
-
 <h2 id="bin-hex">Bin-&gt;Hex</h2>
-
 <p>まずサンプル。</p>
-
-<pre><code class="language-console">bindata = &quot;00001011&quot;
+<pre><code class="language-console" data-lang="console">bindata = &quot;00001011&quot;
 hexdata = &quot;&quot;
 scale = 2
 num_of_digits = 2
@@ -158,24 +149,16 @@ num_of_digits = 2
 hexdata = hex(int(bindata,scale))[2:].zfill(num_of_digits)
 
 print &quot;%s ====&gt; %s&quot; % (bindata, hexdata)
-</code></pre>
-
-<p>実行例。</p>
-
-<pre><code class="language-console">00001011 ====&gt; 0b
-</code></pre>
-
-<h2 id="説明">説明</h2>
-
-<p>まずint()で数値に変換する。<br />
-その際には第二引数で基数を与える。bin文字列なら2を。hexなら16を与える。<br />
-次にその数値をhex()で16進数に変換。<br />
-そのままだと頭に0xが付いてしまうので[2:]として取り除く。<br />
+</code></pre><p>実行例。</p>
+<pre><code class="language-console" data-lang="console">00001011 ====&gt; 0b
+</code></pre><h2 id="heading">説明</h2>
+<p>まずint()で数値に変換する。<br>
+その際には第二引数で基数を与える。bin文字列なら2を。hexなら16を与える。<br>
+次にその数値をhex()で16進数に変換。<br>
+そのままだと頭に0xが付いてしまうので[2:]として取り除く。<br>
 さらにzfillで桁数分0で埋める。</p>
-
 <h2 id="hex-bin">Hex-&gt;Bin</h2>
-
-<pre><code class="language-console">bindata = &quot;&quot;
+<pre><code class="language-console" data-lang="console">bindata = &quot;&quot;
 hexdata = &quot;1c&quot;
 scale = 16
 num_of_digits = 8
@@ -183,13 +166,9 @@ num_of_digits = 8
 bindata = bin(int(hexdata,scale))[2:].zfill(num_of_digits)
 
 print &quot;%s ====&gt; %s&quot; % (hexdata, bindata)
-</code></pre>
-
-<p>実行例</p>
-
-<pre><code class="language-console">1c ====&gt; 00011100
-</code></pre>
-<ul class="pa0">
+</code></pre><p>実行例</p>
+<pre><code class="language-console" data-lang="console">1c ====&gt; 00011100
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>

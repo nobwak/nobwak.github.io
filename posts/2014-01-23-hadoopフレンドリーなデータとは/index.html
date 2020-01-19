@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-23T20:16:09+09:00" />
 <meta itemprop="name" content="Hadoopフレンドリーなデータとは">
 <meta itemprop="description" content="ログは1行1イベントに 何を言っとるんだお前はという感じであるが、つまりこういう事である。 通常、ログは1行が1イベントである。 たとえばapac">
-
-
 <meta itemprop="datePublished" content="2014-01-23T20:16:09&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-23T20:16:09&#43;09:00" />
-<meta itemprop="wordCount" content="1010">
+<meta itemprop="wordCount" content="1019">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,hadoop,jail,linux,python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,hadoop,jail,linux,python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hadoopフレンドリーなデータとは"/>
 <meta name="twitter:description" content="ログは1行1イベントに 何を言っとるんだお前はという感じであるが、つまりこういう事である。 通常、ログは1行が1イベントである。 たとえばapac"/>
 
@@ -140,58 +137,37 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="span-style-text-decoration-underline-ログは1行1イベントに-span"><span style="text-decoration: underline;">ログは1行1イベントに</span></h2>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underline11span"><!-- raw HTML omitted -->ログは1行1イベントに<!-- raw HTML omitted --></h2>
 <p>何を言っとるんだお前はという感じであるが、つまりこういう事である。</p>
-
-<p>通常、ログは1行が1イベントである。<br />
-たとえばapacheのログやらなにやら、みんなそうである。<br />
-少なくともUNIX系のシステムであれば、これは常識である。<br />
+<p>通常、ログは1行が1イベントである。<br>
+たとえばapacheのログやらなにやら、みんなそうである。<br>
+少なくともUNIX系のシステムであれば、これは常識である。<br>
 しかし、この世の中、UNIX系の常識が通用しないログだって山ほどあるのである。</p>
-
-<h2 id="span-style-text-decoration-underline-1イベントが複数行にわたるログがなぜいけないか-span"><span style="text-decoration: underline;">1イベントが複数行にわたるログがなぜいけないか。</span></h2>
-
+<h2 id="span-styletext-decoration-underline1span"><!-- raw HTML omitted -->1イベントが複数行にわたるログがなぜいけないか。<!-- raw HTML omitted --></h2>
 <p>たとえば以下の様な擬似ログを考えてみよう。</p>
-
-<p>まったく関係のない話だが、以下のデータは手元にあるLIFEのノートから適当にでっち上げた。<br />
+<p>まったく関係のない話だが、以下のデータは手元にあるLIFEのノートから適当にでっち上げた。<br>
 冒頭にタイムスタンプがあり、イベントの内容が記される、典型的なログである。</p>
-
-<pre><code class="language-console">2013/12/16 17:55:05.6582 N28 [499016804864] Noble note section B6 5m/m
-</code></pre>
-
-<p><span style="line-height: 1.5em;">しかしこれが、以下のように複数行にわたって記録（あるいは表示）される、こういうログを相手にすることだってあるのだ。</span></p>
-
-<pre><code class="language-console">2013/12/16 17:55:05.6582 N28
+<pre><code class="language-console" data-lang="console">2013/12/16 17:55:05.6582 N28 [499016804864] Noble note section B6 5m/m
+</code></pre><p><!-- raw HTML omitted -->しかしこれが、以下のように複数行にわたって記録（あるいは表示）される、こういうログを相手にすることだってあるのだ。<!-- raw HTML omitted --></p>
+<pre><code class="language-console" data-lang="console">2013/12/16 17:55:05.6582 N28
 4990 1680
 4864
 Noble note section
 B6 5m/m
-</code></pre>
-
-<p><span style="line-height: 1.5em;">これは主に可読性を意識したせいであろうが、こういったログをHadoopで扱うのは難しい。<br /> </span></p>
-
-<h2 id="span-style-text-decoration-underline-span-style-line-height-1-5em-hadoopのデータの扱い方-span-span"><span style="text-decoration: underline;"><span style="line-height: 1.5em;">Hadoopのデータの扱い方</span></span></h2>
-
-<p><span style="line-height: 1.5em;">というのも、Hadoopは分散処理のためにログを分割するからだ（デフォルトでは64MBごと）。</span></p>
-
-<p>しかもその分割は、単純にサイズのみで判断され、文脈は考慮されない。<br />
+</code></pre><p><!-- raw HTML omitted -->これは主に可読性を意識したせいであろうが、こういったログをHadoopで扱うのは難しい。<!-- raw HTML omitted --> <!-- raw HTML omitted --></p>
+<h2 id="span-styletext-decoration-underlinespan-styleline-height-15emhadoopspanspan"><!-- raw HTML omitted --><!-- raw HTML omitted -->Hadoopのデータの扱い方<!-- raw HTML omitted --><!-- raw HTML omitted --></h2>
+<p><!-- raw HTML omitted -->というのも、Hadoopは分散処理のためにログを分割するからだ（デフォルトでは64MBごと）。<!-- raw HTML omitted --></p>
+<p>しかもその分割は、単純にサイズのみで判断され、文脈は考慮されない。<br>
 上のログで言えば、Nobleの手前で切られてしまってログとして意味がなくなってしまうことだってある。</p>
-
-<p>これを避けるには、Hadoopにファイルそのものではなくて、ファイルリストを与える手があるけれども、それではHadoopの長所を活かせない。<br />
+<p>これを避けるには、Hadoopにファイルそのものではなくて、ファイルリストを与える手があるけれども、それではHadoopの長所を活かせない。<br>
 ファイルリストは綺麗に分割されるけど、ファイルの大きさはまちまちだから。</p>
-
-<h2 id="span-style-text-decoration-underline-ログの整形-span"><span style="text-decoration: underline;">ログの整形</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->ログの整形<!-- raw HTML omitted --></h2>
 <p>というわけで、こういったログを扱う前に、下準備として1行1イベントにまとめてしまおう。</p>
-
-<p>まとめ自体もHadoopで処理してしまえば楽である。<br />
-Hadoopの象本Appendix Cに良い例があるのでこれを使う。<br />
-ここでfiles.txtは処理するログファイルをリストしたものとする。<br />
+<p>まとめ自体もHadoopで処理してしまえば楽である。<br>
+Hadoopの象本Appendix Cに良い例があるのでこれを使う。<br>
+ここでfiles.txtは処理するログファイルをリストしたものとする。<br>
 また、concat.shは1行1イベントにまとめるスクリプトとする。</p>
-
-<pre><code class="language-console">$ hadoop jar $HADOOP_INSTALL/contrib/streaming/hadoop-*-streaming.jar \
+<pre><code class="language-console" data-lang="console">$ hadoop jar $HADOOP_INSTALL/contrib/streaming/hadoop-*-streaming.jar \
 -D mapred.reduce.tasks=0 \
 -D mapred.map.tasks.speculative.execution=false \
 -D mapred.task.timeout=12000000 \
@@ -200,13 +176,10 @@ Hadoopの象本Appendix Cに良い例があるのでこれを使う。<br />
 -output output \
 -mapper concat.sh \
 -file concat.sh
-</code></pre>
-
-<p>reduceは必要ないのでmapred.reduce.tasks=0。<br />
-重複して書き込んでほしくないのでmapred.map.tasks.speculative.execution=false。<br />
-タイムアウトは長めに。<br />
+</code></pre><p>reduceは必要ないのでmapred.reduce.tasks=0。<br>
+重複して書き込んでほしくないのでmapred.map.tasks.speculative.execution=false。<br>
+タイムアウトは長めに。<br>
 mapが一回に処理するファイルはひとつにしたいので、-inputformat org.apache.hadoop.mapred.lib.NLineInputFormat 。</p>
-
 <p>以上</p>
 <ul class="pa0">
   

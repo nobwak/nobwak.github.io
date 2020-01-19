@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-06-04T00:00:00+00:00" />
 <meta itemprop="name" content="正規表現メモ（マッチした文字の使いまわし、行挿入）">
 <meta itemprop="description" content="GNU sedを前提。 pkgではgsed。 マッチさせた文字列を再利用したい たとえば、以下のようなファイル中の文字列を; aaaabbb bbb こうしたい; aaaa bbb bbb ここで">
-
-
 <meta itemprop="datePublished" content="2019-06-04T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-06-04T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="539">
 
 
 
-<meta itemprop="keywords" content="regex," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="regex," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="正規表現メモ（マッチした文字の使いまわし、行挿入）"/>
 <meta name="twitter:description" content="GNU sedを前提。 pkgではgsed。 マッチさせた文字列を再利用したい たとえば、以下のようなファイル中の文字列を; aaaabbb bbb こうしたい; aaaa bbb bbb ここで"/>
 
@@ -140,106 +137,63 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>GNU sedを前提。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>GNU sedを前提。<br>
 pkgではgsed。</p>
-
-<h2 id="マッチさせた文字列を再利用したい">マッチさせた文字列を再利用したい</h2>
-
+<h2 id="heading">マッチさせた文字列を再利用したい</h2>
 <p>たとえば、以下のようなファイル中の文字列を;</p>
-
-<pre><code class="language-console">aaaabbb
+<pre><code class="language-console" data-lang="console">aaaabbb
 bbb
-</code></pre>
-
-<p>こうしたい;</p>
-
-<pre><code class="language-console">aaaa
+</code></pre><p>こうしたい;</p>
+<pre><code class="language-console" data-lang="console">aaaa
 bbb
 bbb
-</code></pre>
-
-<p>ここで、行末の<code>bbb</code>を探して<code>\nbbb</code>で変換しようとするとこうなってしまう;</p>
-
-<pre><code class="language-console">aaaabbb  # ここと
+</code></pre><p>ここで、行末の<code>bbb</code>を探して<code>\nbbb</code>で変換しようとするとこうなってしまう;</p>
+<pre><code class="language-console" data-lang="console">aaaabbb  # ここと
 bbb  # ここにマッチ
-</code></pre>
-
-<p>↓</p>
-
-<pre><code class="language-console">aaaa
+</code></pre><p>↓</p>
+<pre><code class="language-console" data-lang="console">aaaa
 bbb
 
 bbb  # 余計な空行が増える
-</code></pre>
-
-<p>そこで後方参照を使う。</p>
-
-<p>まず、通常通り表現を作る。<br />
-前に任意の一文字があり、行末がbbbで終わるものを書き換える。<br />
+</code></pre><p>そこで後方参照を使う。</p>
+<p>まず、通常通り表現を作る。<br>
+前に任意の一文字があり、行末がbbbで終わるものを書き換える。<br>
 つまり正規表現でいうところの<code>.bbb\n</code>を<code>\nbbb\n</code>に。</p>
-
-<pre><code class="language-console">s/.bbb\n/\nbbb\n/
-</code></pre>
-
-<p>これをそのまま使うとこうなってしまう;</p>
-
-<pre><code class="language-sh">aaa # aが一文字削れてしまう
+<pre><code class="language-console" data-lang="console">s/.bbb\n/\nbbb\n/
+</code></pre><p>これをそのまま使うとこうなってしまう;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">aaa <span style="color:#75715e"># aが一文字削れてしまう</span>
 bbb
 bbb
-</code></pre>
-
-<p>で、後方参照。<br />
-使いまわしたい個所をかっこでくくり、1つめなら$1として参照する。<br />
+</code></pre></div><p>で、後方参照。<br>
+使いまわしたい個所をかっこでくくり、1つめなら$1として参照する。<br>
 つまり<code>(.)bbb\n</code>を<code>$1\nbbb\n</code>に差し替える。</p>
-
-<pre><code class="language-console">s/(.)bbb\n/$1\nbbb\n/
-</code></pre>
-
-<p>無事にこうなる</p>
-
-<pre><code class="language-console">aaaa
+<pre><code class="language-console" data-lang="console">s/(.)bbb\n/$1\nbbb\n/
+</code></pre><p>無事にこうなる</p>
+<pre><code class="language-console" data-lang="console">aaaa
 bbb
 bbb
-</code></pre>
-
-<h2 id="ファイルの特定行に文字列を挿入する">ファイルの特定行に文字列を挿入する</h2>
-
+</code></pre><h2 id="heading-1">ファイルの特定行に文字列を挿入する</h2>
 <p>以下のようなファイルの1行目と2行目の間に文字列を挿入したい場合;</p>
-
-<pre><code class="language-console">aaa
+<pre><code class="language-console" data-lang="console">aaa
 ccc
 ddd
-</code></pre>
-
-<p>以下のようにする。</p>
-
-<pre><code class="language-sh">$ sed '2ibbb' sample.txt
+</code></pre><p>以下のようにする。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sed <span style="color:#e6db74">&#39;2ibbb&#39;</span> sample.txt
 aaa
 bbb
 ccc
 ddd
 $
-</code></pre>
-
-<p><code>2i</code>とは2行目にInsert(挿入）するという意味<br />
-注意すべきは、挿入したい文字列をコマンドのあとにすぐ続けること。<br />
+</code></pre></div><p><code>2i</code>とは2行目にInsert(挿入）するという意味<br>
+注意すべきは、挿入したい文字列をコマンドのあとにすぐ続けること。<br>
 <code>2i bbb</code>などとしてはいけない。そのせいで見にくいけど。</p>
-
 <p>出力を別ファイルに。</p>
-
-<pre><code class="language-sh">$ sed '2ibbb' sample.txt &gt; modified.txt
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sed <span style="color:#e6db74">&#39;2ibbb&#39;</span> sample.txt &gt; modified.txt
 $
-</code></pre>
-
-<p>複数ファイルの場合には以下のようにする。</p>
-
-<pre><code class="language-console">$ for i in *; do sed '2ibbb&quot;' $i &gt; /tmp/$i ; done
+</code></pre></div><p>複数ファイルの場合には以下のようにする。</p>
+<pre><code class="language-console" data-lang="console">$ for i in *; do sed '2ibbb&quot;' $i &gt; /tmp/$i ; done
 $
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

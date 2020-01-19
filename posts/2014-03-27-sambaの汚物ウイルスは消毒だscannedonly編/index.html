@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-03-27T22:35:59+09:00" />
 <meta itemprop="name" content="Sambaの汚物（ウイルス）は消毒だ。scannedonly編。">
 <meta itemprop="description" content="sambaのvfs, scannedonly scannedonlyとは、sambaのvfs。 その名前の通り、スキャン済みのもののみ開いたりダウンロードできるように">
-
-
 <meta itemprop="datePublished" content="2014-03-27T22:35:59&#43;09:00" />
 <meta itemprop="dateModified" content="2014-03-27T22:35:59&#43;09:00" />
 <meta itemprop="wordCount" content="2938">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,security," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,security," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Sambaの汚物（ウイルス）は消毒だ。scannedonly編。"/>
 <meta name="twitter:description" content="sambaのvfs, scannedonly scannedonlyとは、sambaのvfs。 その名前の通り、スキャン済みのもののみ開いたりダウンロードできるように"/>
 
@@ -140,22 +137,16 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="sambaのvfs-scannedonly">sambaのvfs, scannedonly</h2>
-
-<p><a href="http://olivier.sessink.nl/scannedonly/" target="_blank">scannedonly</a>とは、sambaのvfs。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="sambavfs-scannedonly">sambaのvfs, scannedonly</h2>
+<p><!-- raw HTML omitted -->scannedonly<!-- raw HTML omitted -->とは、sambaのvfs。<br>
 その名前の通り、スキャン済みのもののみ開いたりダウンロードできるようになる。</p>
-
-<h2 id="scannedonlyのインストール">scannedonlyのインストール</h2>
-
-<p><a href="http://olivier.sessink.nl/scannedonly/" target="_blank">scannedonly</a>のvfsは、実はSambaに含まれる。<br />
-あれ？じゃあすぐ使えるの？と思ったのだが、それは間違いで、実際にスキャンを行うdaemonを別にインストールする必要がある。<br />
-その代わりと言っては何だが、clamdを立ち上げる必要はない。<br />
-security/scannedonlyからインストールできる。<br />
+<h2 id="scannedonly">scannedonlyのインストール</h2>
+<p><!-- raw HTML omitted -->scannedonly<!-- raw HTML omitted -->のvfsは、実はSambaに含まれる。<br>
+あれ？じゃあすぐ使えるの？と思ったのだが、それは間違いで、実際にスキャンを行うdaemonを別にインストールする必要がある。<br>
+その代わりと言っては何だが、clamdを立ち上げる必要はない。<br>
+security/scannedonlyからインストールできる。<br>
 以下はインストール例。sysctl.confに一行追加しとけよ、と言われるのでその通りにしておく。</p>
-
-<pre><code class="language-console">$ sudo pkg install scannedonly
+<pre><code class="language-console" data-lang="console">$ sudo pkg install scannedonly
 Updating repository catalogue
 The following 1 packages will be installed:
 
@@ -181,55 +172,38 @@ Checking integrity... done
 * *
 **************************************************
 [vanilla@yaryka ~]$
-</code></pre>
-
-<h2 id="scannedonlyの設定の流れ">scannedonlyの設定の流れ</h2>
-
+</code></pre><h2 id="scannedonly-1">scannedonlyの設定の流れ</h2>
 <p>scannedonlyの設定には、前章のとおりにsysctl.confを修正することに加え、①vfsとしてのscannedonlyの設定、②daemonとしてのscannedonlyの設定が必要</p>
-
 <p>まず③のdaemonとしての設定から。</p>
-
-<h2 id="scannedonly-daemonの設定">scannedonly daemonの設定</h2>
-
-<p>/etc/rc.confで行う。<br />
+<h2 id="scannedonly-daemon">scannedonly daemonの設定</h2>
+<p>/etc/rc.confで行う。<br>
 設定例は以下のとおり。</p>
-
-<pre><code class="language-console">scannedonly_clamav_enable=&quot;YES&quot;
+<pre><code class="language-console" data-lang="console">scannedonly_clamav_enable=&quot;YES&quot;
 scannedonly_clamav_flags=&quot; --scanroot /usr/home/vanilla/share --big 20 -t 8 -m 20&quot;
-</code></pre>
-
-<p>おなじみの一行目はシステム起動時にdaemonも起動させる指定。<br />
-二行目でdaemonに与えるオプションを指定する。<br />
-上記の-scanrootは、スキャン対象のファイルが置かれるトップディレクトリを指定する。<br />
+</code></pre><p>おなじみの一行目はシステム起動時にdaemonも起動させる指定。<br>
+二行目でdaemonに与えるオプションを指定する。<br>
+上記の-scanrootは、スキャン対象のファイルが置かれるトップディレクトリを指定する。<br>
 daemonは、ここで指定されたディレクトリ外のファイルのウイルススキャンを要求されても無視する。</p>
-
 <p>その他のオプションには;</p>
-
-<pre><code class="language-console">-p --portnum: ポート番号。ネットワークソケット経由でスキャンするならこちら。
+<pre><code class="language-console" data-lang="console">-p --portnum: ポート番号。ネットワークソケット経由でスキャンするならこちら。
 -s path --socket=path : UNIX domainソケット。デフォルトは/var/run/scannedonlyd.sock
 -t 4 --maxthreads=4 : ウイルススキャンを行うスレッドの数。デフォルトは4。
 -b 10 --big=10 : 「大きいファイルだ」と認識するサイズをメガバイト単位で指定。後ほど触れる。
 -q 1000 --queuelen=1000 : スキャン待ちできる数。これを超えて要求されたウイルススキャンは無視される。
 -m 20 --time=20 : ここで指定された分ごとにステータスメッセージをログに吐く。
-</code></pre>
-
-<h2 id="scannedonlyのスレッドと-大きいファイル-について">scannedonlyのスレッドと「大きいファイル」について</h2>
-
-<p>scannedonlyはデフォルトでスキャン用に4スレッドを用意する。<br />
-複数のスキャン要求が来たとき、scannedonlyは「大きいファイル」を特定の1スレッドのみに割り当てる。残りのスレッドは「小さいファイル」をざくざくスキャンする。<br />
-こうすることでスキャンの待ち行列をスムーズに解消しようと試みる。<br />
-「大きいファイル」は前述の-bigで指定するサイズで決まる。<br />
-この値は、共有ファイルにどんなファイルがあるかを前提に変えたらよい。<br />
+</code></pre><h2 id="scannedonly-2">scannedonlyのスレッドと「大きいファイル」について</h2>
+<p>scannedonlyはデフォルトでスキャン用に4スレッドを用意する。<br>
+複数のスキャン要求が来たとき、scannedonlyは「大きいファイル」を特定の1スレッドのみに割り当てる。残りのスレッドは「小さいファイル」をざくざくスキャンする。<br>
+こうすることでスキャンの待ち行列をスムーズに解消しようと試みる。<br>
+「大きいファイル」は前述の-bigで指定するサイズで決まる。<br>
+この値は、共有ファイルにどんなファイルがあるかを前提に変えたらよい。<br>
 デフォルトの10MBはちょっと小さいので、20MBにした。</p>
-
-<h2 id="scannedonly-vfsの設定">scannedonly vfsの設定</h2>
-
-<p>smb.confに書く。<br />
-shareごとに設定できる。<br />
-以下が設定例。<br />
+<h2 id="scannedonly-vfs">scannedonly vfsの設定</h2>
+<p>smb.confに書く。<br>
+shareごとに設定できる。<br>
+以下が設定例。<br>
 最後の行だけ特殊。後述。</p>
-
-<pre><code class="language-console">[share]
+<pre><code class="language-console" data-lang="console">[share]
 (略)
 vfs objects = scannedonly # scannedonlyを有効に。
 scannedonly:domain_socket = True # domain socketを使うよ
@@ -237,13 +211,9 @@ scannedonly:socketname = /var/run/scannedonlyd.sock # domain socketの指定
 scannedonly:hide_nonscanned_files = True # 未スキャンファイルを隠し、（下の行に続く）
 scannedonly:scanning_message = is being scanned for viruses # スキャン中である旨表示する。
 scannedonly:allow_nonscanned_files = True # Officeドキュメントを共有するならTrueに。後述。
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-起動-span"><span style="text-decoration: underline;">起動</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->起動<!-- raw HTML omitted --></h2>
 <p>scannedonly daemonを起動し、そのあとsambaを（再）起動。</p>
-
-<pre><code class="language-console">$ sudo service scannedonly start
+<pre><code class="language-console" data-lang="console">$ sudo service scannedonly start
 Starting scannedonly_clamav.
 $ sudo service samba restart
 Performing sanity check on Samba configuration: OK
@@ -254,97 +224,67 @@ Removing stale Samba tdb files: ....... done
 Starting nmbd.
 Starting smbd.
 $
-</code></pre>
-
-<p>このとき、/var/log/messagesには以下の表示があるはず。</p>
-
-<pre><code class="language-console">Mar 21 21:13:35 yaryka scannedonlyd_clamav[5741]: Starting with socket /var/run/scannedonlyd.sock and 8 threads
+</code></pre><p>このとき、/var/log/messagesには以下の表示があるはず。</p>
+<pre><code class="language-console" data-lang="console">Mar 21 21:13:35 yaryka scannedonlyd_clamav[5741]: Starting with socket /var/run/scannedonlyd.sock and 8 threads
 Mar 21 21:13:47 yaryka scannedonlyd_clamav[5741]: Finished building databases. Ready for scanning with 8 threads
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-br-実験-未スキャンのファイルはどう表示されるか-span"><span style="text-decoration: underline;"><br /> 実験:未スキャンのファイルはどう表示されるか。</span></h2>
-
-<p>さっそく共有フォルダにファイルを放り込んでみよう。<br />
-小さいファイルだと変わらないようにみえるが、ちょっと大きいファイルになると、コピーが終わってからスキャンが終わるまで、以下のような表示になるはず。<br />
-<a href="../../../wp-content/uploads/2014/03/beingscanned.png"><img class="alignnone size-thumbnail wp-image-2652" alt="beingscanned" src="../../../wp-content/uploads/2014/03/beingscanned-150x150.png" width="150" height="150" /></a></p>
-
-<p>なお、hide_nonscanned_filesをFalseにした場合、コピーが終わった瞬間にファイルは表示される。<br />
-スキャンが終わってなくても表示される。<br />
-されるのだが、開こうとしたりコピーしようとすると、「アクセス権がない」旨のメッセージが表示されて蹴られる。<br />
-ユーザからしてみれば、ファイルが見えるのに開けないのはストレスでしかない。<br />
-hide_nonscanned_filesはTrueをお勧めする。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinebr--span"><!-- raw HTML omitted --><!-- raw HTML omitted --> 実験:未スキャンのファイルはどう表示されるか。<!-- raw HTML omitted --></h2>
+<p>さっそく共有フォルダにファイルを放り込んでみよう。<br>
+小さいファイルだと変わらないようにみえるが、ちょっと大きいファイルになると、コピーが終わってからスキャンが終わるまで、以下のような表示になるはず。<br>
+<a href="../../../wp-content/uploads/2014/03/beingscanned.png"><!-- raw HTML omitted --></a></p>
+<p>なお、hide_nonscanned_filesをFalseにした場合、コピーが終わった瞬間にファイルは表示される。<br>
+スキャンが終わってなくても表示される。<br>
+されるのだが、開こうとしたりコピーしようとすると、「アクセス権がない」旨のメッセージが表示されて蹴られる。<br>
+ユーザからしてみれば、ファイルが見えるのに開けないのはストレスでしかない。<br>
+hide_nonscanned_filesはTrueをお勧めする。<br>
 しかし。</p>
-
-<h2 id="span-style-text-decoration-underline-officeドキュメントを共有する場合-span"><span style="text-decoration: underline;">Officeドキュメントを共有する場合</span></h2>
-
-<p>scannedonlyの仕組みで困るのは、Officeドキュメント。<br />
-というのも、Officeはファイルを頻繁に開け閉めするから。<br />
-その都度、スキャンが走り、終わるまでファイルを開けなくなる。<br />
-要するに、使い物にならん。<br />
-そこで下記の行を追加して、未スキャンファイルも開けるようにするほかない。<br />
+<h2 id="span-styletext-decoration-underlineofficespan"><!-- raw HTML omitted -->Officeドキュメントを共有する場合<!-- raw HTML omitted --></h2>
+<p>scannedonlyの仕組みで困るのは、Officeドキュメント。<br>
+というのも、Officeはファイルを頻繁に開け閉めするから。<br>
+その都度、スキャンが走り、終わるまでファイルを開けなくなる。<br>
+要するに、使い物にならん。<br>
+そこで下記の行を追加して、未スキャンファイルも開けるようにするほかない。<br>
 うーん…。</p>
-
-<pre><code class="language-console">scannedonly:allow_nonscanned_files = True
-</code></pre>
-
-<p>まあ、仕方ないよね。</p>
-
-<h2 id="span-style-text-decoration-underline-バックヤードでは-span"><span style="text-decoration: underline;">バックヤードでは</span></h2>
-
-<p>さて。scannedonlyのバックヤードはどうなっているのだろうか。<br />
+<pre><code class="language-console" data-lang="console">scannedonly:allow_nonscanned_files = True
+</code></pre><p>まあ、仕方ないよね。</p>
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->バックヤードでは<!-- raw HTML omitted --></h2>
+<p>さて。scannedonlyのバックヤードはどうなっているのだろうか。<br>
 実ディレクトリを見てみると、このようになっている。</p>
-
-<pre><code class="language-console">$ ls -la
+<pre><code class="language-console" data-lang="console">$ ls -la
 total 84360
 drwxrwxrwx  2 vanilla  clamav        512 Mar 21 01:17 .
 drwxr-xr-x  3 vanilla  vanilla       512 Mar  3 22:40 ..
 -rwxr--r--  1 vanilla  clamav          0 Mar 21 21:17 .scanned:Sophos Virus Removal Tool.exe
 -rwxr--r--  1 vanilla  clamav   86325064 Mar 17 23:35 Sophos Virus Removal Tool.exe
 $
-</code></pre>
-
-<p>ディレクトリに置かれたファイルと同じファイル名、ただしファイル名の先頭に「.scanned:」と付いたサイズ0バイトのファイルができる。<br />
-このファイルでスキャン済みかどうかを、scannedonlyは判断している。<br />
-ちなみに、オリジナルのファイルを消すと.scannedの方も消える。<br />
-.scannedだけが残るということはないからご安心めされよ。<br />
+</code></pre><p>ディレクトリに置かれたファイルと同じファイル名、ただしファイル名の先頭に「.scanned:」と付いたサイズ0バイトのファイルができる。<br>
+このファイルでスキャン済みかどうかを、scannedonlyは判断している。<br>
+ちなみに、オリジナルのファイルを消すと.scannedの方も消える。<br>
+.scannedだけが残るということはないからご安心めされよ。<br>
 もちろん、ファイルを更新した際には再スキャンが行われる。</p>
-
-<p>大きなファイルを共有フォルダにコピーしはじめ、そのあとに小さなファイルを共有フォルダに置くと、小さいファイルはすぐに表示される。<br />
+<p>大きなファイルを共有フォルダにコピーしはじめ、そのあとに小さなファイルを共有フォルダに置くと、小さいファイルはすぐに表示される。<br>
 複数スレッドで処理していることと、大きいファイルは1スレッドでしか処理しないことからこのような動作になる。</p>
-
 <p>また、しばらくすると、/var/log/messagesにはログが増えているはず。</p>
-
-<pre><code class="language-console">Mar 21 21:33:47 yaryka scannedonlyd_clamav[5741]: Status: scanned 3 files and 0 large files in 20 minutes; min 0/max 4 requests on small queue, min 0/max 0 requests on large queue
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-br-実験-virusが見つかったらどうなる-span"><span style="text-decoration: underline;"><br /> 実験: virusが見つかったらどうなる？</span></h2>
-
-<p>試してみた。<br />
-testvirus.txtというファイルを突っ込んでみると、コピーが終わっても共有フォルダには表示がされない。<br />
-代わりに、同じファイル名、ただしファイル名先頭に「VIRUS_found_in_」、末尾に「.txt」と付いたサイズ0のファイルが作られ表示される。<br />
-<a href="../../../wp-content/uploads/2014/03/virusfoundscann.png"><img class="alignnone size-thumbnail wp-image-2653" alt="virusfoundscann" src="../../../wp-content/uploads/2014/03/virusfoundscann-150x150.png" width="150" height="150" /></a></p>
-
-<p>このとき、実ディレクトリはこのようになっている。<br />
+<pre><code class="language-console" data-lang="console">Mar 21 21:33:47 yaryka scannedonlyd_clamav[5741]: Status: scanned 3 files and 0 large files in 20 minutes; min 0/max 4 requests on small queue, min 0/max 0 requests on large queue
+</code></pre><h2 id="span-styletext-decoration-underlinebr---virusspan"><!-- raw HTML omitted --><!-- raw HTML omitted --> 実験: virusが見つかったらどうなる？<!-- raw HTML omitted --></h2>
+<p>試してみた。<br>
+testvirus.txtというファイルを突っ込んでみると、コピーが終わっても共有フォルダには表示がされない。<br>
+代わりに、同じファイル名、ただしファイル名先頭に「VIRUS_found_in_」、末尾に「.txt」と付いたサイズ0のファイルが作られ表示される。<br>
+<a href="../../../wp-content/uploads/2014/03/virusfoundscann.png"><!-- raw HTML omitted --></a></p>
+<p>このとき、実ディレクトリはこのようになっている。<br>
 つまりオリジナルのファイルは「.virus:」と頭に付けられて、ユーザからは見えなくなっている。</p>
-
-<pre><code class="language-console">$ ls -la
+<pre><code class="language-console" data-lang="console">$ ls -la
 total 12
 drwxrwxrwx  2 vanilla  clamav   1024 Mar 21 01:44 .
 drwxr-xr-x  3 vanilla  vanilla   512 Mar  3 22:40 ..
 -rwxr--r--  1 vanilla  clamav     68 Mar 21 21:44 .virus:testvirus.txt
 -rwxr--r--  1 vanilla  clamav      0 Mar 21 21:44 VIRUS_found_in_testvirus.txt.txt
 $
-</code></pre>
-
-<p>さらにこのとき、/var/log/messagesには以下のように。<br />
+</code></pre><p>さらにこのとき、/var/log/messagesには以下のように。<br>
 1,2行目がウイルス発見時のもの、3行目はstatus report時のものである。</p>
-
-<pre><code class="language-console">Mar 21 21:42:51 yaryka scannedonlyd_clamav[5741]: 0:0: WARNING: /usr/home/vanilla/share/testvirus.txt contains virus Eicar-Test-Signature!
+<pre><code class="language-console" data-lang="console">Mar 21 21:42:51 yaryka scannedonlyd_clamav[5741]: 0:0: WARNING: /usr/home/vanilla/share/testvirus.txt contains virus Eicar-Test-Signature!
 Mar 21 21:42:51 yaryka scannedonlyd_clamav[5741]: 0: moving /usr/home/vanilla/share/testvirus.txt to /usr/home/vanilla/share/.virus:testvirus.txt
 Mar 21 21:44:59 yaryka scannedonlyd_clamav[6836]: Warning: 1 files failed to scan in 1 minutes (error or virus found)
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

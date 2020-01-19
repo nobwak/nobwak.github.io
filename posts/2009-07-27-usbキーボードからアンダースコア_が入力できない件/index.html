@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-07-27T01:00:00+09:00" />
 <meta itemprop="name" content="USBキーボードからアンダースコア(_)が入力できない件">
 <meta itemprop="description" content="8.0-BETA2、xorg-server1.6.1、（xkeyboad-config-1.6_1）でUSBキーボード(日本語配列)からアン">
-
-
 <meta itemprop="datePublished" content="2009-07-27T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-07-27T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="377">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="USBキーボードからアンダースコア(_)が入力できない件"/>
 <meta name="twitter:description" content="8.0-BETA2、xorg-server1.6.1、（xkeyboad-config-1.6_1）でUSBキーボード(日本語配列)からアン"/>
 
@@ -170,14 +167,12 @@ startxでX起動してるので、.xinitrcに細工。
 
 問題は解消されたけど、キーボードの設定がxmodmapとfdiの二つに分散してるのが、どうも納得いかない。
 </code></pre>
-
-<pre><code class="language-console">$ cat ~/.xinitrc
+<pre><code class="language-console" data-lang="console">$ cat ~/.xinitrc
 xmodmap $HOME/.xmodmap
 (後略)
 $ cat ./.xmodmap
 keycode 151 = underscore
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

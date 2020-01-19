@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-02-04T00:43:36+09:00" />
 <meta itemprop="name" content="pkgngが死んで詰んだときには">
 <meta itemprop="description" content="pkgコマンドが何らかの要因で壊れてしまい、pkgコマンド自体の再インストールすらできず詰んでしまったときの対処方法を示す。 お急ぎの方は「蘇">
-
-
 <meta itemprop="datePublished" content="2014-02-04T00:43:36&#43;09:00" />
 <meta itemprop="dateModified" content="2014-02-04T00:43:36&#43;09:00" />
 <meta itemprop="wordCount" content="1549">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="pkgngが死んで詰んだときには"/>
 <meta name="twitter:description" content="pkgコマンドが何らかの要因で壊れてしまい、pkgコマンド自体の再インストールすらできず詰んでしまったときの対処方法を示す。 お急ぎの方は「蘇"/>
 
@@ -140,93 +137,60 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>pkgコマンドが何らかの要因で壊れてしまい、pkgコマンド自体の再インストールすらできず詰んでしまったときの対処方法を示す。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgコマンドが何らかの要因で壊れてしまい、pkgコマンド自体の再インストールすらできず詰んでしまったときの対処方法を示す。<br>
 お急ぎの方は「蘇生方法」からお読みください。</p>
-
-<h2 id="span-style-text-decoration-underline-背景-pkgはベースシステム-package-span"><span style="text-decoration: underline;">背景: pkgはベースシステム？package？</span></h2>
-
-<p>pkgコマンドは、ベースシステムに組み込まれていながら、pkgシステムで管理されている。<br />
+<h2 id="span-styletext-decoration-underline-pkgpackagespan"><!-- raw HTML omitted -->背景: pkgはベースシステム？package？<!-- raw HTML omitted --></h2>
+<p>pkgコマンドは、ベースシステムに組み込まれていながら、pkgシステムで管理されている。<br>
 言い換えると、ベースシステムに含まれているのに追加ソフトウェアとしてのpackagesでもある、というちょっと変わった存在である。</p>
-
-<p>これは、pkgコマンド自体を、OSのバージョンに固定されることなく、更新できるための仕組み。<br />
+<p>これは、pkgコマンド自体を、OSのバージョンに固定されることなく、更新できるための仕組み。<br>
 pkgコマンドが純然たるベースシステムであった場合、pkgコマンドを更新するたびにOSリリースが発生してしまうからである。</p>
-
 <p>だから、皆さんご存知の通り、初めてpkgコマンドを実行すると最新のpkgをダウンロード&amp;インストールするのだが、それは上記のような理由である。</p>
-
 <p>なお、ここでの「ベースシステム」とは、FreeBSD projectがリリースする一式（カーネル+ユーザランド）を指す。packagesはユーザが任意に追加するソフトウェア。</p>
-
-<h2 id="span-style-text-decoration-underline-問題-pkgはpackageなのでpkgが壊れると詰む-span"><span style="text-decoration: underline;">問題: pkgはpackageなのでpkgが壊れると詰む。</span></h2>
-
-<p>よろしい。背景は、わかる。<br />
-しかし、問題もあって、すなわち;<br />
-pkgコマンドもpkgngで管理しているので、pkgコマンドが壊れてしまった場合、pkgの再インストールができず詰む<br />
+<h2 id="span-styletext-decoration-underline-pkgpackagepkgspan"><!-- raw HTML omitted -->問題: pkgはpackageなのでpkgが壊れると詰む。<!-- raw HTML omitted --></h2>
+<p>よろしい。背景は、わかる。<br>
+しかし、問題もあって、すなわち;<br>
+pkgコマンドもpkgngで管理しているので、pkgコマンドが壊れてしまった場合、pkgの再インストールができず詰む<br>
 ということである。</p>
-
-<p>たとえば、pkgコマンドが依存しているshared objectが無くなったとか、壊れた場合である。<br />
+<p>たとえば、pkgコマンドが依存しているshared objectが無くなったとか、壊れた場合である。<br>
 FreeBSDではこういう場合に備えて、/rescueにスタティックリンクされたコマンドが並べられているが、pkgはここにない（9.2-RELEASEで確認）。</p>
-
 <p>どうしたらよいか。</p>
-
-<h2 id="span-style-text-decoration-underline-蘇生方法-pkgコマンドをダウンロードして-それでpkgコマンドをインストールせよ-span"><span style="text-decoration: underline;">蘇生方法: pkgコマンドをダウンロードして、それでpkgコマンドをインストールせよ。</span></h2>
-
-<p>結論。pkgのpackageにはスタティックリンクされたpkgが含まれているのでそれを使う。<br />
+<h2 id="span-styletext-decoration-underline-pkgpkgspan"><!-- raw HTML omitted -->蘇生方法: pkgコマンドをダウンロードして、それでpkgコマンドをインストールせよ。<!-- raw HTML omitted --></h2>
+<p>結論。pkgのpackageにはスタティックリンクされたpkgが含まれているのでそれを使う。<br>
 以下、手順。</p>
-
-<p><span style="text-decoration: underline;">pkgコマンドのダウンロード</span></p>
-
-<p>まず、pkg.freebsd.orgからpkgコマンドのpackageをダウンロードする。<br />
+<p><!-- raw HTML omitted -->pkgコマンドのダウンロード<!-- raw HTML omitted --></p>
+<p>まず、pkg.freebsd.orgからpkgコマンドのpackageをダウンロードする。<br>
 OSバージョン、アーキテクチャに合ったpackageを選ぶこと。</p>
-
-<p>9.2 i386なら、以下<br />
- <a href=" http://pkg.freebsd.org/freebsd:9:x86:32/latest/Latest/pkg.txz" target="_blank"><a href="http://pkg.freebsd.org/freebsd:9:x86:32/latest/Latest/pkg.txz">http://pkg.freebsd.org/freebsd:9:x86:32/latest/Latest/pkg.txz</a></a></p>
-
-<p>10.0 amd64なら、以下<br />
- <a href=" http://pkg.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz" target="_blank"><a href="http://pkg.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz">http://pkg.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz</a></a></p>
-
-<p>※URLは変わる可能性があるので、都度、確認すること。<br />
+<p>9.2 i386なら、以下<br>
+<!-- raw HTML omitted --><a href="http://pkg.freebsd.org/freebsd:9:x86:32/latest/Latest/pkg.txz%3C/a%3E">http://pkg.freebsd.org/freebsd:9:x86:32/latest/Latest/pkg.txz&lt;/a&gt;</a></p>
+<p>10.0 amd64なら、以下<br>
+<!-- raw HTML omitted --><a href="http://pkg.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz%3C/a%3E">http://pkg.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz&lt;/a&gt;</a></p>
+<p>※URLは変わる可能性があるので、都度、確認すること。<br>
 pkg.freebsd.orgから辿っていけばよい。</p>
-
 <p>実行例</p>
-
-<pre><code class="language-console">$ uname -a
+<pre><code class="language-console" data-lang="console">$ uname -a
 FreeBSD ascomoid 9.2-RELEASE FreeBSD 9.2-RELEASE #0 r255898: Fri Sep 27 03:52:52 UTC 2013     root@bake.isc.freebsd.org:/usr/obj/usr/src/sys/GENERIC  i386
 $ fetch http://pkg.freebsd.org/freebsd:9:x86:32/latest/Latest/pkg.txz
 pkg.txz                                       100% of 1811 kB   53 kBps 00m34s
-</code></pre>
-
-<p><span style="text-decoration: underline;">pkg-staticの取り出し。</span></p>
-
-<p>以下のようにしてpkg-staticを取り出す。<br />
+</code></pre><p><!-- raw HTML omitted -->pkg-staticの取り出し。<!-- raw HTML omitted --></p>
+<p>以下のようにしてpkg-staticを取り出す。<br>
 このpkg-staticがスタティックリンクされたpkg</p>
-
-<pre><code class="language-console">$ tar xvf ./pkg-1.2.4_1.tgz -s&quot;,/.*/,,g&quot; &quot;*/pkg-static&quot;
+<pre><code class="language-console" data-lang="console">$ tar xvf ./pkg-1.2.4_1.tgz -s&quot;,/.*/,,g&quot; &quot;*/pkg-static&quot;
 x pkg-static
-</code></pre>
-
-<p><span style="text-decoration: underline;">pkgのインストール</span></p>
-
-<p>このpkg-staticを使って、ダウンロード済みのpkg packageをインストールする。<br />
-ローカルにダウンロード済みのpackageをインストールする場合には引数にaddを与える。<br />
+</code></pre><p><!-- raw HTML omitted -->pkgのインストール<!-- raw HTML omitted --></p>
+<p>このpkg-staticを使って、ダウンロード済みのpkg packageをインストールする。<br>
+ローカルにダウンロード済みのpackageをインストールする場合には引数にaddを与える。<br>
 壊れたpkgが邪魔でインストールできないなら、-fを付けて強制的にインストールする。</p>
-
-<pre><code class="language-console">$ sudo ./pkg-static add -f ./pkg-1.2.4_1.tgz 
+<pre><code class="language-console" data-lang="console">$ sudo ./pkg-static add -f ./pkg-1.2.4_1.tgz 
 Installing pkg-1.2.4_1...pkg-static: package pkg is already installed, forced install
  done
 If you are upgrading from the old package format, first run:
 
   # pkg2ng
-</code></pre>
-
-<p>あとは通常通りpkg updateなど。</p>
-
-<p><span style="text-decoration: underline;">pkgの設定確認</span></p>
-
-<p>pkgの設定を一覧したり、どのリポジトリを見ているかを確認するにはpkg -vvとする。<br />
+</code></pre><p>あとは通常通りpkg updateなど。</p>
+<p><!-- raw HTML omitted -->pkgの設定確認<!-- raw HTML omitted --></p>
+<p>pkgの設定を一覧したり、どのリポジトリを見ているかを確認するにはpkg -vvとする。<br>
 pkgについて、誰かに質問するときには、この出力も必ず付けること。</p>
-
-<pre><code class="language-console">$ pkg -vv
+<pre><code class="language-console" data-lang="console">$ pkg -vv
 Version                 : 1.2.4_1
 PACKAGESITE             :
 PKG_DBDIR               : /var/db/pkg
@@ -275,22 +239,15 @@ Repositories:
     enabled         : yes,
     mirror_type     : &quot;SRV&quot;
   }
-</code></pre>
-
-<p><span style="text-decoration: underline;">pkgの設定ファイルなど。</span></p>
-
+</code></pre><p><!-- raw HTML omitted -->pkgの設定ファイルなど。<!-- raw HTML omitted --></p>
 <p>以下があれば何とかなるはず。</p>
-
 <p>/usr/local/etc/pkg/repos/FreeBSD.conf</p>
-
-<pre><code class="language-console">FreeBSD: {
+<pre><code class="language-console" data-lang="console">FreeBSD: {
   url: &quot;pkg+http://pkg.FreeBSD.org/${ABI}/latest&quot;,
   mirror_type: &quot;srv&quot;,
   enabled: yes
 }
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

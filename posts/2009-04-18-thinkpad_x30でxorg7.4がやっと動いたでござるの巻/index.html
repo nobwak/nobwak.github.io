@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-04-18T01:00:00+09:00" />
 <meta itemprop="name" content="Thinkpad x30でXorg7.4がやっと動いたでござるの巻">
 <meta itemprop="description" content="実は年明けのxorg祭りから我がThinkpad x30でXorg7.4（xorg-server1.5, 1.6）は&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090314/p1&quot; target=&">
-
-
 <meta itemprop="datePublished" content="2009-04-18T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-04-18T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="381">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Thinkpad x30でXorg7.4がやっと動いたでござるの巻"/>
 <meta name="twitter:description" content="実は年明けのxorg祭りから我がThinkpad x30でXorg7.4（xorg-server1.5, 1.6）は&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090314/p1&quot; target=&"/>
 
@@ -154,18 +151,14 @@ if (!doNotTrack) {
 
 （たぶん）関連するports
 </code></pre>
-
-<pre><code class="language-console">xorg-server-1.6.0,1
+<pre><code class="language-console" data-lang="console">xorg-server-1.6.0,1
 xf86-video-intel-2.6.3
 libpciaccess-0.10.5_6
 hal-0.5.11_23
 xf86-input-mouse-1.4.0_5
+</code></pre><pre><code>/etc/X11/xorg.conf
 </code></pre>
-
-<pre><code>/etc/X11/xorg.conf
-</code></pre>
-
-<pre><code class="language-console">Section &amp;#34;Files&amp;#34;
+<pre><code class="language-console" data-lang="console">Section &amp;#34;Files&amp;#34;
 ModulePath   &amp;#34;/usr/local/lib/xorg/modules&amp;#34;
 FontPath     &amp;#34;/usr/local/lib/X11/fonts/misc/&amp;#34;
 FontPath     &amp;#34;/usr/local/lib/X11/fonts/TTF/&amp;#34;
@@ -182,19 +175,15 @@ Option      &amp;#34;Protocol&amp;#34; &amp;#34;auto&amp;#34;
 Option      &amp;#34;Device&amp;#34; &amp;#34;/dev/psm0&amp;#34;
 Option      &amp;#34;ZAxisMapping&amp;#34; &amp;#34;4 5 6 7&amp;#34;
 EndSection
+</code></pre><pre><code>/etc/rc.conf（関連部分のみ）
 </code></pre>
-
-<pre><code>/etc/rc.conf（関連部分のみ）
-</code></pre>
-
-<pre><code class="language-console">moused_port=&amp;#34;/dev/psm0&amp;#34;
+<pre><code class="language-console" data-lang="console">moused_port=&amp;#34;/dev/psm0&amp;#34;
 moused_enable=&amp;#34;NO&amp;#34;
 moused_nondefault_enable=&amp;#34;NO&amp;#34;
 dbus_enable=&amp;#34;YES&amp;#34;
 hald_enable=&amp;#34;YES&amp;#34;
 hald_flags=&amp;#34; --verbose=yes &amp;#34;
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

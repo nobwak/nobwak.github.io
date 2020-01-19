@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-05-17T22:42:14+09:00" />
 <meta itemprop="name" content="[python] WindowsでのPython2">
 <meta itemprop="description" content="Pythonが面白くてしょうがいない。 のだが、Windowsで使った場合、文字コードとか改行コードとかパスのデリミタのせいでいろいろと手間が">
-
-
 <meta itemprop="datePublished" content="2013-05-17T22:42:14&#43;09:00" />
 <meta itemprop="dateModified" content="2013-05-17T22:42:14&#43;09:00" />
-<meta itemprop="wordCount" content="1177">
+<meta itemprop="wordCount" content="1175">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[python] WindowsでのPython2"/>
 <meta name="twitter:description" content="Pythonが面白くてしょうがいない。 のだが、Windowsで使った場合、文字コードとか改行コードとかパスのデリミタのせいでいろいろと手間が"/>
 
@@ -140,108 +137,74 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Pythonが面白くてしょうがいない。<br />
-のだが、Windowsで使った場合、文字コードとか改行コードとかパスのデリミタのせいでいろいろと手間がかかる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Pythonが面白くてしょうがいない。<br>
+のだが、Windowsで使った場合、文字コードとか改行コードとかパスのデリミタのせいでいろいろと手間がかかる。<br>
 Windows固有の手間をここにまとめる。</p>
-
-<p>なお、私の使っているのはPython2。<br />
-<code>&lt;br /&gt;
-ActivePython 2.7.2.5 (ActiveState Software Inc.) based on&lt;br /&gt;
-Python 2.7.2 (default, Jun 24 2011, 12:22:14) [MSC v.1500 64 bit (AMD64)] on win32</code></p>
-
-<h3 id="span-style-text-decoration-underline-文字コード設定-span"><span style="text-decoration: underline;">文字コード設定</span></h3>
-
-<p>Python2を使っていて扱うファイルがShift-JISばかりなら、PythonもShift-JISで通したほうが楽。<br />
+<p>なお、私の使っているのはPython2。<br>
+<code>&lt;br /&gt; ActivePython 2.7.2.5 (ActiveState Software Inc.) based on&lt;br /&gt; Python 2.7.2 (default, Jun 24 2011, 12:22:14) [MSC v.1500 64 bit (AMD64)] on win32</code></p>
+<h3 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->文字コード設定<!-- raw HTML omitted --></h3>
+<p>Python2を使っていて扱うファイルがShift-JISばかりなら、PythonもShift-JISで通したほうが楽。<br>
 だってほら、いちいち変換とか面倒ですよ。</p>
-
 <p>Pythonスクリプトファイルの1行目あるいは2行目には以下を記載する。</p>
-
 <p><code># coding: ms932</code></p>
-
-<p># -*- coding:という書式もあるがemacsを使わないならこれでよい。<br />
-詳細は下記リンク<br />
- <a href=" http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations" target="_blank"><a href="http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations">http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-default-encodingの設定-span"><span style="text-decoration: underline;">default encodingの設定</span></h2>
-
-<p>デフォルトのencodingもms932にしておく。<br />
-いま現在のencodingを確かめるにはimport sysしてからsys.getdefaultencoding()する。<br />
+<p># -*- coding:という書式もあるがemacsを使わないならこれでよい。<br>
+詳細は下記リンク<br>
+<!-- raw HTML omitted --><a href="http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations%3C/a%3E">http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinedefault-encodingspan"><!-- raw HTML omitted -->default encodingの設定<!-- raw HTML omitted --></h2>
+<p>デフォルトのencodingもms932にしておく。<br>
+いま現在のencodingを確かめるにはimport sysしてからsys.getdefaultencoding()する。<br>
 何もしていなければasciiのはず。</p>
-
-<pre><code class="language-console">&gt;&gt;&gt; import sys
+<pre><code class="language-console" data-lang="console">&gt;&gt;&gt; import sys
 &gt;&gt;&gt; sys.getdefaultencoding()
 'ascii'
 &gt;&gt;&gt;
-</code></pre>
-
-<p>C:\Python27\Lib\の下にsitecustomize.pyを作って以下の内容を書き込む。</p>
-
-<pre><code class="language-console">import sys
+</code></pre><p>C:\Python27\Lib\の下にsitecustomize.pyを作って以下の内容を書き込む。</p>
+<pre><code class="language-console" data-lang="console">import sys
 sys.setdefaultencoding('cp932')
-</code></pre>
-
-<p>もう一度確かめればデフォルトのencodingが変わっていると分かる。</p>
-
-<pre><code class="language-console">&gt;&gt;&gt; import sys
+</code></pre><p>もう一度確かめればデフォルトのencodingが変わっていると分かる。</p>
+<pre><code class="language-console" data-lang="console">&gt;&gt;&gt; import sys
 &gt;&gt;&gt; sys.getdefaultencoding()
 'cp932'
 &gt;&gt;&gt;
-</code></pre>
-
-<h3 id="span-style-text-decoration-underline-パスの扱い方-頭にrを付ける-span"><span style="text-decoration: underline;">パスの扱い方（頭にrを付ける）</span></h3>
-
-<p>Windowsのパス表記はバックスラッシュを使うが、これをそのまま使うとエスケープシーケンスとして扱われてしまう。<br />
-そこでrを頭につける。<br />
+</code></pre><h3 id="span-styletext-decoration-underlinerspan"><!-- raw HTML omitted -->パスの扱い方（頭にrを付ける）<!-- raw HTML omitted --></h3>
+<p>Windowsのパス表記はバックスラッシュを使うが、これをそのまま使うとエスケープシーケンスとして扱われてしまう。<br>
+そこでrを頭につける。<br>
 するとrawリテラルとして扱ってくれる。</p>
-
-<p><code>&gt;&gt;&gt; print 'c:\nowhere'&lt;br /&gt;
-c:&lt;br /&gt;
-owhere&lt;br /&gt;
-&gt;&gt;&gt; print r'c:\nowhere'&lt;br /&gt;
-c:\nowhere&lt;br /&gt;
-&gt;&gt;&gt;</code></p>
-
-<p><a href="http://docs.python.org/2/reference/lexical_analysis.html#string-literals" target="_blank"><a href="http://docs.python.org/2/reference/lexical_analysis.html#string-literals">http://docs.python.org/2/reference/lexical_analysis.html#string-literals</a></a></p>
-
-<h3 id="span-style-text-decoration-underline-windowsでのcsv書き込み-改行コードに注意-span"><span style="text-decoration: underline;">WindowsでのCSV書き込み。改行コードに注意。</span></h3>
-
-<p>Windows上PythonからCSV書き出し→ExcelなどWindowsの各種プログラムで開く→一行ごとに空行ができている＼(^o^)／<br />
-CSV書き出し時改行コードのデフォルトが\r\nになっているせい。<br />
-下記のように改行コードを指定すればOK。<br />
-なお読み込みのときは指定不要。<br />
- <a href=" http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator" target="_blank"><a href="http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator">http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator</a></a></p>
-
-<p><code>import csv&lt;br /&gt;
-csvhandler = csv.writer(open(r'C:\nowhere\output.csv','w'),delimiter=',',lineterminator=&quot;\n&quot;)</code></p>
-
-<h3 id="span-style-text-decoration-underline-shift-jisでのsqlite3-span"><span style="text-decoration: underline;">Shift-JISでのsqlite3</span></h3>
-
-<p>SQLite3のTEXTデータタイプはデフォルトでUTF-8。<br />
-SQLite3コネクションオブジェクトの.text_factoryアトリビュートをstrにすると、バイトストリングとして扱ってくれる。<br />
- <a href=" http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory" target="_blank"><a href="http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory">http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory</a></a></p>
-
-<p><code>import sqlite&lt;br /&gt;
-conn = sqlite3.connect(dbfile)&lt;br /&gt;
-conn.text_factory = str</code></p>
-
-<h3 id="span-style-text-decoration-underline-pylab-matplotlib-のグラフで日本語表示-span"><span style="text-decoration: underline;">pylab(Matplotlib)のグラフで日本語表示</span></h3>
-
-<p>pylabで作ったグラフは、UTF-8でないとダメなようだ。<br />
-こればかりはunicodeにエンコードしてpylabに入力する。<br />
-しかしUTF-８であっても、そのままでは日本語を表示してくれない。<br />
+<p>`&raquo;&gt; print &lsquo;c:\nowhere'<!-- raw HTML omitted -->
+c:<!-- raw HTML omitted -->
+owhere<!-- raw HTML omitted --></p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>print r'c:\nowhere'<!-- raw HTML omitted -->
+c:\nowhere<!-- raw HTML omitted -->
+`</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><!-- raw HTML omitted --><a href="http://docs.python.org/2/reference/lexical_analysis.html#string-literals%3C/a%3E">http://docs.python.org/2/reference/lexical_analysis.html#string-literals&lt;/a&gt;</a></p>
+<h3 id="span-styletext-decoration-underlinewindowscsvspan"><!-- raw HTML omitted -->WindowsでのCSV書き込み。改行コードに注意。<!-- raw HTML omitted --></h3>
+<p>Windows上PythonからCSV書き出し→ExcelなどWindowsの各種プログラムで開く→一行ごとに空行ができている＼(^o^)／<br>
+CSV書き出し時改行コードのデフォルトが\r\nになっているせい。<br>
+下記のように改行コードを指定すればOK。<br>
+なお読み込みのときは指定不要。<br>
+<!-- raw HTML omitted --><a href="http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator%3C/a%3E">http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator&lt;/a&gt;</a></p>
+<p><code>import csv&lt;br /&gt; csvhandler = csv.writer(open(r'C:\nowhere\output.csv','w'),delimiter=',',lineterminator=&quot;\n&quot;)</code></p>
+<h3 id="span-styletext-decoration-underlineshift-jissqlite3span"><!-- raw HTML omitted -->Shift-JISでのsqlite3<!-- raw HTML omitted --></h3>
+<p>SQLite3のTEXTデータタイプはデフォルトでUTF-8。<br>
+SQLite3コネクションオブジェクトの.text_factoryアトリビュートをstrにすると、バイトストリングとして扱ってくれる。<br>
+<!-- raw HTML omitted --><a href="http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory%3C/a%3E">http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory&lt;/a&gt;</a></p>
+<p><code>import sqlite&lt;br /&gt; conn = sqlite3.connect(dbfile)&lt;br /&gt; conn.text_factory = str</code></p>
+<h3 id="span-styletext-decoration-underlinepylabmatplotlibspan"><!-- raw HTML omitted -->pylab(Matplotlib)のグラフで日本語表示<!-- raw HTML omitted --></h3>
+<p>pylabで作ったグラフは、UTF-8でないとダメなようだ。<br>
+こればかりはunicodeにエンコードしてpylabに入力する。<br>
+しかしUTF-８であっても、そのままでは日本語を表示してくれない。<br>
 下記のようにフォントを指定する。</p>
-
-<p><code>import pylab&lt;br /&gt;
-pylab.rcParams['font.family'] = 'VL Gothic'&lt;br /&gt;
-pylab.rcParams['font.size'] = 12</code></p>
-
-<p><span style="text-decoration: underline;">更新履歴</span></p>
-
-<p>2013/5/17 初版<br />
-2013/5/10 sqlite3のtextでUTF-8でなくバイトストリングを扱う方法を追記<br />
-2013/5/24 pylabグラフで日本語使うときの注意を追記<br />
+<p><code>import pylab&lt;br /&gt; pylab.rcParams['font.family'] = 'VL Gothic'&lt;br /&gt; pylab.rcParams['font.size'] = 12</code></p>
+<p><!-- raw HTML omitted -->更新履歴<!-- raw HTML omitted --></p>
+<p>2013/5/17 初版<br>
+2013/5/10 sqlite3のtextでUTF-8でなくバイトストリングを扱う方法を追記<br>
+2013/5/24 pylabグラフで日本語使うときの注意を追記<br>
 2013/9/12 default encodingの件を追加</p>
 <ul class="pa0">
   

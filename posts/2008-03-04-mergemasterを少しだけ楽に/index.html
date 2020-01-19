@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-03-04T01:00:00+09:00" />
 <meta itemprop="name" content="mergemasterを少しだけ楽に">
 <meta itemprop="description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;200812追記。本件は古い内容なので、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; tar">
-
-
 <meta itemprop="datePublished" content="2008-03-04T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-03-04T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="945">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="mergemasterを少しだけ楽に"/>
 <meta name="twitter:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;200812追記。本件は古い内容なので、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; tar"/>
 
@@ -173,12 +170,9 @@ mergemasterは新旧/etc配下ファイルの差分をチェックし、必要�
 
 アップグレードする度にいつも何だったっけなあ、と思うのでメモっておく。
 </code></pre>
-
-<pre><code class="language-console"># mergemaster -siva
+<pre><code class="language-console" data-lang="console"># mergemaster -siva
 # mergemaster -sivrt &amp;#60;一回めで使用したテンポラリディレクトリ&gt;
-</code></pre>
-
-<pre><code>aオプションを指定すると、とりあえず差分のないファイルをインストールしてくれる。
+</code></pre><pre><code>aオプションを指定すると、とりあえず差分のないファイルをインストールしてくれる。
 
 
 
@@ -196,14 +190,11 @@ mergemasterは新旧/etc配下ファイルの差分をチェックし、必要�
 
 テンポラリディレクトリは、-sivaで作業した際に、これこれのファイルがインストールされていませんよ、と教えてくれるのだが、そのときにディレクトリも教えてくれるのでそれを指定する。
 </code></pre>
-
-<pre><code class="language-console"># mergemaster -siva
+<pre><code class="language-console" data-lang="console"># mergemaster -siva
 ＜中略＞
 /var/tmp/temproot.0304.23.20.42/COPYRIGHT
 # mergemaster -sivrt /var/tmp/temproot.0304.23.20.42/
-</code></pre>
-
-<pre><code>まあ、見て分かるように/var/tmp/temprootの後は、日付、時間、分、秒と並んでるので、一回めの出力結果をわざわざ注意して見てなくてもいいけど。
+</code></pre><pre><code>まあ、見て分かるように/var/tmp/temprootの後は、日付、時間、分、秒と並んでるので、一回めの出力結果をわざわざ注意して見てなくてもいいけど。
 </code></pre>
 <ul class="pa0">
   

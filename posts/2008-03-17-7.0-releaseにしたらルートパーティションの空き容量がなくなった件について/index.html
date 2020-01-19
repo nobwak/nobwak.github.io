@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-03-17T01:00:00+09:00" />
 <meta itemprop="name" content="7.0-RELEASEにしたらルートパーティションの空き容量がなくなった件について">
 <meta itemprop="description" content="webサーバとして使用しているマシンを7.0-RELEASEにした。 古いマシンなので、ソースからのアップデートは出来ず、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080111/p2&quot; targ">
-
-
 <meta itemprop="datePublished" content="2008-03-17T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-03-17T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="608">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="7.0-RELEASEにしたらルートパーティションの空き容量がなくなった件について"/>
 <meta name="twitter:description" content="webサーバとして使用しているマシンを7.0-RELEASEにした。 古いマシンなので、ソースからのアップデートは出来ず、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080111/p2&quot; targ"/>
 
@@ -150,14 +147,11 @@ if (!doNotTrack) {
 
 これは、7.0-RELEASEからカーネルとカーネルモジュールのシンボルファイルもインストールされるようになったため。
 </code></pre>
-
-<pre><code class="language-console">$ uname -a
+<pre><code class="language-console" data-lang="console">$ uname -a
 FreeBSD blue.local 7.0-RELEASE FreeBSD 7.0-RELEASE #0: Sun Feb 24 19:59:52 UTC 2008     root@logan.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC  i386
 $ du -sh /boot/kernel
 112M    /boot/kernel
-</code></pre>
-
-<pre><code>というように、/boot/kernelで100M超。
+</code></pre><pre><code>というように、/boot/kernelで100M超。
 
 
 
@@ -171,14 +165,10 @@ $ du -sh /boot/kernel
 
 あるいは、カーネルコンフィグファイルの以下の行をコメントアウトしておけば、次回以降のカーネルビルドでシンボルファイルが作られなくなる。
 </code></pre>
-
-<pre><code class="language-console">makeoptions    DEBUG=-g                # Build kernel with gdb(1) debug symbols
+<pre><code class="language-console" data-lang="console">makeoptions    DEBUG=-g                # Build kernel with gdb(1) debug symbols
+</code></pre><pre><code>あるいは/usr/src/UPDATINGの以下記載を参照のこと。
 </code></pre>
-
-<pre><code>あるいは/usr/src/UPDATINGの以下記載を参照のこと。
-</code></pre>
-
-<pre><code class="language-console">20060118:
+<pre><code class="language-console" data-lang="console">20060118:
 This actually occured some time ago, but installing the kernel
 now also installs a bunch of symbol files for the kernel modules.
 This increases the size of /boot/kernel to about 67Mbytes. You
@@ -187,8 +177,7 @@ on your next install.
 If you have a shortage of room in your root partition, you should add
 -DINSTALL_NODEBUG to your make arguments or add INSTALL_NODEBUG=&quot;yes&quot;
 to your /etc/make.conf.
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

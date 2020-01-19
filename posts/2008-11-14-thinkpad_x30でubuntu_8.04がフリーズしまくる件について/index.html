@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-11-14T01:00:00+09:00" />
 <meta itemprop="name" content="Thinkpad X30でUbuntu 8.04がフリーズしまくる件について">
 <meta itemprop="description" content="Windows2000をインストールしていたThinkpad X30のHDDがクラッシュしたので、古いHDDに換装してUbuntuのインストー">
-
-
 <meta itemprop="datePublished" content="2008-11-14T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-11-14T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="561">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Thinkpad X30でUbuntu 8.04がフリーズしまくる件について"/>
 <meta name="twitter:description" content="Windows2000をインストールしていたThinkpad X30のHDDがクラッシュしたので、古いHDDに換装してUbuntuのインストー"/>
 
@@ -177,23 +174,17 @@ if (!doNotTrack) {
 
 ◎マウスの設定でEmulate3Buttonsを無効に
 </code></pre>
-
-<pre><code class="language-console">Section &quot;InputDevice&quot;
+<pre><code class="language-console" data-lang="console">Section &quot;InputDevice&quot;
 Identifier	&quot;Configured Mouse&quot;
 Driver		&quot;mouse&quot;
 Option		&quot;CorePointer&quot;
 Option		&quot;Emulate3Buttons&quot;	&quot;false&quot;  #この行追加
 EndSection
+</code></pre><pre><code>◎キーボードレイアウトをgb(英国=グレートブリテン)に変更...だが。
 </code></pre>
-
-<pre><code>◎キーボードレイアウトをgb(英国=グレートブリテン)に変更...だが。
-</code></pre>
-
-<pre><code class="language-console">#Option	&quot;XkbLayout&quot;	&quot;us&quot;　　#コメントアウト
+<pre><code class="language-console" data-lang="console">#Option	&quot;XkbLayout&quot;	&quot;us&quot;　　#コメントアウト
 Option	&quot;XkbLayout&quot;	&quot;gb&quot;
-</code></pre>
-
-<pre><code>ネタ元の発言者のポストはどうも要を得ないのだが、少なくとも俺はキーボード配列を変えなくてもよかった。まあ、参考までに。
+</code></pre><pre><code>ネタ元の発言者のポストはどうも要を得ないのだが、少なくとも俺はキーボード配列を変えなくてもよかった。まあ、参考までに。
 </code></pre>
 <ul class="pa0">
   

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-07-12T00:00:00+00:00" />
 <meta itemprop="name" content="HUGOで作ったマークダウンをgithub pagesへデプロイするスクリプトを作ろう">
 <meta itemprop="description" content="HUGOデプロイの効率化 HUGOのおかげで、気軽にメモを書いてgithub pagesに載せられるようになったのだが、こうなってくるとgith">
-
-
 <meta itemprop="datePublished" content="2019-07-12T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-07-12T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="535">
 
 
 
-<meta itemprop="keywords" content="HUGO,shellscripts," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="HUGO,shellscripts," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="HUGOで作ったマークダウンをgithub pagesへデプロイするスクリプトを作ろう"/>
 <meta name="twitter:description" content="HUGOデプロイの効率化 HUGOのおかげで、気軽にメモを書いてgithub pagesに載せられるようになったのだが、こうなってくるとgith"/>
 
@@ -140,13 +137,9 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="hugoデプロイの効率化">HUGOデプロイの効率化</h2>
-
-<p>HUGOのおかげで、気軽にメモを書いてgithub pagesに載せられるようになったのだが、こうなってくるとgithub pagesへのアップロード自体が面倒になる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="hugo">HUGOデプロイの効率化</h2>
+<p>HUGOのおかげで、気軽にメモを書いてgithub pagesに載せられるようになったのだが、こうなってくるとgithub pagesへのアップロード自体が面倒になる。<br>
 具体的には;</p>
-
 <ol>
 <li>HUGOでビルド</li>
 <li>publicフォルダに降り</li>
@@ -154,52 +147,42 @@ if (!doNotTrack) {
 <li>git commitし（コメントも入れて）</li>
 <li>git pushする</li>
 </ol>
-
-<p>という手順で、意外に手間が多い。<br />
+<p>という手順で、意外に手間が多い。<br>
 ということなら、スクリプトに書いてしまいましょう。</p>
-
-<h2 id="元ネタ">元ネタ</h2>
-
-<p>HUGOもそのへん手抜かりはなく、元ネタを用意してくれている。<br />
+<h2 id="heading">元ネタ</h2>
+<p>HUGOもそのへん手抜かりはなく、元ネタを用意してくれている。<br>
 HOSTING AND DEPLOYMENTのページにある<a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#put-it-into-a-script">put into a script</a>ね。</p>
-
-<h2 id="スクリプト">スクリプト</h2>
-
+<h2 id="heading-1">スクリプト</h2>
 <p>HUGOのサイトにあるスクリプトでは、プロダクション用のビルドになっていないので、そこだけ変更している。</p>
-
-<p>これをdeploy.shとでも名前を付けて保存する。<br />
-<code>deploy.sh &quot;add articles&quot;</code>というように引数を与えればそれがコミットメッセージになる。<br />
+<p>これをdeploy.shとでも名前を付けて保存する。<br>
+<code>deploy.sh &quot;add articles&quot;</code>というように引数を与えればそれがコミットメッセージになる。<br>
 引数に無ければ<code>rebuilding site 20190713</code>というようなメッセージになる。</p>
-
 <p>転用する場合には1行目のShebangだけ書き換えること。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/usr/local/bin/bash
+</span><span style="color:#75715e"></span>
+echo -e <span style="color:#e6db74">&#34;\033[0;32mDeploying updates to GitHub...\033[0m&#34;</span>
 
-<pre><code class="language-sh">#!/usr/local/bin/bash
+<span style="color:#75715e"># Build the project.</span>
+HUGO_ENV<span style="color:#f92672">=</span>production hugo <span style="color:#75715e"># if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`</span>
 
-echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
-
-# Build the project.
-HUGO_ENV=production hugo # if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`
-
-# Go To Public folder
+<span style="color:#75715e"># Go To Public folder</span>
 cd public
-# Add changes to git.
+<span style="color:#75715e"># Add changes to git.</span>
 git add .
 
-# Commit changes.
-msg=&quot;rebuilding site `date`&quot;
-if [ $# -eq 1 ]
-  then msg=&quot;$1&quot;
-fi
-git commit -m &quot;$msg&quot;
+<span style="color:#75715e"># Commit changes.</span>
+msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rebuilding site `date`&#34;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $# -eq <span style="color:#ae81ff">1</span> <span style="color:#f92672">]</span>
+  <span style="color:#66d9ef">then</span> msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+git commit -m <span style="color:#e6db74">&#34;</span>$msg<span style="color:#e6db74">&#34;</span>
 
-# Push source and build repos.
+<span style="color:#75715e"># Push source and build repos.</span>
 git push origin master
 
-# Come Back up to the Project Root
+<span style="color:#75715e"># Come Back up to the Project Root</span>
 cd ..
-</code></pre>
-
-<p>以上</p>
+</code></pre></div><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

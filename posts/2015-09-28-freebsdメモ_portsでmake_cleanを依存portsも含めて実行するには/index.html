@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-09-28T22:10:16+09:00" />
 <meta itemprop="name" content="[FreeBSD][メモ] portsでmake cleanを依存portsも含めて実行するには">
 <meta itemprop="description" content="さきにメモ。 portsにおいて、依存も含めた全部のportsでmake cleanをするには以下のようにする。 find /usr/ports -name work -mindepth 2 -maxdepth 3 | xargs rm -Rf ネタ元は">
-
-
 <meta itemprop="datePublished" content="2015-09-28T22:10:16&#43;09:00" />
 <meta itemprop="dateModified" content="2015-09-28T22:10:16&#43;09:00" />
 <meta itemprop="wordCount" content="472">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD][メモ] portsでmake cleanを依存portsも含めて実行するには"/>
 <meta name="twitter:description" content="さきにメモ。 portsにおいて、依存も含めた全部のportsでmake cleanをするには以下のようにする。 find /usr/ports -name work -mindepth 2 -maxdepth 3 | xargs rm -Rf ネタ元は"/>
 
@@ -141,22 +138,15 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>さきにメモ。</p>
-
 <p>portsにおいて、依存も含めた全部のportsでmake cleanをするには以下のようにする。</p>
-
-<pre><code class="language-console">find /usr/ports -name work -mindepth 2 -maxdepth 3 | xargs rm -Rf
-</code></pre>
-
-<p>ネタ元は<a href="https://forums.freebsd.org/threads/will-make-clean-clean-the-dependencies.12324/" target="_blank">freebsd forum</a>から。</p>
-
-<p>久しぶりにportsを使うと、なんでこんな面倒なものに我慢できていたんだろう？と思う。<br />
+<pre><code class="language-console" data-lang="console">find /usr/ports -name work -mindepth 2 -maxdepth 3 | xargs rm -Rf
+</code></pre><p>ネタ元は<!-- raw HTML omitted -->freebsd forum<!-- raw HTML omitted -->から。</p>
+<p>久しぶりにportsを使うと、なんでこんな面倒なものに我慢できていたんだろう？と思う。<br>
 それは単なる愚痴として。</p>
-
-<p>Vagrantやjailなどの仮想技術がとても便利になってきて、実現したい機能ごとに環境を分けるようになる。<br />
+<p>Vagrantやjailなどの仮想技術がとても便利になってきて、実現したい機能ごとに環境を分けるようになる。<br>
 すると、環境ごとにフレッシュな状態から機能を構築することが多くなり、自然とportsのコンパイル時間の長さが目につくようになったのだと思う。</p>
-
-<p>たとえばredmineを使いたいとして、pkgでインストールしようとしても、コンパイルオプションが期待通りではないので、やむなくportsでインストールしようとする。<br />
-ところが、インストールされたものがない、フレッシュな状態でredmineをportsから入れようとすると、依存の端から端までportsで入れようとするので、とんでもない時間がかかるのである。<br />
+<p>たとえばredmineを使いたいとして、pkgでインストールしようとしても、コンパイルオプションが期待通りではないので、やむなくportsでインストールしようとする。<br>
+ところが、インストールされたものがない、フレッシュな状態でredmineをportsから入れようとすると、依存の端から端までportsで入れようとするので、とんでもない時間がかかるのである。<br>
 特定のもの以外は全部pkgで入れられるようにならないものか。</p>
 <ul class="pa0">
   

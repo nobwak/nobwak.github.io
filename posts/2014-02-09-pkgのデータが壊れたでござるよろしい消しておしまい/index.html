@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-02-09T20:34:49+09:00" />
 <meta itemprop="name" content="pkgのデータが壊れたでござる。よろしい。消しておしまい。">
 <meta itemprop="description" content="pkgngで色々と遊んでたりすると、ごくごく稀に以下のような表示が出ることがある。 pkg: sqlite: database disk image is malformed (pkgdb_repo.c:545) 要するにpkgのdatabaseが壊れたと">
-
-
 <meta itemprop="datePublished" content="2014-02-09T20:34:49&#43;09:00" />
 <meta itemprop="dateModified" content="2014-02-09T20:34:49&#43;09:00" />
 <meta itemprop="wordCount" content="380">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="pkgのデータが壊れたでござる。よろしい。消しておしまい。"/>
 <meta name="twitter:description" content="pkgngで色々と遊んでたりすると、ごくごく稀に以下のような表示が出ることがある。 pkg: sqlite: database disk image is malformed (pkgdb_repo.c:545) 要するにpkgのdatabaseが壊れたと"/>
 
@@ -141,23 +138,16 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgngで色々と遊んでたりすると、ごくごく稀に以下のような表示が出ることがある。</p>
-
-<pre><code class="language-console">pkg: sqlite: database disk image is malformed (pkgdb_repo.c:545)
-</code></pre>
-
-<p><span style="line-height: 1.5em;">要するにpkgのdatabaseが壊れたということである。</span></p>
-
-<p>これを復旧するにはどうしたらよいか。<br />
-実はすごく簡単だし、大した問題ではない。<br />
+<pre><code class="language-console" data-lang="console">pkg: sqlite: database disk image is malformed (pkgdb_repo.c:545)
+</code></pre><p><!-- raw HTML omitted -->要するにpkgのdatabaseが壊れたということである。<!-- raw HTML omitted --></p>
+<p>これを復旧するにはどうしたらよいか。<br>
+実はすごく簡単だし、大した問題ではない。<br>
 ここで壊れているのは、repository catalogueつまりpkgサーバに何が格納されているか、というデータベースなので、消してもう一回ダウンロードすればよい。</p>
-
-<pre><code class="language-console"># rm /var/db/pkg/repo-*.sqlite
-</code></pre>
-
-<p>として、それからpkg updateすればよいだけ。<br />
-ただし削除するときは注意。<br />
-local.sqliteは、そのホストにどのpkgがインストールされているか、というデータベースである。<br />
-これを消してしまうと、当然ながらそのホストにはpkgが一つもインストールされていない、ということになって、たいへん面倒なことになるから注意。<br />
+<pre><code class="language-console" data-lang="console"># rm /var/db/pkg/repo-*.sqlite
+</code></pre><p>として、それからpkg updateすればよいだけ。<br>
+ただし削除するときは注意。<br>
+local.sqliteは、そのホストにどのpkgがインストールされているか、というデータベースである。<br>
+これを消してしまうと、当然ながらそのホストにはpkgが一つもインストールされていない、ということになって、たいへん面倒なことになるから注意。<br>
 告白すると私は一度やりました。ええ。</p>
 <ul class="pa0">
   

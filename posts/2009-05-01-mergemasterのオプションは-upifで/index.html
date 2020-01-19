@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-05-01T01:00:00+09:00" />
 <meta itemprop="name" content="mergemasterのオプションは-UPiFで。">
 <meta itemprop="description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&">
-
-
 <meta itemprop="datePublished" content="2009-05-01T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-05-01T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="682">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="mergemasterのオプションは-UPiFで。"/>
 <meta name="twitter:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&"/>
 
@@ -154,9 +151,9 @@ if (!doNotTrack) {
 
 
 &lt;blockquote&gt;
-
+  
     Using the [-F] option mergemaster will install the new file for you if they differ only by VCS strings.
-
+  
 &lt;/blockquote&gt;
 
 
@@ -166,11 +163,8 @@ if (!doNotTrack) {
 
   ここでのVCS文字列というのは、ファイルに含まれるこんなの。
 </code></pre>
-
-<pre><code class="language-console"># $FreeBSD: src/etc/defaults/rc.conf,v 1.318.2.17 2009/03/24 02:56:50 dougb Exp$
-</code></pre>
-
-<pre><code>  以前は、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090216/p1&quot; target=&quot;_blank&quot;&gt;mergemasterをさらにさらにさらに早く&lt;/a&gt;で書いていたようにmergemaster.rcでしか指定できなかったが、オプションでも指定できるようになったと。
+<pre><code class="language-console" data-lang="console"># $FreeBSD: src/etc/defaults/rc.conf,v 1.318.2.17 2009/03/24 02:56:50 dougb Exp$
+</code></pre><pre><code>  以前は、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090216/p1&quot; target=&quot;_blank&quot;&gt;mergemasterをさらにさらにさらに早く&lt;/a&gt;で書いていたようにmergemaster.rcでしか指定できなかったが、オプションでも指定できるようになったと。
 
 
 
@@ -184,17 +178,14 @@ if (!doNotTrack) {
 
   以下に俺のmergemaster.rcを示す。こうしておけばmergemasterと打つだけでOK。
 </code></pre>
-
-<pre><code class="language-console">AUTO_UPGRADE=yes
+<pre><code class="language-console" data-lang="console">AUTO_UPGRADE=yes
 AUTO_INSTALL=yes
 IGNORE_FILES=&amp;#39;/etc/motd&amp;#39;
 PRESERVE_FILES=yes
 VERBOSE=yes
 #DIFF_OPTIONS=&amp;#39;-I$FreeBSD:.*&amp;#91;$]&amp;#39;
 FREEBSD_ID=yes
-</code></pre>
-
-<pre><code>  手前味噌だけど参考。
+</code></pre><pre><code>  手前味噌だけど参考。
 
 
 

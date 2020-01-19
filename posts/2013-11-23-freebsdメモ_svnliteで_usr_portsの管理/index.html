@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-11-23T22:59:36+09:00" />
 <meta itemprop="name" content="[FreeBSD][メモ] svnliteで/usr/portsの管理">
 <meta itemprop="description" content="/usr/portsをportsnapではなく、svnliteで管理してみた。 一般ユーザとしては、portsnapの管理が望ましいのだが、s">
-
-
 <meta itemprop="datePublished" content="2013-11-23T22:59:36&#43;09:00" />
 <meta itemprop="dateModified" content="2013-11-23T22:59:36&#43;09:00" />
 <meta itemprop="wordCount" content="644">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD][メモ] svnliteで/usr/portsの管理"/>
 <meta name="twitter:description" content="/usr/portsをportsnapではなく、svnliteで管理してみた。 一般ユーザとしては、portsnapの管理が望ましいのだが、s"/>
 
@@ -140,40 +137,27 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>/usr/portsをportsnapではなく、svnliteで管理してみた。<br />
-一般ユーザとしては、portsnapの管理が望ましいのだが、svnだとportsの個別更新が出来たりする。<br />
-このためだけにsvnlite管理にした。<br />
-<a href="http://www.freebsd.org/doc/ja/books/handbook/svn.html" target="_blank">Handbook</a>どおりにしただけ。</p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>/usr/portsをportsnapではなく、svnliteで管理してみた。<br>
+一般ユーザとしては、portsnapの管理が望ましいのだが、svnだとportsの個別更新が出来たりする。<br>
+このためだけにsvnlite管理にした。<br>
+<!-- raw HTML omitted -->Handbook<!-- raw HTML omitted -->どおりにしただけ。</p>
 <p>以下のようなマシンで実施。</p>
-
-<pre><code class="language-console">$ uname -a
+<pre><code class="language-console" data-lang="console">$ uname -a
 FreeBSD vostro 10.0-BETA3 FreeBSD 10.0-BETA3 #0 r257580: Sun Nov  3 19:43:01 UTC 2013     root@snap.freebsd.org:/usr/obj/usr/src/sys/GENERIC  amd64
 $ which svnlite
 /usr/bin/svnlite
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-ミラーサイトを選ぶ-span"><span style="text-decoration: underline;">ミラーサイトを選ぶ</span></h2>
-
-<p>以下のページでミラーサイトを選ぶ。<br />
-<a href="http://web.archive.org/web/20131003105241/http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html" target="_blank"><a href="http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html">http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html</a></a></p>
-
-<p>日本からならsvn0.us-west.FreeBSD.orgでしょうなあ。<br />
-このとき、SSLフィンガープリントも見ておくこと。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->ミラーサイトを選ぶ<!-- raw HTML omitted --></h2>
+<p>以下のページでミラーサイトを選ぶ。<br>
+<!-- raw HTML omitted --><a href="http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html%3C/a%3E">http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html&lt;/a&gt;</a></p>
+<p>日本からならsvn0.us-west.FreeBSD.orgでしょうなあ。<br>
+このとき、SSLフィンガープリントも見ておくこと。<br>
 2013/11/12現在、us-westミラーのフィンガープリントは以下の通り</p>
-
-<pre><code class="language-console">SHASHA1 1C:BD:85:95:11:9F:EB:75:A5:4B:C8:A3:FE:08:E4:02:73:06:1E:61
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-初回チェックアウト-span"><span style="text-decoration: underline;">初回チェックアウト</span></h2>
-
-<p>/usr/portsの中身が何もないことを確認してからsvnlite checkout。<br />
-SSLフィンガープリントが表示されて、これでよいか訊かれる。<br />
+<pre><code class="language-console" data-lang="console">SHASHA1 1C:BD:85:95:11:9F:EB:75:A5:4B:C8:A3:FE:08:E4:02:73:06:1E:61
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->初回チェックアウト<!-- raw HTML omitted --></h2>
+<p>/usr/portsの中身が何もないことを確認してからsvnlite checkout。<br>
+SSLフィンガープリントが表示されて、これでよいか訊かれる。<br>
 handbookの値と同じなので大丈夫ですな。</p>
-
-<pre><code class="language-console">$ sudo svnlite checkout https://svn0.us-west.FreeBSD.org/ports/head /usr/ports
+<pre><code class="language-console" data-lang="console">$ sudo svnlite checkout https://svn0.us-west.FreeBSD.org/ports/head /usr/ports
 Password:
 Error validating server certificate for 'https://svn0.us-west.freebsd.org:443':
  - The certificate is not issued by a trusted authority. Use the
@@ -193,32 +177,21 @@ A    /usr/ports/net-p2p/tribler/pkg-plist
 A    /usr/ports/net-p2p/eiskaltdcpp-daemon/files/patch-nasdc__CMakeLists.txt
  U   /usr/ports
 Checked out revision 333566.
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-二回目以降のcheckout-span"><span style="text-decoration: underline;">二回目以降のcheckout</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinecheckoutspan"><!-- raw HTML omitted -->二回目以降のcheckout<!-- raw HTML omitted --></h2>
 <p>svnlite update /usr/portsとすればよい。</p>
-
-<pre><code class="language-console">$ sudo svnlite update /usr/ports
+<pre><code class="language-console" data-lang="console">$ sudo svnlite update /usr/ports
 Updating '/usr/ports':
 &lt;snip&gt;
 U    /usr/ports/UPDATING
 Updated to revision 333571.
-</code></pre>
-
-<p>リビジョンが上がってますな。</p>
-
-<h2 id="span-style-text-decoration-underline-portsの個別checkout-span"><span style="text-decoration: underline;">portsの個別checkout</span></h2>
-
-<p>portsの個別checkoutができる。<br />
+</code></pre><p>リビジョンが上がってますな。</p>
+<h2 id="span-styletext-decoration-underlineportscheckoutspan"><!-- raw HTML omitted -->portsの個別checkout<!-- raw HTML omitted --></h2>
+<p>portsの個別checkoutができる。<br>
 つまり、/usr/ports全部をアップデートするのではなくて、特定のportsだけ更新する。</p>
-
-<pre><code class="language-console">$ sudo svnlite update /usr/ports/math/sage
+<pre><code class="language-console" data-lang="console">$ sudo svnlite update /usr/ports/math/sage
 Updating '/usr/ports/math/sage':
 At revision 333571.
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
 </ul>

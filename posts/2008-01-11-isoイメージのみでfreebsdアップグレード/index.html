@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-01-11T01:00:00+09:00" />
 <meta itemprop="name" content="ISOイメージのみでFreeBSDアップグレード">
 <meta itemprop="description" content="FreeBSDのSTABLEを追っかけたくても、PCが古くてbuildworldがつらい。 となると、1ヶ月に一度作られるsnapshotから">
-
-
 <meta itemprop="datePublished" content="2008-01-11T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-01-11T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1634">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ISOイメージのみでFreeBSDアップグレード"/>
 <meta name="twitter:description" content="FreeBSDのSTABLEを追っかけたくても、PCが古くてbuildworldがつらい。 となると、1ヶ月に一度作られるsnapshotから"/>
 
@@ -216,19 +213,13 @@ if (!doNotTrack) {
 
 /etc配下のファイルと、カーネルをバックアップ
 </code></pre>
-
-<pre><code class="language-console"># cp -pR /etc /etc.080111
+<pre><code class="language-console" data-lang="console"># cp -pR /etc /etc.080111
 # cp -pR /boot/kernel /boot/kernel.080111
+</code></pre><pre><code>◎ISOイメージのマウント
 </code></pre>
-
-<pre><code>◎ISOイメージのマウント
-</code></pre>
-
-<pre><code class="language-console"># mdconfig -a -t vnode -f 7.0-RC1-i386-disc1.iso -u 10
+<pre><code class="language-console" data-lang="console"># mdconfig -a -t vnode -f 7.0-RC1-i386-disc1.iso -u 10
 # /sbin/mount_cd9660 /dev/md10 /mnt
-</code></pre>
-
-<pre><code>◎必要なファイルのコピー
+</code></pre><pre><code>◎必要なファイルのコピー
 
 
 
@@ -246,24 +237,18 @@ if (!doNotTrack) {
 
 以下の例では、マニュアルページなどもついでにコピーしている。インストールが終わったら、改めてISOイメージをマウントし、install.shでコピーする手もあるが、そこは好き好きで。
 </code></pre>
-
-<pre><code class="language-console"># mkdir /usr/archive
+<pre><code class="language-console" data-lang="console"># mkdir /usr/archive
 # cat /mnt/7.0-RC1/base/base.?? &gt; /usr/archive/base.tgz
 # cat /mnt/7.0-RC1/kernels/generic.?? &gt; /usr/archive/generic.tgz
 # cat /mnt/7.0-RC1/manpages/manpages.?? &gt; /usr/archive/manpages.tgz
+</code></pre><pre><code>srcは下記のようにして/usr/src配下に展開しておく。
 </code></pre>
-
-<pre><code>srcは下記のようにして/usr/src配下に展開しておく。
-</code></pre>
-
-<pre><code class="language-console"># cd /mnt/7.0-RC1/src
+<pre><code class="language-console" data-lang="console"># cd /mnt/7.0-RC1/src
 # sh install.sh all
 Extracting sources into /usr/src...
 Extracting source component: ＜略＞
 Done extracting sources.
-</code></pre>
-
-<pre><code>◎schgフラグを外す
+</code></pre><pre><code>◎schgフラグを外す
 
 
 
@@ -277,22 +262,14 @@ Done extracting sources.
 
 確認方法。詳しくはman security。
 </code></pre>
-
-<pre><code class="language-console"># sysctl kern.securelevel
+<pre><code class="language-console" data-lang="console"># sysctl kern.securelevel
 kern.securelevel: -1
+</code></pre><pre><code>まずschgフラグがセットされているファイルを探す。こんな風にしてみた。
 </code></pre>
-
-<pre><code>まずschgフラグがセットされているファイルを探す。こんな風にしてみた。
+<pre><code class="language-console" data-lang="console"># find / -flags schg -exec ls -lo {} \; |cut -d ' ' -f 13 &gt; /tmp/flaglist
+</code></pre><pre><code>/tmp/flaglistの中身はこんな感じ。
 </code></pre>
-
-<pre><code class="language-console"># find / -flags schg -exec ls -lo {} \; |cut -d ' ' -f 13 &gt; /tmp/flaglist
-</code></pre>
-
-<pre><code>/tmp/flaglistの中身はこんな感じ。
-</code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  /usr/bin/chpass
 
 
@@ -371,16 +348,11 @@ kern.securelevel: -1
 
   /sbin/init
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>中身を確認して問題なければフラグを外す。xargs使うほどの量でもないけれども。
 </code></pre>
-
-<pre><code class="language-console"># xargs chflags noschg &amp;#60; /tmp/flaglist
-</code></pre>
-
-<pre><code>ていうか、/bin /usr/bin /sbin /usr/sbin/ /lib /usr/lib /libexec /usr/libexecあたりの配下ファイル全部に対してchflags noschgしちゃってもいい、というか早い。
+<pre><code class="language-console" data-lang="console"># xargs chflags noschg &amp;#60; /tmp/flaglist
+</code></pre><pre><code>ていうか、/bin /usr/bin /sbin /usr/sbin/ /lib /usr/lib /libexec /usr/libexecあたりの配下ファイル全部に対してchflags noschgしちゃってもいい、というか早い。
 
 
 
@@ -393,30 +365,21 @@ kern.securelevel: -1
 
 先にコピーしておいたgeneric.tgzを展開。
 </code></pre>
-
-<pre><code class="language-console"># cd /usr/archive
+<pre><code class="language-console" data-lang="console"># cd /usr/archive
 # tar -Upxvzf /usr/archive/generic.tgz
+</code></pre><pre><code>念には念を入れてオリジナルのkernelをmvし、上で展開しておいた新kernelを/boot配下へ移動
 </code></pre>
-
-<pre><code>念には念を入れてオリジナルのkernelをmvし、上で展開しておいた新kernelを/boot配下へ移動
-</code></pre>
-
-<pre><code class="language-console"># mv /boot/kernel /boot/kernel.orig
+<pre><code class="language-console" data-lang="console"># mv /boot/kernel /boot/kernel.orig
 # mv /usr/archive/GENERIC /boot/kernel
-</code></pre>
-
-<pre><code>◎リブート
+</code></pre><pre><code>◎リブート
 
 
 
 祈りつつリブートし、カーネルが正しく入れ替わっていることを確認。
 </code></pre>
-
-<pre><code class="language-console"># uname -a
+<pre><code class="language-console" data-lang="console"># uname -a
 FreeBSD xxxx 7.0-RC1 FreeBSD 7.0-RC1 #0: Mon Dec 24 12:18:24 UTC 2007     root@logan.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC  i386
-</code></pre>
-
-<pre><code>RC1になってる。
+</code></pre><pre><code>RC1になってる。
 
 
 
@@ -437,11 +400,8 @@ FreeBSD xxxx 7.0-RC1 FreeBSD 7.0-RC1 #0: Mon Dec 24 12:18:24 UTC 2007     root@l
 
 base.tgzを展開するが、気をつけないと/etcが上書きされて死亡するので、しっかり/etcをexcludeすること。
 </code></pre>
-
-<pre><code class="language-console"># /rescue/tar -Upxvzf /usr/archive/base.tgz -C / --exclude ./etc
-</code></pre>
-
-<pre><code>この後、mergemasterで新しい/etc配下ファイルとマージする。
+<pre><code class="language-console" data-lang="console"># /rescue/tar -Upxvzf /usr/archive/base.tgz -C / --exclude ./etc
+</code></pre><pre><code>この後、mergemasterで新しい/etc配下ファイルとマージする。
 
 
 
