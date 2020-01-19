@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-10-19T20:48:00+09:00" />
 <meta itemprop="name" content="10.0-BETA1でezjailが息してない→qjailに乗り換えた。">
 <meta itemprop="description" content="せっかく覚えたezjailが息してない jailの設定ファイルが、rc.conf,/etc/rc.d/jailからjail.confに変わる。">
-
-
 <meta itemprop="datePublished" content="2013-10-19T20:48:00&#43;09:00" />
 <meta itemprop="dateModified" content="2013-10-19T20:48:00&#43;09:00" />
-<meta itemprop="wordCount" content="3625">
+<meta itemprop="wordCount" content="3659">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="10.0-BETA1でezjailが息してない→qjailに乗り換えた。"/>
 <meta name="twitter:description" content="せっかく覚えたezjailが息してない jailの設定ファイルが、rc.conf,/etc/rc.d/jailからjail.confに変わる。"/>
 
@@ -140,49 +137,33 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="span-style-text-decoration-underline-せっかく覚えたezjailが息してない-span"><span style="text-decoration: underline;">せっかく覚えたezjailが息してない</span></h2>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlineezjailspan"><!-- raw HTML omitted -->せっかく覚えたezjailが息してない<!-- raw HTML omitted --></h2>
 <p>jailの設定ファイルが、rc.conf,/etc/rc.d/jailからjail.confに変わる。</p>
-
-<p><a href="https://twitter.com/m_bird/status/386369822751076352" target="_blank"><a href="https://twitter.com/m_bird/status/386369822751076352">https://twitter.com/m_bird/status/386369822751076352</a></a></p>
-
-<p>そのせいか10.0-BETA1にしたら、ezjail使うたび怒られるようになった。<br />
-具体的にはezjail-adminでjailをうまく起動できない。<br />
+<p><!-- raw HTML omitted --><a href="https://twitter.com/m_bird/status/386369822751076352%3C/a%3E">https://twitter.com/m_bird/status/386369822751076352&lt;/a&gt;</a></p>
+<p>そのせいか10.0-BETA1にしたら、ezjail使うたび怒られるようになった。<br>
+具体的にはezjail-adminでjailをうまく起動できない。<br>
 ezjail覚えたばっかなのに…。</p>
-
-<p>「手動でなんとかしろよ」とエラーメッセージが出るのだが、jailの仕組みはとても複雑で、jail.confの書式も良くわからないしsampleもない。<br />
+<p>「手動でなんとかしろよ」とエラーメッセージが出るのだが、jailの仕組みはとても複雑で、jail.confの書式も良くわからないしsampleもない。<br>
 「rc.d, rc.confをそのままコピー&amp;ペーストしたらいいんだよ」とは言うのだけど、そもそもrc.d, rc.confを自分で書くのが嫌でezjail使ってたのに。</p>
-
 <p>しょうがないんで、あんまり深く追いかけずに別のラッパーであるqjailを試した。</p>
-
-<p>なかなか独特のテイストが感じられるのだが、思ったより手軽で、ドキュメントも（時にはウンザリするくらい）充実している。<br />
+<p>なかなか独特のテイストが感じられるのだが、思ったより手軽で、ドキュメントも（時にはウンザリするくらい）充実している。<br>
 もちろんjail.confにも安心対応。</p>
-
 <p>数十個ものjailを作ることも出来たり、一度作成したjailをテンプレートにする機能もあったりして驚く。</p>
-
-<p>ググった感触でいうとあんまり人気ないみたいだけど、結構いい。<br />
+<p>ググった感触でいうとあんまり人気ないみたいだけど、結構いい。<br>
 細けえ事はどうでもいいからjailを使わせろという諸兄にはおすすめである。</p>
-
-<h2 id="span-style-text-decoration-underline-qjailのインストール-span"><span style="text-decoration: underline;">qjailのインストール</span></h2>
-
-<p>2013/10/18時点で2.2と3.2がある。<br />
+<h2 id="span-styletext-decoration-underlineqjailspan"><!-- raw HTML omitted -->qjailのインストール<!-- raw HTML omitted --></h2>
+<p>2013/10/18時点で2.2と3.2がある。<br>
 jail.confに対応しているのは3.2。</p>
-
 <p>話は前後するが、qjail3.2のman qjail(8)から抜粋すると;</p>
-
 <blockquote>
-<p>This version of qjail has been converted from using the legacy rc.d<br />
-rc.conf method of jail definition as used in all pervious versions of<br />
-qjail, to using the jail(8) jail.conf method which became available in<br />
+<p>This version of qjail has been converted from using the legacy rc.d<br>
+rc.conf method of jail definition as used in all pervious versions of<br>
+qjail, to using the jail(8) jail.conf method which became available in<br>
 9.1-RELEASE.</p>
 </blockquote>
-
-<p>よって3.2をインストール。<br />
+<p>よって3.2をインストール。<br>
 なお、以下でqjailをインストールするFreeBSDは10.0-BETA1でございますので、pkgngを使います。</p>
-
-<pre><code class="language-console">$ pkg search qjail
+<pre><code class="language-console" data-lang="console">$ pkg search qjail
 qjail-2.2
 qjail-3.2
 $ sudo pkg install qjail-3.2
@@ -212,48 +193,34 @@ For the BIG PICTURE issue &quot;man qjail-howto&quot;.
 For instructions on upgrading jail filesystems
 Read /usr/local/share/examples/qjail/upgrade-info.txt
 $
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-qjailでの初期設定-span"><span style="text-decoration: underline;">qjailでの初期設定</span></h2>
-
-<p>まずはjailのひな形、ベース環境を作る。<br />
-qjail installでよい。<br />
-ひな形取得先のftpサーバを変更するならオプションで指定する。<br />
+</code></pre><h2 id="span-styletext-decoration-underlineqjailspan-1"><!-- raw HTML omitted -->qjailでの初期設定<!-- raw HTML omitted --></h2>
+<p>まずはjailのひな形、ベース環境を作る。<br>
+qjail installでよい。<br>
+ひな形取得先のftpサーバを変更するならオプションで指定する。<br>
 書式は以下。</p>
-
-<pre><code class="language-console">qjail install -h ftp2.jp.freebsd.org
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-release以外でのqjail-install-span"><span style="text-decoration: underline;">RELEASE以外でのqjail install</span></h2>
-
-<p>しかし、ftpサーバからダウンロードできるのはRELEASEのみ。<br />
-BETA, RC, ALPHA, STABLE等々だとダメ。<br />
+<pre><code class="language-console" data-lang="console">qjail install -h ftp2.jp.freebsd.org
+</code></pre><h2 id="span-styletext-decoration-underlinereleaseqjail-installspan"><!-- raw HTML omitted -->RELEASE以外でのqjail install<!-- raw HTML omitted --></h2>
+<p>しかし、ftpサーバからダウンロードできるのはRELEASEのみ。<br>
+BETA, RC, ALPHA, STABLE等々だとダメ。<br>
 回避方法は二つ。</p>
-
-<p>①なんでもいいのでRELEASEで作っておいてアップグレードする<br />
+<p>①なんでもいいのでRELEASEで作っておいてアップグレードする<br>
 ②ダウンロードしたディスクイメージを使う。</p>
-
-<p>今回は②にした。<br />
-①はman qjail参照。<br />
+<p>今回は②にした。<br>
+①はman qjail参照。<br>
 ②をもう少し細かく書くと、ディスクイメージをマウントし、base.txzなどのある「ディレクトリ」をqjail install -fに続けて指定する。</p>
-
-<p>「ディレクトリ」とわざわざ書いたのは、cdで行けるところ、というのを強調したかったから。<br />
-ディスクイメージの直接指定はできないし、ftpサーバのディレクトリ指定もダメ。<br />
+<p>「ディレクトリ」とわざわざ書いたのは、cdで行けるところ、というのを強調したかったから。<br>
+ディスクイメージの直接指定はできないし、ftpサーバのディレクトリ指定もダメ。<br>
 ガッカリ。</p>
-
-<h2 id="span-style-text-decoration-underline-追記-release以外でのqjail-install-span"><span style="text-decoration: underline;">(追記)RELEASE以外でのqjail install</span></h2>
-
-<p>「RELEASE以外」というのは、実はRELEASE-p2といったような、パッチレベルが0以外の場合も該当する。<br />
-つまりfreebsd-updateでパッチを当てた状態でqjail installすると失敗する。<br />
-これは、qjailは自ホストのOSバージョンをもとにディレクトリを移動するから。<br />
-OSバージョンが10.1-RELEASE-p16だったら、ftpサーバの10.1-RELEASE-p16などを見に行ってしまう。<br />
+<h2 id="span-styletext-decoration-underlinereleaseqjail-installspan-1"><!-- raw HTML omitted -->(追記)RELEASE以外でのqjail install<!-- raw HTML omitted --></h2>
+<p>「RELEASE以外」というのは、実はRELEASE-p2といったような、パッチレベルが0以外の場合も該当する。<br>
+つまりfreebsd-updateでパッチを当てた状態でqjail installすると失敗する。<br>
+これは、qjailは自ホストのOSバージョンをもとにディレクトリを移動するから。<br>
+OSバージョンが10.1-RELEASE-p16だったら、ftpサーバの10.1-RELEASE-p16などを見に行ってしまう。<br>
 しかし、ftpサーバはパッチレベルごとにはディレクトリが作られないので、参照先がなく失敗する。</p>
-
-<p>ところで、ここでのOSバージョンとは、具体的には環境変数UNAME_rである。<br />
-ということは、qjail installのときだけUNAME_rを変更すればパッチレベルが変わっていようがよいのである。<br />
+<p>ところで、ここでのOSバージョンとは、具体的には環境変数UNAME_rである。<br>
+ということは、qjail installのときだけUNAME_rを変更すればパッチレベルが変わっていようがよいのである。<br>
 以下、10.1-RELEASE-p16で実行した例。</p>
-
-<pre><code class="language-console">root@kraken:/usr/local # setenv UNAME_r &quot;10.1-RELEASE&quot;
+<pre><code class="language-console" data-lang="console">root@kraken:/usr/local # setenv UNAME_r &quot;10.1-RELEASE&quot;
 root@kraken:/usr/local # qjail install -h ftp2.jp.freebsd.org
 Trying 202.232.140.170:21 ...
 Connected to ftp.iij.ad.jp.
@@ -275,25 +242,17 @@ The RELEASE distribution files are populating template.
 Est LT 1 minute elapse time for this to complete.
 
 Successfully installed qjail system.
-</code></pre>
-
-<p>追記ここまで</p>
-
-<h2 id="span-style-text-decoration-underline-ダウンロードしたディスクイメージからqjail-install-span"><span style="text-decoration: underline;">ダウンロードしたディスクイメージからqjail install</span></h2>
-
-<p>仕方がないので淡々と進める。<br />
+</code></pre><p>追記ここまで</p>
+<h2 id="span-styletext-decoration-underlineqjail-installspan"><!-- raw HTML omitted -->ダウンロードしたディスクイメージからqjail install<!-- raw HTML omitted --></h2>
+<p>仕方がないので淡々と進める。<br>
 10.0-BETA1のイメージダウンロードして、ローカルでマウント。</p>
-
-<pre><code class="language-console">$ fetch ftp://ftp.iij.ad.jp/pub/FreeBSD/releases/ISO-IMAGES/10.0/FreeBSD-10.0-BETA1-amd64-disc1.iso
+<pre><code class="language-console" data-lang="console">$ fetch ftp://ftp.iij.ad.jp/pub/FreeBSD/releases/ISO-IMAGES/10.0/FreeBSD-10.0-BETA1-amd64-disc1.iso
 FreeBSD-10.0-BETA1-amd64-disc1.iso            100% of  693 MB 8138 kBps 01m27s
 $
 $ sudo mdconfig -a -t vnode -f ./FreeBSD-10.0-BETA1-amd64-disc1.iso -u 0
 $ sudo mount -t cd9660 /dev/md0 /mnt
-</code></pre>
-
-<p>/mntにマウントしたとすると、/mnt/usr/freebsd-dist/が目的の場所。</p>
-
-<pre><code class="language-console">$ ls /mnt
+</code></pre><p>/mntにマウントしたとすると、/mnt/usr/freebsd-dist/が目的の場所。</p>
+<pre><code class="language-console" data-lang="console">$ ls /mnt
 COPYRIGHT       etc             mnt             sbin            var
 bin             lib             proc            sys
 boot            libexec         rescue          tmp
@@ -306,12 +265,9 @@ $ ls /mnt/usr/freebsd-dist/
 MANIFEST        doc.txz         kernel.txz      src.txz
 base.txz        games.txz       lib32.txz
 $
-</code></pre>
-
-<p>qjail install -fで実行。<br />
+</code></pre><p>qjail install -fで実行。<br>
 終わったらマウントも外そう。</p>
-
-<pre><code class="language-console">$ sudo qjail install -f /mnt/usr/freebsd-dist/                  
+<pre><code class="language-console" data-lang="console">$ sudo qjail install -f /mnt/usr/freebsd-dist/                  
 The RELEASE distribution files are populating template.
 Est LT 1 minute elapse time for this to complete.
 
@@ -322,80 +278,51 @@ Successfully installed qjail system.
 $
 $ sudo umount /mnt
 $ sudo mdconfig -d -u 0
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-qjailの構成-span"><span style="text-decoration: underline;">qjailの構成</span></h2>
-
-<p>/usr/jailsにいくつかのディレクトリが生まれる。<br />
+</code></pre><h2 id="span-styletext-decoration-underlineqjailspan-2"><!-- raw HTML omitted -->qjailの構成<!-- raw HTML omitted --></h2>
+<p>/usr/jailsにいくつかのディレクトリが生まれる。<br>
 また、設定ファイルが/usr/local/etc/に格納される。</p>
-
 <p>/usr/jails下は以下の通り。</p>
-
-<pre><code class="language-console">$ ls /usr/jails
+<pre><code class="language-console" data-lang="console">$ ls /usr/jails
 archive         flavors         sharedfs        template
-</code></pre>
-
-<p><span style="text-decoration: underline;">sharedfs:</span><br />
+</code></pre><p><!-- raw HTML omitted -->sharedfs:<!-- raw HTML omitted --><br>
 OSの実行ファイル、ライブラリ。全Jailで共有される。</p>
-
-<pre><code class="language-console">$ ls /usr/jails/sharedfs/
+<pre><code class="language-console" data-lang="console">$ ls /usr/jails/sharedfs/
 bin     lib     libexec sbin    sys     usr
-</code></pre>
-
-<p><span style="text-decoration: underline;">template:</span><br />
+</code></pre><p><!-- raw HTML omitted -->template:<!-- raw HTML omitted --><br>
 OS configuration fileがある。設定変えようと思ったらここかな。</p>
-
-<pre><code class="language-console">$ ls /usr/jails/template/
+<pre><code class="language-console" data-lang="console">$ ls /usr/jails/template/
 COPYRIGHT       home            mnt             sharedfs        var
 bin             lib             proc            sys
 dev             libexec         root            tmp
 etc             media           sbin            usr
-</code></pre>
-
-<p><span style="text-decoration: underline;">archive:</span><br />
-初期状態では空。<br />
+</code></pre><p><!-- raw HTML omitted -->archive:<!-- raw HTML omitted --><br>
+初期状態では空。<br>
 qjail archiveコマンドで作成されるアーカイブが格納される。</p>
-
-<p><span style="text-decoration: underline;">flavors:</span><br />
+<p><!-- raw HTML omitted -->flavors:<!-- raw HTML omitted --><br>
 flavorですな。defaultとssh-defaultの二つがある。</p>
-
-<pre><code class="language-console">$ ls /usr/jails/flavors/
+<pre><code class="language-console" data-lang="console">$ ls /usr/jails/flavors/
 default         ssh-default
-</code></pre>
-
-<p>そのほか、/usr/local/etc/下に以下のようなファイル、ディレクトリがたくさん出来る。<br />
-jailを作ると今度はこのディレクトリの下にjail名でファイルができる。<br />
+</code></pre><p>そのほか、/usr/local/etc/下に以下のようなファイル、ディレクトリがたくさん出来る。<br>
+jailを作ると今度はこのディレクトリの下にjail名でファイルができる。<br>
 global, local, vnetの意味が、想像はできるもののよく分からない。</p>
-
-<pre><code class="language-console">$ ls /usr/local/etc/qjail*
+<pre><code class="language-console" data-lang="console">$ ls /usr/local/etc/qjail*
 /usr/local/etc/qjail.portsnap.conf
 /usr/local/etc/qjail.fstab:
 /usr/local/etc/qjail.global:
 /usr/local/etc/qjail.local:
 /usr/local/etc/qjail.vnet:
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-jailの作成-span"><span style="text-decoration: underline;">jailの作成</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinejailspan"><!-- raw HTML omitted -->jailの作成<!-- raw HTML omitted --></h2>
 <p>書式。代表的なもののみ。</p>
-
-<pre><code class="language-console">qjail create -n &lt;NIC name&gt;  -f &lt;flavor&gt; -a &lt;アーカイブ&gt; \
+<pre><code class="language-console" data-lang="console">qjail create -n &lt;NIC name&gt;  -f &lt;flavor&gt; -a &lt;アーカイブ&gt; \
  -4 &lt;割り当てるIPアドレス&gt;  jailname
-</code></pre>
-
-<p>-fと-aは一緒に使えない。</p>
-
-<p>実際に作ってみる。<br />
-あっさりと出来上がる。<br />
+</code></pre><p>-fと-aは一緒に使えない。</p>
+<p>実際に作ってみる。<br>
+あっさりと出来上がる。<br>
 あっさりしすぎて逆に不安なくらい。</p>
-
-<pre><code class="language-console">$ sudo qjail create -n em0 -4 192.168.100.240 example01
+<pre><code class="language-console" data-lang="console">$ sudo qjail create -n em0 -4 192.168.100.240 example01
 Successfully created  example01
-</code></pre>
-
-<p>気がつくと、/etc/jail.confが生まれている!</p>
-
-<pre><code class="language-console">example01 {
+</code></pre><p>気がつくと、/etc/jail.confが生まれている!</p>
+<pre><code class="language-console" data-lang="console">example01 {
 host.hostname       =  &quot;exmaple01&quot;;
 path                =  &quot;/usr/jails/exmaple01&quot;;
 mount.fstab         =  &quot;/usr/local/etc/qjail.fstab/exmaple01&quot;;
@@ -408,38 +335,25 @@ mount.devfs         =  &quot;1&quot;;
 ip4.addr            =  192.168.100.240;
 interface           =  &quot;em0&quot;;
 }
-</code></pre>
-
-<p>jail起動…の前に、qjail listで確認。</p>
-
-<h2 id="span-style-text-decoration-underline-qjail-list-span"><span style="text-decoration: underline;">qjail list</span></h2>
-
+</code></pre><p>jail起動…の前に、qjail listで確認。</p>
+<h2 id="span-styletext-decoration-underlineqjail-listspan"><!-- raw HTML omitted -->qjail list<!-- raw HTML omitted --></h2>
 <p>作成済みのjailはqjail listで確認できる。</p>
-
-<pre><code class="language-console">$ sudo qjail list
+<pre><code class="language-console" data-lang="console">$ sudo qjail list
 STA JID  NIC IP              Jailname
 --- ---- --- --------------- --------------------------------------------------
 DS  N/A  em0 192.168.100.240 example01
-</code></pre>
-
-<p>最初のカラムのSTAはStatusの略。</p>
-
-<pre><code class="language-console">一文字め:Jailの種別
+</code></pre><p>最初のカラムのSTAはStatusの略。</p>
+<pre><code class="language-console" data-lang="console">一文字め:Jailの種別
     D: ディレクトリベースのjail.
     I: イメージベースのjail.
 二文字め:状態
     R: 実行中
     S: 停止中
-</code></pre>
-
-<p>JIDはjail IDのこと。そのほかは見たまま。</p>
-
-<h2 id="span-style-text-decoration-underline-qjail-start-span"><span style="text-decoration: underline;">qjail start</span></h2>
-
-<p>qjail startでjailを起動。<br />
+</code></pre><p>JIDはjail IDのこと。そのほかは見たまま。</p>
+<h2 id="span-styletext-decoration-underlineqjail-startspan"><!-- raw HTML omitted -->qjail start<!-- raw HTML omitted --></h2>
+<p>qjail startでjailを起動。<br>
 qjail listの表示も変わり、ネットワークインタフェースへのaliasも実行してくれている。</p>
-
-<pre><code class="language-console">$ sudo qjail start example01
+<pre><code class="language-console" data-lang="console">$ sudo qjail start example01
 Jail successfully started  example01
 $
 $ sudo qjail list
@@ -456,33 +370,22 @@ em0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
         nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
         media: Ethernet autoselect (1000baseT &lt;full-duplex&gt;)
         status: active
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-qjail-consoleでjailの中へ-span"><span style="text-decoration: underline;">qjail consoleでjailの中へ</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlineqjail-consolejailspan"><!-- raw HTML omitted -->qjail consoleでjailの中へ<!-- raw HTML omitted --></h2>
 <p>qjail consoleでコンソールにアクセスできる。</p>
-
-<pre><code class="language-console">$ sudo qjail console example01
+<pre><code class="language-console" data-lang="console">$ sudo qjail console example01
 FreeBSD 10.0-BETA1 (GENERIC) #0 r256420: Sun Oct 13 01:43:07 UTC 2013
 
 Welcome to your FreeBSD jail.
 example01 /root &gt;
-</code></pre>
-
-<p>特に何もしていないけど、/etc/localtimeと/etc/resolv.confは作ってくれた。wall_cmos_clockはなかった。</p>
-
-<pre><code class="language-console">exmaple01 /root &gt;ls /etc | egrep &quot;resolv|clock|localtime&quot;
+</code></pre><p>特に何もしていないけど、/etc/localtimeと/etc/resolv.confは作ってくれた。wall_cmos_clockはなかった。</p>
+<pre><code class="language-console" data-lang="console">exmaple01 /root &gt;ls /etc | egrep &quot;resolv|clock|localtime&quot;
 localtime
 resolv.conf
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-qjail-stopで止めて-archiveでアーカイブ-deleteで削除完了-span"><span style="text-decoration: underline;">qjail stopで止めて、archiveでアーカイブ、deleteで削除完了</span></h2>
-
-<p>単純にstopしてdeleteするのは面白くないから、deleteの前にarchiveしてみた。<br />
-/usr/jails/archiveの下に<jail名>@日付秒.tarというファイルが出来ている。<br />
+</code></pre><h2 id="span-styletext-decoration-underlineqjail-stoparchivedeletespan"><!-- raw HTML omitted -->qjail stopで止めて、archiveでアーカイブ、deleteで削除完了<!-- raw HTML omitted --></h2>
+<p>単純にstopしてdeleteするのは面白くないから、deleteの前にarchiveしてみた。<br>
+/usr/jails/archiveの下に&lt;jail名&gt;@日付秒.tarというファイルが出来ている。<br>
 また、deleteしてもjail.confには記載が残っているようだ。</p>
-
-<pre><code class="language-console">$ sudo qjail stop example01
+<pre><code class="language-console" data-lang="console">$ sudo qjail stop example01
 Jail successfully stopped  example01
 $ sudo qjail archive example01
 Successfully archived example01
@@ -499,14 +402,10 @@ $ cat /etc/jail.conf
 example01 {
 host.hostname       =  &quot;example01&quot;;
 （後略）
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-qjail-restoreでarchive済みのjailを復活可能ッ-span"><span style="text-decoration: underline;">qjail restoreでarchive済みのjailを復活可能ッ！</span></h2>
-
-<p>ためしにrestoreしてみたら何事もなかったかのように復活して驚いた。<br />
+</code></pre><h2 id="span-styletext-decoration-underlineqjail-restorearchivejailspan"><!-- raw HTML omitted -->qjail restoreでarchive済みのjailを復活可能ッ！<!-- raw HTML omitted --></h2>
+<p>ためしにrestoreしてみたら何事もなかったかのように復活して驚いた。<br>
 これはスナップショット的に使えますね。</p>
-
-<pre><code class="language-console">$ sudo qjail restore example01
+<pre><code class="language-console" data-lang="console">$ sudo qjail restore example01
 Successfully restored example01
 $ sudo qjail list
 STA JID  NIC IP              Jailname
@@ -521,12 +420,9 @@ FreeBSD 10.0-BETA1 (GENERIC) #0 r256420: Sun Oct 13 01:43:07 UTC 2013
 
 Welcome to your FreeBSD jail.
 example01 /root &gt;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-qjail-便利だよね-span"><span style="text-decoration: underline;">qjail、便利だよね？</span></h2>
-
-<p>ご覧の通り、qjailはjailをマクロなレベルで扱うことに長けているようで、とても便利に感じる。<br />
-qjailにはほかにもqjail configというコマンドがあり、既存のjailの設定（たとえばIPアドレスとか）を変えたりできるし、jailのOSアップデートも手軽にできるようだ。<br />
+</code></pre><h2 id="span-styletext-decoration-underlineqjailspan-3"><!-- raw HTML omitted -->qjail、便利だよね？<!-- raw HTML omitted --></h2>
+<p>ご覧の通り、qjailはjailをマクロなレベルで扱うことに長けているようで、とても便利に感じる。<br>
+qjailにはほかにもqjail configというコマンドがあり、既存のjailの設定（たとえばIPアドレスとか）を変えたりできるし、jailのOSアップデートも手軽にできるようだ。<br>
 そのあたりはまた試すとして、しばらくjailはqjailでメンテしようと思った。</p>
 <ul class="pa0">
   

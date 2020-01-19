@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-10T20:27:22+09:00" />
 <meta itemprop="name" content="Pythonアプリに引数を渡そう">
 <meta itemprop="description" content="PythonでWindowsアプリケーションを作ったとする。 たとえばファイルを引数に取り、整形するものだとする。 せっかくWindowsアプリ">
-
-
 <meta itemprop="datePublished" content="2014-01-10T20:27:22&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-10T20:27:22&#43;09:00" />
 <meta itemprop="wordCount" content="994">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,linux,python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,linux,python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Pythonアプリに引数を渡そう"/>
 <meta name="twitter:description" content="PythonでWindowsアプリケーションを作ったとする。 たとえばファイルを引数に取り、整形するものだとする。 せっかくWindowsアプリ"/>
 
@@ -140,53 +137,38 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>PythonでWindowsアプリケーションを作ったとする。<br />
-たとえばファイルを引数に取り、整形するものだとする。<br />
-せっかくWindowsアプリケーション、というかGUI上のプログラムなんだから、アプリケーションにドラッグ＆ドロップしたいじゃないか。<br />
-どうしたらできるか。<br />
-…まあ普通にargvで受け取ればいいんですがね。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>PythonでWindowsアプリケーションを作ったとする。<br>
+たとえばファイルを引数に取り、整形するものだとする。<br>
+せっかくWindowsアプリケーション、というかGUI上のプログラムなんだから、アプリケーションにドラッグ＆ドロップしたいじゃないか。<br>
+どうしたらできるか。<br>
+…まあ普通にargvで受け取ればいいんですがね。<br>
 以下、Pythonにおけるargvの使い方メモ。</p>
-
-<h2 id="span-style-text-decoration-underline-sys-argv-span"><span style="text-decoration: underline;">sys.argv</span></h2>
-
-<p>sys.argvは、コマンドラインで渡される引数が入ったリスト。<br />
-sys.argv[0]にはスクリプト自身が入る。<br />
-len(sys.argv)で引数の数をカウントできる。<br />
+<h2 id="span-styletext-decoration-underlinesysargvspan"><!-- raw HTML omitted -->sys.argv<!-- raw HTML omitted --></h2>
+<p>sys.argvは、コマンドラインで渡される引数が入ったリスト。<br>
+sys.argv[0]にはスクリプト自身が入る。<br>
+len(sys.argv)で引数の数をカウントできる。<br>
 できるが、スクリプト自身も含めての数であることに注意。sys.argv[0]に自分が入っているからね。</p>
-
 <p>サンプルスクリプト</p>
-
 <p>サンプルスクリプトである。</p>
-
-<pre><code class="language-console">import sys
+<pre><code class="language-console" data-lang="console">import sys
 
 print &quot;the name of script is :&quot;, sys.argv[0]
 print &quot;the number of arg is :&quot;, len(sys.argv)
 
 for arg in sys.argv:
     print arg
-</code></pre>
-
-<p>この実行結果は、たとえば以下のようになる。</p>
-
-<pre><code class="language-console">$ python ./argv.py a b c
+</code></pre><p>この実行結果は、たとえば以下のようになる。</p>
+<pre><code class="language-console" data-lang="console">$ python ./argv.py a b c
 the name of script is : ./argv.py
 the number of arg is : 4
 ./argv.py
 a
 b
 c
-</code></pre>
-
-<p>sys.argvはリストなのでforなどで中身を一つ一つ参照できるが、自分自身からまず始まるのは美しくない。</p>
-
-<h2 id="span-style-text-decoration-underline-引数一つ目から扱うには-span"><span style="text-decoration: underline;">引数一つ目から扱うには</span></h2>
-
+</code></pre><p>sys.argvはリストなのでforなどで中身を一つ一つ参照できるが、自分自身からまず始まるのは美しくない。</p>
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->引数一つ目から扱うには<!-- raw HTML omitted --></h2>
 <p>以下のようにする。</p>
-
-<pre><code class="language-console">import sys
+<pre><code class="language-console" data-lang="console">import sys
 
 def main(argv):
 
@@ -199,30 +181,22 @@ def main(argv):
 
 if __name__ == &quot;__main__&quot;:
     main(sys.argv[1:])
-</code></pre>
-
-<p>端的に言えば、一枚レイヤを入れる。<br />
-一番下のif文部分でsys.argvを受けたら、リストの一つ目以降、つまりスクリプト自身を除いた残りをmain()に渡すというわけ。<br />
+</code></pre><p>端的に言えば、一枚レイヤを入れる。<br>
+一番下のif文部分でsys.argvを受けたら、リストの一つ目以降、つまりスクリプト自身を除いた残りをmain()に渡すというわけ。<br>
 出力は例えば以下のようになる。</p>
-
-<pre><code class="language-console">$ python ./argv.py a b c
+<pre><code class="language-console" data-lang="console">$ python ./argv.py a b c
 the name of script is : ./argv.py
 the number of original arg is : 4
 the number of altered arg is : 3
 a
 b
 c
-</code></pre>
-
-<p>ベリーナイス。</p>
-
-<h2 id="span-style-text-decoration-underline-シャレオツな使い方-引数の数を担保したい-span"><span style="text-decoration: underline;">シャレオツな使い方（引数の数を担保したい）</span></h2>
-
-<p>さて。もうちょっと頭のいいことをやってみたい。<br />
-具体的には、引数を一つだけ取るようにしたい。<br />
+</code></pre><p>ベリーナイス。</p>
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->シャレオツな使い方（引数の数を担保したい）<!-- raw HTML omitted --></h2>
+<p>さて。もうちょっと頭のいいことをやってみたい。<br>
+具体的には、引数を一つだけ取るようにしたい。<br>
 さてサンプル。</p>
-
-<pre><code class="language-console">def main(argv):
+<pre><code class="language-console" data-lang="console">def main(argv):
 
     print &quot;the name of script is :&quot;, sys.argv[0]
     print &quot;the number of original arg is :&quot;, len(sys.argv)
@@ -235,24 +209,17 @@ c
 
 if __name__ == &quot;__main__&quot;:
     main(sys.argv[1:])
-</code></pre>
-
-<p>出力例</p>
-
-<pre><code class="language-console">$ python ./argv.py a b c
+</code></pre><p>出力例</p>
+<pre><code class="language-console" data-lang="console">$ python ./argv.py a b c
 the name of script is : ./argv.py
 the number of original arg is : 4
 the number of altered arg is : 3
 Usage: ./argv.py &lt;filename&gt;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-シャレオツな使い方-引数の内容を担保したい-span"><span style="text-decoration: underline;">シャレオツな使い方（引数の内容を担保したい）</span></h2>
-
-<p>さらに。<br />
-ファイルを引数に取るとして（さあ冒頭の話につながってまいりました！）、そのファイルの有無を確認したい。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->シャレオツな使い方（引数の内容を担保したい）<!-- raw HTML omitted --></h2>
+<p>さらに。<br>
+ファイルを引数に取るとして（さあ冒頭の話につながってまいりました！）、そのファイルの有無を確認したい。<br>
 サンプル。</p>
-
-<pre><code class="language-console">import sys
+<pre><code class="language-console" data-lang="console">import sys
 import os
 
 def main(argv):
@@ -270,18 +237,13 @@ def main(argv):
 
 if __name__ == &quot;__main__&quot;:
     main(sys.argv[1:])
-</code></pre>
-
-<p>出力例</p>
-
-<pre><code class="language-console">$ python ./argv.py a
+</code></pre><p>出力例</p>
+<pre><code class="language-console" data-lang="console">$ python ./argv.py a
 the name of script is : ./argv.py
 the original number of arg is : 2
 the altered number of arg is : 1
 ERROR: file a was not found!
-</code></pre>
-
-<p>以上でござる</p>
+</code></pre><p>以上でござる</p>
 <ul class="pa0">
   
    <li class="list">

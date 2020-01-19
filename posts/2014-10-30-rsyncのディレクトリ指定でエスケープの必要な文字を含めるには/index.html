@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-10-30T22:52:56+09:00" />
 <meta itemprop="name" content="rsyncのディレクトリ指定でエスケープの必要な文字を含めるには">
 <meta itemprop="description" content="先に結論:ダブルクオーテーションで括ればよい。 rsyncの対象ディレクトリでカッコ「()」など、エスケープの必要な文字の含まれているケースが">
-
-
 <meta itemprop="datePublished" content="2014-10-30T22:52:56&#43;09:00" />
 <meta itemprop="dateModified" content="2014-10-30T22:52:56&#43;09:00" />
-<meta itemprop="wordCount" content="273">
+<meta itemprop="wordCount" content="272">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,linux,OS X," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,linux,OS X," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="rsyncのディレクトリ指定でエスケープの必要な文字を含めるには"/>
 <meta name="twitter:description" content="先に結論:ダブルクオーテーションで括ればよい。 rsyncの対象ディレクトリでカッコ「()」など、エスケープの必要な文字の含まれているケースが"/>
 
@@ -141,28 +138,20 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>先に結論:ダブルクオーテーションで括ればよい。</p>
-
-<p>rsyncの対象ディレクトリでカッコ「()」など、エスケープの必要な文字の含まれているケースがある。<br />
-たとえば、Sambaでサービスしている共有フォルダとか。<br />
+<p>rsyncの対象ディレクトリでカッコ「()」など、エスケープの必要な文字の含まれているケースがある。<br>
+たとえば、Sambaでサービスしている共有フォルダとか。<br>
 そのままディレクトリ名をrsyncに与えてしまうと、とても面倒なことになる。</p>
-
-<p>どうするか。<br />
-ダブルクオーテーションで括ればよい。<br />
-ふむ。よろしい。<br />
-ではディレクトリがリモートにある場合、どこからどこまでを括ればよいの？<br />
-以下の通りである。<br />
+<p>どうするか。<br>
+ダブルクオーテーションで括ればよい。<br>
+ふむ。よろしい。<br>
+ではディレクトリがリモートにある場合、どこからどこまでを括ればよいの？<br>
+以下の通りである。<br>
 192.168.1.1にsomeoneでログインした先のディレクトリを手元にsyncする場合。</p>
-
-<pre><code class="language-console">rsync -avz someone@192.168.1.1:&quot;/work/fileshare/file\(20141022\)&quot; /home/someone/fileshare/backup
-</code></pre>
-
-<p>参考<br />
-<a href="http://serverfault.com/questions/234876/escaping-spaces-in-a-remote-path-when-using-rsync-over-a-remote-ssh-connection" target="_blank"><a href="http://serverfault.com/questions/234876/escaping-spaces-in-a-remote-path-when-using-rsync-over-a-remote-ssh-connection">http://serverfault.com/questions/234876/escaping-spaces-in-a-remote-path-when-using-rsync-over-a-remote-ssh-connection</a></a></p>
-
+<pre><code class="language-console" data-lang="console">rsync -avz someone@192.168.1.1:&quot;/work/fileshare/file\(20141022\)&quot; /home/someone/fileshare/backup
+</code></pre><p>参考<br>
+<!-- raw HTML omitted --><a href="http://serverfault.com/questions/234876/escaping-spaces-in-a-remote-path-when-using-rsync-over-a-remote-ssh-connection%3C/a%3E">http://serverfault.com/questions/234876/escaping-spaces-in-a-remote-path-when-using-rsync-over-a-remote-ssh-connection&lt;/a&gt;</a></p>
 <p>以上。</p>
-
-<p>```</p>
-<ul class="pa0">
+<pre><code></code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

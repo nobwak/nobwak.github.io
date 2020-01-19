@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-06-23T21:51:55+09:00" />
 <meta itemprop="name" content="[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには">
 <meta itemprop="description" content="インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。 イ">
-
-
 <meta itemprop="datePublished" content="2014-06-23T21:51:55&#43;09:00" />
 <meta itemprop="dateModified" content="2014-06-23T21:51:55&#43;09:00" />
 <meta itemprop="wordCount" content="1543">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには"/>
 <meta name="twitter:description" content="インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。 イ"/>
 
@@ -140,86 +137,55 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。</p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。</p>
 <p>インターネットに接続できるマシンでpkgをインストールしておき、そのマシンからpkgを取得する。</p>
-
-<h2 id="手順">手順</h2>
-
-<p>・ターゲットとなるマシン（以下、ターゲット）と同じ構成でVM（以下、コピーマシン）を作る。<br />
-・コピーマシンに必要なpkgをインストールする。<br />
-・コピーマシン上のどこかでインストール済みpkgを作る。<br />
-・同じ場所にrepoカタログを作成する。<br />
-・ターゲットと同じLANに繋ぎかえる。<br />
+<h2 id="heading">手順</h2>
+<p>・ターゲットとなるマシン（以下、ターゲット）と同じ構成でVM（以下、コピーマシン）を作る。<br>
+・コピーマシンに必要なpkgをインストールする。<br>
+・コピーマシン上のどこかでインストール済みpkgを作る。<br>
+・同じ場所にrepoカタログを作成する。<br>
+・ターゲットと同じLANに繋ぎかえる。<br>
 ・pkgのあるディレクトリをwebサーバで公開し、pkgをインストールする。</p>
-
 <p>以下、詳細手順</p>
-
-<h2 id="ターゲットと同じ構成でvmを作る">ターゲットと同じ構成でVMを作る</h2>
-
-<p>RELEASEバージョンを合わせておけばよいでしょう。<br />
+<h2 id="vm">ターゲットと同じ構成でVMを作る</h2>
+<p>RELEASEバージョンを合わせておけばよいでしょう。<br>
 割愛。</p>
-
-<h2 id="コピーマシンに必要なpkgをインストールする">コピーマシンに必要なpkgをインストールする</h2>
-
-<p>タイトルの通り。<br />
-なにもわざわざインストールしなくても、という意見もあるだろうが、動作確認も必要だし。<br />
+<h2 id="pkg">コピーマシンに必要なpkgをインストールする</h2>
+<p>タイトルの通り。<br>
+なにもわざわざインストールしなくても、という意見もあるだろうが、動作確認も必要だし。<br>
 割愛。</p>
-
-<h2 id="pkgを作る">pkgを作る</h2>
-
+<h2 id="pkg-1">pkgを作る</h2>
 <p>適当な場所にディレクトリを掘り、以下のコマンドを叩く。</p>
-
-<pre><code class="language-console">pkg create -a -f tgz -o ./ -n
-</code></pre>
-
-<p>-aは、インストール済みのすべてのpkgを指定、という意味。all。<br />
--fは、圧縮フォーマットの指定。右から左へ移すだけだからtgzでよい。tbzだと時間がかかる。<br />
--o ./は、作成したpkgを置く場所。<br />
--nは、作成済みのpkgを作らない、という意味。付けると処理のスピードアップが望めるが、逆に更新のあったpkgを作り忘れる、という危険性もあるかも。<br />
+<pre><code class="language-console" data-lang="console">pkg create -a -f tgz -o ./ -n
+</code></pre><p>-aは、インストール済みのすべてのpkgを指定、という意味。all。<br>
+-fは、圧縮フォーマットの指定。右から左へ移すだけだからtgzでよい。tbzだと時間がかかる。<br>
+-o ./は、作成したpkgを置く場所。<br>
+-nは、作成済みのpkgを作らない、という意味。付けると処理のスピードアップが望めるが、逆に更新のあったpkgを作り忘れる、という危険性もあるかも。<br>
 以下の例では-nを使っていない。</p>
-
-<pre><code class="language-console">$ cd /usr/home/vanilla/pkgrepo/
+<pre><code class="language-console" data-lang="console">$ cd /usr/home/vanilla/pkgrepo/
 $ sudo pkg create -f tgz -o ./ -a
 Loading the package list...
 Creating package for GentiumBasic-110_1
 Creating package for ImageMagick-6.8.9.3,1
 Creating package for ORBit2-2.14.19_1
 (略)
-</code></pre>
-
-<h2 id="repoカタログを作成する">repoカタログを作成する</h2>
-
+</code></pre><h2 id="repo">repoカタログを作成する</h2>
 <p>pkg repoにディレクトリを指定すればよい。</p>
-
-<pre><code class="language-console">$ cd /usr/home/vanilla/pkgrepo/
+<pre><code class="language-console" data-lang="console">$ cd /usr/home/vanilla/pkgrepo/
 $ sudo pkg repo /usr/home/vanilla/pkgrepo/
 Generating repository catalog in /usr/home/vanilla/pkgrepo/: done!
 $
-</code></pre>
-
-<p>そうすると以下の二つのファイルができる。</p>
-
-<pre><code class="language-console">digests.txz     packagesite.txz
-</code></pre>
-
-<p>つまり今回の例でいえば、/usr/home/vanilla/pkgrepo/に作成したpkgと二つのファイルが格納されているわけ。</p>
-
+</code></pre><p>そうすると以下の二つのファイルができる。</p>
+<pre><code class="language-console" data-lang="console">digests.txz     packagesite.txz
+</code></pre><p>つまり今回の例でいえば、/usr/home/vanilla/pkgrepo/に作成したpkgと二つのファイルが格納されているわけ。</p>
 <p>以上でコピーマシンでの作業は完了。</p>
-
-<h2 id="ターゲットでの準備">ターゲットでの準備</h2>
-
-<p>ターゲットにpkg一式をコピーし、webサーバを立ち上げる。<br />
-そのまえに、ターゲットでレポジトリの設定ファイルを修正しておくこと。<br />
+<h2 id="heading-1">ターゲットでの準備</h2>
+<p>ターゲットにpkg一式をコピーし、webサーバを立ち上げる。<br>
+そのまえに、ターゲットでレポジトリの設定ファイルを修正しておくこと。<br>
 具体的には、①公式のpkgレポジトリを無効にし、②自前のpkgレポジトリの設定を加えることである。</p>
-
 <p>①公式pkgレポジトリの無効化</p>
-
 <p>/etc/pkg/pkg/FreeBSD.confでenabledをnoにする。</p>
-
-<pre><code class="language-console"># $FreeBSD: release/10.0.0/etc/pkg/FreeBSD.conf 258710 2013-11-28 14:24:26Z gjb
+<pre><code class="language-console" data-lang="console"># $FreeBSD: release/10.0.0/etc/pkg/FreeBSD.conf 258710 2013-11-28 14:24:26Z gjb
 $
 FreeBSD: {
   url: &quot;pkg+http://pkg.FreeBSD.org/${ABI}/latest&quot;,
@@ -228,23 +194,17 @@ FreeBSD: {
   fingerprints: &quot;/usr/share/keys/pkg&quot;,
   enabled: no
 }
-</code></pre>
-
-<p>②自前レポジトリの設定<br />
-/usr/local/etc/pkg/repos/localpkg.confとして以下のようなファイルを作る。<br />
+</code></pre><p>②自前レポジトリの設定<br>
+/usr/local/etc/pkg/repos/localpkg.confとして以下のようなファイルを作る。<br>
 urlは、後ほど設定するwebサーバと合わせる事。</p>
-
-<pre><code class="language-console">localpkg: {
+<pre><code class="language-console" data-lang="console">localpkg: {
   url: &quot;http://localhost:8000/&quot;,
   mirror_type: &quot;http&quot;,
   enabled: yes
 }
-</code></pre>
-
-<p>pkg -vvとしてみる。<br />
+</code></pre><p>pkg -vvとしてみる。<br>
 repo FreeBSDのenabledがno, repo localpkgのenabledがyesになっていることを確認。</p>
-
-<pre><code class="language-console">Repositories:
+<pre><code class="language-console" data-lang="console">Repositories:
   FreeBSD: {
     url             : &quot;pkg+http://pkg.FreeBSD.org/freebsd:10:x86:32/latest&quot;,
     enabled         : no,
@@ -257,31 +217,22 @@ repo FreeBSDのenabledがno, repo localpkgのenabledがyesになっているこ�
     enabled         : yes,
     mirror_type     : &quot;HTTP&quot;
   }
-</code></pre>
-
-<h2 id="webサーバでpkgを公開-インストールする">webサーバでpkgを公開、インストールする。</h2>
-
-<p>rsyncでもなんでも使って、ターゲットにpkg一式をコピーする。<br />
-/home/vanilla/10.0/pkgにコピーしたとして、webサーバでこのディレクトリを公開すればよい。<br />
-ここでは手早くpythonで公開する。<br />
+</code></pre><h2 id="webpkg">webサーバでpkgを公開、インストールする。</h2>
+<p>rsyncでもなんでも使って、ターゲットにpkg一式をコピーする。<br>
+/home/vanilla/10.0/pkgにコピーしたとして、webサーバでこのディレクトリを公開すればよい。<br>
+ここでは手早くpythonで公開する。<br>
 以下のようにするとカレントディレクトリをルートとするwebサーバが立ちあがる。ポートは8000である。</p>
-
-<pre><code class="language-console">$ cd /home/vanilla/10.0/pkg
+<pre><code class="language-console" data-lang="console">$ cd /home/vanilla/10.0/pkg
 $ python -m SimpleHTTPServer
-</code></pre>
-
-<p>同じくターゲットでpkg udpate。<br />
+</code></pre><p>同じくターゲットでpkg udpate。<br>
 pkg repoで作成したdigests.txz, packagesite.txzを参照できていることを確認したら、pkg upgradeすればよい。</p>
-
-<pre><code class="language-console">$ sudo pkg update
+<pre><code class="language-console" data-lang="console">$ sudo pkg update
 Updating repository catalogue
 digests.txz                         100%   29KB  29.3KB/s  29.3KB/s   00:00    
 packagesite.txz                     100%  136KB 135.9KB/s 135.9KB/s   00:00    
 Incremental update completed, 613 packages processed:
 0 packages updated, 0 removed and 613 added.
-</code></pre>
-
-<p>以上です。</p>
+</code></pre><p>以上です。</p>
 <ul class="pa0">
   
    <li class="list">

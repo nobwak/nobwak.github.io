@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-05T21:53:46+09:00" />
 <meta itemprop="name" content="[メモ]zpoolのVersionについて（Versionナンバはもう使われない）">
 <meta itemprop="description" content="過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。 したのだが、よく分からないことがいくつかあった">
-
-
 <meta itemprop="datePublished" content="2014-01-05T21:53:46&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-05T21:53:46&#43;09:00" />
 <meta itemprop="wordCount" content="1290">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,linux,OSX,zfs," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,linux,OSX,zfs," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ]zpoolのVersionについて（Versionナンバはもう使われない）"/>
 <meta name="twitter:description" content="過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。 したのだが、よく分からないことがいくつかあった"/>
 
@@ -140,72 +137,50 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>過日、<a href="../../../2013/12/%E3%83%A1%E3%83%A2zpool%E3%81%AEupgrade/" target="_blank">zpool v28のアップグレードをして</a>、いくつかのfeature flagsを有効にした。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>過日、<!-- raw HTML omitted -->zpool v28のアップグレードをして<!-- raw HTML omitted -->、いくつかのfeature flagsを有効にした。<br>
 したのだが、よく分からないことがいくつかあった。</p>
-
 <p>すなわち、最新のはずのv28なのにアップグレードを促されたこと、アップグレードしたら zpool get allの結果からバージョンが消えてしまったこと、である。</p>
-
-<p>WikipediaのZFSやOpenZFSを眺めてみて分かったのは、zpool（(Open)ZFS）はv28以降、バージョンナンバの使用を止めてしまったせいとの由。<br />
- <a href=" http://en.wikipedia.org/wiki/OpenZFS" target="_blank"><a href="http://en.wikipedia.org/wiki/OpenZFS">http://en.wikipedia.org/wiki/OpenZFS</a></a><br />
- <a href=" http://en.wikipedia.org/wiki/ZFS#RELEASEHISTORY" target="_blank"><a href="http://en.wikipedia.org/wiki/ZFS#RELEASEHISTORY">http://en.wikipedia.org/wiki/ZFS#RELEASEHISTORY</a></a></p>
-
-<p>以下に調べた結果を示す。<br />
-なお、ご覧の通り情報の出所はwikipediaである。<br />
+<p>WikipediaのZFSやOpenZFSを眺めてみて分かったのは、zpool（(Open)ZFS）はv28以降、バージョンナンバの使用を止めてしまったせいとの由。<br>
+<!-- raw HTML omitted --><a href="http://en.wikipedia.org/wiki/OpenZFS%3C/a%3E">http://en.wikipedia.org/wiki/OpenZFS&lt;/a&gt;</a><br>
+<!-- raw HTML omitted --><a href="http://en.wikipedia.org/wiki/ZFS#RELEASEHISTORY%3C/a%3E">http://en.wikipedia.org/wiki/ZFS#RELEASEHISTORY&lt;/a&gt;</a></p>
+<p>以下に調べた結果を示す。<br>
+なお、ご覧の通り情報の出所はwikipediaである。<br>
 問題ないとは思うが、各位においてはご留意されたい。</p>
-
-<h2 id="span-style-text-decoration-underline-zfsの歴史-span"><span style="text-decoration: underline;">ZFSの歴史</span></h2>
-
-<p>もともと、zpoolやZFS filesytemに機能が追加されるたび、バージョンナンバがインクリメントされてきた。<br />
-しかし2010年、OpenSoralisの開発が停止され、ZFSはオープンソースではなくなった。<br />
+<h2 id="span-styletext-decoration-underlinezfsspan"><!-- raw HTML omitted -->ZFSの歴史<!-- raw HTML omitted --></h2>
+<p>もともと、zpoolやZFS filesytemに機能が追加されるたび、バージョンナンバがインクリメントされてきた。<br>
+しかし2010年、OpenSoralisの開発が停止され、ZFSはオープンソースではなくなった。<br>
 本家（Oracle）のZFSはプロプライエタリとなって、2013/12/24現在、ZFS filesystemはv6, ZFS Poolはv34まで進んでいる。</p>
-
-<p>それはそれとして、illumos(OpenSolaris後継）やBSD/Linux/OSX関連の方々は、オープンであったzfs v5, zpool v28をベースに本家とは別の開発が進める。<br />
+<p>それはそれとして、illumos(OpenSolaris後継）やBSD/Linux/OSX関連の方々は、オープンであったzfs v5, zpool v28をベースに本家とは別の開発が進める。<br>
 これが2013年にOpenZFSとなる。</p>
-
-<h2 id="span-style-text-decoration-underline-バージョンナンバとフィーチャーフラグ-span"><span style="text-decoration: underline;">バージョンナンバとフィーチャーフラグ</span></h2>
-
-<p>OpenZFSはいろんな所でいろんな人々が開発を続けている。<br />
-こういった状態で、単一のバージョンナンバを付与することは不可能である。<br />
-そこでフィーチャーフラグ（feature flags）という考え方を導入する。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->バージョンナンバとフィーチャーフラグ<!-- raw HTML omitted --></h2>
+<p>OpenZFSはいろんな所でいろんな人々が開発を続けている。<br>
+こういった状態で、単一のバージョンナンバを付与することは不可能である。<br>
+そこでフィーチャーフラグ（feature flags）という考え方を導入する。<br>
 機能ごとに個別の名前を与える、というもの。</p>
-
-<p>個別の名前は、feature@<org-name>:<feature-name>という書式で表される。<br />
-org-nameは当該機能を開発した組織名。一意の名前。もちろん、勝手につけることは許されない。<br />
-org-nameが明らかな場合には、feature@<feature-name>と短縮してもよい。<br />
+<p>個別の名前は、feature@<!-- raw HTML omitted -->:<!-- raw HTML omitted -->という書式で表される。<br>
+org-nameは当該機能を開発した組織名。一意の名前。もちろん、勝手につけることは許されない。<br>
+org-nameが明らかな場合には、feature@<!-- raw HTML omitted -->と短縮してもよい。<br>
 feature@async_destroyというように。</p>
-
-<h2 id="span-style-text-decoration-underline-フィーチャーの状態-span"><span style="text-decoration: underline;">フィーチャーの状態</span></h2>
-
-<p>フィーチャーの状態には三つある。<br />
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->フィーチャーの状態<!-- raw HTML omitted --></h2>
+<p>フィーチャーの状態には三つある。<br>
 disabled, enabled, activeである。</p>
-
 <ul>
 <li>disabled: 無効。機能を使えない状態。</li>
 <li>enabled: 機能を使える状態。有効にはなっていない。</li>
 <li>active: 機能が有効。旧バージョンとの互換性がなくなっている。</li>
 </ul>
-
-<h2 id="span-style-text-decoration-underline-フィーチャーの種類-span"><span style="text-decoration: underline;">フィーチャーの種類</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->フィーチャーの種類<!-- raw HTML omitted --></h2>
 <ul>
 <li>features for write : 書き込みには必須の機能。読み込みのみであれば不要。</li>
 <li>features for read : 読み込み、あるいはpoolを開くために必須の機能。</li>
 </ul>
-
 <p>たとえばasync_destroyはデータ書き込みの時だけ必要な機能なのでfeatures for write。</p>
-
-<h2 id="span-style-text-decoration-underline-バージョンについて-span"><span style="text-decoration: underline;">バージョンについて</span></h2>
-
-<p>一つでもフィーチャーを有効にするとpoolのバージョンは1000になる。<br />
+<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->バージョンについて<!-- raw HTML omitted --></h2>
+<p>一つでもフィーチャーを有効にするとpoolのバージョンは1000になる。<br>
 1000とはめちゃくちゃな数に見えるかもしれないが、本家のバージョンと被らないようにするため。</p>
-
-<h2 id="span-style-text-decoration-underline-おわりに-span"><span style="text-decoration: underline;">おわりに</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-4"><!-- raw HTML omitted -->おわりに<!-- raw HTML omitted --></h2>
 <p>ここで改めてzpoolの出力を見てみると、poolのバージョンがハイフンになっていることや、フィーチャーの記載など、なるほどと理解できることがありますな。</p>
-
-<pre><code class="language-console">$ zpool get all|grep vault
+<pre><code class="language-console" data-lang="console">$ zpool get all|grep vault
 vault size 2.27T -
 vault capacity 64% -
 vault health ONLINE -
@@ -214,8 +189,7 @@ vault version - default
 vault feature@async_destroy enabled local
 vault feature@empty_bpobj enabled local
 vault feature@lz4_compress enabled local
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

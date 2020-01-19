@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-05-24T22:35:35+09:00" />
 <meta itemprop="name" content="ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）">
 <meta itemprop="description" content="ブロック図作成ツールblockdiagとは、テキストファイルから以下のような図を作成してくれるツールである。 これをFreeBSD にインストー">
-
-
 <meta itemprop="datePublished" content="2014-05-24T22:35:35&#43;09:00" />
 <meta itemprop="dateModified" content="2014-05-24T22:35:35&#43;09:00" />
 <meta itemprop="wordCount" content="1539">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）"/>
 <meta name="twitter:description" content="ブロック図作成ツールblockdiagとは、テキストファイルから以下のような図を作成してくれるツールである。 これをFreeBSD にインストー"/>
 
@@ -140,37 +137,24 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>ブロック図作成ツールblockdiagとは、テキストファイルから以下のような図を作成してくれるツールである。</p>
-
-<p><a href="../../../wp-content/uploads/2014/05/blockdiagplanejpaa.png"><img class="alignnone size-thumbnail wp-image-2732" src="../../../wp-content/uploads/2014/05/blockdiagplanejpaa-150x150.png" alt="blockdiagplanejpaa" width="150" height="150" /></a></p>
-
-<p>これをFreeBSD にインストールしたので経緯を示す。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>ブロック図作成ツールblockdiagとは、テキストファイルから以下のような図を作成してくれるツールである。</p>
+<p><a href="../../../wp-content/uploads/2014/05/blockdiagplanejpaa.png"><!-- raw HTML omitted --></a></p>
+<p>これをFreeBSD にインストールしたので経緯を示す。<br>
 環境は10.0-RELEASE-p3、blockdiag-1.3.3である。</p>
-
-<h2 id="必要なもの">必要なもの</h2>
-
-<p>lockdiagはpkgに用意されているものの、残念ながら一発インストールというわけにはいかない。<br />
-理由は後述。<br />
+<h2 id="heading">必要なもの</h2>
+<p>lockdiagはpkgに用意されているものの、残念ながら一発インストールというわけにはいかない。<br>
+理由は後述。<br>
 pkg以外に必要なものは以下の通り。</p>
-
-<p>①ports（portsでインストールが必要なソフトウェアがある）<br />
+<p>①ports（portsでインストールが必要なソフトウェアがある）<br>
 ②日本語フォント（これはpkgでインストールしてよい）</p>
-
-<h2 id="blockdiagのインストール">blockdiagのインストール</h2>
-
-<p>一部ソフトウェアのportsからのインストールが必要だが、まずはblockdiagをpkgでインストールをしてしまったほうが楽。<br />
+<h2 id="blockdiag">blockdiagのインストール</h2>
+<p>一部ソフトウェアのportsからのインストールが必要だが、まずはblockdiagをpkgでインストールをしてしまったほうが楽。<br>
 依存とかあるからね。</p>
-
-<pre><code class="language-console">$ pkg search blockdiag
+<pre><code class="language-console" data-lang="console">$ pkg search blockdiag
 py27-blockdiag-1.3.3
 
-</code></pre>
-
-<p>インストールしたあとに依存を調べてみると以下の通り。</p>
-
-<pre><code class="language-console">$ pkg info -d py27-blockdiag-1.3.3
+</code></pre><p>インストールしたあとに依存を調べてみると以下の通り。</p>
+<pre><code class="language-console" data-lang="console">$ pkg info -d py27-blockdiag-1.3.3
 py27-blockdiag-1.3.3:
         py27-reportlab-3.0_1
         python27-2.7.6_4
@@ -178,41 +162,26 @@ py27-blockdiag-1.3.3:
         py27-pillow-2.3.0_2
         py27-setuptools27-2.0.1
         py27-funcparserlib-0.3.6_1
-</code></pre>
-
-<h2 id="日本語フォントのインストール">日本語フォントのインストール</h2>
-
-<p>お好みで。<br />
+</code></pre><h2 id="heading-1">日本語フォントのインストール</h2>
+<p>お好みで。<br>
 私はVLゴシックを。</p>
-
-<pre><code class="language-console">$ pkg info|grep ja-font
+<pre><code class="language-console" data-lang="console">$ pkg info|grep ja-font
 ja-font-vlgothic-20130607      VLGothic Japanese TrueType fonts
-</code></pre>
-
-<p>さてここからが本題である。</p>
-
-<h2 id="blockdiagの罠-吊るしのpkgでは日本語フォントを使えない">blockdiagの罠: 吊るしのpkgでは日本語フォントを使えない</h2>
-
-<p>2014/5/24現在、blockdiagをpkgでインストールした場合、日本語フォントを扱うことができない。<br />
-厳密にいえば、TrueTypeフォントを使えない。<br />
+</code></pre><p>さてここからが本題である。</p>
+<h2 id="blockdiag-pkg">blockdiagの罠: 吊るしのpkgでは日本語フォントを使えない</h2>
+<p>2014/5/24現在、blockdiagをpkgでインストールした場合、日本語フォントを扱うことができない。<br>
+厳密にいえば、TrueTypeフォントを使えない。<br>
 日本語を表示させようとすると、以下のように断られてしまう。</p>
-
-<pre><code class="language-console">$ blockdiag ./sample.txt
+<pre><code class="language-console" data-lang="console">$ blockdiag ./sample.txt
 ERROR: The _imagingft C module is not installed
-</code></pre>
-
-<p>原因は、FreeBSDにおいて言えばpy27-pillowのせい。</p>
-
-<p>blockdiagが画像を生成する際にはPIL（Python Image Library）を使う。<br />
-blockdiagが依存しているpy27-pillowがそれ。<br />
+</code></pre><p>原因は、FreeBSDにおいて言えばpy27-pillowのせい。</p>
+<p>blockdiagが画像を生成する際にはPIL（Python Image Library）を使う。<br>
+blockdiagが依存しているpy27-pillowがそれ。<br>
 しかしデフォルト設定では、py27-pillowのTrueTypeフォント対応が無効になってるんである。</p>
-
-<h2 id="対応策-py27-pillowだけportsからインストール">対応策: py27-pillowだけportsからインストール</h2>
-
-<p>ということでpy27-pillowだけportsからインストールする。<br />
+<h2 id="-py27-pillowports">対応策: py27-pillowだけportsからインストール</h2>
+<p>ということでpy27-pillowだけportsからインストールする。<br>
 /usr/ports/graphics/py-pillowにおいてOption設定を変える。</p>
-
-<pre><code class="language-console">[vanilla@yaryka /usr/ports/graphics/py-pillow]$ sudo make config
+<pre><code class="language-console" data-lang="console">[vanilla@yaryka /usr/ports/graphics/py-pillow]$ sudo make config
   ┌───────── py27-pillow-2.3.0_2 ─────
   │ ┌─────────────────────────
   │ │ [x] FREETYPE  TrueType font rendering support   
@@ -225,12 +194,9 @@ blockdiagが依存しているpy27-pillowがそれ。<br />
   ├──────────────────────────
   │               &lt;  OK  &gt;                     
   └──────────────────────────
-</code></pre>
-
-<p>FREETYPEのところにチェックを入れる。<br />
+</code></pre><p>FREETYPEのところにチェックを入れる。<br>
 /var/db/ports/graphics_py-pillow/optionsの中身がこうなってればOK.</p>
-
-<pre><code class="language-console">$ cat /var/db/ports/graphics_py-pillow/options
+<pre><code class="language-console" data-lang="console">$ cat /var/db/ports/graphics_py-pillow/options
 # This file is auto-generated by 'make config'.
 # Options for py27-pillow-2.3.0_2
 _OPTIONS_READ=py27-pillow-2.3.0_2
@@ -241,12 +207,9 @@ OPTIONS_FILE_UNSET+=LCMS
 OPTIONS_FILE_SET+=PNG
 OPTIONS_FILE_UNSET+=TIFF
 OPTIONS_FILE_UNSET+=WEBP
-</code></pre>
-
-<p>そしたらpkgのpy27-pillowをいったんアンインストール。<br />
+</code></pre><p>そしたらpkgのpy27-pillowをいったんアンインストール。<br>
 依存があるから強制オプションを付ける。</p>
-
-<pre><code class="language-console">$ sudo pkg remove -fy py27-pillow-2.3.0_2
+<pre><code class="language-console" data-lang="console">$ sudo pkg remove -fy py27-pillow-2.3.0_2
 pkg: You are trying to delete package(s) which has dependencies that are still required:
 graphics/py-pillow: print/py-reportlab, graphics/py-seqdiag, graphics/py-blockdiag
 ... delete these packages anyway in forced mode
@@ -259,11 +222,8 @@ The deinstallation will free 2 MB
 py27-pillow-2.3.0_2 is required by: py27-reportlab-3.0_1 py27-seqdiag-0.9.0 py27-blockdiag-1.3.3, deleting anyway
  done
 $
-</code></pre>
-
-<p>そうしたらportsからpy27-pillowをインストール</p>
-
-<pre><code class="language-console">[vanilla@yaryka /usr/ports/graphics/py-pillow]$ sudo make install
+</code></pre><p>そうしたらportsからpy27-pillowをインストール</p>
+<pre><code class="language-console" data-lang="console">[vanilla@yaryka /usr/ports/graphics/py-pillow]$ sudo make install
 ===&gt;  Installing for py27-pillow-2.3.0_2
 ===&gt;   py27-pillow-2.3.0_2 depends on package: py27-setuptools27&gt;0 - found
 ===&gt;   py27-pillow-2.3.0_2 depends on file: /usr/local/bin/python2.7 - found
@@ -275,44 +235,28 @@ Installing py27-pillow-2.3.0_2... done
 [vanilla@yaryka /usr/ports/graphics/py-pillow]$ sudo make clean
 ===&gt;  Cleaning for py27-pillow-2.3.0_2
 [vanilla@yaryka /usr/ports/graphics/py-pillow]$
-</code></pre>
-
-<h2 id="テスト">テスト</h2>
-
-<p>詳しい記述方法は公式サイトを。<br />
-<a href="http://blockdiag.com/ja/index.html" target="_blank"><a href="http://blockdiag.com/ja/index.html">http://blockdiag.com/ja/index.html</a></a></p>
-
-<p>テキストファイルに以下のような記述をする。<br />
+</code></pre><h2 id="heading-2">テスト</h2>
+<p>詳しい記述方法は公式サイトを。<br>
+<!-- raw HTML omitted --><a href="http://blockdiag.com/ja/index.html%3C/a%3E">http://blockdiag.com/ja/index.html&lt;/a&gt;</a></p>
+<p>テキストファイルに以下のような記述をする。<br>
 sample.txtとする。</p>
-
-<pre><code class="language-console">blockdiag {
+<pre><code class="language-console" data-lang="console">blockdiag {
    春 -&gt; 夏 -&gt; 秋 -&gt; 冬;
    A -&gt; E -&gt; F -&gt; G;
 }
-</code></pre>
-
-<p>あとはblockdiagに食わせるだけ。</p>
-
-<pre><code class="language-console">$ blockdiag sample.txt
+</code></pre><p>あとはblockdiagに食わせるだけ。</p>
+<pre><code class="language-console" data-lang="console">$ blockdiag sample.txt
 $
-</code></pre>
-
-<p>エラーもなくできた。<br />
-そしてできるファイルは以下のようなもの。<br />
-<a href="../../../wp-content/uploads/2014/05/blockdiagplanejp.png"><img class="alignnone size-thumbnail wp-image-2733" src="../../../wp-content/uploads/2014/05/blockdiagplanejp-150x150.png" alt="blockdiagplanejp" width="150" height="150" /></a></p>
-
+</code></pre><p>エラーもなくできた。<br>
+そしてできるファイルは以下のようなもの。<br>
+<a href="../../../wp-content/uploads/2014/05/blockdiagplanejp.png"><!-- raw HTML omitted --></a></p>
 <p>カクカクなのがいやなら、-aをオプションに与えればよい。</p>
-
-<pre><code class="language-console">$ blockdiag -a ./sample.txt
+<pre><code class="language-console" data-lang="console">$ blockdiag -a ./sample.txt
 $
-</code></pre>
-
-<p>アンチエイリアスがかかる。<br />
-<a href="../../../wp-content/uploads/2014/05/blockdiagplanejpaa.png"><img class="alignnone size-thumbnail wp-image-2732" src="../../../wp-content/uploads/2014/05/blockdiagplanejpaa-150x150.png" alt="blockdiagplanejpaa" width="150" height="150" /></a></p>
-
+</code></pre><p>アンチエイリアスがかかる。<br>
+<a href="../../../wp-content/uploads/2014/05/blockdiagplanejpaa.png"><!-- raw HTML omitted --></a></p>
 <p>以上。</p>
-
-<p><input id="mac_address" type="hidden" value="" /></p>
+<p><!-- raw HTML omitted --></p>
 <ul class="pa0">
   
    <li class="list">

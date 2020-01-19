@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-01-05T18:36:51+09:00" />
 <meta itemprop="name" content="【メモ】Visual Studio Code &#43; Pythonのセットアップ">
 <meta itemprop="description" content="いまさらVisual Studio Code（以降、VSC）をインストールしたのでメモ Windows10。Python。 以下の手順に沿う。 Python in Visual Studio Code https://code.visualstudio.com/docs/languages/python VS">
-
-
 <meta itemprop="datePublished" content="2019-01-05T18:36:51&#43;09:00" />
 <meta itemprop="dateModified" content="2019-01-05T18:36:51&#43;09:00" />
-<meta itemprop="wordCount" content="573">
+<meta itemprop="wordCount" content="561">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="【メモ】Visual Studio Code &#43; Pythonのセットアップ"/>
 <meta name="twitter:description" content="いまさらVisual Studio Code（以降、VSC）をインストールしたのでメモ Windows10。Python。 以下の手順に沿う。 Python in Visual Studio Code https://code.visualstudio.com/docs/languages/python VS"/>
 
@@ -140,82 +137,56 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>いまさらVisual  Studio Code（以降、VSC）をインストールしたのでメモ<br />
-Windows10。Python。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>いまさらVisual  Studio Code（以降、VSC）をインストールしたのでメモ<br>
+Windows10。Python。<br>
 以下の手順に沿う。</p>
-
-<p>Python in Visual Studio Code<br />
+<p>Python in Visual Studio Code<br>
 <a href="https://code.visualstudio.com/docs/languages/python">https://code.visualstudio.com/docs/languages/python</a></p>
-
-<h3 id="vscのインストール">VSCのインストール</h3>
-
+<h3 id="vsc">VSCのインストール</h3>
 <p>以下からダウンロード、インストール。</p>
-
-<p>Download Visual Studio Code<br />
+<p>Download Visual Studio Code<br>
 <a href="https://code.visualstudio.com/Download">https://code.visualstudio.com/Download</a></p>
-
-<p>私はzip版。<br />
-任意のフォルダに展開し、PATHを通す。<br />
+<p>私はzip版。<br>
+任意のフォルダに展開し、PATHを通す。<br>
 私の場合はPATHの通っているところにcode.exeのショートカットを置いただけ。</p>
-
-<h3 id="pythonのインストール">Pythonのインストール</h3>
-
+<h3 id="python">Pythonのインストール</h3>
 <p><a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
-
-<p><a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_01.jpg">pythoninstall01</a></p>
-
-<p><a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_02.jpg">pythoninstall02</a> <a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_03.jpg">pythoninstall03</a><br />
-コマンドプロンプトでpythonにPATHが通っていることを確認<br />
-<a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_04.jpg">pythoninstall04</a></p>
-
-<h3 id="vscへのpython-extensionインストール">VSCへのpython extensionインストール</h3>
-
-<p>Python extension for Visual Studio Code<br />
+<p><img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_01.jpg" alt="pythoninstall01"></p>
+<p><img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_02.jpg" alt="pythoninstall02"><br>
+<img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_03.jpg" alt="pythoninstall03"><br>
+コマンドプロンプトでpythonにPATHが通っていることを確認<br>
+<img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_04.jpg" alt="pythoninstall04"></p>
+<h3 id="vscpython-extension">VSCへのpython extensionインストール</h3>
+<p>Python extension for Visual Studio Code<br>
 <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">https://marketplace.visualstudio.com/items?itemName=ms-python.python</a></p>
-
-<p><a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_05.jpg">pythoninstall05</a><br />
-<a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_06.jpg">pythoninstall06
-</a> <a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_07.jpg">pythoninstall07</a></p>
-
-<h3 id="vscでのpython-interpreterの指定">VSCでのpython interpreterの指定</h3>
-
-<p>VSCを起動し、pythonを使う旨、VSCに明示する。<br />
+<p><img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_05.jpg" alt="pythoninstall05"><br>
+<img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_06.jpg" alt="pythoninstall06"><br>
+<img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_07.jpg" alt="pythoninstall07"></p>
+<h3 id="vscpython-interpreter">VSCでのpython interpreterの指定</h3>
+<p>VSCを起動し、pythonを使う旨、VSCに明示する。<br>
 Ctrl + Shift + Pを押し、現れたウインドウに「Python」とタイプ、「インタープリターを選択」を選ぶ</p>
-
-<p><a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_08.jpg">pythoninstall08</a></p>
-
-<h3 id="pylintのインストール">PyLintのインストール</h3>
-
-<p>拡張子.pyのファイルを作ると、Linterが無いと怒られる。<br />
-インストールを選ぶ。<br />
-<a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_09.jpg">pythoninstall09</a><br />
-<a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_20.jpg">pythoninstall20</a></p>
-
-<h3 id="ライブラリのインストール">ライブラリのインストール</h3>
-
-<p>なんか画面が開いたのでpipで必要なライブラリのインストールを進める<br />
-<a href="../../../wp-content/uploads/2019/01/pythoninstall20190105_21.jpg">pythoninstall21</a></p>
-
-<h3 id="microsoft-visual-c-14-0-のインストール">&ldquo;Microsoft Visual C++ 14.0&rdquo;のインストール</h3>
-
+<p><img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_08.jpg" alt="pythoninstall08"></p>
+<h3 id="pylint">PyLintのインストール</h3>
+<p>拡張子.pyのファイルを作ると、Linterが無いと怒られる。<br>
+インストールを選ぶ。<br>
+<img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_09.jpg" alt="pythoninstall09"><br>
+<img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_20.jpg" alt="pythoninstall20"></p>
+<h3 id="heading">ライブラリのインストール</h3>
+<p>なんか画面が開いたのでpipで必要なライブラリのインストールを進める<br>
+<img src="../../../wp-content/uploads/2019/01/pythoninstall20190105_21.jpg" alt="pythoninstall21"></p>
+<h3 id="microsoft-visual-c-140">&ldquo;Microsoft Visual C++ 14.0&quot;のインストール</h3>
 <p>「Microsoft Visual C++ 14.0」が無いと怒られたら。</p>
-
-<pre><code class="language-console">copying cx_Freeze\samples\wx\wxapp.py -&gt; build\lib.win32-3.7\cx\_Freeze\samples\wx  
+<pre><code class="language-console" data-lang="console">copying cx_Freeze\samples\wx\wxapp.py -&gt; build\lib.win32-3.7\cx\_Freeze\samples\wx  
 creating build\lib.win32-3.7\cx_Freeze\samples\zope  
 copying cx_Freeze\samples\zope\qotd.py -&gt; build\lib.win32-3.7\cx\_Freeze\samples\zope  
 copying cx_Freeze\samples\zope\setup.py -&gt; build\lib.win32-3.7\cx_Freeze\samples\zope  
 running build_ext  
 building 'cx_Freeze.util' extension  
 error: Microsoft Visual C++ 14.0 is required. Get it with &quot;Microsoft Visual C++ Build Tools&quot;: https://visualstudio.microsoft.com/downloads/
-</code></pre>
-
-<p>このあたりから入手してインストール<br />
-<a href="https://visualstudio.microsoft.com/visual-cpp-build-tools/">https://visualstudio.microsoft.com/visual-cpp-build-tools/</a><br />
+</code></pre><p>このあたりから入手してインストール<br>
+<a href="https://visualstudio.microsoft.com/visual-cpp-build-tools/">https://visualstudio.microsoft.com/visual-cpp-build-tools/</a><br>
 <a href="https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe">https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe</a></p>
-
-<p>MD5ハッシュは 8d4afd3b226babecaa4effb10d69eb2e<br />
+<p>MD5ハッシュは 8d4afd3b226babecaa4effb10d69eb2e<br>
 以上</p>
 <ul class="pa0">
   

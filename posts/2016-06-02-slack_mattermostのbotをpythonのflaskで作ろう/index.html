@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2016-06-02T23:54:24+09:00" />
 <meta itemprop="name" content="Slack/MattermostのbotをPythonのFlaskで作ろう">
 <meta itemprop="description" content="Slack/Mattermost（以降、まとめてSlack）のbotといえばHubotが有名だ。 Hubotはcoffeescriptで書かれ">
-
-
 <meta itemprop="datePublished" content="2016-06-02T23:54:24&#43;09:00" />
 <meta itemprop="dateModified" content="2016-06-02T23:54:24&#43;09:00" />
-<meta itemprop="wordCount" content="2010">
+<meta itemprop="wordCount" content="1974">
 
 
 
-<meta itemprop="keywords" content="python,slack," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="python,slack," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Slack/MattermostのbotをPythonのFlaskで作ろう"/>
 <meta name="twitter:description" content="Slack/Mattermost（以降、まとめてSlack）のbotといえばHubotが有名だ。 Hubotはcoffeescriptで書かれ"/>
 
@@ -140,129 +137,87 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Slack/Mattermost（以降、まとめてSlack）のbotといえばHubotが有名だ。<br />
-Hubotはcoffeescriptで書かれているのだが、botのためだけに新しい言語を覚えるのも面倒。<br />
-加えてHubotを動作させるにはnpmが必要。<br />
-ちょっとそこまでは…。<br />
-Pythonなら普段使いで最初から環境は作ってあるし、楽だし。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Slack/Mattermost（以降、まとめてSlack）のbotといえばHubotが有名だ。<br>
+Hubotはcoffeescriptで書かれているのだが、botのためだけに新しい言語を覚えるのも面倒。<br>
+加えてHubotを動作させるにはnpmが必要。<br>
+ちょっとそこまでは…。<br>
+Pythonなら普段使いで最初から環境は作ってあるし、楽だし。<br>
 そう思っていろいろと調べてみた。</p>
-
-<h2 id="slackのbotに必要なことは">Slackのbotに必要なことは？</h2>
-
+<h2 id="slackbot">Slackのbotに必要なことは？</h2>
 <p>Slackのbotに必要なのは、端的に以下の二つ。</p>
-
 <ol>
-<li>Slackからのデータ送信を受ける。<br /></li>
+<li>Slackからのデータ送信を受ける。</li>
 <li>Slackへ何かをする。</li>
 </ol>
-
-<p>1.は、HTTP POSTでやってくるので、POSTを受けることさえできればよい。<br />
+<p>1.は、HTTP POSTでやってくるので、POSTを受けることさえできればよい。<br>
 2.は、例えばSlack上で何かの発言をすることだが、こちらはcurl（Pythonならrequests）でも使えば簡単にできる。</p>
-
-<h2 id="pythonでhttp-postを受けるには">PythonでHTTP POSTを受けるには？</h2>
-
-<p><a href="http://a2c.bitbucket.org/flask/index.html">Flask</a>である。<br />
-Flaskとはごくごく軽量なwebフレームワークである。<br />
-驚くくらい簡単にwebサーバを作ることができる。<br />
-もちろんPOSTを受けるのもすぐにできる。<br />
+<h2 id="pythonhttp-post">PythonでHTTP POSTを受けるには？</h2>
+<p><a href="http://a2c.bitbucket.org/flask/index.html">Flask</a>である。<br>
+Flaskとはごくごく軽量なwebフレームワークである。<br>
+驚くくらい簡単にwebサーバを作ることができる。<br>
+もちろんPOSTを受けるのもすぐにできる。<br>
 以下、説明。</p>
-
-<h2 id="flaskのインストール">Flaskのインストール</h2>
-
+<h2 id="flask">Flaskのインストール</h2>
 <p>pipでもなんでも、好きなものを使ってインストールせい。</p>
-
-<h2 id="flaskのテスト">Flaskのテスト</h2>
-
-<p>以下のようなスクリプトを書く。<br />
-適当な名前で保存する。<br />
+<h2 id="flask-1">Flaskのテスト</h2>
+<p>以下のようなスクリプトを書く。<br>
+適当な名前で保存する。<br>
 flask.pyとかはやめようね。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/local/bin/python</span>
 
-<pre><code class="language-python">#!/usr/local/bin/python
+<span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> Flask
 
-from flask import Flask
+app <span style="color:#f92672">=</span> Flask(__name__)
 
-app = Flask(__name__)
+<span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">welcome</span>():
+    html <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&lt;html&gt;&lt;title&gt;welcome&lt;/title&gt;</span><span style="color:#e6db74">&#39;</span>
+    html <span style="color:#f92672">=</span> html <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&lt;body&gt;welcome&lt;/body&gt;&lt;/html&gt;</span><span style="color:#e6db74">&#39;</span>
+    <span style="color:#66d9ef">return</span> html
 
-@app.route('/')
-def welcome():
-    html = '&lt;html&gt;&lt;title&gt;welcome&lt;/title&gt;'
-    html = html + '&lt;body&gt;welcome&lt;/body&gt;&lt;/html&gt;'
-    return html
-
-if __name__ == '__main__':
-    app.debug = True
-    app.run(host='0.0.0.0')
-</code></pre>
-
-<p>上記のapp.route(&lsquo;/&rsquo;)とは、ルーティング。<br />
-ルートディレクトリ（&rsquo;/&lsquo;）へのアクセスがあったら、次のdef welcome()が（デコレートによって）呼ばれる、ということである。</p>
-
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
+    app<span style="color:#f92672">.</span>debug <span style="color:#f92672">=</span> True
+    app<span style="color:#f92672">.</span>run(host<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">0.0.0.0</span><span style="color:#e6db74">&#39;</span>)
+</code></pre></div><p>上記のapp.route('/')とは、ルーティング。<br>
+ルートディレクトリ（'/'）へのアクセスがあったら、次のdef welcome()が（デコレートによって）呼ばれる、ということである。</p>
 <p>上記の場合、welcomeと表示するhtmlが返る。</p>
-
-<p>app.debug = Trueについては後述。<br />
-app.run(host=&lsquo;0.0.0.0&rsquo;)のhost=&hellip;の記述により、サーバを外部に公開することになる。</p>
-
-<h2 id="テストスクリプトの実行">テストスクリプトの実行</h2>
-
-<pre><code class="language-console">$ python ./flasktest.py
+<p>app.debug = Trueについては後述。<br>
+app.run(host='0.0.0.0&rsquo;)のhost=&hellip;の記述により、サーバを外部に公開することになる。</p>
+<h2 id="heading">テストスクリプトの実行</h2>
+<pre><code class="language-console" data-lang="console">$ python ./flasktest.py
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
  * Restarting with stat
  * Debugger is active!
  * Debugger pin code: 213-546-048
-</code></pre>
-
-<p>localhostのポート5000でサーバが立ち上がったと分かる。<br />
+</code></pre><p>localhostのポート5000でサーバが立ち上がったと分かる。<br>
 ブラウザでアクセスして「welcome」と表示されればよい。</p>
-
-<p>ところで、app.debut = Trueだが、スクリプトを書き換えると、自動的に再読み込みをしてくれる。<br />
+<p>ところで、app.debut = Trueだが、スクリプトを書き換えると、自動的に再読み込みをしてくれる。<br>
 実際のログは以下。</p>
-
-<pre><code class="language-console">* Detected change in '/usr/home/doe/py/flasktest.py', reloading
+<pre><code class="language-console" data-lang="console">* Detected change in '/usr/home/doe/py/flasktest.py', reloading
  * Restarting with stat
  * Debugger is active!
-</code></pre>
-
-<p>激烈に便利な機能なので、開発中は有効にしておくこと。</p>
-
-<h2 id="slackからのpostを受ける">SlackからのPOSTを受ける。</h2>
-
+</code></pre><p>激烈に便利な機能なので、開発中は有効にしておくこと。</p>
+<h2 id="slackpost">SlackからのPOSTを受ける。</h2>
 <p>先ほどのスクリプト冒頭のimportを以下のように変更。</p>
-
-<pre><code class="language-console">from flask import Flask, request
-</code></pre>
-
-<p>さらに以下を追加。</p>
-
-<pre><code class="language-console">@app.route('/matter', methods=['POST'])
+<pre><code class="language-console" data-lang="console">from flask import Flask, request
+</code></pre><p>さらに以下を追加。</p>
+<pre><code class="language-console" data-lang="console">@app.route('/matter', methods=['POST'])
 def post():
     print request.form
-</code></pre>
-
-<p>上記のようにしておいて、Slack側のOutgoing Webhookで、呼び出すURLに<code>http://＜あなたのサーバのアドレス＞:5000/matter</code>を指定する。</p>
-
-<p>Slack側からwebhookを呼び出してみると、POSTされた内容がログに表示されるはず。<br />
+</code></pre><p>上記のようにしておいて、Slack側のOutgoing Webhookで、呼び出すURLに<code>http://＜あなたのサーバのアドレス＞:5000/matter</code>を指定する。</p>
+<p>Slack側からwebhookを呼び出してみると、POSTされた内容がログに表示されるはず。<br>
 なお、def post()が何も返さないのでエラーは出るが気にしない。</p>
-
 <p>以下が例。</p>
-
-<pre><code class="language-console">ImmutableMultiDict([('user_id', u'xxxxx'), ('channel_id', u'xxxxx'), ('timestamp', u'1414562326'), ('team_id', u'xxxx'), ('trigger_word', u'test'), ('channel_name', u'off-topic'), ('token', u'xxxtokenxxx'), ('text', u'test'), ('team_domain', u'xxxx'), ('user_name', u'xxxx')])
-</code></pre>
-
-<p>つまりPOSTの内容はディクショナリになっている。</p>
-
-<h2 id="slackへ応答を返そう">Slackへ応答を返そう</h2>
-
-<p>Slackへ応答を返す場合には、POSTでもらった中にあるtokenが必要である。<br />
-応答文、tokenのディクショナリを作っておいて、それをjsonに変換し、返してやればよい。<br />
-Mattermostの場合、tokenのキーは&rsquo;MATTERMOST_TOKEN&rsquo;</p>
-
-<p>先ほどのスクリプトを最終的に以下のようにする。<br />
-（わざわざjsonをimportしているが、Flaskにもそういう機能がある気がしてならない）<br />
+<pre><code class="language-console" data-lang="console">ImmutableMultiDict([('user_id', u'xxxxx'), ('channel_id', u'xxxxx'), ('timestamp', u'1414562326'), ('team_id', u'xxxx'), ('trigger_word', u'test'), ('channel_name', u'off-topic'), ('token', u'xxxtokenxxx'), ('text', u'test'), ('team_domain', u'xxxx'), ('user_name', u'xxxx')])
+</code></pre><p>つまりPOSTの内容はディクショナリになっている。</p>
+<h2 id="slack">Slackへ応答を返そう</h2>
+<p>Slackへ応答を返す場合には、POSTでもらった中にあるtokenが必要である。<br>
+応答文、tokenのディクショナリを作っておいて、それをjsonに変換し、返してやればよい。<br>
+Mattermostの場合、tokenのキーは'MATTERMOST_TOKEN&rsquo;</p>
+<p>先ほどのスクリプトを最終的に以下のようにする。<br>
+（わざわざjsonをimportしているが、Flaskにもそういう機能がある気がしてならない）<br>
 これでSlackから通知を受けると、「You said ＜トリガーワード＞」という応答がSlackへ帰る。</p>
-
-<pre><code class="language-pyhon">#!/usr/local/bin/python
+<pre><code class="language-pyhon" data-lang="pyhon">#!/usr/local/bin/python
 
 from flask import Flask, request
 import requests
@@ -292,35 +247,24 @@ def post():
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0')
-</code></pre>
-
-<p>あとはどんどん膨らませていけばよい。</p>
-
-<h3 id="補遺-slackのoutgoing-webhooks">【補遺】slackのoutgoing webhooks</h3>
-
-<p>slackでのwebhooks設定方法を示す。<br />
-webでいうと、左下のAppsからBrowse Appsを選び、outgoins WebHooksを探す<br />
+</code></pre><p>あとはどんどん膨らませていけばよい。</p>
+<h3 id="slackoutgoing-webhooks">【補遺】slackのoutgoing webhooks</h3>
+<p>slackでのwebhooks設定方法を示す。<br>
+webでいうと、左下のAppsからBrowse Appsを選び、outgoins WebHooksを探す<br>
 Add Configurationで設定へ。</p>
-
 <p>webhooksを投げる条件を設定する。以下の3つ。</p>
-
 <ol>
 <li>指定のチャンネルで発言したら</li>
 <li>特定のトリガーワードを発言したら</li>
 <li>特定のチャンネルで特定のトリガーワードを発言したら</li>
 </ol>
-
-<p>1.はChannelで、2.はTrigger Word(s)で指定する。<br />
+<p>1.はChannelで、2.はTrigger Word(s)で指定する。<br>
 3の場合には1.2.の両方を指定する。</p>
-
-<p>上記条件に合致したらwebhooksを投げるURLを「URL(s)」で指定。<br />
+<p>上記条件に合致したらwebhooksを投げるURLを「URL(s)」で指定。<br>
 そのときのTokenは記載の通り。</p>
-
 <p><a href="../../../wp-content/uploads/2016/06/slackoutgoingwebhooks.jpg">webhook</a></p>
-
 <p>webhooksで飛んでくるデータは以下の通り。json「ではない」ことに注意。</p>
-
-<pre><code class="language-console">token=qFosSxxxxxxxxERh1Jfdy5  
+<pre><code class="language-console" data-lang="console">token=qFosSxxxxxxxxERh1Jfdy5  
 team_id=T0009  
 team_domain=example  
 channel_id=C0000000000  
@@ -330,8 +274,7 @@ user_id=U0000000000
 user_name=Steve  
 text=googlebot: What is the air-speed velocity of an unladen swallow?  
 trigger_word=googlebot:
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-06-09T00:00:00+00:00" />
 <meta itemprop="name" content="爆速静的サイトジェネレータHUGO">
 <meta itemprop="description" content="静的サイトジェネレータとしてJekyllを使っていたが、ビルドがとにかく遅い。 本当に遅い。 そんなところでストレスためてもよくないので環境を引">
-
-
 <meta itemprop="datePublished" content="2019-06-09T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-06-09T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="3038">
 
 
 
-<meta itemprop="keywords" content="StaticSiteGenerator,HUGO," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="StaticSiteGenerator,HUGO," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="爆速静的サイトジェネレータHUGO"/>
 <meta name="twitter:description" content="静的サイトジェネレータとしてJekyllを使っていたが、ビルドがとにかく遅い。 本当に遅い。 そんなところでストレスためてもよくないので環境を引"/>
 
@@ -140,38 +137,27 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>静的サイトジェネレータとしてJekyllを使っていたが、ビルドがとにかく遅い。<br />
-本当に遅い。<br />
-そんなところでストレスためてもよくないので環境を引っ越すことにした。<br />
-以下をつらつらと眺めて、速度が売りのHUGOに決めた。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>静的サイトジェネレータとしてJekyllを使っていたが、ビルドがとにかく遅い。<br>
+本当に遅い。<br>
+そんなところでストレスためてもよくないので環境を引っ越すことにした。<br>
+以下をつらつらと眺めて、速度が売りのHUGOに決めた。<br>
 <a href="https://www.staticgen.com/">https://www.staticgen.com/</a></p>
-
-<p>実際に使ってみたが、サイトのビルドは底抜けに速い。<br />
-本当にできあがったのか、心配になるくらい。でもできてる。<br />
+<p>実際に使ってみたが、サイトのビルドは底抜けに速い。<br>
+本当にできあがったのか、心配になるくらい。でもできてる。<br>
 速度に関しては今のところ、大変に満足。</p>
-
-<h2 id="爆速サイトジェネレータhugo">爆速サイトジェネレータHUGO</h2>
-
-<p><a href="https://gohugo.io/">https://gohugo.io/</a><br />
-HUGOとは、GO言語で書かれた「世界一速いウェブサイト構築フレームワーク」である。<br />
+<h2 id="hugo">爆速サイトジェネレータHUGO</h2>
+<p><a href="https://gohugo.io/">https://gohugo.io/</a><br>
+HUGOとは、GO言語で書かれた「世界一速いウェブサイト構築フレームワーク」である。<br>
 「ウェブサイト構築をもう一回、楽しくする！」</p>
-
 <blockquote>
-<p>The world’s fastest framework for building websites.<br />
+<p>The world’s fastest framework for building websites.<br>
 Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again.</p>
 </blockquote>
-
 <p>威勢がよろしい。</p>
-
-<h2 id="インストール-freebsd">インストール（FreeBSD）</h2>
-
+<h2 id="freebsd">インストール（FreeBSD）</h2>
 <p>後述するがgitもインストールしておくこと。</p>
-
 <p>FreeBSDの方はpkgから。</p>
-
-<pre><code class="language-console"># pkg install gohugo
+<pre><code class="language-console" data-lang="console"># pkg install gohugo
 Updating FreeBSD repository catalogue...
 FreeBSD repository is up to date.
 All repositories are up to date.
@@ -188,18 +174,13 @@ The process will require 22 MiB more space.
 Checking integrity... done (0 conflicting)
 [hugo] [1/1] Installing gohugo-0.54.0...
 [hugo] [1/1] Extracting gohugo-0.54.0: 100%
-</code></pre>
-
-<p>インストールの際には、Go言語とか友達をたくさん連れてくるかと思ったけどそんなことなかった。<br />
-ここも好印象。<br />
-ある特定のツールにしか使わないのに、ツールが書かれている言語の丸ごとインストールを要求されることはよくある話。<br />
-HUGOは単品でいいみたい。<br />
+</code></pre><p>インストールの際には、Go言語とか友達をたくさん連れてくるかと思ったけどそんなことなかった。<br>
+ここも好印象。<br>
+ある特定のツールにしか使わないのに、ツールが書かれている言語の丸ごとインストールを要求されることはよくある話。<br>
+HUGOは単品でいいみたい。<br>
 ま、22MiBもあるしね。</p>
-
-<h2 id="hugoを使ったサイト作成の流れ">HUGOを使ったサイト作成の流れ</h2>
-
+<h2 id="hugo-1">HUGOを使ったサイト作成の流れ</h2>
 <p>典型的な流れを示す。</p>
-
 <ol>
 <li>hugo用の作業ディレクトリを作る</li>
 <li>テーマをインストールする</li>
@@ -209,25 +190,17 @@ HUGOは単品でいいみたい。<br />
 <li>記事を正式版にする。</li>
 <li>ビルド、デプロイ</li>
 </ol>
-
-<p>作業ディレクトリの作成や、ローカルホストでの見た目確認、ビルドは<code>hugo</code>コマンドを使っていくことになる。<br />
+<p>作業ディレクトリの作成や、ローカルホストでの見た目確認、ビルドは<code>hugo</code>コマンドを使っていくことになる。<br>
 また、初回は1から7を通して実施するが、構築が済んでしまえば、4～7を繰り返す。</p>
-
-<h2 id="hugo作業用ディレクトリを作る">HUGO作業用ディレクトリを作る</h2>
-
-<p>ここを見ながら。<br />
+<h2 id="hugo-2">HUGO作業用ディレクトリを作る</h2>
+<p>ここを見ながら。<br>
 <a href="https://gohugo.io/getting-started/quick-start/">https://gohugo.io/getting-started/quick-start/</a></p>
-
 <p>まずバージョンを確認しよう。</p>
-
-<pre><code class="language-console"># hugo version
+<pre><code class="language-console" data-lang="console"># hugo version
 Hugo Static Site Generator v0.54.0 freebsd/amd64 BuildDate: unknown
-</code></pre>
-
-<p>作業用ディレクトリを作る。<br />
+</code></pre><p>作業用ディレクトリを作る。<br>
 書式は<code>hugo new site &lt;ディレクトリ&gt;</code></p>
-
-<pre><code class="language-console"># hugo new site lair
+<pre><code class="language-console" data-lang="console"># hugo new site lair
 Congratulations! Your new Hugo site is created in /home/lair/lair.
 
 Just a few more steps and you're ready to go:
@@ -240,11 +213,8 @@ Just a few more steps and you're ready to go:
 3. Start the built-in live server via &quot;hugo server&quot;.
 
 Visit https://gohugo.io/ for quickstart guide and full documentation.
-</code></pre>
-
-<p>出来上がったディレクトリ構成は以下の通り。</p>
-
-<pre><code class="language-console"># tree lair
+</code></pre><p>出来上がったディレクトリ構成は以下の通り。</p>
+<pre><code class="language-console" data-lang="console"># tree lair
 /lair
 |-- archetypes
 |   `-- default.md
@@ -254,21 +224,15 @@ Visit https://gohugo.io/ for quickstart guide and full documentation.
 |-- layouts
 |-- static
 `-- themes
-</code></pre>
-
-<p>config.tomlが設定ファイル。<br />
-記事はcontentに入れる。<br />
+</code></pre><p>config.tomlが設定ファイル。<br>
+記事はcontentに入れる。<br>
 画像ファイルなどはstaticに入れる。</p>
-
 <p>static file <a href="https://gohugo.io/content-management/static-files/">https://gohugo.io/content-management/static-files/</a></p>
-
-<h2 id="テーマをインストール">テーマをインストール</h2>
-
-<p>まずはガイドの通りにanankeをインストールする。<br />
-インストールといっても、gitでダウンロードしthemes/anankeに格納するだけ。<br />
+<h2 id="heading">テーマをインストール</h2>
+<p>まずはガイドの通りにanankeをインストールする。<br>
+インストールといっても、gitでダウンロードしthemes/anankeに格納するだけ。<br>
 config.tomlにanankeをthemeとして使うよう書き込む。</p>
-
-<pre><code class="language-console"># git init
+<pre><code class="language-console" data-lang="console"># git init
 Initialized empty Git repository in /usr/home/lair/lair/.git/
 
 
@@ -281,74 +245,51 @@ Receiving objects: 100% (1333/1333), 4.13 MiB | 447.00 KiB/s, done.
 Resolving deltas: 100% (719/719), done.
 
 # echo 'theme = &quot;ananke&quot;' &gt;&gt; ./config.toml
-</code></pre>
-
-<h2 id="設定ファイルの編集">設定ファイルの編集</h2>
-
-<p>config.tomlをさらに編集。<br />
+</code></pre><h2 id="heading-1">設定ファイルの編集</h2>
+<p>config.tomlをさらに編集。<br>
 これくらいやっておけば。</p>
-
-<pre><code class="language-sh">baseURL = &quot;https://nobwak.github.io/&quot;
-languageCode = &quot;ja-JP&quot;
-title = &quot;Nobwak's Lair&quot;
-theme = &quot;ananke&quot;
-# defaultContentLanguage = &quot;ja&quot;
-googleAnalytics = &quot;&quot;
-hasCJKLanguage = true
-</code></pre>
-
-<p>configure HUGO <a href="https://gohugo.io/getting-started/configuration/">https://gohugo.io/getting-started/configuration/</a></p>
-
-<p><code>defaultContentLanguage</code>は<code>ja</code>でよさそうだが、リストページ（複数の記事へのリンクをまとめたページ）にある「read more」ボタン等が表示されない。<br />
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">baseURL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://nobwak.github.io/&#34;</span>
+languageCode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ja-JP&#34;</span>
+title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Nobwak&#39;s Lair&#34;</span>
+theme <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ananke&#34;</span>
+<span style="color:#75715e"># defaultContentLanguage = &#34;ja&#34;</span>
+googleAnalytics <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+hasCJKLanguage <span style="color:#f92672">=</span> true
+</code></pre></div><p>configure HUGO <a href="https://gohugo.io/getting-started/configuration/">https://gohugo.io/getting-started/configuration/</a></p>
+<p><code>defaultContentLanguage</code>は<code>ja</code>でよさそうだが、リストページ（複数の記事へのリンクをまとめたページ）にある「read more」ボタン等が表示されない。<br>
 何かしら設定があるのだとは思うが、深追いせず、いったんコメントアウトしている。</p>
-
-<p><code>googleAnalytics</code>は、googleAnalyticsのTracking IDを入れる。するとthemeがそれを読んでくれる。<br />
+<p><code>googleAnalytics</code>は、googleAnalyticsのTracking IDを入れる。するとthemeがそれを読んでくれる。<br>
 ただこの件については稿を改めて記す。</p>
-
-<p><code>hasCJKLanguage</code>は<code>true</code>にしておくこと。<br />
-こうしないとリストページに表示される各記事のサマリがうまく表示されない。（みっしり表示される）<br />
+<p><code>hasCJKLanguage</code>は<code>true</code>にしておくこと。<br>
+こうしないとリストページに表示される各記事のサマリがうまく表示されない。（みっしり表示される）<br>
 各記事のFront Matterでも操作できるが、config.tomlで設定するのはグローバルオプション。</p>
-
-<p>もう少し詳しい説明はこちらを参照。<br />
+<p>もう少し詳しい説明はこちらを参照。<br>
 <a href="https://kodify.net/hugo/config/configuration-variables/">https://kodify.net/hugo/config/configuration-variables/</a></p>
-
-<h2 id="ためしに記事を書く">ためしに記事を書く</h2>
-
-<p>書式は<code>hugo new &lt;ファイル&gt;</code><br />
-hugo用のfront matter（設定内容）の書かれたmarkdownを作ってくれる。<br />
-もともとあるmarkdownを使ってもよいし、他のエディタでファイルを作ってもよいが、その場合front matterは自分で書くこと。<br />
+<h2 id="heading-2">ためしに記事を書く</h2>
+<p>書式は<code>hugo new &lt;ファイル&gt;</code><br>
+hugo用のfront matter（設定内容）の書かれたmarkdownを作ってくれる。<br>
+もともとあるmarkdownを使ってもよいし、他のエディタでファイルを作ってもよいが、その場合front matterは自分で書くこと。<br>
 わたくしの場合、記事はVisualStudioCodeで書いているのでsnippetを作った。</p>
-
-<pre><code class="language-console"># hugo new posts/my-first-post.md
+<pre><code class="language-console" data-lang="console"># hugo new posts/my-first-post.md
 /home/lair/lair/content/posts/my-first-post.md created
 #
-</code></pre>
-
-<p>できたファイルの内容は以下の通り。</p>
-
-<pre><code class="language-console">---
+</code></pre><p>できたファイルの内容は以下の通り。</p>
+<pre><code class="language-console" data-lang="console">---
 title: &quot;My First Post&quot;
 date: 2019-06-07T18:00:59+09:00
 draft: true
 ---
-</code></pre>
-
-<p>最低限必要なfront matterが書かれている。</p>
-
-<p>ここで<code>draft: true</code>とあるように、この記事がドラフト版であると示されている。<br />
-これは、書きかけの記事が意図せず公開されてしまうことを防ぐため。<br />
+</code></pre><p>最低限必要なfront matterが書かれている。</p>
+<p>ここで<code>draft: true</code>とあるように、この記事がドラフト版であると示されている。<br>
+これは、書きかけの記事が意図せず公開されてしまうことを防ぐため。<br>
 逆に言うと、正式公開してよいなら、ここを<code>false</code>に変えてビルド、デプロイすればよい。</p>
-
-<h2 id="お試しビルド-見た目確認">お試しビルド、見た目確認</h2>
-
-<p>書式は<code>hugo server -D</code>。<br />
-<code>server</code>とは、ローカルホストで確認するためにビルドしwebサーバを動かすということ。<br />
+<h2 id="heading-3">お試しビルド、見た目確認</h2>
+<p>書式は<code>hugo server -D</code>。<br>
+<code>server</code>とは、ローカルホストで確認するためにビルドしwebサーバを動かすということ。<br>
 <code>-D</code>はドラフト版の記事を見せてね、という意味。</p>
-
-<p>注意すべきは、この段階でのビルドは、あくまでもローカルホストで確認するためのもの、ということ。<br />
+<p>注意すべきは、この段階でのビルドは、あくまでもローカルホストで確認するためのもの、ということ。<br>
 本番ビルドは引数なしの<code>hugo</code>で実行される。</p>
-
-<pre><code class="language-console"># hugo server -D
+<pre><code class="language-console" data-lang="console"># hugo server -D
 
                    | JA
 +------------------+----+
@@ -369,31 +310,21 @@ Serving pages from memory
 Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
 Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
 Press Ctrl+C to stop
-</code></pre>
-
-<p>速い。これは速い。<br />
+</code></pre><p>速い。これは速い。<br>
 17msである。たかが記事が一つといえ、Jekyllでは数秒かかることを考えると滅法速い。</p>
-
 <p><a href="http://localhost:1313/">http://localhost:1313/</a>で見た目を確認する。</p>
-
-<h2 id="記事を正式版に">記事を正式版に</h2>
-
-<p>問題なければ、記事のfront matterでdraftをfalseとし、<code>hugo server</code>と今度は<code>-D</code>オプションなしで実行。<br />
+<h2 id="heading-4">記事を正式版に</h2>
+<p>問題なければ、記事のfront matterでdraftをfalseとし、<code>hugo server</code>と今度は<code>-D</code>オプションなしで実行。<br>
 もう一回確認。飛ばしてもいいけど。</p>
-
-<pre><code class="language-console"># cat ./content/posts/my-first-post.md
+<pre><code class="language-console" data-lang="console"># cat ./content/posts/my-first-post.md
 ---
 title: &quot;My First Post&quot;
 date: 2019-06-07T18:00:59+09:00
 draft: false
 ---
-</code></pre>
-
-<h2 id="ビルド-デプロイ">ビルド、デプロイ</h2>
-
+</code></pre><h2 id="heading-5">ビルド、デプロイ</h2>
 <p>さらに今度は<code>hugo</code>と一切のオプションなしで実行。</p>
-
-<pre><code class="language-console"># hugo
+<pre><code class="language-console" data-lang="console"># hugo
 
                    | JA
 +------------------+----+
@@ -407,15 +338,12 @@ draft: false
   Cleaned          |  0
 
 Total in 16 ms
-</code></pre>
-
-<p>オプションなしの<code>hugo</code>を実行すると、publicディレクトリにすべてのファイルが配置される。<br />
-「すべての」というのは、content/postsの下にある記事だけでなく、staticに置いたファイル（例えば画像とか）も全部まとめて、ということである。<br />
-つまり、本番サーバにはここのpublicにあるファイルをデプロイすればよろしい。<br />
-ただし。themeにanankeを使っている場合には、ちょっとした手順が必要だ。<br />
+</code></pre><p>オプションなしの<code>hugo</code>を実行すると、publicディレクトリにすべてのファイルが配置される。<br>
+「すべての」というのは、content/postsの下にある記事だけでなく、staticに置いたファイル（例えば画像とか）も全部まとめて、ということである。<br>
+つまり、本番サーバにはここのpublicにあるファイルをデプロイすればよろしい。<br>
+ただし。themeにanankeを使っている場合には、ちょっとした手順が必要だ。<br>
 それについては稿を改めて記す。</p>
-
-<pre><code class="language-console"># tree -L 2 .
+<pre><code class="language-console" data-lang="console"># tree -L 2 .
 .
 |-- archetypes
 |   `-- default.md
@@ -442,15 +370,11 @@ Total in 16 ms
 |   `-- wp-content # ここのファイルがpublicの下にもある。
 `-- themes
     `-- ananke
-</code></pre>
-
-<h2 id="爆速hugo">爆速HUGO</h2>
-
-<p>JekyllにがっかりしHUGOに移ったのは、何年も続けてきたblogsの記事の変換に時間がかかったから。<br />
-ではHUGOは460にも及ぶ記事の変換をどれくらいの時間でやってくれたのか。<br />
+</code></pre><h2 id="hugo-3">爆速HUGO</h2>
+<p>JekyllにがっかりしHUGOに移ったのは、何年も続けてきたblogsの記事の変換に時間がかかったから。<br>
+ではHUGOは460にも及ぶ記事の変換をどれくらいの時間でやってくれたのか。<br>
 Jekyllは10分くらいかかったよ。</p>
-
-<pre><code class="language-console"># hugo server
+<pre><code class="language-console" data-lang="console"># hugo server
 
                    | EN
 +------------------+-----+
@@ -471,10 +395,7 @@ Serving pages from memory
 Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
 Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
 Press Ctrl+C to stop
-</code></pre>
-
-<p>0.5秒ですってよ奥さん。</p>
-
+</code></pre><p>0.5秒ですってよ奥さん。</p>
 <p>以上</p>
 <ul class="pa0">
   

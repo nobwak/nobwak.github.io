@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-06-06T01:00:00+09:00" />
 <meta itemprop="name" content="zipファイルを作成するには">
 <meta itemprop="description" content="俺メモ unzipはzipファイルの伸張（解凍）のために、いつも速攻でインストールするportsだが、これは名前通り伸張しかできない。 zipの">
-
-
 <meta itemprop="datePublished" content="2008-06-06T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-06-06T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="229">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="zipファイルを作成するには"/>
 <meta name="twitter:description" content="俺メモ unzipはzipファイルの伸張（解凍）のために、いつも速攻でインストールするportsだが、これは名前通り伸張しかできない。 zipの"/>
 
@@ -154,21 +151,15 @@ zipの作成には/usr/ports/archivers/zipをインストールする必要が�
 
 使い方は
 </code></pre>
-
-<pre><code class="language-console">zip &amp;#60;圧縮後のファイル名&gt; &amp;#60;圧縮したいファイルを列挙&gt;
+<pre><code class="language-console" data-lang="console">zip &amp;#60;圧縮後のファイル名&gt; &amp;#60;圧縮したいファイルを列挙&gt;
+</code></pre><pre><code>使用例
 </code></pre>
-
-<pre><code>使用例
-</code></pre>
-
-<pre><code class="language-console">[x@xxx ~/files]$ zip kernel.time.zip kernel.time
+<pre><code class="language-console" data-lang="console">[x@xxx ~/files]$ zip kernel.time.zip kernel.time
 adding: kernel.time (deflated 44%)
 [x@xxx ~/files]$ file kernel.time.zip
 kernel.time.zip: Zip archive data, at least v2.0 to extract
 [x@xxx ~/files]$
-</code></pre>
-
-<pre><code>なお、圧縮後のファイル名には特に.zipとつけなくても勝手に付けてくれる。
+</code></pre><pre><code>なお、圧縮後のファイル名には特に.zipとつけなくても勝手に付けてくれる。
 </code></pre>
 <ul class="pa0">
   

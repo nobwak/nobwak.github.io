@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-10-18T20:39:57+09:00" />
 <meta itemprop="name" content="[FreeBSD][メモ] svnliteってなんだ?">
 <meta itemprop="description" content="FreeBSD 10.0でsvnliteというのが生まれた。 これが何なのか、調べたので。 svnliteってなに？ 端的に言って、cvsup, csupの代わり">
-
-
 <meta itemprop="datePublished" content="2013-10-18T20:39:57&#43;09:00" />
 <meta itemprop="dateModified" content="2013-10-18T20:39:57&#43;09:00" />
-<meta itemprop="wordCount" content="786">
+<meta itemprop="wordCount" content="783">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD][メモ] svnliteってなんだ?"/>
 <meta name="twitter:description" content="FreeBSD 10.0でsvnliteというのが生まれた。 これが何なのか、調べたので。 svnliteってなに？ 端的に言って、cvsup, csupの代わり"/>
 
@@ -140,21 +137,14 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>FreeBSD 10.0でsvnliteというのが生まれた。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSD 10.0でsvnliteというのが生まれた。<br>
 これが何なのか、調べたので。</p>
-
-<h2 id="span-style-text-decoration-underline-svnliteってなに-span"><span style="text-decoration: underline;">svnliteってなに？</span></h2>
-
-<p>端的に言って、cvsup, csupの代わり。<br />
+<h2 id="span-styletext-decoration-underlinesvnlitespan"><!-- raw HTML omitted -->svnliteってなに？<!-- raw HTML omitted --></h2>
+<p>端的に言って、cvsup, csupの代わり。<br>
 以前、FreeBSDのsrcアップデートにはcsupを使っていたけれども、FreeBSDの公式リポジトリがCVSからSubversionに移行したのでそれに伴う処置。</p>
-
-<p>だからして、FreeBSDソースコードのチェックアウトに使われるもの。あるいはコミットにも。<br />
+<p>だからして、FreeBSDソースコードのチェックアウトに使われるもの。あるいはコミットにも。<br>
 そんなわけで、通常のsvnと違い後述のような性質を持ち、プラグインを多用する場合のsvn用途には使わない方がよい。</p>
-
-<h2 id="span-style-text-decoration-underline-svnliteの特徴-span"><span style="text-decoration: underline;">svnliteの特徴</span></h2>
-
+<h2 id="span-styletext-decoration-underlinesvnlitespan-1"><!-- raw HTML omitted -->svnliteの特徴<!-- raw HTML omitted --></h2>
 <ul>
 <li>ライブラリはすべてスタティックでリンクされる。</li>
 <li>インストール直後からすぐに使えるし、単体で動く。しかし機能制限はあって:</li>
@@ -162,25 +152,20 @@ if (!doNotTrack) {
 <li>python/perlに依存しないのでコンパイルはすぐに終わるし,</li>
 <li>python, perlのバージョンアップに影響を受けない。</li>
 <li>注: subversionの依存は凄まじく、普通にインストールすると沢山のお友達を連れてくる都合上、/usr/local配下で238Mバイト消費。</li>
-<li>デフォルトでは&rdquo;svnlite&rdquo;としてインストールされる。&rdquo;svn&rdquo;ではない。だから:</li>
+<li>デフォルトでは&quot;svnlite&quot;としてインストールされる。&ldquo;svn&quot;ではない。だから:</li>
 <li>subversionを別にインストールしても安心。</li>
 <li>make.confでWITH_SVNとすると、svnとしてインストールされる。</li>
 <li>make.confでWITHOUT_SVNLITEとすると、svnliteは無効に。</li>
 </ul>
-
-<p>詳細は以下。<br />
- <a href=" http://svnweb.freebsd.org/base?view=revision&revision=251886" target="_blank"><a href="http://svnweb.freebsd.org/base?view=revision&amp;revision=251886">http://svnweb.freebsd.org/base?view=revision&amp;revision=251886</a></a><br />
-あるいは下記から始まる熱い議論。<br />
- <a href=" http://lists.freebsd.org/pipermail/svn-src-all/2013-June/070250.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/svn-src-all/2013-June/070250.html">http://lists.freebsd.org/pipermail/svn-src-all/2013-June/070250.html</a></a></p>
-
+<p>詳細は以下。<br>
+<!-- raw HTML omitted --><a href="http://svnweb.freebsd.org/base?view=revision&amp;revision=251886%3C/a%3E">http://svnweb.freebsd.org/base?view=revision&amp;revision=251886&lt;/a&gt;</a><br>
+あるいは下記から始まる熱い議論。<br>
+<!-- raw HTML omitted --><a href="http://lists.freebsd.org/pipermail/svn-src-all/2013-June/070250.html%3C/a%3E">http://lists.freebsd.org/pipermail/svn-src-all/2013-June/070250.html&lt;/a&gt;</a></p>
 <p>FreeBSD 10.0-BETA1では1.8.1相当。</p>
-
-<pre><code class="language-console">$ svnlite --version
+<pre><code class="language-console" data-lang="console">$ svnlite --version
 svn, version 1.8.1 (r1503906)
 compiled Oct 13 2013, 01:33:45 on bikeshed-green-indigo-orange-freebsd
-</code></pre>
-
-<p>似たものにsvnupがあるが、2013年6月の時点で問題がありベースシステムへのマージは見送り。（問題にはコアダンプも含まれる…）</p>
+</code></pre><p>似たものにsvnupがあるが、2013年6月の時点で問題がありベースシステムへのマージは見送り。（問題にはコアダンプも含まれる…）</p>
 <ul class="pa0">
   
 </ul>

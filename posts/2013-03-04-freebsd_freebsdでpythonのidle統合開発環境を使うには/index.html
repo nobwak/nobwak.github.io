@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-03-04T23:53:31+09:00" />
 <meta itemprop="name" content="[FreeBSD] FreeBSDでPythonのIDLE(統合開発環境)を使うには">
 <meta itemprop="description" content="pythonの統合開発環境であるIDLEを起動しようとしてidleと叩くと以下のメッセージが表示される。 ** IDLE can&#39;t import Tkinter. Your Python may not be configured for Tk. ** 「あーp">
-
-
 <meta itemprop="datePublished" content="2013-03-04T23:53:31&#43;09:00" />
 <meta itemprop="dateModified" content="2013-03-04T23:53:31&#43;09:00" />
 <meta itemprop="wordCount" content="266">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] FreeBSDでPythonのIDLE(統合開発環境)を使うには"/>
 <meta name="twitter:description" content="pythonの統合開発環境であるIDLEを起動しようとしてidleと叩くと以下のメッセージが表示される。 ** IDLE can&#39;t import Tkinter. Your Python may not be configured for Tk. ** 「あーp"/>
 
@@ -141,14 +138,10 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pythonの統合開発環境であるIDLEを起動しようとしてidleと叩くと以下のメッセージが表示される。</p>
-
-<pre><code class="language-console">** IDLE can't import Tkinter. Your Python may not be configured for Tk. **
-</code></pre>
-
-<p>「あーpkgngで入れたしなあ。やっぱりportsでmake configしてから入れないとダメか」と思ってたのだが、追加でpkg py27-tkinter-2.7.3_3 を入れるだけでいいみたい。<br />
+<pre><code class="language-console" data-lang="console">** IDLE can't import Tkinter. Your Python may not be configured for Tk. **
+</code></pre><p>「あーpkgngで入れたしなあ。やっぱりportsでmake configしてから入れないとダメか」と思ってたのだが、追加でpkg py27-tkinter-2.7.3_3 を入れるだけでいいみたい。<br>
 備忘として残す。</p>
-
-<pre><code class="language-console">$ pkg search tkinter
+<pre><code class="language-console" data-lang="console">$ pkg search tkinter
 py27-tkinter-2.7.3_3           Python bindings to the Tk widget set
 $ sudo pkg install py27-tkinter
 Updating repository catalogue
@@ -171,9 +164,7 @@ Checking integrity... done
 Installing tcl-8.5.13... done
 Installing tk-8.5.13... done
 Installing py27-tkinter-2.7.3_3... done
-</code></pre>
-
-<p>これでMITのOpen Courseware 6.00も安心。</p>
+</code></pre><p>これでMITのOpen Courseware 6.00も安心。</p>
 <ul class="pa0">
   
 </ul>

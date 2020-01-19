@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-08-28T22:55:02+09:00" />
 <meta itemprop="name" content="[FreeBSD] jailのetcを更新する(qjail)">
 <meta itemprop="description" content="qjailだと、ここで示したようにqjail update -bでjailのバイナリアップグレードをしてくれる。 アップグレードといっても、ホストのバイナリ">
-
-
 <meta itemprop="datePublished" content="2015-08-28T22:55:02&#43;09:00" />
 <meta itemprop="dateModified" content="2015-08-28T22:55:02&#43;09:00" />
 <meta itemprop="wordCount" content="338">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,jail," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,jail," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] jailのetcを更新する(qjail)"/>
 <meta name="twitter:description" content="qjailだと、ここで示したようにqjail update -bでjailのバイナリアップグレードをしてくれる。 アップグレードといっても、ホストのバイナリ"/>
 
@@ -140,31 +137,18 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>qjailだと、<a href="../../../2013/12/qjail%e3%81%aa%e3%82%89jail%e3%81%ae%e3%83%a6%e3%83%bc%e3%82%b6%e3%83%a9%e3%83%b3%e3%83%89%e6%9b%b4%e6%96%b0%e3%81%abmake-world%e3%81%af%e4%b8%8d%e8%a6%81%e3%83%83%ef%bc%81/">ここ</a>で示したようにqjail update -bでjailのバイナリアップグレードをしてくれる。</p>
-
-<p>アップグレードといっても、ホストのバイナリをjailのsharedfsにまるまるコピーしているだけである。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>qjailだと、<a href="../../../2013/12/qjail%e3%81%aa%e3%82%89jail%e3%81%ae%e3%83%a6%e3%83%bc%e3%82%b6%e3%83%a9%e3%83%b3%e3%83%89%e6%9b%b4%e6%96%b0%e3%81%abmake-world%e3%81%af%e4%b8%8d%e8%a6%81%e3%83%83%ef%bc%81/">ここ</a>で示したようにqjail update -bでjailのバイナリアップグレードをしてくれる。</p>
+<p>アップグレードといっても、ホストのバイナリをjailのsharedfsにまるまるコピーしているだけである。<br>
 ということは、通常のアップグレードで更新されるはずの/etc下ファイルには一切、手を付けないということ。</p>
-
-<h2 id="jailのetc更新にはmergemaster">jailのetc更新にはmergemaster</h2>
-
-<p>実はmergemasterは更新するフォルダを-Dオプションで選ぶことができる。<br />
+<h2 id="jailetcmergemaster">jailのetc更新にはmergemaster</h2>
+<p>実はmergemasterは更新するフォルダを-Dオプションで選ぶことができる。<br>
 つまり、ホストのsrcをベースにjailのetcを更新できる。</p>
-
-<h2 id="jailの-etcを更新するには">jailの/etcを更新するには</h2>
-
+<h2 id="jailetc">jailの/etcを更新するには</h2>
 <p>jail ex01を更新する場合は、以下の通り。-D以外のオプションはUPiF。</p>
-
-<pre><code class="language-console">$ sudo mergemaster -UPiFD /usr/jails/ex01/
-</code></pre>
-
-<p>新しくjailを作る際のテンプレートも更新しておく。</p>
-
-<pre><code class="language-console">$ sudo mergemaster -UPiFD /usr/jails/template/
-</code></pre>
-
-<p>以上</p>
+<pre><code class="language-console" data-lang="console">$ sudo mergemaster -UPiFD /usr/jails/ex01/
+</code></pre><p>新しくjailを作る際のテンプレートも更新しておく。</p>
+<pre><code class="language-console" data-lang="console">$ sudo mergemaster -UPiFD /usr/jails/template/
+</code></pre><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

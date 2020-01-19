@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-03-10T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDで最新のOpenSSLを使うには。">
 <meta itemprop="description" content="本家FreeBSD-QA-MLよりメモ。 OpenSSLはFreeBSDのベースシステムに含まれている。 したがって、公式にセキュリティフィック">
-
-
 <meta itemprop="datePublished" content="2009-03-10T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-03-10T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="645">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDで最新のOpenSSLを使うには。"/>
 <meta name="twitter:description" content="本家FreeBSD-QA-MLよりメモ。 OpenSSLはFreeBSDのベースシステムに含まれている。 したがって、公式にセキュリティフィック"/>
 
@@ -154,14 +151,11 @@ OpenSSLはFreeBSDのベースシステムに含まれている。
 
 OpenSSH本家（&lt;a href=&quot;http://www.openssl.org/&quot; target=&quot;_blank&quot;&gt;http://www.openssl.org/&lt;/a&gt;）では、1/7にOpenSSL 0.9.8jがリリースされているが、FreeBSDでは以下の通りの状況だ。
 </code></pre>
-
-<pre><code class="language-console">$ uname -sr
+<pre><code class="language-console" data-lang="console">$ uname -sr
 FreeBSD 7.1-RELEASE
 $ openssl version
 OpenSSL 0.9.8e 23 Feb 2007
-</code></pre>
-
-<pre><code>上述のとおり、ベースシステムに取り込まれている以上、セキュリティ等のサポートには問題ないが、機能の点で最新版を使いたいケースもある。
+</code></pre><pre><code>上述のとおり、ベースシステムに取り込まれている以上、セキュリティ等のサポートには問題ないが、機能の点で最新版を使いたいケースもある。
 
 
 
@@ -171,23 +165,18 @@ OpenSSL 0.9.8e 23 Feb 2007
 
 もちろんこれはコンパイル時に新しいopensslを参照するための設定なので、こうしてから最新opensslを使いたいportsやらベースシステムのコマンドやらを作り直す。
 </code></pre>
-
-<pre><code class="language-console"># echo &amp;#34;WITH_OPENSSL_PORT=yes&amp;#34; &gt;&gt; /etc/make.conf
-</code></pre>
-
-<pre><code>これだけでOKだが、ベースシステムのOpenSSLを削除したい場合には、下記のようにする。
+<pre><code class="language-console" data-lang="console"># echo &amp;#34;WITH_OPENSSL_PORT=yes&amp;#34; &gt;&gt; /etc/make.conf
+</code></pre><pre><code>これだけでOKだが、ベースシステムのOpenSSLを削除したい場合には、下記のようにする。
 
 
 
 ただ、これに先立ってportsの全作り直しをしていればともかく、make delete-old-libsはいろいろと面倒なうえに危険なので、この手順はやってない。
 </code></pre>
-
-<pre><code class="language-console"># echo &amp;#34;WITHOUT_OPENSSL=yes&amp;#34; &gt;&gt; /etc/src.conf
+<pre><code class="language-console" data-lang="console"># echo &amp;#34;WITHOUT_OPENSSL=yes&amp;#34; &gt;&gt; /etc/src.conf
 # cd /usr/src &amp;&amp; make check-old
 # make delete-old
 # make delete-old-libs
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

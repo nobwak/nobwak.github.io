@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2018-12-02T17:54:52+09:00" />
 <meta itemprop="name" content="[zfs] zfsnap2を使った日々のzfs snapshot（取得編）">
 <meta itemprop="description" content="zfsnap2（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。 あとはこれをcronに仕込んで日々">
-
-
 <meta itemprop="datePublished" content="2018-12-02T17:54:52&#43;09:00" />
 <meta itemprop="dateModified" content="2018-12-02T17:54:52&#43;09:00" />
 <meta itemprop="wordCount" content="2310">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[zfs] zfsnap2を使った日々のzfs snapshot（取得編）"/>
 <meta name="twitter:description" content="zfsnap2（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。 あとはこれをcronに仕込んで日々"/>
 
@@ -140,53 +137,36 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p><a href="./2018-12-01-[zfs][zpool]_らくらくスナップショットzfsnap2.md">zfsnap2</a>（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><a href="./2018-12-01-%5Bzfs%5D%5Bzpool%5D_%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E3%82%B9%E3%83%8A%E3%83%83%E3%83%97%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88zfsnap2.md">zfsnap2</a>（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。<br>
 あとはこれをcronに仕込んで日々、snapshotを取得、削除するだけである。</p>
-
-<p>zfsnapをpkg、あるいはportsからインストールすると、cron用のシェルスクリプトも付いてくる。<br />
+<p>zfsnapをpkg、あるいはportsからインストールすると、cron用のシェルスクリプトも付いてくる。<br>
 これを加工してperiodic用のディレクトリに放り込めば、あとは全部、zfsnapがやってくれる。</p>
-
-<p>基本はここを見ながら。<br />
+<p>基本はここを見ながら。<br>
 <a href="https://github.com/zfsnap/zfsnap/wiki/zfSnap-periodic.conf">https://github.com/zfsnap/zfsnap/wiki/zfSnap-periodic.conf</a></p>
-
 <p>なお、本稿で扱う周期、契機は日週月次に限る。</p>
-
-<h2 id="全体の流れ">全体の流れ</h2>
-
+<h2 id="heading">全体の流れ</h2>
 <ol>
 <li>スナップショットの方針を決める</li>
 <li>cron用シェルスクリプトを日・週・月ごとのperiodicディレクトリにコピーし、ファイル名を変更する</li>
 <li>スクリプトの内容を修正する</li>
 <li>/etc/periodic.confにバックアップ方針に沿った設定を書き加える</li>
 </ol>
-
 <p>では早速。</p>
-
-<h2 id="スナップショット方針を決める">スナップショット方針を決める</h2>
-
+<h2 id="heading-1">スナップショット方針を決める</h2>
 <p>ここでは簡単に、あるzpool丸ごとに対して;</p>
-
 <ul>
 <li>毎日のスナップショットは1週間と1日、保存する</li>
 <li>毎週のスナップショットは1か月と1日、保存する</li>
 <li>毎月のスナップショットは1年と1週間、保存する</li>
 </ul>
-
 <p>とする</p>
-
-<h2 id="補足-periodicから実行されるときのsnapname">[補足]periodicから実行されるときのsnapname</h2>
-
-<p>zfsnap付属のスクリプトを使うと、snapnameの頭にdaily, weekly, monthlyと付く。<br />
+<h2 id="periodicsnapname">[補足]periodicから実行されるときのsnapname</h2>
+<p>zfsnap付属のスクリプトを使うと、snapnameの頭にdaily, weekly, monthlyと付く。<br>
 もちろん変更可能だが、本稿ではそのまま使う。</p>
-
-<h2 id="zfsnapのcron用スクリプトはどこにある">zfsnapのcron用スクリプトはどこにある</h2>
-
-<p>cron用スクリプトは、zfsnapインストール時にshareにコピーされる。<br />
+<h2 id="zfsnapcron">zfsnapのcron用スクリプトはどこにある</h2>
+<p>cron用スクリプトは、zfsnapインストール時にshareにコピーされる。<br>
 例えば以下のようにして探す</p>
-
-<pre><code class="language-console">  
+<pre><code class="language-console" data-lang="console">  
 $ pkg list|grep zfsnap  
 /usr/local/etc/bash_completion.d/zfsnap.sh  
 /usr/local/man/man8/zfsnap.8.gz  
@@ -208,40 +188,30 @@ $ pkg list|grep zfsnap
 /usr/local/share/zfsnap/commands/snapshot.sh  
 /usr/local/share/zfsnap/core.sh  
 /usr/local/share/zsh/site-functions/_zfsnap
-</code></pre>
-
-<p>上記のうち以下が狙いのスクリプトである。<br />
-スナップショット取得用、削除用の2種類。<br />
-なお削除用はそのままでは期待する動作にならないので<a href="2018-12-29-[zfs]_zfsnap2を使った日々のzfs_snapshot（削除編）.md">別記事</a>で扱う。<br />
-<code>/usr/local/share/examples/zfsnap/periodic/xPERIODICx_zfsnap.sh  
-/usr/local/share/examples/zfsnap/periodic/xPERIODICx_zfsnap_delete.sh</code></p>
-
-<h2 id="スクリプトのコピーとファイル名の変更">スクリプトのコピーとファイル名の変更</h2>
-
-<p>さてこれを、日・週・月のperiodicディレクトリにコピーし設定していくが、まずは日次で試す。<br />
-日ごとのperiodicディレクトリは/usr/local/etc/periodic/dailyである。<br />
-ここにコピーし、ファイル名を変える。<br />
-ファイル名のxPERIODICxを、日次・週次・月次、どの周期用かに合わせて変える。<br />
-具体的にはそれぞれdaily, weekly, monthlyに。<br />
-以下の例では日次のスクリプトなので、dailyに変えている。<br />
+</code></pre><p>上記のうち以下が狙いのスクリプトである。<br>
+スナップショット取得用、削除用の2種類。<br>
+なお削除用はそのままでは期待する動作にならないので<a href="2018-12-29-%5Bzfs%5D_zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs_snapshot%EF%BC%88%E5%89%8A%E9%99%A4%E7%B7%A8%EF%BC%89.md">別記事</a>で扱う。<br>
+<code>/usr/local/share/examples/zfsnap/periodic/xPERIODICx_zfsnap.sh   /usr/local/share/examples/zfsnap/periodic/xPERIODICx_zfsnap_delete.sh</code></p>
+<h2 id="heading-2">スクリプトのコピーとファイル名の変更</h2>
+<p>さてこれを、日・週・月のperiodicディレクトリにコピーし設定していくが、まずは日次で試す。<br>
+日ごとのperiodicディレクトリは/usr/local/etc/periodic/dailyである。<br>
+ここにコピーし、ファイル名を変える。<br>
+ファイル名のxPERIODICxを、日次・週次・月次、どの周期用かに合わせて変える。<br>
+具体的にはそれぞれdaily, weekly, monthlyに。<br>
+以下の例では日次のスクリプトなので、dailyに変えている。<br>
 prefixの番号は好きなようにしたまえ。</p>
-
-<pre><code class="language-console">$ cd /usr/local/etc/periodic/daily  
+<pre><code class="language-console" data-lang="console">$ cd /usr/local/etc/periodic/daily  
 $ sudo cp /usr/local/share/examples/zfsnap/periodic/* .  
 $ sudo mv ./xPERIODICx_zfsnap.sh ./500.daily_zfsnap.sh  
 $ sudo mv ./xPERIODICx_zfsnap_delete.sh ./500.daily_zfsnap_delete.sh  
 $ ls  
 411.pkg-backup 500.daily_zfsnap_delete.sh 998.ntpdate  
 490.status-pkg-changes 500.daily_zfsnap.sh smart
-</code></pre>
-
-<h2 id="スクリプトの修正">スクリプトの修正</h2>
-
-<p>スクリプト（取得用）の内容は以下の通りである。<br />
-変える場所はxPERIODICxとxPREFIXxである。<br />
+</code></pre><h2 id="heading-3">スクリプトの修正</h2>
+<p>スクリプト（取得用）の内容は以下の通りである。<br>
+変える場所はxPERIODICxとxPREFIXxである。<br>
 xPERIODICxは周期に合わせて、xPREFIXxはzfsnapの置いてあるパス、つまり/usr/local/sbin/zfsnapに。</p>
-
-<pre><code class="language-console">#!/bin/sh
+<pre><code class="language-console" data-lang="console">#!/bin/sh
 
 # This file is licensed under the BSD-3-Clause license.
 # See the AUTHORS and LICENSE files for more information.
@@ -302,12 +272,9 @@ case &quot;${xPERIODICx_zfsnap_enable-&quot;NO&quot;}&quot; in
 esac
 
 # vim: set ts=4 sw=4:
-</code></pre>
-
-<p>vimなら:%s/xPERIODICx/daily/g などとコマンド叩いて一括置換する。<br />
+</code></pre><p>vimなら:%s/xPERIODICx/daily/g などとコマンド叩いて一括置換する。<br>
 以下が修正後。</p>
-
-<pre><code class="language-console">#!/bin/sh
+<pre><code class="language-console" data-lang="console">#!/bin/sh
 
 # This file is licensed under the BSD-3-Clause license.
 # See the AUTHORS and LICENSE files for more information.
@@ -368,82 +335,53 @@ case &quot;${daily_zfsnap_enable-&quot;NO&quot;}&quot; in
 esac
 
 # vim: set ts=4 sw=4:
-</code></pre>
-
-<p>削除用も同じようにしたら、periodic.confに指示を書き入れる。</p>
-
-<h2 id="etc-periodic-confにおけるzfsnap設定の書式">/etc/periodic.confにおけるzfsnap設定の書式</h2>
-
-<p>/etc/periodic.confは無ければ作る。<br />
-zfsnapのperiodic向け書式は以下の通り。<br />
+</code></pre><p>削除用も同じようにしたら、periodic.confに指示を書き入れる。</p>
+<h2 id="etcperiodicconfzfsnap">/etc/periodic.confにおけるzfsnap設定の書式</h2>
+<p>/etc/periodic.confは無ければ作る。<br>
+zfsnapのperiodic向け書式は以下の通り。<br>
 <a href="https://github.com/zfsnap/zfsnap/wiki/zfSnap-periodic.conf">https://github.com/zfsnap/zfsnap/wiki/zfSnap-periodic.conf</a></p>
-
-<p>以下、日次のものとして記す。<br />
+<p>以下、日次のものとして記す。<br>
 週、月次の場合はdailyをそれぞれweekly, monthlyに変えればよい。</p>
-
-<h3 id="snapshot取得の有効化">snapshot取得の有効化</h3>
-
-<p><code>daily_zfsnap_enable</code><br />
+<h3 id="snapshot">snapshot取得の有効化</h3>
+<p><code>daily_zfsnap_enable</code><br>
 YES/NOで指定</p>
-
-<h3 id="共通オプション-generic-option">共通オプション（generic option）</h3>
-
-<p><code>daily_zfsnap_flags</code><br />
-例えばscrub, resilver中は避け、日付シリアルの秒を切り捨て、というような設定をここで行う。<br />
--v, -dを指定しないこと。<br />
+<h3 id="generic-option">共通オプション（generic option）</h3>
+<p><code>daily_zfsnap_flags</code><br>
+例えばscrub, resilver中は避け、日付シリアルの秒を切り捨て、というような設定をここで行う。<br>
+-v, -dを指定しないこと。<br>
 初めて作るときにはテスト実行オプションを付けて試験する。</p>
-
-<h3 id="zfs-zpoolの指定">zfs, zpoolの指定</h3>
-
-<p><code>daily_zfsnap_fs</code><br />
-<code>daily_zfsnap_recursive_fs</code><br />
-recursiveとなっているのは、当然ながら子孫も含めて再帰的に取得される<br />
+<h3 id="zfs-zpool">zfs, zpoolの指定</h3>
+<p><code>daily_zfsnap_fs</code><br>
+<code>daily_zfsnap_recursive_fs</code><br>
+recursiveとなっているのは、当然ながら子孫も含めて再帰的に取得される<br>
 複数あるなら、スペースを空けて列挙</p>
-
-<h3 id="冗長アウトプット指定">冗長アウトプット指定</h3>
-
-<p><code>daily_zfsnap_verbose</code><br />
+<h3 id="heading-4">冗長アウトプット指定</h3>
+<p><code>daily_zfsnap_verbose</code><br>
 YES/NOで指定</p>
-
-<h3 id="保存期間指定">保存期間指定</h3>
-
-<p><code>daily_zfsnap_ttl</code><br />
+<h3 id="heading-5">保存期間指定</h3>
+<p><code>daily_zfsnap_ttl</code><br>
 指定がなければ日次は1週間、週次は1か月、月次は6か月になる。</p>
-
-<h3 id="スナップショット削除有効化">スナップショット削除有効化</h3>
-
-<p><code>daily_zfsnap_delete_enable</code><br />
+<h3 id="heading-6">スナップショット削除有効化</h3>
+<p><code>daily_zfsnap_delete_enable</code><br>
 YES/NOで指定</p>
-
-<h3 id="periodic-conf例">periodic.conf例</h3>
-
+<h3 id="periodicconf">periodic.conf例</h3>
 <p>ということで、periodic.confに追加したのは以下の通り。</p>
-
-<pre><code class="language-console"># zfsnap_daily  
+<pre><code class="language-console" data-lang="console"># zfsnap_daily  
 daily_zfsnap_enable=&quot;YES&quot;  
 daily_zfsnap_recursive_fs=&quot;vault&quot;  
 daily_zfsnap_verbose=&quot;YES&quot;  
 daily_zfsnap_delete_enable=&quot;YES&quot;  
 daily_zfsnap_flags=&quot;-n -s -S -z&quot;  
 daily_zfsnap_ttl=&quot;1w1d&quot;
-</code></pre>
-
-<h2 id="試験">試験</h2>
-
+</code></pre><h2 id="heading-7">試験</h2>
 <p>zfsnap_flagsに-nを付けた状態で試験。</p>
-
-<pre><code class="language-console">$ sudo /usr/local/etc/periodic/daily/500.daily_zfsnap.sh  
+<pre><code class="language-console" data-lang="console">$ sudo /usr/local/etc/periodic/daily/500.daily_zfsnap.sh  
 /sbin/zfs snapshot vault/chamber@daily-2018-12-03_02.14.00-1w1d  
 /sbin/zfs snapshot vault/itunes@daily-2018-12-03_02.14.00-1w1d
-</code></pre>
-
-<p>大丈夫そうなので-nを外す。</p>
-
-<h3 id="最終的なperiodic-confの結果">最終的なperiodic.confの結果</h3>
-
+</code></pre><p>大丈夫そうなので-nを外す。</p>
+<h3 id="periodicconf-1">最終的なperiodic.confの結果</h3>
 <p>週次、月次で同じようにperiodic用のスクリプトを作成する。</p>
-
-<pre><code class="language-console">$ pwd
+<pre><code class="language-console" data-lang="console">$ pwd
 /usr/local/etc/periodic
 $ find ./ -name '*zfsnap*'
 ./weekly/999.weekly_zfsnap.sh
@@ -452,11 +390,8 @@ $ find ./ -name '*zfsnap*'
 ./daily/500.daily_zfsnap_delete.sh
 ./monthly/910.monthly_zfsnap.sh
 ./monthly/910.monthly_zfsnap_delete.sh
-</code></pre>
-
-<p>最終的なperiodic.confの結果は以下の通り。</p>
-
-<pre><code class="language-console"># zfsnap_weekly
+</code></pre><p>最終的なperiodic.confの結果は以下の通り。</p>
+<pre><code class="language-console" data-lang="console"># zfsnap_weekly
 weekly_zfsnap_enable=&quot;YES&quot;
 weekly_zfsnap_recursive_fs=&quot;vault&quot;
 weekly_zfsnap_verbose=&quot;YES&quot;
@@ -477,13 +412,9 @@ monthly_zfsnap_verbose=&quot;YES&quot;
 monthly_zfsnap_delete_enable=&quot;YES&quot;
 monthly_zfsnap_flags=&quot;-s -S -z&quot;
 monthly_zfsnap_ttl=&quot;1y1d&quot;
-</code></pre>
-
-<p>翌日以降、root宛には以下のようなメールが届くので、結果はここで確認する。</p>
-
-<pre><code class="language-console">/sbin/zfs snapshot -r vault@daily-2018-12-02_04.47.00-1w1d ... DONE
-</code></pre>
-<ul class="pa0">
+</code></pre><p>翌日以降、root宛には以下のようなメールが届くので、結果はここで確認する。</p>
+<pre><code class="language-console" data-lang="console">/sbin/zfs snapshot -r vault@daily-2018-12-02_04.47.00-1w1d ... DONE
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

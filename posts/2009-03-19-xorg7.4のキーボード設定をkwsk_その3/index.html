@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-03-19T01:00:00+09:00" />
 <meta itemprop="name" content="Xorg7.4のキーボード設定をkwsk その3">
 <meta itemprop="description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090316/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その1&lt;/a&gt;、&lt;a">
-
-
 <meta itemprop="datePublished" content="2009-03-19T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-03-19T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="709">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Xorg7.4のキーボード設定をkwsk その3"/>
 <meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090316/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その1&lt;/a&gt;、&lt;a"/>
 
@@ -151,11 +148,8 @@ if (!doNotTrack) {
 
 2. haldを通さず、xorg.confから伝えるためには、xorg.confに以下の行を加える。haldは自動的にinputデバイスを探さない。ググれば山ほど出てくる。
 </code></pre>
-
-<pre><code class="language-console">Option &quot;AllowEmptyInput&quot; &quot;True&quot;
-</code></pre>
-
-<pre><code>3. haldもxorg.confも通さず、直接伝えるには、setxkbmapを使う。
+<pre><code class="language-console" data-lang="console">Option &quot;AllowEmptyInput&quot; &quot;True&quot;
+</code></pre><pre><code>3. haldもxorg.confも通さず、直接伝えるには、setxkbmapを使う。
 
 
 
@@ -173,11 +167,8 @@ haldは特に設定不要。
 
 その上で、startxでXを起動している場合には、~/.xinitrcに以下の行を加える。
 </code></pre>
-
-<pre><code class="language-console">setxkbmap -rules xorg -layout jp -model jp106 -option ctrl:swapcaps
-</code></pre>
-
-<pre><code>XDMとかの場合は~/.xsessionrcでいいと思う。
+<pre><code class="language-console" data-lang="console">setxkbmap -rules xorg -layout jp -model jp106 -option ctrl:swapcaps
+</code></pre><pre><code>XDMとかの場合は~/.xsessionrcでいいと思う。
 
 
 

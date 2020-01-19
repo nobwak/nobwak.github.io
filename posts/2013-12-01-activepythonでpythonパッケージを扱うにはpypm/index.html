@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-12-01T22:56:46+09:00" />
 <meta itemprop="name" content="ActivePythonでPythonパッケージを扱うにはPyPM">
 <meta itemprop="description" content="PyPMはActivePythonのPythonパッケージマネージメントシステムである。 パッケージの提供はActiveState。 ただ、すべ">
-
-
 <meta itemprop="datePublished" content="2013-12-01T22:56:46&#43;09:00" />
 <meta itemprop="dateModified" content="2013-12-01T22:56:46&#43;09:00" />
 <meta itemprop="wordCount" content="880">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ActivePythonでPythonパッケージを扱うにはPyPM"/>
 <meta name="twitter:description" content="PyPMはActivePythonのPythonパッケージマネージメントシステムである。 パッケージの提供はActiveState。 ただ、すべ"/>
 
@@ -140,45 +137,29 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>PyPMはActivePythonのPythonパッケージマネージメントシステムである。<br />
-パッケージの提供は<a href="http://www.activestate.com/" target="_blank">ActiveState</a>。</p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>PyPMはActivePythonのPythonパッケージマネージメントシステムである。<br>
+パッケージの提供は<!-- raw HTML omitted -->ActiveState<!-- raw HTML omitted -->。</p>
 <p>ただ、すべてのパッケージが揃っているわけではなく、ものによってはコンパイルに失敗し、結果としてPyPMでは入手できないものもある。</p>
-
-<p>たとえば2013/11/14現在、pygraphvizは入手できない。<br />
-<a href="http://code.activestate.com/pypm/pygraphviz/" target="_blank"><a href="http://code.activestate.com/pypm/pygraphviz/">http://code.activestate.com/pypm/pygraphviz/</a></a></p>
-
+<p>たとえば2013/11/14現在、pygraphvizは入手できない。<br>
+<!-- raw HTML omitted --><a href="http://code.activestate.com/pypm/pygraphviz/%3C/a%3E">http://code.activestate.com/pypm/pygraphviz/&lt;/a&gt;</a></p>
 <blockquote>
-<p>pygraphviz is unavailable in PyPM, because there aren&rsquo;t any builds for it in the package repositories.</p>
+<p>pygraphviz is unavailable in PyPM, because there aren't any builds for it in the package repositories.</p>
 </blockquote>
-
-<p>前後したが、PyPMで揃えられるパッケージは以下のサイトで確認できる。<br />
-<a href="http://code.activestate.com/pypm/" target="_blank"><a href="http://code.activestate.com/pypm/">http://code.activestate.com/pypm/</a></a><br />
+<p>前後したが、PyPMで揃えられるパッケージは以下のサイトで確認できる。<br>
+<!-- raw HTML omitted --><a href="http://code.activestate.com/pypm/%3C/a%3E">http://code.activestate.com/pypm/&lt;/a&gt;</a><br>
 また、PyPMにもパッケージ検索機能が備わっている。</p>
-
-<h2 id="span-style-text-decoration-underline-pypmの起動-span"><span style="text-decoration: underline;">PyPMの起動</span></h2>
-
-<p>ActivePythonをインストールすると、Python Package Manager(PyPM)というプログラムがスタートメニューにできているはず。<br />
-これがPyPM。<br />
-<a href="../../../wp-content/uploads/2013/11/startmenu.png"><img class="alignnone size-thumbnail wp-image-2394" alt="startmenu" src="../../../wp-content/uploads/2013/11/startmenu-150x150.png" width="150" height="150" /></a></p>
-
+<h2 id="span-styletext-decoration-underlinepypmspan"><!-- raw HTML omitted -->PyPMの起動<!-- raw HTML omitted --></h2>
+<p>ActivePythonをインストールすると、Python Package Manager(PyPM)というプログラムがスタートメニューにできているはず。<br>
+これがPyPM。<br>
+<a href="../../../wp-content/uploads/2013/11/startmenu.png"><!-- raw HTML omitted --></a></p>
 <p>プログラムとは言っても、実体はcmd.exeに引数を与えて実行するショートカットである。</p>
-
-<pre><code class="language-console">C:\Windows\System32\cmd.exe /k title PyPM &amp; pypm
-</code></pre>
-
-<p>実行すると、コマンドプロンプトが開く。<br />
-<a href="../../../wp-content/uploads/2013/11/pypm.png"><img class="alignnone size-thumbnail wp-image-2393" alt="pypm" src="../../../wp-content/uploads/2013/11/pypm-150x150.png" width="150" height="150" /></a></p>
-
-<h2 id="span-style-text-decoration-underline-pypmの使い方-span"><span style="text-decoration: underline;">PyPMの使い方</span></h2>
-
+<pre><code class="language-console" data-lang="console">C:\Windows\System32\cmd.exe /k title PyPM &amp; pypm
+</code></pre><p>実行すると、コマンドプロンプトが開く。<br>
+<a href="../../../wp-content/uploads/2013/11/pypm.png"><!-- raw HTML omitted --></a></p>
+<h2 id="span-styletext-decoration-underlinepypmspan-1"><!-- raw HTML omitted -->PyPMの使い方<!-- raw HTML omitted --></h2>
 <p>以下を参照</p>
-
-<p><a href="http://docs.activestate.com/activepython/3.3/pypm.html" target="_blank"><a href="http://docs.activestate.com/activepython/3.3/pypm.html">http://docs.activestate.com/activepython/3.3/pypm.html</a></a></p>
-
-<pre><code class="language-console">検索:
+<p><!-- raw HTML omitted --><a href="http://docs.activestate.com/activepython/3.3/pypm.html%3C/a%3E">http://docs.activestate.com/activepython/3.3/pypm.html&lt;/a&gt;</a></p>
+<pre><code class="language-console" data-lang="console">検索:
 　pypm search ＜パッケージ＞
 インストール:
 　pypm install ＜パッケージ＞
@@ -188,15 +169,10 @@ if (!doNotTrack) {
 　pypm upgrade
 一覧:
 　pypm list
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-実行例-span"><span style="text-decoration: underline;">実行例</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->実行例<!-- raw HTML omitted --></h2>
 <p>matplotlibを検索、インストールしてみる。</p>
-
 <p>検索</p>
-
-<pre><code class="language-console">C:\Windows\system32&gt;pypm search matplotlib
+<pre><code class="language-console" data-lang="console">C:\Windows\system32&gt;pypm search matplotlib
  boomslang    A thin layer over matplotlib that simplifies creation of common p
  brewer2mpl   Connect colorbrewer2.org color maps to Python and matplotlib
  descartes    Use geometric objects as matplotlib paths and patches
@@ -208,55 +184,37 @@ if (!doNotTrack) {
  sphinxreport SphinxReport : a report generator in python based on Sphinx and m
  webplotlib   A package for creating server-side charts/graphs using matplotlib
  wxmplot      high level wxPython Components for 2D plotting and image display
-</code></pre>
-
-<p>インストール</p>
-
-<pre><code class="language-console">C:\Windows\system32&gt;pypm install matplotlib
+</code></pre><p>インストール</p>
+<pre><code class="language-console" data-lang="console">C:\Windows\system32&gt;pypm install matplotlib
 The following packages will be installed into &quot;%APPDATA%\Python&quot; (2.7):
  as.mklruntime-1.3 numpy-1.7.1 matplotlib-1.1.1
 Get: [pypm-free.activestate.com] as.mklruntime 1.3
 downloading: [===========&gt;        ]  59% 19.0MB/32.1MB (1m18s; 55s left)
-</code></pre>
-
-<p>インストール済みのパッケージ一覧</p>
-
-<pre><code class="language-console">C:\Windows\system32&gt;pypm list
+</code></pre><p>インストール済みのパッケージ一覧</p>
+<pre><code class="language-console" data-lang="console">C:\Windows\system32&gt;pypm list
 as.mklruntime 1.3   Intel MKL runtime files (Windows only)
 matplotlib    1.1.1 Python plotting package
 networkx      1.8.1 Python package for creating and manipulating graphs and net
 numpy         1.7.1 NumPy: array processing for numbers, strings, records, and
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-プロキシの設定-span"><span style="text-decoration: underline;">プロキシの設定</span></h2>
-
-<p>もしインターネット接続がproxy越しの場合には、環境変数の設定が必要だ。<br />
-以下に記載のあるとおり。<br />
-<a href="http://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls" target="_blank"><a href="http://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls">http://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls</a></a></p>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->プロキシの設定<!-- raw HTML omitted --></h2>
+<p>もしインターネット接続がproxy越しの場合には、環境変数の設定が必要だ。<br>
+以下に記載のあるとおり。<br>
+<!-- raw HTML omitted --><a href="http://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls%3C/a%3E">http://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls&lt;/a&gt;</a></p>
 <p>PyPMを実行したあと、以下のように設定してから進めればよい。</p>
-
-<pre><code class="language-console">C:\Windows\system32&gt;set http_proxy=http://proxysomewhere.com:8080/
-</code></pre>
-
-<p>なお、activestateのサイト通りだとうまくいかなくて、経験的な結果として:</p>
-
+<pre><code class="language-console" data-lang="console">C:\Windows\system32&gt;set http_proxy=http://proxysomewhere.com:8080/
+</code></pre><p>なお、activestateのサイト通りだとうまくいかなくて、経験的な結果として:</p>
 <ul>
 <li>　ダブルクオーテーションで囲ったらダメ。</li>
 <li>　（おそらく）URLの最後はスラッシュで終わらないとダメ。</li>
 </ul>
-
 <p>使用例</p>
-
-<pre><code class="language-console">C:\Windows\system32&gt;set http_proxy=http://proxysomewhere.com:8080/
+<pre><code class="language-console" data-lang="console">C:\Windows\system32&gt;set http_proxy=http://proxysomewhere.com:8080/
 
 C:\Windows\system32&gt;pypm install networkx
 Get: [pypm-be.activestate.com] :repository-index:
 Get: [pypm-free.activestate.com] :repository-index:
 downloading: [=======&gt;            ]  39% 2.5MB/6.4MB (10s; 17s left)
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
 </ul>

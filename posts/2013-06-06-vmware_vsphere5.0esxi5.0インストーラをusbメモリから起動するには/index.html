@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-06-06T23:29:28+09:00" />
 <meta itemprop="name" content="VMWare vSphere5.0(ESXi5.0)インストーラをUSBメモリ「から」起動するには">
 <meta itemprop="description" content="VMWareのESXiは大変便利なのだが、インストーラをCDに書き込む必要のあるのが玉に瑕。 今更CD-R/DVD-Rなんて持ってないよ。 US">
-
-
 <meta itemprop="datePublished" content="2013-06-06T23:29:28&#43;09:00" />
 <meta itemprop="dateModified" content="2013-06-06T23:29:28&#43;09:00" />
 <meta itemprop="wordCount" content="455">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="VMWare vSphere5.0(ESXi5.0)インストーラをUSBメモリ「から」起動するには"/>
 <meta name="twitter:description" content="VMWareのESXiは大変便利なのだが、インストーラをCDに書き込む必要のあるのが玉に瑕。 今更CD-R/DVD-Rなんて持ってないよ。 US"/>
 
@@ -140,43 +137,30 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>VMWareのESXiは大変便利なのだが、インストーラをCDに書き込む必要のあるのが玉に瑕。<br />
-今更CD-R/DVD-Rなんて持ってないよ。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>VMWareのESXiは大変便利なのだが、インストーラをCDに書き込む必要のあるのが玉に瑕。<br>
+今更CD-R/DVD-Rなんて持ってないよ。<br>
 USBメモリにインストーラをインストールする方法を調べたのでまとめる。</p>
-
 <p>なおESXiはVMWareからダウンロードしている前提。</p>
-
-<h3 id="span-style-text-decoration-underline-unetbootinの入手-span"><span style="text-decoration: underline;">UNetbootinの入手</span></h3>
-
+<h3 id="span-styletext-decoration-underlineunetbootinspan"><!-- raw HTML omitted -->UNetbootinの入手<!-- raw HTML omitted --></h3>
 <p>以下より、OSに合わせたUNetbootinをダウンロード。</p>
-
-<p><a href="http://unetbootin.sourceforge.net/" target="_blank"><a href="http://unetbootin.sourceforge.net/">http://unetbootin.sourceforge.net/</a></a></p>
-
+<p><!-- raw HTML omitted --><a href="http://unetbootin.sourceforge.net/%3C/a%3E">http://unetbootin.sourceforge.net/&lt;/a&gt;</a></p>
 <p>Windows、Macのほか、各種Linux向けにも用意されているし、インストールの必要なく動作するので、Windowsのレジストリだって汚れないよ！</p>
-
-<h3 id="span-style-text-decoration-underline-usbメモリの準備-span"><span style="text-decoration: underline;">USBメモリの準備</span></h3>
-
-<p>USBメモリはFAT32でフォーマットしておく。<br />
+<h3 id="span-styletext-decoration-underlineusbspan"><!-- raw HTML omitted -->USBメモリの準備<!-- raw HTML omitted --></h3>
+<p>USBメモリはFAT32でフォーマットしておく。<br>
 Windowsでは「クイックフォーマット」は選んだりしないこと。</p>
-
-<h3 id="span-style-text-decoration-underline-usbメモリへの書き込み-span"><span style="text-decoration: underline;">USBメモリへの書き込み</span></h3>
-
-<p>USBメモリを挿してから、USBUNetbootinを起動。<br />
-ディスクイメージ→ISO→ESXiのインストーラISOイメージを選択<br />
-タイプでUSBメモリを選択<br />
-OKをクリック<br />
-<a href="../../../wp-content/uploads/2013/06/unetbootin.jpg"><br />
-<img class="size-medium wp-image-2032 aligncenter" alt="unetbootin" src="../../../wp-content/uploads/2013/06/unetbootin-300x221.jpg" width="300" height="221" srcset="../../../wp-content/uploads/2013/06/unetbootin-300x221.jpg 300w, ../../../wp-content/uploads/2013/06/unetbootin.jpg 540w" sizes="(max-width: 300px) 100vw, 300px" /></a><br />
-以下のようになれば完成。<br />
+<h3 id="span-styletext-decoration-underlineusbspan-1"><!-- raw HTML omitted -->USBメモリへの書き込み<!-- raw HTML omitted --></h3>
+<p>USBメモリを挿してから、USBUNetbootinを起動。<br>
+ディスクイメージ→ISO→ESXiのインストーラISOイメージを選択<br>
+タイプでUSBメモリを選択<br>
+OKをクリック<br>
+<a href="../../../wp-content/uploads/2013/06/unetbootin.jpg"><br>
+<!-- raw HTML omitted --></a><br>
+以下のようになれば完成。<br>
 ママも安心ESXiインストーラ入りUSBメモリの出来上がり。</p>
-
-<p><a href="../../../wp-content/uploads/2013/06/unetbootin01.jpg"><img class="size-medium wp-image-2033 aligncenter" alt="unetbootin01" src="../../../wp-content/uploads/2013/06/unetbootin01-300x221.jpg" width="300" height="221" srcset="../../../wp-content/uploads/2013/06/unetbootin01-300x221.jpg 300w, ../../../wp-content/uploads/2013/06/unetbootin01.jpg 540w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
-
-<p>以上<br />
-<a href="http://www.amazon.co.jp/gp/product/B009316BXW/ref=as_li_ss_il?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=B009316BXW&amp;linkCode=as2&amp;tag=harukiya00-22"><img class="cnkimdiwvdibdcryheio" alt="" src="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B009316BXW&Format=_SL110_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=harukiya00-22" border="0" /></a><img class="cnkimdiwvdibdcryheio" style="border: none !important; margin: 0px !important;" alt="" src="http://ir-jp.amazon-adsystem.com/e/ir?t=harukiya00-22&l=as2&o=9&a=B009316BXW" width="1" height="1" border="0" /><br />
-<a href="http://www.amazon.co.jp/gp/product/4798128422/ref=as_li_ss_il?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=4798128422&amp;linkCode=as2&amp;tag=harukiya00-22"><img class="cnkimdiwvdibdcryheio" alt="" src="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=4798128422&Format=_SL110_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=harukiya00-22" border="0" /></a><img class="cnkimdiwvdibdcryheio" style="border: none !important; margin: 0px !important;" alt="" src="http://ir-jp.amazon-adsystem.com/e/ir?t=harukiya00-22&l=as2&o=9&a=4798128422" width="1" height="1" border="0" /></p>
+<p><a href="../../../wp-content/uploads/2013/06/unetbootin01.jpg"><!-- raw HTML omitted --></a></p>
+<p>以上<br>
+<a href="http://www.amazon.co.jp/gp/product/B009316BXW/ref=as_li_ss_il?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=B009316BXW&amp;linkCode=as2&amp;tag=harukiya00-22"><!-- raw HTML omitted --></a><!-- raw HTML omitted --><br>
+<a href="http://www.amazon.co.jp/gp/product/4798128422/ref=as_li_ss_il?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=4798128422&amp;linkCode=as2&amp;tag=harukiya00-22"><!-- raw HTML omitted --></a><!-- raw HTML omitted --></p>
 <ul class="pa0">
   
 </ul>

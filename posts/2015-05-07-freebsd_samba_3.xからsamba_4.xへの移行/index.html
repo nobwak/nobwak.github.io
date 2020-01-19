@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-05-07T20:13:08+09:00" />
 <meta itemprop="name" content="[FreeBSD] Samba 3.xからSamba 4.xへの移行">
 <meta itemprop="description" content="Sambaの4.2.0リリースに伴い、3系列サポートが終了する、とのことなので、4.xに移行した。 顛末を記す。 Samba 3系列のサポート終了について">
-
-
 <meta itemprop="datePublished" content="2015-05-07T20:13:08&#43;09:00" />
 <meta itemprop="dateModified" content="2015-05-07T20:13:08&#43;09:00" />
-<meta itemprop="wordCount" content="1947">
+<meta itemprop="wordCount" content="1941">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,Samba," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,Samba," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] Samba 3.xからSamba 4.xへの移行"/>
 <meta name="twitter:description" content="Sambaの4.2.0リリースに伴い、3系列サポートが終了する、とのことなので、4.xに移行した。 顛末を記す。 Samba 3系列のサポート終了について"/>
 
@@ -140,49 +137,32 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Sambaの4.2.0リリースに伴い、3系列サポートが終了する、とのことなので、4.xに移行した。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Sambaの4.2.0リリースに伴い、3系列サポートが終了する、とのことなので、4.xに移行した。<br>
 顛末を記す。</p>
-
-<h3 id="span-style-text-decoration-underline-samba-3系列のサポート終了について-span"><span style="text-decoration: underline;">Samba 3系列のサポート終了について</span></h3>
-
-<p>一応はソースを。<br />
+<h3 id="span-styletext-decoration-underlinesamba-3span"><!-- raw HTML omitted -->Samba 3系列のサポート終了について<!-- raw HTML omitted --></h3>
+<p>一応はソースを。<br>
 4.2.0のリリースノートに記載されている。</p>
-
-<p><a href="https://www.samba.org/samba/history/samba-4.2.0.html" target="_blank"><a href="https://www.samba.org/samba/history/samba-4.2.0.html">https://www.samba.org/samba/history/samba-4.2.0.html</a></a></p>
-
+<p><!-- raw HTML omitted --><a href="https://www.samba.org/samba/history/samba-4.2.0.html%3C/a%3E">https://www.samba.org/samba/history/samba-4.2.0.html&lt;/a&gt;</a></p>
 <blockquote>
 <p>With the final release of Samba 4.2, the last series of Samba 3 has been discontinued! People still running 3.6.x or earlier,should consider moving to a more recent and maintained version (4.0 - 4.2).</p>
 </blockquote>
-
-<h2 id="span-style-text-decoration-underline-samba-4について-active-directoryにしなくてもok-span"><span style="text-decoration: underline;">Samba 4について（Active DirectoryにしなくてもOK）</span></h2>
-
-<p>Samba 4はActive Directoryに対応しているが、従来のドメイン管理（NT4-style）もできる。<br />
+<h2 id="span-styletext-decoration-underlinesamba-4active-directoryokspan"><!-- raw HTML omitted -->Samba 4について（Active DirectoryにしなくてもOK）<!-- raw HTML omitted --></h2>
+<p>Samba 4はActive Directoryに対応しているが、従来のドメイン管理（NT4-style）もできる。<br>
 Active Directory対応の追加により、従来機能が差し替わることはないし、テストも続けられる。</p>
-
 <p>なお、3から4へのアップデートで、自動的にActive Directoryへ変更されることはない。</p>
-
-<h2 id="span-style-text-decoration-underline-移行先の選定-4-1にした-span"><span style="text-decoration: underline;">移行先の選定（4.1にした）</span></h2>
-
-<p>どうせ移行するなら4.2がいいなと思ったんだけど、2015/4/28現在、4.2のports/packageはない。<br />
+<h2 id="span-styletext-decoration-underline41span"><!-- raw HTML omitted -->移行先の選定（4.1にした）<!-- raw HTML omitted --></h2>
+<p>どうせ移行するなら4.2がいいなと思ったんだけど、2015/4/28現在、4.2のports/packageはない。<br>
 しかたなく4.1にした。</p>
-
-<h2 id="span-style-text-decoration-underline-移行にあたっての注意-span"><span style="text-decoration: underline;">移行にあたっての注意</span></h2>
-
-<p>4へのアップグレードにあたり注意すべきことは以下の三点である。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->移行にあたっての注意<!-- raw HTML omitted --></h2>
+<p>4へのアップグレードにあたり注意すべきことは以下の三点である。<br>
 うっかりすると、マシン起動時にsambaが起動しなかったり、共有が消えたり、ユーザがアクセスできなくなったりする。あな恐ろし。</p>
-
 <ol>
 <li>rc.conf（マシン起動時のsamba起動設定）の書き換え</li>
 <li>samba設定ファイルの移行</li>
 <li>sambaユーザデータベースの移行</li>
 </ol>
-
-<h2 id="span-style-text-decoration-underline-インストール-アップグレード-の流れ-span"><span style="text-decoration: underline;">インストール（アップグレード）の流れ</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->インストール（アップグレード）の流れ<!-- raw HTML omitted --></h2>
 <p>全体の流れを示す。</p>
-
 <ol>
 <li>samba3を停める。</li>
 <li>samba3の削除</li>
@@ -192,25 +172,18 @@ Active Directory対応の追加により、従来機能が差し替わること�
 <li>ユーザーデータベースの移管</li>
 <li>起動</li>
 </ol>
-
-<h2 id="span-style-text-decoration-underline-samba3の停止-span"><span style="text-decoration: underline;">Samba3の停止</span></h2>
-
-<p>アンインストールの前に。<br />
-なお、serviceコマンドで使うSambaの識別子は、3の&rdquo;samba&rdquo;が4では&rdquo;samba_server&rdquo;に変わる（後述）。</p>
-
-<pre><code class="language-console">$ sudo service samba stop
+<h2 id="span-styletext-decoration-underlinesamba3span"><!-- raw HTML omitted -->Samba3の停止<!-- raw HTML omitted --></h2>
+<p>アンインストールの前に。<br>
+なお、serviceコマンドで使うSambaの識別子は、3の&quot;samba&quot;が4では&quot;samba_server&quot;に変わる（後述）。</p>
+<pre><code class="language-console" data-lang="console">$ sudo service samba stop
 Stopping smbd.
 Waiting for PIDS: 654.
 Stopping nmbd.
 Waiting for PIDS: 651.
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-samba3の削除とsamba4のインストール-span"><span style="text-decoration: underline;">Samba3の削除とSamba4のインストール</span></h2>
-
-<p>pkgならsamba4のインストール時にsamba3を削除してくれる。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinesamba3samba4span"><!-- raw HTML omitted -->Samba3の削除とSamba4のインストール<!-- raw HTML omitted --></h2>
+<p>pkgならsamba4のインストール時にsamba3を削除してくれる。<br>
 samba4インストール後のメッセージは超重要。</p>
-
-<pre><code class="language-console">$ sudo pkg install samba41
+<pre><code class="language-console" data-lang="console">$ sudo pkg install samba41
 （略）
 Conflicts with the existing packages have been found.
 One more solver iteration is needed to resolve them.
@@ -237,64 +210,43 @@ How to start: http://wiki.samba.org/index.php/Samba4/HOWTO
 （略）
 Bug reports should go to the: https://bugzilla.samba.org/
 ===============================================================================
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-rc-confの書き換え-span"><span style="text-decoration: underline;">rc.confの書き換え</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinercconfspan"><!-- raw HTML omitted -->rc.confの書き換え<!-- raw HTML omitted --></h2>
 <p>本記事の手順上、rc.confの書き換えをここに記載しているが、本来は設定ファイルの正常性確認や検証を済ませてからのほうがよい。</p>
-
-<p>sambaの3と4では、rc.confの書式が違う。<br />
+<p>sambaの3と4では、rc.confの書式が違う。<br>
 ここを忘れたままだと、serviceコマンドでのsambaサーバの操作ができないし、次回のマシン再起動時にsambaが自動起動しない。</p>
-
-<p>samba3だと;<br />
-samba_enable=&ldquo;YES&rdquo;<br />
-samba4だと;<br />
-samba_server_enable=&ldquo;YES&rdquo;</p>
-
-<p>したがって、rc.confは以下のようになる。<br />
+<p>samba3だと;<br>
+samba_enable=&quot;YES&rdquo;<br>
+samba4だと;<br>
+samba_server_enable=&quot;YES&rdquo;</p>
+<p>したがって、rc.confは以下のようになる。<br>
 もちろん、samba3の方は、不要なら削除して構わない。</p>
-
-<pre><code class="language-console"># samba_enable=&quot;YES&quot;
+<pre><code class="language-console" data-lang="console"># samba_enable=&quot;YES&quot;
 samba_server_enable=&quot;YES&quot;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-設定ファイルの移管-span"><span style="text-decoration: underline;">設定ファイルの移管</span></h2>
-
-<p>sambaの3と4では、設定ファイルの場所は/usr/local/etc/の下で変更ないのだが、ファイル名が異なる。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->設定ファイルの移管<!-- raw HTML omitted --></h2>
+<p>sambaの3と4では、設定ファイルの場所は/usr/local/etc/の下で変更ないのだが、ファイル名が異なる。<br>
 気づかずにsamba4を起動すると共有フォルダが消える。</p>
-
-<p>samba3だと;<br />
-smb.conf<br />
-samba4だと;<br />
+<p>samba3だと;<br>
+smb.conf<br>
+samba4だと;<br>
 smb4.conf</p>
-
-<p>samba3の書式はsamba4でも有効なので、コピーするかリンクを張る。<br />
+<p>samba3の書式はsamba4でも有効なので、コピーするかリンクを張る。<br>
 私はリンクにしておいた。</p>
-
-<pre><code class="language-console">$ cd /usr/local/etc/
+<pre><code class="language-console" data-lang="console">$ cd /usr/local/etc/
 $ sudo ln -s ./smb.conf ./smb4.conf
 $
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-ユーザーデータベースの移管-span"><span style="text-decoration: underline;">ユーザーデータベースの移管</span></h2>
-
-<p>samba向けのユーザデータベースも移管が必要である。<br />
-これをしないとユーザごとの認証ができない。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->ユーザーデータベースの移管<!-- raw HTML omitted --></h2>
+<p>samba向けのユーザデータベースも移管が必要である。<br>
+これをしないとユーザごとの認証ができない。<br>
 これには、ほとほと困らされた。</p>
-
 <p>ユーザデータベースの置き場所は以下の通り。</p>
-
-<p>samba3だと;<br />
-/usr/local/etc/samba/<br />
-samba4だと;<br />
+<p>samba3だと;<br>
+/usr/local/etc/samba/<br>
+samba4だと;<br>
 /var/db/samba4/private/</p>
-
 <p>したがって、/var/db/samba4/privateとディレクトリを作成し、/usr/local/etc/samba/の下にあるファイルをコピーすればよい。</p>
-
-<p>なお、samba4のユーザデータベース置き場をどう調べたかというと、ビルドオプションを表示させてPRIVATE_DIRを見た。<br />
+<p>なお、samba4のユーザデータベース置き場をどう調べたかというと、ビルドオプションを表示させてPRIVATE_DIRを見た。<br>
 （こんなのすぐ分かるかよ！）</p>
-
-<pre><code class="language-console">$ smbd -b|less
+<pre><code class="language-console" data-lang="console">$ smbd -b|less
 
 Build environment:
    Built by:    root@101i386-default-job-07
@@ -320,13 +272,9 @@ Paths:
    SMB_PASSWD_FILE: /var/db/samba4/private/smbpasswd
    PRIVATE_DIR: /var/db/samba4/private
 （以下略）
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-起動-span"><span style="text-decoration: underline;">起動</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-4"><!-- raw HTML omitted -->起動<!-- raw HTML omitted --></h2>
 <p>起動前にtestparmでsmb4.confのチェックをするのはいい習慣であります。</p>
-
-<pre><code class="language-console">$ testparm
+<pre><code class="language-console" data-lang="console">$ testparm
 Load smb config files from /usr/local/etc/smb4.conf
 Processing section &quot;[fileshare]&quot;
 Loaded services file OK.
@@ -335,25 +283,17 @@ Press enter to see a dump of your service definitions
 
 [global]
 （略）
-</code></pre>
-
-<p>では起動。<br />
-rc.confでsamba_server_enable=&ldquo;YES&rdquo;と記載しているなら、以下の通り。</p>
-
-<pre><code class="language-console">$ sudo service samba_server start
+</code></pre><p>では起動。<br>
+rc.confでsamba_server_enable=&quot;YES&quot;と記載しているなら、以下の通り。</p>
+<pre><code class="language-console" data-lang="console">$ sudo service samba_server start
 Performing sanity check on Samba configuration: OK
 Starting nmbd.
 Starting smbd.
 Starting winbindd.
 $
-</code></pre>
-
-<p>していないなら、以下のように「onestart」にする。</p>
-
-<pre><code class="language-console">$ sudo service samba_server onestart
-</code></pre>
-
-<p>以上。</p>
+</code></pre><p>していないなら、以下のように「onestart」にする。</p>
+<pre><code class="language-console" data-lang="console">$ sudo service samba_server onestart
+</code></pre><p>以上。</p>
 <ul class="pa0">
   
    <li class="list">

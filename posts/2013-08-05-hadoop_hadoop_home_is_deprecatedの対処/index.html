@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,25 +29,22 @@
     
 
     <meta property="og:title" content="[Hadoop] $HADOOP_HOME is deprecatedの対処" />
-<meta property="og:description" content="&rdquo;$HADOOP_HOME is deprecated&rdquo;が鬱陶しい。 ※本記事ではhadoop 1.00を使ってます。 hadoopを実行すると&rdquo;$HA" />
+<meta property="og:description" content="&ldquo;$HADOOP_HOME is deprecated&quot;が鬱陶しい。 ※本記事ではhadoop 1.00を使ってます。 hadoopを実行すると&quot;$HADO" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2013-08-05-hadoop_hadoop_home_is_deprecated%E3%81%AE%E5%AF%BE%E5%87%A6/" />
 <meta property="article:published_time" content="2013-08-05T23:36:04+09:00" />
 <meta property="article:modified_time" content="2013-08-05T23:36:04+09:00" />
 <meta itemprop="name" content="[Hadoop] $HADOOP_HOME is deprecatedの対処">
-<meta itemprop="description" content="&rdquo;$HADOOP_HOME is deprecated&rdquo;が鬱陶しい。 ※本記事ではhadoop 1.00を使ってます。 hadoopを実行すると&rdquo;$HA">
-
-
+<meta itemprop="description" content="&ldquo;$HADOOP_HOME is deprecated&quot;が鬱陶しい。 ※本記事ではhadoop 1.00を使ってます。 hadoopを実行すると&quot;$HADO">
 <meta itemprop="datePublished" content="2013-08-05T23:36:04&#43;09:00" />
 <meta itemprop="dateModified" content="2013-08-05T23:36:04&#43;09:00" />
-<meta itemprop="wordCount" content="641">
+<meta itemprop="wordCount" content="635">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Hadoop] $HADOOP_HOME is deprecatedの対処"/>
-<meta name="twitter:description" content="&rdquo;$HADOOP_HOME is deprecated&rdquo;が鬱陶しい。 ※本記事ではhadoop 1.00を使ってます。 hadoopを実行すると&rdquo;$HA"/>
+<meta name="twitter:description" content="&ldquo;$HADOOP_HOME is deprecated&quot;が鬱陶しい。 ※本記事ではhadoop 1.00を使ってます。 hadoopを実行すると&quot;$HADO"/>
 
       
 <script type="application/javascript">
@@ -140,42 +137,28 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>&rdquo;$HADOOP_HOME is deprecated&rdquo;が鬱陶しい。</p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>&ldquo;$HADOOP_HOME is deprecated&quot;が鬱陶しい。</p>
 <p>※本記事ではhadoop 1.00を使ってます。</p>
-
-<p>hadoopを実行すると&rdquo;$HADOOP_HOME is deprecated&rdquo;と表示されることがある。<br />
+<p>hadoopを実行すると&quot;$HADOOP_HOME is deprecated&quot;と表示されることがある。<br>
 HADOOP_HOMEはもう使われなくなり、代わりにHADOOP_PREFIXにするよう推奨されている。</p>
-
 <p>これを抑制するには、以下二つのうち、いずれかをすればよい。</p>
-
-<h2 id="span-style-text-decoration-underline-hadoop-home-is-deprecated-を抑制するには-span"><span style="text-decoration: underline;">”$HADOOP_HOME is deprecated&rdquo;を抑制するには。</span></h2>
-
+<h2 id="span-styletext-decoration-underlinehadoop-home-is-deprecatedspan"><!-- raw HTML omitted -->”$HADOOP_HOME is deprecated&quot;を抑制するには。<!-- raw HTML omitted --></h2>
 <ol>
 <li>HADOOP_HOMEをHADOOP_PREFIXに置き換える。あるいは。</li>
 <li>HADOOP_HOME_WARN_SUPPRESS=YESと宣言する。</li>
 </ol>
-
-<p>hadoopのバージョンアップをするつもりがないなら、②が楽でしょうかね。<br />
+<p>hadoopのバージョンアップをするつもりがないなら、②が楽でしょうかね。<br>
 具体的には、hadoopを使うユーザの.profileあたりで宣言しておけばOK。</p>
-
-<h2 id="span-style-text-decoration-underline-エラーメッセージの原因-span"><span style="text-decoration: underline;">エラーメッセージの原因</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->エラーメッセージの原因<!-- raw HTML omitted --></h2>
 <p>なお、HADOOP関連のスクリプトを当該メッセージでgrepすると、hadoop-config.shに以下の記載がある。</p>
-
 <p>hadoop-config.sh</p>
-
-<pre><code class="language-console">if [ &quot;$HADOOP_HOME_WARN_SUPPRESS&quot; == &quot;&quot; ] &amp;&amp; [ &quot;$HADOOP_HOME&quot; != &quot;&quot; ]; then
+<pre><code class="language-console" data-lang="console">if [ &quot;$HADOOP_HOME_WARN_SUPPRESS&quot; == &quot;&quot; ] &amp;&amp; [ &quot;$HADOOP_HOME&quot; != &quot;&quot; ]; then
   echo &quot;Warning: \$HADOOP_HOME is deprecated.&quot; 1&gt;&amp;2
   echo 1&gt;&amp;2
 fi
-</code></pre>
-
-<p>つまりHADOOP_HOMEに何か設定されていれば、メッセージを表示する。<br />
-しかし、HADOOP_HOME_WARN_SUPPRESSに何か設定されていれば、そのメッセージを抑制する、というわけ。<br />
-上記ではHADOOP_HOME_WARN_SUPPRESS=&ldquo;YES&rdquo;にしているが、実際のところ中身はなんだってよい。</p>
+</code></pre><p>つまりHADOOP_HOMEに何か設定されていれば、メッセージを表示する。<br>
+しかし、HADOOP_HOME_WARN_SUPPRESSに何か設定されていれば、そのメッセージを抑制する、というわけ。<br>
+上記ではHADOOP_HOME_WARN_SUPPRESS=&quot;YES&quot;にしているが、実際のところ中身はなんだってよい。</p>
 <ul class="pa0">
   
 </ul>

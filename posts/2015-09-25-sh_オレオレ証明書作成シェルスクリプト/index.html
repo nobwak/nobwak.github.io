@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-09-25T23:31:38+09:00" />
 <meta itemprop="name" content="[sh] オレオレ証明書作成シェルスクリプト">
 <meta itemprop="description" content="すぐに作り方を忘れるので、シェルスクリプトを記録しておく。 変数OPENSSLにopensslをフルパスで与えること。 あとはchmod 755し">
-
-
 <meta itemprop="datePublished" content="2015-09-25T23:31:38&#43;09:00" />
 <meta itemprop="dateModified" content="2015-09-25T23:31:38&#43;09:00" />
 <meta itemprop="wordCount" content="290">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,linux,OS X,sh," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,linux,OS X,sh," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[sh] オレオレ証明書作成シェルスクリプト"/>
 <meta name="twitter:description" content="すぐに作り方を忘れるので、シェルスクリプトを記録しておく。 変数OPENSSLにopensslをフルパスで与えること。 あとはchmod 755し"/>
 
@@ -140,12 +137,11 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>すぐに作り方を忘れるので、シェルスクリプトを記録しておく。<br />
-変数OPENSSLにopensslをフルパスで与えること。<br />
-あとはchmod 755して実行すればカレントディレクトリにserver.crtとserver.keyができる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>すぐに作り方を忘れるので、シェルスクリプトを記録しておく。<br>
+変数OPENSSLにopensslをフルパスで与えること。<br>
+あとはchmod 755して実行すればカレントディレクトリにserver.crtとserver.keyができる。<br>
 おまけでDHパラメータ、dhparam.pemもできる。</p>
-
-<pre><code class="language-console">#!/bin/sh
+<pre><code class="language-console" data-lang="console">#!/bin/sh
 
 # Generates a self-signed certificate.
 
@@ -194,10 +190,8 @@ echo &quot;============================&quot;
 echo
 echo &quot;Now you have $CERTFILE, $KEYFILE and $DHPARAM&quot;
 echo
-</code></pre>
-
-<p>参考<br />
-<a href="http://d.hatena.ne.jp/rikunora/20120514/p1">http://d.hatena.ne.jp/rikunora/20120514/p1</a><br />
+</code></pre><p>参考<br>
+<a href="http://d.hatena.ne.jp/rikunora/20120514/p1">http://d.hatena.ne.jp/rikunora/20120514/p1</a><br>
 <a href="http://qiita.com/kunichiko/items/12cbccaadcbf41c72735">http://qiita.com/kunichiko/items/12cbccaadcbf41c72735</a></p>
 <ul class="pa0">
   

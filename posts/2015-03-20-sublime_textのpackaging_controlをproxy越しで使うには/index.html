@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-03-20T19:59:53+09:00" />
 <meta itemprop="name" content="sublime textのpackaging controlをproxy越しで使うには">
 <meta itemprop="description" content="proxy越しのpackage control（最初のインストール） package controlインストール用のコードを修正する。 定石通り、以下からインス">
-
-
 <meta itemprop="datePublished" content="2015-03-20T19:59:53&#43;09:00" />
 <meta itemprop="dateModified" content="2015-03-20T19:59:53&#43;09:00" />
 <meta itemprop="wordCount" content="491">
 
 
 
-<meta itemprop="keywords" content="OS X,sublime,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="OS X,sublime,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="sublime textのpackaging controlをproxy越しで使うには"/>
 <meta name="twitter:description" content="proxy越しのpackage control（最初のインストール） package controlインストール用のコードを修正する。 定石通り、以下からインス"/>
 
@@ -140,39 +137,26 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="span-style-text-decoration-underline-proxy越しのpackage-control-最初のインストール-span"><span style="text-decoration: underline;">proxy越しのpackage control（最初のインストール）</span></h2>
-
-<p>package controlインストール用のコードを修正する。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlineproxypackage-controlspan"><!-- raw HTML omitted -->proxy越しのpackage control（最初のインストール）<!-- raw HTML omitted --></h2>
+<p>package controlインストール用のコードを修正する。<br>
 定石通り、以下からインストール用コードをコピー。</p>
-
-<p><a href="https://packagecontrol.io/installation" target="_blank"><a href="https://packagecontrol.io/installation">https://packagecontrol.io/installation</a></a></p>
-
+<p><!-- raw HTML omitted --><a href="https://packagecontrol.io/installation%3C/a%3E">https://packagecontrol.io/installation&lt;/a&gt;</a></p>
 <p>コードの中身をよく見ると、urllib.request.ProxyHandler() というのがあるはず。</p>
-
 <p>以下は例（見やすいように改行、インデントを加えてあります）</p>
-
-<pre><code class="language-console">（前略）
+<pre><code class="language-console" data-lang="console">（前略）
 sublime.installed_packages_path();
 urllib.request.install_opener(
 	urllib.request.build_opener(
 		urllib.request.ProxyHandler()
 	) 
 （後略）
-</code></pre>
-
-<p>このカッコのなかにdict型でproxyなどの設定を記述する。<br />
-書式は下記の通り。<br />
+</code></pre><p>このカッコのなかにdict型でproxyなどの設定を記述する。<br>
+書式は下記の通り。<br>
 http用、https用の二つを。</p>
-
-<pre><code class="language-console">{&quot;http&quot;: &quot;http://＜ユーザ名＞:＜パスワード＞@＜アドレス＞:＜ポート＞&quot;,
+<pre><code class="language-console" data-lang="console">{&quot;http&quot;: &quot;http://＜ユーザ名＞:＜パスワード＞@＜アドレス＞:＜ポート＞&quot;,
  &quot;https&quot;: &quot;https://＜ユーザ名＞:＜パスワード＞@＜アドレス＞:＜ポート＞&quot;}
-</code></pre>
-
-<p>例</p>
-
-<pre><code class="language-console">（前略）
+</code></pre><p>例</p>
+<pre><code class="language-console" data-lang="console">（前略）
 sublime.installed_packages_path();
 urllib.request.install_opener(
 	urllib.request.build_opener(
@@ -182,26 +166,17 @@ urllib.request.install_opener(
 		)
 	) 
 （後略）
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-proxy越しのpackage-control-packageインストール向け-span"><span style="text-decoration: underline;">proxy越しのpackage control（packageインストール向け）</span></h2>
-
-<p><a href="https://packagecontrol.io/docs/settings" target="_blank"><a href="https://packagecontrol.io/docs/settings">https://packagecontrol.io/docs/settings</a></a></p>
-
+</code></pre><h2 id="span-styletext-decoration-underlineproxypackage-controlpackagespan"><!-- raw HTML omitted -->proxy越しのpackage control（packageインストール向け）<!-- raw HTML omitted --></h2>
+<p><!-- raw HTML omitted --><a href="https://packagecontrol.io/docs/settings%3C/a%3E">https://packagecontrol.io/docs/settings&lt;/a&gt;</a></p>
 <p>以上の通り。</p>
-
-<p>Preferences &gt; Package Settings &gt; Package Control &gt; Settings – User と進み、表示されたファイルに設定を書き込む。<br />
+<p>Preferences &gt; Package Settings &gt; Package Control &gt; Settings – User と進み、表示されたファイルに設定を書き込む。<br>
 書式は以下の通り。</p>
-
-<pre><code class="language-console">&quot;http_proxy&quot;: &quot;http://[proxy_server]:[port]&quot;,
+<pre><code class="language-console" data-lang="console">&quot;http_proxy&quot;: &quot;http://[proxy_server]:[port]&quot;,
     &quot;https_proxy&quot;: &quot;https://[proxy_server]:[port]&quot;,
     &quot;proxy_username&quot;: &quot;username&quot;,
     &quot;proxy_password&quot;: &quot;password&quot;
-</code></pre>
-
-<p>変更例は以下の通り。</p>
-
-<pre><code class="language-console">{
+</code></pre><p>変更例は以下の通り。</p>
+<pre><code class="language-console" data-lang="console">{
 	&quot;http_proxy&quot;: &quot;http://somebody:password@proxy.server:8000&quot;,
 	&quot;https_proxy&quot;: &quot;https://somebody:password@proxy.server:8000&quot;,
 	&quot;proxy_username&quot;: &quot;somebody&quot;,
@@ -225,9 +200,7 @@ urllib.request.install_opener(
 		&quot;Theme - Spacegray&quot;
 	]
 }
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

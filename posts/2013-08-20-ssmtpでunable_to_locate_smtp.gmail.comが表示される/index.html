@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-08-20T21:09:40+09:00" />
 <meta itemprop="name" content="ssmtpでUnable to locate smtp.gmail.comが表示される。">
 <meta itemprop="description" content="ここで書いたように、自宅サーバーのroot宛メールをすべてgmailに転送しているのだが、ある日気が付くと、以下のようなメッセージがログに表">
-
-
 <meta itemprop="datePublished" content="2013-08-20T21:09:40&#43;09:00" />
 <meta itemprop="dateModified" content="2013-08-20T21:09:40&#43;09:00" />
 <meta itemprop="wordCount" content="202">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ssmtpでUnable to locate smtp.gmail.comが表示される。"/>
 <meta name="twitter:description" content="ここで書いたように、自宅サーバーのroot宛メールをすべてgmailに転送しているのだが、ある日気が付くと、以下のようなメッセージがログに表"/>
 
@@ -140,21 +137,15 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><a href="../../../?p=1825" target="_blank">ここ</a>で書いたように、自宅サーバーのroot宛メールをすべてgmailに転送しているのだが、ある日気が付くと、以下のようなメッセージがログに表示されている。</p>
-
-<pre><code class="language-console">sSMTP[1044]: Unable to locate smtp.gmail.com
-</code></pre>
-
-<p>気が付かなかったくらいだから、メールの転送に問題はない。<br />
-ないのだけど気持ち悪いので対策しよう。<br />
-原因はmailグループにrootのないこと。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><!-- raw HTML omitted -->ここ<!-- raw HTML omitted -->で書いたように、自宅サーバーのroot宛メールをすべてgmailに転送しているのだが、ある日気が付くと、以下のようなメッセージがログに表示されている。</p>
+<pre><code class="language-console" data-lang="console">sSMTP[1044]: Unable to locate smtp.gmail.com
+</code></pre><p>気が付かなかったくらいだから、メールの転送に問題はない。<br>
+ないのだけど気持ち悪いので対策しよう。<br>
+原因はmailグループにrootのないこと。<br>
 だから単純に/etc/groupでmailにrootを加えればOK。</p>
-
-<pre><code class="language-console">mail:*:6:clamav,root
-</code></pre>
-
-<p>参考<br />
- <a href="http://amirshk.com/blog/2012/10/01/forward-roots-mail-to-a-gmail-account-using-ssmtp/" target="_blank">Forwarding Root’s Mail to a Gmail Account using SSMTP</a></p>
+<pre><code class="language-console" data-lang="console">mail:*:6:clamav,root
+</code></pre><p>参考<br>
+<!-- raw HTML omitted -->Forwarding Root’s Mail to a Gmail Account using SSMTP<!-- raw HTML omitted --></p>
 <ul class="pa0">
   
 </ul>

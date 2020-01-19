@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-11-27T22:32:18+09:00" />
 <meta itemprop="name" content="Hadoopのインプット指定にワイルドカードが使える件について">
 <meta itemprop="description" content="Hadoopへのインプットはふつう、ディレクトリかファイルの指定で行う。 しかし以下のような場合にどうするか。 複数のディレクトリの下にあるファ">
-
-
 <meta itemprop="datePublished" content="2013-11-27T22:32:18&#43;09:00" />
 <meta itemprop="dateModified" content="2013-11-27T22:32:18&#43;09:00" />
 <meta itemprop="wordCount" content="475">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hadoopのインプット指定にワイルドカードが使える件について"/>
 <meta name="twitter:description" content="Hadoopへのインプットはふつう、ディレクトリかファイルの指定で行う。 しかし以下のような場合にどうするか。 複数のディレクトリの下にあるファ"/>
 
@@ -140,74 +137,51 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Hadoopへのインプットはふつう、ディレクトリかファイルの指定で行う。</p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Hadoopへのインプットはふつう、ディレクトリかファイルの指定で行う。</p>
 <p>しかし以下のような場合にどうするか。</p>
-
 <ul>
 <li>複数のディレクトリの下にあるファイルをhadoopに処理させたいとき。</li>
 <li>特定拡張子のファイルのみをhadoopに処理させたいとき。</li>
 </ul>
-
-<p>実はワイルドカードが使えるので、それで解決。<br />
+<p>実はワイルドカードが使えるので、それで解決。<br>
 以下、hadoop-1.0.0で確認。</p>
-
-<h2 id="span-style-text-decoration-underline-ケース1-複数ディレクトリの下に処理対象ファイルがある場合-span"><span style="text-decoration: underline;">ケース1:複数ディレクトリの下に処理対象ファイルがある場合。</span></h2>
-
-<pre><code class="language-console">top-+-dir1-file1
+<h2 id="span-styletext-decoration-underline1span"><!-- raw HTML omitted -->ケース1:複数ディレクトリの下に処理対象ファイルがある場合。<!-- raw HTML omitted --></h2>
+<pre><code class="language-console" data-lang="console">top-+-dir1-file1
     |     -file2
     |     -file3
     |
     +-dir2-file4
           -file5
           -file6
-</code></pre>
-
-<p>以上のような状態でhadoopへのinputにtopを指定すると、hadoopはdir1をファイルとして処理しようとし、失敗する。<br />
+</code></pre><p>以上のような状態でhadoopへのinputにtopを指定すると、hadoopはdir1をファイルとして処理しようとし、失敗する。<br>
 たとえばこのように。</p>
-
-<pre><code class="language-console">13/11/13 22:26:03 ERROR security.UserGroupInformation: PriviledgedActionException as:hadoop cause:java.io.IOException: Not a file: hdfs://namenode/user/hadoop/top/dir1
+<pre><code class="language-console" data-lang="console">13/11/13 22:26:03 ERROR security.UserGroupInformation: PriviledgedActionException as:hadoop cause:java.io.IOException: Not a file: hdfs://namenode/user/hadoop/top/dir1
 13/11/13 22:26:03 ERROR streaming.StreamJob: Error Launching job : Not a file:
 hdfs://namenode/user/hadoop/top/dir1
 Streaming Job Failed!
-</code></pre>
-
-<p>このような場合には、top/*と指定してあげればよい。<br />
+</code></pre><p>このような場合には、top/*と指定してあげればよい。<br>
 たとえばこのように。</p>
-
-<pre><code class="language-console">$ hadoop jar ${HADOOP_PREFIX}/contrib/streaming/hadoop-streaming-1.0.0.jar \
+<pre><code class="language-console" data-lang="console">$ hadoop jar ${HADOOP_PREFIX}/contrib/streaming/hadoop-streaming-1.0.0.jar \
 -D mapred.reduce.tasks=0 \
 -input top/*  \
 -output sampleoutput \
 -mapper /home/hadoop/map.py \
 -file /home/hadoop/map.py
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-ケース2-特定のファイルのみ処理したい場合-span"><span style="text-decoration: underline;">ケース2:特定のファイルのみ処理したい場合</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underline2span"><!-- raw HTML omitted -->ケース2:特定のファイルのみ処理したい場合<!-- raw HTML omitted --></h2>
 <p>たとえば以下のdir3で.txtのみを処理したい場合。</p>
-
-<pre><code class="language-console">-dir3-file1.txt
+<pre><code class="language-console" data-lang="console">-dir3-file1.txt
      -file2.bin
      -file3.txt
-</code></pre>
-
-<p>-input dir3/*.txtとすればよい。</p>
-
-<h2 id="span-style-text-decoration-underline-ケース3-ケース1-2の複合ケース-span"><span style="text-decoration: underline;">ケース3:ケース1/2の複合ケース</span></h2>
-
-<pre><code class="language-console">top-+-dir4-file1.txt
+</code></pre><p>-input dir3/*.txtとすればよい。</p>
+<h2 id="span-styletext-decoration-underline312span"><!-- raw HTML omitted -->ケース3:ケース1/2の複合ケース<!-- raw HTML omitted --></h2>
+<pre><code class="language-console" data-lang="console">top-+-dir4-file1.txt
     |     -file2.bin
     |     -file3.txt
     |
     +-dir5-file4.txt
           -file5.bin
           -file6.txt
-</code></pre>
-
-<p>合わせ技でtop/*/*.txtと指定すればよい。</p>
+</code></pre><p>合わせ技でtop/*/*.txtと指定すればよい。</p>
 <ul class="pa0">
   
 </ul>

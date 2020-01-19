@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-11-15T22:00:39+09:00" />
 <meta itemprop="name" content="[FreeBSD]rc.confの変更を少しだけ助けてくれるsysrc">
 <meta itemprop="description" content="たとえばApacheをインストールして、マシン起動時にApacheも起動してくれるよう、rc.confに「apache22_enable=&">
-
-
 <meta itemprop="datePublished" content="2013-11-15T22:00:39&#43;09:00" />
 <meta itemprop="dateModified" content="2013-11-15T22:00:39&#43;09:00" />
-<meta itemprop="wordCount" content="1028">
+<meta itemprop="wordCount" content="1025">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD]rc.confの変更を少しだけ助けてくれるsysrc"/>
 <meta name="twitter:description" content="たとえばApacheをインストールして、マシン起動時にApacheも起動してくれるよう、rc.confに「apache22_enable=&"/>
 
@@ -140,44 +137,30 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>たとえばApacheをインストールして、マシン起動時にApacheも起動してくれるよう、rc.confに「apache22_enable=&ldquo;YES&rdquo;」とタイプしているとき、たまに情けなくなったりしませんかね。<br />
-シンプルなのはいいけど、なんかこう、もうちょっとスマートにできないかとか。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>たとえばApacheをインストールして、マシン起動時にApacheも起動してくれるよう、rc.confに「apache22_enable=&quot;YES&rdquo;」とタイプしているとき、たまに情けなくなったりしませんかね。<br>
+シンプルなのはいいけど、なんかこう、もうちょっとスマートにできないかとか。<br>
 （こわごわ言うけど、Linuxだったらchkconfig httpd onとかで済むよね。）</p>
-
-<p>9.2-RELEASEから入ったsysrcというユーティリティがある。<br />
-rc.confの変更を少しだけ助けてくれるものだ。<br />
-<a href="../../../?p=1831" target="_blank">serviceコマンド</a>と併せて使えば、rc.conf周りの設定は少しだけ楽になる。</p>
-
+<p>9.2-RELEASEから入ったsysrcというユーティリティがある。<br>
+rc.confの変更を少しだけ助けてくれるものだ。<br>
+<!-- raw HTML omitted -->serviceコマンド<!-- raw HTML omitted -->と併せて使えば、rc.conf周りの設定は少しだけ楽になる。</p>
 <p>以下に使用例を示す。</p>
-
-<h2 id="span-style-text-decoration-underline-rc-conf設定の表示-span"><span style="text-decoration: underline;">rc.conf設定の表示</span></h2>
-
+<h2 id="span-styletext-decoration-underlinercconfspan"><!-- raw HTML omitted -->rc.conf設定の表示<!-- raw HTML omitted --></h2>
 <p>まずはrc.confで設定している変数を、sysrcに続けてタイプしてみる。</p>
-
-<pre><code class="language-console">$ sysrc hostname
+<pre><code class="language-console" data-lang="console">$ sysrc hostname
 hostname: ascomoid
 $ sysrc ifconfig_em0
 ifconfig_em0: DHCP
-</code></pre>
-
-<p>というように、現状の値を教えてくれる。</p>
-
+</code></pre><p>というように、現状の値を教えてくれる。</p>
 <p>sysrc -aでrc.confの設定を一覧できる。</p>
-
-<pre><code class="language-console">$ sysrc -a
+<pre><code class="language-console" data-lang="console">$ sysrc -a
 dumpdev: NO
 hostname: ascomoid
 ifconfig_em0: DHCP
 keymap: jp.106.kbd
 sshd_enable: YES
-</code></pre>
-
-<p>お気づきの通り、sysrc -aで表示されるのは、デフォルト設定から変更したものだけである。<br />
+</code></pre><p>お気づきの通り、sysrc -aで表示されるのは、デフォルト設定から変更したものだけである。<br>
 デフォルト設定も含めて全部表示するには-Aを与える。</p>
-
-<pre><code class="language-console">$ sysrc -A
+<pre><code class="language-console" data-lang="console">$ sysrc -A
 accept_sourceroute: NO
 accounting_enable: NO
 allscreens_flags:
@@ -186,14 +169,10 @@ allscreens_kbdflags:
 wpa_supplicant_program: /usr/sbin/wpa_supplicant
 zfs_enable: NO
 $
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-設定書き換え-span"><span style="text-decoration: underline;">設定書き換え</span></h2>
-
-<p>sysrcに変数設定を与えると、rc.confを書き換えてくれる。<br />
-例えばsysrc sshd_enable=&ldquo;NO&rdquo;というようにすると、/etc/rc.confの該当行が書き換わる。</p>
-
-<pre><code class="language-console">$ sysrc sshd_enable
+</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->設定書き換え<!-- raw HTML omitted --></h2>
+<p>sysrcに変数設定を与えると、rc.confを書き換えてくれる。<br>
+例えばsysrc sshd_enable=&quot;NO&quot;というようにすると、/etc/rc.confの該当行が書き換わる。</p>
+<pre><code class="language-console" data-lang="console">$ sysrc sshd_enable
 sshd_enable: YES
 $ grep sshd_enable /etc/rc.conf
 sshd_enable=&quot;YES&quot;
@@ -206,12 +185,9 @@ sshd_enable=&quot;NO&quot;
 $ sysrc sshd_enable
 sshd_enable: NO
 $
-</code></pre>
-
-<p>/etc/rc.confになく、/etc/defaults/rc.confにあるものでもOK。<br />
+</code></pre><p>/etc/rc.confになく、/etc/defaults/rc.confにあるものでもOK。<br>
 zfs_enableを指定すると新しく/etc/rc.confに行が追加される。</p>
-
-<pre><code class="language-console">$ sysrc zfs_enable
+<pre><code class="language-console" data-lang="console">$ sysrc zfs_enable
 zfs_enable: NO
 $ grep zfs_enable /etc/rc.conf
 $
@@ -221,35 +197,24 @@ $ sysrc zfs_enable
 zfs_enable: YES
 $ grep zfs_enable /etc/rc.conf
 zfs_enable=&quot;YES&quot;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-設定書き換え-rc-confからの削除-span"><span style="text-decoration: underline;">設定書き換え（rc.confからの削除）</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinercconfspan-1"><!-- raw HTML omitted -->設定書き換え（rc.confからの削除）<!-- raw HTML omitted --></h2>
 <p>zfs_enableをNOに戻すが、/etc/rc.confに記載が残ってしまった。</p>
-
-<pre><code class="language-console">$ sudo sysrc zfs_enable=&quot;NO&quot;
+<pre><code class="language-console" data-lang="console">$ sudo sysrc zfs_enable=&quot;NO&quot;
 zfs_enable: YES -&gt; NO
 $ grep zfs_enable /etc/rc.conf
 zfs_enable=&quot;NO&quot;
 $
-</code></pre>
-
-<p>このままでも、とうぜん害はないが、-xで指定すれば削除できる。</p>
-
-<pre><code class="language-console">$ sudo sysrc -x zfs_enable
+</code></pre><p>このままでも、とうぜん害はないが、-xで指定すれば削除できる。</p>
+<pre><code class="language-console" data-lang="console">$ sudo sysrc -x zfs_enable
 $ grep zfs_enable /etc/rc.conf
 $
 $ sysrc zfs_enable
 zfs_enable: NO
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-設定書き換え-新規ソフトウェア-span"><span style="text-decoration: underline;">設定書き換え（新規ソフトウェア）</span></h2>
-
-<p>では/etc/rc.conf, /etc/defaults/rc.confの双方にない変数は？<br />
-これも追加できる。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->設定書き換え（新規ソフトウェア）<!-- raw HTML omitted --></h2>
+<p>では/etc/rc.conf, /etc/defaults/rc.confの双方にない変数は？<br>
+これも追加できる。<br>
 以下はlighttpdの場合。</p>
-
-<pre><code class="language-console">$ sysrc lighttpd_enable
+<pre><code class="language-console" data-lang="console">$ sysrc lighttpd_enable
 sysrc: unknown variable 'lighttpd_enable'
 $
 
@@ -261,20 +226,15 @@ lighttpd_enable: YES
 $ grep lighttpd /etc/rc.conf
 lighttpd_enable=&quot;YES&quot;
 $
-</code></pre>
-
-<p>もちろん削除も可能。</p>
-
-<pre><code class="language-console">$ sudo sysrc -x lighttpd_enable
+</code></pre><p>もちろん削除も可能。</p>
+<pre><code class="language-console" data-lang="console">$ sudo sysrc -x lighttpd_enable
 $
 $ grep lighttpd /etc/rc.conf
 $
 $ sysrc lighttpd_enable
 sysrc: unknown variable 'lighttpd_enable'
 $
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
 </ul>

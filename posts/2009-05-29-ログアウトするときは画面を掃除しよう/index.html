@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-05-29T01:00:00+09:00" />
 <meta itemprop="name" content="ログアウトするときは画面を掃除しよう。">
 <meta itemprop="description" content="システムコンソールからログアウトしたときに画面をクリアすることで、画面に残った作業ログを漁られないようにしよう、という話。 以下のコマンドを~">
-
-
 <meta itemprop="datePublished" content="2009-05-29T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-05-29T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="337">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ログアウトするときは画面を掃除しよう。"/>
 <meta name="twitter:description" content="システムコンソールからログアウトしたときに画面をクリアすることで、画面に残った作業ログを漁られないようにしよう、という話。 以下のコマンドを~"/>
 
@@ -153,25 +150,19 @@ if (!doNotTrack) {
 
 shなら~/.logout、bashなら~/.bash_logout。
 </code></pre>
-
-<pre><code class="language-console">clear
+<pre><code class="language-console" data-lang="console">clear
 vidcontrol -C
-</code></pre>
-
-<pre><code>clearだけでは不十分であることに注意。Screen Lockして画面を遡ればバッファに残った分がずらずらと出てくる。vidcontrol -Cでバッファをクリアすること。
+</code></pre><pre><code>clearだけでは不十分であることに注意。Screen Lockして画面を遡ればバッファに残った分がずらずらと出てくる。vidcontrol -Cでバッファをクリアすること。
 
 
 
 以下、manからの引用
 </code></pre>
-
-<pre><code class="language-console">NAME
+<pre><code class="language-console" data-lang="console">NAME
 vidcontrol  system console control and configuration utility
 (略)
 -C      Clear the history buffer.
-</code></pre>
-
-<pre><code>こうしておくと、ログアウト時に画面がクリアされログインプロンプトが画面トップに現れる。ちょっと気分がいい。
+</code></pre><pre><code>こうしておくと、ログアウト時に画面がクリアされログインプロンプトが画面トップに現れる。ちょっと気分がいい。
 
 
 

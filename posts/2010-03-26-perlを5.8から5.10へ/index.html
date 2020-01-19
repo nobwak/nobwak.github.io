@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-03-26T01:00:00+09:00" />
 <meta itemprop="name" content="perlを5.8から5.10へ。">
 <meta itemprop="description" content="perlのデフォルトバージョンが5.8から5.10に上がった。 /usr/ports/UPDATINGによれば2/5なんで、一ヶ月以上まえのこ">
-
-
 <meta itemprop="datePublished" content="2010-03-26T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-03-26T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="377">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="perlを5.8から5.10へ。"/>
 <meta name="twitter:description" content="perlのデフォルトバージョンが5.8から5.10に上がった。 /usr/ports/UPDATINGによれば2/5なんで、一ヶ月以上まえのこ"/>
 
@@ -158,8 +155,7 @@ portsでなくpackagesで入れ替え。
 
 portupgradeとほぼ同等の機能をもっているのに、シェルスクリプトで書かれているので単体でインストールできるpkg_replaceを使った。
 </code></pre>
-
-<pre><code class="language-console">$ sudo pkg_replace -P perl=/usr/ports/lang/perl5.10
+<pre><code class="language-console" data-lang="console">$ sudo pkg_replace -P perl=/usr/ports/lang/perl5.10
 ---&gt;  Replacing &amp;#39;perl-5.8.9_3&amp;#39; with &amp;#39;perl-5.10.1&amp;#39;
 ---&gt;  Fetching &amp;#39;ftp://ftp1.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7.3-re
 lease/All/perl-5.10.1.tbz&amp;#39;
@@ -167,9 +163,7 @@ lease/All/perl-5.10.1.tbz&amp;#39;
 ---&gt;  Found a package of &amp;#39;perl-5.10.1&amp;#39;: /usr/ports/packages/All/perl-5.10.1.tbz
 ---&gt;  Backing up the old version
 （略）
-</code></pre>
-
-<pre><code>perlに依存しているものはすべて作り直せと書かれているが、必要なサービスは問題なく動いているようだったので、目についたものだけpkg_replace -Pで再インストールした。
+</code></pre><pre><code>perlに依存しているものはすべて作り直せと書かれているが、必要なサービスは問題なく動いているようだったので、目についたものだけpkg_replace -Pで再インストールした。
 </code></pre>
 <ul class="pa0">
   

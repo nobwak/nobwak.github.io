@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-09-14T21:06:48+09:00" />
 <meta itemprop="name" content="[メモ][Python][SQLite] 巨大なSQLiteデータベースからレコードを取り出すには">
 <meta itemprop="description" content="PythonでSQLiteのデータベースからデータを抜き取るときには何種類か方法がある。 fetchallで一気に取得する方法 fetchone">
-
-
 <meta itemprop="datePublished" content="2014-09-14T21:06:48&#43;09:00" />
 <meta itemprop="dateModified" content="2014-09-14T21:06:48&#43;09:00" />
 <meta itemprop="wordCount" content="410">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,OS X,python,tip,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,OS X,python,tip,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ][Python][SQLite] 巨大なSQLiteデータベースからレコードを取り出すには"/>
 <meta name="twitter:description" content="PythonでSQLiteのデータベースからデータを抜き取るときには何種類か方法がある。 fetchallで一気に取得する方法 fetchone"/>
 
@@ -141,39 +138,31 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>PythonでSQLiteのデータベースからデータを抜き取るときには何種類か方法がある。</p>
-
 <ol>
 <li>fetchallで一気に取得する方法</li>
 <li>fetchoneを繰り返す方法</li>
 <li>fetchmanyで数行ずつ取得する方法</li>
 </ol>
-
 <p>である。</p>
-
-<p>fetchoneはダルいから、いままではfetchallを使っていた。<br />
-単純に気持ちの問題なんだけれども、根こそぎぶっこ抜いてリストにいったん入れてしまえば、あとはフッツーのPythonで流儀で操作できるからである。<br />
-しかし。この方法には問題がある。<br />
-fetchallで全部を取り出した先はどこかと言えば、メモリである。<br />
-つまり、データベースが巨大になるほど、メモリをバカ食いするわけである。<br />
+<p>fetchoneはダルいから、いままではfetchallを使っていた。<br>
+単純に気持ちの問題なんだけれども、根こそぎぶっこ抜いてリストにいったん入れてしまえば、あとはフッツーのPythonで流儀で操作できるからである。<br>
+しかし。この方法には問題がある。<br>
+fetchallで全部を取り出した先はどこかと言えば、メモリである。<br>
+つまり、データベースが巨大になるほど、メモリをバカ食いするわけである。<br>
 これはたまらん。</p>
-
 <p>そこで以下のようにする。</p>
-
-<pre><code class="language-console">def getAllRecords(cursor, arraysize=1000):
+<pre><code class="language-console" data-lang="console">def getAllRecords(cursor, arraysize=1000):
     while True:
         records = cursor.fetchmany(arraysize)
         if not records:
             break
         for record in records:
             yield record
-</code></pre>
-
-<p>データベースから1000行ずつ取り出し、かつ、1行ずつyieldする。<br />
+</code></pre><p>データベースから1000行ずつ取り出し、かつ、1行ずつyieldする。<br>
 メモリ使用量も抑えて、かつスピードも出る方法である。</p>
-
-<p>元ネタは以下。<br />
-Use generators for fetching large db record sets (Python recipe)<br />
-<a href="http://code.activestate.com/recipes/137270-use-generators-for-fetching-large-db-record-sets/" target="_blank"><a href="http://code.activestate.com/recipes/137270-use-generators-for-fetching-large-db-record-sets/">http://code.activestate.com/recipes/137270-use-generators-for-fetching-large-db-record-sets/</a></a></p>
+<p>元ネタは以下。<br>
+Use generators for fetching large db record sets (Python recipe)<br>
+<!-- raw HTML omitted --><a href="http://code.activestate.com/recipes/137270-use-generators-for-fetching-large-db-record-sets/%3C/a%3E">http://code.activestate.com/recipes/137270-use-generators-for-fetching-large-db-record-sets/&lt;/a&gt;</a></p>
 <ul class="pa0">
   
    <li class="list">

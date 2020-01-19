@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -29,25 +29,22 @@
     
 
     <meta property="og:title" content="ZFSの重複ファイル節約機能dedupがすげえ（ただしメモリ大尽に限る）" />
-<meta property="og:description" content="最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 Dedupとは ZFSにはdedupという機能があ" />
+<meta property="og:description" content="最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 ZFSにはdedupという機能がある。 その機能を" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nobwak.github.io/posts/2012-03-18-zfs%E3%81%AE%E9%87%8D%E8%A4%87%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AF%80%E7%B4%84%E6%A9%9F%E8%83%BDdedup%E3%81%8C%E3%81%99%E3%81%92%E3%81%88%E3%81%9F%E3%81%A0%E3%81%97%E3%83%A1%E3%83%A2%E3%83%AA%E5%A4%A7%E5%B0%BD%E3%81%AB%E9%99%90%E3%82%8B/" />
 <meta property="article:published_time" content="2012-03-18T01:00:00+09:00" />
 <meta property="article:modified_time" content="2012-03-18T01:00:00+09:00" />
 <meta itemprop="name" content="ZFSの重複ファイル節約機能dedupがすげえ（ただしメモリ大尽に限る）">
-<meta itemprop="description" content="最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 Dedupとは ZFSにはdedupという機能があ">
-
-
+<meta itemprop="description" content="最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 ZFSにはdedupという機能がある。 その機能を">
 <meta itemprop="datePublished" content="2012-03-18T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-18T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="1805">
+<meta itemprop="wordCount" content="1749">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ZFSの重複ファイル節約機能dedupがすげえ（ただしメモリ大尽に限る）"/>
-<meta name="twitter:description" content="最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 Dedupとは ZFSにはdedupという機能があ"/>
+<meta name="twitter:description" content="最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 ZFSにはdedupという機能がある。 その機能を"/>
 
       
 <script type="application/javascript">
@@ -142,11 +139,7 @@ if (!doNotTrack) {
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。
 </code></pre>
-
-<p><h2>
-    <span style="text-decoration: underline;"><span class="deco">Dedupとは</span></span>
-  </h2></p>
-
+<!-- raw HTML omitted -->
 <pre><code>ZFSにはdedupという機能がある。
 
 
@@ -221,11 +214,7 @@ if (!doNotTrack) {
 
 つまり大目に見積もっても1GBと128KBだけの消費でよいわけ。
 </code></pre>
-
-<p><h2>
-    <span style="text-decoration: underline;"><span class="deco">種明かし:テーブルと大量のメモリ</span></span>
-  </h2></p>
-
+<!-- raw HTML omitted -->
 <pre><code>なぜそんなことができるのか。
 
 
@@ -277,11 +266,7 @@ dedupを有効に使うには、テーブルを置けるほど十分なメモリ
 
 月並みだけど、よく考えた方がいいよね。
 </code></pre>
-
-<p><h2>
-    <span style="text-decoration: underline;"><span class="deco">Dedupの見積もり。</span></span>
-  </h2></p>
-
+<!-- raw HTML omitted -->
 <pre><code>では仮に2TBのデータが詰まったZFSでDedupしたら、どれくらいのメモリが必要か。
 
 
@@ -300,32 +285,24 @@ zfsのブロックサイズは512Bから128KBで可変。
 
 では計算。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  2TB=1024 * 1024 * 1024 * 2 = 2147,483,648KB。
 
 
 
   2TB/64KB=33,554,432 blocks
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>2TBは33,554,432 blocks。
 
 
 
 1blockあたり320Bytesなので、かければテーブルに必要なサイズが出る。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  33,554,432 blocks * 320 Bytes = 10,737,418,240 = 10GBytes
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>はい解散。
 
 
@@ -340,11 +317,7 @@ zfsのブロックサイズは512Bから128KBで可変。
 
 2TBのプールに100bytes程度のファイル一つ置いただけなら、ハッシュテーブルは320Bytes程度。
 </code></pre>
-
-<p><h2>
-    <span style="text-decoration: underline;"><span class="deco">Dedupの活きる道</span></span>
-  </h2></p>
-
+<!-- raw HTML omitted -->
 <pre><code>そもそも2TB全部にDedupするのが間違いであった。
 
 
@@ -375,8 +348,7 @@ zdbにプール名を与えてやればいい。
 
 ちなみに、あるプールに同一のファイルを3つだけ置くとここが3.00になる。
 </code></pre>
-
-<pre><code class="language-console">$ sudo zdb -S vault
+<pre><code class="language-console" data-lang="console">$ sudo zdb -S vault
 パスワード:
 Simulated DDT histogram:
 bucket              allocated                       referenced
@@ -395,12 +367,7 @@ refcnt   blocks   LSIZE   PSIZE   DSIZE   blocks   LSIZE   PSIZE   DSIZE
 64K        1    128K    128K    128K    73.4K   9.18G   9.18G   9.18G
 Total    8.62M   1.07T   1.07T   1.07T    9.10M   1.13T   1.13T   1.13T
 dedup = 1.06, compress = 1.00, copies = 1.00, dedup * compress / copies = 1.0
-</code></pre>
-
-<p><h2>
-    <span style="text-decoration: underline;"><span class="deco" style="font-weight: bold;">DedupのONのしかた</span></span>
-  </h2></p>
-
+</code></pre><!-- raw HTML omitted -->
 <pre><code>まあzfs set dedup=ONとかすればいいんだけど、現状使う予定もないので詳しく調べてない。
 </code></pre>
 <ul class="pa0">

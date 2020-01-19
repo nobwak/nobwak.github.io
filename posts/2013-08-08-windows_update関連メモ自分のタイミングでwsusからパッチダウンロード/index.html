@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-08-08T22:01:57+09:00" />
 <meta itemprop="name" content="Windows Update関連メモ（自分のタイミングでWSUSからパッチダウンロード）">
 <meta itemprop="description" content="Windows Updateはすごく重い。 なにか作業している裏で走られるとストレスだ。 加えて「パッチを入れろ入れろ」と鬱陶しいことこの上ない。 会社のPCだ">
-
-
 <meta itemprop="datePublished" content="2013-08-08T22:01:57&#43;09:00" />
 <meta itemprop="dateModified" content="2013-08-08T22:01:57&#43;09:00" />
 <meta itemprop="wordCount" content="484">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Windows Update関連メモ（自分のタイミングでWSUSからパッチダウンロード）"/>
 <meta name="twitter:description" content="Windows Updateはすごく重い。 なにか作業している裏で走られるとストレスだ。 加えて「パッチを入れろ入れろ」と鬱陶しいことこの上ない。 会社のPCだ"/>
 
@@ -140,41 +137,27 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Windows Updateはすごく重い。<br />
-なにか作業している裏で走られるとストレスだ。<br />
-加えて「パッチを入れろ入れろ」と鬱陶しいことこの上ない。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Windows Updateはすごく重い。<br>
+なにか作業している裏で走られるとストレスだ。<br>
+加えて「パッチを入れろ入れろ」と鬱陶しいことこの上ない。<br>
 会社のPCだったりすると問答無用でインストールまでされて、思わぬ瞬間に再起動されることだってある。</p>
-
-<p>問題は何かといえば、こちらの意図しないタイミングでHDDをガリガリやられたり再起動されることだ。<br />
-ということで、自分でWindows Updateを走らせる。<br />
-会社のPCだと、パッチはWSUS経由で、通常のWindows Updateからではインストールできない事がある。<br />
+<p>問題は何かといえば、こちらの意図しないタイミングでHDDをガリガリやられたり再起動されることだ。<br>
+ということで、自分でWindows Updateを走らせる。<br>
+会社のPCだと、パッチはWSUS経由で、通常のWindows Updateからではインストールできない事がある。<br>
 そこでwuaucltコマンドを使う。</p>
-
 <p>Windowsの更新があるか確認するには、以下のコマンドを実行する。</p>
-
-<pre><code class="language-console">wuauclt /detectnow
-</code></pre>
-
-<p>WSUSサーバ経由でWindows Updateしてるなら、以下のようにすると、サーバ側Cookieを破棄させる。詳細は後述のリンク。<br />
+<pre><code class="language-console" data-lang="console">wuauclt /detectnow
+</code></pre><p>WSUSサーバ経由でWindows Updateしてるなら、以下のようにすると、サーバ側Cookieを破棄させる。詳細は後述のリンク。<br>
 ※オプションの順番はこの通りでないとダメ。</p>
-
-<pre><code class="language-console">wuauclt /resetauthorization /detectnow
-</code></pre>
-
-<p>さらにさらに、クライアントのWindows Updateサービスを再起動すればより確実に。</p>
-
-<pre><code class="language-console">net stop wuauserv
+<pre><code class="language-console" data-lang="console">wuauclt /resetauthorization /detectnow
+</code></pre><p>さらにさらに、クライアントのWindows Updateサービスを再起動すればより確実に。</p>
+<pre><code class="language-console" data-lang="console">net stop wuauserv
 net start wuauserv
 wuauclt /resetauthorization /detectnow
-</code></pre>
-
-<p>ログは以下の場所に。</p>
-
-<pre><code class="language-console">%systemroot%\WindowsUpdate.log
-</code></pre>
-
-<p>参考<br />
-<a href="http://technet.microsoft.com/ja-jp/library/cc708617%28v=ws.10%29.aspx" target="_blank">コマンド ライン オプションを使用して自動更新の動作を調整する</a></p>
+</code></pre><p>ログは以下の場所に。</p>
+<pre><code class="language-console" data-lang="console">%systemroot%\WindowsUpdate.log
+</code></pre><p>参考<br>
+<!-- raw HTML omitted -->コマンド ライン オプションを使用して自動更新の動作を調整する<!-- raw HTML omitted --></p>
 <ul class="pa0">
   
 </ul>

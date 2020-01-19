@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-03-06T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDにMacのファイル共有プロトコルAFPを喋らす。（追記あり）">
 <meta itemprop="description" content="AFP(Apple Filing Protocol)。 Macのファイル共有はOSXからSMB/CIFSになったと勝手に思いこんでたから驚いた。AppleTalkが今に生き">
-
-
 <meta itemprop="datePublished" content="2012-03-06T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-06T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1706">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDにMacのファイル共有プロトコルAFPを喋らす。（追記あり）"/>
 <meta name="twitter:description" content="AFP(Apple Filing Protocol)。 Macのファイル共有はOSXからSMB/CIFSになったと勝手に思いこんでたから驚いた。AppleTalkが今に生き"/>
 
@@ -189,14 +186,11 @@ Macのファイル共有で面白いのは各ファイル、フォルダに固�
 
 &lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;net/netatalkからインストール&lt;/span&gt;
 </code></pre>
-
-<pre><code class="language-console"># cd /usr/ports/net/netatalk
+<pre><code class="language-console" data-lang="console"># cd /usr/ports/net/netatalk
 # make config
 Apple Talkを外す。
 # make install clean
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;苦難の設定&lt;/span&gt;
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;苦難の設定&lt;/span&gt;
 
 
 
@@ -226,16 +220,13 @@ Apple Talkを外す。
 
 変えたのは以下の二点。
 </code></pre>
-
-<pre><code class="language-console">#### machine&amp;#39;s AFPserver/AppleTalk name.
+<pre><code class="language-console" data-lang="console">#### machine&amp;#39;s AFPserver/AppleTalk name.
 ATALK_NAME=sylph_osx
 #### Set which daemons to run.
 #### If you use AFP file server, run both cnid_metad and afpd.
 CNID_METAD_RUN=yes
 AFPD_RUN=yes
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;/usr/local/etc/afpd.conf&lt;/span&gt;
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;/usr/local/etc/afpd.conf&lt;/span&gt;
 
 
 
@@ -260,13 +251,10 @@ AFPD_RUN=yes
 
 ~はホームディレクトリだな。
 </code></pre>
-
-<pre><code class="language-console">:DEFAULT: options:upriv,usedots
+<pre><code class="language-console" data-lang="console">:DEFAULT: options:upriv,usedots
 ~
 /export/itunes itunes
-</code></pre>
-
-<pre><code>なお、以下にオプションが山ほど。
+</code></pre><pre><code>なお、以下にオプションが山ほど。
 
 
 
@@ -284,18 +272,12 @@ AFPD_RUN=yes
 
 オプションでめぼしいものは以下の二つくらいかな。
 </code></pre>
-
-<pre><code class="language-console">tm OSXのタイムマシンサポートを有効に。
+<pre><code class="language-console" data-lang="console">tm OSXのタイムマシンサポートを有効に。
 ro 読み取り専用
+</code></pre><pre><code>複数指定する場合にはたとえば（実際にはtmとroを一緒に使うことはないが）以下のようにカンマ(,)でつなぐ。
 </code></pre>
-
-<pre><code>複数指定する場合にはたとえば（実際にはtmとroを一緒に使うことはないが）以下のようにカンマ(,)でつなぐ。
-</code></pre>
-
-<pre><code class="language-console">/dir/path share options:tm,ro
-</code></pre>
-
-<pre><code>そうしたら、/etc/rc.confに以下を追加する。
+<pre><code class="language-console" data-lang="console">/dir/path share options:tm,ro
+</code></pre><pre><code>そうしたら、/etc/rc.confに以下を追加する。
 
 
 
@@ -305,17 +287,14 @@ netatalkを動かすにはavahi_daemonが必要で、avahiを動かすにはdbus
 
 なお運用中に設定を変更した場合にはこれらサービスをすべて再起動したほうがいいようだ。
 </code></pre>
-
-<pre><code class="language-console">#AFP
+<pre><code class="language-console" data-lang="console">#AFP
 dbus_enable=&amp;#34;YES&amp;#34;
 avahi_daemon_enable=&amp;#34;YES&amp;#34;
 avahi_dnsconfd_enable=&amp;#34;YES&amp;#34;
 netatalk_enable=&amp;#34;YES&amp;#34;
 cnid_metad_enable=&amp;#34;YES&amp;#34;
 afpd_enable=&amp;#34;YES&amp;#34;
-</code></pre>
-
-<pre><code>で、再起動するか、/usr/local/etc/rc.dで上から順番に起動させればOK。
+</code></pre><pre><code>で、再起動するか、/usr/local/etc/rc.dで上から順番に起動させればOK。
 
 
 
@@ -337,8 +316,7 @@ macからはafp://&lt;ホスト&gt;の書式でアクセスできる。
 
 何が悪いのだろう?
 </code></pre>
-
-<pre><code class="language-console">Mar  6 06:35:22 isis afpd&amp;#91;3237]: afp_disconnect: trying primary reconnect
+<pre><code class="language-console" data-lang="console">Mar  6 06:35:22 isis afpd&amp;#91;3237]: afp_disconnect: trying primary reconnect
 Mar  6 06:35:22 isis afpd&amp;#91;1695]: Reconnect: transfering session to child&amp;#91;1697]
 Mar  6 06:35:22 isis afpd&amp;#91;1695]: Reconnect: killing new session child&amp;#91;3237] after transfer
 Mar  6 06:35:22 isis afpd&amp;#91;1697]: afp_dsi_transfer_session: succesfull primary reconnect
@@ -349,8 +327,7 @@ Mar  6 06:38:18 isis afpd&amp;#91;1697]: dsi_stream_send: Broken pipe
 Mar  6 06:38:18 isis afpd&amp;#91;1697]: dsi_wrtreply: Broken pipe
 Mar  6 06:38:18 isis afpd&amp;#91;1697]: dsi_disconnect: entering disconnected state
 Mar  6 06:38:18 isis afpd&amp;#91;1697]: dsi_disconnect: entering disconnected state
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

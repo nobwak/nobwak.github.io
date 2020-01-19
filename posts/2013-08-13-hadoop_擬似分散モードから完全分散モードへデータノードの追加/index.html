@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-08-13T21:34:28+09:00" />
 <meta itemprop="name" content="[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）">
 <meta itemprop="description" content="Hadoopへのノードの追加 hadoopの長所は、処理量に応じて簡単にスケールできる点にある。 処理がおっつかなくなってきたら、データノードを">
-
-
 <meta itemprop="datePublished" content="2013-08-13T21:34:28&#43;09:00" />
 <meta itemprop="dateModified" content="2013-08-13T21:34:28&#43;09:00" />
-<meta itemprop="wordCount" content="2287">
+<meta itemprop="wordCount" content="2332">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）"/>
 <meta name="twitter:description" content="Hadoopへのノードの追加 hadoopの長所は、処理量に応じて簡単にスケールできる点にある。 処理がおっつかなくなってきたら、データノードを"/>
 
@@ -140,98 +137,63 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="span-style-text-decoration-underline-hadoopへのノードの追加-span"><span style="text-decoration: underline;">Hadoopへのノードの追加</span></h2>
-
-<p>hadoopの長所は、処理量に応じて簡単にスケールできる点にある。<br />
-処理がおっつかなくなってきたら、データノードを追加するだけ。<br />
-擬似分散モードから完全分散モードへの移行は、データノードの追加と同じ。<br />
-もう少し詳しく言うと、最初の1台をnamenode/jobtrackerのままにして、datanode/tasktrackerを追加する。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlinehadoopspan"><!-- raw HTML omitted -->Hadoopへのノードの追加<!-- raw HTML omitted --></h2>
+<p>hadoopの長所は、処理量に応じて簡単にスケールできる点にある。<br>
+処理がおっつかなくなってきたら、データノードを追加するだけ。<br>
+擬似分散モードから完全分散モードへの移行は、データノードの追加と同じ。<br>
+もう少し詳しく言うと、最初の1台をnamenode/jobtrackerのままにして、datanode/tasktrackerを追加する。<br>
 ※FreeBSDで、hadoop-1.0.0です。</p>
-
-<h2 id="span-style-text-decoration-underline-背景-span"><span style="text-decoration: underline;">背景</span></h2>
-
-<p>namenode, datanodeはHDFSのノード種別を表し、namenodeはファイルのメタデータを扱い、datanodeは実データを扱う。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->背景<!-- raw HTML omitted --></h2>
+<p>namenode, datanodeはHDFSのノード種別を表し、namenodeはファイルのメタデータを扱い、datanodeは実データを扱う。<br>
 namenodeはhadoopクラスタに原則1台。datanodeは1台以上必要。</p>
-
-<p>jobtracker, tasktrackerはMapReduceでのノード種別を表し、jobtrackerは作業の分担を、tasktrackerは作業の実施を行う。<br />
+<p>jobtracker, tasktrackerはMapReduceでのノード種別を表し、jobtrackerは作業の分担を、tasktrackerは作業の実施を行う。<br>
 jobtrackerはhadoopクラスタに原則1台。tasktrackerは1台以上必要。</p>
-
-<p>hadoopクラスタに参加しているノードは、4つの役割のいずれかを担う。複数の役割をこなすのも可。<br />
-ただしdatanodeとtasktrackerは必ずセット。<br />
+<p>hadoopクラスタに参加しているノードは、4つの役割のいずれかを担う。複数の役割をこなすのも可。<br>
+ただしdatanodeとtasktrackerは必ずセット。<br>
 イメージを示す。</p>
-
-<p><a href="../../../wp-content/uploads/2013/08/hadoopmode.png"><img class="alignnone size-medium wp-image-2159" alt="hadoopmode" src="../../../wp-content/uploads/2013/08/hadoopmode-300x138.png" width="300" height="138" srcset="../../../wp-content/uploads/2013/08/hadoopmode-300x138.png 300w, ../../../wp-content/uploads/2013/08/hadoopmode.png 452w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
-
-<h2 id="span-style-text-decoration-underline-設定ファイル-span"><span style="text-decoration: underline;">設定ファイル</span></h2>
-
+<p><a href="../../../wp-content/uploads/2013/08/hadoopmode.png"><!-- raw HTML omitted --></a></p>
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->設定ファイル<!-- raw HTML omitted --></h2>
 <p>再掲になるが。</p>
-
-<p>どのノードがnamenodeかを指定するのは、core-site.xml 。<br />
-どのノードがjobtrackerかを指定するのは、mapred-site.xml 。<br />
+<p>どのノードがnamenodeかを指定するのは、core-site.xml 。<br>
+どのノードがjobtrackerかを指定するのは、mapred-site.xml 。<br>
 どのノードがdatanode/tasktrackerかを指定するのは、slaves 。</p>
-
 <p>擬似分散モードでは、以上3つのファイルに1ノードしか書かれていなかった。</p>
-
-<p>ノードを追加するなら、slavesにdatanode/tasktrackerを追記すればよい。<br />
-擬似分散モードの状態からjobtrackerを分離するには、mapred-site.xmlを書き換えればよい。<br />
+<p>ノードを追加するなら、slavesにdatanode/tasktrackerを追記すればよい。<br>
+擬似分散モードの状態からjobtrackerを分離するには、mapred-site.xmlを書き換えればよい。<br>
 擬似分散モードの状態からnamenodeを分離するには、core-site.xmlを書き換えればよいけど、HDFS上にすでにファイルを置いている状態でそんなことするとファイルが吹き飛ぶので止めよう。</p>
-
 <p>そしてこれら設定ファイルは、クラスタ内のノードで同じものを使う。</p>
-
-<h2 id="span-style-text-decoration-underline-作業の流れ-span"><span style="text-decoration: underline;">作業の流れ。</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->作業の流れ。<!-- raw HTML omitted --></h2>
 <p>datanode/tasktrackerを追加してみる。</p>
-
-<p>擬似分散モードを仮想マシンで動かしている場合には、それをまるまるコピーしてしまえばよい。<br />
-私の場合は、ESXi上でHadoop環境を作ったので、それをコピーし、別マシンのESXiに移し替えた。<br />
+<p>擬似分散モードを仮想マシンで動かしている場合には、それをまるまるコピーしてしまえばよい。<br>
+私の場合は、ESXi上でHadoop環境を作ったので、それをコピーし、別マシンのESXiに移し替えた。<br>
 もちろんホスト名は別のものにする。</p>
-
-<p>ESXiなどを挟まない場合にはもう一度セットアップ。<br />
+<p>ESXiなどを挟まない場合にはもう一度セットアップ。<br>
 ほんとに面倒くさいので、chefやらpuppetなどを使うことになるでしょう。</p>
-
 <p>なお、ESXiは使わない方がパフォーマンスは良い。これは当たり前。</p>
-
-<h2 id="span-style-text-decoration-underline-追加ノードの注意点-span"><span style="text-decoration: underline;">追加ノードの注意点</span></h2>
-
-<p>便宜上、擬似分散モードを動かしたノードをoriginal、追加するノードをaddとする。<br />
+<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->追加ノードの注意点<!-- raw HTML omitted --></h2>
+<p>便宜上、擬似分散モードを動かしたノードをoriginal、追加するノードをaddとする。<br>
 addを追加するときの注意点は以下の通り。</p>
-
-<p><span style="text-decoration: underline;">/etc/hostsの設定。</span></p>
-
+<p><!-- raw HTML omitted -->/etc/hostsの設定。<!-- raw HTML omitted --></p>
 <p>original, addの/etc/hostsには、original, addの名前解決ができるようにしておくこと。</p>
-
-<p><span style="text-decoration: underline;">時刻同期</span></p>
-
+<p><!-- raw HTML omitted -->時刻同期<!-- raw HTML omitted --></p>
 <p>original, addで時刻を合わせておくこと。</p>
-
-<p><span style="text-decoration: underline;">slavesへの追記</span></p>
-
+<p><!-- raw HTML omitted -->slavesへの追記<!-- raw HTML omitted --></p>
 <p>original, addそれぞれでslavesにaddと追記しておく。</p>
-
-<p><span style="text-decoration: underline;">SSHログインの確認</span></p>
-
-<p>originalからaddへsshログインできることを確認しておく。<br />
+<p><!-- raw HTML omitted -->SSHログインの確認<!-- raw HTML omitted --></p>
+<p>originalからaddへsshログインできることを確認しておく。<br>
 datanode/jobtrackerの制御はsshでされるため。</p>
-
-<p><span style="text-decoration: underline;">replication数の変更</span></p>
-
-<p>HDFS上でデータのコピーをどれだけ作成するかの設定。<br />
-擬似分散ではreplicationを1にしていた。<br />
-せっかくなのでこれを2に変更する。<br />
-デフォルトは3。<br />
+<p><!-- raw HTML omitted -->replication数の変更<!-- raw HTML omitted --></p>
+<p>HDFS上でデータのコピーをどれだけ作成するかの設定。<br>
+擬似分散ではreplicationを1にしていた。<br>
+せっかくなのでこれを2に変更する。<br>
+デフォルトは3。<br>
 datanodeをさらに増やしたなら、ここの上限をとりあえず3として増やそう。</p>
-
-<h2 id="span-style-text-decoration-underline-ノード追加の反映-span"><span style="text-decoration: underline;">ノード追加の反映</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-4"><!-- raw HTML omitted -->ノード追加の反映<!-- raw HTML omitted --></h2>
 <p>ノードの追加が初めてならstop-all.shで止めて、start-all.shでまるまる再起動するのがいいでしょう。</p>
-
-<p>当然ながら、hadoop上で何かしらの作業が動いていたらやり直しになってしまう。<br />
-通常は、namenodeでhadoop dfsadmin -refreshNodesを実行。<br />
+<p>当然ながら、hadoop上で何かしらの作業が動いていたらやり直しになってしまう。<br>
+通常は、namenodeでhadoop dfsadmin -refreshNodesを実行。<br>
 さらにhadoop dfsadmin -reportで確認する。</p>
-
-<pre><code class="language-console">[hadoop@vfbsd ~]$ hadoop dfsadmin -refreshNodes
+<pre><code class="language-console" data-lang="console">[hadoop@vfbsd ~]$ hadoop dfsadmin -refreshNodes
 [hadoop@vfbsd ~]$ hadoop dfsadmin -report
 Configured Capacity: 96683511808 (90.04 GB)
 Present Capacity: 57517137920 (53.57 GB)
@@ -264,37 +226,28 @@ DFS Remaining: 27450470400(25.57 GB)
 DFS Used%: 0.03%
 DFS Remaining%: 88.03%
 Last contact: Mon Aug 12 22:19:17 JST 2013
-</code></pre>
-
-<p>上記の例で言えば、192.168.200.100が追加したdatanode。<br />
-使用量がまだ8MBしかないことが分かるだろうか。<br />
-replication数を2にしたので、ゆくゆくは192.168.200.1と同じ程度の使用量になるはず。<br />
-しばらく放置が必要。<br />
-（いま気がついたけど、&rdquo;Under replicated blocks”、つまり所定のreplicationに満たないblockの数が5&hellip;）</p>
-
-<h2 id="span-style-text-decoration-underline-擬似分散-擬似分散-1の効果-span"><span style="text-decoration: underline;">擬似分散→擬似分散+1の効果</span></h2>
-
-<p>効果は劇的。<br />
-もともと2時間半かかっていたものが1時間半に短縮できた。<br />
+</code></pre><p>上記の例で言えば、192.168.200.100が追加したdatanode。<br>
+使用量がまだ8MBしかないことが分かるだろうか。<br>
+replication数を2にしたので、ゆくゆくは192.168.200.1と同じ程度の使用量になるはず。<br>
+しばらく放置が必要。<br>
+（いま気がついたけど、&ldquo;Under replicated blocks”、つまり所定のreplicationに満たないblockの数が5&hellip;）</p>
+<h2 id="span-styletext-decoration-underline1span"><!-- raw HTML omitted -->擬似分散→擬似分散+1の効果<!-- raw HTML omitted --></h2>
+<p>効果は劇的。<br>
+もともと2時間半かかっていたものが1時間半に短縮できた。<br>
 下記はtimeの結果。上が擬似分散、下が擬似分散+1。</p>
-
-<pre><code class="language-console">real    147m34.258s
+<pre><code class="language-console" data-lang="console">real    147m34.258s
 user    0m6.835s
 sys     0m2.233s
 
 real    82m59.557s
 user    0m5.624s
 sys     0m1.604s
-</code></pre>
-
-<p>ああもっとdatanode増やしたい。</p>
-
+</code></pre><p>ああもっとdatanode増やしたい。</p>
 <p>関連エントリ</p>
-
-<p><a href="../../../?p=2068" rel="bookmark">[FreeBSD] Hadoopのportsからのインストール</a><br />
-<a href="../../../?p=2098" rel="bookmark">[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備</a><br />
-<a href="../../../?p=2103" rel="bookmark">[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定</a><br />
-<a href="../../../?p=2115" rel="bookmark">[Hadoop]擬似分散モードで実験</a></p>
+<p><!-- raw HTML omitted -->[FreeBSD] Hadoopのportsからのインストール<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted -->[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted -->[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted -->[Hadoop]擬似分散モードで実験<!-- raw HTML omitted --></p>
 <ul class="pa0">
   
 </ul>

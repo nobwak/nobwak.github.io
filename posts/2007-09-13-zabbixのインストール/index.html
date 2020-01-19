@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2007-09-13T01:00:00+09:00" />
 <meta itemprop="name" content="ZABBIXのインストール">
 <meta itemprop="description" content="&lt;a href=&quot;http://www.zabbix.com/index.php&quot; target=&quot;_blank&quot;&gt;ZABBIX&lt;/a&gt;とはフリーの統合監視ソフト。 Webインタフェー">
-
-
 <meta itemprop="datePublished" content="2007-09-13T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2007-09-13T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1142">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ZABBIXのインストール"/>
 <meta name="twitter:description" content="&lt;a href=&quot;http://www.zabbix.com/index.php&quot; target=&quot;_blank&quot;&gt;ZABBIX&lt;/a&gt;とはフリーの統合監視ソフト。 Webインタフェー"/>
 
@@ -173,18 +170,14 @@ Webインタフェースで楽に設定できて、綺麗な表示が得られ�
 
 バックエンドのデータベースにはMySQLを使用するので、下記二つのパッケージをインストールした。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  zabbix-frontend-php - software for monitoring of your servers - php frontend
 
 
 
   zabbix-server-mysql - software for monitoring of your networks - server
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>インストールに伴う設定手順などは&lt;a href=&quot;http://www.thinkit.co.jp/free/article/0611/19/1/&quot; target=&quot;_blank&quot;&gt;ThinkIT 第1回：ZABBIXをインストール&lt;/a&gt;が参考になる。
 
 
@@ -215,8 +208,7 @@ v1.4ではzabbix_agentd.exe -c &quot;設定ファイル&quot; -installとする�
 
 その他のオプションが表示される。
 </code></pre>
-
-<pre><code class="language-console">C:\Program Files\zabbix&gt;zabbix_agentd.exe -h
+<pre><code class="language-console" data-lang="console">C:\Program Files\zabbix&gt;zabbix_agentd.exe -h
 ZABBIX Agent Win32 (service) v1.4.2 (20 August 2007)
 usage: zabbix_agentd.exe [-Vhp] [-idsx] [-c &amp;#60;file&gt;] [-t &amp;#60;metric&gt;]
 Options:
@@ -231,9 +223,7 @@ Functions:
 -s --start          start ZABIX agent service
 -x --stop           stop ZABIX agent service
 C:\Program Files\zabbix&gt;
-</code></pre>
-
-<pre><code>その他にちょっとつまづいたのは、php.iniの修正。
+</code></pre><pre><code>その他にちょっとつまづいたのは、php.iniの修正。
 
 
 
@@ -243,18 +233,14 @@ webインタフェースを初めて実行すると設定が始まり、場合�
 
 俺がphp.iniを変更したのは下記の2行
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  max_execution_time = 300　（30だったのを300に修正）
 
 
 
   date.timezone = Asia/Tokyo　（追加）
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>php.iniを修正したらapacheの再起動を忘れずに。
 </code></pre>
 <ul class="pa0">

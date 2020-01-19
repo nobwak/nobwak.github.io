@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-04-30T20:46:48+09:00" />
 <meta itemprop="name" content="[Python2] stringを逆に表示するには">
 <meta itemprop="description" content="ビット列を逆に読むときとかに。 [::-1]という指定 Python2で文字列を逆に表示するには、スライスで[::-1]と指定すればよい。 teststring = &quot;123456&quot;">
-
-
 <meta itemprop="datePublished" content="2014-04-30T20:46:48&#43;09:00" />
 <meta itemprop="dateModified" content="2014-04-30T20:46:48&#43;09:00" />
 <meta itemprop="wordCount" content="236">
 
 
 
-<meta itemprop="keywords" content="python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Python2] stringを逆に表示するには"/>
 <meta name="twitter:description" content="ビット列を逆に読むときとかに。 [::-1]という指定 Python2で文字列を逆に表示するには、スライスで[::-1]と指定すればよい。 teststring = &quot;123456&quot;"/>
 
@@ -140,31 +137,19 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>ビット列を逆に読むときとかに。</p>
-
-<h2 id="1-という指定">[::-1]という指定</h2>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>ビット列を逆に読むときとかに。</p>
+<h2 id="-1">[::-1]という指定</h2>
 <p>Python2で文字列を逆に表示するには、スライスで[::-1]と指定すればよい。</p>
-
-<pre><code class="language-console">teststring = &quot;123456&quot;
+<pre><code class="language-console" data-lang="console">teststring = &quot;123456&quot;
 print &quot;%s ==&gt; %s&quot; % (teststring, teststring[::-1])
-</code></pre>
-
-<p>以下、実行例</p>
-
-<pre><code class="language-console">123456 ==&gt; 654321
-</code></pre>
-
-<h2 id="reversed">reversed()</h2>
-
-<p>面白いのは、reversed()という関数。<br />
-リバースドオブジェクトというそのままの名前なんだが、与えられたリストの逆順イテレータを返す。<br />
-イテレータなので注意。<br />
+</code></pre><p>以下、実行例</p>
+<pre><code class="language-console" data-lang="console">123456 ==&gt; 654321
+</code></pre><h2 id="reversed">reversed()</h2>
+<p>面白いのは、reversed()という関数。<br>
+リバースドオブジェクトというそのままの名前なんだが、与えられたリストの逆順イテレータを返す。<br>
+イテレータなので注意。<br>
 つまり、そのままprintすることはできない。</p>
-
-<pre><code class="language-console">teststring = &quot;123456&quot;
+<pre><code class="language-console" data-lang="console">teststring = &quot;123456&quot;
 print reversed(teststring)
 
 print &quot;version [::-1]&quot;
@@ -173,11 +158,8 @@ for i in teststring[::-1]:
 print &quot;version reversed()&quot;
 for i in reversed(teststring):
     print i
-</code></pre>
-
-<p>実行例</p>
-
-<pre><code class="language-console">reverse &lt;reversed object at 0x108269f50&gt; 
+</code></pre><p>実行例</p>
+<pre><code class="language-console" data-lang="console">reverse &lt;reversed object at 0x108269f50&gt; 
 version [::-1]
 6
 5
@@ -192,8 +174,7 @@ version reversed()
 3
 2
 1
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>

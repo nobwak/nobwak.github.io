@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2018-12-01T15:53:49+09:00" />
 <meta itemprop="name" content="[zfs][zpool] らくらくスナップショットzfsnap2">
 <meta itemprop="description" content="zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送であ">
-
-
 <meta itemprop="datePublished" content="2018-12-01T15:53:49&#43;09:00" />
 <meta itemprop="dateModified" content="2018-12-01T15:53:49&#43;09:00" />
 <meta itemprop="wordCount" content="2231">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[zfs][zpool] らくらくスナップショットzfsnap2"/>
 <meta name="twitter:description" content="zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送であ"/>
 
@@ -140,104 +137,68 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。<br>
 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送である。</p>
-
-<p>スナップショットの簡素化について。<br />
-スナップショットを作成する際には、ファイルシステムやボリュームに続けてスナップショットの名前、スナップネームを指定する必要がある。<br />
+<p>スナップショットの簡素化について。<br>
+スナップショットを作成する際には、ファイルシステムやボリュームに続けてスナップショットの名前、スナップネームを指定する必要がある。<br>
 スナップネームはスナップショットを特定するために必要なものなので文句を言う筋合いはないのだが、いちいち名前を付けるのが面倒なんである。日付でもなんでも自動的に付けてほしい。</p>
-
 <p>なんとか改善したくていろいろ調べてみた。</p>
-
-<h2 id="スナップショット取得補助ツール">スナップショット取得補助ツール</h2>
-
-<p>スナップショット関連ではzfstools, zfsnap2, zapの三つを調べた。<br />
+<h2 id="heading">スナップショット取得補助ツール</h2>
+<p>スナップショット関連ではzfstools, zfsnap2, zapの三つを調べた。<br>
 結論から言うと、zfsnap2を選択した。</p>
-
 <h3 id="zfstools">zfstools</h3>
-
-<p><a href="https://github.com/bdrewery/zfstools">https://github.com/bdrewery/zfstools</a><br />
-<a href="https://www.freshports.org/sysutils/zfstools/">https://www.freshports.org/sysutils/zfstools/</a><br />
-よさそうだけどruby依存なのでその一点で対象外に。<br />
-このツールのためだけにrubyを入れますか、という話で。<br />
+<p><a href="https://github.com/bdrewery/zfstools">https://github.com/bdrewery/zfstools</a><br>
+<a href="https://www.freshports.org/sysutils/zfstools/">https://www.freshports.org/sysutils/zfstools/</a><br>
+よさそうだけどruby依存なのでその一点で対象外に。<br>
+このツールのためだけにrubyを入れますか、という話で。<br>
 なるべく依存の少ないツールがよい。</p>
-
 <h4 id="zap">zap</h4>
-
-<p><a href="https://www.freshports.org/sysutils/zap">https://www.freshports.org/sysutils/zap</a><br />
-<a href="https://github.com/Jehops/zap">https://github.com/Jehops/zap</a><br />
-よさそうだけど、zfsに独自のプロパティ（zap:）を設定する必要があるっぽい。<br />
+<p><a href="https://www.freshports.org/sysutils/zap">https://www.freshports.org/sysutils/zap</a><br>
+<a href="https://github.com/Jehops/zap">https://github.com/Jehops/zap</a><br>
+よさそうだけど、zfsに独自のプロパティ（zap:）を設定する必要があるっぽい。<br>
 独自プロパティの設定が、zfsとして許容されている作法であっても、対象のファイルシステムに何らかの手を加えるのは躊躇する</p>
-
 <h4 id="zfsnap2">zfsnap2</h4>
-
-<p><a href="https://www.freshports.org/sysutils/zfsnap2">https://www.freshports.org/sysutils/zfsnap2</a><br />
-<a href="https://github.com/zfsnap/zfsnap">https://github.com/zfsnap/zfsnap</a><br />
-単純なシェルスクリプト。<br />
+<p><a href="https://www.freshports.org/sysutils/zfsnap2">https://www.freshports.org/sysutils/zfsnap2</a><br>
+<a href="https://github.com/zfsnap/zfsnap">https://github.com/zfsnap/zfsnap</a><br>
+単純なシェルスクリプト。<br>
 よさそう。</p>
-
-<h2 id="zfsnap2-お手軽snapshot">zfsnap2 お手軽snapshot</h2>
-
-<p>まず、zfsnap2は、取得すると日付シリアルをsnapnameに付けてくれる。<br />
+<h2 id="zfsnap2-snapshot">zfsnap2 お手軽snapshot</h2>
+<p>まず、zfsnap2は、取得すると日付シリアルをsnapnameに付けてくれる。<br>
 例えば。</p>
-
-<pre><code class="language-console">vault/chamber@2018-11-11_09.48.00-1y
-</code></pre>
-
-<p>ご覧の通り2018/11/11 09:48:00と日付をsnapnameに付ける<br />
-なお、末尾に1yと書いてあるがこれは1年という意味である。<br />
+<pre><code class="language-console" data-lang="console">vault/chamber@2018-11-11_09.48.00-1y
+</code></pre><p>ご覧の通り2018/11/11 09:48:00と日付をsnapnameに付ける<br>
+なお、末尾に1yと書いてあるがこれは1年という意味である。<br>
 これは何かというと（次項につづく）</p>
-
-<h2 id="zfsnap2-snapshot削除の仕組みとttl">zfsnap2 snapshot削除の仕組みとTTL</h2>
-
-<p>snapshotは取得するだけでなく、消す方の面倒を見ることも重要。<br />
-zfsnap2は、取得したタイムスタンプとTTL(Time To Live)をsnapnameに含めておくのがアイデア（他みも同じようなツールあるかもしれないけど）。<br />
+<h2 id="zfsnap2-snapshotttl">zfsnap2 snapshot削除の仕組みとTTL</h2>
+<p>snapshotは取得するだけでなく、消す方の面倒を見ることも重要。<br>
+zfsnap2は、取得したタイムスタンプとTTL(Time To Live)をsnapnameに含めておくのがアイデア（他みも同じようなツールあるかもしれないけど）。<br>
 先ほどの例でいえば、末尾の1yがそれ。1yだから1 year、1年ですな。</p>
-
-<pre><code class="language-console">vault/chamber@2018-11-11_09.48.00-1y
-</code></pre>
-
-<p>上記の通り、取得日付、保存期間をsnapname自体に持たせるので、ツール側では状態を記憶しておく必要がない。<br />
-削除を指示されたら、zfsnap2はその都度、snapnameだけを見て判断・処理をするということ。<br />
+<pre><code class="language-console" data-lang="console">vault/chamber@2018-11-11_09.48.00-1y
+</code></pre><p>上記の通り、取得日付、保存期間をsnapname自体に持たせるので、ツール側では状態を記憶しておく必要がない。<br>
+削除を指示されたら、zfsnap2はその都度、snapnameだけを見て判断・処理をするということ。<br>
 何より人間もsnapnameから保存期限を判断できる。これはよい。</p>
-
-<h2 id="とりあえず使う">とりあえず使う</h2>
-
-<p>管理者権限でzfsnap snapshotに続けてzfs/zpoolを指定するだけ。<br />
+<h2 id="heading-1">とりあえず使う</h2>
+<p>管理者権限でzfsnap snapshotに続けてzfs/zpoolを指定するだけ。<br>
 日付も付けてくれる。</p>
-
-<pre><code class="language-console">  
+<pre><code class="language-console" data-lang="console">  
 # zfsnap snapshot zroot/var/tmp  
 $ zfs list -t snapshot|grep 'zroot/var/tmp';  
 zroot/var/tmp@20181120 56K - 88K -  
 zroot/var/tmp@2018-12-01_22.19.13-1m 0 - 88K -
-</code></pre>
-
-<h2 id="zfsnap書式概要">zfsnap書式概要</h2>
-
-<p>詳細はman等するとして、概要を示す。<br />
+</code></pre><h2 id="zfsnap">zfsnap書式概要</h2>
+<p>詳細はman等するとして、概要を示す。<br>
 書式は以下の通り。</p>
-
-<pre><code class="language-console">zfsnap コマンド &lt;共通オプション&gt;　&lt;個別オプション&gt; zpool/zfs
-</code></pre>
-
-<h2 id="zfsnapのコマンド">zfsnapのコマンド</h2>
-
-<p>コマンドにはsnapshot, destroy, recursebackの三つがある。<br />
-それらに続けてzpool, zfsを指定する。こちらの指定は複数でもよい。<br />
-共通オプション（generic option）は、その名の通り、共通的なオプション。<br />
+<pre><code class="language-console" data-lang="console">zfsnap コマンド &lt;共通オプション&gt;　&lt;個別オプション&gt; zpool/zfs
+</code></pre><h2 id="zfsnap-1">zfsnapのコマンド</h2>
+<p>コマンドにはsnapshot, destroy, recursebackの三つがある。<br>
+それらに続けてzpool, zfsを指定する。こちらの指定は複数でもよい。<br>
+共通オプション（generic option）は、その名の通り、共通的なオプション。<br>
 個別オプションはzpool, zfsごとのオプションである。</p>
-
-<p>コマンドのsnapshot, destroyは当然ながらそれぞれsnapshot作成、削除。<br />
-recursebackは、zfs rollbackの拡張で、rollbackの際、指定のdataset配下すべてをrollbackするもの。<br />
+<p>コマンドのsnapshot, destroyは当然ながらそれぞれsnapshot作成、削除。<br>
+recursebackは、zfs rollbackの拡張で、rollbackの際、指定のdataset配下すべてをrollbackするもの。<br>
 本稿では扱わない。</p>
-
-<h2 id="共通オプション-generic-option">共通オプション（generic option）</h2>
-
+<h2 id="generic-option">共通オプション（generic option）</h2>
 <p>主なものだけ示す</p>
-
 <ul>
 <li>-s  : resilver中は作業しない</li>
 <li>-S : scrub中は作業しない</li>
@@ -245,24 +206,17 @@ recursebackは、zfs rollbackの拡張で、rollbackの際、指定のdataset配
 <li>-n : dry run。テスト実行。ファイルシステムに変更を加えない。</li>
 <li>-v : 冗長output</li>
 </ul>
-
 <p>-s, -Sは常時付けておいたほうがいいかな。</p>
-
-<h2 id="個別オプション">個別オプション</h2>
-
-<p>個別オプションなので、これに続けて指定されたzpool/zfsにのみ効果がある。<br />
+<h2 id="heading-2">個別オプション</h2>
+<p>個別オプションなので、これに続けて指定されたzpool/zfsにのみ効果がある。<br>
 主なものだけ示す</p>
-
 <ul>
 <li>-a : TTL。指定がなければ1m = 1か月</li>
 <li>-r : 再帰オプション。再帰的にsnapshotを取得</li>
 <li>-R : 非再帰オプション。再帰的なsnapshotを取得「しない」</li>
 </ul>
-
-<h2 id="ttlオプション">TTLオプション</h2>
-
+<h2 id="ttl">TTLオプション</h2>
 <p>以下のうち、必要なものだけをズラズラ書けばよい</p>
-
 <ul>
 <li>y : 年（365日）</li>
 <li>m : 月（30日）</li>
@@ -272,56 +226,38 @@ recursebackは、zfs rollbackの拡張で、rollbackの際、指定のdataset配
 <li>M : 分</li>
 <li>s : 秒</li>
 </ul>
-
-<p>1週間と1日なら-a 1w1d。<br />
+<p>1週間と1日なら-a 1w1d。<br>
 2か月なら-a 2m。</p>
-
-<h2 id="実行例">実行例</h2>
-
-<p>以上を踏まえて;<br />
-resilver, scrub中は実行せず、日付シリアルの秒切り捨て、冗長アウトプットでsnapshotをテスト実行。<br />
-対象zfsその1はzroot/usrで、再帰的に取得し、TTLは1週間と1日。その2はzroot/ROOTで、再帰的に取得「せず」、TTLは1分。<br />
+<h2 id="heading-3">実行例</h2>
+<p>以上を踏まえて;<br>
+resilver, scrub中は実行せず、日付シリアルの秒切り捨て、冗長アウトプットでsnapshotをテスト実行。<br>
+対象zfsその1はzroot/usrで、再帰的に取得し、TTLは1週間と1日。その2はzroot/ROOTで、再帰的に取得「せず」、TTLは1分。<br>
 という実行例。</p>
-
-<pre><code class="language-console"># zfsnap snapshot -sSvzn -a1w1d -r zroot/usr -R -a1M zroot/ROOT  
+<pre><code class="language-console" data-lang="console"># zfsnap snapshot -sSvzn -a1w1d -r zroot/usr -R -a1M zroot/ROOT  
 /sbin/zfs snapshot -r zroot/usr@2018-12-01_22.33.00-1w1d  
 /sbin/zfs snapshot zroot/ROOT@2018-12-01_22.33.00-1M
-</code></pre>
-
-<p>よさそうなのでテスト実行オプションを省いて本番実行すると;</p>
-
-<pre><code class="language-console"># zfsnap snapshot -sSvz -a1w1d -r zroot/usr -R -a1M zroot/ROOT  
+</code></pre><p>よさそうなのでテスト実行オプションを省いて本番実行すると;</p>
+<pre><code class="language-console" data-lang="console"># zfsnap snapshot -sSvz -a1w1d -r zroot/usr -R -a1M zroot/ROOT  
 /sbin/zfs snapshot -r zroot/usr@2018-12-01_22.34.00-1w1d ... DONE  
 /sbin/zfs snapshot zroot/ROOT@2018-12-01_22.34.00-1M ... DONE
-</code></pre>
-
-<p>zfs listで結果を確認。zroot/usrにのみ配下にもスナップショットが出来ている。</p>
-
-<pre><code class="language-console">$ zfs list -t snapshot | grep '2018-12-01';  
+</code></pre><p>zfs listで結果を確認。zroot/usrにのみ配下にもスナップショットが出来ている。</p>
+<pre><code class="language-console" data-lang="console">$ zfs list -t snapshot | grep '2018-12-01';  
 zroot/ROOT@2018-12-01_22.34.00-1M 0 - 88K -  
 zroot/usr@2018-12-01_22.34.00-1w1d 0 - 88K -  
 zroot/usr/home@2018-12-01_22.34.00-1w1d 0 - 5.97M -  
 zroot/usr/ports@2018-12-01_22.34.00-1w1d 0 - 88K -  
 zroot/usr/src@2018-12-01_22.34.00-1w1d 0 - 88K -
-</code></pre>
-
-<p>では削除のほうも。<br />
-zroot/ROOT、zroot/usr配下のTTL切れsnapshotを削除<br />
-ただしzroot/ROOTは非再帰的、zroot/usrは再帰的に。<br />
+</code></pre><p>では削除のほうも。<br>
+zroot/ROOT、zroot/usr配下のTTL切れsnapshotを削除<br>
+ただしzroot/ROOTは非再帰的、zroot/usrは再帰的に。<br>
 テスト実行。</p>
-
-<pre><code class="language-console"># zfsnap destroy -sSvn -R zroot/ROOT -r zroot/usr  
+<pre><code class="language-console" data-lang="console"># zfsnap destroy -sSvn -R zroot/ROOT -r zroot/usr  
 /sbin/zfs destroy zroot/ROOT@2018-12-01_22.34.00-1M
-</code></pre>
-
-<p>期限切れはzroot/ROOT@2018-12-01_22.34.00-1Mのみ。<br />
+</code></pre><p>期限切れはzroot/ROOT@2018-12-01_22.34.00-1Mのみ。<br>
 じゃ、それで本番実行</p>
-
-<pre><code class="language-console"># zfsnap destroy -sSv -R zroot/ROOT -r zroot/usr  
+<pre><code class="language-console" data-lang="console"># zfsnap destroy -sSv -R zroot/ROOT -r zroot/usr  
 /sbin/zfs destroy zroot/ROOT@2018-12-01_22.34.00-1M ... DONE
-</code></pre>
-
-<p>以上。</p>
+</code></pre><p>以上。</p>
 <ul class="pa0">
   
 </ul>

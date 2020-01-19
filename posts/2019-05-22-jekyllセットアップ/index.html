@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-05-22T00:00:00+00:00" />
 <meta itemprop="name" content="Jekyllのセットアップ">
 <meta itemprop="description" content="GitHub pagesに記事を投稿するためにJekyllをセットアップした。 その記録。 FreeBSD上で実施しているが、記事中、FreeBSD依存なと">
-
-
 <meta itemprop="datePublished" content="2019-05-22T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-05-22T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="2475">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Jekyllのセットアップ"/>
 <meta name="twitter:description" content="GitHub pagesに記事を投稿するためにJekyllをセットアップした。 その記録。 FreeBSD上で実施しているが、記事中、FreeBSD依存なと"/>
 
@@ -140,31 +137,19 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>GitHub pagesに記事を投稿するためにJekyllをセットアップした。
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>GitHub pagesに記事を投稿するためにJekyllをセットアップした。
 その記録。</p>
-
 <p>FreeBSD上で実施しているが、記事中、FreeBSD依存なところはほとんどない。</p>
-
-<h2 id="jekyllとは">Jekyllとは</h2>
-
+<h2 id="jekyll">Jekyllとは</h2>
 <p><a href="https://jekyllrb.com/">公式サイト</a>にあるように、Jekyllはプレーンテキストをウェブサイトやブログに変換してくれるツール。Rubyで書かれている。</p>
-
 <p>突然だが。リッチだけど巨大で、しかも動かすにはXAMPPが必要なブログはもう疲れた。</p>
-
 <p>Jekyllはマークダウン形式で記事を作っておけば、コマンド一発でhtmlに変換し、サイトのディレクトリ構造まで作ってくれる。
 あとは出来上がったものをwebサーバに丸々アップロードすればよい。</p>
-
 <p>githubにアップロードすれば＜ユーザ名＞.github.ioとしてブログを運営できる。相手はgithubだから「アップロード」というよりもgit pushでできる。プログラムをレポジトリにpushするのと同じ感覚でブログができるのである。</p>
-
 <p>今回はgithub pagesで使う前提のJekyllのセットアップまでを扱うが、そのまえにJekyllの仕組みを確認する。</p>
-
-<h2 id="jekyllによるブログ作成の流れ">Jekyllによるブログ作成の流れ</h2>
-
+<h2 id="jekyll-1">Jekyllによるブログ作成の流れ</h2>
 <p>Jekyllは前項で書いた通り、マークダウン形式のテキストファイルをhtmlに変換し、ディレクトリ構成を作る。
 具体的には;</p>
-
 <ol>
 <li>Jekyllの作業ディレクトリを作る</li>
 <li>そこにマークダウン形式のテキストファイルを入れていく。</li>
@@ -173,22 +158,15 @@ if (!doNotTrack) {
 <li>ディレクトリをそのままアップロードしてもよいが;</li>
 <li>確認コマンドを実行すると、ローカルホストでウェブサーバが立ち上がり見た目を確認できる。</li>
 </ol>
-
 <p>というものである。
 ではさっそく。</p>
-
-<h2 id="jekyll-bundlerのインストール">jekyll, bundlerのインストール</h2>
-
+<h2 id="jekyll-bundler">jekyll, bundlerのインストール</h2>
 <p>jekyllはRubyで動く。また、記事中にもあるとおりjekyllの構成を変えるのでbundlerも必要。</p>
-
 <p>インストールはpkgでどうぞ。
 Rubyやらなにやら、いっぱい友達を連れてくるので、コンテナ等、隔離した環境で作るのオススメ。私はJail上に作った。</p>
-
-<h2 id="記事を置く作業フォルダを作る">記事を置く作業フォルダを作る。</h2>
-
+<h2 id="heading">記事を置く作業フォルダを作る。</h2>
 <p>jekyll new &lt;path&gt; でJekyllのフォルダを作る。</p>
-
-<pre><code class="language-console">$ jekyll new article/
+<pre><code class="language-console" data-lang="console">$ jekyll new article/
 Running bundle install in /usr/home/bot/article...
   Bundler: Don't run Bundler as root. Bundler can ask for sudo if it is needed, and
   Bundler: installing your bundle as root will break this application for all non-root
@@ -230,11 +208,8 @@ Running bundle install in /usr/home/bot/article...
   Bundler: Bundle complete! 4 Gemfile dependencies, 29 gems now installed.
   Bundler: Use `bundle info [gemname]` to see where a bundled gem is installed.
 New jekyll site installed in /usr/home/bot/article.
-</code></pre>
-
-<p>できあがったディレクトリ構成は以下の通り。</p>
-
-<pre><code class="language-bash">.
+</code></pre><p>できあがったディレクトリ構成は以下の通り。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.
 ├── _config.yml
 ├── _posts
 ├── 404.html
@@ -242,26 +217,19 @@ New jekyll site installed in /usr/home/bot/article.
 ├── Gemfile
 ├── Gemfile.lock
 └── index.md
-</code></pre>
-
-<p>_config.ymlは設定ファイル。記事を入れていくのは_posts。</p>
-
+</code></pre></div><p>_config.ymlは設定ファイル。記事を入れていくのは_posts。</p>
 <p>_postsの中を眺めれば2019-05-22-welcome-to-jekyll.markdownというような名前でサンプルファイルが一つ入っているはずである。
 記事を作る場合には、このサンプルのようなファイル名の形式でファイルを置く。
 ファイルの内容についてはまた後で。</p>
-
-<h2 id="初期設定">初期設定</h2>
-
-<h3 id="config-ymlを更新">_config.ymlを更新</h3>
-
+<h2 id="heading-1">初期設定</h2>
+<h3 id="-configyml">_config.ymlを更新</h3>
 <p>最後の4行以外を適当に。基本情報を決める。</p>
-
-<pre><code class="language-yaml">title: &quot;nobwak's Lair&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">title: <span style="color:#e6db74">&#34;nobwak&#39;s Lair&#34;</span>
 email: your-email@example.com
-description: &gt;- # this means to ignore newlines until &quot;baseurl:&quot;
+description: &gt;- <span style="color:#75715e"># this means to ignore newlines until &#34;baseurl:&#34;</span>
   nobwakの七転八倒log
-baseurl: &quot;&quot; # the subpath of your site, e.g. /blog
-url: &quot;https://nobwak.github.io&quot; # the base hostname &amp; protocol for your site, e.g. http://example.com
+baseurl: <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#75715e"># the subpath of your site, e.g. /blog</span>
+url: <span style="color:#e6db74">&#34;https://nobwak.github.io&#34;</span> <span style="color:#75715e"># the base hostname &amp; protocol for your site, e.g. http://example.com</span>
 twitter_username: nobwak
 github_username: nobwak
 
@@ -269,26 +237,18 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
-</code></pre>
-
-<h3 id="gemfileを更新し-bundle-update">Gemfileを更新し、bundle update</h3>
-
+</code></pre></div><h3 id="gemfilebundle-update">Gemfileを更新し、bundle update</h3>
 <p>「GitHub pageを使いたいなら」との指示通りに更新。</p>
-
 <p>gem jekyllの行をコメントアウト、github-pagesの行をアンコメント。</p>
-
-<pre><code class="language-console"># This will help ensure the proper Jekyll version is running.
+<pre><code class="language-console" data-lang="console"># This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
 # gem &quot;jekyll&quot;, &quot;~&gt; 3.8.5&quot; (この行をコメントアウト)
 &lt;略&gt;
 # If you want to use GitHub Pages, remove the &quot;gem &quot;jekyll&quot;&quot; above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
 gem &quot;github-pages&quot;, group: :jekyll_plugins # この行を生かす
-</code></pre>
-
-<p>更新したらこちらも指示通りにbundle update</p>
-
-<pre><code class="language-console">$ bundle update
+</code></pre><p>更新したらこちらも指示通りにbundle update</p>
+<pre><code class="language-console" data-lang="console">$ bundle update
 The dependency tzinfo-data (&gt;= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`.
 Fetching gem metadata from https://rubygems.org/...........
 Fetching gem metadata from https://rubygems.org/.
@@ -298,17 +258,12 @@ Using i18n 0.9.5 (was 1.6.0)
 (略)
 Using github-pages 198
 Bundle updated!
-</code></pre>
-
-<p>準備完了。</p>
-
-<h2 id="ビルド-変換-のテスト">ビルド（変換）のテスト</h2>
-
+</code></pre><p>準備完了。</p>
+<h2 id="heading-2">ビルド（変換）のテスト</h2>
 <p>ではビルド。
-bundle exec jekyll buildとする。これでhtmlに変換する。<br />
+bundle exec jekyll buildとする。これでhtmlに変換する。<br>
 注意: 日本語を扱うなら文字コードは<code>ja_JP-UTF8</code>にしておくこと。</p>
-
-<pre><code class="language-console">$ bundle exec jekyll build
+<pre><code class="language-console" data-lang="console">$ bundle exec jekyll build
 Configuration file: /usr/home/bot/files/temp/tryout/_config.yml
             Source: /usr/home/bot/files/temp/tryout
        Destination: /usr/home/bot/files/temp/tryout/_site
@@ -317,11 +272,8 @@ Configuration file: /usr/home/bot/files/temp/tryout/_config.yml
        Jekyll Feed: Generating feed for posts
                     done in 1.344 seconds.
  Auto-regeneration: disabled. Use --watch to enable.
-</code></pre>
-
-<p>メッセージの通り新しく_siteというディレクトリができる。これが変換後の公開用ディレクトリ。</p>
-
-<pre><code class="language-console">
+</code></pre><p>メッセージの通り新しく_siteというディレクトリができる。これが変換後の公開用ディレクトリ。</p>
+<pre><code class="language-console" data-lang="console">
 .
 ├── _config.yml
 ├── _posts
@@ -331,11 +283,8 @@ Configuration file: /usr/home/bot/files/temp/tryout/_config.yml
 ├── Gemfile
 ├── Gemfile.lock
 └── index.md
-</code></pre>
-
-<p>_siteの中身はこうなっている。</p>
-
-<pre><code class="language-console">
+</code></pre><p>_siteの中身はこうなっている。</p>
+<pre><code class="language-console" data-lang="console">
 .
 ├── 404.html
 ├── about
@@ -351,48 +300,37 @@ Configuration file: /usr/home/bot/files/temp/tryout/_config.yml
            └── 05
                └── 22
                    └── welcome-to-jekyll.html
-</code></pre>
-
-<p>_postsの中にあったサンプルファイルがhtmlに変換され、年・月・日のディレクトリに置かれているのが分かる。</p>
-
+</code></pre><p>_postsの中にあったサンプルファイルがhtmlに変換され、年・月・日のディレクトリに置かれているのが分かる。</p>
 <p>さらにindex.htmlの中身を見ると、以下のようにサンプルファイルへのリンクも書かれている。</p>
-
-<pre><code class="language-html">    &lt;ul class=&quot;post-list&quot;&gt;&lt;li&gt;&lt;span class=&quot;post-meta&quot;&gt;May 22, 2019&lt;/span&gt;
-        &lt;h3&gt;
-          &lt;a class=&quot;post-link&quot; href=&quot;/jekyll/update/2019/05/22/welcome-to-jekyll.html&quot;&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">    &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post-list&#34;</span>&gt;&lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post-meta&#34;</span>&gt;May 22, 2019&lt;/<span style="color:#f92672">span</span>&gt;
+        &lt;<span style="color:#f92672">h3</span>&gt;
+          &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post-link&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/jekyll/update/2019/05/22/welcome-to-jekyll.html&#34;</span>&gt;
             Welcome to Jekyll!
-          &lt;/a&gt;
-        &lt;/h3&gt;&lt;/li&gt;&lt;/ul&gt;
-</code></pre>
-
-<p>つまりJekyllは、_postsの中にあるファイルをhtmlに変換し、インデックスページとリンク構造も作ったうえで_site下に配置してくれる、ということ。
+          &lt;/<span style="color:#f92672">a</span>&gt;
+        &lt;/<span style="color:#f92672">h3</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;&lt;/<span style="color:#f92672">ul</span>&gt;
+</code></pre></div><p>つまりJekyllは、_postsの中にあるファイルをhtmlに変換し、インデックスページとリンク構造も作ったうえで_site下に配置してくれる、ということ。
 GitHub Pagesにアップロードするときには、ここの_siteから下をgit pushすれば良い。</p>
-
 <p>ただ、git pushするといきなり公開されるので、その前に実際の見た目を確認したいということなら、そのための仕組みも用意されている。
 Jekyllのトップディレクトリでjekyll serveとすればよい。</p>
-
-<pre><code class="language-ruby">$ bundle exec jekyll serve
-Configuration file: /usr/home/bot/files/temp/tryout/_config.yml
-            Source: /usr/home/bot/files/temp/tryout
-       Destination: /usr/home/bot/files/temp/tryout/_site
- Incremental build: disabled. Enable with --incremental
-      Generating...
-       Jekyll Feed: Generating feed for posts
-                    done in 1.435 seconds.
-  Please add the following to your Gemfile to avoid polling for changes:
-    require 'rbconfig'
-    if RbConfig::CONFIG['target_os'] =~ /(?i-mx:bsd|dragonfly)/
-      gem 'rb-kqueue', '&gt;= 0.2'
-    end
- Auto-regeneration: enabled for '/usr/home/bot/files/temp/tryout'
-    Server address: http://127.0.0.1:4000/
-  Server running... press ctrl-c to stop.
-</code></pre>
-
-<p>この状態でローカルホストの4000に繋げば、見た目を確認できる。
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#960050;background-color:#1e0010">$</span> bundle exec jekyll serve
+<span style="color:#66d9ef">Configuration</span> <span style="color:#e6db74">file</span>: <span style="color:#e6db74">/</span><span style="color:#e6db74">usr</span><span style="color:#e6db74">/</span>home<span style="color:#f92672">/</span>bot<span style="color:#f92672">/</span>files<span style="color:#f92672">/</span>temp<span style="color:#f92672">/</span>tryout<span style="color:#f92672">/</span>_config<span style="color:#f92672">.</span>yml
+            <span style="color:#e6db74">Source</span>: <span style="color:#e6db74">/</span><span style="color:#e6db74">usr</span><span style="color:#e6db74">/</span>home<span style="color:#f92672">/</span>bot<span style="color:#f92672">/</span>files<span style="color:#f92672">/</span>temp<span style="color:#f92672">/</span>tryout
+       <span style="color:#e6db74">Destination</span>: <span style="color:#e6db74">/</span><span style="color:#e6db74">usr</span><span style="color:#e6db74">/</span>home<span style="color:#f92672">/</span>bot<span style="color:#f92672">/</span>files<span style="color:#f92672">/</span>temp<span style="color:#f92672">/</span>tryout<span style="color:#f92672">/</span>_site
+ <span style="color:#66d9ef">Incremental</span> <span style="color:#e6db74">build</span>: disabled<span style="color:#f92672">.</span> <span style="color:#66d9ef">Enable</span> with <span style="color:#f92672">-</span><span style="color:#f92672">-</span>incremental
+      <span style="color:#66d9ef">Generating</span><span style="color:#f92672">...</span>
+       <span style="color:#66d9ef">Jekyll</span> <span style="color:#e6db74">Feed</span>: <span style="color:#66d9ef">Generating</span> feed <span style="color:#66d9ef">for</span> posts
+                    done <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1</span><span style="color:#f92672"></span><span style="color:#f92672">.</span><span style="color:#ae81ff">435</span> <span style="color:#f92672"></span>seconds<span style="color:#f92672">.</span>
+  <span style="color:#66d9ef">Please</span> add the following to your <span style="color:#66d9ef">Gemfile</span> to avoid polling <span style="color:#66d9ef">for</span> <span style="color:#e6db74">changes</span>:
+    require <span style="color:#e6db74">&#39;rbconfig&#39;</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">RbConfig</span><span style="color:#f92672">::</span><span style="color:#66d9ef">CONFIG</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#39;target_os&#39;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=~</span> <span style="color:#e6db74">/</span><span style="color:#e6db74">(?i-mx:bsd|dragonfly)</span><span style="color:#e6db74">/</span>
+      gem <span style="color:#e6db74">&#39;rb-kqueue&#39;</span>, <span style="color:#e6db74">&#39;&gt;= 0.2&#39;</span>
+    <span style="color:#66d9ef">end</span>
+ <span style="color:#66d9ef">Auto</span><span style="color:#f92672">-</span><span style="color:#e6db74">regeneration</span>: enabled <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;/usr/home/bot/files/temp/tryout&#39;</span>
+    <span style="color:#66d9ef">Server</span> <span style="color:#e6db74">address</span>: <span style="color:#e6db74">http</span>:<span style="color:#e6db74">/</span><span style="color:#e6db74">/</span><span style="color:#ae81ff">127</span><span style="color:#f92672"></span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span><span style="color:#f92672"></span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span><span style="color:#f92672"></span><span style="color:#f92672">.</span><span style="color:#ae81ff">1</span><span style="color:#f92672"></span>:<span style="color:#ae81ff">4000</span><span style="color:#f92672">/</span>
+  <span style="color:#66d9ef">Server</span> running<span style="color:#f92672">...</span> press ctrl<span style="color:#f92672">-</span>c to stop<span style="color:#f92672">.</span>
+</code></pre></div><p>この状態でローカルホストの4000に繋げば、見た目を確認できる。
 画像あり　36
 画像あり　37</p>
-
 <p>これでJekyllのセットアップはおしまい。</p>
 <ul class="pa0">
   

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-06-08T00:05:08+09:00" />
 <meta itemprop="name" content="[メモ]WindowsにVagrantを入れてみた">
 <meta itemprop="description" content="タイトルの通り。 たかがインストールして使える状態にするまでだけで苦労したからだよ！ インストールした後はVagrantの使い方はこのあたり見た">
-
-
 <meta itemprop="datePublished" content="2014-06-08T00:05:08&#43;09:00" />
 <meta itemprop="dateModified" content="2014-06-08T00:05:08&#43;09:00" />
 <meta itemprop="wordCount" content="981">
 
 
 
-<meta itemprop="keywords" content="Vagrant,VM,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Vagrant,VM,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ]WindowsにVagrantを入れてみた"/>
 <meta name="twitter:description" content="タイトルの通り。 たかがインストールして使える状態にするまでだけで苦労したからだよ！ インストールした後はVagrantの使い方はこのあたり見た"/>
 
@@ -140,37 +137,26 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>タイトルの通り。<br />
-たかがインストールして使える状態にするまでだけで苦労したからだよ！<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>タイトルの通り。<br>
+たかがインストールして使える状態にするまでだけで苦労したからだよ！<br>
 インストールした後はVagrantの使い方はこのあたり見たらいいわけですよ。</p>
-
-<p>Vagrant超入門：Vagrant初心者向けの解説だよ！<br />
-<a href="https://github.com/tmknom/study-vagrant" target="_blank"><a href="https://github.com/tmknom/study-vagrant">https://github.com/tmknom/study-vagrant</a></a></p>
-
-<h2 id="インストール">インストール</h2>
-
-<p>手順はここ <a href="http://docs.vagrantup.com/v2/getting-started/index.html" target="_blank"><a href="http://docs.vagrantup.com/v2/getting-started/index.html">http://docs.vagrantup.com/v2/getting-started/index.html</a> </a>参照。<br />
-<a href="http://www.vagrantup.com/" target="_blank"><a href="http://www.vagrantup.com/">http://www.vagrantup.com/</a></a> からインストーラをダウンロードしてとっととインストール<br />
+<p>Vagrant超入門：Vagrant初心者向けの解説だよ！<br>
+<!-- raw HTML omitted --><a href="https://github.com/tmknom/study-vagrant%3C/a%3E">https://github.com/tmknom/study-vagrant&lt;/a&gt;</a></p>
+<h2 id="heading">インストール</h2>
+<p>手順はここ <!-- raw HTML omitted --><a href="http://docs.vagrantup.com/v2/getting-started/index.html">http://docs.vagrantup.com/v2/getting-started/index.html</a> <!-- raw HTML omitted -->参照。<br>
+<!-- raw HTML omitted --><a href="http://www.vagrantup.com/%3C/a%3E">http://www.vagrantup.com/&lt;/a&gt;</a> からインストーラをダウンロードしてとっととインストール<br>
 2014/6/7現在、ヴァージョンは1.6.3。</p>
-
-<h2 id="初期設定">初期設定</h2>
-
+<h2 id="heading-1">初期設定</h2>
 <p>コマンドプロンプトを起動してinit。</p>
-
-<pre><code class="language-console">C:\Users\nobwak&gt;vagrant init hashicorp/precise32
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak&gt;vagrant init hashicorp/precise32
 A `Vagrantfile` has been placed in this directory. You are now
 ready to `vagrant up` your first virtual environment! Please read
 the comments in the Vagrantfile as well as documentation on
 `vagrantup.com` for more information on using Vagrant.
 
 C:\Users\nobwak&gt;
-</code></pre>
-
-<p>そして起動&hellip;だが。</p>
-
-<pre><code class="language-console">C:\Users\nobwak&gt;vagrant up
+</code></pre><p>そして起動&hellip;だが。</p>
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak&gt;vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
 ==&gt; default: Box 'hashicorp/precise32' could not be found. Attempting to find an
 d install...
@@ -185,16 +171,11 @@ d install...
 The executable 'bsdtar' Vagrant is trying to run was not
 found in the %PATH% variable. This is an error. Please verify
 this software is installed and on the path.
-</code></pre>
-
-<p>bsdtarがpathに入ってないとか文句を言うわけですよ。</p>
-
-<h2 id="解決法-再インストール">解決法..再インストール</h2>
-
-<p>なんと<a href="http://stackoverflow.com/questions/23543716/vagrant-error-when-running-vagrant-up-provider-docker" target="_blank">解決法</a>は再インストールだそうです。<br />
+</code></pre><p>bsdtarがpathに入ってないとか文句を言うわけですよ。</p>
+<h2 id="heading-2">解決法..再インストール</h2>
+<p>なんと<!-- raw HTML omitted -->解決法<!-- raw HTML omitted -->は再インストールだそうです。<br>
 嘘だろと思ったら本当に解決した。</p>
-
-<pre><code class="language-console">C:\Users\nobwak&gt;vagrant up
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak&gt;vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
 ==&gt; default: Box 'hashicorp/precise32' could not be found. Attempting to find and install...
     default: Box Provider: virtualbox
@@ -236,18 +217,13 @@ Bringing machine 'default' up with 'virtualbox' provider...
     default: /vagrant =&gt; C:/Users/nobwak
 
 C:\Users\nobwak&gt;
-</code></pre>
-
-<p>このとき、Virtualboxに勝手に登録される。<br />
-<a href="../../../wp-content/uploads/2014/06/vagrantvbox01.png"><img class="alignnone size-thumbnail wp-image-2759" src="../../../wp-content/uploads/2014/06/vagrantvbox01-150x150.png" alt="vagrantvbox01" width="150" height="150" /><br />
-</a><br />
+</code></pre><p>このとき、Virtualboxに勝手に登録される。<br>
+<a href="../../../wp-content/uploads/2014/06/vagrantvbox01.png"><!-- raw HTML omitted --><br>
+</a><br>
 さっそく繋いでみよう。</p>
-
-<h2 id="ssh接続-ダメ">ssh接続&hellip;ダメ。</h2>
-
+<h2 id="ssh">ssh接続&hellip;ダメ。</h2>
 <p>vagrant sshで動かしたマシンにログインできるはずだが。</p>
-
-<pre><code class="language-console">C:\Users\nobwak&gt;vagrant ssh
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak&gt;vagrant ssh
 `ssh` executable not found in any directories in the %PATH% variable. Is an
 SSH client installed? Try installing Cygwin, MinGW or Git, all of which
 contain an SSH client. Or use your favorite SSH client with the following
@@ -259,13 +235,10 @@ Username: vagrant
 Private key: C:/Users/nobwak/.vagrant.d/insecure_private_key
 
 C:\Users\nobwak&gt;
-</code></pre>
-
-<p>sshがないからダメ。<br />
-だから適当なsshクライアントで繋ぐ。<br />
+</code></pre><p>sshがないからダメ。<br>
+だから適当なsshクライアントで繋ぐ。<br>
 上記のメッセージの通り、IPアドレスは127.0.0.1, ポートは2222。</p>
-
-<pre><code class="language-console">login as: vagrant
+<pre><code class="language-console" data-lang="console">login as: vagrant
 vagrant@127.0.0.1's password:
 Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
 
@@ -273,19 +246,15 @@ Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic-pae i686)
 Welcome to your Vagrant-built virtual machine.
 Last login: Fri Sep 14 06:22:31 2012 from 10.0.2.2
 vagrant@precise32:~$
-</code></pre>
-
-<p>繋げましたな。<br />
+</code></pre><p>繋げましたな。<br>
 あとは消して終了。</p>
-
-<pre><code class="language-console">C:\Users\nobwak&gt;vagrant destroy
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak&gt;vagrant destroy
     default: Are you sure you want to destroy the 'default' VM? [y/N] y
 ==&gt; default: Forcing shutdown of VM...
 ==&gt; default: Destroying VM and associated drives...
 
 C:\Users\nobwak&gt;
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/vagrant" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Vagrant</a>

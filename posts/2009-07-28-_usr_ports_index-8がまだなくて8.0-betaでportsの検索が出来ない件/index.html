@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-07-28T01:00:00+09:00" />
 <meta itemprop="name" content="/usr/ports/INDEX-8が（まだ）なくて8.0-BETAでportsの検索が出来ない件">
 <meta itemprop="description" content="portsを検索しようと思ったら、/usr/ports/INDEX-8がなくて失敗した。 本家MLとか本家Forumでも話題になっていて、とり">
-
-
 <meta itemprop="datePublished" content="2009-07-28T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-07-28T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="179">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="/usr/ports/INDEX-8が（まだ）なくて8.0-BETAでportsの検索が出来ない件"/>
 <meta name="twitter:description" content="portsを検索しようと思ったら、/usr/ports/INDEX-8がなくて失敗した。 本家MLとか本家Forumでも話題になっていて、とり"/>
 
@@ -146,18 +143,13 @@ if (!doNotTrack) {
 
 本家MLとか本家Forumでも話題になっていて、とりあえず解決策としては/usr/portsでmake fetchindexとやればいいみたい。
 </code></pre>
-
-<pre><code class="language-console"># make fetchindex
+<pre><code class="language-console" data-lang="console"># make fetchindex
 Password:
 /usr/ports/INDEX-8.bz2                        100% of 1267 kB  159 kBps
+</code></pre><pre><code>portsnapでportsを更新している人は/etc/portsnap.confに以下の一文を追加
 </code></pre>
-
-<pre><code>portsnapでportsを更新している人は/etc/portsnap.confに以下の一文を追加
-</code></pre>
-
-<pre><code class="language-console">INDEX INDEX-8 DESCRIBE.8
-</code></pre>
-<ul class="pa0">
+<pre><code class="language-console" data-lang="console">INDEX INDEX-8 DESCRIBE.8
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

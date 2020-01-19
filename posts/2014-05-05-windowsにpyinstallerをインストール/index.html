@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-05-05T19:52:32+09:00" />
 <meta itemprop="name" content="Windowsにpyinstallerをインストール">
 <meta itemprop="description" content="過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。 （動いていたからまったく気がつかなかった・・・・）">
-
-
 <meta itemprop="datePublished" content="2014-05-05T19:52:32&#43;09:00" />
 <meta itemprop="dateModified" content="2014-05-05T19:52:32&#43;09:00" />
 <meta itemprop="wordCount" content="1046">
 
 
 
-<meta itemprop="keywords" content="python,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="python,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Windowsにpyinstallerをインストール"/>
 <meta name="twitter:description" content="過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。 （動いていたからまったく気がつかなかった・・・・）"/>
 
@@ -140,60 +137,43 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。<br />
-（動いていたからまったく気がつかなかった・・・・）<br />
-<a title="PythonでWindowsアプリケーションを作ってみよう" href="../../../2013/12/python%e3%81%a7windows%e3%82%a2%e3%83%97%e3%83%aa%e3%82%b1%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86/" target="_blank">PythonでWindowsアプリケーションを作ってみよう</a></p>
-
-<p><a href="http://www.pyinstaller.org/" target="_blank">pyinstaller</a>とは、pythonプログラムをWindowsなどで動く実行ファイルに変換してくれるものだ。<br />
-自作pythonプログラムを他人にも使ってもらおうとすると、当然その人もpythonをインストールすることが前提になる。<br />
-しかしスタンドアロンの実行ファイルにできるなら、そんな面倒を解消できる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>過日、起こしたpyinstallerのインストール方法が盛大に間違っていたので改めて示す。<br>
+（動いていたからまったく気がつかなかった・・・・）<br>
+<!-- raw HTML omitted -->PythonでWindowsアプリケーションを作ってみよう<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->pyinstaller<!-- raw HTML omitted -->とは、pythonプログラムをWindowsなどで動く実行ファイルに変換してくれるものだ。<br>
+自作pythonプログラムを他人にも使ってもらおうとすると、当然その人もpythonをインストールすることが前提になる。<br>
+しかしスタンドアロンの実行ファイルにできるなら、そんな面倒を解消できる。<br>
 ありがたいことでございます。</p>
-
-<h2 id="pyinstallerのインストール">PyInstallerのインストール</h2>
-
-<p><a href="http://pythonhosted.org/PyInstaller/#installing-pyinstaller" target="_blank">公式のドキュメント</a>に沿いつつ進める。<br />
+<h2 id="pyinstaller">PyInstallerのインストール</h2>
+<p><!-- raw HTML omitted -->公式のドキュメント<!-- raw HTML omitted -->に沿いつつ進める。<br>
 インストール先はWindows。</p>
-
-<h2 id="前提">前提</h2>
-
-<p>Pythonはもちろんインストールしてあるとして、以下のものが必要<br />
-・PyWin32<br />
+<h2 id="heading">前提</h2>
+<p>Pythonはもちろんインストールしてあるとして、以下のものが必要<br>
+・PyWin32<br>
 ・（場合によって）setuptools/distribute</p>
-
-<h2 id="補足">補足</h2>
-
+<h2 id="heading-1">補足</h2>
 <p>2014/5/2現在、ActivePythonのPyPMにPyInstallerはありません。</p>
-
-<h2 id="pywin32のインストール">PyWin32のインストール</h2>
-
-<p><a href="http://sourceforge.net/projects/pywin32/?source=navbar" target="_blank">PyWin32</a>はPythonからWindows APIにアクセスするためのもの。<br />
-以下から対応するバージョンをダウンロードし、インストールする。<br />
-<a href="http://sourceforge.net/projects/pywin32/files/?source=navbar" target="_blank"><a href="http://sourceforge.net/projects/pywin32/files/?source=navbar">http://sourceforge.net/projects/pywin32/files/?source=navbar</a></a><br />
-32bit WindowsにPython2.7をインストールしているなら、pywin32-218.win32-py2.7.exeをダウンロード（218はバージョンナンバなので変わる）。<br />
-<a href="../../../wp-content/uploads/2014/05/py3201.png"><img class="alignnone size-thumbnail wp-image-2690" src="../../../wp-content/uploads/2014/05/py3201-150x150.png" alt="py3201" width="150" height="150" /></a><br />
-<a href="../../../wp-content/uploads/2014/05/py3202.png"><img class="alignnone size-thumbnail wp-image-2691" src="../../../wp-content/uploads/2014/05/py3202-150x150.png" alt="py3202" width="150" height="150" /></a><br />
+<h2 id="pywin32">PyWin32のインストール</h2>
+<p><!-- raw HTML omitted -->PyWin32<!-- raw HTML omitted -->はPythonからWindows APIにアクセスするためのもの。<br>
+以下から対応するバージョンをダウンロードし、インストールする。<br>
+<!-- raw HTML omitted --><a href="http://sourceforge.net/projects/pywin32/files/?source=navbar%3C/a%3E">http://sourceforge.net/projects/pywin32/files/?source=navbar&lt;/a&gt;</a><br>
+32bit WindowsにPython2.7をインストールしているなら、pywin32-218.win32-py2.7.exeをダウンロード（218はバージョンナンバなので変わる）。<br>
+<a href="../../../wp-content/uploads/2014/05/py3201.png"><!-- raw HTML omitted --></a><br>
+<a href="../../../wp-content/uploads/2014/05/py3202.png"><!-- raw HTML omitted --></a><br>
 pipがインストールされているなら、この時点でpip install PyInstallerでOK。</p>
-
-<h2 id="setuptools-distributeのインストール">setuptools/distributeのインストール</h2>
-
-<p>pipがインストールされているならこのステップは不要。<br />
-また、setuptools, distributeどっちでもよい。<br />
-2014/5/2現在、setuptoolsでいいようだが、私がインストールしたのはdistribute。<br />
-<a href="https://pypi.python.org/pypi/distribute/0.7.3" target="_blank"><a href="https://pypi.python.org/pypi/distribute/0.7.3">https://pypi.python.org/pypi/distribute/0.7.3</a></a></p>
-
-<p>ダウンロードして、伸張して、できたディレクトリでpython setup.py install。<br />
-distribute, setuptoolsの違いについては以下を。<br />
-<a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2" target="_blank"><a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2">http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2</a></a></p>
-
-<h2 id="pyinstallerのインストール-1">PyInstallerのインストール</h2>
-
-<p>以下から最新のPyInstallerをダウンロード。<br />
-<a href="https://pypi.python.org/pypi/PyInstaller/" target="_blank"><a href="https://pypi.python.org/pypi/PyInstaller/">https://pypi.python.org/pypi/PyInstaller/</a></a><br />
+<h2 id="setuptoolsdistribute">setuptools/distributeのインストール</h2>
+<p>pipがインストールされているならこのステップは不要。<br>
+また、setuptools, distributeどっちでもよい。<br>
+2014/5/2現在、setuptoolsでいいようだが、私がインストールしたのはdistribute。<br>
+<!-- raw HTML omitted --><a href="https://pypi.python.org/pypi/distribute/0.7.3%3C/a%3E">https://pypi.python.org/pypi/distribute/0.7.3&lt;/a&gt;</a></p>
+<p>ダウンロードして、伸張して、できたディレクトリでpython setup.py install。<br>
+distribute, setuptoolsの違いについては以下を。<br>
+<!-- raw HTML omitted --><a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2%3C/a%3E">http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2&lt;/a&gt;</a></p>
+<h2 id="pyinstaller-1">PyInstallerのインストール</h2>
+<p>以下から最新のPyInstallerをダウンロード。<br>
+<!-- raw HTML omitted --><a href="https://pypi.python.org/pypi/PyInstaller/%3C/a%3E">https://pypi.python.org/pypi/PyInstaller/&lt;/a&gt;</a><br>
 伸張して、できたディレクトリでpython setup.py install。</p>
-
-<pre><code class="language-console">C:\local\pyinstaller&gt;python setup.py install
+<pre><code class="language-console" data-lang="console">C:\local\pyinstaller&gt;python setup.py install
 （略）
 Installed c:\python27\lib\site-packages\pyinstaller-2.1-py2.7.egg
 Processing dependencies for PyInstaller==2.1
@@ -209,17 +189,13 @@ Using c:\python27\lib\site-packages
 Finished processing dependencies for PyInstaller==2.1
 
 C:\local\pyinstaller&gt;
-</code></pre>
-
-<p>コマンドプロンプトを開いてpyinstaller -versionと叩いてみる。<br />
+</code></pre><p>コマンドプロンプトを開いてpyinstaller -versionと叩いてみる。<br>
 うまく行っているならパスも通っている。</p>
-
-<pre><code class="language-console">C:\local&gt;pyinstaller --version
+<pre><code class="language-console" data-lang="console">C:\local&gt;pyinstaller --version
 2.1
 
 C:\local&gt;
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>

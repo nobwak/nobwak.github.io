@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-08-26T21:00:18+09:00" />
 <meta itemprop="name" content="[FreeBSD] pkg quarterlyとlatestレポジトリの共存">
 <meta itemprop="description" content="ここでも触れたが、10.2-RELEASEから、pkgレポジトリのデフォルト参照先がlatestからquarterlyになった。 具体的には/">
-
-
 <meta itemprop="datePublished" content="2015-08-26T21:00:18&#43;09:00" />
 <meta itemprop="dateModified" content="2015-08-26T21:00:18&#43;09:00" />
 <meta itemprop="wordCount" content="2846">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] pkg quarterlyとlatestレポジトリの共存"/>
 <meta name="twitter:description" content="ここでも触れたが、10.2-RELEASEから、pkgレポジトリのデフォルト参照先がlatestからquarterlyになった。 具体的には/"/>
 
@@ -140,172 +137,109 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p><a href="../../../2015/08/freebsd-10-2-release%e3%81%8b%e3%82%89%e9%81%a9%e7%94%a8%e3%81%95%e3%82%8c%e3%82%8bpkg-quarterly%e3%81%a6%e3%81%aa%e3%82%93%e3%81%a0%e3%80%82/">ここ</a>でも触れたが、10.2-RELEASEから、pkgレポジトリのデフォルト参照先がlatestからquarterlyになった。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><a href="../../../2015/08/freebsd-10-2-release%e3%81%8b%e3%82%89%e9%81%a9%e7%94%a8%e3%81%95%e3%82%8c%e3%82%8bpkg-quarterly%e3%81%a6%e3%81%aa%e3%82%93%e3%81%a0%e3%80%82/">ここ</a>でも触れたが、10.2-RELEASEから、pkgレポジトリのデフォルト参照先がlatestからquarterlyになった。<br>
 具体的には/etc/pkg/FreeBSD.confの内容が変わった。</p>
-
 <p>だからして、引き続きlatestを参照したい場合には、/etc/pkg/FreeBSD.confを書き換えればいいや、と思っていたものの、どうもこのファイルは「なるべく触るな」ということのようである。</p>
-
 <p>つまり、もしもの時にlatestを参照する場合には、quarterly（すなわちデフォルト）の他に、latest向けのレポジトリ設定ファイルを作る必要がある。</p>
-
 <p>それぞれを、いちいちenable/disableするのも面倒なので、latest、quarterlyの双方を参照するよう、Multi-repositoryの設定をした。</p>
-
-<p>本記事ではMulti-repositoryの設定方法について示す。<br />
+<p>本記事ではMulti-repositoryの設定方法について示す。<br>
 と同時に、普段はquarterlyを使い、特定のときだけlatestを使うための方法を示す。</p>
-
 <p>まずデフォルトの/etc/pkg/FreeBSD.confについて</p>
-
-<h2 id="etc-pkg-freebsd-confは触るな">/etc/pkg/FreeBSD.confは触るな</h2>
-
+<h2 id="etcpkgfreebsdconf">/etc/pkg/FreeBSD.confは触るな</h2>
 <p>/etc/pkg/FreeBSD.confの中身を見てみると、以下のような記載がある。</p>
-
-<pre><code class="language-console"># To disable this repository, instead of modifying or removing this file,
+<pre><code class="language-console" data-lang="console"># To disable this repository, instead of modifying or removing this file,
 # create a /usr/local/etc/pkg/repos/FreeBSD.conf file:
 #
 #   mkdir -p /usr/local/etc/pkg/repos
 #   echo &quot;FreeBSD: { enabled: no }&quot; &gt; /usr/local/etc/pkg/repos/FreeBSD.conf
 #
-</code></pre>
-
-<p>すなわち、この設定を無効化したい場合には、/etc/pkg/FreeBSD.confは触らずに、/usr/local/etc/pkg/repos/FreeBSD.confを作ったうえで、無効化の宣言をしろ、ということである。</p>
-
+</code></pre><p>すなわち、この設定を無効化したい場合には、/etc/pkg/FreeBSD.confは触らずに、/usr/local/etc/pkg/repos/FreeBSD.confを作ったうえで、無効化の宣言をしろ、ということである。</p>
 <p>/etc/pkg/FreeBSD.confはデフォルト設定として扱いたい雰囲気丸出しであるが、そうならrc.confのデフォルト設定が/etc/defaultsの下にあるように、/etc/pkg/defaults/FreeBSD.conf的なものを作ってくれても良いのではないかと思った。</p>
-
 <p>しかしそもそも、レポジトリの設定ファイルはどのように読み込まれるのであろうか。</p>
-
-<h2 id="レポジトリ設定ファイルの読み込まれる順番">レポジトリ設定ファイルの読み込まれる順番</h2>
-
-<p>/usr/local/etc/pkg.confで指定する。<br />
-上記ファイルの中に、REPOS_DIRがある。<br />
-pkgは、ここに記載された順番通りにレポジトリ設定ファイルを読み込む。<br />
+<h2 id="heading">レポジトリ設定ファイルの読み込まれる順番</h2>
+<p>/usr/local/etc/pkg.confで指定する。<br>
+上記ファイルの中に、REPOS_DIRがある。<br>
+pkgは、ここに記載された順番通りにレポジトリ設定ファイルを読み込む。<br>
 特に変更していないのであれば、内容は下記の通り。</p>
-
-<pre><code class="language-console">REPOS_DIR [
+<pre><code class="language-console" data-lang="console">REPOS_DIR [
     &quot;/etc/pkg/&quot;,
     &quot;/usr/local/etc/pkg/repos/&quot;,
 ]
-</code></pre>
-
-<p>仮に複数のディレクトリに、同じレポジトリに対する設定ファイルがあったならば、後から読み込まれたもので上書きされる。<br />
+</code></pre><p>仮に複数のディレクトリに、同じレポジトリに対する設定ファイルがあったならば、後から読み込まれたもので上書きされる。<br>
 同じディレクトリに複数のファイルがあったならば、ファイルはアルファベット順に読み込まれる。</p>
-
 <p>以下、マニュアルからの引用</p>
-
 <p>Repositories are processed in the order they are found on the REPOS_DIR search path, with individual repository configuration files in the same directory processed in alphabetical order. Settings from files later in the search path will override those from earlier ones.</p>
-
 <p>だから、/etc/pkg/FreeBSD.confのコメントに書いてある通り、/usr/local/etc/pkg/repos/FreeBSD.confでFreeBSDレポジトリを無効にする宣言をすると、設定が上書きされ、めでたくFreeBSDレポジトリは無効になる。</p>
-
-<p>ところで、同じディレクトリ内の読み込み順序はアルファベット順、というのがキモで、実はレポジトリの名前と設定ファイルの名前は別々でも構わない。<br />
+<p>ところで、同じディレクトリ内の読み込み順序はアルファベット順、というのがキモで、実はレポジトリの名前と設定ファイルの名前は別々でも構わない。<br>
 だから、読み込ませたい順番に応じて、ファイル名の頭に数字を入れてもよい。</p>
-
-<h2 id="latestレポジトリ向けの設定はどこに-またどうやって">latestレポジトリ向けの設定はどこに？またどうやって？</h2>
-
-<p>さて。<br />
-仕組みはわかった。<br />
-どうも/etc/pkg/は触ってほしくないようだから、/usr/local/etc/pkg/reposにlatest向けの設定ファイルを置けばよいのだろう。<br />
-しかしちょっと待て。<br />
+<h2 id="latest">latestレポジトリ向けの設定はどこに？またどうやって？</h2>
+<p>さて。<br>
+仕組みはわかった。<br>
+どうも/etc/pkg/は触ってほしくないようだから、/usr/local/etc/pkg/reposにlatest向けの設定ファイルを置けばよいのだろう。<br>
+しかしちょっと待て。<br>
 latestとquarterlyを両立させるにはどのようにしたら良いのであろうか。</p>
-
-<h2 id="レポジトリの優先度について">レポジトリの優先度について</h2>
-
-<p>複数のレポジトリを参照する場合、どちらをどの程度優先するか。<br />
+<h2 id="heading-1">レポジトリの優先度について</h2>
+<p>複数のレポジトリを参照する場合、どちらをどの程度優先するか。<br>
 レポジトリ設定ファイルにpriorityという設定項目があるので、それを使えば優先度の設定ができる、ようだが。</p>
-
 <p>以下はマニュアル。</p>
-
-<pre><code class="language-console">PRIORITY: integer    Set the priority of the repository.  Higher
+<pre><code class="language-console" data-lang="console">PRIORITY: integer    Set the priority of the repository.  Higher
                      values are preferred.  Default: 0
-</code></pre>
-
-<p>レポジトリ設定ファイルにPRIORITYで優先度を指定すればよい。<br />
+</code></pre><p>レポジトリ設定ファイルにPRIORITYで優先度を指定すればよい。<br>
 数値が高ければ高いほど、優先度が高い。</p>
-
-<p>ふむふむ。<br />
+<p>ふむふむ。<br>
 では、動作は？</p>
-
-<h2 id="優先度設定されたときの動作">優先度設定されたときの動作</h2>
-
-<pre><code class="language-console">WORKING WITH MULTIPLE REPOSITORIES
+<h2 id="heading-2">優先度設定されたときの動作</h2>
+<pre><code class="language-console" data-lang="console">WORKING WITH MULTIPLE REPOSITORIES
   Where several different repositories are configured pkg will search
   amongst them all in the order specified by the PRIORITY settings in the
   repo.conf files, unless directed to use a single repository by the -r
   flag （略）
-</code></pre>
-
-<p>「複数のレポジトリが与えられた場合、pkgは、-rで参照先レポジトリを明示されない限り、PRIORITYの順番で検索を行う。」</p>
-
-<p>ほほう。なるほど。<br />
+</code></pre><p>「複数のレポジトリが与えられた場合、pkgは、-rで参照先レポジトリを明示されない限り、PRIORITYの順番で検索を行う。」</p>
+<p>ほほう。なるほど。<br>
 続けて読む。</p>
-
-<pre><code class="language-console">Where several different versions of the same package are available, pkg
+<pre><code class="language-console" data-lang="console">Where several different versions of the same package are available, pkg
   will select the one with the highest version (略)
-</code></pre>
-
-<p>「異なるバージョンのpackageが見つかった場合、最も高いバージョンが選ばれる。」</p>
-
-<p>アレ!? 話が思わぬ方向に向かってきたよ！<br />
+</code></pre><p>「異なるバージョンのpackageが見つかった場合、最も高いバージョンが選ばれる。」</p>
+<p>アレ!? 話が思わぬ方向に向かってきたよ！<br>
 優先度の高いレポジトリからインストールしてくれるんじゃないの!?</p>
-
-<pre><code class="language-console">even if a lower numbered version can be found in a
+<pre><code class="language-console" data-lang="console">even if a lower numbered version can be found in a
   repository earlier in the list
-</code></pre>
-
-<p>「低いバージョンが優先度の高いレポジトリにあったとしてもこの動作は変わらない。」</p>
-
+</code></pre><p>「低いバージョンが優先度の高いレポジトリにあったとしてもこの動作は変わらない。」</p>
 <p>Oh&hellip;。</p>
-
-<pre><code class="language-console">This applies even if an explicit version is stated on
+<pre><code class="language-console" data-lang="console">This applies even if an explicit version is stated on
   the command line.  Thus if packages example-1.0.0 and
   example-1.0.1 are available in configured repositories（後略）
-</code></pre>
-
-<p>「さらにさらに、仮にバージョンを指定してインストールを実行しても、<br />
-動作は変わらない。<br />
+</code></pre><p>「さらにさらに、仮にバージョンを指定してインストールを実行しても、<br>
+動作は変わらない。<br>
 高いバージョンが見つかったら問答無用で新しい方をインストールする。」</p>
-
 <p>ぐぬぬ。</p>
-
-<h2 id="基本-quarterlyを使い-特定のときだけlatestを使うためには">基本、quarterlyを使い、特定のときだけlatestを使うためには</h2>
-
+<h2 id="quarterlylatest">基本、quarterlyを使い、特定のときだけlatestを使うためには</h2>
 <p>上記の動作を踏まえ、基本、quarterlyを使い、特定のときだけlatestを使うためには、以下の方法がある。</p>
-
-<p>A. 都度、レポジトリ設定ファイルを使い分ける。<br />
+<p>A. 都度、レポジトリ設定ファイルを使い分ける。<br>
 B. マルチレポジトリにしつつ、インストール時に考慮をする。</p>
-
-<p>ここでA.を選ぶと芸がないので、B.の方法を示す。<br />
+<p>ここでA.を選ぶと芸がないので、B.の方法を示す。<br>
 B.の方法と言っても、以下の通りでOK。</p>
-
-<p>最初にquarterlyレポジトリからインストールする。<br />
+<p>最初にquarterlyレポジトリからインストールする。<br>
 -rオプションで参照先レポジトリを明示すること。</p>
-
-<p>pkgは、そのpackageをどこからインストールしたかを覚えている。<br />
-後に示す設定を変えない限り、アップグレードの際には同じレポジトリを参照してくれる。<br />
+<p>pkgは、そのpackageをどこからインストールしたかを覚えている。<br>
+後に示す設定を変えない限り、アップグレードの際には同じレポジトリを参照してくれる。<br>
 だから、最初のインストールでquarterlyを選んでおけば、次回アップグレードのときにも、原則としてquarterlyが選ばれるというわけ。</p>
-
 <p>これをコンサバティブアップグレード(conservative upgrade)といい、pkg.confでデフォルト有効になっている。</p>
-
-<pre><code class="language-console">CONSERVATIVE_UPGRADE: boolean
+<pre><code class="language-console" data-lang="console">CONSERVATIVE_UPGRADE: boolean
     Ensure in multi repository mode that the priority is given
     as much as possible to the repository where a package was
     first installed from.  Default: YES.
-</code></pre>
-
-<p>説明を読むと;</p>
-
-<pre><code class="language-console">To override this
+</code></pre><p>説明を読むと;</p>
+<pre><code class="language-console" data-lang="console">To override this
   behaviour, on first installation of the package select the repository
   with the appropriate version:
      pkg install -r repo-a example-1.0.0
   and then to make updates to that package ``sticky'' to the same reposi-
   tory, set the value CONSERVATIVE_UPGRADE to true in pkg.conf.
-</code></pre>
-
-<p>「（常に高いバージョンを選ぶ）この動作を変更するには、最初のインストールで<br />
--rオプションによりレポジトリを選ぶ。<br />
-その後のアップグレードで同じレポジトリを使うには、pkg.confの<br />
+</code></pre><p>「（常に高いバージョンを選ぶ）この動作を変更するには、最初のインストールで<br>
+-rオプションによりレポジトリを選ぶ。<br>
+その後のアップグレードで同じレポジトリを使うには、pkg.confの<br>
 CONSERVATIVE_UPGRADEでtrueを選べばよい。」</p>
-
 <p>以上</p>
 <ul class="pa0">
   

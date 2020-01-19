@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-02-12T01:00:00+09:00" />
 <meta itemprop="name" content="Solaris, LinuxでNICのリンクスピード（帯域）、モードを知るには">
 <meta itemprop="description" content="俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500 options=9b&amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&gt; ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (&lt;span style=&quot;font-weight:bold;&quot;&gt;1000baseTX &amp;#60;full-duplex&gt;&lt;/span&gt;) status: active Boldで示し">
-
-
 <meta itemprop="datePublished" content="2008-02-12T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-02-12T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="366">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Solaris, LinuxでNICのリンクスピード（帯域）、モードを知るには"/>
 <meta name="twitter:description" content="俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500 options=9b&amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&gt; ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (&lt;span style=&quot;font-weight:bold;&quot;&gt;1000baseTX &amp;#60;full-duplex&gt;&lt;/span&gt;) status: active Boldで示し"/>
 
@@ -146,17 +143,14 @@ if (!doNotTrack) {
 
 FreeBSDではifconfigコマンドでリンクなどが表示される。
 </code></pre>
-
-<pre><code class="language-console">$ ifconfig -a
+<pre><code class="language-console" data-lang="console">$ ifconfig -a
 em0: flags=8843&amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
 options=9b&amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&gt;
 ether xx:xx:xx:xx:xx:xx
 inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx
 media: Ethernet autoselect (&lt;span style=&quot;font-weight:bold;&quot;&gt;1000baseTX &amp;#60;full-duplex&gt;&lt;/span&gt;)
 status: active
-</code></pre>
-
-<pre><code>Boldで示した通り、1Gbの全二重であることが分かる。
+</code></pre><pre><code>Boldで示した通り、1Gbの全二重であることが分かる。
 
 
 

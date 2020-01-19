@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-05-02T01:00:00+09:00" />
 <meta itemprop="name" content="ddに与えるbsのメディアごとの値について">
 <meta itemprop="description" content="&lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/&quot; target=&quot;_blank&quot;&gt;FreeBSD-questionsメーリングリスト&lt;/a&gt;からのメ">
-
-
 <meta itemprop="datePublished" content="2009-05-02T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-05-02T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="188">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ddに与えるbsのメディアごとの値について"/>
 <meta name="twitter:description" content="&lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/&quot; target=&quot;_blank&quot;&gt;FreeBSD-questionsメーリングリスト&lt;/a&gt;からのメ"/>
 
@@ -146,21 +143,16 @@ if (!doNotTrack) {
 
 ddでデータを吸い出すとき、メディアごとに望ましいブロックサイズはこんなもんじゃね?という話題があったので、そのまま転載。
 </code></pre>
-
-<pre><code class="language-console">Format          Device (example)        bs=
+<pre><code class="language-console" data-lang="console">Format          Device (example)        bs=
 -------------   ---------------------   ----
 Data CD         /dev/acd0               2048
 Music CD        /dev/acd0t01            2352
 DVD             /dev/acd0               2048
 Hard disk       /dev/ad0s1g             1m
+</code></pre><pre><code>でまあ、上記の表をもとに、以下のようなコマンドを打つと。
 </code></pre>
-
-<pre><code>でまあ、上記の表をもとに、以下のようなコマンドを打つと。
-</code></pre>
-
-<pre><code class="language-console"># dd if=/dev/acd0 of=somefile.dd bs=2048
-</code></pre>
-<ul class="pa0">
+<pre><code class="language-console" data-lang="console"># dd if=/dev/acd0 of=somefile.dd bs=2048
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

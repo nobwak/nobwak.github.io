@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-08-08T23:01:10+09:00" />
 <meta itemprop="name" content="[Windows] 暗号化仮想ディスク管理ツールFreeOTFE">
 <meta itemprop="description" content="ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。 暗号化ツールは、探してみると意外にたくさんある。 また、最近ではOS">
-
-
 <meta itemprop="datePublished" content="2014-08-08T23:01:10&#43;09:00" />
 <meta itemprop="dateModified" content="2014-08-08T23:01:10&#43;09:00" />
-<meta itemprop="wordCount" content="1314">
+<meta itemprop="wordCount" content="1321">
 
 
 
-<meta itemprop="keywords" content="security,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="security,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Windows] 暗号化仮想ディスク管理ツールFreeOTFE"/>
 <meta name="twitter:description" content="ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。 暗号化ツールは、探してみると意外にたくさんある。 また、最近ではOS"/>
 
@@ -140,70 +137,51 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。</p>
-
-<p>暗号化ツールは、探してみると意外にたくさんある。<br />
-また、最近ではOSで暗号化をサポートするのもトレンドである。<br />
-そういったわけで、どんなものでも選り取り見取り、と思っておりました。<br />
-しかし。<br />
-ちょっと条件を付けると途端に選択肢が狭まってしまう。<br />
-具体的には、実ディスク全体を暗号化するのではなく、<br />
-①Windowsで、<br />
-②暗号化仮想ディスクを扱える、<br />
-②フリー（オープンソース）のツール<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。</p>
+<p>暗号化ツールは、探してみると意外にたくさんある。<br>
+また、最近ではOSで暗号化をサポートするのもトレンドである。<br>
+そういったわけで、どんなものでも選り取り見取り、と思っておりました。<br>
+しかし。<br>
+ちょっと条件を付けると途端に選択肢が狭まってしまう。<br>
+具体的には、実ディスク全体を暗号化するのではなく、<br>
+①Windowsで、<br>
+②暗号化仮想ディスクを扱える、<br>
+②フリー（オープンソース）のツール<br>
 である。</p>
-
-<h2 id="span-style-text-decoration-underline-暗号化仮想ディスクのねらい-span"><span style="text-decoration: underline;">暗号化仮想ディスクのねらい</span></h2>
-
-<p>つまり、PC本体の実ディスクはそのままに、暗号化した仮想ディスクを扱いたいわけです。<br />
-なぜわざわざ仮想ディスクが必要なのか。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->暗号化仮想ディスクのねらい<!-- raw HTML omitted --></h2>
+<p>つまり、PC本体の実ディスクはそのままに、暗号化した仮想ディスクを扱いたいわけです。<br>
+なぜわざわざ仮想ディスクが必要なのか。<br>
 なぜファイル単位の暗号化ではダメなのかというと。</p>
-
 <p>端的に言って、復号した後にもう一回暗号化するのが面倒だから。</p>
-
-<p>暗号化したファイル、フォルダは、ずっとそのままという訳にはいかない。<br />
-とうぜん閲覧するなり実行したりしたいわけで、そのためには復号、すなわち暗号解除が必要だ。<br />
+<p>暗号化したファイル、フォルダは、ずっとそのままという訳にはいかない。<br>
+とうぜん閲覧するなり実行したりしたいわけで、そのためには復号、すなわち暗号解除が必要だ。<br>
 しかしひとたび、無事に用事を済ませたら、当然のことながらもう一度暗号化して大事にしまっておかねばならない。</p>
-
-<p>ファイルあるいはフォルダ単位の暗号化ツールは、この「使った後にもう一度鍵をかけてしまう」という作業を考えられていないケースがほとんどだ。<br />
-これはおそらく、一回限りの暗号化を前提にしているためと思う。<br />
+<p>ファイルあるいはフォルダ単位の暗号化ツールは、この「使った後にもう一度鍵をかけてしまう」という作業を考えられていないケースがほとんどだ。<br>
+これはおそらく、一回限りの暗号化を前提にしているためと思う。<br>
 たとえば、セキュリティに不安のある経路を通してファイルを送受するとか。</p>
-
-<p>頻繁に暗号化されたファイルにアクセスするようなケースでは、ユーザが意識しなくても、使用後に元通り暗号化されることが望ましい。<br />
+<p>頻繁に暗号化されたファイルにアクセスするようなケースでは、ユーザが意識しなくても、使用後に元通り暗号化されることが望ましい。<br>
 暗号化した仮想ディスクを扱える、というのはそういう使用用途にぴったりである。</p>
-
-<p>暗号化ファイルを復号するとディスクとしてマウントされる。<br />
-シャットダウンあるいは再起動でマウントが外れ、暗号化されたファイルに戻る。<br />
+<p>暗号化ファイルを復号するとディスクとしてマウントされる。<br>
+シャットダウンあるいは再起動でマウントが外れ、暗号化されたファイルに戻る。<br>
 ぴったり。</p>
-
-<p>ならディスクそのものを暗号化してしまえよWindowsにはBitLockerとかあるんだしさあ、というのはその通り。<br />
+<p>ならディスクそのものを暗号化してしまえよWindowsにはBitLockerとかあるんだしさあ、というのはその通り。<br>
 その通りなんだが、実ディスクの設定を気軽に触れないケースもあるってことで。</p>
-
-<p><a href="../../../wp-content/uploads/2014/07/2014-07-25_21-55-13.png"><img class="alignnone size-thumbnail wp-image-2806" src="../../../wp-content/uploads/2014/07/2014-07-25_21-55-13-150x150.png" alt="2014-07-25_21-55-13" width="150" height="150" /></a></p>
-
-<h2 id="span-style-text-decoration-underline-freeotfe-span"><span style="text-decoration: underline;">FreeOTFE</span></h2>
-
-<p>さて上述の検討をもとに選定をする。<br />
-しかし暗号化ツールと言ってもかなりの数がある。<br />
+<p><a href="../../../wp-content/uploads/2014/07/2014-07-25_21-55-13.png"><!-- raw HTML omitted --></a></p>
+<h2 id="span-styletext-decoration-underlinefreeotfespan"><!-- raw HTML omitted -->FreeOTFE<!-- raw HTML omitted --></h2>
+<p>さて上述の検討をもとに選定をする。<br>
+しかし暗号化ツールと言ってもかなりの数がある。<br>
 どうやって探したらいいのだ。</p>
-
-<p>こういうときに便利なのがWikipedia。<br />
-たいてい便利な比較表がある。<br />
-<a href="http://en.wikipedia.org/wiki/Comparison_of_disk_encryption_software" target="_blank">Comparison of disk encryption software</a></p>
-
-<p>ところが、条件を当てはめていくと急激に数が減る。<br />
-結論として、条件を十分に満足するソフトウェアはなかった。<br />
+<p>こういうときに便利なのがWikipedia。<br>
+たいてい便利な比較表がある。<br>
+<!-- raw HTML omitted -->Comparison of disk encryption software<!-- raw HTML omitted --></p>
+<p>ところが、条件を当てはめていくと急激に数が減る。<br>
+結論として、条件を十分に満足するソフトウェアはなかった。<br>
 次点でFreeOTFE。</p>
-
-<p>FreeOTFEは、フリーでWindowsで使えて仮想ディスクを扱える。<br />
-一見、問題なさそうに思えたのだが、なんと開発が止まっていた。<br />
+<p>FreeOTFEは、フリーでWindowsで使えて仮想ディスクを扱える。<br>
+一見、問題なさそうに思えたのだが、なんと開発が止まっていた。<br>
 なんという…。</p>
-
-<p>したがって、不具合が見つかった場合の修正がなされないのは当然なことながら、64bit Windowsでは暗号化仮想ディスク用のドライバをインストールできず、今後も改善される予定はない。<br />
+<p>したがって、不具合が見つかった場合の修正がなされないのは当然なことながら、64bit Windowsでは暗号化仮想ディスク用のドライバをインストールできず、今後も改善される予定はない。<br>
 もちろん、誰かが開発を引き継いでくれればその限りではないが、昨今はOSで暗号化に対応するのが一般的だし、開発が復活するのは望み薄ではないかなと思っている。</p>
-
 <p>長くなったので、FreeOTFEのインストール方法は別項で。</p>
 <ul class="pa0">
   

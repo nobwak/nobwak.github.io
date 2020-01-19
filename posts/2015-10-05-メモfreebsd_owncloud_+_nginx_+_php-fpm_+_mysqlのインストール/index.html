@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-10-05T22:56:00+09:00" />
 <meta itemprop="name" content="[メモ][FreeBSD] owncloud &#43; nginx &#43; php-fpm &#43; MySQLのインストール">
 <meta itemprop="description" content="owncloudは自家製dropboxのようなもの。 以下、メモ。 owncloudの構成 owncloudはphpで作られている。 そしてインタフ">
-
-
 <meta itemprop="datePublished" content="2015-10-05T22:56:00&#43;09:00" />
 <meta itemprop="dateModified" content="2015-10-05T22:56:00&#43;09:00" />
-<meta itemprop="wordCount" content="2050">
+<meta itemprop="wordCount" content="2051">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ][FreeBSD] owncloud &#43; nginx &#43; php-fpm &#43; MySQLのインストール"/>
 <meta name="twitter:description" content="owncloudは自家製dropboxのようなもの。 以下、メモ。 owncloudの構成 owncloudはphpで作られている。 そしてインタフ"/>
 
@@ -140,109 +137,68 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>owncloudは自家製dropboxのようなもの。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>owncloudは自家製dropboxのようなもの。<br>
 以下、メモ。</p>
-
-<h2 id="owncloudの構成">owncloudの構成</h2>
-
-<p>owncloudはphpで作られている。<br />
-そしてインタフェースはhttps。<br />
-したがって、動作にはowncloudのほかに、php, webサーバが必要。<br />
+<h2 id="owncloud">owncloudの構成</h2>
+<p>owncloudはphpで作られている。<br>
+そしてインタフェースはhttps。<br>
+したがって、動作にはowncloudのほかに、php, webサーバが必要。<br>
 さらにバックエンド用のデータベースソフトウェアも必要である。</p>
-
-<h2 id="packageのowncloud">packageのowncloud</h2>
-
-<p>owncloudはバックエンドのDBにMySQL, SQLiteなどが選べる。<br />
-個人用ならSQLiteでも大丈夫そうだが、packageに用意されているowncloudはMySQLが有効、SQLiteが無効になっている。<br />
-SQLite版owncloudが欲しければportsからコンパイルする必要がある。<br />
-これまた面倒なのでpackageのものを使った。<br />
-packageからowncloudをインストールすると、phpは勝手に入るが、webサーバ、MySQLは別にインストールする必要がある。<br />
-ここではwebサーバにnginxを選んだ。<br />
+<h2 id="packageowncloud">packageのowncloud</h2>
+<p>owncloudはバックエンドのDBにMySQL, SQLiteなどが選べる。<br>
+個人用ならSQLiteでも大丈夫そうだが、packageに用意されているowncloudはMySQLが有効、SQLiteが無効になっている。<br>
+SQLite版owncloudが欲しければportsからコンパイルする必要がある。<br>
+これまた面倒なのでpackageのものを使った。<br>
+packageからowncloudをインストールすると、phpは勝手に入るが、webサーバ、MySQLは別にインストールする必要がある。<br>
+ここではwebサーバにnginxを選んだ。<br>
 ではMySQLは。</p>
-
-<h2 id="mysqlのバージョン選定">MySQLのバージョン選定</h2>
-
+<h2 id="mysql">MySQLのバージョン選定</h2>
 <p>いや、MySQLはMySQLに決まっているんだが、実はpackageを探すと、5.1, 5.5, 5.6の三つがあるのだ。</p>
-
-<pre><code class="language-console">$ pkg search &quot;^mysql.*server&quot;
+<pre><code class="language-console" data-lang="console">$ pkg search &quot;^mysql.*server&quot;
 mysql51-server-5.1.73_2
 mysql55-server-5.5.43
 mysql56-server-5.6.24
+</code></pre><p>果たしてどれを選べばよいのであろうか。</p>
+<!-- raw HTML omitted -->
+<pre><code>&lt;a href=&quot;https://www.liquidweb.com/kb/mysql-5-1-vs-5-5-vs-5-6-performance-comparison/&quot;&gt;MySQL 5.1 vs. 5.5 vs. 5.6 Performance Comparison&lt;/a&gt;
 </code></pre>
-
-<p>果たしてどれを選べばよいのであろうか。</p>
-
-<blockquote class="wp-embedded-content" data-secret="f7Q79EiJMd">
-  
-    <a href="https://www.liquidweb.com/kb/mysql-5-1-vs-5-5-vs-5-6-performance-comparison/">MySQL 5.1 vs. 5.5 vs. 5.6 Performance Comparison</a>
-  
-</blockquote>
-
+<!-- raw HTML omitted -->
 <p>以上のURL他を見たところ、最新の5.6で良さそうなのでmysql56-server-5.6.24をインストールしておいた。</p>
-
-<h2 id="owncloudのインストール">owncloudのインストール</h2>
-
-<p>packageで入れるだけ。<br />
+<h2 id="owncloud-1">owncloudのインストール</h2>
+<p>packageで入れるだけ。<br>
 いっしょにnginx, mysql5.6も入れる。</p>
-
-<pre><code class="language-console"># pkg install owncloud nginx mysql56-server
-</code></pre>
-
-<h2 id="mysqlの設定">MySQLの設定</h2>
-
-<p>owncloudのデータベースを受け持つMySQLの設定<br />
+<pre><code class="language-console" data-lang="console"># pkg install owncloud nginx mysql56-server
+</code></pre><h2 id="mysql-1">MySQLの設定</h2>
+<p>owncloudのデータベースを受け持つMySQLの設定<br>
 システム起動時にMySQLも自動的に起動するように設定。</p>
-
-<pre><code class="language-console"># sysrc mysql_enable=YES
+<pre><code class="language-console" data-lang="console"># sysrc mysql_enable=YES
 mysql_enable:  -&gt; YES
-</code></pre>
-
-<p>すぐ起動</p>
-
-<pre><code class="language-console"># service mysql-server start
+</code></pre><p>すぐ起動</p>
+<pre><code class="language-console" data-lang="console"># service mysql-server start
 Starting mysql.
-</code></pre>
-
-<p>mysql_secure_installationでセキュリティを高めておくと同時にスーパーユーザのパスワードも設定。</p>
-
-<pre><code class="language-console"># mysql_secure_installation
-</code></pre>
-
-<p>データベースの作成<br />
+</code></pre><p>mysql_secure_installationでセキュリティを高めておくと同時にスーパーユーザのパスワードも設定。</p>
+<pre><code class="language-console" data-lang="console"># mysql_secure_installation
+</code></pre><p>データベースの作成<br>
 USERはユーザ名に、CHANGE_THIS_PASSWORDはパスワードに書き換えること。</p>
-
-<pre><code class="language-console"># mysql -p -e &quot;create user 'USER'@'localhost' identified by 'CHANGE_THIS_PASSWORD';&quot;
+<pre><code class="language-console" data-lang="console"># mysql -p -e &quot;create user 'USER'@'localhost' identified by 'CHANGE_THIS_PASSWORD';&quot;
 # mysql -p -e &quot;create database if not exists owncloud;&quot;
 # mysql -p -e &quot;grant all on owncloud.* to 'USER'@'localhost' identified by 'CHANGE_THIS_PASSWORD';&quot;
 # mysql -p -e &quot;flush privileges;&quot;
-</code></pre>
-
-<h2 id="phpの設定">phpの設定</h2>
-
-<p>owncloudはphpで書かれている。そのphpの設定。<br />
+</code></pre><h2 id="php">phpの設定</h2>
+<p>owncloudはphpで書かれている。そのphpの設定。<br>
 とはいえ、特別、何かすることはない。</p>
-
 <p>/usr/local/etcにあるphp.ini-production を、php.ini としてコピー</p>
-
 <p>次に/usr/local/etc/php/extensions.ini に以下の記載があることを確認する（デフォルトで記載があるはず）</p>
-
-<pre><code class="language-console">extension=pdo.so
+<pre><code class="language-console" data-lang="console">extension=pdo.so
 extension=mysql.so
-</code></pre>
-
-<h2 id="php-fpmの設定">php-fpmの設定</h2>
-
-<p>そのままでは静的コンテンツしか扱わないnginxが、phpを実行できるようにするための設定。<br />
-php-fpmがデーモンとして動作し、nginxからの要求に応じてphpを実行して結果を返す。<br />
+</code></pre><h2 id="php-fpm">php-fpmの設定</h2>
+<p>そのままでは静的コンテンツしか扱わないnginxが、phpを実行できるようにするための設定。<br>
+php-fpmがデーモンとして動作し、nginxからの要求に応じてphpを実行して結果を返す。<br>
 したがってphp-fpmとnginxがどう通信するかを規定したり、システム起動時にphp-fpmが自動的に起動するような指定が必要。</p>
-
-<p>まずはphp-fpmの設定。<br />
-/usr/local/etc/php-fpm.confに以下があればよい。<br />
+<p>まずはphp-fpmの設定。<br>
+/usr/local/etc/php-fpm.confに以下があればよい。<br>
 それ以外はむしろ冗長だし、見にくくなるので削ってしまってよい。</p>
-
-<pre><code class="language-console">[global]
+<pre><code class="language-console" data-lang="console">[global]
 pid = run/php-fpm.pid
 error_log = log/php-fpm.log
 
@@ -266,32 +222,20 @@ env[PATH] = /usr/local/bin:/usr/bin:/bin
 env[TMP] = /tmp
 env[TMPDIR] = /tmp
 env[TEMP] = /tmp
-</code></pre>
-
-<p>システム起動時のphp-fpm起動設定<br />
+</code></pre><p>システム起動時のphp-fpm起動設定<br>
 /etc/rc.conf内ではphp-fpmではなくphp_fpmとなることに注意（ハイフンではなくアンダースコア）</p>
-
-<pre><code class="language-console">sysrc php_fpm_enable=YES
+<pre><code class="language-console" data-lang="console">sysrc php_fpm_enable=YES
 php_fpm_enable: -&gt; YES
-</code></pre>
-
-<h2 id="nginxの設定-の前に-sslの準備">nginxの設定…の前に、SSLの準備</h2>
-
-<p>SSLのためにはサーバの鍵が必要。<br />
-手前味噌だが、<a href="../../../2015/09/sh-%e3%82%aa%e3%83%ac%e3%82%aa%e3%83%ac%e8%a8%bc%e6%98%8e%e6%9b%b8%e4%bd%9c%e6%88%90%e3%82%b7%e3%82%a7%e3%83%ab%e3%82%b9%e3%82%af%e3%83%aa%e3%83%97%e3%83%88/" target="_blank">ここ</a>にあるスクリプトを使ってくれい。</p>
-
+</code></pre><h2 id="nginxssl">nginxの設定…の前に、SSLの準備</h2>
+<p>SSLのためにはサーバの鍵が必要。<br>
+手前味噌だが、<!-- raw HTML omitted -->ここ<!-- raw HTML omitted -->にあるスクリプトを使ってくれい。</p>
 <p>秘密鍵、証明書、DHパラメータ、三つのファイルを作成して、/usr/local/etc/sslあたりに入れる。</p>
-
-<h2 id="nginxの設定">nginxの設定</h2>
-
+<h2 id="nginx">nginxの設定</h2>
 <p>以下、二つのサイトを参考にしつつ作成。</p>
-
-<p><a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-1.8.0&amp;openssl=1.0.1l&amp;hsts=yes&amp;profile=intermediate">https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-1.8.0&amp;openssl=1.0.1l&amp;hsts=yes&amp;profile=intermediate</a><br />
-<a href="https://doc.owncloud.org/server/7.0/admin_manual/installation/nginx_configuration.html">https://doc.owncloud.org/server/7.0/admin_manual/installation/nginx_configuration.html</a></p>
-
+<p><a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-1.8.0&amp;openssl=1.0.1l&amp;hsts=yes&amp;profile=intermediate">https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-1.8.0&amp;openssl=1.0.1l&amp;hsts=yes&amp;profile=intermediate</a><br>
+<a href="https://doc.owncloud.org/server/7.0/admin">https://doc.owncloud.org/server/7.0/admin</a>_manual/installation/nginx_configuration.html</p>
 <p>出来たのが以下。</p>
-
-<pre><code class="language-console">#user  nobody;
+<pre><code class="language-console" data-lang="console">#user  nobody;
 worker_processes  1;
 
 #error_log  logs/error.log;
@@ -449,23 +393,14 @@ nx_configuration.html
                 access_log off;
         }
     }
-</code></pre>
-
-<h2 id="nginxの起動設定とサービススタート">nginxの起動設定とサービススタート</h2>
-
-<pre><code class="language-console"># sysrc nginx_enable=YES
+</code></pre><h2 id="nginx-1">nginxの起動設定とサービススタート</h2>
+<pre><code class="language-console" data-lang="console"># sysrc nginx_enable=YES
 nginx_enable: -&gt; YES
-</code></pre>
-
-<p>nginx, php-fpmを起動し、https://＜サーバアドレス＞にブラウザで繋げばOK</p>
-
-<pre><code class="language-console"># service php-fpm start
+</code></pre><p>nginx, php-fpmを起動し、https://＜サーバアドレス＞にブラウザで繋げばOK</p>
+<pre><code class="language-console" data-lang="console"># service php-fpm start
 # service nginx start
-</code></pre>
-
-<p>その他参考</p>
-
-<p><a href="https://doc.owncloud.org/server/7.0/admin_manual/configuration/database_configuration.html">https://doc.owncloud.org/server/7.0/admin_manual/configuration/database_configuration.html</a></p>
+</code></pre><p>その他参考</p>
+<p><a href="https://doc.owncloud.org/server/7.0/admin">https://doc.owncloud.org/server/7.0/admin</a>_manual/configuration/database_configuration.html</p>
 <ul class="pa0">
   
 </ul>

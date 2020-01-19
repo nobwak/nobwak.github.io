@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-10-14T20:22:42+09:00" />
 <meta itemprop="name" content="FreeBSD 10インストーラからのzfs on rootを試してみたよー">
 <meta itemprop="description" content="FreeBSD 10.0-RELEASEから、インストールの際にファイルシステムとしてZFSが選べるようになる。 システムの置かれるファイルシステムをZFS">
-
-
 <meta itemprop="datePublished" content="2013-10-14T20:22:42&#43;09:00" />
 <meta itemprop="dateModified" content="2013-10-14T20:22:42&#43;09:00" />
-<meta itemprop="wordCount" content="878">
+<meta itemprop="wordCount" content="873">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSD 10インストーラからのzfs on rootを試してみたよー"/>
 <meta name="twitter:description" content="FreeBSD 10.0-RELEASEから、インストールの際にファイルシステムとしてZFSが選べるようになる。 システムの置かれるファイルシステムをZFS"/>
 
@@ -140,63 +137,38 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>FreeBSD 10.0-RELEASEから、インストールの際にファイルシステムとしてZFSが選べるようになる。<br />
-システムの置かれるファイルシステムをZFSにする、ということは、今までも出来ないことはなかったけど、そりゃもう面倒な手順を経る必要があった。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSD 10.0-RELEASEから、インストールの際にファイルシステムとしてZFSが選べるようになる。<br>
+システムの置かれるファイルシステムをZFSにする、ということは、今までも出来ないことはなかったけど、そりゃもう面倒な手順を経る必要があった。<br>
 それがインストールの時の選択ひとつで出来るようになったというのは、けっこうすごいこと。</p>
-
-<p>また、システムをZFSに置けると、まずパーティションの切り方に悩まなくて済む。<br />
+<p>また、システムをZFSに置けると、まずパーティションの切り方に悩まなくて済む。<br>
 あとで/varが足らないとか/usr/localがとかそういったことが無くなる。</p>
-
-<p>そのうえで、システムまるごとzfsのアドバンテージを満喫できる。<br />
+<p>そのうえで、システムまるごとzfsのアドバンテージを満喫できる。<br>
 まるまるスナップショット取れたりするからね。</p>
-
-<p>ただ、2012/10/10現在、いまだテスト中のところであり、10.0-BETA1あたりに入るかも、という状態。(2013/10/15追記; 10.0-BETA1に入ってました）<br />
+<p>ただ、2012/10/10現在、いまだテスト中のところであり、10.0-BETA1あたりに入るかも、という状態。(2013/10/15追記; 10.0-BETA1に入ってました）<br>
 そんな状態で試してみた顛末を記す。</p>
-
 <p>なお一次情報は以下の通り。</p>
-
-<p><div>
-  <a href="https://groups.google.com/forum/#!topic/fa.freebsd.current/Q-JnQKKo7dg" target="_blank">[CFT] Patch to bsdinstall to support root-on-ZFS and GELI</a></p>
-
-<h2 id="span-style-text-decoration-underline-インストーラでのzfs-on-rootを試す-span"><span style="text-decoration: underline;">インストーラでのzfs on rootを試す</span></h2>
-
-<p>前提:FreeBSD 10.0-ALPHA5, zfsbootonly.2013-10-09.isoをvirtualboxで試しています。<br />
-<strong>注意</strong>: <span style="text-decoration: underline;">先述の通りテストの真っ最中なので、下記の内容が変わる可能性は十分にあります。</span></p>
-
-<p><a href="http://www.allanjude.com/bsd/" target="_blank">Allan Jude氏のページ</a>からインストーラをダウンロードする。<br />
+<!-- raw HTML omitted -->
+<h2 id="span-styletext-decoration-underlinezfs-on-rootspan"><!-- raw HTML omitted -->インストーラでのzfs on rootを試す<!-- raw HTML omitted --></h2>
+<p>前提:FreeBSD 10.0-ALPHA5, zfsbootonly.2013-10-09.isoをvirtualboxで試しています。<br>
+<strong>注意</strong>: <!-- raw HTML omitted -->先述の通りテストの真っ最中なので、下記の内容が変わる可能性は十分にあります。<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->Allan Jude氏のページ<!-- raw HTML omitted -->からインストーラをダウンロードする。<br>
 通常通り起動し、10.0になっても相変わらず愛想のかけらもないメニューを選択して進むと、以下の通りフォーマットのところでZFSが選べる。</p>
-
-<p><a href="../../../wp-content/uploads/2013/10/menu001.png"><img class="alignnone size-medium wp-image-2265" alt="menu001" src="../../../wp-content/uploads/2013/10/menu001-300x166.png" width="300" height="166" srcset="../../../wp-content/uploads/2013/10/menu001-300x166.png 300w, ../../../wp-content/uploads/2013/10/menu001-624x346.png 624w, ../../../wp-content/uploads/2013/10/menu001.png 721w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
-
+<p><a href="../../../wp-content/uploads/2013/10/menu001.png"><!-- raw HTML omitted --></a></p>
 <p>ZFSを選ぶとこのように。</p>
-
-<p><a href="../../../wp-content/uploads/2013/10/menu002.png"><img class="alignnone size-medium wp-image-2266" alt="menu002" src="../../../wp-content/uploads/2013/10/menu002-300x165.png" width="300" height="165" srcset="../../../wp-content/uploads/2013/10/menu002-300x165.png 300w, ../../../wp-content/uploads/2013/10/menu002-624x344.png 624w, ../../../wp-content/uploads/2013/10/menu002.png 724w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
-
+<p><a href="../../../wp-content/uploads/2013/10/menu002.png"><!-- raw HTML omitted --></a></p>
 <p>使うディスクを選び、進む。</p>
-
-<p><a href="../../../wp-content/uploads/2013/10/menu003.png"><img class="alignnone size-medium wp-image-2267" alt="menu003" src="../../../wp-content/uploads/2013/10/menu003-300x168.png" width="300" height="168" srcset="../../../wp-content/uploads/2013/10/menu003-300x168.png 300w, ../../../wp-content/uploads/2013/10/menu003-624x350.png 624w, ../../../wp-content/uploads/2013/10/menu003.png 715w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
-
+<p><a href="../../../wp-content/uploads/2013/10/menu003.png"><!-- raw HTML omitted --></a></p>
 <p>あとは通常通り。</p>
-
 <p>unameはこの通り。</p>
-
-<pre><code class="language-console">FreeBSD yaryka 10.0-ALPHA5 FreeBSD 10.0-ALPHA5 #0 r256092: Sun Oct  6 22:30:23 UTC 2013     root@snap.freebsd.org:/usr/obj/usr/src/sys/GENERIC  amd64
-</code></pre>
-
-<p>カーネルモジュールがこのように組み込まれている。</p>
-
-<pre><code class="language-console">$ kldstat
+<pre><code class="language-console" data-lang="console">FreeBSD yaryka 10.0-ALPHA5 FreeBSD 10.0-ALPHA5 #0 r256092: Sun Oct  6 22:30:23 UTC 2013     root@snap.freebsd.org:/usr/obj/usr/src/sys/GENERIC  amd64
+</code></pre><p>カーネルモジュールがこのように組み込まれている。</p>
+<pre><code class="language-console" data-lang="console">$ kldstat
 Id Refs Address            Size     Name
  1   10 0xffffffff80200000 17fbc88  kernel
  2    1 0xffffffff819fc000 2b66d0   zfs.ko
  3    2 0xffffffff81cb3000 8098     opensolaris.ko
-</code></pre>
-
-<p>ディスクの内容はこのように。</p>
-
-<pre><code class="language-console">$ df -h
+</code></pre><p>ディスクの内容はこのように。</p>
+<pre><code class="language-console" data-lang="console">$ df -h
 Filesystem                   Size    Used   Avail Capacity  Mounted on
 zroot/bootenv/default         61G    856M     60G     1%    /
 devfs                        1.0k    1.0k      0B   100%    /dev
@@ -217,8 +189,7 @@ zroot/var/log                 60G    196k     60G     0%    /var/log
 zroot/var/mail                60G    144k     60G     0%    /var/mail
 zroot/var/run                 60G    228k     60G     0%    /var/run
 zroot/var/tmp                 60G    152k     60G     0%    /var/tmp
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

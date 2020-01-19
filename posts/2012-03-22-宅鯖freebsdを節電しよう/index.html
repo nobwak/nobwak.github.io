@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-03-22T01:00:00+09:00" />
 <meta itemprop="name" content="宅鯖FreeBSDを節電しよう">
 <meta itemprop="description" content="はいはいはいドーモそういうわけでですね、自宅鯖の節電をやっていきたいわけですけれども。 9.0-RELEASEのIntelで実施しましたので共">
-
-
 <meta itemprop="datePublished" content="2012-03-22T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-22T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1995">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="宅鯖FreeBSDを節電しよう"/>
 <meta name="twitter:description" content="はいはいはいドーモそういうわけでですね、自宅鯖の節電をやっていきたいわけですけれども。 9.0-RELEASEのIntelで実施しましたので共"/>
 
@@ -188,8 +185,7 @@ AMDでも9.xならなんとかできそう。
 
 以下の例では二つ。
 </code></pre>
-
-<pre><code class="language-console">$ sysctl -a|grep &amp;#34;p4tcc&amp;#34;
+<pre><code class="language-console" data-lang="console">$ sysctl -a|grep &amp;#34;p4tcc&amp;#34;
 dev.p4tcc.0.%desc: CPU Frequency Thermal Control
 dev.p4tcc.0.%driver: p4tcc
 dev.p4tcc.0.%parent: cpu0
@@ -198,19 +194,14 @@ dev.p4tcc.1.%desc: CPU Frequency Thermal Control
 dev.p4tcc.1.%driver: p4tcc
 dev.p4tcc.1.%parent: cpu1
 dev.p4tcc.1.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1
+</code></pre><pre><code>以下のように。
 </code></pre>
-
-<pre><code>以下のように。
-</code></pre>
-
-<pre><code class="language-console">/boot/loader.conf:
+<pre><code class="language-console" data-lang="console">/boot/loader.conf:
 hint.p4tcc.0.disabled=1
 hint.acpi_throttle.0.disabled=1
 hint.p4tcc.1.disabled=1
 hint.acpi_throttle.1.disabled=1
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;C-states設定&lt;/span&gt;
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;C-states設定&lt;/span&gt;
 
 
 
@@ -230,35 +221,26 @@ RELEASE、CPUに応じて/boot/loader.confに追加の設定を加える。
 
 9.x, intelの場合
 </code></pre>
-
-<pre><code class="language-console">/etc/rc.conf:
+<pre><code class="language-console" data-lang="console">/etc/rc.conf:
 performance_cx_lowest=&amp;#34;C3&amp;#34;
 economy_cx_lowest=&amp;#34;C3&amp;#34;
+</code></pre><pre><code>8.x, intelの場合
 </code></pre>
-
-<pre><code>8.x, intelの場合
-</code></pre>
-
-<pre><code class="language-console">/etc/rc.conf:
+<pre><code class="language-console" data-lang="console">/etc/rc.conf:
 performance_cx_lowest=&amp;#34;C3&amp;#34;
 economy_cx_lowest=&amp;#34;C3&amp;#34;
 /boot/loader.conf:
 hint.apic.0.clock=0
 kern.hz=100
 hint.atrtc.0.clock=0
+</code></pre><pre><code>9.x、AMDの場合
 </code></pre>
-
-<pre><code>9.x、AMDの場合
-</code></pre>
-
-<pre><code class="language-console">/etc/rc.conf:
+<pre><code class="language-console" data-lang="console">/etc/rc.conf:
 performance_cx_lowest=&amp;#34;C3&amp;#34;
 economy_cx_lowest=&amp;#34;C3&amp;#34;
 /boot/loader.conf:
 hint.apic.0.clock=0
-</code></pre>
-
-<pre><code>再起動。
+</code></pre><pre><code>再起動。
 
 
 
@@ -268,15 +250,11 @@ sysctlで確認
 
 p4tccが表示されない。
 </code></pre>
-
-<pre><code class="language-console">$ sysctl -a|grep p4tcc
+<pre><code class="language-console" data-lang="console">$ sysctl -a|grep p4tcc
 $
+</code></pre><pre><code>C3が有効になっていて、再起動直後ということもあるけど、システムがほとんどC3ステートにいることが分かる。
 </code></pre>
-
-<pre><code>C3が有効になっていて、再起動直後ということもあるけど、システムがほとんどC3ステートにいることが分かる。
-</code></pre>
-
-<pre><code class="language-console">$ sysctl -a|grep cx
+<pre><code class="language-console" data-lang="console">$ sysctl -a|grep cx
 hw.acpi.cpu.cx_lowest: C3
 dev.cpu.0.cx_supported: C1/1 C2/1 C3/57
 dev.cpu.0.cx_lowest: C3
@@ -284,9 +262,7 @@ dev.cpu.0.cx_usage: 0.00% 0.06% 99.93% last 432us
 dev.cpu.1.cx_supported: C1/1 C2/1 C3/57
 dev.cpu.1.cx_lowest: C3
 dev.cpu.1.cx_usage: 0.00% 0.10% 99.89% last 907us
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;上記設定の意味&lt;/span&gt;
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;上記設定の意味&lt;/span&gt;
 
 
 
@@ -342,9 +318,7 @@ C-statesは以下の通り。
 
 デフォルトはC1。C2, C3まで落とすようにするには/etc/rc.confで指定する。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  C1: CPUコアの一部のクロックを停止する。
 
 
@@ -355,9 +329,7 @@ C-statesは以下の通り。
 
   C3: CPUの内部クロック停止、電圧を下げ、システムバスから切り離す。
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;2-1: AMDの制限&lt;/span&gt;
 
 

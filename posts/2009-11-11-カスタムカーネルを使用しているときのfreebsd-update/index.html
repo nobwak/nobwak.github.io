@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-11-11T01:00:00+09:00" />
 <meta itemprop="name" content="カスタムカーネルを使用しているときのfreebsd-update。">
 <meta itemprop="description" content="大したことはないのだが。 カスタムカーネルを使っている場合でも、/boot/GENERICにGENERIC kernelを置いとけば更新してくれ">
-
-
 <meta itemprop="datePublished" content="2009-11-11T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-11-11T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="414">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="カスタムカーネルを使用しているときのfreebsd-update。"/>
 <meta name="twitter:description" content="大したことはないのだが。 カスタムカーネルを使っている場合でも、/boot/GENERICにGENERIC kernelを置いとけば更新してくれ"/>
 
@@ -153,8 +150,7 @@ if (!doNotTrack) {
 
 カスタムカーネルを使っていて、なおかつ/boot/GENERICを置いているマシンでfreebsd-udpdateをした場合。
 </code></pre>
-
-<pre><code class="language-console">isis# uname -a
+<pre><code class="language-console" data-lang="console">isis# uname -a
 FreeBSD isis 7.2-RELEASE FreeBSD 7.2-RELEASE #0: Tue Aug 11 08:47:28 JST 2009     doe@isis:/usr/obj/usr/src/sys/ISIS  i386
 isis# freebsd-update fetch
 Looking up update.FreeBSD.org mirrors... none found.
@@ -172,38 +168,31 @@ The following files will be updated as part of updating to 7.2-RELEASE-p3:
 /lib/libc.so.7
 /lib/libthr.so.3
 #
-</code></pre>
-
-<pre><code>通常は/boot/kernel/と表示されるはずが、/boot/GENERICとなっているのに注目。
+</code></pre><pre><code>通常は/boot/kernel/と表示されるはずが、/boot/GENERICとなっているのに注目。
 
 
 
 あとは普段どおりinstallして、reboot -kか、nextbootでGENERICを指定すればOK。
 </code></pre>
-
-<pre><code class="language-console"># freebsd-update install
+<pre><code class="language-console" data-lang="console"># freebsd-update install
 Installing updates... done.
 # shutdown -r now
 (中略)
 # uname -a
 FreeBSD isis 7.2-RELEASE FreeBSD 7.2-RELEASE #0: Tue Aug 11 08:47:28 JST 2009     doe@isis:/usr/obj/usr/src/sys/ISIS  i386
 #
-</code></pre>
-
-<pre><code>通常のrebootでは当然7.2-RELEASEのまま。
+</code></pre><pre><code>通常のrebootでは当然7.2-RELEASEのまま。
 
 
 
 reboot -kでGENERICを指定すると。
 </code></pre>
-
-<pre><code class="language-console"># sync;sync
+<pre><code class="language-console" data-lang="console"># sync;sync
 # reboot -k GENERIC
 #
 # uname -ir
 7.2-RELEASE-p2 GENERIC
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

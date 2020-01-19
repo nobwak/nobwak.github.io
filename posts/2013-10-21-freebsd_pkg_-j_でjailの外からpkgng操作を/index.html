@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-10-21T22:55:18+09:00" />
 <meta itemprop="name" content="[FreeBSD] pkg -j でjailの「外から」pkgng操作を。">
 <meta itemprop="description" content="サマリ pkg -jを使うと、ホストからjail内のpkgを操作できる。 しかし、あらかじめjail内にpkgのインストールが必要。 pkg -j pkgのman">
-
-
 <meta itemprop="datePublished" content="2013-10-21T22:55:18&#43;09:00" />
 <meta itemprop="dateModified" content="2013-10-21T22:55:18&#43;09:00" />
 <meta itemprop="wordCount" content="825">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] pkg -j でjailの「外から」pkgng操作を。"/>
 <meta name="twitter:description" content="サマリ pkg -jを使うと、ホストからjail内のpkgを操作できる。 しかし、あらかじめjail内にpkgのインストールが必要。 pkg -j pkgのman"/>
 
@@ -140,28 +137,19 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="span-style-text-decoration-underline-サマリ-span"><span style="text-decoration: underline;">サマリ</span></h2>
-
-<p>pkg -jを使うと、ホストからjail内のpkgを操作できる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->サマリ<!-- raw HTML omitted --></h2>
+<p>pkg -jを使うと、ホストからjail内のpkgを操作できる。<br>
 しかし、あらかじめjail内にpkgのインストールが必要。</p>
-
-<h2 id="span-style-text-decoration-underline-pkg-j-span"><span style="text-decoration: underline;">pkg -j</span></h2>
-
+<h2 id="span-styletext-decoration-underlinepkg--jspan"><!-- raw HTML omitted -->pkg -j<!-- raw HTML omitted --></h2>
 <p>pkgのmanを見ると以下の記載が。</p>
-
-<pre><code class="language-console">-j &lt;jail name or id&gt;
+<pre><code class="language-console" data-lang="console">-j &lt;jail name or id&gt;
              pkg will execute in the given &lt;jail name or id&gt;, where name
              matches ``jls name'' and id matches ``jls jid''.  See jail(8) and
              jls(8).
-</code></pre>
-
-<p>つまり、-jに続けてjail名あるいはjail idを指定すれば、ホストから当該jail内のpkgを操作できる、ということである。<br />
-これはさっそく試さねばなるまい。<br />
+</code></pre><p>つまり、-jに続けてjail名あるいはjail idを指定すれば、ホストから当該jail内のpkgを操作できる、ということである。<br>
+これはさっそく試さねばなるまい。<br>
 qjailを使ってexmaple02というjailを作った。</p>
-
-<pre><code class="language-console">$ sudo qjail create -n em0 -4 192.168.100.241 example02
+<pre><code class="language-console" data-lang="console">$ sudo qjail create -n em0 -4 192.168.100.241 example02
 Successfully created  example02
 [vanilla@yaryka ~]$ sudo qjail start example02
 Jail successfully started  example02
@@ -171,28 +159,19 @@ STA JID  NIC IP              Jailname
 --- ---- --- --------------- --------------------------------------------------
 DR  1    em0 192.168.100.240 example01
 DR  2    em0 192.168.100.241 example02
-</code></pre>
-
-<p>さっそく試してみるが…？</p>
-
-<pre><code class="language-console">$ sudo pkg -j example02 info
+</code></pre><p>さっそく試してみるが…？</p>
+<pre><code class="language-console" data-lang="console">$ sudo pkg -j example02 info
 $ sudo pkg -j example02 update
 Updating repository catalogue
 $ sudo pkg -j example02 install bash
 Updating repository catalogue
 $
-</code></pre>
-
-<p>まったく反応がない。</p>
-
+</code></pre><p>まったく反応がない。</p>
 <p>いろいろ試した結果、jailにはpkgがあらかじめインストールされていなければならないのであった。</p>
-
-<h2 id="span-style-text-decoration-underline-jailでpkgのインストール-span"><span style="text-decoration: underline;">jailでpkgのインストール</span></h2>
-
-<p>仕方なくjailのコンソールに接続し、pkgをインストール。<br />
-現時点ではpkgの公式リポジトリがないので、<a href="../../../?p=2280" target="_blank">こちら</a>の通りに進める。</p>
-
-<pre><code class="language-console">$ sudo qjail console example02
+<h2 id="span-styletext-decoration-underlinejailpkgspan"><!-- raw HTML omitted -->jailでpkgのインストール<!-- raw HTML omitted --></h2>
+<p>仕方なくjailのコンソールに接続し、pkgをインストール。<br>
+現時点ではpkgの公式リポジトリがないので、<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->の通りに進める。</p>
+<pre><code class="language-console" data-lang="console">$ sudo qjail console example02
 FreeBSD 10.0-BETA1 (GENERIC) #0 r256420: Sun Oct 13 01:43:07 UTC 2013
 
 Welcome to your FreeBSD jail.
@@ -204,25 +183,18 @@ Bootstrapping pkg please wait
 Installing pkg-1.1.4_6... done
 If you are upgrading from the old package format, first run:
 （略）
-</code></pre>
-
-<p>もう一度ホストからpkgを実行。<br />
+</code></pre><p>もう一度ホストからpkgを実行。<br>
 今度は問題なく進んだ。</p>
-
-<pre><code class="language-console">$ sudo pkg -j example02 update
+<pre><code class="language-console" data-lang="console">$ sudo pkg -j example02 update
 Updating repository catalogue
 digests.txz                         100%  955KB 191.0KB/s 214.8KB/s   00:05
 packagesite.txz                     100% 5209KB 226.5KB/s  28.6KB/s   00:23
 Incremental update completed, 0 packages processed:
 0 packages updated, 0 removed and 21607 added.
 $
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-jailの外からpkg-jでpkg操作-span"><span style="text-decoration: underline;">jailの外からpkg -jでpkg操作</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinejailpkg--jpkgspan"><!-- raw HTML omitted -->jailの外からpkg -jでpkg操作<!-- raw HTML omitted --></h2>
 <p>ではjailの外からインストールを。</p>
-
-<pre><code class="language-console">$ sudo pkg -j example02 install bash
+<pre><code class="language-console" data-lang="console">$ sudo pkg -j example02 install bash
 Updating repository catalogue
 The following 2 packages will be installed:
 
@@ -240,12 +212,9 @@ Checking integrity... done
 [1/2] Installing gettext-0.18.3... done
 [2/2] Installing bash-4.2.45... done
 $
-</code></pre>
-
-<p>-jオプションを付けるだけで、まったく同じように使える。<br />
+</code></pre><p>-jオプションを付けるだけで、まったく同じように使える。<br>
 infoで一覧も得られるし、auditでセキュリティチェックもできる。upgradeもできそうだ。</p>
-
-<pre><code class="language-console">$ sudo pkg -j example02 audit -F
+<pre><code class="language-console" data-lang="console">$ sudo pkg -j example02 audit -F
 auditfile.tbz                       100%   90KB  90.3KB/s  90.3KB/s   00:00
 0 problem(s) in your installed packages found.
 $ sudo pkg -j example02 info
@@ -257,9 +226,7 @@ $ sudo pkg -j example02 upgrade
 Updating repository catalogue
 Nothing to do
 $
-</code></pre>
-
-<p>こいつは便利でございますな。</p>
+</code></pre><p>こいつは便利でございますな。</p>
 <ul class="pa0">
   
 </ul>

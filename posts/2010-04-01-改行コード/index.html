@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-04-01T01:00:00+09:00" />
 <meta itemprop="name" content="改行コード">
 <meta itemprop="description" content="Redhat Linuxのvi上で、改行コードをキーにして置換しようとおもったのだが。 もともとの改行は\nとし、差し替える改行は^Mじゃないとダメくさい">
-
-
 <meta itemprop="datePublished" content="2010-04-01T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-04-01T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="104">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="改行コード"/>
 <meta name="twitter:description" content="Redhat Linuxのvi上で、改行コードをキーにして置換しようとおもったのだが。 もともとの改行は\nとし、差し替える改行は^Mじゃないとダメくさい"/>
 
@@ -150,11 +147,8 @@ if (!doNotTrack) {
 
 例えばこんな風に（改行の前にtestを入れる場合）。
 </code></pre>
-
-<pre><code class="language-console">:%s/&amp;#92;&amp;#92;n/test^M/g
-</code></pre>
-
-<pre><code>なんでだろ?
+<pre><code class="language-console" data-lang="console">:%s/&amp;#92;&amp;#92;n/test^M/g
+</code></pre><pre><code>なんでだろ?
 </code></pre>
 <ul class="pa0">
   

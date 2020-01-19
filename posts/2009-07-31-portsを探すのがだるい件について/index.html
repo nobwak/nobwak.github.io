@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-07-31T01:00:00+09:00" />
 <meta itemprop="name" content="portsを探すのがだるい件について。">
 <meta itemprop="description" content="結論から言うとports-mgmt/psearchがおすすめ。 あのソフトがportsにないかなーというとき、セオリーで言えば/usr/por">
-
-
 <meta itemprop="datePublished" content="2009-07-31T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-07-31T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="942">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="portsを探すのがだるい件について。"/>
 <meta name="twitter:description" content="結論から言うとports-mgmt/psearchがおすすめ。 あのソフトがportsにないかなーというとき、セオリーで言えば/usr/por"/>
 
@@ -168,38 +165,28 @@ locateは強力だが、ヒットしすぎて困り果てるし、システム�
 
 こんな感じ。
 </code></pre>
-
-<pre><code class="language-console">$ whereis audacious
+<pre><code class="language-console" data-lang="console">$ whereis audacious
 audacious: /usr/ports/multimedia/audacious
-</code></pre>
-
-<pre><code>ただ、whereisなんで、検索対象のファイル名をきっちり分かってないと使えない。（たぶん）
+</code></pre><pre><code>ただ、whereisなんで、検索対象のファイル名をきっちり分かってないと使えない。（たぶん）
 
 
 
 また、注意すべきは-aオプションを与えないと最初のマッチしか返さないこと。以下の例のように、初めてxlockmoreを検索したときは、なんで日本語版しかないんだ?と悩んだ。
 </code></pre>
-
-<pre><code class="language-console">$ whereis xlockmore
+<pre><code class="language-console" data-lang="console">$ whereis xlockmore
 xlockmore: /usr/ports/japanese/xlockmore
 $ whereis -a xlockmore
 xlockmore: /usr/ports/japanese/xlockmore /usr/ports/x11/xlockmore
-</code></pre>
-
-<pre><code>そういった遍歴の結果、ports-mgmt/psearchに辿り着いて今のことろ満足している。
+</code></pre><pre><code>そういった遍歴の結果、ports-mgmt/psearchに辿り着いて今のことろ満足している。
 
 
 
 書式は以下の通り。
 </code></pre>
-
-<pre><code class="language-console">psearch &amp;#91;options] PATTERN
+<pre><code class="language-console" data-lang="console">psearch &amp;#91;options] PATTERN
+</code></pre><pre><code>PATTERNには正規表現が使える。
 </code></pre>
-
-<pre><code>PATTERNには正規表現が使える。
-</code></pre>
-
-<pre><code class="language-console">$ psearch audaci*
+<pre><code class="language-console" data-lang="console">$ psearch audaci*
 audio/audacious-crossfade A Crossfading/Gapless Plugin
 audio/audacious-dumb      Audacious plugin that support the IT, XM, S3M or MOD formats
 audio/audacious-mac       Audacious plugin that support the Monkey&amp;#39;s Audio lossless formats
@@ -209,9 +196,7 @@ audio/wmauda              A port of wmxmms to GTK 2.x and Audacious
 multimedia/audacious      A media player based on BMP and XMMS
 multimedia/audacious-plugins Plugins needed for audacious
 x11-themes/audacious-skins A collection of audacious skins
-</code></pre>
-
-<pre><code>俺はいつもaudaciousを入れるつもりでaudacityをインストールしてしまってガッカリするんだがこれで安心。
+</code></pre><pre><code>俺はいつもaudaciousを入れるつもりでaudacityをインストールしてしまってガッカリするんだがこれで安心。
 
 
 
@@ -220,8 +205,7 @@ x11-themes/audacious-skins A collection of audacious skins
 
 その他には、単語を複数渡し、スペースで区切ればand検索。-oオプションを与えればOR検索。-nならバージョン名を教えてくれる。-cでカテゴリーを指定すればそこだけを探してくれる。
 </code></pre>
-
-<pre><code class="language-console">$ psearch thunar plugin
+<pre><code class="language-console" data-lang="console">$ psearch thunar plugin
 archivers/thunar-archive-plugin Archive plugin for the Thunar File Manager
 audio/thunar-media-tags-plugin A Media Tags Plugin
 devel/thunar-svn-plugin   Subversion plugin for Thunar
@@ -238,9 +222,7 @@ thunar-volman-0.2.0_4     A Device manager plugin.
 $ psearch -c archivers thunar plugin
 archivers/thunar-archive-plugin Archive plugin for the Thunar File Manager
 $
-</code></pre>
-
-<pre><code>すげー便利。
+</code></pre><pre><code>すげー便利。
 
 
 

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-07-22T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDでbroadcomのGbEカードが動かない件">
 <meta itemprop="description" content="あるマシンにFreeBSDをインストールしたのだが、BroadcomのGbEカードで通信ができない。 DHCPに設定してもIPアドレスを取得で">
-
-
 <meta itemprop="datePublished" content="2009-07-22T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-07-22T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="434">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDでbroadcomのGbEカードが動かない件"/>
 <meta name="twitter:description" content="あるマシンにFreeBSDをインストールしたのだが、BroadcomのGbEカードで通信ができない。 DHCPに設定してもIPアドレスを取得で"/>
 
@@ -154,15 +151,11 @@ DHCPに設定してもIPアドレスを取得できないし、固定で設定�
 
 ◎/boot/loader.conf
 </code></pre>
-
-<pre><code class="language-console">hw.bce.msi_enable=0
+<pre><code class="language-console" data-lang="console">hw.bce.msi_enable=0
 hw.pci.enable_msi=0
+</code></pre><pre><code>具体的なカードは以下の通り。
 </code></pre>
-
-<pre><code>具体的なカードは以下の通り。
-</code></pre>
-
-<pre><code class="language-console">◎dmesgの出力
+<pre><code class="language-console" data-lang="console">◎dmesgの出力
 bge0: &amp;#60;Broadcom NetXtreme Gigabit Ethernet Controller, ASIC rev. 0xb002&gt;
 mem 0xfddf0000-0xfddfffff irq 16 at device 0.0 on pci2
 miibus0: &amp;#60;MII bus&gt; on bge0
@@ -179,9 +172,7 @@ vendor     = &amp;#39;Broadcom Corporation&amp;#39;
 device     = &amp;#39;Broadcom NetXtreme Gigabit Ethernet Controller (BCM5754)&amp;#39;
 class      = network
 subclass   = ethernet
-</code></pre>
-
-<pre><code>NICが使えないとなると、OSを変えるかIntelあたりのNICを追加するかしないといけなかったので、直ってよかった…。
+</code></pre><pre><code>NICが使えないとなると、OSを変えるかIntelあたりのNICを追加するかしないといけなかったので、直ってよかった…。
 </code></pre>
 <ul class="pa0">
   

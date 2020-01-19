@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-08-09T21:13:29+09:00" />
 <meta itemprop="name" content="[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version">
 <meta itemprop="description" content="pkgを1.2から1.3.xに上げたら以下のようなメッセージが出てupgradeができない。 $ sudo pkg upgrade Updating repository catalogue FreeBSD repository is up-to-date All repositories are up-to-date pkg: Repo FreeBSD needs schema upgrade from 2006 to">
-
-
 <meta itemprop="datePublished" content="2014-08-09T21:13:29&#43;09:00" />
 <meta itemprop="dateModified" content="2014-08-09T21:13:29&#43;09:00" />
 <meta itemprop="wordCount" content="458">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version"/>
 <meta name="twitter:description" content="pkgを1.2から1.3.xに上げたら以下のようなメッセージが出てupgradeができない。 $ sudo pkg upgrade Updating repository catalogue FreeBSD repository is up-to-date All repositories are up-to-date pkg: Repo FreeBSD needs schema upgrade from 2006 to"/>
 
@@ -141,8 +138,7 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgを1.2から1.3.xに上げたら以下のようなメッセージが出てupgradeができない。</p>
-
-<pre><code class="language-console">$ sudo pkg upgrade
+<pre><code class="language-console" data-lang="console">$ sudo pkg upgrade
 Updating repository catalogue
 FreeBSD repository is up-to-date
 All repositories are up-to-date
@@ -150,12 +146,9 @@ pkg: Repo FreeBSD needs schema upgrade from 2006 to 2010 but it is opened readon
 pkg: need to re-create repo FreeBSD to upgrade schema version
 Checking for upgrades: 100%
 Checking integrity... done (0 conflicting)
-</code></pre>
-
-<p>need to re-create repo とか言いつつ、どうすればいいのか書いてないし。<br />
+</code></pre><p>need to re-create repo とか言いつつ、どうすればいいのか書いてないし。<br>
 調べたところ、pkg update -fすればいいとのこと。</p>
-
-<pre><code class="language-console">$ sudo pkg update -f
+<pre><code class="language-console" data-lang="console">$ sudo pkg update -f
 Updating repository catalogue
 Fetching meta.txz: 100% of 944 B
 Fetching digests.txz: 100% of 1 MB
@@ -164,13 +157,10 @@ Fetching packagesite.txz: 100% of 5 MB
 Adding new entries: 100%
 Incremental update completed, 23313 packages processed:
 0 packages updated, 0 removed and 23313 added.
-</code></pre>
-
-<p>incremental update completedとのこと。<br />
-この状態でpkg upgradeすると、確かに動いた。<br />
+</code></pre><p>incremental update completedとのこと。<br>
+この状態でpkg upgradeすると、確かに動いた。<br>
 表示も少し親切になっていますな。</p>
-
-<pre><code class="language-console">$ sudo pkg upgrade
+<pre><code class="language-console" data-lang="console">$ sudo pkg upgrade
 Updating repository catalogue
 FreeBSD repository is up-to-date
 All repositories are up-to-date
@@ -196,11 +186,8 @@ Proceed with this action [y/N]: y
 Fetching xproto-7.0.26.txz: 100% of 60 KB
 Fetching vim-lite-7.4.389.txz: 100% of 5 MB
 （略）
-</code></pre>
-
-<p>しかもconflictsを検知してくれるみたい。</p>
-
-<pre><code class="language-console">Checking integrity... done (1 conflicting)
+</code></pre><p>しかもconflictsを検知してくれるみたい。</p>
+<pre><code class="language-console" data-lang="console">Checking integrity... done (1 conflicting)
 Checking integrity... done (0 conflicting)
 Conflicts with the existing packages have been found.
 One more solver iteration is needed to resolve them.
@@ -223,9 +210,7 @@ Installed packages to be REINSTALLED:
 Proceed with this action [y/N]: y
 [1/42] Upgrading python27 from 2.7.6_4 to 2.7.8_2: 100%
 [2/42] Upgrading pcre from 8.34_1 to 8.34_2: 100%
-</code></pre>
-
-<p>以上。</p>
+</code></pre><p>以上。</p>
 <ul class="pa0">
   
    <li class="list">

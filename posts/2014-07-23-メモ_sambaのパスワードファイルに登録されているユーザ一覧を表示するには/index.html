@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-07-23T19:42:59+09:00" />
 <meta itemprop="name" content="[メモ] sambaのパスワードファイルに登録されているユーザ一覧を表示するには">
 <meta itemprop="description" content="smbpasswdにはそういった機能がない。 pdbedit -Lを使う。 pdbeditとは manによれば「SAM database（sambaユーザデータベ">
-
-
 <meta itemprop="datePublished" content="2014-07-23T19:42:59&#43;09:00" />
 <meta itemprop="dateModified" content="2014-07-23T19:42:59&#43;09:00" />
 <meta itemprop="wordCount" content="363">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,linux,OS X,Samba," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,linux,OS X,Samba," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] sambaのパスワードファイルに登録されているユーザ一覧を表示するには"/>
 <meta name="twitter:description" content="smbpasswdにはそういった機能がない。 pdbedit -Lを使う。 pdbeditとは manによれば「SAM database（sambaユーザデータベ"/>
 
@@ -140,30 +137,19 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>smbpasswdにはそういった機能がない。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>smbpasswdにはそういった機能がない。<br>
 pdbedit -Lを使う。</p>
-
-<h2 id="pdbeditとは">pdbeditとは</h2>
-
+<h2 id="pdbedit">pdbeditとは</h2>
 <p>manによれば「SAM database（sambaユーザデータベース）を管理するコマンド」</p>
-
-<pre><code class="language-console">pdbedit -L
-</code></pre>
-
-<p>ユーザデータベースに登録されているユーザアカウントをすべて表示する。<br />
-「ユーザ名:uid:フルネーム」という書式で表示。<br />
+<pre><code class="language-console" data-lang="console">pdbedit -L
+</code></pre><p>ユーザデータベースに登録されているユーザアカウントをすべて表示する。<br>
+「ユーザ名:uid:フルネーム」という書式で表示。<br>
 以下、実行例はすべてmanから。</p>
-
-<pre><code class="language-console">$ pdbedit -L
+<pre><code class="language-console" data-lang="console">$ pdbedit -L
 sorce:500:Simo Sorce
 samba:45:Test User
-</code></pre>
-
-<p>-vを付けると詳細に。</p>
-
-<pre><code class="language-console">$ pdbedit -L -v
+</code></pre><p>-vを付けると詳細に。</p>
+<pre><code class="language-console" data-lang="console">$ pdbedit -L -v
 ---------------
 username:       sorce
 user ID/Group:  500/500
@@ -182,9 +168,7 @@ Home Directory: ¥¥BERSERKER¥samba
 HomeDir Drive:
 Logon Script:
 Profile Path:   ¥¥BERSERKER¥profile
-</code></pre>
-
-<p>そのほかのオプションはpdbedit -helpあるいは、もちろんman。</p>
+</code></pre><p>そのほかのオプションはpdbedit -helpあるいは、もちろんman。</p>
 <ul class="pa0">
   
    <li class="list">

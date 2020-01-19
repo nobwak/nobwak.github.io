@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-01-02T10:30:32+09:00" />
 <meta itemprop="name" content="[FreeBSD] システムアップグレード時にはzpool(ZFS)のアップグレードも忘れずにNE！">
 <meta itemprop="description" content="10.1-RELEASEにアップグレードしたけどzpool(ZFS)のアップグレードを忘れてたのでメモ。 アップグレードでfeaturesがい">
-
-
 <meta itemprop="datePublished" content="2015-01-02T10:30:32&#43;09:00" />
 <meta itemprop="dateModified" content="2015-01-02T10:30:32&#43;09:00" />
 <meta itemprop="wordCount" content="670">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,zfs," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,zfs," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] システムアップグレード時にはzpool(ZFS)のアップグレードも忘れずにNE！"/>
 <meta name="twitter:description" content="10.1-RELEASEにアップグレードしたけどzpool(ZFS)のアップグレードを忘れてたのでメモ。 アップグレードでfeaturesがい"/>
 
@@ -140,28 +137,23 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>10.1-RELEASEにアップグレードしたけどzpool(ZFS)のアップグレードを忘れてたのでメモ。<br />
-アップグレードでfeaturesがいくつか追加されるから、まあやっておくのがおすすめ。<br />
-9.x系列からのアップグレードの場合は、以下を参照のこと。<br />
-<a title="[メモ]zpoolのupgrade" href="../../../2013/12/%e3%83%a1%e3%83%a2zpool%e3%81%aeupgrade/" target="_blank">[メモ]zpoolのupgrade</a><br />
-<a title="[メモ]zpoolのVersionについて（Versionナンバはもう使われない）" href="../../../2014/01/%e3%83%a1%e3%83%a2zpool%e3%81%aeversion%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%ef%bc%88version%e3%83%8a%e3%83%b3%e3%83%90%e3%81%af%e3%82%82%e3%81%86%e4%bd%bf%e3%82%8f%e3%82%8c%e3%81%aa%e3%81%84/" target="_blank">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a></p>
-
-<p>10.1-RELEASEで追加されるfeaturesは以下の通り。<br />
-詳細はman zpool-featuresせよ（手抜き）。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>10.1-RELEASEにアップグレードしたけどzpool(ZFS)のアップグレードを忘れてたのでメモ。<br>
+アップグレードでfeaturesがいくつか追加されるから、まあやっておくのがおすすめ。<br>
+9.x系列からのアップグレードの場合は、以下を参照のこと。<br>
+<!-- raw HTML omitted -->[メモ]zpoolのupgrade<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted -->[メモ]zpoolのVersionについて（Versionナンバはもう使われない）<!-- raw HTML omitted --></p>
+<p>10.1-RELEASEで追加されるfeaturesは以下の通り。<br>
+詳細はman zpool-featuresせよ（手抜き）。<br>
 この中ではbookmarksがすごいと思うよ。</p>
-
-<pre><code class="language-console">spacemap_histogram
+<pre><code class="language-console" data-lang="console">spacemap_histogram
   enabled_txg
   hole_birth
   extensible_dataset
   embedded_data
   bookmarks
   filesystem_limits
-</code></pre>
-
-<p>アップグレードが必要かどうかは、zpool statusで分かる。</p>
-
-<pre><code class="language-console">$ zpool status
+</code></pre><p>アップグレードが必要かどうかは、zpool statusで分かる。</p>
+<pre><code class="language-console" data-lang="console">$ zpool status
 
   pool: warehouse
  state: ONLINE
@@ -178,15 +170,11 @@ config:
           ada2      ONLINE       0     0     0
 
 errors: No known data errors
-</code></pre>
-
-<p>前も書いたと思うけど、ZFSは「何をすべきか」まで教えてくれるのがとても助かる。<br />
-ファイルシステムなんてそんな頻繁にいじらないし、久しぶりだとコマンド忘れてしまうからね。<br />
+</code></pre><p>前も書いたと思うけど、ZFSは「何をすべきか」まで教えてくれるのがとても助かる。<br>
+ファイルシステムなんてそんな頻繁にいじらないし、久しぶりだとコマンド忘れてしまうからね。<br>
 この場合はzpool upgradeせよと。</p>
-
 <p>まず一般権限でzpool upgrade。</p>
-
-<pre><code class="language-console">$ zpool upgrade
+<pre><code class="language-console" data-lang="console">$ zpool upgrade
 This system supports ZFS pool feature flags.
 All pools are formatted using feature flags.
 
@@ -204,13 +192,10 @@ warehouse
       embedded_data
       bookmarks
       filesystem_limits
-</code></pre>
-
-<p>追加されるfeaturesを確認したらスーパーユーザでもう一度zpool upgrade。<br />
-すぐ終わる。<br />
+</code></pre><p>追加されるfeaturesを確認したらスーパーユーザでもう一度zpool upgrade。<br>
+すぐ終わる。<br>
 お約束だが、フルバックアップは取っておこうな！</p>
-
-<pre><code class="language-console">$ sudo zpool upgrade warehouse
+<pre><code class="language-console" data-lang="console">$ sudo zpool upgrade warehouse
 This system supports ZFS pool feature flags.
 
 Enabled the following features on 'warehouse':
@@ -221,8 +206,7 @@ Enabled the following features on 'warehouse':
   embedded_data
   bookmarks
   filesystem_limits
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

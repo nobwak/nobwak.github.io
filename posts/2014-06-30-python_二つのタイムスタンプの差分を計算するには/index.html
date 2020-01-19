@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-06-30T22:33:57+09:00" />
 <meta itemprop="name" content="[Python] 二つのタイムスタンプの差分を計算するには">
 <meta itemprop="description" content="datetimeを使うのが教科書的な回答になるわけだが、ただタイムスタンプってえのは大抵2014/06/20 23:03:58.455118と">
-
-
 <meta itemprop="datePublished" content="2014-06-30T22:33:57&#43;09:00" />
 <meta itemprop="dateModified" content="2014-06-30T22:33:57&#43;09:00" />
 <meta itemprop="wordCount" content="472">
 
 
 
-<meta itemprop="keywords" content="python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Python] 二つのタイムスタンプの差分を計算するには"/>
 <meta name="twitter:description" content="datetimeを使うのが教科書的な回答になるわけだが、ただタイムスタンプってえのは大抵2014/06/20 23:03:58.455118と"/>
 
@@ -140,25 +137,17 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>datetimeを使うのが教科書的な回答になるわけだが、ただタイムスタンプってえのは大抵2014/06/20 23:03:58.455118というような書式になっていて、これをどう扱うかがキモ。</p>
-
-<p>そうそう、二つのタイムスタンプの差、というと何かのターンアラウンドタイムとか、もっというと先方からの応答を測るためですね。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>datetimeを使うのが教科書的な回答になるわけだが、ただタイムスタンプってえのは大抵2014/06/20 23:03:58.455118というような書式になっていて、これをどう扱うかがキモ。</p>
+<p>そうそう、二つのタイムスタンプの差、というと何かのターンアラウンドタイムとか、もっというと先方からの応答を測るためですね。<br>
 諸賢には自明のことであろー。</p>
-
-<h2 id="結論-datetime-strptime-を使う">結論: datetime.strptime()を使う。</h2>
-
-<p><a href="http://docs.python.jp/2/library/datetime.html#datetime.datetime.strptime" target="_blank">datetime.strptime</a>は与えられた<a href="http://docs.python.jp/2/library/datetime.html#strftime-strptime" target="_blank">フォーマット</a>にしたがって時刻を構文解析し、<a href="http://docs.python.jp/2/library/datetime.html#datetime-datetime" target="_blank">datetime</a>型に変換してくれる。<br />
-さらにdatetime型どうしで減算すると、<a href="http://docs.python.jp/2/library/datetime.html#datetime.timedelta" target="_blank">timedelta</a>型のオブジェクトが返る。<br />
+<h2 id="-datetimestrptime">結論: datetime.strptime()を使う。</h2>
+<p><!-- raw HTML omitted -->datetime.strptime<!-- raw HTML omitted -->は与えられた<!-- raw HTML omitted -->フォーマット<!-- raw HTML omitted -->にしたがって時刻を構文解析し、<!-- raw HTML omitted -->datetime<!-- raw HTML omitted -->型に変換してくれる。<br>
+さらにdatetime型どうしで減算すると、<!-- raw HTML omitted -->timedelta<!-- raw HTML omitted -->型のオブジェクトが返る。<br>
 timedeltaオブジェクトから読み出し専用のインスタンスで日、秒、マイクロセコンドを取り出せばよい（なお時間（Hour）はない）。</p>
-
-<h2 id="スクリプト例">スクリプト例</h2>
-
-<p>お目汚しではありますが例を示す。<br />
+<h2 id="heading">スクリプト例</h2>
+<p>お目汚しではありますが例を示す。<br>
 Python2.7な。</p>
-
-<pre><code class="language-console">from datetime import datetime
+<pre><code class="language-console" data-lang="console">from datetime import datetime
 
 FMT = '%Y/%m/%d %H:%M:%S.%f'
 
@@ -168,16 +157,10 @@ timestampB = &quot;2014/06/30 02:55:23.196501&quot;
 tdelta = datetime.strptime(timestampB, FMT) - datetime.strptime(timestampA, FMT) 
 
 print &quot;time difference is %i day(s) %i.%i sec.&quot; % (tdelta.days, tdelta.seconds, tdelta.microseconds)
-</code></pre>
-
-<h2 id="実行結果">実行結果</h2>
-
+</code></pre><h2 id="heading-1">実行結果</h2>
 <p>上記のスクリプトを実行すると以下のように。</p>
-
-<pre><code class="language-console">time difference is 9 day(s) 13884.741383 sec.
-</code></pre>
-
-<p>以上。</p>
+<pre><code class="language-console" data-lang="console">time difference is 9 day(s) 13884.741383 sec.
+</code></pre><p>以上。</p>
 <ul class="pa0">
   
    <li class="list">

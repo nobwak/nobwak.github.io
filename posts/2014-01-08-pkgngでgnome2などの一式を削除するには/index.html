@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-08T00:52:41+09:00" />
 <meta itemprop="name" content="pkgngでgnome2などの「一式」を削除するには。">
 <meta itemprop="description" content="pkgngで、あるpkg、たとえばpkg Aをインストールすると、依存によりほかのpkgを大量に連れてくることがある。 それはそれで良いのだが、">
-
-
 <meta itemprop="datePublished" content="2014-01-08T00:52:41&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-08T00:52:41&#43;09:00" />
 <meta itemprop="wordCount" content="482">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="pkgngでgnome2などの「一式」を削除するには。"/>
 <meta name="twitter:description" content="pkgngで、あるpkg、たとえばpkg Aをインストールすると、依存によりほかのpkgを大量に連れてくることがある。 それはそれで良いのだが、"/>
 
@@ -140,35 +137,22 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>pkgngで、あるpkg、たとえばpkg Aをインストールすると、依存によりほかのpkgを大量に連れてくることがある。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgngで、あるpkg、たとえばpkg Aをインストールすると、依存によりほかのpkgを大量に連れてくることがある。<br>
 それはそれで良いのだが、ではそのpkgを、依存も含めて一式アンインストールしたい場合にはどうするか。</p>
-
-<p>いったんpkg Aを削除したあとに、autoremoveを使えばよい。<br />
+<p>いったんpkg Aを削除したあとに、autoremoveを使えばよい。<br>
 これはgnome2などの巨大なものでも同じ。</p>
-
-<h2 id="span-style-text-decoration-underline-pkg-autoremove-span"><span style="text-decoration: underline;">pkg autoremove</span></h2>
-
+<h2 id="span-styletext-decoration-underlinepkg-autoremovespan"><!-- raw HTML omitted -->pkg autoremove<!-- raw HTML omitted --></h2>
 <p>manより抜粋</p>
-
-<pre><code class="language-console">pkg autoremove is used for removing orphan packages, which were installed
+<pre><code class="language-console" data-lang="console">pkg autoremove is used for removing orphan packages, which were installed
      during dependency resolution and are no longer needed.
-</code></pre>
-
-<blockquote>
+</code></pre><blockquote>
 <p>pkg autoremoveは、依存関係の解決のためにインストールされたがもう必要のない、いわば「孤児」pkgを削除するのにつかわれる。</p>
 </blockquote>
-
-<h2 id="span-style-text-decoration-underline-実行例-gnome2削除-span"><span style="text-decoration: underline;">実行例（gnome2削除）</span></h2>
-
+<h2 id="span-styletext-decoration-underlinegnome2span"><!-- raw HTML omitted -->実行例（gnome2削除）<!-- raw HTML omitted --></h2>
 <p>以下にgnome2を削除したときの例を示す。</p>
-
 <p>gnome2のレベルになると、meta-portが用意されているので、これを削除してからautoremoveすればよい。</p>
-
 <p>まずはmeta-portを削除</p>
-
-<pre><code class="language-console">$ pkg info|grep gnome2
+<pre><code class="language-console" data-lang="console">$ pkg info|grep gnome2
 gnome2-2.32.1_5 The \&quot;meta-port\&quot; for the GNOME 2 integrated X11 desktop
 $ sudo pkg delete gnome2-2.32.1_5
 Deinstallation has been requested for the following 1 packages:
@@ -178,11 +162,8 @@ gnome2-2.32.1_5
 Proceed with deinstalling packages [y/N]: y
 [1/1] Deleting gnome2-2.32.1_5... done
 $
-</code></pre>
-
-<p>そしてautoremove</p>
-
-<pre><code class="language-console">$ sudo pkg autoremove
+</code></pre><p>そしてautoremove</p>
+<pre><code class="language-console" data-lang="console">$ sudo pkg autoremove
 Deinstallation has been requested for the following 322 packages:
 
 alacarte-0.13.2_2
@@ -201,9 +182,7 @@ done
 [321/322] Deleting libxslt-1.1.28_1... done
 [322/322] Deleting xmlcharent-0.3_2... done
 $
-</code></pre>
-
-<p>おしまい。</p>
+</code></pre><p>おしまい。</p>
 <ul class="pa0">
   
 </ul>

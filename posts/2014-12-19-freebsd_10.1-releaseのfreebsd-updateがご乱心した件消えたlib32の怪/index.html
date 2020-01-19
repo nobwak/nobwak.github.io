@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-12-19T23:42:23+09:00" />
 <meta itemprop="name" content="[FreeBSD] 10.1-RELEASEのfreebsd-updateがご乱心した件（消えたlib32の怪）">
 <meta itemprop="description" content="ここ最近にamd64のFreeBSD 10.1-RELEASEでfreebsd-updateを実行すると、①「/usr/lib32/をインスト">
-
-
 <meta itemprop="datePublished" content="2014-12-19T23:42:23&#43;09:00" />
 <meta itemprop="dateModified" content="2014-12-19T23:42:23&#43;09:00" />
-<meta itemprop="wordCount" content="520">
+<meta itemprop="wordCount" content="523">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] 10.1-RELEASEのfreebsd-updateがご乱心した件（消えたlib32の怪）"/>
 <meta name="twitter:description" content="ここ最近にamd64のFreeBSD 10.1-RELEASEでfreebsd-updateを実行すると、①「/usr/lib32/をインスト"/>
 
@@ -141,39 +138,28 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>ここ最近にamd64のFreeBSD 10.1-RELEASEでfreebsd-updateを実行すると、①「/usr/lib32/をインストールしようとする」、②「ルートディレクトリを削除しようとする」なんて事が起こる。</p>
-
 <p>いずれも大きな問題はない。</p>
-
-<p><a href="https://lists.freebsd.org/pipermail/freebsd-announce/2014-December/001611.html" target="_blank">[FreeBSD-Announce] [HEADS UP] freebsd-update issues in 10.1</a></p>
-
+<p><!-- raw HTML omitted -->[FreeBSD-Announce] [HEADS UP] freebsd-update issues in 10.1<!-- raw HTML omitted --></p>
 <p>背景は以上のリンク先で示されるとおりである。</p>
-
-<p>すなわち。<br />
-10.1アップグレード用のfreebsd-updateパッチを作る際に「lib32のことをうっかり対象外にしてしまいました！」「結果として10.1にfreebsd-udateでアップグレードした人はlib32が無くなってましたサーセン」ということである。<br />
+<p>すなわち。<br>
+10.1アップグレード用のfreebsd-updateパッチを作る際に「lib32のことをうっかり対象外にしてしまいました！」「結果として10.1にfreebsd-udateでアップグレードした人はlib32が無くなってましたサーセン」ということである。<br>
 したがってfreebsd-updateが主張する通りインストールしても問題はない。</p>
-
 <p>一方で、ルートディレクトリを削除しようとする件については中の人もよく分かってないのだが、実害はないとのこと。</p>
-
-<p>以下は参考。<br />
+<p>以下は参考。<br>
 amd64の10.1-RELEASEでfreebsd-updateをすると、以下のように/usr/lib32がインストール対象になった。</p>
-
-<pre><code class="language-console">The following files will be added as part of updating to 10.1-RELEASE-p2:
+<pre><code class="language-console" data-lang="console">The following files will be added as part of updating to 10.1-RELEASE-p2:
 /libexec/ld-elf32.so.1
 /usr/bin/ldd32
 /usr/lib32/Scrt1.o
 /usr/lib32/crt1.o
 /usr/lib32/crtbegin.o
-</code></pre>
-
-<p>また、実際にインストールするとこんなメッセージも出る。実害なし。</p>
-
-<pre><code class="language-console">$ sudo freebsd-update install
+</code></pre><p>また、実際にインストールするとこんなメッセージも出る。実害なし。</p>
+<pre><code class="language-console" data-lang="console">$ sudo freebsd-update install
 パスワード:
 Installing updates...rmdir: ///: Is a directory
  done.
 $
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

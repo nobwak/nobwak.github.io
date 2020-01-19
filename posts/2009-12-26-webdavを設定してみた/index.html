@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-12-26T01:00:00+09:00" />
 <meta itemprop="name" content="webdavを設定してみた">
 <meta itemprop="description" content="メモ。 apache22, subversionをインストールする。 subversionはpkgでなくportsからインストールして、オプション選択のところでm">
-
-
 <meta itemprop="datePublished" content="2009-12-26T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-12-26T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="909">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="webdavを設定してみた"/>
 <meta name="twitter:description" content="メモ。 apache22, subversionをインストールする。 subversionはpkgでなくportsからインストールして、オプション選択のところでm"/>
 
@@ -158,30 +155,21 @@ subversionはpkgでなくportsからインストールして、オプション�
 
 subversionをインストールするときに勝手に加えてくれるはず。
 </code></pre>
-
-<pre><code class="language-console">LoadModule dav_module         libexec/apache22/mod_dav.so
+<pre><code class="language-console" data-lang="console">LoadModule dav_module         libexec/apache22/mod_dav.so
 LoadModule dav_svn_module     libexec/apache22/mod_dav_svn.so
 LoadModule authz_svn_module   libexec/apache22/mod_authz_svn.so
+</code></pre><pre><code>同じくhttpd.confで、httpd-dav.confを指定している行のコメントアウトを外す。
 </code></pre>
-
-<pre><code>同じくhttpd.confで、httpd-dav.confを指定している行のコメントアウトを外す。
-</code></pre>
-
-<pre><code class="language-console"># Distributed authoring and versioning (WebDAV)
+<pre><code class="language-console" data-lang="console"># Distributed authoring and versioning (WebDAV)
 #Include etc/apache22/extra/httpd-dav.conf
 Include etc/apache22/extra/httpd-dav.conf
+</code></pre><pre><code>以降、/usr/local/etc/apache22/extra/httpd-dav.conf を参照したり編集したりする。
 </code></pre>
-
-<pre><code>以降、/usr/local/etc/apache22/extra/httpd-dav.conf を参照したり編集したりする。
-</code></pre>
-
-<pre><code class="language-console"># The User/Group specified in httpd.conf needs to have write permissions
+<pre><code class="language-console" data-lang="console"># The User/Group specified in httpd.conf needs to have write permissions
 # on the directory where the DavLockDB is placed and on any directory where
 # &amp;#34;Dav On&amp;#34; is specified.
 DavLockDB &amp;#34;/usr/local/var/DavLock&amp;#34;
-</code></pre>
-
-<pre><code>まずロックファイルを置くディレクトリの指定があるので、作る。
+</code></pre><pre><code>まずロックファイルを置くディレクトリの指定があるので、作る。
 
 
 
@@ -191,8 +179,7 @@ DavLockDB &amp;#34;/usr/local/var/DavLock&amp;#34;
 
 以下、実行例。
 </code></pre>
-
-<pre><code class="language-console">$ sudo mkdir /usr/local/var/DavLock
+<pre><code class="language-console" data-lang="console">$ sudo mkdir /usr/local/var/DavLock
 $ sudo chown www:www ./DavLock/
 $ sudo chmod 750 ./DavLock/
 $ ls -la
@@ -200,9 +187,7 @@ total 8
 drwxr-xr-x   4 root  wheel  512 12 27 22:08 .
 drwxr-xr-x  16 root  wheel  512 12 26 21:49 ..
 drwxr-x---   2 www   www    512 12 27 22:08 DavLock
-</code></pre>
-
-<pre><code>次に実際のDavの場所、Davアクセスするためのパスワードファイルの場所指定。デフォルトが気に入らなければ変える。
+</code></pre><pre><code>次に実際のDavの場所、Davアクセスするためのパスワードファイルの場所指定。デフォルトが気に入らなければ変える。
 
 
 
@@ -212,20 +197,15 @@ drwxr-x---   2 www   www    512 12 27 22:08 DavLock
 
 以下、httpd-dav.confの変更例。
 </code></pre>
-
-<pre><code class="language-console">#Alias /uploads &amp;#34;/usr/local/uploads&amp;#34;
+<pre><code class="language-console" data-lang="console">#Alias /uploads &amp;#34;/usr/local/uploads&amp;#34;
 Alias /uploads &amp;#34;/usr/local/www/uploads&amp;#34;
-</code></pre>
-
-<pre><code class="language-console">#&amp;#60;Directory &amp;#34;/usr/local/uploads&amp;#34;&gt;
+</code></pre><pre><code class="language-console" data-lang="console">#&amp;#60;Directory &amp;#34;/usr/local/uploads&amp;#34;&gt;
 &amp;#60;Directory &amp;#34;/usr/local/www/uploads&amp;#34;&gt;
 # You can use the htdigest program to create the password database:
 #   htdigest -c &amp;#34;/usr/local/user.passwd&amp;#34; DAV-upload admin
 #AuthUserFile &amp;#34;/usr/local/user.passwd&amp;#34;
 AuthUserFile &amp;#34;/usr/local/www/dav.passwd&amp;#34;
-</code></pre>
-
-<pre><code>パスワードファイルの作成。
+</code></pre><pre><code>パスワードファイルの作成。
 
 
 
@@ -239,29 +219,23 @@ htdigestが使えるよ、と書いてあるので使ってみる。
 
 以下、実行例。
 </code></pre>
-
-<pre><code class="language-console">$sudo htdigest -c &amp;#34;/usr/local/www/dav.passwd&amp;#34; DAV-upload harukiya
+<pre><code class="language-console" data-lang="console">$sudo htdigest -c &amp;#34;/usr/local/www/dav.passwd&amp;#34; DAV-upload harukiya
 Adding password for harukiya in realm DAV-upload.
 New password:
 Re-type new password:
-</code></pre>
-
-<pre><code>デフォルトだと、誰でもwebdavディレクトリを見られて、書き込みはadminだけOK、ただしパスワード要という設定。
+</code></pre><pre><code>デフォルトだと、誰でもwebdavディレクトリを見られて、書き込みはadminだけOK、ただしパスワード要という設定。
 
 
 
 とりあえず下記ではadminを上記でパスワードを設定したharukiyaに変更している。
 </code></pre>
-
-<pre><code class="language-console"># Allow universal read-access, but writes are restricted
+<pre><code class="language-console" data-lang="console"># Allow universal read-access, but writes are restricted
 # to the admin user.
 &amp;#60;LimitExcept GET OPTIONS&gt;
 #require user admin
 require user harukiya
 &amp;#60;/LimitExcept&gt;
-</code></pre>
-
-<pre><code>あとは/etc/rc.confにapache22_enable=&quot;YES&quot;という一行を加え、/usr/local/etc/rc.d/apache22 startとやればOK。
+</code></pre><pre><code>あとは/etc/rc.confにapache22_enable=&quot;YES&quot;という一行を加え、/usr/local/etc/rc.d/apache22 startとやればOK。
 </code></pre>
 <ul class="pa0">
   

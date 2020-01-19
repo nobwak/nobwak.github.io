@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2007-09-06T01:00:00+09:00" />
 <meta itemprop="name" content="Ubuntu7.04へのアップグレードでなぜかapache2 SSLが動かなくなった。">
 <meta itemprop="description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070220/p1&quot; target=&quot;_blank&quot;&gt;6.10のときにインストールしたApache2&#43;SSL&lt;/a&gt;だが">
-
-
 <meta itemprop="datePublished" content="2007-09-06T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2007-09-06T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="365">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Ubuntu7.04へのアップグレードでなぜかapache2 SSLが動かなくなった。"/>
 <meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070220/p1&quot; target=&quot;_blank&quot;&gt;6.10のときにインストールしたApache2&#43;SSL&lt;/a&gt;だが"/>
 
@@ -142,61 +139,42 @@ if (!doNotTrack) {
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070220/p1&quot; target=&quot;_blank&quot;&gt;6.10のときにインストールしたApache2+SSL&lt;/a&gt;だが、7.04にアップグレードしたとたん、下記のメッセージが表示されてSSLが動作しない。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  mixing * ports and non-* ports with a NameVirtualHost address is not supported
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>sites-enabled内の000-defaultで下記の記載がある。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  　NameVirtualHost *
 
 
 
   　&lt;VirtualHost *&gt;
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>したがって、000-defaultのVirtualHost *は*:*、つまりportが*と判断され、すべてのportに適用されるため、mod-enable内のssl設定ファイルの下記記載と齟齬を来していた。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  　&lt;VirtualHost _default_:443&gt;
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>なので、000-defaultを下記のように修正してOK。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  　NameVirtualHost *:80
 
 
 
   　&lt;VirtualHost *:80&gt;
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>000-defaultを変更したくないのであれば、ssl設定ファイルのホスト名を、下記のようにIPアドレスにしてもOK
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  　&lt;VirtualHost 192.168.1.1:443&gt;
 </code></pre>
-
-<p></blockquote></p>
+<!-- raw HTML omitted -->
 <ul class="pa0">
   
 </ul>

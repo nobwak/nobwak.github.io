@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-03-25T21:36:27+09:00" />
 <meta itemprop="name" content="Sambaの汚物（ウイルス）は消毒だ。あるいはsambaのvfsでウイルススキャン">
 <meta itemprop="description" content="Samba上のファイルをウイルススキャンするには。 Samba上のファイルをウイルススキャンするならどんな方法があるだろうか。 一つは、cron">
-
-
 <meta itemprop="datePublished" content="2014-03-25T21:36:27&#43;09:00" />
 <meta itemprop="dateModified" content="2014-03-25T21:36:27&#43;09:00" />
 <meta itemprop="wordCount" content="1264">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,security," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,security," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Sambaの汚物（ウイルス）は消毒だ。あるいはsambaのvfsでウイルススキャン"/>
 <meta name="twitter:description" content="Samba上のファイルをウイルススキャンするには。 Samba上のファイルをウイルススキャンするならどんな方法があるだろうか。 一つは、cron"/>
 
@@ -140,64 +137,47 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<h2 id="span-style-text-decoration-underline-samba上のファイルをウイルススキャンするには-span"><span style="text-decoration: underline;">Samba上のファイルをウイルススキャンするには。</span></h2>
-
-<p>Samba上のファイルをウイルススキャンするならどんな方法があるだろうか。<br />
-一つは、cronで定期的にスキャンする方法である。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlinesambaspan"><!-- raw HTML omitted -->Samba上のファイルをウイルススキャンするには。<!-- raw HTML omitted --></h2>
+<p>Samba上のファイルをウイルススキャンするならどんな方法があるだろうか。<br>
+一つは、cronで定期的にスキャンする方法である。<br>
 もう一つは、Sambaにスキャンを組み込む方法である。</p>
-
-<p>クライアントにアンチウイルスソフトウェアがインストールされており、定義ファイルも更新されているなら、前者のcronがおすすめである。<br />
-理由にはあとで触れる。<br />
+<p>クライアントにアンチウイルスソフトウェアがインストールされており、定義ファイルも更新されているなら、前者のcronがおすすめである。<br>
+理由にはあとで触れる。<br>
 クライアントを信用できないなら、後者のsamba側スキャンが候補に挙がる。</p>
-
-<h2 id="span-style-text-decoration-underline-sambaのウイルススキャンvfs-span"><span style="text-decoration: underline;">Sambaのウイルススキャンvfs</span></h2>
-
-<p>Sambaにはvfsスタッカブルモジュールという仕組みがある。<br />
-Sambaに追加機能をもたらすものだが、ウイルススキャン機能を追加するvfsもいくつかある。<br />
-<a href="http://www.samba.gr.jp/project/translation/Samba3-HOWTO/VFS.html" target="_blank"><a href="http://www.samba.gr.jp/project/translation/Samba3-HOWTO/VFS.html">http://www.samba.gr.jp/project/translation/Samba3-HOWTO/VFS.html</a></a></p>
-
+<h2 id="span-styletext-decoration-underlinesambavfsspan"><!-- raw HTML omitted -->Sambaのウイルススキャンvfs<!-- raw HTML omitted --></h2>
+<p>Sambaにはvfsスタッカブルモジュールという仕組みがある。<br>
+Sambaに追加機能をもたらすものだが、ウイルススキャン機能を追加するvfsもいくつかある。<br>
+<!-- raw HTML omitted --><a href="http://www.samba.gr.jp/project/translation/Samba3-HOWTO/VFS.html%3C/a%3E">http://www.samba.gr.jp/project/translation/Samba3-HOWTO/VFS.html&lt;/a&gt;</a></p>
 <p>これらのvfsには、大きく分けて以下二つのアプローチがある。</p>
-
 <ol>
 <li>ファイルをオープンするときにスキャン</li>
 <li>スキャン済みのファイルのみオープンを許可</li>
 </ol>
-
-<p>1には、vscan-clamavやvirusfilterとがある。<br />
+<p>1には、vscan-clamavやvirusfilterとがある。<br>
 2には、scannedonlyがある。それ以外には知らない。</p>
-
 <p>以下、二つのアプローチの特徴を、たいへん大まかに記す。</p>
-
-<h2 id="span-style-text-decoration-underline-アプローチ1-ファイルオープン時スキャン法-span"><span style="text-decoration: underline;">アプローチ1: ファイルオープン時スキャン法</span></h2>
-
-<p>Samba上ファイルを開くときに外部のウイルススキャナへファイルを渡し、スキャンするというもの。<br />
-まあ普通に考えるとそうなるわな、という方法。<br />
-ただ短所はある。<br />
-ファイルに変更があろうがなかろうが、開くたびにスキャンする。<br />
-ユーザはスキャンが終わるまで待たされる。<br />
-仮にファイルがとてつもなく巨大だと、待たされる時間も長くなる（スキャン対象とするファイルサイズ上限は決められる）。<br />
+<h2 id="span-styletext-decoration-underline1-span"><!-- raw HTML omitted -->アプローチ1: ファイルオープン時スキャン法<!-- raw HTML omitted --></h2>
+<p>Samba上ファイルを開くときに外部のウイルススキャナへファイルを渡し、スキャンするというもの。<br>
+まあ普通に考えるとそうなるわな、という方法。<br>
+ただ短所はある。<br>
+ファイルに変更があろうがなかろうが、開くたびにスキャンする。<br>
+ユーザはスキャンが終わるまで待たされる。<br>
+仮にファイルがとてつもなく巨大だと、待たされる時間も長くなる（スキャン対象とするファイルサイズ上限は決められる）。<br>
 同時接続ユーザが増えても問題になるだろう。</p>
-
-<h2 id="span-style-text-decoration-underline-アプローチ2-あらかじめスキャン法-span"><span style="text-decoration: underline;">アプローチ2: あらかじめスキャン法</span></h2>
-
-<p>②、すなわちscannedonlyは、ファイルが共有ディレクトリ上に置かれたとき、あるいは更新があったときにスキャンする。<br />
-スキャン済みのファイルであれば、ファイルオープン時に再スキャンは行われない。<br />
+<h2 id="span-styletext-decoration-underline2-span"><!-- raw HTML omitted -->アプローチ2: あらかじめスキャン法<!-- raw HTML omitted --></h2>
+<p>②、すなわちscannedonlyは、ファイルが共有ディレクトリ上に置かれたとき、あるいは更新があったときにスキャンする。<br>
+スキャン済みのファイルであれば、ファイルオープン時に再スキャンは行われない。<br>
 ファイルオープン時にオーバーヘッドがないこと、ファイルのサイズが大きくてもまったく影響のないこと、ユーザ数の増加による負荷への影響が少ないことは長所である。</p>
-
-<p>もちろん、こちらにも短所がある。<br />
-当該ファイルがスキャン済みであることを示す「しるし」が必要である。<br />
-scannedonlyは、この「しるし」として、.scannedというサイズ0バイトのファイルを作る。<br />
-つまり、共有ディレクトリに置かれるファイルの数が倍になる。<br />
-サイズが0バイトであるものの、iノードの残量には懸念の生じることがあるかも。<br />
+<p>もちろん、こちらにも短所がある。<br>
+当該ファイルがスキャン済みであることを示す「しるし」が必要である。<br>
+scannedonlyは、この「しるし」として、.scannedというサイズ0バイトのファイルを作る。<br>
+つまり、共有ディレクトリに置かれるファイルの数が倍になる。<br>
+サイズが0バイトであるものの、iノードの残量には懸念の生じることがあるかも。<br>
 当然、①にはこの懸念はない。</p>
-
-<h2 id="span-style-text-decoration-underline-やっぱりcronで定期スキャンだよね-span"><span style="text-decoration: underline;">やっぱりcronで定期スキャンだよね</span></h2>
-
-<p>ご覧のとおり、1,2ともに短所がある。<br />
-クライアント側のウイルス対策が保証できるなら、cronで定期的にスキャンしたほうがよいだろう。<br />
-しかしクライントが信用ならないのなら、アプローチの1,2いずれかを選んで、Sambaでウイルス対策を講じるべき。<br />
+<h2 id="span-styletext-decoration-underlinecronspan"><!-- raw HTML omitted -->やっぱりcronで定期スキャンだよね<!-- raw HTML omitted --></h2>
+<p>ご覧のとおり、1,2ともに短所がある。<br>
+クライアント側のウイルス対策が保証できるなら、cronで定期的にスキャンしたほうがよいだろう。<br>
+しかしクライントが信用ならないのなら、アプローチの1,2いずれかを選んで、Sambaでウイルス対策を講じるべき。<br>
 ということで、アプローチ1,2のインストール、設定方法については記事を改めて示す。</p>
 <ul class="pa0">
   

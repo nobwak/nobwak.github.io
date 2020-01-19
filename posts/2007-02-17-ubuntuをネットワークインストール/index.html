@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2007-02-17T01:00:00+09:00" />
 <meta itemprop="name" content="Ubuntuをネットワークインストール">
 <meta itemprop="description" content="Vaio N505A/BPにLinuxをインストールしようと思った顛末をダラダラと書く。 さっそくだが、マシンのスペックは下記の通りとても厳しい。 モバ">
-
-
 <meta itemprop="datePublished" content="2007-02-17T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2007-02-17T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1023">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Ubuntuをネットワークインストール"/>
 <meta name="twitter:description" content="Vaio N505A/BPにLinuxをインストールしようと思った顛末をダラダラと書く。 さっそくだが、マシンのスペックは下記の通りとても厳しい。 モバ"/>
 
@@ -146,9 +143,7 @@ if (!doNotTrack) {
 
 さっそくだが、マシンのスペックは下記の通りとても厳しい。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  モバイルCelerom 366MHz
 
 
@@ -167,9 +162,7 @@ if (!doNotTrack) {
 
   CD-ROMドライブ付属
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>CD-ROMドライブが付属しているので、一見さっくりとインストール出来そうなのだが、さにはあらじ。
 
 
@@ -216,9 +209,7 @@ http://ftp.ecc.u-tokyo.ac.jp/ubuntu/dists/edgy/main/installer-i386/20060711ubunt
 
 たとえばこう。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  image=/boot/ubuntu/linux
 
 
@@ -233,9 +224,7 @@ http://ftp.ecc.u-tokyo.ac.jp/ubuntu/dists/edgy/main/installer-i386/20060711ubunt
 
   　　　root=/dev/ram0
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>で、再起動してubuntuinstを選べばネットワークインストールが始まる。
 
 
@@ -261,18 +250,14 @@ LiveCDで起動したり、あるいはインストールCDでもシェルが動
 
 ただ、これだけでは&lt;a href=&quot;http://www.ubuntulinux.jp/download&quot; target=&quot;_blank&quot;&gt;Japanese Teamのパッケージが追加されないので&lt;/a&gt;、
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  deb &lt;a href=&quot;http://archive.ubuntulinux.jp/ubuntu-ja&quot; target=&quot;_blank&quot;&gt;http://archive.ubuntulinux.jp/ubuntu-ja&lt;/a&gt; edgy/
 
 
 
   deb &lt;a href=&quot;http://archive.ubuntulinux.jp/ubuntu-ja&quot; target=&quot;_blank&quot;&gt;http://archive.ubuntulinux.jp/ubuntu-ja&lt;/a&gt; edgy-ja/
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>上記を/etc/apt/sources.lstに追記、ubuntu-ja-keyringをインストールしてからapt-get update/apt-get upgrade。
 
 

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-11-23T01:00:00+09:00" />
 <meta itemprop="name" content="日本語ファイルを含むzipが展開できない件">
 <meta itemprop="description" content="Windowsで圧縮した日本語ファイルをFreeBSDでunzipすると文字化けする。 ここでの文字化けは、ファイル名だけでなく、どうも中身も">
-
-
 <meta itemprop="datePublished" content="2009-11-23T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-11-23T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="569">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="日本語ファイルを含むzipが展開できない件"/>
 <meta name="twitter:description" content="Windowsで圧縮した日本語ファイルをFreeBSDでunzipすると文字化けする。 ここでの文字化けは、ファイル名だけでなく、どうも中身も"/>
 
@@ -150,13 +147,10 @@ if (!doNotTrack) {
 
 該当ファイルをlsしてみると、（無効なエンコーディング）と表示される。
 </code></pre>
-
-<pre><code class="language-console">$ ls
+<pre><code class="language-console" data-lang="console">$ ls
 進捗1112.xls (無効なエンコーディング)
 $
-</code></pre>
-
-<pre><code>仕事上、メールをFreeBSDマシンで受けることがあるのだが、このおかげでメールに添付されたファイルを開けない。
+</code></pre><pre><code>仕事上、メールをFreeBSDマシンで受けることがあるのだが、このおかげでメールに添付されたファイルを開けない。
 
 
 
@@ -178,15 +172,13 @@ $
 
 出来たカスタム版unzipだが、/usr/local/bin配下に置くのはちょっと嫌なので、ホームディレクトリのbin配下にコピー。さらにカスタム版だということが分かるよう、名前はunzip.custに変えた。
 </code></pre>
-
-<pre><code class="language-console">$ cd /usr/ports/archivers/unzip
+<pre><code class="language-console" data-lang="console">$ cd /usr/ports/archivers/unzip
 $ make &amp;#34;CFLAGS+=-D&amp;#39;Ext_ASCII_TO_Native(string, hostnum, hostver, isuxatt, islochdr)&amp;#39;&amp;#34;
 （略）
 $ cd ./work/unzip60 (workの下のディレクトリ名は異なる可能性あり)
 $ cp unzip ~/bin/unzip.cust
 $
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2007-11-27T01:00:00+09:00" />
 <meta itemprop="name" content="ports/package周りの定期作業をperiodicで。">
 <meta itemprop="description" content="FreeBSDを長く運用していると、/usr/ports/distfiles配下に、portsで使うソースファイルがだんだんと溜まっていき、">
-
-
 <meta itemprop="datePublished" content="2007-11-27T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2007-11-27T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="1264">
+<meta itemprop="wordCount" content="1141">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ports/package周りの定期作業をperiodicで。"/>
 <meta name="twitter:description" content="FreeBSDを長く運用していると、/usr/ports/distfiles配下に、portsで使うソースファイルがだんだんと溜まっていき、"/>
 
@@ -150,19 +147,7 @@ if (!doNotTrack) {
 
 具体的には、portscleanにC, D, Pオプションを与えて実行する。これらのオプションで、それぞれ下記3つの掃除をする。
 </code></pre>
-
-<p><ul>
-    <li>
-      Cオプション:portsのインストールの際に、make cleanし忘れてたとかとかで残ってしまったworkディレクトリ
-    </li>
-    <li>
-      Dオプション:バージョンアップで不要となったportsのソースファイル
-    </li>
-    <li>
-      Pオプション:バージョンアップで不要となったpackage
-    </li>
-  </ul></p>
-
+<!-- raw HTML omitted -->
 <pre><code>で、これを定期的に実行させるわけだが、FreeBSDでは特定のディレクトリにスクリプトを置いておけば、決められた間隔ごとに実行してくれる仕組みがある。
 
 
@@ -173,14 +158,11 @@ if (!doNotTrack) {
 
 マニュアルにも書いてあるが、/etc/crontabにはこのような記載がある。
 </code></pre>
-
-<pre><code class="language-console"># do daily/weekly/monthly maintenance
+<pre><code class="language-console" data-lang="console"># do daily/weekly/monthly maintenance
 0      2       *       *       *       root    periodic daily
 0      3       *       *       6       root    periodic weekly
 0      5       1       *       *       root    periodic monthly
-</code></pre>
-
-<pre><code>/etc/periodic、/usr/local/etc/periodicの配下には、daily, weekly, monthlyというディレクトリがあり、periodicは日ごと、週ごと、月ごとにcronから呼び出され、それぞれdaily、weekly、monthly配下のスクリプトを実行する、という仕組み。
+</code></pre><pre><code>/etc/periodic、/usr/local/etc/periodicの配下には、daily, weekly, monthlyというディレクトリがあり、periodicは日ごと、週ごと、月ごとにcronから呼び出され、それぞれdaily、weekly、monthly配下のスクリプトを実行する、という仕組み。
 
 
 
@@ -189,17 +171,14 @@ if (!doNotTrack) {
 
 というわけで、/usr/local/etc/weekly/998.portscleanなどとして、下記のようなファイルを置いてみた。chmod 755しておくのを忘れずに。
 </code></pre>
-
-<pre><code class="language-console">#!/bin/sh
+<pre><code class="language-console" data-lang="console">#!/bin/sh
 if [ -x /usr/local/sbin/portsclean ]; then
 /usr/local/sbin/portsclean -CDP &amp;&amp; rc=0 || rc=1
 else
 rc=1
 fi
 exit $rc
-</code></pre>
-
-<pre><code>正常終了時に0を、それ以外は1を返すようにしているのは、マニュアルを見ればわかるが、各スクリプトの返り値によって動作が変わるから。
+</code></pre><pre><code>正常終了時に0を、それ以外は1を返すようにしているのは、マニュアルを見ればわかるが、各スクリプトの返り値によって動作が変わるから。
 
 
 
@@ -209,9 +188,7 @@ exit $rc
 
 これもマニュアルに記載あり。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  daily_output=/var/log/daily.log
 
 
@@ -222,9 +199,7 @@ exit $rc
 
   monthly_output=/var/log/monthly.log
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>俺はこっちにしておいた。
 
 

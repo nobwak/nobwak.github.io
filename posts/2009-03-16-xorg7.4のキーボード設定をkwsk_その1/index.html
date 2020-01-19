@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-03-16T01:00:00+09:00" />
 <meta itemprop="name" content="Xorg7.4のキーボード設定をkwsk その1">
 <meta itemprop="description" content="HALのキーボード設定ファイルの書き方が分からない。 ググれば設定ファイルは山ほど出てくるが、どう書くかを説明したサイトはなかなか引っかからな">
-
-
 <meta itemprop="datePublished" content="2009-03-16T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-03-16T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1099">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Xorg7.4のキーボード設定をkwsk その1"/>
 <meta name="twitter:description" content="HALのキーボード設定ファイルの書き方が分からない。 ググれば設定ファイルは山ほど出てくるが、どう書くかを説明したサイトはなかなか引っかからな"/>
 
@@ -189,15 +186,12 @@ Xorg7.3までで、xorg.confにOption &quot;XkbLayout&quot; &quot;jp&quot;と書
 
 具体的には、!から始まっているのが設定項目のようで、grepしてみるとmodel, layout, variant, optionの4つがある。
 </code></pre>
-
-<pre><code class="language-console">&amp;#91;/usr/local/share/X11/xkb/rules]$ grep &amp;#39;^!&amp;#39; ./xorg.lst
+<pre><code class="language-console" data-lang="console">&amp;#91;/usr/local/share/X11/xkb/rules]$ grep &amp;#39;^!&amp;#39; ./xorg.lst
 ! model
 ! layout
 ! variant
 ! option
-</code></pre>
-
-<pre><code>そしてmodelにはjp106が、layoutにはjpのあることがわかる（macもあるが、pc98もある！）。
+</code></pre><pre><code>そしてmodelにはjp106が、layoutにはjpのあることがわかる（macもあるが、pc98もある！）。
 
 
 

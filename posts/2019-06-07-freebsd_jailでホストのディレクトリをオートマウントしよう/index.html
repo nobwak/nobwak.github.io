@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-06-07T00:00:00+00:00" />
 <meta itemprop="name" content="【FreeBSD】jailでホストのディレクトリをオートマウント">
 <meta itemprop="description" content="jailでwebサーバやSambaを動かすとき、ホストの特定ディレクトリを参照するのはよくあること。 たとえば以下のようなディレクトリ構成で、">
-
-
 <meta itemprop="datePublished" content="2019-06-07T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-06-07T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="999">
+<meta itemprop="wordCount" content="995">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="【FreeBSD】jailでホストのディレクトリをオートマウント"/>
 <meta name="twitter:description" content="jailでwebサーバやSambaを動かすとき、ホストの特定ディレクトリを参照するのはよくあること。 たとえば以下のようなディレクトリ構成で、"/>
 
@@ -140,44 +137,30 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>jailでwebサーバやSambaを動かすとき、ホストの特定ディレクトリを参照するのはよくあること。
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>jailでwebサーバやSambaを動かすとき、ホストの特定ディレクトリを参照するのはよくあること。
 たとえば以下のようなディレクトリ構成で、ホストのpicturesディレクトリを、jailである &ldquo;jail_samba&rdquo; のshared_folderで見られるようにしたい。</p>
-
-<pre><code class="language-console">.
+<pre><code class="language-console" data-lang="console">.
 |-- jails
 |   `-- jail_samba
 |       `-- shared_folder
 `-- pictures
-</code></pre>
-
-<p>こういう場合には、<a href="https://www.freebsd.org/cgi/man.cgi?query=nullfs&amp;sektion=&amp;n=1">nullfs</a>で/picturesを/jails/jail_samba/shared_folderにマウントするのが定石。<br />
-ただこの問題点は、jailが増えていくと、ホストでmountコマンドを実行したときにズラズラと表示が増えて見にくくなること。<br />
+</code></pre><p>こういう場合には、<a href="https://www.freebsd.org/cgi/man.cgi?query=nullfs&amp;sektion=&amp;n=1">nullfs</a>で/picturesを/jails/jail_samba/shared_folderにマウントするのが定石。<br>
+ただこの問題点は、jailが増えていくと、ホストでmountコマンドを実行したときにズラズラと表示が増えて見にくくなること。<br>
 しょうがないと言えばしょうがないのだが、もうちょっとなんとかならんか。</p>
-
-<h2 id="jailのfstab">jailのfstab</h2>
-
-<p>jailには専用のfstabがあるのでそれを使う。<br />
+<h2 id="jailfstab">jailのfstab</h2>
+<p>jailには専用のfstabがあるのでそれを使う。<br>
 使うと、jailが実行されたときにマウントされ、停止したときにはアンマウントされる。
 ファイルは<code>/etc/fstab.&lt;jailname&gt;</code>。
-ただこの仕組みを使うと今度は/etcディレクトリの下が取っ散らかるのでjailのサポートツールを使う。<br />
+ただこの仕組みを使うと今度は/etcディレクトリの下が取っ散らかるのでjailのサポートツールを使う。<br>
 ここではqjailを使う。</p>
-
-<h2 id="qjailでjailごとのfstabを設定する">qjailでjailごとのfstabを設定する。</h2>
-
+<h2 id="qjailjailfstab">qjailでjailごとのfstabを設定する。</h2>
 <p><code>/usr/local/etc/qjail.fstab/&lt;jailname&gt;</code>で決める。</p>
-
-<p>デフォルトの状態では以下の通り。<br />
+<p>デフォルトの状態では以下の通り。<br>
 ここではplexという名前のjailである。</p>
-
-<pre><code class="language-console">$ cat ./plex
+<pre><code class="language-console" data-lang="console">$ cat ./plex
 /usr/jails/sharedfs /usr/jails/plex/sharedfs nullfs ro 0 0
-</code></pre>
-
-<p>mountの状態を見てみる。</p>
-
-<pre><code class="language-console">$ sudo qjail start plex
+</code></pre><p>mountの状態を見てみる。</p>
+<pre><code class="language-console" data-lang="console">$ sudo qjail start plex
 Jail successfully started  plex
 [doe@camazotz /usr/local/etc/qjail.fstab]$ mount
 zroot/ROOT/default on / (zfs, local, noatime, nfsv4acls)
@@ -185,10 +168,7 @@ devfs on /dev (devfs, local, multilabel)
 (略)
 /usr/jails/sharedfs on /usr/jails/plex/sharedfs (nullfs, local, read-only)
 devfs on /usr/jails/plex/dev (devfs, local, multilabel)
-</code></pre>
-
-<p>では、以下のように参照させる。</p>
-
+</code></pre><p>では、以下のように参照させる。</p>
 <table>
 <thead>
 <tr>
@@ -196,29 +176,24 @@ devfs on /usr/jails/plex/dev (devfs, local, multilabel)
 <th>jail側のディレクトリ</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>/itunes/pictures</td>
 <td>/usr/jails/plex/pictures</td>
 </tr>
-
 <tr>
 <td>/itunes/music</td>
 <td>/usr/jails/plex/music</td>
 </tr>
-
 <tr>
 <td>/itunes/homevideo</td>
 <td>/usr/jails/plex/homevideo</td>
 </tr>
 </tbody>
 </table>
-
-<p>まずjail側に、対応するディレクトリを作る。<br />
+<p>まずjail側に、対応するディレクトリを作る。<br>
 もちろん作業前にjailは停止させましょう。</p>
-
-<pre><code class="language-console">$ sudo qjail list
+<pre><code class="language-console" data-lang="console">$ sudo qjail list
 
 
 STATUS JID  NIC    IP              Jailname
@@ -232,22 +207,16 @@ $ ls
 COPYRIGHT       etc             lib             mnt             pictures        sbin            tmp
 bin             home            libexec         music           proc            sharedfs        usr
 dev             homevideo       media           net             root            sys             var
-</code></pre>
-
-<p>次にfstabの書き換え。</p>
-
-<pre><code class="language-console">$ cd /usr/local/etc/qjail.fstab/
+</code></pre><p>次にfstabの書き換え。</p>
+<pre><code class="language-console" data-lang="console">$ cd /usr/local/etc/qjail.fstab/
 $ sudo vi ./plex
 $ cat ./plex
 /usr/jails/sharedfs /usr/jails/plex/sharedfs nullfs ro 0 0
 /itunes/pictures        /usr/jails/plex/pictures        nullfs ro 0 0
 /itunes/music           /usr/jails/plex/music           nullfs ro 0 0
 /itunes/homevideo       /usr/jails/plex/homevideo       nullfs ro 0 0
-</code></pre>
-
-<p>で、jail *plex*をスタート。</p>
-
-<pre><code class="language-console">$ sudo qjail start plex
+</code></pre><p>で、jail <em>plex</em>をスタート。</p>
+<pre><code class="language-console" data-lang="console">$ sudo qjail start plex
 Jail successfully started  plex
 $ mount
 zroot/ROOT/default on / (zfs, local, noatime, nfsv4acls)
@@ -259,21 +228,16 @@ zroot on /zroot (zfs, local, noatime, nfsv4acls)
 /itunes/music on /usr/jails/plex/music (nullfs, local, read-only)
 /itunes/homevideo on /usr/jails/plex/homevideo (nullfs, local, read-only)
 devfs on /usr/jails/plex/dev (devfs, local, multilabel)
-</code></pre>
-
-<p>無事にマウントされた。<br />
-jail *plex*を止めて見てみよう。</p>
-
-<pre><code class="language-console">$ sudo qjail stop plex
+</code></pre><p>無事にマウントされた。<br>
+jail <em>plex</em>を止めて見てみよう。</p>
+<pre><code class="language-console" data-lang="console">$ sudo qjail stop plex
 Jail successfully stopped  plex
 $ mount
 zroot/ROOT/default on / (zfs, local, noatime, nfsv4acls)
 devfs on /dev (devfs, local, multilabel)
 (略)
 zroot on /zroot (zfs, local, noatime, nfsv4acls)
-</code></pre>
-
-<p>狙い通りmountが外れている。<br />
+</code></pre><p>狙い通りmountが外れている。<br>
 以上。</p>
 <ul class="pa0">
   

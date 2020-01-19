@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-10-18T01:00:00+09:00" />
 <meta itemprop="name" content="Ubuntuアップデート時のGRUB設定初期化を防ぐ方法">
 <meta itemprop="description" content="FreeBSD-mlからの抜き書き。 Ubuntuでは、大きなアップデートの都度GRUBの設定がデフォルトに戻されるが、これを防止する方法。 /">
-
-
 <meta itemprop="datePublished" content="2008-10-18T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-10-18T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="154">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Ubuntuアップデート時のGRUB設定初期化を防ぐ方法"/>
 <meta name="twitter:description" content="FreeBSD-mlからの抜き書き。 Ubuntuでは、大きなアップデートの都度GRUBの設定がデフォルトに戻されるが、これを防止する方法。 /"/>
 
@@ -150,18 +147,14 @@ Ubuntuでは、大きなアップデートの都度GRUBの設定がデフォル�
 
 /etc/kerne-img.confの以下の2行をコメントアウトする。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  postinst_hook = /usr/sbin/update-grub
 
 
 
   postrm_hook = /usr/sbin/update-grub
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>同一HDD内にFreeBSDを入れるなどして、GRUBの設定を変更している場合に有効。
 </code></pre>
 <ul class="pa0">

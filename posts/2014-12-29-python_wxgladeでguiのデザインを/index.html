@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-12-29T13:39:02+09:00" />
 <meta itemprop="name" content="[Python] wxGladeでGUIのデザインを">
 <meta itemprop="description" content="Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素">
-
-
 <meta itemprop="datePublished" content="2014-12-29T13:39:02&#43;09:00" />
 <meta itemprop="dateModified" content="2014-12-29T13:39:02&#43;09:00" />
 <meta itemprop="wordCount" content="1276">
 
 
 
-<meta itemprop="keywords" content="python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[Python] wxGladeでGUIのデザインを"/>
 <meta name="twitter:description" content="Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素"/>
 
@@ -140,81 +137,64 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素晴らしい。<br />
-さらにそのコードがGUIで動くようになるのなら、もっと素晴らしい。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素晴らしい。<br>
+さらにそのコードがGUIで動くようになるのなら、もっと素晴らしい。<br>
 wxGladeでそれができる。wxGladeでGUIを作ってみたので記す。</p>
-
-<h2 id="span-style-text-decoration-underline-wxgladeとは-span"><span style="text-decoration: underline;">wxGladeとは</span></h2>
-
-<p><a href="http://wxglade.sourceforge.net/index.php" target="_blank"><a href="http://wxglade.sourceforge.net/index.php">http://wxglade.sourceforge.net/index.php</a></a><br />
-wxPython向けのGUIデザイナーである。<br />
-<a href="http://wxpython.org/" target="_blank">wxPython</a>とはPythonのGUIツールキット。<br />
-また、GNOMEのGUIツールキットである<a href="https://glade.gnome.org/" target="_blank">Glade</a>が名前に入っている通り、wxGladeの設計思想はGladeに沿っている。</p>
-
-<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
-
-<p><a href="http://sourceforge.net/projects/wxglade/" target="_blank">こちら</a>からどうぞ。<br />
+<h2 id="span-styletext-decoration-underlinewxgladespan"><!-- raw HTML omitted -->wxGladeとは<!-- raw HTML omitted --></h2>
+<p><!-- raw HTML omitted --><a href="http://wxglade.sourceforge.net/index.php%3C/a%3E">http://wxglade.sourceforge.net/index.php&lt;/a&gt;</a><br>
+wxPython向けのGUIデザイナーである。<br>
+<!-- raw HTML omitted -->wxPython<!-- raw HTML omitted -->とはPythonのGUIツールキット。<br>
+また、GNOMEのGUIツールキットである<!-- raw HTML omitted -->Glade<!-- raw HTML omitted -->が名前に入っている通り、wxGladeの設計思想はGladeに沿っている。</p>
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->インストール<!-- raw HTML omitted --></h2>
+<p><!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->からどうぞ。<br>
 以下の例ではWindowsを使っている。</p>
-
-<h2 id="span-style-text-decoration-underline-最初の一歩-span"><span style="text-decoration: underline;">最初の一歩</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->最初の一歩<!-- raw HTML omitted --></h2>
 <p>どんなGUIを作るにしても、まず最初にすべきことがある。</p>
-
-<p>起動すると以下のような画面。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpyatstart.png"><img class="alignnone size-thumbnail wp-image-2895" src="../../../wp-content/uploads/2014/12/wxpyatstart-150x150.png" alt="wxpyatstart" width="150" height="150" /></a><br />
-何のとっかかりもなく、いきなり途方に暮れるわけだが、慌てず騒がず、左上ウインドウのさらに左上にあるアイコンをクリック。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpyaddflame.jpg"><img class="alignnone size-thumbnail wp-image-2896" src="../../../wp-content/uploads/2014/12/wxpyaddflame-150x150.jpg" alt="wxpyaddflame" width="150" height="150" /></a><br />
-そのままOK。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpyMyframe.jpg"><img class="alignnone size-thumbnail wp-image-2898" src="../../../wp-content/uploads/2014/12/wxpyMyframe-150x150.jpg" alt="wxpyMyframe" width="150" height="150" /></a><br />
-<a href="../../../wp-content/uploads/2014/12/wxpyaddframedone.jpg"><img class="alignnone size-thumbnail wp-image-2899" src="../../../wp-content/uploads/2014/12/wxpyaddframedone-150x150.jpg" alt="wxpyaddframedone" width="150" height="150" srcset="../../../wp-content/uploads/2014/12/wxpyaddframedone-150x150.jpg 150w, ../../../wp-content/uploads/2014/12/wxpyaddframedone.jpg 300w" sizes="(max-width: 150px) 100vw, 150px" /></a><br />
-なんか枠ができた。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpyframewin.jpg"><img class="alignnone size-thumbnail wp-image-2900" src="../../../wp-content/uploads/2014/12/wxpyframewin-150x150.jpg" alt="wxpyframewin" width="150" height="150" /></a><br />
-そしてこちらを選んで、先ほどの枠に追加。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpaneladd.jpg"><img class="alignnone size-thumbnail wp-image-2901" src="../../../wp-content/uploads/2014/12/wxpaneladd-150x150.jpg" alt="wxpaneladd" width="150" height="150" /></a><br />
-するとこのようなのっぺりした画面に。<br />
-<a href="../../../wp-content/uploads/2014/12/basepanel01.jpg"><img class="alignnone size-thumbnail wp-image-2905" src="../../../wp-content/uploads/2014/12/basepanel01-150x150.jpg" alt="basepanel01" width="150" height="150" /><br />
-</a> あとは分かりやすいように名前を変更。<br />
-<a href="../../../wp-content/uploads/2014/12/rootpanel.jpg"><img class="alignnone size-thumbnail wp-image-2906" src="../../../wp-content/uploads/2014/12/rootpanel-150x150.jpg" alt="rootpanel" width="150" height="150" srcset="../../../wp-content/uploads/2014/12/rootpanel-150x150.jpg 150w, ../../../wp-content/uploads/2014/12/rootpanel.jpg 300w" sizes="(max-width: 150px) 100vw, 150px" /></a><br />
-これで最初の一歩が終了。<br />
+<p>起動すると以下のような画面。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpyatstart.png"><!-- raw HTML omitted --></a><br>
+何のとっかかりもなく、いきなり途方に暮れるわけだが、慌てず騒がず、左上ウインドウのさらに左上にあるアイコンをクリック。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpyaddflame.jpg"><!-- raw HTML omitted --></a><br>
+そのままOK。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpyMyframe.jpg"><!-- raw HTML omitted --></a><br>
+<a href="../../../wp-content/uploads/2014/12/wxpyaddframedone.jpg"><!-- raw HTML omitted --></a><br>
+なんか枠ができた。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpyframewin.jpg"><!-- raw HTML omitted --></a><br>
+そしてこちらを選んで、先ほどの枠に追加。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpaneladd.jpg"><!-- raw HTML omitted --></a><br>
+するとこのようなのっぺりした画面に。<br>
+<a href="../../../wp-content/uploads/2014/12/basepanel01.jpg"><!-- raw HTML omitted --><br>
+</a> あとは分かりやすいように名前を変更。<br>
+<a href="../../../wp-content/uploads/2014/12/rootpanel.jpg"><!-- raw HTML omitted --></a><br>
+これで最初の一歩が終了。<br>
 ここから、作りたいGUIに合わせて作業をしていく。</p>
-
-<h2 id="span-style-text-decoration-underline-作業の前に-日本語は使わないでおこう-span"><span style="text-decoration: underline;">作業の前に（日本語は使わないでおこう…）</span></h2>
-
-<p>超絶分かりやすいPythonにも弱点がある。<br />
-それは文字コードの扱い。<br />
-wxGladeで日本語を書き込むことはできるが、UTF-8なのかShift-JIS(CP932)なのかの扱いが大変に面倒である。<br />
+<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->作業の前に（日本語は使わないでおこう…）<!-- raw HTML omitted --></h2>
+<p>超絶分かりやすいPythonにも弱点がある。<br>
+それは文字コードの扱い。<br>
+wxGladeで日本語を書き込むことはできるが、UTF-8なのかShift-JIS(CP932)なのかの扱いが大変に面倒である。<br>
 だから、GUI作成時のテキスト、注釈、ボタンは適当な英語で書いておき、実際の処理を書くときに日本語に変えるのがよいと思う。</p>
-
-<h2 id="span-style-text-decoration-underline-画面の分割と配置-span"><span style="text-decoration: underline;">画面の分割と配置</span></h2>
-
-<p>最終的に以下のようなGUIを作りたいとする。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpylast.jpg"><img class="alignnone size-thumbnail wp-image-2907" src="../../../wp-content/uploads/2014/12/wxpylast-150x108.jpg" alt="wxpylast" width="150" height="108" /></a><br />
-このGUIは、まず画面を縦に三分割する。さらに1行目、3行目を横に三分割する。<br />
-分割にはパレット上の以下のツールで行う。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpybunkatsu.jpg"><img class="alignnone size-thumbnail wp-image-2908" src="../../../wp-content/uploads/2014/12/wxpybunkatsu-150x150.jpg" alt="wxpybunkatsu" width="150" height="150" /></a><br />
-ざくざくと分割して以下のように。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpyseparate.jpg"><img class="alignnone size-thumbnail wp-image-2909" src="../../../wp-content/uploads/2014/12/wxpyseparate-150x150.jpg" alt="wxpyseparate" width="150" height="150" /></a><br />
-以下のように便宜的に番号を振って、<br />
-<a href="../../../wp-content/uploads/2014/12/wxpynumbers.jpg"><img class="alignnone size-thumbnail wp-image-2910" src="../../../wp-content/uploads/2014/12/wxpynumbers-150x150.jpg" alt="wxpynumbers" width="150" height="150" /></a><br />
-①にはテキストを、②にはテキストの枠を、③にはボタン、④には横棒、⑤にはスペース、⑥、⑦にはボタンを置く。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpyzakkuri.jpg"><img class="alignnone size-thumbnail wp-image-2911" src="../../../wp-content/uploads/2014/12/wxpyzakkuri-150x112.jpg" alt="wxpyzakkuri" width="150" height="112" /></a><br />
-ツリーはこんなかんじ。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpyhidarigawa.jpg"><img class="alignnone size-thumbnail wp-image-2912" src="../../../wp-content/uploads/2014/12/wxpyhidarigawa-150x150.jpg" alt="wxpyhidarigawa" width="150" height="150" srcset="../../../wp-content/uploads/2014/12/wxpyhidarigawa-150x150.jpg 150w, ../../../wp-content/uploads/2014/12/wxpyhidarigawa.jpg 300w" sizes="(max-width: 150px) 100vw, 150px" /></a><br />
-名前を変更し、空白（スペーサー）は適当に横に伸ばす。<br />
-あとは、経験上、各要素を以下のようにするといいかも。<br />
-<a href="../../../wp-content/uploads/2014/12/wxpybityousei.jpg"><img class="alignnone size-thumbnail wp-image-2913" src="../../../wp-content/uploads/2014/12/wxpybityousei-150x150.jpg" alt="wxpybityousei" width="150" height="150" /></a><br />
-<a href="../../../wp-content/uploads/2014/12/wxpylast.jpg"><img class="alignnone size-thumbnail wp-image-2907" src="../../../wp-content/uploads/2014/12/wxpylast-150x108.jpg" alt="wxpylast" width="150" height="108" /></a></p>
-
-<h2 id="span-style-text-decoration-underline-書き出し-span"><span style="text-decoration: underline;">書き出し</span></h2>
-
-<p><a href="../../../wp-content/uploads/2014/12/wxpyapp.jpg"><img class="alignnone size-thumbnail wp-image-2914" src="../../../wp-content/uploads/2014/12/wxpyapp-150x150.jpg" alt="wxpyapp" width="150" height="150" /></a><br />
+<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->画面の分割と配置<!-- raw HTML omitted --></h2>
+<p>最終的に以下のようなGUIを作りたいとする。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpylast.jpg"><!-- raw HTML omitted --></a><br>
+このGUIは、まず画面を縦に三分割する。さらに1行目、3行目を横に三分割する。<br>
+分割にはパレット上の以下のツールで行う。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpybunkatsu.jpg"><!-- raw HTML omitted --></a><br>
+ざくざくと分割して以下のように。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpyseparate.jpg"><!-- raw HTML omitted --></a><br>
+以下のように便宜的に番号を振って、<br>
+<a href="../../../wp-content/uploads/2014/12/wxpynumbers.jpg"><!-- raw HTML omitted --></a><br>
+①にはテキストを、②にはテキストの枠を、③にはボタン、④には横棒、⑤にはスペース、⑥、⑦にはボタンを置く。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpyzakkuri.jpg"><!-- raw HTML omitted --></a><br>
+ツリーはこんなかんじ。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpyhidarigawa.jpg"><!-- raw HTML omitted --></a><br>
+名前を変更し、空白（スペーサー）は適当に横に伸ばす。<br>
+あとは、経験上、各要素を以下のようにするといいかも。<br>
+<a href="../../../wp-content/uploads/2014/12/wxpybityousei.jpg"><!-- raw HTML omitted --></a><br>
+<a href="../../../wp-content/uploads/2014/12/wxpylast.jpg"><!-- raw HTML omitted --></a></p>
+<h2 id="span-styletext-decoration-underlinespan-4"><!-- raw HTML omitted -->書き出し<!-- raw HTML omitted --></h2>
+<p><a href="../../../wp-content/uploads/2014/12/wxpyapp.jpg"><!-- raw HTML omitted --></a><br>
 Appのプロパティから、LanguageにPython、Output Pathでファイルを指定し、Generate Codeでコード生成。</p>
-
 <p>以下が例。</p>
-
-<pre><code class="language-console">#!/usr/bin/env python
+<pre><code class="language-console" data-lang="console">#!/usr/bin/env python
 # -*- coding: CP932 -*-
 #
 # generated by wxGlade 0.6.8 (standalone edition) on Sun Dec 28 07:13:39 2014
@@ -301,8 +281,7 @@ if __name__ == &quot;__main__&quot;:
     app.SetTopWindow(frame_1)
     frame_1.Show()
     app.MainLoop()
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>

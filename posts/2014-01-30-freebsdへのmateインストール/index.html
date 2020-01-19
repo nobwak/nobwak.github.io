@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-01-30T19:31:10+09:00" />
 <meta itemprop="name" content="FreeBSDへのMATEインストール">
 <meta itemprop="description" content="FreeBSDにMATEをpkgngでインストールしたので経緯を示す。 「メイト」って読んでたけどマテ茶のマテなのね。 私がFreeBSDをイン">
-
-
 <meta itemprop="datePublished" content="2014-01-30T19:31:10&#43;09:00" />
 <meta itemprop="dateModified" content="2014-01-30T19:31:10&#43;09:00" />
 <meta itemprop="wordCount" content="1630">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,Xorg," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,Xorg," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDへのMATEインストール"/>
 <meta name="twitter:description" content="FreeBSDにMATEをpkgngでインストールしたので経緯を示す。 「メイト」って読んでたけどマテ茶のマテなのね。 私がFreeBSDをイン"/>
 
@@ -140,76 +137,58 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>FreeBSDにMATEをpkgngでインストールしたので経緯を示す。<br />
-「メイト」って読んでたけどマテ茶のマテなのね。<br />
-私がFreeBSDをインストールしているマシンはやや古めで、GNOME3だと荷が重い。<br />
-そこでGNOME2後継のMATEにした。<br />
-デザインなど、やっぱり物足りない点はあるけれど満足している。<br />
-デスクトップ用途としてはそんなに使わないしね。<br />
-(追記)<br />
-この記事は一ヶ月ほどまえに書いたものです。<br />
-FreeBSD 10.o-RELEASEが公式アナウンスされた1/21(JST)の時点では、公式pkgリポジトリにmateが、加えてxorgすらもありません。<br />
-pkgリポジトリは一週間に一回の頻度で更新されますが、その都度全体的な整合性が保証されるわけではありません。<br />
-したがって、あるpackageがリポジトリに現れたり消えたりすることは、ままあることです。<br />
-mateやxorgなどの大量に依存を抱えるソフトウェアをすべてpkgで扱うのは、現時点では難しいようです。<br />
-(追記ここまで)<br />
-(2014/1/30さらに追記)<br />
-現時点でpkgにmateはあるけれども、今度はavahi-daemonがコアダンプするとかもうね…。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSDにMATEをpkgngでインストールしたので経緯を示す。<br>
+「メイト」って読んでたけどマテ茶のマテなのね。<br>
+私がFreeBSDをインストールしているマシンはやや古めで、GNOME3だと荷が重い。<br>
+そこでGNOME2後継のMATEにした。<br>
+デザインなど、やっぱり物足りない点はあるけれど満足している。<br>
+デスクトップ用途としてはそんなに使わないしね。<br>
+(追記)<br>
+この記事は一ヶ月ほどまえに書いたものです。<br>
+FreeBSD 10.o-RELEASEが公式アナウンスされた1/21(JST)の時点では、公式pkgリポジトリにmateが、加えてxorgすらもありません。<br>
+pkgリポジトリは一週間に一回の頻度で更新されますが、その都度全体的な整合性が保証されるわけではありません。<br>
+したがって、あるpackageがリポジトリに現れたり消えたりすることは、ままあることです。<br>
+mateやxorgなどの大量に依存を抱えるソフトウェアをすべてpkgで扱うのは、現時点では難しいようです。<br>
+(追記ここまで)<br>
+(2014/1/30さらに追記)<br>
+現時点でpkgにmateはあるけれども、今度はavahi-daemonがコアダンプするとかもうね…。<br>
 (追記ここまで)</p>
-
-<h2 id="span-style-text-decoration-underline-mateとは-span"><span style="text-decoration: underline;">MATEとは</span></h2>
-
+<h2 id="span-styletext-decoration-underlinematespan"><!-- raw HTML omitted -->MATEとは<!-- raw HTML omitted --></h2>
 <p>Wikipediaから引用</p>
-
 <blockquote>
 <p>MATE (マテ、スペイン語発音: [ˈmate])はGNOME 2のコードからフォークされたデスクトップ環境である。</p>
-
 <p>従来のデスクトップメタファーをGNOME Shellによる新しいインターフェースで置き換えたGNOME 3はLinuxコミュニティの一部から批判を受けた。多くのユーザーは新しいGNOMEを受け入れることを拒否し、GNOME 2の開発を継続する者を求めた。MATEプロジェクトはあるArch Linuxユーザー[3]によってこのタスクを行うために立ち上げられた。</p>
 </blockquote>
-
-<p>MATE(wikipedia)<br />
-<a href="http://ja.wikipedia.org/wiki/MATE_%28%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%92%B0%E5%A2%83%29" target="_blank"><a href="http://ja.wikipedia.org/wiki/MATE_%28%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%92%B0%E5%A2%83%29">http://ja.wikipedia.org/wiki/MATE_%28%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%92%B0%E5%A2%83%29</a></a></p>
-
-<p>公式サイトはこちら。<br />
-MATE(公式)<br />
-<a href="http://mate-desktop.org/" target="_blank"><a href="http://mate-desktop.org/">http://mate-desktop.org/</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-freebsdへのインストールについて-span"><span style="text-decoration: underline;">FreeBSDへのインストールについて</span></h2>
-
+<p>MATE(wikipedia)<br>
+<!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/MATE_%28%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%92%B0%E5%A2%83%29%3C/a%3E">http://ja.wikipedia.org/wiki/MATE_%28%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%92%B0%E5%A2%83%29&lt;/a&gt;</a></p>
+<p>公式サイトはこちら。<br>
+MATE(公式)<br>
+<!-- raw HTML omitted --><a href="http://mate-desktop.org/%3C/a%3E">http://mate-desktop.org/&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinefreebsdspan"><!-- raw HTML omitted -->FreeBSDへのインストールについて<!-- raw HTML omitted --></h2>
 <p>pkgngに用意されているので、コマンド一発でインストールできる。</p>
-
-<p>ただ、注意点が一つ。<br />
-mateにはログインマネジャーが付属しない。<br />
-おすすめはslim。xdmでも可。<br />
+<p>ただ、注意点が一つ。<br>
+mateにはログインマネジャーが付属しない。<br>
+おすすめはslim。xdmでも可。<br>
 gdmはおすすめしない。</p>
-
-<p>理由。<br />
-gdmはGNOMEアプリケーションだから。（せっかくGNOMEからフォークしてるのに）<br />
+<p>理由。<br>
+gdmはGNOMEアプリケーションだから。（せっかくGNOMEからフォークしてるのに）<br>
 以下にmateをFreeBSDにportしてくれた人のコメントを引用。</p>
-
 <blockquote>
-<p>Q: Why you won&rsquo;t check on GDM?<br />
-A: Because it&rsquo;s a GNOME applications and I do not want to install any<br />
-extra dependency. :-) But if MATE folks fork the GDM and yes I will<br />
+<p>Q: Why you won't check on GDM?<br>
+A: Because it's a GNOME applications and I do not want to install any<br>
+extra dependency. :-) But if MATE folks fork the GDM and yes I will<br>
 work on it.</p>
 </blockquote>
-
-<p>引用元<br />
-<a href="http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027576.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027576.html">http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027576.html</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
-
-<p>Xorgはインストールされている前提。<br />
-$ sudo pkg install mate とするだけ。<br />
+<p>引用元<br>
+<!-- raw HTML omitted --><a href="http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027576.html%3C/a%3E">http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027576.html&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->インストール<!-- raw HTML omitted --></h2>
+<p>Xorgはインストールされている前提。<br>
+$ sudo pkg install mate とするだけ。<br>
 ログを取り忘れたので出力例は割愛。</p>
-
-<p>slimもインストールする。<br />
-slimは本体の他にテーマもインストールする。<br />
+<p>slimもインストールする。<br>
+slimは本体の他にテーマもインストールする。<br>
 -fで調べてみると以下の様な結果。</p>
-
-<pre><code class="language-console">$ pkg search -f slim-1.3.5_3
+<pre><code class="language-console" data-lang="console">$ pkg search -f slim-1.3.5_3
 slim-1.3.5_3
 Name : slim
 Version : 1.3.5_3
@@ -228,11 +207,8 @@ SLiM is a desktop-independent graphical login manager for X11, derived from Log
 It aims to be light and simple, although completely configurable through
 themes and an option file; is suitable for machines on which remote login functionalities are not needed.
 WWW: http://slim.berlios.de/
-</code></pre>
-
-<p>インストール。</p>
-
-<pre><code class="language-console">$ sudo pkg install slim
+</code></pre><p>インストール。</p>
+<pre><code class="language-console" data-lang="console">$ sudo pkg install slim
 Updating repository catalogue
 The following 1 packages will be installed:
 
@@ -250,11 +226,8 @@ Checking integrity... done
 
 Thanks to Nikos Ntarmos, it is now possible to start slim from /etc/ttys.
 Please see /usr/local/etc/rc.d/slim for instructions on how to do that.
-</code></pre>
-
-<p>テーマもインストール</p>
-
-<pre><code class="language-console">$ pkg search -f slim-themes-1.0.1
+</code></pre><p>テーマもインストール</p>
+<pre><code class="language-console" data-lang="console">$ pkg search -f slim-themes-1.0.1
 slim-themes-1.0.1
 Name : slim-themes
 Version : 1.0.1
@@ -292,9 +265,7 @@ Description :
 Theme pack for the SLiM X login application.
 
 WWW: http://slim.berlios.de/themes01.php
-</code></pre>
-
-<pre><code class="language-console">$ sudo pkg install slim-themes-1.0.1
+</code></pre><pre><code class="language-console" data-lang="console">$ sudo pkg install slim-themes-1.0.1
 
 Updating repository catalogue
 The following 1 packages will be installed:
@@ -309,32 +280,21 @@ Proceed with installing packages [y/N]: y
 slim-themes-1.0.1.txz 100% 5021KB 279.0KB/s 311.5KB/s 00:18
 Checking integrity... done
 [1/1] Installing slim-themes-1.0.1... done
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-設定-span"><span style="text-decoration: underline;">設定</span></h2>
-
-<p>以下メールの手順に沿うだけ。とっても簡単。<br />
-<a href="http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027575.html" target="_blank"><a href="http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027575.html">http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027575.html</a></a></p>
-
-<p>具体的には/etc/rc.confの修正と、ホームディレクトリ.xinitrcの修正。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->設定<!-- raw HTML omitted --></h2>
+<p>以下メールの手順に沿うだけ。とっても簡単。<br>
+<!-- raw HTML omitted --><a href="http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027575.html%3C/a%3E">http://lists.freebsd.org/pipermail/freebsd-gnome/2012-July/027575.html&lt;/a&gt;</a></p>
+<p>具体的には/etc/rc.confの修正と、ホームディレクトリ.xinitrcの修正。<br>
 /etc/rc.conf</p>
-
-<pre><code class="language-console">dbus_enable=&quot;YES&quot;
+<pre><code class="language-console" data-lang="console">dbus_enable=&quot;YES&quot;
 hald_enable=&quot;YES&quot;
 avahi_daemon_enable=&quot;YES&quot;
 avahi_dnsconfd_enable=&quot;YES&quot;
 slim_enable=&quot;YES&quot;
-</code></pre>
-
-<p>dbusからavahiまでの順番は重要。入れ替えないこと。<br />
+</code></pre><p>dbusからavahiまでの順番は重要。入れ替えないこと。<br>
 gdm_enableがあれば削るかコメントアウトすること。</p>
-
 <p>~/.xnitrc</p>
-
-<pre><code class="language-console">exec mate-session
-</code></pre>
-
-<p>再起動すればおしまい。</p>
+<pre><code class="language-console" data-lang="console">exec mate-session
+</code></pre><p>再起動すればおしまい。</p>
 <ul class="pa0">
   
    <li class="list">

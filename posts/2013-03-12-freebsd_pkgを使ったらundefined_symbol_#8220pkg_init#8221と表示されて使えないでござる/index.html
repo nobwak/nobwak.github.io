@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-03-12T21:40:55+09:00" />
 <meta itemprop="name" content="[FreeBSD] pkgを使ったらUndefined symbol &#34;pkg_init&#34;と表示されて使えないでござる。">
 <meta itemprop="description" content="pkgngが大変によくて、あちこちのFreeBSDサーバで使い始めた。 のだが、特定のマシンで以下のメッセージが表示され使えない。 Undefined symbol &quot;pkg_init&quot; 端的に">
-
-
 <meta itemprop="datePublished" content="2013-03-12T21:40:55&#43;09:00" />
 <meta itemprop="dateModified" content="2013-03-12T21:40:55&#43;09:00" />
 <meta itemprop="wordCount" content="220">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] pkgを使ったらUndefined symbol &#34;pkg_init&#34;と表示されて使えないでござる。"/>
 <meta name="twitter:description" content="pkgngが大変によくて、あちこちのFreeBSDサーバで使い始めた。 のだが、特定のマシンで以下のメッセージが表示され使えない。 Undefined symbol &quot;pkg_init&quot; 端的に"/>
 
@@ -140,25 +137,17 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><a href="../../../?p=1947">pkgngが大変によくて</a>、あちこちのFreeBSDサーバで使い始めた。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><a href="../../../?p=1947">pkgngが大変によくて</a>、あちこちのFreeBSDサーバで使い始めた。<br>
 のだが、特定のマシンで以下のメッセージが表示され使えない。</p>
-
-<pre><code class="language-console">Undefined symbol &quot;pkg_init&quot;
-</code></pre>
-
-<p>端的に言えばこれはFreeBSDシステムを更新したせいで古いライブラリが残っているせい。<br />
+<pre><code class="language-console" data-lang="console">Undefined symbol &quot;pkg_init&quot;
+</code></pre><p>端的に言えばこれはFreeBSDシステムを更新したせいで古いライブラリが残っているせい。<br>
 /usr/srcで以下を実行すればOK。</p>
-
-<pre><code class="language-console">make delete-old-libs
-</code></pre>
-
-<p>delete-old-libsを忘れてる時はdelete-oldも忘れてる。<br />
+<pre><code class="language-console" data-lang="console">make delete-old-libs
+</code></pre><p>delete-old-libsを忘れてる時はdelete-oldも忘れてる。<br>
 また、いちいち「消していいか？」と聞かれて面倒なとき、覚悟があれば以下でよし;</p>
-
-<pre><code class="language-console"># yes | make delete-old
+<pre><code class="language-console" data-lang="console"># yes | make delete-old
 # yes | make delete-old-libs
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

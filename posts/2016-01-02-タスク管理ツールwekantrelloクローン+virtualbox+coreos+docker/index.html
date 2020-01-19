@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2016-01-02T00:52:11+09:00" />
 <meta itemprop="name" content="タスク管理ツールWekan（Trelloクローン）&#43;VirtualBox&#43;CoreOS&#43;docker">
 <meta itemprop="description" content="WekanとはTrelloクローン。 鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サ">
-
-
 <meta itemprop="datePublished" content="2016-01-02T00:52:11&#43;09:00" />
 <meta itemprop="dateModified" content="2016-01-02T00:52:11&#43;09:00" />
 <meta itemprop="wordCount" content="1730">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="タスク管理ツールWekan（Trelloクローン）&#43;VirtualBox&#43;CoreOS&#43;docker"/>
 <meta name="twitter:description" content="WekanとはTrelloクローン。 鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サ"/>
 
@@ -140,36 +137,27 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>WekanとはTrelloクローン。<br />
-鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サービス名」＋「alternative」というキーワードで検索するのが癖になっている今日この頃です。<br />
-Trelloのalternativeで見つけたのがWekan。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>WekanとはTrelloクローン。<br>
+鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サービス名」＋「alternative」というキーワードで検索するのが癖になっている今日この頃です。<br>
+Trelloのalternativeで見つけたのがWekan。<br>
 これをCoreOSにインストールする。</p>
-
-<p>VirtualBox上のCoreOSにはdockerまでインストール済みの前提。<br />
-以下の手順に沿ってインストールする。<br />
- <a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing" target="_blank"><a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing">https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing</a></a><br />
- <a href="https://docs.docker.com/compose/install/" target="_blank"><a href="https://docs.docker.com/compose/install/">https://docs.docker.com/compose/install/</a></a></p>
-
-<p>URLの示す通り、テスト目的。<br />
-大量のユーザを相手にするのでなければ、これでも大丈夫でしょう。<br />
-参考までに書いておくと、テスト目的と、下記の本番用で示される構成の違いは、フロントエンドにApacheがあること。<br />
+<p>VirtualBox上のCoreOSにはdockerまでインストール済みの前提。<br>
+以下の手順に沿ってインストールする。<br>
+<!-- raw HTML omitted --><a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing%3C/a%3E">https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing&lt;/a&gt;</a><br>
+<!-- raw HTML omitted --><a href="https://docs.docker.com/compose/install/%3C/a%3E">https://docs.docker.com/compose/install/&lt;/a&gt;</a></p>
+<p>URLの示す通り、テスト目的。<br>
+大量のユーザを相手にするのでなければ、これでも大丈夫でしょう。<br>
+参考までに書いておくと、テスト目的と、下記の本番用で示される構成の違いは、フロントエンドにApacheがあること。<br>
 テスト目的の方の手順だと、ユーザがいきなりWekanに接続する。</p>
-
-<p><a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-in-production" target="_blank"><a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-in-production">https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-in-production</a></a></p>
-
+<p><!-- raw HTML omitted --><a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-in-production%3C/a%3E">https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-in-production&lt;/a&gt;</a></p>
 <p>繰り返すが、本稿ではWekanに直接、繋げさせる構成でセットアップする。</p>
-
-<h2 id="docker-composeのインストール">docker-composeのインストール。</h2>
-
-<p>まず、docker-composeのインストール。<br />
-docker-composeはdockerの管理ツール。<br />
-インストール済みならこの章は飛ばしてよい。<br />
-公式サイトの手順だと、/usr/local/bin下にインストールすることになっているが、CoreOSだと読み取り専用なので、そこ以外の、たとえばホームディレクトリのbin下等に置く。<br />
+<h2 id="docker-compose">docker-composeのインストール。</h2>
+<p>まず、docker-composeのインストール。<br>
+docker-composeはdockerの管理ツール。<br>
+インストール済みならこの章は飛ばしてよい。<br>
+公式サイトの手順だと、/usr/local/bin下にインストールすることになっているが、CoreOSだと読み取り専用なので、そこ以外の、たとえばホームディレクトリのbin下等に置く。<br>
 実行権限の付与も忘れないように。</p>
-
-<pre><code class="language-console">$ curl -L https://github.com/docker/compose/releases/download/1.5.2/docker-compose-`uname -s`-`uname -m` &gt; ~/bin/docker-compose
+<pre><code class="language-console" data-lang="console">$ curl -L https://github.com/docker/compose/releases/download/1.5.2/docker-compose-`uname -s`-`uname -m` &gt; ~/bin/docker-compose
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   600    0   600    0     0    687      0 --:--:-- --:--:-- --:--:--   697
@@ -180,14 +168,10 @@ total 7760
 drwxr-xr-x 2 nobwak nobwak    4096 Jan  1 12:17 .
 drwxr-xr-x 5 nobwak nobwak    4096 Dec  7 14:05 ..
 -rwxr-xr-x 1 nobwak nobwak 7925655 Jan  1 12:17 docker-compose
-</code></pre>
-
-<h2 id="docker-compose-ymlの作成">docker-compose.ymlの作成。</h2>
-
-<p>wekanをインストールするディレクトリにdocker-compose.ymlを作成する。<br />
+</code></pre><h2 id="docker-composeyml">docker-compose.ymlの作成。</h2>
+<p>wekanをインストールするディレクトリにdocker-compose.ymlを作成する。<br>
 以下の例では、ホストOS、つまりCoreOSのポート8081で待ち受ける。</p>
-
-<pre><code class="language-console">wekan:
+<pre><code class="language-console" data-lang="console">wekan:
   image: mquandalle/wekan
   links:
     - wekandb
@@ -201,22 +185,15 @@ wekandb:
    image: mongo
    volumes:
      - /home/wekan/data:/data/db
-</code></pre>
-
-<p>もし、ホストOSの起動時に自動的にWekanも起動させたい場合には、冒頭部分を以下のように書き換える。</p>
-
-<pre><code class="language-console">wekan:
+</code></pre><p>もし、ホストOSの起動時に自動的にWekanも起動させたい場合には、冒頭部分を以下のように書き換える。</p>
+<pre><code class="language-console" data-lang="console">wekan:
     image: mquandalle/wekan
     restart: always
-</code></pre>
-
-<h2 id="wekanの起動">Wekanの起動</h2>
-
-<p>docker-composeから立ち上げる。<br />
-まずdocker-compose -helpとして使い方を一覧しておこう。<br />
+</code></pre><h2 id="wekan">Wekanの起動</h2>
+<p>docker-composeから立ち上げる。<br>
+まずdocker-compose -helpとして使い方を一覧しておこう。<br>
 初回起動時はupだが、二回目以降はstartで良さそうだ。</p>
-
-<pre><code class="language-console">$ docker-compose --help
+<pre><code class="language-console" data-lang="console">$ docker-compose --help
 Define and run multi-container applications with Docker.
 
 Usage:
@@ -252,58 +229,40 @@ Commands:
   up                 Create and start containers
   migrate-to-labels  Recreate containers to add labels
   version            Show the Docker-Compose version information
-</code></pre>
-
-<p>実際に作成＆起動。</p>
-
-<pre><code class="language-console">$ sudo ~/bin/docker-compose up
+</code></pre><p>実際に作成＆起動。</p>
+<pre><code class="language-console" data-lang="console">$ sudo ~/bin/docker-compose up
 Creating wekan_wekandb_1
 Creating wekan_wekan_1
 Attaching to wekan_wekandb_1, wekan_wekan_1
 wekan_1   | =&gt; Starting meteor app on port:80
 （略）
-</code></pre>
-
-<p>もしうまくいかない場合には、imagesをいったん削除してやり直してみよう。<br />
-エラーなど無さそうなら次のステップへ。<br />
-なお、問題なく動作することを確認できたら、Ctrl+Cで停止。<br />
+</code></pre><p>もしうまくいかない場合には、imagesをいったん削除してやり直してみよう。<br>
+エラーなど無さそうなら次のステップへ。<br>
+なお、問題なく動作することを確認できたら、Ctrl+Cで停止。<br>
 次回以降は</p>
-
-<pre><code class="language-console">docker-compose -d start
-</code></pre>
-
-<p>でよし。</p>
-
-<h2 id="virtualboxでポートフォワーディングの設定">VirtualBoxでポートフォワーディングの設定</h2>
-
-<p>上記で設定したCoreOSの待ち受けポートへの、VirtualBox上でのフォワーディングを設定する。<br />
+<pre><code class="language-console" data-lang="console">docker-compose -d start
+</code></pre><p>でよし。</p>
+<h2 id="virtualbox">VirtualBoxでポートフォワーディングの設定</h2>
+<p>上記で設定したCoreOSの待ち受けポートへの、VirtualBox上でのフォワーディングを設定する。<br>
 以下の例ではVirtualBoxを動かしているホストの8082が、VirtualBox上CoreOSの8081にフォワーディングされる。</p>
-
-<p><a href="../../../wp-content/uploads/2016/01/13.jpg" rel="attachment wp-att-3016"><img class="alignnone size-thumbnail wp-image-3016" src="../../../wp-content/uploads/2016/01/13-150x150.jpg" alt="13" width="150" height="150" /></a></p>
-
-<h2 id="接続確認">接続確認</h2>
-
-<p>前章で設定したポートにブラウザで繋ぐ。<br />
-本稿の例で言えば、<a href="http://127.0.0.1:8082へ繋ぐ。">http://127.0.0.1:8082へ繋ぐ。</a><br />
-以下の画面になればOK<br />
-<a href="../../../wp-content/uploads/2016/01/9.jpg" rel="attachment wp-att-3020"><img class="alignnone size-thumbnail wp-image-3020" src="../../../wp-content/uploads/2016/01/9-150x150.jpg" alt="9" width="150" height="150" /></a><br />
-ユーザを新規登録し、もし英語が嫌なら設定を変える。<br />
-<a href="../../../wp-content/uploads/2016/01/12.jpg" rel="attachment wp-att-3017"><img class="alignnone size-thumbnail wp-image-3017" src="../../../wp-content/uploads/2016/01/12-150x150.jpg" alt="12" width="150" height="150" /></a></p>
-
-<h2 id="ボードとリストの設定">ボードとリストの設定。</h2>
-
-<p>ボードは適当に、リストは <a href="http://www.sekai-lab.com/times/?p=473">http://www.sekai-lab.com/times/?p=473</a> を参考に作成。<br />
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="heading">接続確認</h2>
+<p>前章で設定したポートにブラウザで繋ぐ。<br>
+本稿の例で言えば、http://127.0.0.1:8082へ繋ぐ。<br>
+以下の画面になればOK<br>
+<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><br>
+ユーザを新規登録し、もし英語が嫌なら設定を変える。<br>
+<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="heading-1">ボードとリストの設定。</h2>
+<p>ボードは適当に、リストは <a href="http://www.sekai-lab.com/times/?p=473">http://www.sekai-lab.com/times/?p=473</a> を参考に作成。<br>
 というか、どういうリストを作ればよいか、って結構なノウハウだと思うのだが、ありがたや。</p>
-
-<pre><code class="language-console">　1. Tasks：タスクリスト(アサインと期日が定まっていないタスク)
+<pre><code class="language-console" data-lang="console">　1. Tasks：タスクリスト(アサインと期日が定まっていないタスク)
 　2. Todo：やることリスト(アサインと期日が定まったタスク, 優先順位を手動で並べ替える)
 　3. Today：今日やることリスト
 　4. Doing：作業中のタスク
 　5. In review：他人がレビュー中のタスク(アサインをレビュー者に変更！)
 　6. Done：完了したタスク
-</code></pre>
-
-<p>以上</p>
+</code></pre><p>以上</p>
 <ul class="pa0">
   
 </ul>

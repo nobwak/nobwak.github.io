@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-12-19T23:13:44+09:00" />
 <meta itemprop="name" content="[報告]pkg-1.2.3でproxy越しのレポジトリ接続が可能に">
 <meta itemprop="description" content="pkgngのレポジトリがsrvレコードなせいで、proxy越しだったりするとpkgがダウンロードできない問題があった。 2013/12/19現">
-
-
 <meta itemprop="datePublished" content="2013-12-19T23:13:44&#43;09:00" />
 <meta itemprop="dateModified" content="2013-12-19T23:13:44&#43;09:00" />
 <meta itemprop="wordCount" content="388">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[報告]pkg-1.2.3でproxy越しのレポジトリ接続が可能に"/>
 <meta name="twitter:description" content="pkgngのレポジトリがsrvレコードなせいで、proxy越しだったりするとpkgがダウンロードできない問題があった。 2013/12/19現"/>
 
@@ -140,14 +137,11 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgngのレポジトリがsrvレコードなせいで、<a href="../../../2013/11/pkgng%E3%81%8C%E5%BE%A9%E6%B4%BB%E3%81%97%E3%81%9F%E3%81%A8%E8%A8%80%E3%81%A3%E3%81%9F%E3%81%AA%E3%80%82%EF%BC%88%E4%B8%80%E9%83%A8%E3%81%AE%E5%A5%B4%E3%81%AB%E3%81%A8%E3%81%A3%E3%81%A6%EF%BC%89/" target="_blank">proxy越しだったりするとpkgがダウンロードできない問題</a>があった。</p>
-
-<p>2013/12/19現在のpkg-1.2.3でこの件が修正されている。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgngのレポジトリがsrvレコードなせいで、<!-- raw HTML omitted -->proxy越しだったりするとpkgがダウンロードできない問題<!-- raw HTML omitted -->があった。</p>
+<p>2013/12/19現在のpkg-1.2.3でこの件が修正されている。<br>
 したがって、デフォルトの設定ファイル/etc/pkg/FreeBSD.confをそのまま使うことが出来る。</p>
-
 <p>以下のような状態で、つまり、FreeBSD.confが有効（enabled:yes）になっている状態で;</p>
-
-<pre><code class="language-console">$ pkg -vv
+<pre><code class="language-console" data-lang="console">$ pkg -vv
 Version                 : 1.2.3
 （中略）
 Repositories:
@@ -163,31 +157,23 @@ Repositories:
     enabled         : no
   }
 $
-</code></pre>
-
-<p>pkg updateが問題なくできる。</p>
-
-<pre><code class="language-console">$ sudo pkg update
+</code></pre><p>pkg updateが問題なくできる。</p>
+<pre><code class="language-console" data-lang="console">$ sudo pkg update
 Updating repository catalogue
 digests.txz                         100% 1042KB 347.5KB/s 512.4KB/s   00:03
 packagesite.txz                     100% 5491KB 499.1KB/s 610.6KB/s   00:11
 Incremental update completed, 22191 packages processed:
 0 packages updated, 0 removed and 22191 added.
-</code></pre>
-
-<p>ああよかった。<br />
+</code></pre><p>ああよかった。<br>
 こちらからは以上です。</p>
-
-<p>(追記)<br />
+<p>(追記)<br>
 FreeBSD-9.xの場合には以下の内容を/usr/local/etc/pkg/repos/FreeBSD.confとして保存すればよい。</p>
-
-<pre><code class="language-console">FreeBSD: {
+<pre><code class="language-console" data-lang="console">FreeBSD: {
   url: &quot;pkg+http://pkg.FreeBSD.org/${ABI}/latest&quot;,
   mirror_type: &quot;srv&quot;,
   enabled: yes
 }
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

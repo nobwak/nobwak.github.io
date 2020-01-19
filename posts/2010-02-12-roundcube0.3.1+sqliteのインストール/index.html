@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-02-12T01:00:00+09:00" />
 <meta itemprop="name" content="roundcube0.3.1&#43;SQLiteのインストール">
 <meta itemprop="description" content="FreeBSDに&lt;a href=&quot;http://roundcube.net/&quot; target=&quot;_blank&quot;&gt;Roundcube&lt;/a&gt;を再インストール">
-
-
 <meta itemprop="datePublished" content="2010-02-12T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-02-12T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1749">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="roundcube0.3.1&#43;SQLiteのインストール"/>
 <meta name="twitter:description" content="FreeBSDに&lt;a href=&quot;http://roundcube.net/&quot; target=&quot;_blank&quot;&gt;Roundcube&lt;/a&gt;を再インストール"/>
 
@@ -173,14 +170,11 @@ roundcubeインストール。packagesの出来合い設定だと都合が悪い
 
 さらにSSLにもチェックし、make install cleanする。
 </code></pre>
-
-<pre><code class="language-console">$ cd /usr/ports/mail/roundcube
+<pre><code class="language-console" data-lang="console">$ cd /usr/ports/mail/roundcube
 # make config
 ＜オプションを選択＞
 # make install clean
-</code></pre>
-
-<pre><code>sqliteもインストールする。
+</code></pre><pre><code>sqliteもインストールする。
 
 
 
@@ -190,12 +184,9 @@ sqlite2じゃないとダメなので注意。ただ、こちらはデフォル�
 
 なお、sqlite3とは競合しないので問題無し。（sqlite3はsqlite3、sqlite2はsqliteとしてインストールされる）
 </code></pre>
-
-<pre><code class="language-console"># pkg_add -r sqlite2
+<pre><code class="language-console" data-lang="console"># pkg_add -r sqlite2
 Fetching ftp://ftp1.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7-stable/Latest/sqlite2.tbz... Done.
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;apacheの設定&lt;/span&gt;
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;apacheの設定&lt;/span&gt;
 
 
 
@@ -205,28 +196,22 @@ roundcubeは/usr/local/www/roundcubeにインストールされるので、apach
 
 apache設定ファイル/usr/local/etc/apache22/httpd.confに以下の記載を追加。
 </code></pre>
-
-<pre><code class="language-console">Alias /roundcube /usr/local/www/roundcube
+<pre><code class="language-console" data-lang="console">Alias /roundcube /usr/local/www/roundcube
 &amp;#60;Directory /usr/local/www/roundcube&gt;
 AllowOverride None
 Order allow,deny
 Allow from all
 &amp;#60;/Directory&gt;
+</code></pre><pre><code>apacheの再起動を忘れないこと。下記のrcrestartコマンドは便利な管理ツール。
 </code></pre>
-
-<pre><code>apacheの再起動を忘れないこと。下記のrcrestartコマンドは便利な管理ツール。
-</code></pre>
-
-<pre><code class="language-console"># rcrestart apache22
+<pre><code class="language-console" data-lang="console"># rcrestart apache22
 Performing sanity check on apache22 configuration:
 Syntax OK
 Stopping apache22.
 Waiting for PIDS: 23644.
 Syntax OK
 Starting apache22.
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;roundcubeの設定&lt;/span&gt;
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;roundcubeの設定&lt;/span&gt;
 
 
 
@@ -248,15 +233,12 @@ sqliteなのでデータベースのファイルを指定する。念のためro
 
 ◎/usr/local/www/roundcube/config/db.inc.php
 </code></pre>
-
-<pre><code class="language-console">//$rcmail_config&amp;#91;&amp;#39;db_dsnw&amp;#39;] = &amp;#39;mysql://roundcube:pass@localhost/roundcubemail&amp;#39;;
+<pre><code class="language-console" data-lang="console">//$rcmail_config&amp;#91;&amp;#39;db_dsnw&amp;#39;] = &amp;#39;mysql://roundcube:pass@localhost/roundcubemail&amp;#39;;
 $rcmail_config&amp;#91;&amp;#39;db_dsnw&amp;#39;] = &amp;#39;sqlite:////usr/local/www/maildb/mail.db?mode=0646&amp;#39;;
 // postgres example: &amp;#39;pgsql://roundcube:pass@localhost/roundcubemail&amp;#39;;
 // Warning: for SQLite use absolute path in DSN:
 // sqlite example: &amp;#39;sqlite:////full/path/to/sqlite.db?mode=0646&amp;#39;;
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;データベースファイルの作成&lt;/span&gt;
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;データベースファイルの作成&lt;/span&gt;
 
 
 
@@ -270,8 +252,7 @@ sqliteからは「.quit」で抜ける。オーナを変更する。
 
 なお、マニュアルにはchmod o+wするように書いてあるが、web serverが読み書きできれば良いので省略。
 </code></pre>
-
-<pre><code class="language-console"># mkdir /usr/local/www/maildb/
+<pre><code class="language-console" data-lang="console"># mkdir /usr/local/www/maildb/
 # cd /usr/local/www/maildb
 # sqlite -init ../roundcube/SQL/sqlite.initial.sql mail.db
 Loading resources from ../roundcube/SQL/sqlite.initial.sql
@@ -279,9 +260,7 @@ SQLite version 2.8.17
 Enter &amp;#34;.help&amp;#34; for instructions
 sqlite&gt; .quit
 # chown -R www:www ../maildb
-</code></pre>
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;アクセス&lt;/span&gt;
+</code></pre><pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;アクセス&lt;/span&gt;
 
 
 
@@ -306,12 +285,10 @@ Gmailの場合は、「ssl://imap.gmail.com:993」と指定すれば良い。
 
 Gmailにしか繋がない、という場合には、roundcubeの設定ファイルを修正しておけば、サーバ名の入力を省略できる。…ただ、サーバ名入力フォーム自体が無くなるので注意。
 </code></pre>
-
-<pre><code class="language-console"># vi /usr/local/www/roundcube/config/main.inc.php
+<pre><code class="language-console" data-lang="console"># vi /usr/local/www/roundcube/config/main.inc.php
 //$rcmail_config&amp;#91;&amp;#39;default_host&amp;#39;] = &amp;#39;&amp;#39;;
 $rcmail_config&amp;#91;&amp;#39;default_host&amp;#39;] = &amp;#39;ssl://imap.gmail.com:993&amp;#39;;
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-12-13T22:08:35+09:00" />
 <meta itemprop="name" content="[メモ]zpoolのupgrade">
 <meta itemprop="description" content="zpoolのupgradeをしたのでメモ。 結論としては、zpoolのupgradeとは、単にversionを上げるだけ以外にもあるようだ。 legacy">
-
-
 <meta itemprop="datePublished" content="2013-12-13T22:08:35&#43;09:00" />
 <meta itemprop="dateModified" content="2013-12-13T22:08:35&#43;09:00" />
 <meta itemprop="wordCount" content="932">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ]zpoolのupgrade"/>
 <meta name="twitter:description" content="zpoolのupgradeをしたのでメモ。 結論としては、zpoolのupgradeとは、単にversionを上げるだけ以外にもあるようだ。 legacy"/>
 
@@ -140,16 +137,11 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>zpoolのupgradeをしたのでメモ。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>zpoolのupgradeをしたのでメモ。<br>
 結論としては、zpoolのupgradeとは、単にversionを上げるだけ以外にもあるようだ。</p>
-
-<h2 id="span-style-text-decoration-underline-legacy-on-disk-formatでformat-span"><span style="text-decoration: underline;">legacy on-disk formatでformat??</span></h2>
-
+<h2 id="span-styletext-decoration-underlinelegacy-on-disk-formatformatspan"><!-- raw HTML omitted -->legacy on-disk formatでformat??<!-- raw HTML omitted --></h2>
 <p>気がつくと、zpool statusで文句を言われていた。</p>
-
-<pre><code class="language-console">$ zpool status
+<pre><code class="language-console" data-lang="console">$ zpool status
   pool: vault
  state: ONLINE
 status: The pool is formatted using a legacy on-disk format.  The pool can
@@ -158,25 +150,18 @@ action: Upgrade the pool using 'zpool upgrade'.  Once this is done, the
         pool will no longer be accessible on software that does not support feature
         flags.
 (略)
-</code></pre>
-
-<p>曰く、「このpoolはlegacy on-disk formatでフォーマットされている。<br />
+</code></pre><p>曰く、「このpoolはlegacy on-disk formatでフォーマットされている。<br>
 もちろんpoolは引き続き使えるけれども、いくかの機能が使えない。」とのこと。</p>
-
 <p>zpoolを調べてみたが、最新のv28である。</p>
-
-<pre><code class="language-console">$ zpool get all|grep vault
+<pre><code class="language-console" data-lang="console">$ zpool get all|grep vault
 vault      size                   2.27T                  -
 vault      capacity               64%                    -
 vault      health                 ONLINE                 -
 vault      version                28                     local
 （略）
-</code></pre>
-
-<p>zpool upgradeで調べて分かってきた。<br />
+</code></pre><p>zpool upgradeで調べて分かってきた。<br>
 zpoolバージョンではなくfeature flagsのことを言っているわけだ。</p>
-
-<pre><code class="language-console">$ zpool upgrade
+<pre><code class="language-console" data-lang="console">$ zpool upgrade
 This system supports ZFS pool feature flags.
 
 The following pools are formatted with legacy version numbers and can
@@ -190,11 +175,8 @@ VER  POOL
 
 Use 'zpool upgrade -v' for a list of available legacy versions.
 Every feature flags pool has all supported features enabled.
-</code></pre>
-
-<p>で、もういちど調べてみると。</p>
-
-<pre><code class="language-console">$ zpool get all|grep vault
+</code></pre><p>で、もういちど調べてみると。</p>
+<pre><code class="language-console" data-lang="console">$ zpool get all|grep vault
 vault      size                   2.27T                  -
 vault      capacity               64%                    -
 vault      health                 ONLINE                 -
@@ -203,17 +185,12 @@ vault      version                28                     local
 vault      feature@async_destroy  disabled               local
 vault      feature@empty_bpobj    disabled               local
 vault      feature@lz4_compress   disabled               local
-</code></pre>
-
-<p>featureがいくつかdiabledになっている。<br />
+</code></pre><p>featureがいくつかdiabledになっている。<br>
 そうと分かれば素直にupgradeである。</p>
-
-<h2 id="span-style-text-decoration-underline-zpoolのupgrade-span"><span style="text-decoration: underline;">zpoolのupgrade</span></h2>
-
-<p>zpool upgradeとするだけ。<br />
+<h2 id="span-styletext-decoration-underlinezpoolupgradespan"><!-- raw HTML omitted -->zpoolのupgrade<!-- raw HTML omitted --></h2>
+<p>zpool upgradeとするだけ。<br>
 ただ、バージョンが変わらないとはいえ、ファイルシステムの基盤をアップグレードするわけだからバックアップは取っといた。</p>
-
-<pre><code class="language-console">$ sudo zpool upgrade vault
+<pre><code class="language-console" data-lang="console">$ sudo zpool upgrade vault
 This system supports ZFS pool feature flags.
 
 Successfully upgraded 'vault' from version 28 to feature flags.
@@ -221,15 +198,11 @@ Enabled the following features on 'vault':
   async_destroy
   empty_bpobj
   lz4_compress
-</code></pre>
-
-<p>あっけなく終了。</p>
-
-<p>調べてみるとversionが消えて（なぜ&hellip;.でもpropertiesがdefaultだからよしとしよう）、その代りfeatureはすべてenabledに変化したことが分かる。<br />
-なお、enabledは「その機能が使えますよ」という表示。<br />
+</code></pre><p>あっけなく終了。</p>
+<p>調べてみるとversionが消えて（なぜ&hellip;.でもpropertiesがdefaultだからよしとしよう）、その代りfeatureはすべてenabledに変化したことが分かる。<br>
+なお、enabledは「その機能が使えますよ」という表示。<br>
 実際に有効にするとenabledはactiveに変化する。</p>
-
-<pre><code class="language-console">$ zpool get all|grep vault
+<pre><code class="language-console" data-lang="console">$ zpool get all|grep vault
 vault      size                   2.27T                  -
 vault      capacity               64%                    -
 vault      health                 ONLINE                 -
@@ -238,11 +211,8 @@ vault      version                -                      default
 vault      feature@async_destroy  enabled                local
 vault      feature@empty_bpobj    enabled                local
 vault      feature@lz4_compress   enabled                local
-</code></pre>
-
-<p>zpool upgrade、zpool statusの表示いずれも問題なし。</p>
-
-<pre><code class="language-console">$ zpool upgrade
+</code></pre><p>zpool upgrade、zpool statusの表示いずれも問題なし。</p>
+<pre><code class="language-console" data-lang="console">$ zpool upgrade
 This system supports ZFS pool feature flags.
 
 All pools are formatted using feature flags.
@@ -260,8 +230,7 @@ config:
           ada1      ONLINE       0     0     0
 
 errors: No known data errors
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

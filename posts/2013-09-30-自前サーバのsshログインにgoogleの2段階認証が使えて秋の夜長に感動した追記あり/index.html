@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-09-30T23:39:39+09:00" />
 <meta itemprop="name" content="自前サーバのSSHログインにgoogleの2段階認証が使えて秋の夜長に感動した(追記あり)。">
 <meta itemprop="description" content="タイトルそのままである。 たぶんGoogle様あたりが始めたのだと思うけど、何かの認証の際にスマートフォンをトークンキーとして使う仕組みはとて">
-
-
 <meta itemprop="datePublished" content="2013-09-30T23:39:39&#43;09:00" />
 <meta itemprop="dateModified" content="2013-09-30T23:39:39&#43;09:00" />
 <meta itemprop="wordCount" content="2333">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="自前サーバのSSHログインにgoogleの2段階認証が使えて秋の夜長に感動した(追記あり)。"/>
 <meta name="twitter:description" content="タイトルそのままである。 たぶんGoogle様あたりが始めたのだと思うけど、何かの認証の際にスマートフォンをトークンキーとして使う仕組みはとて"/>
 
@@ -140,68 +137,43 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>タイトルそのままである。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>タイトルそのままである。<br>
 たぶんGoogle様あたりが始めたのだと思うけど、何かの認証の際にスマートフォンをトークンキーとして使う仕組みはとても便利である。</p>
-
-<p>二要素認証、つまりパスワード/パスフレーズに加えトークンキーも必須にすることで、セキュリティは段違いに向上する。<br />
-しかし、ちょっと前までトークンキーと言えばRSAのハードウェアで、手軽に使えるとは言えない代物だった。<br />
+<p>二要素認証、つまりパスワード/パスフレーズに加えトークンキーも必須にすることで、セキュリティは段違いに向上する。<br>
+しかし、ちょっと前までトークンキーと言えばRSAのハードウェアで、手軽に使えるとは言えない代物だった。<br>
 それがスマートフォンで出来るんだから問答無用で便利なんである。</p>
-
 <p>そんなgoogleの2段階認証を、自分のサーバのログインにも使えると聞いて驚愕して試して感動したので下記に顛末を記す。</p>
-
 <p>なお、FreeBSDで試しているが、Linuxでも大丈夫。Mintでの結果を末尾に追記。</p>
-
-<h2 id="span-style-text-decoration-underline-事前準備-スマートフォン側-span"><span style="text-decoration: underline;">事前準備（スマートフォン側）</span></h2>
-
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->事前準備（スマートフォン側）<!-- raw HTML omitted --></h2>
 <p>Android、あるいはiOSにgoogle authenticatorをインストールし、2段階認証プロセスの準備をしておく。</p>
-
-<p>2段階認証プロセスについて<br />
-<a href="https://support.google.com/accounts/answer/180744?hl=ja" target="_blank"><a href="https://support.google.com/accounts/answer/180744?hl=ja">https://support.google.com/accounts/answer/180744?hl=ja</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-事前準備-サーバ側-span"><span style="text-decoration: underline;">事前準備（サーバ側）</span></h2>
-
+<p>2段階認証プロセスについて<br>
+<!-- raw HTML omitted --><a href="https://support.google.com/accounts/answer/180744?hl=ja%3C/a%3E">https://support.google.com/accounts/answer/180744?hl=ja&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->事前準備（サーバ側）<!-- raw HTML omitted --></h2>
 <p>googleの2段階認証プロセス用のソフトウェアをインストールする。</p>
-
-<p>graphics/libqrencode<br />
+<p>graphics/libqrencode<br>
 security/pam_google_authenticator</p>
-
-<p>以上二つ。<br />
+<p>以上二つ。<br>
 けっこう依存がありそうなのでpkgでインストールした方がよいかも。</p>
-
-<h2 id="span-style-text-decoration-underline-2段階認証の設定-の前に-span"><span style="text-decoration: underline;">2段階認証の設定…の前に。</span></h2>
-
-<p>さて今度はスマートフォンとサーバの括り付けを行う段。<br />
-なお、以下の作業はマシンの目の前で行うこと。<br />
+<h2 id="span-styletext-decoration-underline2span"><!-- raw HTML omitted -->2段階認証の設定…の前に。<!-- raw HTML omitted --></h2>
+<p>さて今度はスマートフォンとサーバの括り付けを行う段。<br>
+なお、以下の作業はマシンの目の前で行うこと。<br>
 認証の設定を変えるわけだから、遠隔で作業して失敗した日にはログインできなくなって詰む。</p>
-
-<h2 id="span-style-text-decoration-underline-2段階認証の設定-span"><span style="text-decoration: underline;">2段階認証の設定</span></h2>
-
-<p>google-authenticatorを実行する。<br />
-あらかじめ書いておくと、実行したらいきなり画面いっぱいにQRコードが表示される。<br />
+<h2 id="span-styletext-decoration-underline2span-1"><!-- raw HTML omitted -->2段階認証の設定<!-- raw HTML omitted --></h2>
+<p>google-authenticatorを実行する。<br>
+あらかじめ書いておくと、実行したらいきなり画面いっぱいにQRコードが表示される。<br>
 その巨大さに動揺しないで、手元のスマートフォンでgoogle authenticatorを起動し、QRコードを読み取ること。</p>
-
 <p>QRコードではなく手入力でももちろん出来るけれど、QRコードの方がはるかに楽。</p>
-
-<p>また、初回起動時にはいろいろと質問される。<br />
+<p>また、初回起動時にはいろいろと質問される。<br>
 以下に私訳も併記する。</p>
-
-<pre><code class="language-console">$ google-authenticator
+<pre><code class="language-console" data-lang="console">$ google-authenticator
 
 Do you want authentication tokens to be time-based (y/n) y
 （俺訳: 認証トークンを時間ベースにしますか？他にはカウンタベースがあります。）
-</code></pre>
-
-<p>このあと、どーんと以下のようなQRコードが。</p>
-
-<p><a href="../../../wp-content/uploads/2013/09/googleqr.png"><img class="alignnone size-medium wp-image-2243" alt="googleqr" src="../../../wp-content/uploads/2013/09/googleqr-290x300.png" width="290" height="300" srcset="../../../wp-content/uploads/2013/09/googleqr-290x300.png 290w, ../../../wp-content/uploads/2013/09/googleqr-624x644.png 624w, ../../../wp-content/uploads/2013/09/googleqr.png 644w" sizes="(max-width: 290px) 100vw, 290px" /></a></p>
-
+</code></pre><p>このあと、どーんと以下のようなQRコードが。</p>
+<p><a href="../../../wp-content/uploads/2013/09/googleqr.png"><!-- raw HTML omitted --></a></p>
 <p>QRコードを、以下はiOSでの例だが、右上のペンをクリックしてから読み取ると、以下のようにコードが追加される。</p>
-
-<p><a href="../../../wp-content/uploads/2013/09/gAuth.png"><img class="alignnone size-medium wp-image-2244" alt="gAuth" src="../../../wp-content/uploads/2013/09/gAuth-208x300.png" width="208" height="300" srcset="../../../wp-content/uploads/2013/09/gAuth-208x300.png 208w, ../../../wp-content/uploads/2013/09/gAuth-624x896.png 624w, ../../../wp-content/uploads/2013/09/gAuth.png 640w" sizes="(max-width: 208px) 100vw, 208px" /></a></p>
-
-<pre><code class="language-console">Your new secret key is: xxxxxxxxxxxx
+<p><a href="../../../wp-content/uploads/2013/09/gAuth.png"><!-- raw HTML omitted --></a></p>
+<pre><code class="language-console" data-lang="console">Your new secret key is: xxxxxxxxxxxx
 Your verification code is xxxx
 Your emergency scratch codes are:
 xxxxxxxx
@@ -209,19 +181,14 @@ xxxxxxxx
 xxxxxxxx
 xxxxxxxx
 xxxxxxxx
-</code></pre>
-
-<p>スマートフォンで読み取ったら、続いて細かな設定。<br />
+</code></pre><p>スマートフォンで読み取ったら、続いて細かな設定。<br>
 質問に答えるだけでよい。</p>
-
-<h2 id="span-style-text-decoration-underline-google-authenticatorの設定-span"><span style="text-decoration: underline;">google-authenticatorの設定</span></h2>
-
-<p>私訳を併記。<br />
-私の場合、有効時間を延ばすかどうかにだけNoと答えた。<br />
-なお、以下の最初の質問でyと答えて初めて先ほどのキーがサーバに登録される = ~/.google_authenticatorに登録される。<br />
+<h2 id="span-styletext-decoration-underlinegoogle-authenticatorspan"><!-- raw HTML omitted -->google-authenticatorの設定<!-- raw HTML omitted --></h2>
+<p>私訳を併記。<br>
+私の場合、有効時間を延ばすかどうかにだけNoと答えた。<br>
+なお、以下の最初の質問でyと答えて初めて先ほどのキーがサーバに登録される = ~/.google_authenticatorに登録される。<br>
 nと答えてしまったら、QRコード読み取りからやり直し。</p>
-
-<pre><code class="language-console">Do you want me to update your &quot;/home/vanilla/.google_authenticator&quot; file (y/n) y
+<pre><code class="language-console" data-lang="console">Do you want me to update your &quot;/home/vanilla/.google_authenticator&quot; file (y/n) y
 （俺訳: google認証の設定を更新しますか？）
 
 Do you want to disallow multiple uses of the same authentication
@@ -249,79 +216,49 @@ Do you want to enable rate-limiting (y/n) y
 十分な防御が出来ないなら、時間当たりのログイン試行数を制限できます。
 デフォルトでは30秒につき3回までしかログイン試行できません。
 制限を有効にしますか？）
-</code></pre>
-
-<p>終わると~/.google-authenticatorというファイルができるはず。<br />
+</code></pre><p>終わると~/.google-authenticatorというファイルができるはず。<br>
 パーミッションは400。まあ当然ですな。</p>
-
-<h2 id="span-style-text-decoration-underline-sshdで二段階認証を有効にする-span"><span style="text-decoration: underline;">sshdで二段階認証を有効にする</span></h2>
-
-<p>/etc/pam.d/sshdの一番下に以下の行を追加する。<br />
-一番下だと、認証の際にパスワードを訊かれてからトークンキーの入力。<br />
+<h2 id="span-styletext-decoration-underlinesshdspan"><!-- raw HTML omitted -->sshdで二段階認証を有効にする<!-- raw HTML omitted --></h2>
+<p>/etc/pam.d/sshdの一番下に以下の行を追加する。<br>
+一番下だと、認証の際にパスワードを訊かれてからトークンキーの入力。<br>
 一番上にすると、トークンキーが先になる。</p>
-
-<pre><code class="language-console">auth    required    /usr/local/lib/pam_google_authenticator.so
-</code></pre>
-
-<p>sshdを再起動。<br />
-これ以降、sshログインで2段階認証が有効になるので注意。<br />
+<pre><code class="language-console" data-lang="console">auth    required    /usr/local/lib/pam_google_authenticator.so
+</code></pre><p>sshdを再起動。<br>
+これ以降、sshログインで2段階認証が有効になるので注意。<br>
 くれぐれもマシンの目の前ですること。</p>
-
-<pre><code class="language-console">$ sudo service sshd restart
+<pre><code class="language-console" data-lang="console">$ sudo service sshd restart
 Performing sanity check on sshd configuration.
 Stopping sshd.
 Performing sanity check on sshd configuration.
 Starting sshd.
 $
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-2段階認証を試してみよう-span"><span style="text-decoration: underline;">2段階認証を試してみよう</span></h2>
-
-<p>さっそく試してみると、パスワード認証のあとにトークンの入力を求められるようになった。<br />
+</code></pre><h2 id="span-styletext-decoration-underline2span-2"><!-- raw HTML omitted -->2段階認証を試してみよう<!-- raw HTML omitted --></h2>
+<p>さっそく試してみると、パスワード認証のあとにトークンの入力を求められるようになった。<br>
 ああ…。なんだろうこの守られてる感。素敵だ。</p>
-
-<pre><code class="language-console">login as: vanilla
+<pre><code class="language-console" data-lang="console">login as: vanilla
 Using keyboard-interactive authentication.
 Password for vanilla@fireelement:
 Using keyboard-interactive authentication.
 Verification code:
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-linuxでもok-span"><span style="text-decoration: underline;">LinuxでもOK</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinelinuxokspan"><!-- raw HTML omitted -->LinuxでもOK<!-- raw HTML omitted --></h2>
 <p>結局のところ、googleの2段階認証は、pamモジュールとして公開されているので、Linuxでだって動く。</p>
-
 <p>以下はlinux mint 15 Oliviaで試した結果。</p>
-
-<h2 id="span-style-text-decoration-underline-authenticatorのインストール-span"><span style="text-decoration: underline;">authenticatorのインストール</span></h2>
-
-<p>libpam-google-authenticatorをインストールする。ソフトウェアマネジャーでもapt-getでも。<br />
+<h2 id="span-styletext-decoration-underlineauthenticatorspan"><!-- raw HTML omitted -->authenticatorのインストール<!-- raw HTML omitted --></h2>
+<p>libpam-google-authenticatorをインストールする。ソフトウェアマネジャーでもapt-getでも。<br>
 設定方法は上で述べたものと変わりないので割愛。</p>
-
-<h2 id="span-style-text-decoration-underline-sshdの設定変更-span"><span style="text-decoration: underline;">sshdの設定変更</span></h2>
-
-<p>Linux Mintではsshdの設定に変更が必要だった。<br />
+<h2 id="span-styletext-decoration-underlinesshdspan-1"><!-- raw HTML omitted -->sshdの設定変更<!-- raw HTML omitted --></h2>
+<p>Linux Mintではsshdの設定に変更が必要だった。<br>
 /etc/ssh/sshd_configでChallengeResponseAuthenticationをyesにする。</p>
-
-<pre><code class="language-console"># Change to yes to enable challenge-response passwords (beware issues with
+<pre><code class="language-console" data-lang="console"># Change to yes to enable challenge-response passwords (beware issues with
 # some PAM modules and threads)
 ChallengeResponseAuthentication yes
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-認証方法の変更-span"><span style="text-decoration: underline;">認証方法の変更</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->認証方法の変更<!-- raw HTML omitted --></h2>
 <p>これもFreeBSDと同じ。/etc/pam.d/sshdを修正する。</p>
-
-<pre><code class="language-console">auth       required     pam_google_authenticator.so
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-sshdの再起動-span"><span style="text-decoration: underline;">sshdの再起動</span></h2>
-
+<pre><code class="language-console" data-lang="console">auth       required     pam_google_authenticator.so
+</code></pre><h2 id="span-styletext-decoration-underlinesshdspan-2"><!-- raw HTML omitted -->sshdの再起動<!-- raw HTML omitted --></h2>
 <p>Linux mintではsshdではなくsshなんだなあ。</p>
-
-<pre><code class="language-console">sudo service ssh restart
-</code></pre>
-<ul class="pa0">
+<pre><code class="language-console" data-lang="console">sudo service ssh restart
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

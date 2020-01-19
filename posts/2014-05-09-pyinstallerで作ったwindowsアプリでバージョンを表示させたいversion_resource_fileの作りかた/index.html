@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-05-09T22:36:50+09:00" />
 <meta itemprop="name" content="PyInstallerで作ったWindowsアプリでバージョンを表示させたい（Version Resource Fileの作りかた）">
 <meta itemprop="description" content="Windowsアプリケーションのバージョンは、そのプロパティから確認できる。 PyInstallerでWindowsアプリケーションを作るとき">
-
-
 <meta itemprop="datePublished" content="2014-05-09T22:36:50&#43;09:00" />
 <meta itemprop="dateModified" content="2014-05-09T22:36:50&#43;09:00" />
 <meta itemprop="wordCount" content="1432">
 
 
 
-<meta itemprop="keywords" content="python,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="python,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="PyInstallerで作ったWindowsアプリでバージョンを表示させたい（Version Resource Fileの作りかた）"/>
 <meta name="twitter:description" content="Windowsアプリケーションのバージョンは、そのプロパティから確認できる。 PyInstallerでWindowsアプリケーションを作るとき"/>
 
@@ -140,44 +137,31 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Windowsアプリケーションのバージョンは、そのプロパティから確認できる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Windowsアプリケーションのバージョンは、そのプロパティから確認できる。<br>
 PyInstallerでWindowsアプリケーションを作るときにも、ぜひここに登録をしたい。</p>
-
 <p>PyInstallerでは、あらかじめ用意しておいたVersion Resource Fileを読み込ませることで、バージョンなどの情報をアプリケーションに書き込むことができる。</p>
-
-<p>しかし、その方法はちょっとトリッキーなので、ここにその方法を採録する。<br />
-トリッキーな内容は何かというと。<br />
-要するにVersion Resourceをスクラッチで書くのは大変なので、そのへんにあるWindowsアプリケーション（厳密には拡張子が.exeの実行ファイル）から抜き出してきてそれを使い回すというもの。<br />
-れっきとした<a href="http://pythonhosted.org/PyInstaller/#capturing-version-data" target="_blank">公式手順</a>である。<br />
+<p>しかし、その方法はちょっとトリッキーなので、ここにその方法を採録する。<br>
+トリッキーな内容は何かというと。<br>
+要するにVersion Resourceをスクラッチで書くのは大変なので、そのへんにあるWindowsアプリケーション（厳密には拡張子が.exeの実行ファイル）から抜き出してきてそれを使い回すというもの。<br>
+れっきとした<!-- raw HTML omitted -->公式手順<!-- raw HTML omitted -->である。<br>
 したがって全体の流れは以下のようになる。</p>
-
-<h2 id="全体の流れ">全体の流れ</h2>
-
-<p>1.「既存の」WindowsアプリケーションからVersion Resourceを抜き出す。<br />
-2.抜き出したファイルを書き換え。<br />
+<h2 id="heading">全体の流れ</h2>
+<p>1.「既存の」WindowsアプリケーションからVersion Resourceを抜き出す。<br>
+2.抜き出したファイルを書き換え。<br>
 3.そのファイルを指定してPyInstallerを実行</p>
-
-<h2 id="version-resourceファイルの抜き出し">Version Resourceファイルの抜き出し</h2>
-
-<p>PyInstallerには、pyi-grab_version.pyというスクリプトが含まれている。<br />
-PyInstallerを展開してできるutilsディレクトリの下にある。<br />
-お使いのWindows上にある実行ファイルを引数に与えてpy-grab_version.pyを実行すればよい。<br />
+<h2 id="version-resource">Version Resourceファイルの抜き出し</h2>
+<p>PyInstallerには、pyi-grab_version.pyというスクリプトが含まれている。<br>
+PyInstallerを展開してできるutilsディレクトリの下にある。<br>
+お使いのWindows上にある実行ファイルを引数に与えてpy-grab_version.pyを実行すればよい。<br>
 結果はpy-grab_version.pyと同じディレクトリにfile_version_info.txtとして書き込まれる。</p>
-
 <p>以下はWindows 7のcmd.exeを引数に与えた場合の実行例である。</p>
-
-<pre><code class="language-console">C:\home\py\PyInstaller-2.1\utils&gt;python grab_version.py &quot;C:\Windows\winsxs\x86_microsoft-windows-commandprompt_31bf3856ad364e35_6.1.7600.16385_none_8ae31ce07bb01ee0\cmd.exe&quot;
+<pre><code class="language-console" data-lang="console">C:\home\py\PyInstaller-2.1\utils&gt;python grab_version.py &quot;C:\Windows\winsxs\x86_microsoft-windows-commandprompt_31bf3856ad364e35_6.1.7600.16385_none_8ae31ce07bb01ee0\cmd.exe&quot;
 Version info written to: C:\home\py\PyInstaller-2.1\utils\file_version_info.txt
 
 C:\home\py\PyInstaller-2.1\utils&gt;
-</code></pre>
-
-<p>以下が書き出されたfile_version_info.txt。<br />
+</code></pre><p>以下が書き出されたfile_version_info.txt。<br>
 UTF-8なので注意。</p>
-
-<pre><code class="language-console"># UTF-8
+<pre><code class="language-console" data-lang="console"># UTF-8
 #
 # For more details about fixed file info 'ffi' see:
 # http://msdn.microsoft.com/en-us/library/ms646997.aspx
@@ -220,18 +204,13 @@ VSVersionInfo(
     VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
   ]
 )
-</code></pre>
-
-<p>次は本ファイルを書き換える。</p>
-
-<h2 id="ファイルの書き換え">ファイルの書き換え</h2>
-
-<p>cmd.exeのプロパティ-&gt;詳細タブと見比べながら書き換えていけばよい。<br />
-それ以外は触らないこと。<br />
-<a href="../../../wp-content/uploads/2014/05/cmdexeproperty.png"><img class="alignnone size-thumbnail wp-image-2695" src="../../../wp-content/uploads/2014/05/cmdexeproperty-150x150.png" alt="cmdexeproperty" width="150" height="150" /></a><br />
+</code></pre><p>次は本ファイルを書き換える。</p>
+<h2 id="heading-1">ファイルの書き換え</h2>
+<p>cmd.exeのプロパティ-&gt;詳細タブと見比べながら書き換えていけばよい。<br>
+それ以外は触らないこと。<br>
+<a href="../../../wp-content/uploads/2014/05/cmdexeproperty.png"><!-- raw HTML omitted --></a><br>
 たとえばこんな感じ。</p>
-
-<pre><code class="language-console"># UTF-8
+<pre><code class="language-console" data-lang="console"># UTF-8
 #
 # For more details about fixed file info 'ffi' see:
 # http://msdn.microsoft.com/en-us/library/ms646997.aspx
@@ -274,24 +253,17 @@ VSVersionInfo(
     VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
   ]
 )
-</code></pre>
-
-<p>ファイルの準備はおしまい。<br />
+</code></pre><p>ファイルの準備はおしまい。<br>
 あとはビルドの際にファイルを指定するだけ。</p>
-
-<h2 id="version-resourceファイルを指定してビルド">Version Resourceファイルを指定してビルド</h2>
-
-<p>単純に-version-file=＜ファイル名＞と指定するだけ。<br />
-だから実行例は省く。<br />
-<a href="../../../wp-content/uploads/2014/05/pyhogeversion.png"><img class="alignnone size-thumbnail wp-image-2696" src="../../../wp-content/uploads/2014/05/pyhogeversion-150x150.png" alt="pyhogeversion" width="150" height="150" /></a><br />
+<h2 id="version-resource-1">Version Resourceファイルを指定してビルド</h2>
+<p>単純に-version-file=＜ファイル名＞と指定するだけ。<br>
+だから実行例は省く。<br>
+<a href="../../../wp-content/uploads/2014/05/pyhogeversion.png"><!-- raw HTML omitted --></a><br>
 無事に表示された。</p>
-
-<h2 id="補足">補足</h2>
-
+<h2 id="heading-2">補足</h2>
 <p>参考までに公式の宣言、つまりVersion Resourceは複雑すぎマジ無理、と言っている箇所を貼り付けておく。</p>
-
 <blockquote>
-<p>because version resources are complex. Some elements are optional, others required. When you view the version tab of a Properties dialog, there&rsquo;s no simple relationship between the data displayed and the structure of the resource. Using pyi-grab_version you can find an executable that displays the kind of information you want, copy its resource data, and modify it to suit your package.</p>
+<p>because version resources are complex. Some elements are optional, others required. When you view the version tab of a Properties dialog, there's no simple relationship between the data displayed and the structure of the resource. Using pyi-grab_version you can find an executable that displays the kind of information you want, copy its resource data, and modify it to suit your package.</p>
 </blockquote>
 <ul class="pa0">
   

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-02-11T01:00:00+09:00" />
 <meta itemprop="name" content="xubuntuでctrlキーとCapsキーを変換するには。">
 <meta itemprop="description" content="CtrlキーはAの隣じゃないと嫌なので設定。 以下のファイルを適当な名前で適当に保存。 俺の場合はhomeディレクトリに.swapcapsctl">
-
-
 <meta itemprop="datePublished" content="2010-02-11T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-02-11T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="181">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="xubuntuでctrlキーとCapsキーを変換するには。"/>
 <meta name="twitter:description" content="CtrlキーはAの隣じゃないと嫌なので設定。 以下のファイルを適当な名前で適当に保存。 俺の場合はhomeディレクトリに.swapcapsctl"/>
 
@@ -150,8 +147,7 @@ if (!doNotTrack) {
 
 俺の場合はhomeディレクトリに.swapcapsctlとして保存。
 </code></pre>
-
-<pre><code class="language-console">!
+<pre><code class="language-console" data-lang="console">!
 ! Swap Caps_Lock and Control_L
 !
 remove Lock = Caps_Lock
@@ -160,15 +156,10 @@ keysym Control_L = Caps_Lock
 keysym Caps_Lock = Control_L
 add Lock = Caps_Lock
 add Control = Control_L
+</code></pre><pre><code>その後、以下のコマンドを実行
 </code></pre>
-
-<pre><code>その後、以下のコマンドを実行
-</code></pre>
-
-<pre><code class="language-console">xmodmap /home/harukiya/.swapcapsctl
-</code></pre>
-
-<pre><code>後は Applications -&gt; 設定 -&gt; セッションと起動 の「自動開始アプリケーション」で同じコマンドを追加しておけば、次からはコマンド要らず。
+<pre><code class="language-console" data-lang="console">xmodmap /home/harukiya/.swapcapsctl
+</code></pre><pre><code>後は Applications -&gt; 設定 -&gt; セッションと起動 の「自動開始アプリケーション」で同じコマンドを追加しておけば、次からはコマンド要らず。
 </code></pre>
 <ul class="pa0">
   

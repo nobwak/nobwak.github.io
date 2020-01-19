@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-02-02T20:00:47+09:00" />
 <meta itemprop="name" content="Windowsでcurlを使おう。あるいはMicrosoft Security Essentialの定義ファイルをcurlでダウンロード。">
 <meta itemprop="description" content="Windowsでもバッチファイルでファイルのダウンロードをしたい事がある。 そうすると、たとえばIEにURLを渡して起動するといったような事が">
-
-
 <meta itemprop="datePublished" content="2014-02-02T20:00:47&#43;09:00" />
 <meta itemprop="dateModified" content="2014-02-02T20:00:47&#43;09:00" />
-<meta itemprop="wordCount" content="1412">
+<meta itemprop="wordCount" content="1410">
 
 
 
-<meta itemprop="keywords" content="Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Windowsでcurlを使おう。あるいはMicrosoft Security Essentialの定義ファイルをcurlでダウンロード。"/>
 <meta name="twitter:description" content="Windowsでもバッチファイルでファイルのダウンロードをしたい事がある。 そうすると、たとえばIEにURLを渡して起動するといったような事が"/>
 
@@ -140,74 +137,48 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Windowsでもバッチファイルでファイルのダウンロードをしたい事がある。<br />
-そうすると、たとえばIEにURLを渡して起動するといったような事が考えられるが、いちいち保存を選ばないといけないとか、何かの操作が必要になってしまう。<br />
-これではバッチファイルの意味がない。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Windowsでもバッチファイルでファイルのダウンロードをしたい事がある。<br>
+そうすると、たとえばIEにURLを渡して起動するといったような事が考えられるが、いちいち保存を選ばないといけないとか、何かの操作が必要になってしまう。<br>
+これではバッチファイルの意味がない。<br>
 無人で行う方法にはいくつかあるだろうが、ここではcurlを使ってみる。</p>
-
-<h2 id="span-style-text-decoration-underline-curlとは-span"><span style="text-decoration: underline;">curlとは</span></h2>
-
-<p>curlとは、URLを使った、データ送受信コマンドである。<br />
-<span style="line-height: 1.5em;">UNIX/Linux系では有名なコマンドだけれども、実はWindows向けバイナリも配布されている。</span></p>
-
-<p>公式サイト<br />
-<a href="http://curl.haxx.se/" target="_blank"><a href="http://curl.haxx.se/">http://curl.haxx.se/</a></a><br />
-Wikipedia<br />
-<a href="http://curl.haxx.se/" target="_blank"><a href="http://ja.wikipedia.org/wiki/CURL">http://ja.wikipedia.org/wiki/CURL</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
-
-<p>上記サイトのダウンロードページから取得。<br />
-<a href="http://curl.haxx.se/download.html" target="_blank"><a href="http://curl.haxx.se/download.html">http://curl.haxx.se/download.html</a></a></p>
-
-<p>Windows向けには32bit版, 64bit版のほか、Generic版, MSVC版がある。<br />
+<h2 id="span-styletext-decoration-underlinecurlspan"><!-- raw HTML omitted -->curlとは<!-- raw HTML omitted --></h2>
+<p>curlとは、URLを使った、データ送受信コマンドである。<br>
+<!-- raw HTML omitted -->UNIX/Linux系では有名なコマンドだけれども、実はWindows向けバイナリも配布されている。<!-- raw HTML omitted --></p>
+<p>公式サイト<br>
+<!-- raw HTML omitted --><a href="http://curl.haxx.se/%3C/a%3E">http://curl.haxx.se/&lt;/a&gt;</a><br>
+Wikipedia<br>
+<!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/CURL%3C/a%3E">http://ja.wikipedia.org/wiki/CURL&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->インストール<!-- raw HTML omitted --></h2>
+<p>上記サイトのダウンロードページから取得。<br>
+<!-- raw HTML omitted --><a href="http://curl.haxx.se/download.html%3C/a%3E">http://curl.haxx.se/download.html&lt;/a&gt;</a></p>
+<p>Windows向けには32bit版, 64bit版のほか、Generic版, MSVC版がある。<br>
 さらにMSIとzipが選べる。</p>
-
-<p>Genericの方が最新なのでこちらを使った。2014/1/7現在のバージョンは7.34.0。<br />
+<p>Genericの方が最新なのでこちらを使った。2014/1/7現在のバージョンは7.34.0。<br>
 Windows7だけど2000/XPのもので問題なし。</p>
-
-<p>インストーラは使いたくないのであれば、MSIではなくzipの方でどうぞ。<br />
+<p>インストーラは使いたくないのであれば、MSIではなくzipの方でどうぞ。<br>
 ただしzipの場合は、PATHを通すなどの作業は自分でしないといけないよう。</p>
-
-<h2 id="span-style-text-decoration-underline-curlの使い方-span"><span style="text-decoration: underline;">curlの使い方</span></h2>
-
-<p>curlはオプションが多くてウンザリする。<br />
+<h2 id="span-styletext-decoration-underlinecurlspan-1"><!-- raw HTML omitted -->curlの使い方<!-- raw HTML omitted --></h2>
+<p>curlはオプションが多くてウンザリする。<br>
 以下のサイトが適切な量にまとまっていると思う。</p>
-
-<p><a href="http://d.hatena.ne.jp/hogem/20091122/1258863440" target="_blank"><a href="http://d.hatena.ne.jp/hogem/20091122/1258863440">http://d.hatena.ne.jp/hogem/20091122/1258863440</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-curlの使い方例-span"><span style="text-decoration: underline;">curlの使い方例</span></h2>
-
+<p><!-- raw HTML omitted --><a href="http://d.hatena.ne.jp/hogem/20091122/1258863440%3C/a%3E">http://d.hatena.ne.jp/hogem/20091122/1258863440&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinecurlspan-2"><!-- raw HTML omitted -->curlの使い方例<!-- raw HTML omitted --></h2>
 <p>proxy越しにMicrosoft Security Essential定義ファイルのダウンロードをする例。</p>
-
-<pre><code class="language-console">C:¥home¥tools¥curl&gt;curl -O -x this.is.sample.proxyserver.com:8080 &quot;http://download.microsoft.com/download/DefinitionUpdates/mpam-fe.exe&quot;
-</code></pre>
-
-<p>curlは、そのままだとダウンロードした内容を標準出力に表示する。<br />
--Oを付けると、ダウンロード先のファイル名で保存する。<br />
+<pre><code class="language-console" data-lang="console">C:¥home¥tools¥curl&gt;curl -O -x this.is.sample.proxyserver.com:8080 &quot;http://download.microsoft.com/download/DefinitionUpdates/mpam-fe.exe&quot;
+</code></pre><p>curlは、そのままだとダウンロードした内容を標準出力に表示する。<br>
+-Oを付けると、ダウンロード先のファイル名で保存する。<br>
 この場合だとmpam-fe.exeとして保存する。</p>
-
-<p>proxyサーバは、-xあるいは-proxyで指定する。<br />
+<p>proxyサーバは、-xあるいは-proxyで指定する。<br>
 書式は&lt;[protocol://][user:password@]proxyhost[:port]&gt;</p>
-
-<p>プロトコル指定がなければHTTP proxyとして扱われる。<br />
+<p>プロトコル指定がなければHTTP proxyとして扱われる。<br>
 ポート番号については、指定がなければ1080として扱われる。</p>
-
-<p>例ではproxyサーバとしてthis.is.sample.proxyserver.com:8080を指定。<br />
-定義ファイルのダイレクトリンクとして <a href="http://download.microsoft.com/download/DefinitionUpdates/mpam-fe.exe">http://download.microsoft.com/download/DefinitionUpdates/mpam-fe.exe</a> を指定している（いつまで使えるかは分からない）</p>
-
-<h2 id="追記-リトライ数-リトライ感覚の指定">追記: リトライ数、リトライ感覚の指定</h2>
-
-<p>サーバの反応が悪く、ダウンロード途中で失敗してしまうことがある。<br />
-そういう場合には、-retry <num> -retry-delay <sec>を指定しておこう。</p>
-
-<h2 id="span-style-text-decoration-underline-curlのman抜粋-span"><span style="text-decoration: underline;">curlのman抜粋</span></h2>
-
+<p>例ではproxyサーバとしてthis.is.sample.proxyserver.com:8080を指定。<br>
+定義ファイルのダイレクトリンクとして http://download.microsoft.com/download/DefinitionUpdates/mpam-fe.exe を指定している（いつまで使えるかは分からない）</p>
+<h2 id="-">追記: リトライ数、リトライ感覚の指定</h2>
+<p>サーバの反応が悪く、ダウンロード途中で失敗してしまうことがある。<br>
+そういう場合には、-retry <!-- raw HTML omitted --> -retry-delay <!-- raw HTML omitted -->を指定しておこう。</p>
+<h2 id="span-styletext-decoration-underlinecurlmanspan"><!-- raw HTML omitted -->curlのman抜粋<!-- raw HTML omitted --></h2>
 <p>以下、-xと-Oのマニュアルを抜粋。</p>
-
-<pre><code class="language-console">-x, --proxy &lt;[protocol://][user:password@]proxyhost[:port]&gt;
+<pre><code class="language-console" data-lang="console">-x, --proxy &lt;[protocol://][user:password@]proxyhost[:port]&gt;
 
 Use the specified proxy. 
 
@@ -224,21 +195,17 @@ User and password that might be provided in the proxy string are URL decoded by 
 The proxy host can be specified the exact same way as the proxy environment variables, including the protocol prefix (http://) and the embedded user + password.
 
 If this option is used several times, the last one will be used.
-</code></pre>
+</code></pre><pre><code class="language-console" data-lang="console">-O, --remote-name
 
-<p>``` console
--O, &ndash;remote-name</p>
+Write output to a local file named like the remote file we get. (Only the file part of the remote file is used, the path is cut off.)
 
-<p>Write output to a local file named like the remote file we get. (Only the file part of the remote file is used, the path is cut off.)</p>
+The remote file name to use for saving is extracted from the given URL, nothing else.
 
-<p>The remote file name to use for saving is extracted from the given URL, nothing else.</p>
+Consequentially, the file will be saved in the current working directory. If you want the file saved in a different directory, make sure you change current working directory before you invoke curl with the -O, --remote-name flag!
 
-<p>Consequentially, the file will be saved in the current working directory. If you want the file saved in a different directory, make sure you change current working directory before you invoke curl with the -O, &ndash;remote-name flag!</p>
+There is no URL decoding done on the file name. If it has %20 or other URL encoded parts of the name, they will end up as-is as file name.
 
-<p>There is no URL decoding done on the file name. If it has %20 or other URL encoded parts of the name, they will end up as-is as file name.</p>
-
-<p>You may use this option as many times as the number of URLs you have.```</p>
-<ul class="pa0">
+You may use this option as many times as the number of URLs you have.```</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/windows" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Windows</a>

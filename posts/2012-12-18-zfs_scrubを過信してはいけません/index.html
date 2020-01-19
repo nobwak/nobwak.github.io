@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-12-18T01:00:00+09:00" />
 <meta itemprop="name" content="ZFS scrubを過信してはいけません。">
 <meta itemprop="description" content="ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと">
-
-
 <meta itemprop="datePublished" content="2012-12-18T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-12-18T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="2107">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ZFS scrubを過信してはいけません。"/>
 <meta name="twitter:description" content="ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと"/>
 
@@ -185,14 +182,10 @@ ZFSのキモのひとつは、セルフヒーリングにある。
 
 だから、&lt;a href=&quot;http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html&quot; target=&quot;_blank&quot;&gt;http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html&lt;/a&gt;　のとおり
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  データの不一致が ZFS 構成内のディスク上で発生するとすれば、それはハードウェア障害が発生した場合か、ZFS ソフトウェアにバグが存在する場合だけ
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>なので、ZFSソフトウェアバグはさておき、論理的なデータ不一致の発生リスクについてはとくに手だて不要というわけだ。
 
 
@@ -249,9 +242,7 @@ scrubをすれば全データのチェックはする。するけれども、そ
 
 &lt;a href=&quot;http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html&quot; target=&quot;_blank&quot;&gt;http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html&lt;/a&gt;
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  ZFS では、すべての不一致を定期的にチェックする機構が用意されています。この 機能は「スクラブ」と呼ばれ、メモリーやほかのシステム内で、ハードウェアまたはソフトウェア障害が発生する前にエラーを検出および回避する手段として一 般的に使用されます。
 
 
@@ -262,9 +253,7 @@ scrubをすれば全データのチェックはする。するけれども、そ
 
   スクラブを行なっているときまたは必要なファイルにアクセスしているときにエラーが発生した場合には、そのエラーが内部でログに記録されるので、そのプールで認識されているすべてのエラーの概要をすぐに確認できます。
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>とのこと。
 
 
@@ -310,23 +299,16 @@ scrubの定期的な実行をしないとする。
 
 というわけで使ってみた。まあコマンド例はいくらでもあるから淡々と。
 </code></pre>
-
-<pre><code class="language-console">$ zpool list
+<pre><code class="language-console" data-lang="console">$ zpool list
 NAME    SIZE  ALLOC   FREE    CAP  DEDUP  HEALTH  ALTROOT
 vault  2.27T  1.30T   990G    57%  1.00x  ONLINE  -
+</code></pre><pre><code>このpoolに対して実行。
 </code></pre>
-
-<pre><code>このpoolに対して実行。
-</code></pre>
-
-<pre><code class="language-console">$ sudo zpool scrub vault
+<pre><code class="language-console" data-lang="console">$ sudo zpool scrub vault
 $ 　
+</code></pre><pre><code>（すぐプロンプトが返ってくる）
 </code></pre>
-
-<pre><code>（すぐプロンプトが返ってくる）
-</code></pre>
-
-<pre><code class="language-console">$ sudo zpool status -v
+<pre><code class="language-console" data-lang="console">$ sudo zpool status -v
 pool: vault
 state: ONLINE
 scan: scrub in progress since Tue Dec 18 22:53:46 2012
@@ -337,16 +319,13 @@ NAME        STATE     READ WRITE CKSUM
 vault       ONLINE       0     0     0
 ada1      ONLINE       0     0     0
 errors: No known data errors
-</code></pre>
-
-<pre><code>えっ66時間かかるの?
+</code></pre><pre><code>えっ66時間かかるの?
 
 
 
 （いまだに冗長化してないのが恥ずかしい。今回scrub調べてほんとに危ないのでディスク買わねばと思った）
 </code></pre>
-
-<pre><code class="language-console">$ sudo zpool status -v
+<pre><code class="language-console" data-lang="console">$ sudo zpool status -v
 パスワード:
 pool: vault
 state: ONLINE
@@ -358,30 +337,23 @@ NAME        STATE     READ WRITE CKSUM
 vault       ONLINE       0     0     0
 ada1      ONLINE       0     0     0
 errors: No known data errors
-</code></pre>
-
-<pre><code>OKOK。
+</code></pre><pre><code>OKOK。
 
 
 
 なお、エラーが発生すれば、このstatusのほかに、syslogに表示されるし、たとえばFreeBSDならroot宛のメールにZFS poolsの状態も記載される。こんな感じに;
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  Checking status of zfs pools:
 
 
 
   all pools are healthy
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>vaultに対するログにもきっちりと（こういうとこZFSって素敵だ）
 </code></pre>
-
-<pre><code class="language-console">$ sudo zpool history vault
+<pre><code class="language-console" data-lang="console">$ sudo zpool history vault
 History for &amp;#39;vault&amp;#39;:
 2012-03-05.22:41:40 zpool create vault ada1
 2012-03-05.22:54:14 zfs create vault/chamber
@@ -390,9 +362,7 @@ History for &amp;#39;vault&amp;#39;:
 2012-03-18.00:43:27 zfs set dedup=on vault/test
 2012-03-18.00:46:48 zfs destroy vault/test
 2012-12-18.22:53:55 zpool scrub vault
-</code></pre>
-
-<pre><code>なお、scrubの停止は-sコマンドで。
+</code></pre><pre><code>なお、scrubの停止は-sコマンドで。
 </code></pre>
 <ul class="pa0">
   

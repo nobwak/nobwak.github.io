@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-09-29T22:51:26+09:00" />
 <meta itemprop="name" content="[メモ] Windows, OS X(Mac)でフォルダ/ファイルのパスをクリップボードにコピーする">
 <meta itemprop="description" content="たとえば仕事上、共有サーバにあるフォルダのパスを知らせたい、ということがある。 こういう時のために、フォルダのパスを簡単にクリップボードへコピ">
-
-
 <meta itemprop="datePublished" content="2014-09-29T22:51:26&#43;09:00" />
 <meta itemprop="dateModified" content="2014-09-29T22:51:26&#43;09:00" />
 <meta itemprop="wordCount" content="551">
 
 
 
-<meta itemprop="keywords" content="OS X,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="OS X,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] Windows, OS X(Mac)でフォルダ/ファイルのパスをクリップボードにコピーする"/>
 <meta name="twitter:description" content="たとえば仕事上、共有サーバにあるフォルダのパスを知らせたい、ということがある。 こういう時のために、フォルダのパスを簡単にクリップボードへコピ"/>
 
@@ -140,46 +137,32 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>たとえば仕事上、共有サーバにあるフォルダのパスを知らせたい、ということがある。<br />
-こういう時のために、フォルダのパスを簡単にクリップボードへコピーする方法を示す。<br />
-Windows, OS Xの両方向け。大盤振る舞いである。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>たとえば仕事上、共有サーバにあるフォルダのパスを知らせたい、ということがある。<br>
+こういう時のために、フォルダのパスを簡単にクリップボードへコピーする方法を示す。<br>
+Windows, OS Xの両方向け。大盤振る舞いである。<br>
 OS Xでは追加のツールも要らない方法です。</p>
-
-<h2 id="windowsでの方法">Windowsでの方法</h2>
-
-<p>こちらは簡単。<br />
-対象フォルダをSHIFT+右クリックして出てくるメニューからコピーを選べばよい。<br />
-ただの右クリックでは出てこないところが憎らしい。<br />
+<h2 id="windows">Windowsでの方法</h2>
+<p>こちらは簡単。<br>
+対象フォルダをSHIFT+右クリックして出てくるメニューからコピーを選べばよい。<br>
+ただの右クリックでは出てこないところが憎らしい。<br>
 ただ、ダブルクオーテーションで括られる点に注意。</p>
-
-<p><a href="../../../wp-content/uploads/2014/09/pathcopywindows.png"><img class="alignnone size-thumbnail wp-image-2865" src="../../../wp-content/uploads/2014/09/pathcopywindows-150x150.png" alt="pathcopywindows" width="150" height="150" /></a></p>
-
-<h2 id="os-x-mac-での方法">OS X(Mac)での方法</h2>
-
-<p>Automatorを使う。<br />
+<p><a href="../../../wp-content/uploads/2014/09/pathcopywindows.png"><!-- raw HTML omitted --></a></p>
+<h2 id="os-xmac">OS X(Mac)での方法</h2>
+<p>Automatorを使う。<br>
 Launchpadの「その他」の下にある。</p>
-
-<h2 id="automatorの設定方法">Automatorの設定方法</h2>
-
+<h2 id="automator">Automatorの設定方法</h2>
 <p>起動時の選択では「サービス」を選ぶ。</p>
-
-<p><a href="../../../wp-content/uploads/2014/09/CopyPathToClipboardOSX.png"><img class="alignnone size-thumbnail wp-image-2862" src="../../../wp-content/uploads/2014/09/CopyPathToClipboardOSX-150x150.png" alt="CopyPathToClipboardOSX" width="150" height="150" /></a><br />
-「アクション」では「クリップボードにコピー」を探す。<br />
-「クリップボード」あたりで検索するとよい。<br />
-「クリップボードにコピー」を、画面右側にドラッグ・アンド・ドロップ。<br />
-「サービスは、次の選択項目を受け取る」では「ファイルまたはフォルダ」を。<br />
-「検索対象」では「Finder」を選ぶ。<br />
+<p><a href="../../../wp-content/uploads/2014/09/CopyPathToClipboardOSX.png"><!-- raw HTML omitted --></a><br>
+「アクション」では「クリップボードにコピー」を探す。<br>
+「クリップボード」あたりで検索するとよい。<br>
+「クリップボードにコピー」を、画面右側にドラッグ・アンド・ドロップ。<br>
+「サービスは、次の選択項目を受け取る」では「ファイルまたはフォルダ」を。<br>
+「検索対象」では「Finder」を選ぶ。<br>
 メニューバーの編集から保存で「Copy Path to Clipboard」とでも名前を付けて保存。</p>
-
-<h2 id="使いかた">使いかた</h2>
-
-<p>Controlキーを押しながらフォルダをクリックでメニューが開く。<br />
+<h2 id="heading">使いかた</h2>
+<p>Controlキーを押しながらフォルダをクリックでメニューが開く。<br>
 さっき追加した「Copy Path to Clipboard」があるはず。</p>
-
-<p><a href="../../../wp-content/uploads/2014/09/OSXCopyPath.png"><img class="alignnone size-thumbnail wp-image-2863" src="../../../wp-content/uploads/2014/09/OSXCopyPath-150x150.png" alt="OSXCopyPath" width="150" height="150" /></a></p>
-
+<p><a href="../../../wp-content/uploads/2014/09/OSXCopyPath.png"><!-- raw HTML omitted --></a></p>
 <p>以上。</p>
 <ul class="pa0">
   

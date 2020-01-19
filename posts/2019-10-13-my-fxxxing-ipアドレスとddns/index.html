@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-10-13T20:22:25+09:00" />
 <meta itemprop="name" content="2019-10-13-my-fxxxing-IPアドレスとDDNS">
 <meta itemprop="description" content="いわゆる宅鯖を運用していると、外からアクセスしたいこと、させたいことがよくある。 当然ながらその場合には自宅ルータのWAN側IPアドレスでアク">
-
-
 <meta itemprop="datePublished" content="2019-10-13T20:22:25&#43;09:00" />
 <meta itemprop="dateModified" content="2019-10-13T20:22:25&#43;09:00" />
-<meta itemprop="wordCount" content="950">
+<meta itemprop="wordCount" content="949">
 
 
 
-<meta itemprop="keywords" content="homeserver,DNS,shellscripts," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="homeserver,DNS,shellscripts," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="2019-10-13-my-fxxxing-IPアドレスとDDNS"/>
 <meta name="twitter:description" content="いわゆる宅鯖を運用していると、外からアクセスしたいこと、させたいことがよくある。 当然ながらその場合には自宅ルータのWAN側IPアドレスでアク"/>
 
@@ -140,134 +137,103 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>いわゆる宅鯖を運用していると、外からアクセスしたいこと、させたいことがよくある。<br />
-当然ながらその場合には自宅ルータのWAN側IPアドレスでアクセスするわけだが、悲しいかな庶民には固定のグローバルIPアドレスは所有できない。<br />
-つまりちょくちょく変わるんである。<br />
-そこで<a href="http://e-words.jp/w/DDNS.html">DDNS</a>を使いますよね。<br />
-私が使っているDDNSは後述するとして、DDNSを使うには、IPアドレスが変わる都度、DDNSに伝えてやる必要がある。<br />
-しかしこの作業はいちいち手作業でやりたくない。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>いわゆる宅鯖を運用していると、外からアクセスしたいこと、させたいことがよくある。<br>
+当然ながらその場合には自宅ルータのWAN側IPアドレスでアクセスするわけだが、悲しいかな庶民には固定のグローバルIPアドレスは所有できない。<br>
+つまりちょくちょく変わるんである。<br>
+そこで<a href="http://e-words.jp/w/DDNS.html">DDNS</a>を使いますよね。<br>
+私が使っているDDNSは後述するとして、DDNSを使うには、IPアドレスが変わる都度、DDNSに伝えてやる必要がある。<br>
+しかしこの作業はいちいち手作業でやりたくない。<br>
 それで今回の記事。</p>
-
-<h2 id="ddns何使ってますか">DDNS何使ってますか</h2>
-
-<p>ちょっと前まではブロードバンドルータにおまけで付いてたりしたけど、最近なくなっちゃったよね。<br />
+<h2 id="ddns">DDNS何使ってますか</h2>
+<p>ちょっと前まではブロードバンドルータにおまけで付いてたりしたけど、最近なくなっちゃったよね。<br>
 私はここ使ってます。</p>
-
 <ul>
 <li><a href="https://www.dynu.com/en-US/">dynu.com</a></li>
 </ul>
-
 <p>おすすめ。</p>
-
-<h2 id="dynuにipアドレスを通知するには">dynuにIPアドレスを通知するには</h2>
-
-<p>dynuに<a href="https://www.dynu.com/en-US/DynamicDNS/IP-Update-Protocol">IP update protocol</a>という説明があるのでそれを読む。<br />
+<h2 id="dynuip">dynuにIPアドレスを通知するには</h2>
+<p>dynuに<a href="https://www.dynu.com/en-US/DynamicDNS/IP-Update-Protocol">IP update protocol</a>という説明があるのでそれを読む。<br>
 曰く、以下のようにすればよいと。</p>
-
-<pre><code class="language-console">http://username:password@api.dynu.com/nic/update?myip=198.144.117.32&amp;myipv6=2604:4400:a:8a::f4
-</code></pre>
-
-<p>ここで、パスワードはmd5ハッシュしたものでよい。<br />
+<pre><code class="language-console" data-lang="console">http://username:password@api.dynu.com/nic/update?myip=198.144.117.32&amp;myipv6=2604:4400:a:8a::f4
+</code></pre><p>ここで、パスワードはmd5ハッシュしたものでよい。<br>
 しがたって、必要なものはグローバルIPアドレスとハッシュ化されたパスワード。</p>
-
-<h2 id="わたしのグローバルipアドレスはなんですか">わたしのグローバルIPアドレスはなんですか</h2>
-
-<p>結論<br />
-そういうサービスがあるから使う。<br />
+<h2 id="ip">わたしのグローバルIPアドレスはなんですか</h2>
+<p>結論<br>
+そういうサービスがあるから使う。<br>
 以下二つともシェルスクリプト等でIPアドレスを得られるので便利。</p>
-
 <ul>
 <li><a href="http://ifconfig.me">What Is My IP Address? - ifconfig.me</a></li>
 <li><a href="https://wtfismyip.com/">WTF is my IP address</a></li>
 </ul>
-
-<p>WTFisMyIPは愉快である。ぜひブラウザで覗いてみてほしい。<br />
-それはともかく、<code>ifconfig.me</code>を使う。<br />
+<p>WTFisMyIPは愉快である。ぜひブラウザで覗いてみてほしい。<br>
+それはともかく、<code>ifconfig.me</code>を使う。<br>
 <code>wget -qO - http://ifconfig.me/ip</code>でIPアドレスが返る。</p>
-
-<h2 id="パスワードのハッシュを得る">パスワードのハッシュを得る</h2>
-
+<h2 id="heading">パスワードのハッシュを得る</h2>
 <p>これは<code>md5</code>を使うだけ。</p>
-
-<pre><code class="language-console">$ md5 -s hogehoge
+<pre><code class="language-console" data-lang="console">$ md5 -s hogehoge
 MD5 (&quot;hogehoge&quot;) = 329435e5e66be809a656af105f42401e
-</code></pre>
+</code></pre><h2 id="heading-1">シェルスクリプトに</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>
+GETIP<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://ifconfig.me/ip&#39;</span>
+MYHASH<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;329435e5e66be809a656af105f42401e&#39;</span>
 
-<h2 id="シェルスクリプトに">シェルスクリプトに</h2>
+WGET<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/usr/local/bin/wget&#39;</span>
+WGET_OPT<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-qO -&#39;</span>
 
-<pre><code class="language-sh">#!/bin/sh
+echo <span style="color:#e6db74">&#39;Getting my IP address...&#39;</span>
+MYIP<span style="color:#f92672">=</span><span style="color:#e6db74">`</span><span style="color:#e6db74">${</span>WGET<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>WGET_OPT<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>GETIP<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
+echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">My IP address is </span><span style="color:#e6db74">${</span>MYIP<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
 
-GETIP='http://ifconfig.me/ip'
-MYHASH='329435e5e66be809a656af105f42401e'
+URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">http://api.dynu.com/nic/update?myip=</span><span style="color:#e6db74">${</span>MYIP<span style="color:#e6db74">}</span><span style="color:#e6db74">&amp;username=user&amp;password=</span><span style="color:#e6db74">${</span>MYHASH<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
 
-WGET='/usr/local/bin/wget'
-WGET_OPT='-qO -'
+<span style="color:#75715e"># echo ${URL}</span>
 
-echo 'Getting my IP address...'
-MYIP=`${WGET} ${WGET_OPT} ${GETIP}`
-echo &quot;My IP address is ${MYIP}&quot;
-
-URL=&quot;http://api.dynu.com/nic/update?myip=${MYIP}&amp;username=user&amp;password=${MYHASH}&quot;
-
-# echo ${URL}
-
-echo &quot;Registering my IP address to DDNS service...&quot;
-${WGET} ${WGET_OPT} ${URL}
+echo <span style="color:#e6db74">&#34;Registering my IP address to DDNS service...&#34;</span>
+<span style="color:#e6db74">${</span>WGET<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>WGET_OPT<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>URL<span style="color:#e6db74">}</span>
 echo
-echo 'Done.'
+echo <span style="color:#e6db74">&#39;Done.&#39;</span>
 
-</code></pre>
-
-<p>実行結果<br />
+</code></pre></div><p>実行結果<br>
 IPアドレスが変わった瞬間の結果を記録し忘れた。</p>
-
-<pre><code class="language-console">$ dyn.sh
+<pre><code class="language-console" data-lang="console">$ dyn.sh
 Getting my IP address...
 My IP address is 198.144.117.32
 Registering my IP address to DDNS service...
 nochg
 Done.
-</code></pre>
-
-<p>あとはこれをcronでもなんでも仕込めばよい。</p>
-
-<h2 id="freebsdのみなさま用-periodicファイル">FreeBSDのみなさま用。periodicファイル</h2>
-
-<p>以下のファイルを<code>/usr/local/etc/periodic/daily</code>に置いて、毎日、実行させている。<br />
-cronでもいいんだけど、cronは目に付きにくくて、バックアップなどを忘れてしまうから。<br />
+</code></pre><p>あとはこれをcronでもなんでも仕込めばよい。</p>
+<h2 id="freebsdperiodic">FreeBSDのみなさま用。periodicファイル</h2>
+<p>以下のファイルを<code>/usr/local/etc/periodic/daily</code>に置いて、毎日、実行させている。<br>
+cronでもいいんだけど、cronは目に付きにくくて、バックアップなどを忘れてしまうから。<br>
 よければどうぞ。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>
 
-<pre><code class="language-sh">#!/bin/sh
+GETIP<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://ifconfig.me/ip&#39;</span>
+MYHASH<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;329435e5e66be809a656af105f42401e&#39;</span>
+
+WGET<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/usr/local/bin/wget&#39;</span>
+WGET_OPT<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;-qO -&#39;</span>
 
 
-GETIP='http://ifconfig.me/ip'
-MYHASH='329435e5e66be809a656af105f42401e'
-
-WGET='/usr/local/bin/wget'
-WGET_OPT='-qO -'
-
-
-rc=0
-if [ -x $WGET ]; then
-        echo 'Getting my IP address...'
-        MYIP=`${WGET} ${WGET_OPT} ${GETIP}`
-        echo &quot;My IP address is ${MYIP}&quot;
-        URL=&quot;http://api.dynu.com/nic/update?myip=${MYIP}&amp;username=user&amp;password=${MYHASH}&quot;
-        echo &quot;Registering my IP address to DDNS service...&quot;
-        ${WGET} ${WGET_OPT} ${URL}
+rc<span style="color:#f92672">=</span>0
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x $WGET <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        echo <span style="color:#e6db74">&#39;Getting my IP address...&#39;</span>
+        MYIP<span style="color:#f92672">=</span><span style="color:#e6db74">`</span><span style="color:#e6db74">${</span>WGET<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>WGET_OPT<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>GETIP<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
+        echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">My IP address is </span><span style="color:#e6db74">${</span>MYIP<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+        URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">http://api.dynu.com/nic/update?myip=</span><span style="color:#e6db74">${</span>MYIP<span style="color:#e6db74">}</span><span style="color:#e6db74">&amp;username=user&amp;password=</span><span style="color:#e6db74">${</span>MYHASH<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+        echo <span style="color:#e6db74">&#34;Registering my IP address to DDNS service...&#34;</span>
+        <span style="color:#e6db74">${</span>WGET<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>WGET_OPT<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>URL<span style="color:#e6db74">}</span>
         echo
-        echo 'Done.'
-else
-        echo &quot;${WGET} is not installed and I gave up.&quot;
-        rc=2
-fi
+        echo <span style="color:#e6db74">&#39;Done.&#39;</span>
+<span style="color:#66d9ef">else</span>
+        echo <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>WGET<span style="color:#e6db74">}</span><span style="color:#e6db74"> is not installed and I gave up.</span><span style="color:#e6db74">&#34;</span>
+        rc<span style="color:#f92672">=</span>2
+<span style="color:#66d9ef">fi</span>
 
-exit &quot;$rc&quot;
-</code></pre>
-
-<p>以上</p>
+exit <span style="color:#e6db74">&#34;</span>$rc<span style="color:#e6db74">&#34;</span>
+</code></pre></div><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

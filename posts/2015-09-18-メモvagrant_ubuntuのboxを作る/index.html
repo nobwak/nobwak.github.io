@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2015-09-18T23:07:12+09:00" />
 <meta itemprop="name" content="[メモ][Vagrant] Ubuntuのboxを作る">
 <meta itemprop="description" content="Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でU">
-
-
 <meta itemprop="datePublished" content="2015-09-18T23:07:12&#43;09:00" />
 <meta itemprop="dateModified" content="2015-09-18T23:07:12&#43;09:00" />
-<meta itemprop="wordCount" content="1299">
+<meta itemprop="wordCount" content="1295">
 
 
 
-<meta itemprop="keywords" content="linux,Vagrant,VM," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="linux,Vagrant,VM," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ][Vagrant] Ubuntuのboxを作る"/>
 <meta name="twitter:description" content="Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でU"/>
 
@@ -140,127 +137,80 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。<br />
-torrentに流してくれればいいのに…。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。<br>
+torrentに流してくれればいいのに…。<br>
 しかたないので自分でUbuntuのboxを作る。</p>
-
-<p>参照ドキュメントは公式の以下のもの。<br />
- <a href="https://docs.vagrantup.com/v2/boxes/base.html" target="_blank"><a href="https://docs.vagrantup.com/v2/boxes/base.html">https://docs.vagrantup.com/v2/boxes/base.html</a></a></p>
-
-<p>VirtualBox上でUbuntu14.04をインストール後、apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgradeまで済ませた前提。<br />
-providerはVirtualBox。<br />
+<p>参照ドキュメントは公式の以下のもの。<br>
+<!-- raw HTML omitted --><a href="https://docs.vagrantup.com/v2/boxes/base.html%3C/a%3E">https://docs.vagrantup.com/v2/boxes/base.html&lt;/a&gt;</a></p>
+<p>VirtualBox上でUbuntu14.04をインストール後、apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgradeまで済ませた前提。<br>
+providerはVirtualBox。<br>
 まずVirtualBox特有の注意点を先に。</p>
-
-<h2 id="virtualbox向けにboxを作るときの注意点">VirtualBox向けにBoxを作るときの注意点</h2>
-
-<p><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html" target="_blank"><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html">https://docs.vagrantup.com/v2/virtualbox/boxes.html</a></a></p>
-
+<h2 id="virtualboxbox">VirtualBox向けにBoxを作るときの注意点</h2>
+<p><!-- raw HTML omitted --><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html%3C/a%3E">https://docs.vagrantup.com/v2/virtualbox/boxes.html&lt;/a&gt;</a></p>
 <ol>
 <li>ネットワークインタフェースはNATにしておくこと。</li>
 <li>MACアドレスをメモしておくこと。</li>
 <li>VirtualBox Guest Additionsをインストールしてあること。</li>
 </ol>
-
-<p>一つ目の理由は、VirtualBoxが決め打ちで接続してくるから。<br />
-二つ目の理由は、Vagrantfileのconfig.vm.base_macに書く必要があるから。<br />
-MACアドレスはVirtualBoxのGUIから確認できる。<br />
-三つめの条件を満たすには、あらかじめlinux kernel headersとbasic developer toolsをインストールしておく必要がある。<br />
-手順は後述。<br />
+<p>一つ目の理由は、VirtualBoxが決め打ちで接続してくるから。<br>
+二つ目の理由は、Vagrantfileのconfig.vm.base_macに書く必要があるから。<br>
+MACアドレスはVirtualBoxのGUIから確認できる。<br>
+三つめの条件を満たすには、あらかじめlinux kernel headersとbasic developer toolsをインストールしておく必要がある。<br>
+手順は後述。<br>
 ではさっそく。</p>
-
-<h2 id="不要なハードウェアの無効化">不要なハードウェアの無効化</h2>
-
-<p>USB, オーディオなどを無効化する。<br />
+<h2 id="heading">不要なハードウェアの無効化</h2>
+<p>USB, オーディオなどを無効化する。<br>
 特にUSBが有効になっていると、無用なバグを引いたりするので、無効化しておくことを強く勧める。</p>
-
-<h2 id="デフォルトユーザ-vagrant-の作成">デフォルトユーザ（vagrant）の作成</h2>
-
-<p>Vagrantの作業用アカウントを作る。<br />
-Vagrantはデフォルトでユーザ&rdquo;vagrant&rdquo;として仮想マシンにSSH接続する。<br />
+<h2 id="vagrant">デフォルトユーザ（vagrant）の作成</h2>
+<p>Vagrantの作業用アカウントを作る。<br>
+Vagrantはデフォルトでユーザ&quot;vagrant&quot;として仮想マシンにSSH接続する。<br>
 vagrantというユーザのいることが明らかだと、それはそれでセキュリティ上のリスクになるのだが、それはVagrantに慣れてから考える。</p>
-
-<p>vagratを追加し、パスワードもvagrantに。<br />
+<p>vagratを追加し、パスワードもvagrantに。<br>
 パスワードを設定しておくのは、万が一、手動で仮想マシンに接続する必要が生まれたときのため。</p>
-
-<pre><code class="language-console"># useradd -m vagrant
+<pre><code class="language-console" data-lang="console"># useradd -m vagrant
 # passwd vagrant
-</code></pre>
-
-<p>SSH接続用に鍵を作成する。<br />
+</code></pre><p>SSH接続用に鍵を作成する。<br>
 鍵はインターネットからダウンロードする。そんな鍵なんて危ないように見えるが、これはあくまでも初回ブート用。Vagrantが自動的に書き換えてくれる。</p>
-
-<pre><code class="language-console"># mkdir -p /home/vagrant/.ssh
+<pre><code class="language-console" data-lang="console"># mkdir -p /home/vagrant/.ssh
 # cd /home/vagrant/.ssh 
 # curl -k -L -o authorized_keys 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub'
 # chmod 700 /home/vagrant/.ssh
 # chmod 600 /home/vagrant/.ssh/authorized_keys
 # chown -R vagrant:vagrant /home/vagrant/
-</code></pre>
-
-<h2 id="ユーザvagrant向けsudo設定">ユーザvagrant向けsudo設定</h2>
-
-<p>ユーザvagrantがパスワードなしでsudoできるように。<br />
+</code></pre><h2 id="vagrantsudo">ユーザvagrant向けsudo設定</h2>
+<p>ユーザvagrantがパスワードなしでsudoできるように。<br>
 visudoで以下の行を追加。</p>
-
-<pre><code class="language-console"># visudo
+<pre><code class="language-console" data-lang="console"># visudo
 vagrant ALL=(ALL)       NOPASSWD: ALL
-</code></pre>
-
-<p>さらにrequirettyという記述があればコメントアウト</p>
-
-<pre><code class="language-console"># requiretty # コメントアウトでttyなくsudoできる。
-</code></pre>
-
-<h2 id="rootのパスワードも変える">rootのパスワードも変える。</h2>
-
-<p>rootのパスワードも&rdquo;vagrant&rdquo;に。</p>
-
-<pre><code class="language-console"># passwd
-</code></pre>
-
-<h2 id="sshd設定">sshd設定</h2>
-
+</code></pre><p>さらにrequirettyという記述があればコメントアウト</p>
+<pre><code class="language-console" data-lang="console"># requiretty # コメントアウトでttyなくsudoできる。
+</code></pre><h2 id="root">rootのパスワードも変える。</h2>
+<p>rootのパスワードも&quot;vagrant&quot;に。</p>
+<pre><code class="language-console" data-lang="console"># passwd
+</code></pre><h2 id="sshd">sshd設定</h2>
 <p>sshdがなければインストール。</p>
-
-<pre><code class="language-console"># apt-get install openssh-server
-</code></pre>
-
-<p>sshdの設定ファイルを書き換え</p>
-
-<pre><code class="language-console"># vi /etc/ssh/sshd_config
-</code></pre>
-
-<p>以下の行があることを確認。なければ書く。</p>
-
-<pre><code class="language-console">Port 22
+<pre><code class="language-console" data-lang="console"># apt-get install openssh-server
+</code></pre><p>sshdの設定ファイルを書き換え</p>
+<pre><code class="language-console" data-lang="console"># vi /etc/ssh/sshd_config
+</code></pre><p>以下の行があることを確認。なければ書く。</p>
+<pre><code class="language-console" data-lang="console">Port 22
     PubKeyAuthentication yes
     AuthorizedKeysFile %h/.ssh/authorized_keys
     PermitEmptyPasswords no
     UseDNS no
-</code></pre>
-
-<h2 id="virtualbox-guest-additionsのインストール">VirtualBox Guest Additionsのインストール</h2>
-
-<p>再掲だが以下のドキュメントに沿って。<br />
- <a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html" target="_blank"><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html">https://docs.vagrantup.com/v2/virtualbox/boxes.html</a></a></p>
-
-<pre><code class="language-console"># apt-get install dkms
+</code></pre><h2 id="virtualbox-guest-additions">VirtualBox Guest Additionsのインストール</h2>
+<p>再掲だが以下のドキュメントに沿って。<br>
+<!-- raw HTML omitted --><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html%3C/a%3E">https://docs.vagrantup.com/v2/virtualbox/boxes.html&lt;/a&gt;</a></p>
+<pre><code class="language-console" data-lang="console"># apt-get install dkms
 # /etc/init.d/vboxadd setup
 # apt-get install -y build-essential linux-headers-server
-</code></pre>
-
-<p>その後、VirtualBox Guest Additionsのインストール<br />
+</code></pre><p>その後、VirtualBox Guest Additionsのインストール<br>
 VitualBoxのGUIからCDを挿入し、以下を実行。</p>
-
-<pre><code class="language-console"># mount /dev/cdrom /media/cdrom
+<pre><code class="language-console" data-lang="console"># mount /dev/cdrom /media/cdrom
 # sh /media/cdrom/VBoxLinuxAdditions.run
 # umount /media/cdrom
 # apt-get clean
-</code></pre>
-
-<p>後は<a href="../../../2015/09/%e3%83%a1%e3%83%a2windows-virtualbox%e3%81%ae%e4%bb%ae%e6%83%b3%e3%83%9e%e3%82%b7%e3%83%b3%e3%81%8b%e3%82%89vagrant%e3%81%aebox%e3%82%92%e4%bd%9c%e3%82%8b/">こちら</a>の通り。</p>
+</code></pre><p>後は<a href="../../../2015/09/%e3%83%a1%e3%83%a2windows-virtualbox%e3%81%ae%e4%bb%ae%e6%83%b3%e3%83%9e%e3%82%b7%e3%83%b3%e3%81%8b%e3%82%89vagrant%e3%81%aebox%e3%82%92%e4%bd%9c%e3%82%8b/">こちら</a>の通り。</p>
 <ul class="pa0">
   
    <li class="list">

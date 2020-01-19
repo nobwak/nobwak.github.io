@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-05-20T23:24:19+09:00" />
 <meta itemprop="name" content="Pythonベースのプロジェクト管理ツール、tracのインストール">
 <meta itemprop="description" content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール">
-
-
 <meta itemprop="datePublished" content="2014-05-20T23:24:19&#43;09:00" />
 <meta itemprop="dateModified" content="2014-05-20T23:24:19&#43;09:00" />
 <meta itemprop="wordCount" content="3217">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Pythonベースのプロジェクト管理ツール、tracのインストール"/>
 <meta name="twitter:description" content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール"/>
 
@@ -140,15 +137,11 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。<br />
-プロジェうと管理ツールとしては、redmineもインストールしたのだが、それと比較したい。<br />
-だからひとまずインストールするだけ。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。<br>
+プロジェうと管理ツールとしては、redmineもインストールしたのだが、それと比較したい。<br>
+だからひとまずインストールするだけ。<br>
 FreeBSD 10.0-RELEASEにtrac-1.0.1。</p>
-
-<h2 id="全体のながれ">全体のながれ</h2>
-
+<h2 id="heading">全体のながれ</h2>
 <ol>
 <li>tracのインストール</li>
 <li>環境作成</li>
@@ -157,16 +150,12 @@ FreeBSD 10.0-RELEASEにtrac-1.0.1。</p>
 <li>起動設定</li>
 <li>複数プロジェクト設定</li>
 </ol>
-
-<h2 id="インストール">インストール</h2>
-
-<p>tracはpkgにもあるので、特に障害もなくインストール完了。<br />
+<h2 id="heading-1">インストール</h2>
+<p>tracはpkgにもあるので、特に障害もなくインストール完了。<br>
 /usr/local/lib/python2.7/site-packages/tracにドバっとファイルが作られる。</p>
-
-<p>古い（といってもそこまで古くないが）ブログによると、日本語環境で使うためにいろいろと苦労が必要なようだが、現時点においてはpkg install trac一発で完了。<br />
+<p>古い（といってもそこまで古くないが）ブログによると、日本語環境で使うためにいろいろと苦労が必要なようだが、現時点においてはpkg install trac一発で完了。<br>
 依存関係はこんな感じ。</p>
-
-<pre><code class="language-console">$ sudo pkg info -d trac
+<pre><code class="language-console" data-lang="console">$ sudo pkg info -d trac
 trac-1.0.1_2:
         silvercity-0.9.7
         py27-pygments-1.6_2
@@ -179,27 +168,21 @@ trac-1.0.1_2:
         py27-pytz-2014.1.1,1
         py27-Babel-1.3_1
         py27-sqlite3-2.7.6_3
-</code></pre>
-
-<p>データベースはご覧の通りsqliteが使われる。もちろんMySQLなど他のソフトウェアも使える。<br />
+</code></pre><p>データベースはご覧の通りsqliteが使われる。もちろんMySQLなど他のソフトウェアも使える。<br>
 webサーバも不要。こちらもapacheなど他のソフトウェアを使える。</p>
-
-<h2 id="設定">設定</h2>
-
-<p>大したことはない。<br />
-まず環境を作る。<br />
-ディレクトリを決めておいて、そこでtracコマンドを実行し、初期化する。<br />
-例えば/usr/local/wwwの下に、tracというディレクトリを作る。<br />
-そこでtrac initenvと叩く。<br />
-注意点は、ディレクトリの文字コード。ASCIIじゃないとダメ。<br />
-また、作成したあとには、ユーザ、グループ権限を変えること。<br />
+<h2 id="heading-2">設定</h2>
+<p>大したことはない。<br>
+まず環境を作る。<br>
+ディレクトリを決めておいて、そこでtracコマンドを実行し、初期化する。<br>
+例えば/usr/local/wwwの下に、tracというディレクトリを作る。<br>
+そこでtrac initenvと叩く。<br>
+注意点は、ディレクトリの文字コード。ASCIIじゃないとダメ。<br>
+また、作成したあとには、ユーザ、グループ権限を変えること。<br>
 www:wwwで動かすならそのようにchownしておく。</p>
-
-<p>以下は実行例。<br />
-データベースにsqliteを使うならリターンキーを連打するだけでよい。<br />
+<p>以下は実行例。<br>
+データベースにsqliteを使うならリターンキーを連打するだけでよい。<br>
 （プロジェクト名はMy Projectになるけど。）</p>
-
-<pre><code class="language-console">example01 /usr/local/www &gt;trac-admin /usr/local/www/trac initenv
+<pre><code class="language-console" data-lang="console">example01 /usr/local/www &gt;trac-admin /usr/local/www/trac initenv
 Creating a new Trac environment at /usr/local/www/trac
 
 Trac will first ask a few questions about your environment
@@ -242,16 +225,11 @@ website:
 
 Congratulations!
 example01 /usr/local/www &gt;
-</code></pre>
-
-<p>詳細な設定はtrac.iniでできるよ、とメッセージがあるが、そんなのは後回しにして、まずは起動確認。</p>
-
-<h2 id="試運転">試運転</h2>
-
-<p>初期設定完了時のメッセージにある通り、tracdとしてwebサーバを起動することができる。<br />
+</code></pre><p>詳細な設定はtrac.iniでできるよ、とメッセージがあるが、そんなのは後回しにして、まずは起動確認。</p>
+<h2 id="heading-3">試運転</h2>
+<p>初期設定完了時のメッセージにある通り、tracdとしてwebサーバを起動することができる。<br>
 -portにポート番号、それにディレクトリを引数に与える。</p>
-
-<pre><code class="language-console">example01 /usr/local/www &gt;tracd --port 8000 /usr/local/www/trac/
+<pre><code class="language-console" data-lang="console">example01 /usr/local/www &gt;tracd --port 8000 /usr/local/www/trac/
  Server starting in PID 2351.
  Serving on 0.0.0.0:8000 view at http://127.0.0.1:8000/
  Using HTTP/1.1 protocol version
@@ -260,34 +238,27 @@ example01 /usr/local/www &gt;
  192.168.100.106 - - [17/May/2014 00:35:58] &quot;GET /favicon.ico HTTP/1.1&quot; 404 -
  192.168.100.106 - - [17/May/2014 00:36:00] &quot;GET /trac HTTP/1.1&quot; 200 -
  192.168.100.106 - - [17/May/2014 00:36:00] &quot;GET /trac/chrome/common/css/wiki.css HTTP/1.1&quot; 200 - 1
-</code></pre>
-
-<p>この状態で、ブラウザから接続して、以下のような表示があれば成功。<br />
-さっき作ったMy Projectが見えていますね。<br />
-<a href="../../../wp-content/uploads/2014/05/tractestboot01.png"><img class="alignnone size-thumbnail wp-image-2717" src="../../../wp-content/uploads/2014/05/tractestboot01-150x150.png" alt="tractestboot01" width="150" height="150" /></a><br />
-ただ、この状態では何もできない。<br />
-<a href="../../../wp-content/uploads/2014/05/tractestboot02.png"><img class="alignnone size-thumbnail wp-image-2718" src="../../../wp-content/uploads/2014/05/tractestboot02-150x150.png" alt="tractestboot02" width="150" height="150" /></a><br />
-メニューのログインをクリックしても、ページがない旨のエラーが表示されるはず。<br />
-まずは認証の準備をする必要がある。<br />
+</code></pre><p>この状態で、ブラウザから接続して、以下のような表示があれば成功。<br>
+さっき作ったMy Projectが見えていますね。<br>
+<a href="../../../wp-content/uploads/2014/05/tractestboot01.png"><!-- raw HTML omitted --></a><br>
+ただ、この状態では何もできない。<br>
+<a href="../../../wp-content/uploads/2014/05/tractestboot02.png"><!-- raw HTML omitted --></a><br>
+メニューのログインをクリックしても、ページがない旨のエラーが表示されるはず。<br>
+まずは認証の準備をする必要がある。<br>
 ターミナルに戻ってCtrl+Cで抜けよう。</p>
-
-<h2 id="認証用のパスワードファイル作成">認証用のパスワードファイル作成</h2>
-
-<p>認証の準備すなわちパスワードファイルの作成である。<br />
-パスワードファイルだから、平文で書かれていてはまずい。<br />
-ではどうやって作るか。<br />
-apacheをインストールしていれば、htpasswdを使う。<br />
-apacheがなければ。<br />
-インストールドキュメントに書いてあるスクリプトを使う。<br />
-<a href="http://emelfm2.net/wiki/TracStandalone" target="_blank"><a href="http://emelfm2.net/wiki/TracStandalone">http://emelfm2.net/wiki/TracStandalone</a></a></p>
-
-<p>ちょっと横道に逸れるが。<br />
-いずれにしても、このさきtracにユーザを追加する場合には、ここで作成したパスワードファイルへの登録で行う。<br />
+<h2 id="heading-4">認証用のパスワードファイル作成</h2>
+<p>認証の準備すなわちパスワードファイルの作成である。<br>
+パスワードファイルだから、平文で書かれていてはまずい。<br>
+ではどうやって作るか。<br>
+apacheをインストールしていれば、htpasswdを使う。<br>
+apacheがなければ。<br>
+インストールドキュメントに書いてあるスクリプトを使う。<br>
+<!-- raw HTML omitted --><a href="http://emelfm2.net/wiki/TracStandalone%3C/a%3E">http://emelfm2.net/wiki/TracStandalone&lt;/a&gt;</a></p>
+<p>ちょっと横道に逸れるが。<br>
+いずれにしても、このさきtracにユーザを追加する場合には、ここで作成したパスワードファイルへの登録で行う。<br>
 これを面倒と感じるかどうか。</p>
-
 <p>さておき、以下を適当な名前で、たとえばtrac-digest.pyとして保存する。</p>
-
-<pre><code class="language-console">from optparse import OptionParser
+<pre><code class="language-console" data-lang="console">from optparse import OptionParser
 # The md5 module is deprecated in Python 2.5
 try:
     from hashlib import md5
@@ -315,114 +286,76 @@ if (options.realm is not None):
 # Generate the string to enter into the htdigest file
 kd = lambda x: md5(':'.join(x)).hexdigest()
 print ':'.join((options.username, realm, kd([options.username, realm, options.password])))
-</code></pre>
-
-<p>使い方は以下の通りで、python trac-digest.pyに続けて、-u ＜ユーザネーム＞ -p ＜パスワード＞とし、その出力をファイルに向ける。</p>
-
-<pre><code class="language-console">example01 /usr/local/www &gt; python trac-digest.py -u username -p password &gt;&gt; /tmp/digest.txt
-</code></pre>
-
-<p>つまりユーザusernameを、passwordというパスワードで作成している。</p>
-
-<p>生成されたファイルの中身は以下の通り。<br />
+</code></pre><p>使い方は以下の通りで、python trac-digest.pyに続けて、-u ＜ユーザネーム＞ -p ＜パスワード＞とし、その出力をファイルに向ける。</p>
+<pre><code class="language-console" data-lang="console">example01 /usr/local/www &gt; python trac-digest.py -u username -p password &gt;&gt; /tmp/digest.txt
+</code></pre><p>つまりユーザusernameを、passwordというパスワードで作成している。</p>
+<p>生成されたファイルの中身は以下の通り。<br>
 2カラムめはrealm。</p>
-
-<pre><code class="language-console">username:trac:a053da77aad45fc9d4a506ef6fd
-</code></pre>
-
-<h2 id="本格起動">本格起動</h2>
-
-<p>今度はtracdにオプションを特盛で与える。<br />
--authで先ほどのパスワードファイルを与える。<br />
-その際には、プロジェクトのベースディレクトリ、パスワードファイル、realmを指定する。<br />
-ベースディレクトリとは、もし環境を作ったディレクトリが/usr/local/www/tracならtracになる。<br />
+<pre><code class="language-console" data-lang="console">username:trac:a053da77aad45fc9d4a506ef6fd
+</code></pre><h2 id="heading-5">本格起動</h2>
+<p>今度はtracdにオプションを特盛で与える。<br>
+-authで先ほどのパスワードファイルを与える。<br>
+その際には、プロジェクトのベースディレクトリ、パスワードファイル、realmを指定する。<br>
+ベースディレクトリとは、もし環境を作ったディレクトリが/usr/local/www/tracならtracになる。<br>
 このベースディレクトリは、のちにwebサーバを動かしたとき、http://＜サーバアドレス＞/＜ベースディレクトリ＞というように使われる。</p>
-
 <p>最終的に-authは、本記事の例でいえば、-auth=trac,/tmp/digest.txt,tracとなる。</p>
-
-<p>さらに、-pで待ち受けポート、-user, -groupでtracdを動かす権限を、-dでdaemoniseを指定する。<br />
+<p>さらに、-pで待ち受けポート、-user, -groupでtracdを動かす権限を、-dでdaemoniseを指定する。<br>
 以下のようになる。</p>
-
-<pre><code class="language-console"># tracd --auth=trac,/tmp/digest.txt,trac -p 8000 --user=www --group=www /usr/local/www/trac/ -d
-</code></pre>
-
-<p>試運転の時とは違い、すぐにプロンプトが戻ってくる。<br />
+<pre><code class="language-console" data-lang="console"># tracd --auth=trac,/tmp/digest.txt,trac -p 8000 --user=www --group=www /usr/local/www/trac/ -d
+</code></pre><p>試運転の時とは違い、すぐにプロンプトが戻ってくる。<br>
 試しにsockstatを見てみると、以下の通り。</p>
-
-<pre><code class="language-console"># sockstat -l4
+<pre><code class="language-console" data-lang="console"># sockstat -l4
  USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
  www python2.7 6517 3 tcp4 192.168.100.240:8000 *:*
-</code></pre>
-
-<h2 id="認証の確認">認証の確認</h2>
-
-<p>さきほどはクリックしてもページのなかった「ログイン」が、今度はIDとパスワードを訊いてくるようになっているはず。<br />
-<a href="../../../wp-content/uploads/2014/05/tractestboot03.png"><img class="alignnone size-thumbnail wp-image-2719" src="../../../wp-content/uploads/2014/05/tractestboot03-150x150.png" alt="tractestboot03" width="150" height="150" /></a><br />
-<a href="../../../wp-content/uploads/2014/05/tractestboot04.png"><img class="alignnone size-thumbnail wp-image-2720" src="../../../wp-content/uploads/2014/05/tractestboot04-150x150.png" alt="tractestboot04" width="150" height="150" /></a><br />
+</code></pre><h2 id="heading-6">認証の確認</h2>
+<p>さきほどはクリックしてもページのなかった「ログイン」が、今度はIDとパスワードを訊いてくるようになっているはず。<br>
+<a href="../../../wp-content/uploads/2014/05/tractestboot03.png"><!-- raw HTML omitted --></a><br>
+<a href="../../../wp-content/uploads/2014/05/tractestboot04.png"><!-- raw HTML omitted --></a><br>
 これでチケットの発行ができる。</p>
-
-<h2 id="管理者権限の作成">管理者権限の作成</h2>
-
-<p>しかしユーザusernameは一般ユーザである。<br />
+<h2 id="heading-7">管理者権限の作成</h2>
+<p>しかしユーザusernameは一般ユーザである。<br>
 彼に管理者権限を与えるには、以下のようにtracコマンドで操作を行う。</p>
-
-<pre><code class="language-console">example01 /usr/local/www &gt;trac-admin /usr/local/www/trac permission add username TRAC_ADMIN
+<pre><code class="language-console" data-lang="console">example01 /usr/local/www &gt;trac-admin /usr/local/www/trac permission add username TRAC_ADMIN
 example01 /usr/local/www &gt;
-</code></pre>
-
-<p>このあと、ユーザusernameには管理者メニューが現れる。<br />
-<a href="../../../wp-content/uploads/2014/05/tractestboot05.png"><img class="alignnone size-thumbnail wp-image-2721" src="../../../wp-content/uploads/2014/05/tractestboot05-150x150.png" alt="tractestboot05" width="150" height="150" /></a></p>
-
-<p>なお、管理者であれば、他ユーザの権限も操作できる。<br />
-<a href="../../../wp-content/uploads/2014/05/tractestboot06.png"><img class="alignnone size-thumbnail wp-image-2722" src="../../../wp-content/uploads/2014/05/tractestboot06-150x150.png" alt="tractestboot06" width="150" height="150" /></a><br />
+</code></pre><p>このあと、ユーザusernameには管理者メニューが現れる。<br>
+<a href="../../../wp-content/uploads/2014/05/tractestboot05.png"><!-- raw HTML omitted --></a></p>
+<p>なお、管理者であれば、他ユーザの権限も操作できる。<br>
+<a href="../../../wp-content/uploads/2014/05/tractestboot06.png"><!-- raw HTML omitted --></a><br>
 したがって、管理者権限を与えるのは最初の一人だけ、にすることもできる。</p>
-
 <p>注意点としては、各ユーザの権限はさきほど作成したパスワードファイルでは管理されていない、ということ。</p>
-
-<p>繰り返すが、ユーザの登録はパスワードファイルへの登録で、（少なくとも初回の）権限変更は上記コマンドで、という仕組みをどう感じるか。<br />
+<p>繰り返すが、ユーザの登録はパスワードファイルへの登録で、（少なくとも初回の）権限変更は上記コマンドで、という仕組みをどう感じるか。<br>
 まあちょっと面倒くさいかもしれませんな。</p>
-
-<h2 id="システム起動時設定-シングル環境モード">システム起動時設定（シングル環境モード）</h2>
-
-<p>以上でtracをとりあえず起動する設定は済んだ。<br />
-あとはシステム起動時にtracが起動するよう、/etc/rc.confに設定を加える。<br />
-/usr/local/etc/rc.d/trac内のコメントに沿ってrc.confに追加する。<br />
+<h2 id="heading-8">システム起動時設定（シングル環境モード）</h2>
+<p>以上でtracをとりあえず起動する設定は済んだ。<br>
+あとはシステム起動時にtracが起動するよう、/etc/rc.confに設定を加える。<br>
+/usr/local/etc/rc.d/trac内のコメントに沿ってrc.confに追加する。<br>
 以下は例。## trac</p>
-
-<pre><code class="language-console">tracd_enable=&quot;YES&quot;
+<pre><code class="language-console" data-lang="console">tracd_enable=&quot;YES&quot;
 tracd_listen=&quot;192.168.100.240&quot;
 tracd_port=&quot;8000&quot;
 tracd_envdir=&quot;/usr/local/www/&quot;
 tracd_env=&quot;trac&quot;
 tracd_args=&quot;--user=www --group=www --auth=trac,/tmp/digest.txt,trac&quot;
-</code></pre>
-
-<p>tracd_envdirとtracd_envに注意。<br />
-こういう書き方をしてtracに接続するといきなりMy Projectに移動する。<br />
+</code></pre><p>tracd_envdirとtracd_envに注意。<br>
+こういう書き方をしてtracに接続するといきなりMy Projectに移動する。<br>
 プロジェクトが一つであれば何の問題もないが、複数プロジェクトを抱えたい場合には困る。</p>
-
-<h2 id="複数プロジェクトの運営">複数プロジェクトの運営</h2>
-
-<p>複数プロジェクトを登録したいのであれば、必要なぶんだけディレクトリを作り、そこでtrac-admin initenvすればよい。<br />
-例えば/usr/local/www/tracsなんてディレクトリを作り、projecttemp, projectaltというディレクトリをさらに作る。<br />
-それぞれにinit-envで環境を作る。<br />
-このとき、/etc/rc.confはこのようにする。<br />
-tracd_envに/usr/local/www/tracsを指定し、tracd_envはコメントアウト。<br />
+<h2 id="heading-9">複数プロジェクトの運営</h2>
+<p>複数プロジェクトを登録したいのであれば、必要なぶんだけディレクトリを作り、そこでtrac-admin initenvすればよい。<br>
+例えば/usr/local/www/tracsなんてディレクトリを作り、projecttemp, projectaltというディレクトリをさらに作る。<br>
+それぞれにinit-envで環境を作る。<br>
+このとき、/etc/rc.confはこのようにする。<br>
+tracd_envに/usr/local/www/tracsを指定し、tracd_envはコメントアウト。<br>
 -authで指定するベースディレクトリにアスタリスクを与えれば、パスワードファイルを複数のプロジェクトで共有できる。</p>
-
-<pre><code class="language-console">## trac
+<pre><code class="language-console" data-lang="console">## trac
 tracd_enable=&quot;YES&quot;
 tracd_listen=&quot;192.168.100.240&quot;
 tracd_port=&quot;8000&quot;
 tracd_envdir=&quot;/usr/local/www/tracs&quot;
 #tracd_env=&quot;&quot;
 tracd_args=&quot;--user=www --group=www --auth=*,/tmp/digest.txt,trac&quot;
-</code></pre>
-
-<p>こんな感じ。<br />
-<a href="../../../wp-content/uploads/2014/05/tractestboot07.png"><img class="alignnone size-thumbnail wp-image-2723" src="../../../wp-content/uploads/2014/05/tractestboot07-150x150.png" alt="tractestboot07" width="150" height="150" /><br />
-</a> <a href="../../../wp-content/uploads/2014/05/tractestboot08.png"><img class="alignnone size-thumbnail wp-image-2724" src="../../../wp-content/uploads/2014/05/tractestboot08-150x150.png" alt="tractestboot08" width="150" height="150" /></a></p>
-
+</code></pre><p>こんな感じ。<br>
+<a href="../../../wp-content/uploads/2014/05/tractestboot07.png"><!-- raw HTML omitted --><br>
+</a> <a href="../../../wp-content/uploads/2014/05/tractestboot08.png"><!-- raw HTML omitted --></a></p>
 <p>以上</p>
 <ul class="pa0">
   

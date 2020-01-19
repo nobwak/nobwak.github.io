@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-12-27T23:05:42+09:00" />
 <meta itemprop="name" content="PythonでWindowsアプリケーションを作ってみよう">
 <meta itemprop="description" content="Pythonには、pythonスクリプトを手軽にWindowsアプリケーション化できるツールが揃っている。 有名なのはPy2exeとPyIns">
-
-
 <meta itemprop="datePublished" content="2013-12-27T23:05:42&#43;09:00" />
 <meta itemprop="dateModified" content="2013-12-27T23:05:42&#43;09:00" />
-<meta itemprop="wordCount" content="1812">
+<meta itemprop="wordCount" content="1853">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,python,Windows," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,python,Windows," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="PythonでWindowsアプリケーションを作ってみよう"/>
 <meta name="twitter:description" content="Pythonには、pythonスクリプトを手軽にWindowsアプリケーション化できるツールが揃っている。 有名なのはPy2exeとPyIns"/>
 
@@ -140,99 +137,73 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Pythonには、pythonスクリプトを手軽にWindowsアプリケーション化できるツールが揃っている。<br />
-有名なのはPy2exeとPyInstallerである。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Pythonには、pythonスクリプトを手軽にWindowsアプリケーション化できるツールが揃っている。<br>
+有名なのはPy2exeとPyInstallerである。<br>
 違いをまとめたうえで、PyInstallerでのWindowsアプリ化をまとめる。</p>
-
-<h2 id="span-style-text-decoration-underline-py2exeとpyinstallerの違い-span"><span style="text-decoration: underline;">Py2exeとPyInstallerの違い</span></h2>
-
-<p>サイト<br />
-<a href="http://www.pyinstaller.org/" target="_blank"><a href="http://www.pyinstaller.org/">http://www.pyinstaller.org/</a></a><br />
-<a href="http://www.py2exe.org/" target="_blank"><a href="http://www.py2exe.org/">http://www.py2exe.org/</a></a></p>
-
+<h2 id="span-styletext-decoration-underlinepy2exepyinstallerspan"><!-- raw HTML omitted -->Py2exeとPyInstallerの違い<!-- raw HTML omitted --></h2>
+<p>サイト<br>
+<!-- raw HTML omitted --><a href="http://www.pyinstaller.org/%3C/a%3E">http://www.pyinstaller.org/&lt;/a&gt;</a><br>
+<!-- raw HTML omitted --><a href="http://www.py2exe.org/%3C/a%3E">http://www.py2exe.org/&lt;/a&gt;</a></p>
 <ul>
-<li>インストールの容易さ<br />
+<li>インストールの容易さ<br>
 →PyInstallerが有利</li>
-<li>対応Pythonバージョン<br />
-→Py2exe: 2.4～3.1<br />
+<li>対応Pythonバージョン<br>
+→Py2exe: 2.4～3.1<br>
 →PyInstaller: 2.4～2.7</li>
-<li>単独exeファイル作成の容易さ<br />
+<li>単独exeファイル作成の容易さ<br>
 →PyInstallerがやや有利</li>
-<li>「manifest」ファイル埋め込みの容易さ<br />
+<li>「manifest」ファイル埋め込みの容易さ<br>
 →Py2exeが有利</li>
 </ul>
-
 <p>手軽さの点でPyInstallerを選んだ。</p>
-
-<h2 id="pyinstallerの制限-日本語パスはダメ">PyInstallerの制限（日本語パスはダメ）</h2>
-
-<p>※2014/5/29追記<br />
-PyInstallerで生成したアプリには制限がある。<br />
-そのアプリを、日本語、要するにNon-ASCII文字列の含まれるパスに置くと起動に失敗する。<br />
-Python2なせいだと思うが、じゃあPython3で作ったらどうよ?と考えるも、そもそもPyInstallerはPython3に対応してないし…。<br />
-運用回避するしかないです。<br />
+<h2 id="pyinstaller">PyInstallerの制限（日本語パスはダメ）</h2>
+<p>※2014/5/29追記<br>
+PyInstallerで生成したアプリには制限がある。<br>
+そのアプリを、日本語、要するにNon-ASCII文字列の含まれるパスに置くと起動に失敗する。<br>
+Python2なせいだと思うが、じゃあPython3で作ったらどうよ?と考えるも、そもそもPyInstallerはPython3に対応してないし…。<br>
+運用回避するしかないです。<br>
 作ったアプリを人に配って初めて気づいたよ。</p>
-
-<h2 id="span-style-text-decoration-underline-pyinstallerのインストール-span"><span style="text-decoration: underline;">PyInstallerのインストール</span></h2>
-
-<p><a title="pyinstallerのインストール" href="../../../2014/05/pyinstaller%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab/" target="_blank">pyinstallerのインストール</a>を参照。<br />
-<del>ダウンロードして展開するだけ。</del><br />
- <del>インストールっぽいことは不要。</del><br />
+<h2 id="span-styletext-decoration-underlinepyinstallerspan"><!-- raw HTML omitted -->PyInstallerのインストール<!-- raw HTML omitted --></h2>
+<p><!-- raw HTML omitted -->pyinstallerのインストール<!-- raw HTML omitted -->を参照。<br>
+<!-- raw HTML omitted -->ダウンロードして展開するだけ。<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted -->インストールっぽいことは不要。<!-- raw HTML omitted --><br>
 追加でUPXがあれば準備するとよい。後述。</p>
-
-<p><a href="http://www.pyinstaller.org/" target="_blank"><a href="http://www.pyinstaller.org/">http://www.pyinstaller.org/</a></a> からダウンロード。<br />
+<p><!-- raw HTML omitted --><a href="http://www.pyinstaller.org/%3C/a%3E">http://www.pyinstaller.org/&lt;/a&gt;</a> からダウンロード。<br>
 2013/12/6現在、最新版は2.1。</p>
-
-<h2 id="span-style-text-decoration-underline-upxのインストール-span"><span style="text-decoration: underline;">UPXのインストール</span></h2>
-
-<p>UPXとは、実行ファイルを、実行できる形式のまま圧縮してくれるツールである。<br />
-メリットはストレージの占有スペースを少なく出来ること。デメリットは実行時の展開処理。<br />
-UPXは実行時の展開処理がすごく速いうえにメモリ消費量も少ないとのこと。<br />
+<h2 id="span-styletext-decoration-underlineupxspan"><!-- raw HTML omitted -->UPXのインストール<!-- raw HTML omitted --></h2>
+<p>UPXとは、実行ファイルを、実行できる形式のまま圧縮してくれるツールである。<br>
+メリットはストレージの占有スペースを少なく出来ること。デメリットは実行時の展開処理。<br>
+UPXは実行時の展開処理がすごく速いうえにメモリ消費量も少ないとのこと。<br>
 大規模なプログラムだったら使ってもよいかな。</p>
-
-<p><a href="http://upx.sourceforge.net/" target="_blank"><a href="http://upx.sourceforge.net/‎">http://upx.sourceforge.net/‎</a></a><br />
-<a href="http://ja.wikipedia.org/wiki/UPX" target="_blank"><a href="http://ja.wikipedia.org/wiki/UPX">http://ja.wikipedia.org/wiki/UPX</a></a></p>
-
-<pre><code class="language-console">UPX is a portable, extendable, high-performance executable packer for several 
+<p><!-- raw HTML omitted --><a href="http://upx.sourceforge.net/">http://upx.sourceforge.net/</a>‎<!-- raw HTML omitted --><br>
+<!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/UPX%3C/a%3E">http://ja.wikipedia.org/wiki/UPX&lt;/a&gt;</a></p>
+<pre><code class="language-console" data-lang="console">UPX is a portable, extendable, high-performance executable packer for several 
 different executable formats. It achieves an excellent compression ratio and 
 offers *very* fast decompression. Your executables suffer no memory overhead 
 or other drawbacks for most of the formats supported, because of in-place 
 decompression.
-</code></pre>
-
-<p>インストールはごく簡単。<br />
-公式サイトからアーカイブをダウンロード。<br />
-Win32/i386版。<br />
-展開したらupx.exeが出てくるので、それをパスの通ったところに置くだけ。<br />
-Pythonのインストールされているディレクトリ（例: C:\Python27）の下に置くのがよいでしょう。<br />
+</code></pre><p>インストールはごく簡単。<br>
+公式サイトからアーカイブをダウンロード。<br>
+Win32/i386版。<br>
+展開したらupx.exeが出てくるので、それをパスの通ったところに置くだけ。<br>
+Pythonのインストールされているディレクトリ（例: C:\Python27）の下に置くのがよいでしょう。<br>
 あるいは別ディレクトリに置いてそこにパスを通す。</p>
-
-<h2 id="span-style-text-decoration-underline-pyinstallerの使い方-span"><span style="text-decoration: underline;">PyInstallerの使い方</span></h2>
-
+<h2 id="span-styletext-decoration-underlinepyinstallerspan-1"><!-- raw HTML omitted -->PyInstallerの使い方<!-- raw HTML omitted --></h2>
 <p>python pyinstaller.py targetscript.py とするだけである。</p>
-
-<p>以下、詳細。<br />
-サンプルpythonスクリプトを一つ用意。<br />
-コマンドプロンプトを開いて展開したPyInstallerのディレクトリに移る。<br />
-cdで移るのが面倒なら、SHIFT+右クリックで開く。<br />
-<a href="../../../wp-content/uploads/2013/12/pyicmdprmpt.png"><img class="alignnone size-thumbnail wp-image-2478" src="../../../wp-content/uploads/2013/12/pyicmdprmpt-150x150.png" alt="pyicmdprmpt" width="150" height="150" /></a></p>
-
+<p>以下、詳細。<br>
+サンプルpythonスクリプトを一つ用意。<br>
+コマンドプロンプトを開いて展開したPyInstallerのディレクトリに移る。<br>
+cdで移るのが面倒なら、SHIFT+右クリックで開く。<br>
+<a href="../../../wp-content/uploads/2013/12/pyicmdprmpt.png"><!-- raw HTML omitted --></a></p>
 <p>pythonにパスが通っていることを確認。</p>
-
-<pre><code class="language-console">C:\download\python\PyInstaller-2.1&gt;python -V
+<pre><code class="language-console" data-lang="console">C:\download\python\PyInstaller-2.1&gt;python -V
 Python 2.7.2
 
 C:\download\python\PyInstaller-2.1&gt;
-</code></pre>
-
-<p>対象スクリプトをpyinstallerのディレクトリに置くか、パスを取得する。<br />
+</code></pre><p>対象スクリプトをpyinstallerのディレクトリに置くか、パスを取得する。<br>
 パスの取得は、対象ファイルをSHIFT+右クリックで出来る。</p>
-
-<p><a href="../../../wp-content/uploads/2013/12/pyipthcp.png"><img class="alignnone size-thumbnail wp-image-2479" src="../../../wp-content/uploads/2013/12/pyipthcp-150x150.png" alt="pyipthcp" width="150" height="150" /></a></p>
-
-<pre><code class="language-console">C:\download\python\PyInstaller-2.1&gt;python pyinstaller.py &quot;C:\download\python\reducer.py&quot;
+<p><a href="../../../wp-content/uploads/2013/12/pyipthcp.png"><!-- raw HTML omitted --></a></p>
+<pre><code class="language-console" data-lang="console">C:\download\python\PyInstaller-2.1&gt;python pyinstaller.py &quot;C:\download\python\reducer.py&quot;
 1215 INFO: wrote C:\download\python\PyInstaller-2.1\reducer\reducer.spec
 1559 INFO: Testing for ability to set icons, version resources...
 1901 INFO: ... resource update available
@@ -248,46 +219,33 @@ C:\download\python\PyInstaller-2.1&gt;
 er\bincache01_py27\_socket.pyd
 
 C:\download\python\PyInstaller-2.1&gt;
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-windowsプログラムのできあがり-span"><span style="text-decoration: underline;">Windowsプログラムのできあがり</span></h2>
-
-<p>PyInstallerのフォルダに、スクリプト名でフォルダが出来ているはず。<br />
-<a href="../../../wp-content/uploads/2013/12/pyiblddn.png"><img class="alignnone size-thumbnail wp-image-2481" src="../../../wp-content/uploads/2013/12/pyiblddn-150x150.png" alt="pyiblddn" width="150" height="150" /></a></p>
-
-<p>その下に、さらにbuildとdistという、二つのフォルダがある。<br />
-他人にプログラムを配る場合には、distフォルダの下にある方を配ること。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinewindowsspan"><!-- raw HTML omitted -->Windowsプログラムのできあがり<!-- raw HTML omitted --></h2>
+<p>PyInstallerのフォルダに、スクリプト名でフォルダが出来ているはず。<br>
+<a href="../../../wp-content/uploads/2013/12/pyiblddn.png"><!-- raw HTML omitted --></a></p>
+<p>その下に、さらにbuildとdistという、二つのフォルダがある。<br>
+他人にプログラムを配る場合には、distフォルダの下にある方を配ること。<br>
 実行に必要なDLL（pythonのDLL, MSVCRのDLL）もセットになっているので。</p>
-
-<p><a href="../../../wp-content/uploads/2013/12/pyidist.png"><img class="alignnone size-thumbnail wp-image-2482" src="../../../wp-content/uploads/2013/12/pyidist-150x150.png" alt="pyidist" width="150" height="150" /></a></p>
-
-<h2 id="span-style-text-decoration-underline-その他のオプション説明-span"><span style="text-decoration: underline;">その他のオプション説明</span></h2>
-
-<p>以下参照。<br />
-<a href="http://pythonhosted.org/PyInstaller/" target="_blank"><a href="http://pythonhosted.org/PyInstaller/">http://pythonhosted.org/PyInstaller/</a></a></p>
-
+<p><a href="../../../wp-content/uploads/2013/12/pyidist.png"><!-- raw HTML omitted --></a></p>
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->その他のオプション説明<!-- raw HTML omitted --></h2>
+<p>以下参照。<br>
+<!-- raw HTML omitted --><a href="http://pythonhosted.org/PyInstaller/%3C/a%3E">http://pythonhosted.org/PyInstaller/&lt;/a&gt;</a></p>
 <p>以下にピックアップ。</p>
-
-<p>-w, -windowed<br />
-実行時にコマンドプロンプトを開かないようになる。<br />
+<p>-w, -windowed<br>
+実行時にコマンドプロンプトを開かないようになる。<br>
 GUIプログラムのときに便利。</p>
-
-<p>-F, -onefile<br />
-プログラムを一つにまとめてくれる。<br />
-なかなか魅力的なオプションだが、プログラム実行時にけっこう時間がかかってしまう。<br />
-（試してみると分かるが、イライラするレベル）<br />
+<p>-F, -onefile<br>
+プログラムを一つにまとめてくれる。<br>
+なかなか魅力的なオプションだが、プログラム実行時にけっこう時間がかかってしまう。<br>
+（試してみると分かるが、イライラするレベル）<br>
 おすすめしない。</p>
-
-<p>-i ＜アイコンファイル＞, -icon=＜アイコンファイル＞<br />
+<p>-i ＜アイコンファイル＞, -icon=＜アイコンファイル＞<br>
 プログラムのアイコンを設定できる。アイコンは拡張子.icoのファイル。</p>
-
-<p>-y<br />
--clean<br />
--yは既存の実行ファイルを問答無用で上書きする。<br />
-修正しては何回も実行ファイルを作るときには便利。<br />
+<p>-y<br>
+-clean<br>
+-yは既存の実行ファイルを問答無用で上書きする。<br>
+修正しては何回も実行ファイルを作るときには便利。<br>
 -cleanはログファイルや作業ファイルを消してから実行ファイル作成を始める。</p>
-
-<p>-noupx<br />
+<p>-noupx<br>
 UPXを使いたくないときに指定。</p>
 <ul class="pa0">
   

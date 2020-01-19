@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-12-06T22:02:34+09:00" />
 <meta itemprop="name" content="qjailならjailのユーザランド更新にmake worldは不要ッ！">
 <meta itemprop="description" content="この件があって、jailはqjailで管理している。 上記記事では触れなかったのだが、qjailにはもう一つ大きな利点がある。 qjailでは、">
-
-
 <meta itemprop="datePublished" content="2013-12-06T22:02:34&#43;09:00" />
 <meta itemprop="dateModified" content="2013-12-06T22:02:34&#43;09:00" />
 <meta itemprop="wordCount" content="749">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="qjailならjailのユーザランド更新にmake worldは不要ッ！"/>
 <meta name="twitter:description" content="この件があって、jailはqjailで管理している。 上記記事では触れなかったのだが、qjailにはもう一つ大きな利点がある。 qjailでは、"/>
 
@@ -140,21 +137,16 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>この件があって、jailはqjailで管理している。<br />
-上記記事では触れなかったのだが、qjailにはもう一つ大きな利点がある。<br />
-qjailでは、jailのユーザランド更新にmake buildworldが不要なのである。<br />
-細かいところは後で述べる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>この件があって、jailはqjailで管理している。<br>
+上記記事では触れなかったのだが、qjailにはもう一つ大きな利点がある。<br>
+qjailでは、jailのユーザランド更新にmake buildworldが不要なのである。<br>
+細かいところは後で述べる。<br>
 まずその使い方から。</p>
-
-<h2 id="span-style-text-decoration-underline-qjailでのユーザランド更新-span"><span style="text-decoration: underline;">qjailでのユーザランド更新</span></h2>
-
-<p>jailを止めたあとに、qjail update -bだけでOK。<br />
-jailを止めないで実行しようとしても、下記のように怒られる。<br />
+<h2 id="span-styletext-decoration-underlineqjailspan"><!-- raw HTML omitted -->qjailでのユーザランド更新<!-- raw HTML omitted --></h2>
+<p>jailを止めたあとに、qjail update -bだけでOK。<br>
+jailを止めないで実行しようとしても、下記のように怒られる。<br>
 update -bはすぐに終わる。</p>
-
-<pre><code class="language-console">$ sudo qjail update -b
+<pre><code class="language-console" data-lang="console">$ sudo qjail update -b
 Error: All jails have to be stopped.
 This jail is running. example01
 ]$ sudo qjail stop example01
@@ -188,20 +180,14 @@ Copied host's binaries to sharedfs successfully for usr/lib32.
 
 Host to sharedfs binaries update completed successfully.
 $
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-qjail-update-bとは-span"><span style="text-decoration: underline;">qjail update -bとは</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlineqjail-update--bspan"><!-- raw HTML omitted -->qjail update -bとは<!-- raw HTML omitted --></h2>
 <p>マニュアルから俺訳で引用すると:</p>
-
 <blockquote>
-<p>freebsd-updateはホストしか調べてくれず、jailは対象外だ。ホストには最新の環境があるのに、jailのためにわざわざ make buildworld/installworldするのは次男の無駄無駄無駄。<br />
+<p>freebsd-updateはホストしか調べてくれず、jailは対象外だ。ホストには最新の環境があるのに、jailのためにわざわざ make buildworld/installworldするのは次男の無駄無駄無駄。<br>
 だからして、ホストのバイナリをsharedfsにコピーできるようした。</p>
 </blockquote>
-
 <p>原文は以下の通り。</p>
-
-<pre><code class="language-console">-b      The basic requirement of FreeBSD jails is the jail environment
+<pre><code class="language-console" data-lang="console">-b      The basic requirement of FreeBSD jails is the jail environment
              and the host run the same version of the systems binaries. Since
              the FreeBSD-update utility only inspects the host system to
              determine the systems RELEASE level it's not applicable in a
@@ -221,8 +207,7 @@ $
 (snip)
 
 FreeBSD 10.0                     July 22, 2013                    FreeBSD 10.0
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

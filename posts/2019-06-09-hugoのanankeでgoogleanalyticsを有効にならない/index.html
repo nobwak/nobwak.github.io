@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2019-06-09T19:07:48+09:00" />
 <meta itemprop="name" content="HUGOのanankeでgoogleAnalyticsが有効にならない">
 <meta itemprop="description" content="ビルドが爆速のHUGOに気をよくしてメモを書いてはgithubにpushしてるんだが、いつまで経ってもgoogle analytisが有効にな">
-
-
 <meta itemprop="datePublished" content="2019-06-09T19:07:48&#43;09:00" />
 <meta itemprop="dateModified" content="2019-06-09T19:07:48&#43;09:00" />
 <meta itemprop="wordCount" content="936">
 
 
 
-<meta itemprop="keywords" content="hugo,github," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="hugo,github," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="HUGOのanankeでgoogleAnalyticsが有効にならない"/>
 <meta name="twitter:description" content="ビルドが爆速のHUGOに気をよくしてメモを書いてはgithubにpushしてるんだが、いつまで経ってもgoogle analytisが有効にな"/>
 
@@ -140,80 +137,60 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>ビルドが爆速のHUGOに気をよくしてメモを書いてはgithubにpushしてるんだが、いつまで経ってもgoogle analytisが有効にならない。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>ビルドが爆速のHUGOに気をよくしてメモを書いてはgithubにpushしてるんだが、いつまで経ってもgoogle analytisが有効にならない。<br>
 さんざん悩んで解決したので経緯を示す。</p>
-
-<p>結論: ビルド前に<code>HUGO_ENV=production hugo</code>しろ。<br />
+<p>結論: ビルド前に<code>HUGO_ENV=production hugo</code>しろ。<br>
 レイアウトテンプレートの修正は必要ありません。</p>
-
 <p>それはそれとして、anankeの使い方、という体で書き進める。</p>
-
-<h2 id="hugoの定番テーマ-anankeを使うなら公式サイトをよく読もう">HUGOの定番テーマ、anankeを使うなら公式サイトをよく読もう</h2>
-
-<p>anankeはHUGOのQuick Startで例に引かれているくらいのテーマで、内容としても必要にして十分な内容だ。<br />
+<h2 id="hugoananke">HUGOの定番テーマ、anankeを使うなら公式サイトをよく読もう</h2>
+<p>anankeはHUGOのQuick Startで例に引かれているくらいのテーマで、内容としても必要にして十分な内容だ。<br>
 しかしそのせいで、themeとして必要な設定をせずに使うことにもなり、うまく動かなくて頭を抱えることになる。</p>
-
-<p>まずは公式サイトの説明をよく読もう。<br />
+<p>まずは公式サイトの説明をよく読もう。<br>
 <a href="https://themes.gohugo.io/gohugo-theme-ananke/">https://themes.gohugo.io/gohugo-theme-ananke/</a></p>
-
 <p>以下、公式サイトの手順に沿って進める。</p>
-
-<h2 id="anankeのconfig-toml例をコピーして編集する">anankeのconfig.toml例をコピーして編集する</h2>
-
-<p>サンプルはここにある。<br />
+<h2 id="anankeconfigtoml">anankeのconfig.toml例をコピーして編集する</h2>
+<p>サンプルはここにある。<br>
 <a href="https://github.com/budparr/gohugo-theme-ananke/blob/master/exampleSite/config.toml">https://github.com/budparr/gohugo-theme-ananke/blob/master/exampleSite/config.toml</a></p>
-
-<p>以下に転載。<br />
+<p>以下に転載。<br>
 Google Analyticsを使うなら、きっちりTracking IDの指定をしておくこと。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;Notre-Dame de Paris&#34;</span>
+<span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#34;https://example.com&#34;</span>
+<span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#34;ja-JP&#34;</span>
+<span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;ananke&#34;</span>
 
-<pre><code class="language-toml">title = &quot;Notre-Dame de Paris&quot;
-baseURL = &quot;https://example.com&quot;
-languageCode = &quot;ja-JP&quot;
-theme = &quot;ananke&quot;
+<span style="color:#a6e22e">MetaDataFormat</span> = <span style="color:#e6db74">&#34;yaml&#34;</span>
+<span style="color:#75715e"># DefaultContentLanguage = &#34;en&#34;</span>
+<span style="color:#a6e22e">SectionPagesMenu</span> = <span style="color:#e6db74">&#34;main&#34;</span>
+<span style="color:#a6e22e">Paginate</span> = <span style="color:#ae81ff">10</span>
+<span style="color:#a6e22e">googleAnalytics</span> = <span style="color:#e6db74">&#34;UA-XXXXXXXX-1&#34;</span>  <span style="color:#75715e"># Tracking IDを指定。</span>
+<span style="color:#75715e"># enableRobotsTXT = true</span>
 
-MetaDataFormat = &quot;yaml&quot;
-# DefaultContentLanguage = &quot;en&quot;
-SectionPagesMenu = &quot;main&quot;
-Paginate = 10
-googleAnalytics = &quot;UA-XXXXXXXX-1&quot;  # Tracking IDを指定。
-# enableRobotsTXT = true
+[<span style="color:#a6e22e">sitemap</span>]
+  <span style="color:#a6e22e">changefreq</span> = <span style="color:#e6db74">&#34;monthly&#34;</span>
+  <span style="color:#a6e22e">priority</span> = <span style="color:#ae81ff">0.5</span>
+  <span style="color:#a6e22e">filename</span> = <span style="color:#e6db74">&#34;sitemap.xml&#34;</span>
 
-[sitemap]
-  changefreq = &quot;monthly&quot;
-  priority = 0.5
-  filename = &quot;sitemap.xml&quot;
-
-[params]
-  favicon = &quot;&quot;
-  description = &quot;The last theme you'll ever need. Maybe.&quot;
-  twitter = &quot;https://twitter.com/GoHugoIO&quot;
-  github = &quot;&quot;
-  # choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with &quot;bg-&quot;
-  background_color_class = &quot;bg-black&quot;
-  featured_image = &quot;/images/gohugo-default-sample-hero-image.jpg&quot;
-  recent_posts_number = 5
-</code></pre>
-
-<h2 id="おまちかねのビルド">おまちかねのビルド</h2>
-
+[<span style="color:#a6e22e">params</span>]
+  <span style="color:#a6e22e">favicon</span> = <span style="color:#e6db74">&#34;&#34;</span>
+  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;The last theme you&#39;ll ever need. Maybe.&#34;</span>
+  <span style="color:#a6e22e">twitter</span> = <span style="color:#e6db74">&#34;https://twitter.com/GoHugoIO&#34;</span>
+  <span style="color:#a6e22e">github</span> = <span style="color:#e6db74">&#34;&#34;</span>
+  <span style="color:#75715e"># choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with &#34;bg-&#34;</span>
+  <span style="color:#a6e22e">background_color_class</span> = <span style="color:#e6db74">&#34;bg-black&#34;</span>
+  <span style="color:#a6e22e">featured_image</span> = <span style="color:#e6db74">&#34;/images/gohugo-default-sample-hero-image.jpg&#34;</span>
+  <span style="color:#a6e22e">recent_posts_number</span> = <span style="color:#ae81ff">5</span>
+</code></pre></div><h2 id="heading">おまちかねのビルド</h2>
 <p>anankeのページを下のほうまで読むと、以下の記載がある。</p>
-
 <blockquote>
 <p>To run in production (e.g. to have Google Analytics show up), run HUGO_ENV=production before your build command.</p>
 </blockquote>
-
-<p>つまり、本番ビルドで<code>hugo</code>と叩くときに、頭に<code>HUGO_ENV=production</code>を付けろ、ということ。<br />
+<p>つまり、本番ビルドで<code>hugo</code>と叩くときに、頭に<code>HUGO_ENV=production</code>を付けろ、ということ。<br>
 そうしないとGoogle Analyticsが有効にならない、と。</p>
-
-<p>なぜこうしているかというと、ローカルホストで確認するときにGoogle Analyticsが効かないようにするためでしょう。<br />
+<p>なぜこうしているかというと、ローカルホストで確認するときにGoogle Analyticsが効かないようにするためでしょう。<br>
 フールプルーフで、デフォルトを非productionにしてるんだな。</p>
-
-<p>もちろん<code>HUGO_ENV=production</code>という書式の通り、bashなどのb-shell系の話ね。<br />
+<p>もちろん<code>HUGO_ENV=production</code>という書式の通り、bashなどのb-shell系の話ね。<br>
 以下実行例。</p>
-
-<pre><code class="language-console"># HUGO_ENV=production hugo
+<pre><code class="language-console" data-lang="console"># HUGO_ENV=production hugo
 
                    | EN
 +------------------+-----+
@@ -228,21 +205,16 @@ googleAnalytics = &quot;UA-XXXXXXXX-1&quot;  # Tracking IDを指定。
 
 Total in 543 ms
 #
-</code></pre>
-
-<p>生成されたhtmlを確認すれば、以下のような埋め込みがなされているはず。</p>
-
-<pre><code class="language-html">&lt;script type=&quot;application/javascript&quot;&gt;
+</code></pre><p>生成されたhtmlを確認すれば、以下のような埋め込みがなされているはず。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;application/javascript&#34;</span>&gt;<span style="color:#960050;background-color:#1e0010"></span>
 var doNotTrack = false;
 if (!doNotTrack) {
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-    ga('create', 'UA-XXXXXX-1', 'auto');
+    ga(&#39;create&#39;, &#39;UA-XXXXXX-1&#39;, &#39;auto&#39;);
 
-    ga('send', 'pageview');
+    ga(&#39;send&#39;, &#39;pageview&#39;);
 }
-</code></pre>
-
-<p>以上。</p>
+</code></pre></div><p>以上。</p>
 <ul class="pa0">
   
    <li class="list">

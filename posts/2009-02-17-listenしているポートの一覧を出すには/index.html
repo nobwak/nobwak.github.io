@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-02-17T01:00:00+09:00" />
 <meta itemprop="name" content="listenしているポートの一覧を出すには">
 <meta itemprop="description" content="fortuneが教えてくれたのでメモ。 sockstatを使うことは知っていたが、オプションを工夫することで分かりやすくなる。 具体的には-4l">
-
-
 <meta itemprop="datePublished" content="2009-02-17T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-02-17T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="295">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="listenしているポートの一覧を出すには"/>
 <meta name="twitter:description" content="fortuneが教えてくれたのでメモ。 sockstatを使うことは知っていたが、オプションを工夫することで分かりやすくなる。 具体的には-4l"/>
 
@@ -154,24 +151,17 @@ sockstatを使うことは知っていたが、オプションを工夫するこ
 
 以下が実行例。
 </code></pre>
-
-<pre><code class="language-console">$ sockstat -4l
+<pre><code class="language-console" data-lang="console">$ sockstat -4l
 USER     COMMAND    PID   FD PROTO  LOCAL ADDRESS         FOREIGN ADDRESS
 root     sendmail   933   3  tcp4   127.0.0.1:25          *:*
 root     sshd       917   3  tcp4   *:22                  *:*
 root     syslogd    771   6  udp4   *:514                 *:*
+</code></pre><pre><code>sendmailはともかくとして、syslogdが口空けているのは気分がよろしくないので、/etc/rc.confに以下の一行を追加してポートを閉じる。（当然、リモートサイトのログは取れなくなるが、スタンドアロンであれば問題なし。）
 </code></pre>
-
-<pre><code>sendmailはともかくとして、syslogdが口空けているのは気分がよろしくないので、/etc/rc.confに以下の一行を追加してポートを閉じる。（当然、リモートサイトのログは取れなくなるが、スタンドアロンであれば問題なし。）
+<pre><code class="language-console" data-lang="console">syslogd_flags=&amp;#34;-ss&amp;#34;
+</code></pre><pre><code>そのあとsyslogdを再起動すればOK。
 </code></pre>
-
-<pre><code class="language-console">syslogd_flags=&amp;#34;-ss&amp;#34;
-</code></pre>
-
-<pre><code>そのあとsyslogdを再起動すればOK。
-</code></pre>
-
-<pre><code class="language-console"># /etc/rc.d/syslogd restart
+<pre><code class="language-console" data-lang="console"># /etc/rc.d/syslogd restart
 Stopping syslogd.
 Starting syslogd.
 # sockstat -4l
@@ -179,8 +169,7 @@ USER     COMMAND    PID   FD PROTO  LOCAL ADDRESS         FOREIGN ADDRESS
 root     sendmail   933   3  tcp4   127.0.0.1:25          *:*
 root     sshd       917   3  tcp4   *:22                  *:*
 #
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

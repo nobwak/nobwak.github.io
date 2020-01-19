@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-02-24T23:43:49+09:00" />
 <meta itemprop="name" content="Pythonがあればwebサーバを動かせる件について">
 <meta itemprop="description" content="Pythonがあれば、webサーバソフトウェアを追加することなくwebサーバを立ち上げることができる。 たいへん便利なのでメモしておく。 書式 Python">
-
-
 <meta itemprop="datePublished" content="2014-02-24T23:43:49&#43;09:00" />
 <meta itemprop="dateModified" content="2014-02-24T23:43:49&#43;09:00" />
 <meta itemprop="wordCount" content="347">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,linux,OS X,python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,linux,OS X,python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Pythonがあればwebサーバを動かせる件について"/>
 <meta name="twitter:description" content="Pythonがあれば、webサーバソフトウェアを追加することなくwebサーバを立ち上げることができる。 たいへん便利なのでメモしておく。 書式 Python"/>
 
@@ -140,59 +137,37 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Pythonがあれば、webサーバソフトウェアを追加することなくwebサーバを立ち上げることができる。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Pythonがあれば、webサーバソフトウェアを追加することなくwebサーバを立ち上げることができる。<br>
 たいへん便利なのでメモしておく。</p>
-
-<h2 id="span-style-text-decoration-underline-書式-span"><span style="text-decoration: underline;">書式</span></h2>
-
-<p>Python 2.xの場合、以下のようにすると、「カレントディレクトリ」をwebサーバとして公開する。<br />
-ポートは8000。<br />
-つまりアドレスはhttp://＜当該ホスト＞:8000/となる。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->書式<!-- raw HTML omitted --></h2>
+<p>Python 2.xの場合、以下のようにすると、「カレントディレクトリ」をwebサーバとして公開する。<br>
+ポートは8000。<br>
+つまりアドレスはhttp://＜当該ホスト＞:8000/となる。<br>
 なお、8000なので起動はスーパーユーザじゃなくても平気。</p>
-
-<pre><code class="language-console">python -m SimpleHTTPServer
-</code></pre>
-
-<p>Python 3.xの場合。</p>
-
-<pre><code class="language-console">python -m http.server
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-実行例-span"><span style="text-decoration: underline;">実行例</span></h2>
-
+<pre><code class="language-console" data-lang="console">python -m SimpleHTTPServer
+</code></pre><p>Python 3.xの場合。</p>
+<pre><code class="language-console" data-lang="console">python -m http.server
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->実行例<!-- raw HTML omitted --></h2>
 <p>下記のようなindex.htmlを用意する。</p>
-
-<pre><code class="language-console">$ cat ./index.html
+<pre><code class="language-console" data-lang="console">$ cat ./index.html
 it works!
-</code></pre>
-
-<p>pythonでwebサーバ起動。<br />
+</code></pre><p>pythonでwebサーバ起動。<br>
 2.7.6なので、python2の書式ですな。</p>
-
-<pre><code class="language-console">$ python -V
+<pre><code class="language-console" data-lang="console">$ python -V
 Python 2.7.6
 
 $ python -m SimpleHTTPServer
 Serving HTTP on 0.0.0.0 port 8000 ...
-</code></pre>
-
-<p>w3mで繋いでみると。</p>
-
-<pre><code class="language-console">$ w3m -no-proxy http://127.0.0.1:8000/
+</code></pre><p>w3mで繋いでみると。</p>
+<pre><code class="language-console" data-lang="console">$ w3m -no-proxy http://127.0.0.1:8000/
 it works!
-</code></pre>
-
-<p>おお。<br />
+</code></pre><p>おお。<br>
 sockstatの結果は以下の通り。</p>
-
-<pre><code class="language-console">$ sockstat -l4
+<pre><code class="language-console" data-lang="console">$ sockstat -l4
 USER     COMMAND    PID   FD PROTO  LOCAL ADDRESS         FOREIGN ADDRESS
 vanilla  python2.7  69678 3  tcp4   *:8000                *:*
 root     sshd       980   4  tcp4   *:22                  *:*
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

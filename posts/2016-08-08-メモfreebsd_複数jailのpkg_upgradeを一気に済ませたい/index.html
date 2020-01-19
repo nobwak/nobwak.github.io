@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2016-08-08T22:35:58+09:00" />
 <meta itemprop="name" content="[メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい">
 <meta itemprop="description" content="メモ。 jailのpkg操作は、いちいちそのjailの中に入らなくてもpkg -j ＜jail名 or jail ID＞ &hellip;というように-jオプション">
-
-
 <meta itemprop="datePublished" content="2016-08-08T22:35:58&#43;09:00" />
 <meta itemprop="dateModified" content="2016-08-08T22:35:58&#43;09:00" />
 <meta itemprop="wordCount" content="230">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,jail,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,jail,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい"/>
 <meta name="twitter:description" content="メモ。 jailのpkg操作は、いちいちそのjailの中に入らなくてもpkg -j ＜jail名 or jail ID＞ &hellip;というように-jオプション"/>
 
@@ -141,18 +138,13 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>メモ。</p>
-
 <p>jailのpkg操作は、いちいちそのjailの中に入らなくてもpkg -j ＜jail名 or jail ID＞ &hellip;というように-jオプションを付与すればできる。</p>
-
-<p>しかしjailの指定は、個々に行う必要がある。<br />
-たとえばpkg -j * upgradeというように、ワイルドカードを使うようなことは、もってのほかのようである。<br />
-jailなんてどんどん増えていくのに、いちいち-jで指定していくのもなあ。<br />
+<p>しかしjailの指定は、個々に行う必要がある。<br>
+たとえばpkg -j * upgradeというように、ワイルドカードを使うようなことは、もってのほかのようである。<br>
+jailなんてどんどん増えていくのに、いちいち-jで指定していくのもなあ。<br>
 仕方ないんで、やっつけでパイプを繋いで実現。</p>
-
-<pre><code class="language-console">jls -N|tail -n +2|cut -f2 -d&quot; &quot;|xargs -I{} sudo pkg -j {} upgrade
-</code></pre>
-
-<p>以上</p>
+<pre><code class="language-console" data-lang="console">jls -N|tail -n +2|cut -f2 -d&quot; &quot;|xargs -I{} sudo pkg -j {} upgrade
+</code></pre><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

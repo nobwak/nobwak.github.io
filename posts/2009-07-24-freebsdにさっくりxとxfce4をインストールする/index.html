@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-07-24T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDにさっくりXとXFCE4をインストールする。">
 <meta itemprop="description" content="XFCE4をインストールした。 ついでなので&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071125/p1&quot; target=&quot;_blank&quot;&gt;この記事&lt;/a&gt;">
-
-
 <meta itemprop="datePublished" content="2009-07-24T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-07-24T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="1516">
+<meta itemprop="wordCount" content="1371">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDにさっくりXとXFCE4をインストールする。"/>
 <meta name="twitter:description" content="XFCE4をインストールした。 ついでなので&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071125/p1&quot; target=&quot;_blank&quot;&gt;この記事&lt;/a&gt;"/>
 
@@ -153,22 +150,7 @@ if (!doNotTrack) {
 
 条件は以下の通り。
 </code></pre>
-
-<p><ul>
-    <li>
-      GDM、XDM等のログインマネージャは入れません。
-    </li>
-    <li>
-      portsではなくpackagesで入れるので、STABLE、CURRENTだとpackagesがなくてダメかもしれません。
-    </li>
-    <li>
-      RELEASEなら大丈夫のはず。
-    </li>
-    <li>
-      コマンド実行例では、#、または$がコマンド入力行。#の場合はroot権限を示します。
-    </li>
-  </ul></p>
-
+<!-- raw HTML omitted -->
 <pre><code>ではスタート。
 
 
@@ -182,16 +164,13 @@ if (!doNotTrack) {
 
 portsでインストールすると時間がかかるのでpackagesにする。それでもデフォルトだと米国あたりのサーバにftpしてしまうので、設定を変更する。ちなみにftp2.jp.freebsd.orgはftp.iij.ad.jpのことである。
 </code></pre>
-
-<pre><code class="language-console"># sh
+<pre><code class="language-console" data-lang="console"># sh
 # PACKAGEROOT=&amp;#34;ftp://ftp2.jp.freebsd.org&amp;#34;;export PACKAGEROOT
 # pkg_add -r xorg
 Fetching ftp://ftp2.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7.2-release/Latest/xorg.tbz... Done.
 Fetching ftp://ftp2.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7.2-release/All/xorg-docs-1.4,1.tbz... Done.
 （略）
-</code></pre>
-
-<pre><code>これでXのインストールは完了。
+</code></pre><pre><code>これでXのインストールは完了。
 
 
 
@@ -208,29 +187,23 @@ Fetching ftp://ftp2.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7.2-release/A
 
 /etc/rc.confに以下の行を追加。dbusとhaldの順番は必ずこの通りにすること。haldの起動に先だってdbusが動いていないとダメだから。各&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081221/p1&quot; target=&quot;_blank&quot;&gt;rcスクリプトには依存がある&lt;/a&gt;ので注意。
 </code></pre>
-
-<pre><code class="language-console">moused_enable=&amp;#34;NO&amp;#34;
+<pre><code class="language-console" data-lang="console">moused_enable=&amp;#34;NO&amp;#34;
 moused_nondefault_enable=&amp;#34;NO&amp;#34;
 dbus_enable=&amp;#34;YES&amp;#34;
 hald_enable=&amp;#34;YES&amp;#34;
-</code></pre>
-
-<pre><code>HALのための&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090318/p1&quot; target=&quot;_blank&quot;&gt;キーボード設定を行ったら&lt;/a&gt;、HALをスタート。
+</code></pre><pre><code>HALのための&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090318/p1&quot; target=&quot;_blank&quot;&gt;キーボード設定を行ったら&lt;/a&gt;、HALをスタート。
 
 
 
 念のためmousedを止める。（下の例ではmousedは動いていないけど）
 </code></pre>
-
-<pre><code class="language-console"># /etc/rc.d/moused onestop
+<pre><code class="language-console" data-lang="console"># /etc/rc.d/moused onestop
 moused not running? (check /var/run/moused.pid).
 # /usr/local/etc/rc.d/dbus start
 Starting dbus.
 # /usr/local/etc/rc.d/hald start
 Starting hald.
-</code></pre>
-
-<pre><code>◎Xの設定
+</code></pre><pre><code>◎Xの設定
 
 
 
@@ -277,28 +250,22 @@ rootでいきなりstartxとやって素っ気ないtwmが表示されればOK�
 
 xfce4のインストール。ついでにVLゴシックフォントも入れる。FEP（て言うのか?）も入れる。今ならuim-gtkとja-uim-anthyでOK。
 </code></pre>
-
-<pre><code class="language-console"># pkg_add -r xfce4 ja-vlgothic uim-gtk ja-uim-anthy
+<pre><code class="language-console" data-lang="console"># pkg_add -r xfce4 ja-vlgothic uim-gtk ja-uim-anthy
 Fetching ftp://ftp2.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7.2-release/Latest/xfce4.tbz... Done.
 Fetching ftp://ftp2.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7.2-release/All/icons-tango-0.8.1_1.tbz... Done.
 （略）
-</code></pre>
-
-<pre><code>◎Xfceの設定
+</code></pre><pre><code>◎Xfceの設定
 
 
 
 普段使うユーザでホームディレクトリの.xinitrcに以下の行を追加。
 </code></pre>
-
-<pre><code class="language-console">LANG=&amp;#34;ja_JP.UTF-8&amp;#34;;     export LANG
+<pre><code class="language-console" data-lang="console">LANG=&amp;#34;ja_JP.UTF-8&amp;#34;;     export LANG
 export GTK_IM_MODULE=uim-anthy
 export XMODIFIERS=&amp;#39;@im=uim-anthy&amp;#39;
 exec uim-xim &amp;
 exec xfce4-session
-</code></pre>
-
-<pre><code>なお、自ホストのIPアドレスを引けないとXfceの起動時に怒られる。固定IPアドレスならともかくDHCPで自動取得してる場合には127.0.0.1あたりに書いておけばOK。
+</code></pre><pre><code>なお、自ホストのIPアドレスを引けないとXfceの起動時に怒られる。固定IPアドレスならともかくDHCPで自動取得してる場合には127.0.0.1あたりに書いておけばOK。
 
 
 
@@ -307,11 +274,8 @@ exec xfce4-session
 
 /etc/hosts（青字が追記部分）
 </code></pre>
-
-<pre><code class="language-console">127.0.0.1               localhost localhost.my.domain &amp;#60;span style=&amp;#34;color:#0000CC;&amp;#34;&gt;harukiya.local&amp;#60;/span&gt;
-</code></pre>
-
-<pre><code>以上。
+<pre><code class="language-console" data-lang="console">127.0.0.1               localhost localhost.my.domain &amp;#60;span style=&amp;#34;color:#0000CC;&amp;#34;&gt;harukiya.local&amp;#60;/span&gt;
+</code></pre><pre><code>以上。
 
 
 

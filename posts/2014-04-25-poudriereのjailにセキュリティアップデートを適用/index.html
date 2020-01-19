@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-04-25T20:17:17+09:00" />
 <meta itemprop="name" content="Poudriereのjailにセキュリティアップデートを適用">
 <meta itemprop="description" content="Heartbleedバグ対応では皆さんいかがお過ごしでしたか。 Poudriereではpackageの作成をjail内で実行するんだけども、も">
-
-
 <meta itemprop="datePublished" content="2014-04-25T20:17:17&#43;09:00" />
 <meta itemprop="dateModified" content="2014-04-25T20:17:17&#43;09:00" />
 <meta itemprop="wordCount" content="288">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,jail," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,jail," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Poudriereのjailにセキュリティアップデートを適用"/>
 <meta name="twitter:description" content="Heartbleedバグ対応では皆さんいかがお過ごしでしたか。 Poudriereではpackageの作成をjail内で実行するんだけども、も"/>
 
@@ -140,27 +137,18 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Heartbleedバグ対応では皆さんいかがお過ごしでしたか。</p>
-
-<p>Poudriereではpackageの作成をjail内で実行するんだけども、もちろんこれらjailにもセキュリティアップデートは必要だ。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Heartbleedバグ対応では皆さんいかがお過ごしでしたか。</p>
+<p>Poudriereではpackageの作成をjail内で実行するんだけども、もちろんこれらjailにもセキュリティアップデートは必要だ。<br>
 ずいぶん簡単なんだけれども採録。</p>
-
-<h2 id="span-style-text-decoration-underline-poudriere-jailのアップデートは-uで-span"><span style="text-decoration: underline;">Poudriere jailのアップデートは-uで</span></h2>
-
-<p>ほんとうに簡単で、-uをつけるだけ。<br />
+<h2 id="span-styletext-decoration-underlinepoudriere-jail-uspan"><!-- raw HTML omitted -->Poudriere jailのアップデートは-uで<!-- raw HTML omitted --></h2>
+<p>ほんとうに簡単で、-uをつけるだけ。<br>
 以下のようなjailがあったとする。</p>
-
-<pre><code class="language-console">$ sudo poudriere jail -l
+<pre><code class="language-console" data-lang="console">$ sudo poudriere jail -l
 
 JAILNAME VERSION ARCH METHOD
 100i386 10.0-RELEASE i386 ftp
-</code></pre>
-
-<p>そうしたら-uを指定するだけ。</p>
-
-<pre><code class="language-console">$ sudo poudriere jail -u -j 100i386
+</code></pre><p>そうしたら-uを指定するだけ。</p>
+<pre><code class="language-console" data-lang="console">$ sudo poudriere jail -u -j 100i386
 ====&gt;&gt; Upgrading using ftp
 /etc/resolv.conf -&gt; /usr/local/poudriere/jails/100i386/etc/resolv.conf
 mount: /usr/local/poudriere/jails/100i386/compat: No such file or directory
@@ -180,9 +168,7 @@ The following files will be updated as part of updating to 10.0-RELEASE-p1:
 /usr/src/sys/fs/nfsserver/nfs_nfsdserv.c
 Installing updates... done.
 100i386: removed
-</code></pre>
-
-<p>おしまい。</p>
+</code></pre><p>おしまい。</p>
 <ul class="pa0">
   
    <li class="list">

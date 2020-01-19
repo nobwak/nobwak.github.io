@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-01-14T01:00:00+09:00" />
 <meta itemprop="name" content="[FreeBSD] DHCP設定したネットワークデバイスが立ち上がらないときには">
 <meta itemprop="description" content="rc.confでネットワークデバイスに設定する値にSYNCDHCPというのがあるそうな。 ネットワークデバイスの立ち上げは通常、デバイス自身が">
-
-
 <meta itemprop="datePublished" content="2010-01-14T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-01-14T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="338">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] DHCP設定したネットワークデバイスが立ち上がらないときには"/>
 <meta name="twitter:description" content="rc.confでネットワークデバイスに設定する値にSYNCDHCPというのがあるそうな。 ネットワークデバイスの立ち上げは通常、デバイス自身が"/>
 
@@ -154,11 +151,8 @@ if (!doNotTrack) {
 
 そういうデバイスに対しては、&quot;DHCP&quot;ではなく&quot;SYNCDHCP&quot;としてあげると、イベントを待たずにdhclientしてくれる。
 </code></pre>
-
-<pre><code class="language-console">ifconfig_fxp0=&amp;#34;SYNCDHCP&amp;#34;
-</code></pre>
-
-<pre><code>このほか、リンク変更イベントを通知するのはするけど、通知が遅くて他のネットワークサービスの起動に影響してしまう場合にも有効、とのこと。
+<pre><code class="language-console" data-lang="console">ifconfig_fxp0=&amp;#34;SYNCDHCP&amp;#34;
+</code></pre><pre><code>このほか、リンク変更イベントを通知するのはするけど、通知が遅くて他のネットワークサービスの起動に影響してしまう場合にも有効、とのこと。
 
 
 

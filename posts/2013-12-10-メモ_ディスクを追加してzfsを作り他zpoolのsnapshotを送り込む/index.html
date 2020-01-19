@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-12-10T20:44:18+09:00" />
 <meta itemprop="name" content="[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む">
 <meta itemprop="description" content="HDDを増設してZFSを作ったのでメモ。 一本のHDDにpool、zfsを作成し、圧縮、重複排除機能の有効化まで。 環境は（残念ながら10.0-">
-
-
 <meta itemprop="datePublished" content="2013-12-10T20:44:18&#43;09:00" />
 <meta itemprop="dateModified" content="2013-12-10T20:44:18&#43;09:00" />
 <meta itemprop="wordCount" content="2179">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,zfs," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,zfs," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む"/>
 <meta name="twitter:description" content="HDDを増設してZFSを作ったのでメモ。 一本のHDDにpool、zfsを作成し、圧縮、重複排除機能の有効化まで。 環境は（残念ながら10.0-"/>
 
@@ -140,24 +137,17 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>HDDを増設してZFSを作ったのでメモ。<br />
-一本のHDDにpool、zfsを作成し、圧縮、重複排除機能の有効化まで。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>HDDを増設してZFSを作ったのでメモ。<br>
+一本のHDDにpool、zfsを作成し、圧縮、重複排除機能の有効化まで。<br>
 環境は（残念ながら10.0-Rではなく）FreeBSD 9.2-RELEASE-p1。</p>
-
-<h2 id="span-style-text-decoration-underline-lz4でzfsの圧縮機能を気軽に試せるように-span"><span style="text-decoration: underline;">lz4でzfsの圧縮機能を気軽に試せるように</span></h2>
-
-<p>ファイルシステムで圧縮機能を有効にすると、読み書きのいずれにもCPUパワーが必要で、要するに遅くなる。<br />
-非力なCPUを使っているとなかなか使いにくい機能なのだが、圧縮方法にlz4が選べるようになってハードルは下がったように思う。<br />
-lz4は<a href="../../../2013/02/%E3%82%A2%E3%83%BC%E3%82%AB%E3%82%A4%E3%83%90lz4%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%89%EF%BC%88%E5%9C%A7%E7%B8%AE%E3%81%AF%EF%BC%89%E9%80%9F%E3%81%99%E3%81%8E%E7%AC%91/" target="_blank">ここでも触れた</a>が、めっぽう速い圧縮アルゴリズムである。<br />
+<h2 id="span-styletext-decoration-underlinelz4zfsspan"><!-- raw HTML omitted -->lz4でzfsの圧縮機能を気軽に試せるように<!-- raw HTML omitted --></h2>
+<p>ファイルシステムで圧縮機能を有効にすると、読み書きのいずれにもCPUパワーが必要で、要するに遅くなる。<br>
+非力なCPUを使っているとなかなか使いにくい機能なのだが、圧縮方法にlz4が選べるようになってハードルは下がったように思う。<br>
+lz4は<!-- raw HTML omitted -->ここでも触れた<!-- raw HTML omitted -->が、めっぽう速い圧縮アルゴリズムである。<br>
 これはぜひとも使ってみなければ。</p>
-
-<h2 id="span-style-text-decoration-underline-ディスクの確認とzfs機能の確認-span"><span style="text-decoration: underline;">ディスクの確認とzfs機能の確認</span></h2>
-
+<h2 id="span-styletext-decoration-underlinezfsspan"><!-- raw HTML omitted -->ディスクの確認とzfs機能の確認<!-- raw HTML omitted --></h2>
 <p>物理ディスクを追加し、ブートしたらdmesgを確認する。</p>
-
-<pre><code class="language-console">$ uname -r
+<pre><code class="language-console" data-lang="console">$ uname -r
 9.2-RELEASE
 $ dmesg|grep ada
 ada2 at ahcich2 bus 0 scbus2 target 0 lun 0
@@ -167,15 +157,11 @@ ada2: Command Queueing enabled
 ada2: 2861588MB (5860533168 512 byte sectors: 16H 63S/T 16383C)
 ada2: quirks=0x1&lt;4K&gt;
 ada2: Previously was known as ad8
-</code></pre>
-
-<p>ada2とのこと。</p>
-
-<p>作業前にzfs, zpoolのバージョンを確認しておいてもいいかも。<br />
-zfs, zpoolそれぞれにupgradeオプションを与えればよい。<br />
+</code></pre><p>ada2とのこと。</p>
+<p>作業前にzfs, zpoolのバージョンを確認しておいてもいいかも。<br>
+zfs, zpoolそれぞれにupgradeオプションを与えればよい。<br>
 upgradeという名前の通り、upgradeのためのコマンドだが、バージョン確認にも使える。</p>
-
-<pre><code class="language-console">$ zfs upgrade
+<pre><code class="language-console" data-lang="console">$ zfs upgrade
 This system is currently running ZFS filesystem version 5.
 
 All filesystems are formatted with the current version.
@@ -194,25 +180,16 @@ VER  POOL
 
 Use 'zpool upgrade -v' for a list of available legacy versions.
 Every feature flags pool has all supported features enabled.
-</code></pre>
-
-<p>zfsはバージョン5、zpoolはバージョン28。<br />
+</code></pre><p>zfsはバージョン5、zpoolはバージョン28。<br>
 このバージョンであれば、lz4による圧縮機能（LZ4 Compression algorithm support)と、重複排除機能（Deduplication)を使える。</p>
-
-<h2 id="span-style-text-decoration-underline-pool-zfsの作成-span"><span style="text-decoration: underline;">pool、zfsの作成</span></h2>
-
+<h2 id="span-styletext-decoration-underlinepoolzfsspan"><!-- raw HTML omitted -->pool、zfsの作成<!-- raw HTML omitted --></h2>
 <p>warehouseというzpoolを作り、そこからbackupというボリュームを切り出す。</p>
-
-<p>まずzpoolを作る。<br />
+<p>まずzpoolを作る。<br>
 ほんと簡単で速くて助かる。</p>
-
-<pre><code class="language-console">$ sudo zpool create backup /dev/ada2
+<pre><code class="language-console" data-lang="console">$ sudo zpool create backup /dev/ada2
 $
-</code></pre>
-
-<p>で確認。</p>
-
-<pre><code class="language-console">$ mount
+</code></pre><p>で確認。</p>
+<pre><code class="language-console" data-lang="console">$ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates)
 devfs on /dev (devfs, local, multilabel)
 vault/itunes on /itunes (zfs, local, noatime, nfsv4acls)
@@ -242,12 +219,9 @@ $ df
  vault/itunes  1436646199 598670122  837976077    42%    /itunes
  vault/chamber 1796007595 958031518  837976077    53%    /chamber
  warehouse     2873622450        31 2873622419     0%    /warehouse
-</code></pre>
-
-<p>ではzpoolからzfsの切り出し。<br />
+</code></pre><p>ではzpoolからzfsの切り出し。<br>
 先ほど作成したwarehouseからbackupという名前で。</p>
-
-<pre><code class="language-console">$ sudo zfs create warehouse/backup
+<pre><code class="language-console" data-lang="console">$ sudo zfs create warehouse/backup
 $
 $ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates)
@@ -264,17 +238,11 @@ vault/itunes     1436646199 598670122  837976077    42%    /itunes
 vault/chamber    1796007595 958031518  837976077    53%    /chamber
 warehouse        2873622404        32 2873622372     0%    /warehouse
 warehouse/backup 2873622403        31 2873622372     0%    /warehouse/backup
-</code></pre>
-
-<p>あとは/etc/fstabに書くだけ。<br />
+</code></pre><p>あとは/etc/fstabに書くだけ。<br>
 warehouse/backupを/backupにマウントするとして以下のように書いておき。</p>
-
-<pre><code class="language-console">warehouse/backup        /backup zfs     rw      0       0
-</code></pre>
-
-<p>/warehouse/backupをいったんunmountしてそれからmount。</p>
-
-<pre><code class="language-console">$ sudo umount /warehouse/backup
+<pre><code class="language-console" data-lang="console">warehouse/backup        /backup zfs     rw      0       0
+</code></pre><p>/warehouse/backupをいったんunmountしてそれからmount。</p>
+<pre><code class="language-console" data-lang="console">$ sudo umount /warehouse/backup
 $
 $ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates)
@@ -292,23 +260,16 @@ vault/itunes on /itunes (zfs, local, noatime, nfsv4acls)
 vault/chamber on /chamber (zfs, local, noatime, nfsv4acls)
 warehouse on /warehouse (zfs, local, nfsv4acls)
 warehouse/backup on /backup (zfs, local, nfsv4acls)
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-圧縮機能と重複排除機能を有効に-span"><span style="text-decoration: underline;">圧縮機能と重複排除機能を有効に</span></h2>
-
-<p>ではさっそく圧縮機能と重複排除機能を有効にする。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->圧縮機能と重複排除機能を有効に<!-- raw HTML omitted --></h2>
+<p>ではさっそく圧縮機能と重複排除機能を有効にする。<br>
 といっても、すっごく簡単なんだけどね。</p>
-
-<pre><code class="language-console">$ sudo zfs set dedup=on warehouse/backup
+<pre><code class="language-console" data-lang="console">$ sudo zfs set dedup=on warehouse/backup
 $
 $ sudo zfs set compression=lz4 warehouse/backup
 $
-</code></pre>
-
-<p>確認。<br />
+</code></pre><p>確認。<br>
 zfs getで対象zfsの属性を確認できる。</p>
-
-<pre><code class="language-console">$ zfs get dedup warehouse/backup
+<pre><code class="language-console" data-lang="console">$ zfs get dedup warehouse/backup
 NAME              PROPERTY  VALUE          SOURCE
 warehouse/backup  dedup     on             local
 $
@@ -316,81 +277,52 @@ $ zfs get compression warehouse/backup
 NAME              PROPERTY     VALUE     SOURCE
 warehouse/backup  compression  lz4       local
 $
-</code></pre>
-
-<p>タイプが面倒ならzfs get allですべての属性を表示させ、grepすればよい。</p>
-
-<pre><code class="language-console">$ zfs get all warehouse/backup|egrep &quot;compre|ded&quot;
+</code></pre><p>タイプが面倒ならzfs get allですべての属性を表示させ、grepすればよい。</p>
+<pre><code class="language-console" data-lang="console">$ zfs get all warehouse/backup|egrep &quot;compre|ded&quot;
 warehouse/backup  compressratio         1.00x                    -
 warehouse/backup  compression           lz4                      local
 warehouse/backup  dedup                 on                       local
 warehouse/backup  refcompressratio      1.00x                    -
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-書き込んでみる-span"><span style="text-decoration: underline;">書き込んでみる</span></h2>
-
-<p>今回追加したHDDはもともとバックアップ用途のつもり。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->書き込んでみる<!-- raw HTML omitted --></h2>
+<p>今回追加したHDDはもともとバックアップ用途のつもり。<br>
 ここにスナップショットを流しこんでみる。</p>
-
 <p>以下のようにしてスナップショットを作成する。</p>
-
-<pre><code class="language-console">$ sudo zfs snapshot vault/itunes@`date +%Y%m%d`
+<pre><code class="language-console" data-lang="console">$ sudo zfs snapshot vault/itunes@`date +%Y%m%d`
 $
 $ sudo zfs snapshot vault/chamber@`date +%Y%m%d`
-</code></pre>
-
-<p>スナップショットのサイズは以下のとおりである。</p>
-
-<pre><code class="language-console">$ zfs list -t snapshot
+</code></pre><p>スナップショットのサイズは以下のとおりである。</p>
+<pre><code class="language-console" data-lang="console">$ zfs list -t snapshot
 NAME                     USED  AVAIL  REFER  MOUNTPOINT
 vault/chamber@20131121      0      -   914G  -
 vault/itunes@20131121       0      -   571G  -
-</code></pre>
-
-<p>これらスナップショットをバックアップのHDDに流し込む。<br />
-zfs sendとzfs recvをパイプで繋ぐ必要がある。<br />
+</code></pre><p>これらスナップショットをバックアップのHDDに流し込む。<br>
+zfs sendとzfs recvをパイプで繋ぐ必要がある。<br>
 sudoを使う場合にはsh -cで。</p>
-
-<pre><code class="language-console">$ sudo sh -c &quot;zfs send vault/chamber@20131121 | zfs recv warehouse/backup/chamber&quot;
-</code></pre>
-
-<p>注意点がある。<br />
-以上のようにsnapshotを送ると、受け側では：<br />
-①warehouse/backup/chamber ができ、さらに;<br />
-②warehouse/backup/chamber@20131121 つまり;<br />
+<pre><code class="language-console" data-lang="console">$ sudo sh -c &quot;zfs send vault/chamber@20131121 | zfs recv warehouse/backup/chamber&quot;
+</code></pre><p>注意点がある。<br>
+以上のようにsnapshotを送ると、受け側では：<br>
+①warehouse/backup/chamber ができ、さらに;<br>
+②warehouse/backup/chamber@20131121 つまり;<br>
 実ディレクトリで言えばwarehouse/backup/chamber/.zfs/snapshot/20131121ができる。</p>
-
 <p>漠然とvault/chamber@20131121の内容がwarehouse/backup/chamberに書き込まれる思っていたので驚いた。</p>
-
 <p>また、ロードアベレージを監視するような仕組みは特に入れていなかったので、topの出力を見たところ5を超えてた。ちょっと怖い。</p>
-
-<pre><code class="language-console">last pid: 10483;  load averages:  5.37,  2.84,  1.36           up 2+23:24:54  22:01:40
+<pre><code class="language-console" data-lang="console">last pid: 10483;  load averages:  5.37,  2.84,  1.36           up 2+23:24:54  22:01:40
 45 processes:  3 running, 42 sleeping
 CPU:  0.0% user,  0.0% nice, 56.8% system,  0.3% interrupt, 42.9% idle
 Mem: 20M Active, 96M Inact, 1592M Wired, 11M Cache, 200M Buf, 120M Free
 ARC: 1039M Total, 58M MFU, 826M MRU, 103M Anon, 11M Header, 40M Other
 Swap: 907M Total, 10M Used, 897M Free, 1% Inuse
-</code></pre>
-
-<p>そしてたかだか913GBのsnapshotの転送にかかった時間であるが。</p>
-
-<pre><code class="language-console">real    3756m59.109s
+</code></pre><p>そしてたかだか913GBのsnapshotの転送にかかった時間であるが。</p>
+<pre><code class="language-console" data-lang="console">real    3756m59.109s
 user    0m0.048s
 sys     192m3.897s
-</code></pre>
-
-<p>まる二日半て…。<br />
+</code></pre><p>まる二日半て…。<br>
 これは圧縮か重複排除か、どちらか止めた方がいいかもわからんね。</p>
-
-<h2 id="span-style-text-decoration-underline-差分snapshotの転送-span"><span style="text-decoration: underline;">差分snapshotの転送</span></h2>
-
-<p>オリジナルディスクで複数回snapshotを作成した場合、バックアップディスクにはその差分を送ることができる。<br />
+<h2 id="span-styletext-decoration-underlinesnapshotspan"><!-- raw HTML omitted -->差分snapshotの転送<!-- raw HTML omitted --></h2>
+<p>オリジナルディスクで複数回snapshotを作成した場合、バックアップディスクにはその差分を送ることができる。<br>
 zfs sendに-iを与え、二つのsnapshotを指定すればよいだけ。</p>
-
-<pre><code class="language-console">$ sudo sh -c &quot;zfs send -i vault/chamber@20131121 vault/chamber@20131125 | zfs recv warehouse/backup/chamber&quot;
-</code></pre>
-
-<p>以上</p>
+<pre><code class="language-console" data-lang="console">$ sudo sh -c &quot;zfs send -i vault/chamber@20131121 vault/chamber@20131125 | zfs recv warehouse/backup/chamber&quot;
+</code></pre><p>以上</p>
 <ul class="pa0">
   
    <li class="list">

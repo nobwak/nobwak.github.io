@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-12-23T20:50:02+09:00" />
 <meta itemprop="name" content="日常使いのpkgng:pkgを探してインストール">
 <meta itemprop="description" content="インストールしたいpkgがある場合、どのように探すか。 pkg searchに与えるオプションを変えながら探していく。 sageというpkgを探す場合">
-
-
 <meta itemprop="datePublished" content="2013-12-23T20:50:02&#43;09:00" />
 <meta itemprop="dateModified" content="2013-12-23T20:50:02&#43;09:00" />
-<meta itemprop="wordCount" content="1181">
+<meta itemprop="wordCount" content="1180">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,pkgng," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="日常使いのpkgng:pkgを探してインストール"/>
 <meta name="twitter:description" content="インストールしたいpkgがある場合、どのように探すか。 pkg searchに与えるオプションを変えながら探していく。 sageというpkgを探す場合"/>
 
@@ -140,17 +137,12 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>インストールしたいpkgがある場合、どのように探すか。<br />
-pkg searchに与えるオプションを変えながら探していく。<br />
-<a href="http://en.wikipedia.org/wiki/Sage_%28mathematics_software%29" target="_blank">sage</a>というpkgを探す場合を例に取って記録しておく。</p>
-
-<h2 id="span-style-text-decoration-underline-まずはsearchから-span"><span style="text-decoration: underline;">まずはsearchから</span></h2>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>インストールしたいpkgがある場合、どのように探すか。<br>
+pkg searchに与えるオプションを変えながら探していく。<br>
+<!-- raw HTML omitted -->sage<!-- raw HTML omitted -->というpkgを探す場合を例に取って記録しておく。</p>
+<h2 id="span-styletext-decoration-underlinesearchspan"><!-- raw HTML omitted -->まずはsearchから<!-- raw HTML omitted --></h2>
 <p>pkg seach sageですな。</p>
-
-<pre><code class="language-console">$ pkg search sage
+<pre><code class="language-console" data-lang="console">$ pkg search sage
 dosage-2.6
 gmessage-0.2_5
 gxmessage-2.12.4_1
@@ -160,29 +152,19 @@ p5-CGI-Application-Plugin-MessageStack-0.34
 p5-Catalyst-Plugin-StatusMessage-1.002000
 p5-Data-MessagePack-0.48
 p5-Data-MessagePack-Stream-0.07_1
-</code></pre>
-
-<p>山のように引っかかって面倒。<br />
+</code></pre><p>山のように引っかかって面倒。<br>
 検索する文字列を考慮してみよう。</p>
-
-<h2 id="span-style-text-decoration-underline-searchで正規表現-span"><span style="text-decoration: underline;">searchで正規表現</span></h2>
-
-<p>正規表現が使えるので、頭にsageとつくpkgを探す。&rdquo;^sage&rdquo;を与えればよいですな。</p>
-
-<pre><code class="language-console">$ pkg search &quot;^sage&quot;
+<h2 id="span-styletext-decoration-underlinesearchspan-1"><!-- raw HTML omitted -->searchで正規表現<!-- raw HTML omitted --></h2>
+<p>正規表現が使えるので、頭にsageとつくpkgを探す。&ldquo;^sage&quot;を与えればよいですな。</p>
+<pre><code class="language-console" data-lang="console">$ pkg search &quot;^sage&quot;
 sage-0.2.0_3
-</code></pre>
-
-<p>一件になった。<br />
+</code></pre><p>一件になった。<br>
 ではインストール…の前に必ず確認。</p>
-
-<h2 id="span-style-text-decoration-underline-インストールしていないpkgの詳細を知る-span"><span style="text-decoration: underline;">インストールしていないpkgの詳細を知る</span></h2>
-
-<p>インストール済みのpkgであればpkg infoで調べることができる。<br />
-未インストールならどうするか。<br />
+<h2 id="span-styletext-decoration-underlinepkgspan"><!-- raw HTML omitted -->インストールしていないpkgの詳細を知る<!-- raw HTML omitted --></h2>
+<p>インストール済みのpkgであればpkg infoで調べることができる。<br>
+未インストールならどうするか。<br>
 -fを付ければよい。</p>
-
-<pre><code class="language-console">$ pkg search -f &quot;^sage&quot;
+<pre><code class="language-console" data-lang="console">$ pkg search -f &quot;^sage&quot;
 sage-0.2.0_3
 Name           : sage
 Version        : 0.2.0_3
@@ -203,67 +185,44 @@ Sage is an OpenGL extension library written to make use of SDL's mechanism for
 enabling OpenGL's extensions.
 
 WWW: http://www.worldforge.org/dev/eng/libraries/sage
-</code></pre>
-
-<p>欲しいsageは数学関連のものなので、どうも違うようですな。<br />
-危なかった！<br />
+</code></pre><p>欲しいsageは数学関連のものなので、どうも違うようですな。<br>
+危なかった！<br>
 しかし狙いのsageは無いのだろうか。</p>
-
-<h2 id="span-style-text-decoration-underline-カテゴリで探す-span"><span style="text-decoration: underline;">カテゴリで探す</span></h2>
-
-<p>pkgはカテゴリ分けされている。<br />
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->カテゴリで探す<!-- raw HTML omitted --></h2>
+<p>pkgはカテゴリ分けされている。<br>
 狙いのsageは数学関連であるから、おそらくmathの下にあるはずだ。</p>
-
-<pre><code class="language-console">$  pkg search &quot;^math/&quot;|less
+<pre><code class="language-console" data-lang="console">$  pkg search &quot;^math/&quot;|less
 math/R
 math/R-cran-ChangeAnomalyDetection
 math/R-cran-Formula
 （略）
-</code></pre>
-
-<p>あるいは:</p>
-
-<pre><code class="language-console">$ pkg search &quot;math\/&quot;|less
+</code></pre><p>あるいは:</p>
+<pre><code class="language-console" data-lang="console">$ pkg search &quot;math\/&quot;|less
 math/R
 math/R-cran-ChangeAnomalyDetection
 math/R-cran-Formula
 （略）
-</code></pre>
-
-<p>しかし。<br />
+</code></pre><p>しかし。<br>
 ありませんでした。</p>
-
-<pre><code class="language-console">$ pkg search &quot;math\/&quot;|grep sage|wc -l
+<pre><code class="language-console" data-lang="console">$ pkg search &quot;math\/&quot;|grep sage|wc -l
        0
 $
-</code></pre>
-
-<p>仕方がないのでportsでインストールしよう。</p>
-
-<p>math/sageはportsにはないのだろうか。<br />
+</code></pre><p>仕方がないのでportsでインストールしよう。</p>
+<p>math/sageはportsにはないのだろうか。<br>
 psearchを使う。</p>
-
-<pre><code class="language-console">$ psearch &quot;^sage&quot;
+<pre><code class="language-console" data-lang="console">$ psearch &quot;^sage&quot;
 graphics/sage             OpenGL extension library
 math/sage                 Open source Mathematics software
-</code></pre>
-
-<p>あった。</p>
-
-<h2 id="span-style-text-decoration-underline-portsでのインストールは最小限に-span"><span style="text-decoration: underline;">portsでのインストールは最小限に。</span></h2>
-
-<p>しかしportsからインストールするソフトウェアは最小限にしたい。<br />
-つまりmath/sageだけはportsを使ってもよいが、依存するものはpkgを使いたい。<br />
+</code></pre><p>あった。</p>
+<h2 id="span-styletext-decoration-underlineportsspan"><!-- raw HTML omitted -->portsでのインストールは最小限に。<!-- raw HTML omitted --></h2>
+<p>しかしportsからインストールするソフトウェアは最小限にしたい。<br>
+つまりmath/sageだけはportsを使ってもよいが、依存するものはpkgを使いたい。<br>
 本命ではない依存ソフトウェアのコンパイルなど待ちたくないし。</p>
-
-<p>portmasterを使うなら-Pを与えればよい。<br />
+<p>portmasterを使うなら-Pを与えればよい。<br>
 以下、portmasterのman抜粋。</p>
-
-<pre><code class="language-console">-P|--packages
+<pre><code class="language-console" data-lang="console">-P|--packages
          use packages, but build port if not available
-</code></pre>
-
-<pre><code class="language-console">$ sudo portmaster -P math/sage
+</code></pre><pre><code class="language-console" data-lang="console">$ sudo portmaster -P math/sage
 （中略）
 ===&gt;&gt;&gt; Initial dependency check complete for math/sage
 ===&gt;&gt;&gt; math/sage &gt;&gt; (15)
@@ -286,28 +245,21 @@ math/sage                 Open source Mathematics software
         Install devel/libtool
 
 ===&gt;&gt;&gt; Proceed? y/n [y] n
-</code></pre>
-
-<p>pkgのアップグレードも提案された。<br />
-嫌な予感しかしない。<br />
-pkgのアップグレードはやめよう。<br />
+</code></pre><p>pkgのアップグレードも提案された。<br>
+嫌な予感しかしない。<br>
+pkgのアップグレードはやめよう。<br>
 いったんNで抜ける。</p>
-
-<h2 id="span-style-text-decoration-underline-portmasterで特定のportsのアップグレードを抑止したい-span"><span style="text-decoration: underline;">portmasterで特定のportsのアップグレードを抑止したい。</span></h2>
-
-<p>-xオプションを使う。<br />
+<h2 id="span-styletext-decoration-underlineportmasterportsspan"><!-- raw HTML omitted -->portmasterで特定のportsのアップグレードを抑止したい。<!-- raw HTML omitted --></h2>
+<p>-xオプションを使う。<br>
 portmasterのmanから抜粋。</p>
-
-<pre><code class="language-console">$ portmaster --version
+<pre><code class="language-console" data-lang="console">$ portmaster --version
 ===&gt;&gt;&gt; Version 3.17.3
 $ man portmaster
      -x  avoid building or updating ports that match this pattern.  Can be
          specified more than once.  If a port is not already installed the
          exclude pattern will be run against the directory name from
          /usr/ports.
-</code></pre>
-
-<pre><code class="language-console">$ sudo portmaster -P -x pkg math/sage
+</code></pre><pre><code class="language-console" data-lang="console">$ sudo portmaster -P -x pkg math/sage
 (中略)
 ===&gt;&gt;&gt; Initial dependency check complete for math/sage
 ===&gt;&gt;&gt; math/sage &gt;&gt; (14)
@@ -327,9 +279,7 @@ $ man portmaster
         Install textproc/texi2html
         Install www/libwww
         Install devel/libtool
-</code></pre>
-
-<p>意図した通りpkgのupgradeが外れている。<br />
+</code></pre><p>意図した通りpkgのupgradeが外れている。<br>
 ただ…pkgレポジトリのものよりportsのバージョンが新しいとやっぱりportsが選ばれてしまう。</p>
 <ul class="pa0">
   

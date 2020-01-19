@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-03-01T21:40:11+09:00" />
 <meta itemprop="name" content="[FreeBSD] pkg_*システム捨てるのはいつ？今でしょ！（pkgngについて）">
 <meta itemprop="description" content="pkgngはpkg_*に変わるFreeBSDの簡単で手軽なバイナリパッケージ管理ツール。 FreeBSDでサードパーティのソフトウェアをインス">
-
-
 <meta itemprop="datePublished" content="2013-03-01T21:40:11&#43;09:00" />
 <meta itemprop="dateModified" content="2013-03-01T21:40:11&#43;09:00" />
-<meta itemprop="wordCount" content="2107">
+<meta itemprop="wordCount" content="2124">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] pkg_*システム捨てるのはいつ？今でしょ！（pkgngについて）"/>
 <meta name="twitter:description" content="pkgngはpkg_*に変わるFreeBSDの簡単で手軽なバイナリパッケージ管理ツール。 FreeBSDでサードパーティのソフトウェアをインス"/>
 
@@ -140,39 +137,26 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>pkgngはpkg_*に変わるFreeBSDの簡単で手軽なバイナリパッケージ管理ツール。</p>
-
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgngはpkg_*に変わるFreeBSDの簡単で手軽なバイナリパッケージ管理ツール。</p>
 <p>FreeBSDでサードパーティのソフトウェアをインストールする場合、コンパイル済みのpackageか、ソースからコンパイルするportsの２つの手段がある。</p>
-
-<p>このうち、前者を扱うには「pkg<em>」を接頭辞に持つコマンド群を使いこなす必要があり、Linuxのapt-getなどと比べるとイケてない感は否めなかった。<br />
-それでも、FreeBSDには「ベースシステムにないものはportsでインストールしようぜ自分で好きなコンパイルオプションも設定できるしさあ」とか「pkg</em>*なんて女子供に使わせとけや」という空気があって（感じるのは私だけかもしれないが）、この点にはあまりリソースを割かれていないようだった。</p>
-
+<p>このうち、前者を扱うには「pkg_」を接頭辞に持つコマンド群を使いこなす必要があり、Linuxのapt-getなどと比べるとイケてない感は否めなかった。<br>
+それでも、FreeBSDには「ベースシステムにないものはportsでインストールしようぜ自分で好きなコンパイルオプションも設定できるしさあ」とか「pkg_*なんて女子供に使わせとけや」という空気があって（感じるのは私だけかもしれないが）、この点にはあまりリソースを割かれていないようだった。</p>
 <p>じっさい、後述するように、いまpkgngは公式には使えない状況になっているのだが、あんまり騒がれてなくて、やっぱりみんな興味がないのかなあと感じる。</p>
-
-<p>とはいえ、pkg_*を不便に感じる人はやっぱりいるもので、Baptiste Daroussinという偉い人が<a href="http://lists.freebsd.org/pipermail/freebsd-ports/2012-August/077909.html" target="_blank">作ってくれた</a>のがpkgngである。<br />
+<p>とはいえ、pkg_*を不便に感じる人はやっぱりいるもので、Baptiste Daroussinという偉い人が<!-- raw HTML omitted -->作ってくれた<!-- raw HTML omitted -->のがpkgngである。<br>
 前置きが長くなったが、このpkgngがとてもとても便利なので、使ってみた内容をここに記す。</p>
-
-<h3 id="pkgngとは"><strong>pkgngとは。</strong></h3>
-
-<p><a href="https://wiki.freebsd.org/pkgng" target="_blank">wiki</a>、<a href="http://www.freebsd.org/doc/handbook/pkgng-intro.html" target="_blank">FreeBSD Handbook</a>があるのでそちらを参照。<br />
-portmasterやportupgradeの代替ではないことに注意。<br />
-portmasterやportupgradeはバイナリパッケージとports双方を扱えるが、pkgngはバイナリパッケージのみ。<br />
-代替するのはpkg_*。<br />
+<h3 id="pkgng"><strong>pkgngとは。</strong></h3>
+<p><!-- raw HTML omitted -->wiki<!-- raw HTML omitted -->、<!-- raw HTML omitted -->FreeBSD Handbook<!-- raw HTML omitted -->があるのでそちらを参照。<br>
+portmasterやportupgradeの代替ではないことに注意。<br>
+portmasterやportupgradeはバイナリパッケージとports双方を扱えるが、pkgngはバイナリパッケージのみ。<br>
+代替するのはpkg_*。<br>
 9.1-RELEASE以降であればベースシステムにある。</p>
-
-<pre><code class="language-console">$ uname -r
+<pre><code class="language-console" data-lang="console">$ uname -r
 9.1-RELEASE
 $ which pkg
 /usr/sbin/pkg
-</code></pre>
-
-<p>それ以前のシステムであればports/ports-mgmt/pkgにあるが、7.xと8.0では対応していない。</p>
-
+</code></pre><p>それ以前のシステムであればports/ports-mgmt/pkgにあるが、7.xと8.0では対応していない。</p>
 <p>初めてpkgngを使うとインストールされる。</p>
-
-<pre><code class="language-console"># pkg help install
+<pre><code class="language-console" data-lang="console"># pkg help install
 The package management tool is not yet installed on your system.
 Do you want to fetch and install it now? [y/N]: y
 Bootstrapping pkg please wait
@@ -180,69 +164,43 @@ Installing pkg-1.0.2... done
 If you are upgrading from the old package format, first run:
 
 # pkg2ng
-</code></pre>
-
-<p>もし、いくつかバイナリパッケージやportsからインストールしていたなら、pkg_dbの変換が必要でpkg2ngを実行しろ、と出てますな。</p>
-
-<h3 id="もうportsやpkgをインストールしていたら"><strong>もうportsやpkgをインストールしていたら。</strong></h3>
-
+</code></pre><p>もし、いくつかバイナリパッケージやportsからインストールしていたなら、pkg_dbの変換が必要でpkg2ngを実行しろ、と出てますな。</p>
+<h3 id="portspkg"><strong>もうportsやpkgをインストールしていたら。</strong></h3>
 <p>root権限でpkg2ngを叩けばよい。</p>
-
-<pre><code class="language-console"># pkg2ng
+<pre><code class="language-console" data-lang="console"># pkg2ng
 Conversion has been successfully finished
 Your old packages database has been moved to: /var/db/pkg.bak.
-</code></pre>
-
-<h3 id="make-confに追加"><strong>make.confに追加</strong></h3>
-
+</code></pre><h3 id="makeconf"><strong>make.confに追加</strong></h3>
 <p>FreeBSD 10.0より前のシステムであれば、handbookの通りに。</p>
-
-<pre><code class="language-console">WITH_PKGNG=	yes
-</code></pre>
-
-<blockquote>
+<pre><code class="language-console" data-lang="console">WITH_PKGNG=	yes
+</code></pre><blockquote>
 <p>To ensure the FreeBSD Ports Collection registers new software with pkgng, and not pkg_install, FreeBSD versions earlier than 10.X require this line in /etc/make.conf</p>
 </blockquote>
-
-<h3 id="これで準備万端-ではないのであった"><strong>これで準備万端！&hellip;ではないのであった。</strong></h3>
-
-<p>2012年11月、FreeBSD.orgへ何者かが<a href="http://www.freebsd.org/news/2012-compromise.html" target="_blank">侵入する事件</a>があり、pkgngの公式サイトもしばらく閉鎖&hellip;。<br />
+<h3 id="heading"><strong>これで準備万端！&hellip;ではないのであった。</strong></h3>
+<p>2012年11月、FreeBSD.orgへ何者かが<!-- raw HTML omitted -->侵入する事件<!-- raw HTML omitted -->があり、pkgngの公式サイトもしばらく閉鎖&hellip;。<br>
 「もう三ヶ月も経つじゃねーか何してやがんだこのxxxx」と言いたくなるが、こればかりはどうにもならない。</p>
-
-<p>と、ここでPC-BSDの皆様が<a href="http://forums.freebsd.org/showthread.php?t=37983" target="_blank">「俺んとこのを使えよ」</a>と言ってくださったそうなので、ありがたく使おう。</p>
-
-<p>（追記:2013/11/7）<br />
-公式のpkgngが公開されている。詳しくは以下を。<br />
-<a href="../../../?p=2357" target="_blank">../../../?p=2357</a><br />
+<p>と、ここでPC-BSDの皆様が<!-- raw HTML omitted -->「俺んとこのを使えよ」<!-- raw HTML omitted -->と言ってくださったそうなので、ありがたく使おう。</p>
+<p>（追記:2013/11/7）<br>
+公式のpkgngが公開されている。詳しくは以下を。<br>
+<!-- raw HTML omitted -->../../../?p=2357<!-- raw HTML omitted --><br>
 （追記ここまで）</p>
-
-<h3 id="pkgngの取得先をpc-bsdサイトへ振り向ける"><strong>pkgngの取得先をPC-BSDサイトへ振り向ける</strong></h3>
-
-<p>pkg.confを書き換える。<br />
-packagesiteはオリジナルのサイトではなく、日本のミラーにすること。<br />
-日本のミラーは下記の２つ。いずれも有名どころですな。<br />
+<h3 id="pkgngpc-bsd"><strong>pkgngの取得先をPC-BSDサイトへ振り向ける</strong></h3>
+<p>pkg.confを書き換える。<br>
+packagesiteはオリジナルのサイトではなく、日本のミラーにすること。<br>
+日本のミラーは下記の２つ。いずれも有名どころですな。<br>
 もちろん、RELEASEバージョン、アーキテクチャは自分のシステムに合わせること。</p>
-
-<pre><code class="language-console">ftp://pub.allbsd.org/pub/pcbsd/packages/9.1-RELEASE/i386/
+<pre><code class="language-console" data-lang="console">ftp://pub.allbsd.org/pub/pcbsd/packages/9.1-RELEASE/i386/
 http://ftp.jaist.ac.jp/pub/PC-BSD/packages/9.1-RELEASE/i386/
-</code></pre>
-
-<p>このあと、PC-BSDミラーからpkgngのデータベースをダウンロードする。</p>
-
-<pre><code class="language-console"># pkg update -f
+</code></pre><p>このあと、PC-BSDミラーからpkgngのデータベースをダウンロードする。</p>
+<pre><code class="language-console" data-lang="console"># pkg update -f
 
 Updating repository catalogue
 repo.txz                            100% 7201KB   1.4MB/s 861.0KB/s   00:05
-</code></pre>
-
-<p>PC-BSDサイト向けの設定はこれでおしまい。</p>
-
-<h3 id="使ってみようぜ"><strong>使ってみようぜ</strong></h3>
-
-<p>使い方は<a href="http://www.freebsd.org/doc/handbook/pkgng-intro.html" target="_blank">handbook</a>を。<br />
+</code></pre><p>PC-BSDサイト向けの設定はこれでおしまい。</p>
+<h3 id="heading-1"><strong>使ってみようぜ</strong></h3>
+<p>使い方は<!-- raw HTML omitted -->handbook<!-- raw HTML omitted -->を。<br>
 sudoをインストールするので、まず探してみる。</p>
-
-<pre><code class="language-console"># pkg search sudo
+<pre><code class="language-console" data-lang="console"># pkg search sudo
 sudoscript-2.1.2               Audited shells in Perl with sudo(8) and script(1)
 sudoku-1.0.2                   Console based Sudoku games
 sudosh2-1.0.4                  Second version of the sudo shell
@@ -250,11 +208,8 @@ sudo-1.8.6.p5                  Allow others to run commands as 
 sudoku_solver-1.20             A Sudoku Solver in C
 sudosh-1.8.2_5                 A sudo shell
 sshsudo-1.0                    A bash script to run sudo command on multiple remote computers
-</code></pre>
-
-<p>そしてインストール、しようと思ったら「お前のpkgは古い。まず1.0.8にしろよ」とのお達し。FreeBSDにおいてこれは新鮮である。正直驚いた。</p>
-
-<pre><code class="language-console"># pkg install sudo
+</code></pre><p>そしてインストール、しようと思ったら「お前のpkgは古い。まず1.0.8にしろよ」とのお達し。FreeBSDにおいてこれは新鮮である。正直驚いた。</p>
+<pre><code class="language-console" data-lang="console"># pkg install sudo
 Updating repository catalogue
 Repository catalogue is up-to-date, no need to fetch fresh copy
 New version of pkg detected; it needs to be installed first.
@@ -272,19 +227,13 @@ Proceed with installing packages [y/N]: y
 pkg-1.0.8.txz                       100% 1397KB   1.4MB/s 856.9KB/s   00:01
 Checking integrity... done
 Upgrading pkg from 1.0.2 to 1.0.8... done
-</code></pre>
-
-<p>pkg upgradeしろよ、と言うので素直に。</p>
-
-<pre><code class="language-console"># pkg upgrade
+</code></pre><p>pkg upgradeしろよ、と言うので素直に。</p>
+<pre><code class="language-console" data-lang="console"># pkg upgrade
 Updating repository catalogue
 repo.txz                            100% 7201KB   1.8MB/s 231.0KB/s   00:04
 Nothing to do
-</code></pre>
-
-<p>改めてsudoをインストール。</p>
-
-<pre><code class="language-console"># pkg install sudo
+</code></pre><p>改めてsudoをインストール。</p>
+<pre><code class="language-console" data-lang="console"># pkg install sudo
 Updating repository catalogue
 Repository catalogue is up-to-date, no need to fetch fresh copy
 The following packages will be installed:
@@ -308,18 +257,13 @@ Installing libiconv-1.14... done
 Installing gettext-0.18.1.1... done
 Installing openldap-client-2.4.33_1... done
 Installing sudo-1.8.6.p5... done
-</code></pre>
-
-<h3 id="使ってみて感じたこと"><strong>使ってみて感じたこと</strong></h3>
-
-<p>pkgngの第一印象はすごくいい。<br />
-検索が出来るだけでかなり違う。<br />
-また、ここにはログを上げなかったけれど、インストール済みのパッケージに更新があったら、驚くくらいさっさとやってくれる。<br />
+</code></pre><h3 id="heading-2"><strong>使ってみて感じたこと</strong></h3>
+<p>pkgngの第一印象はすごくいい。<br>
+検索が出来るだけでかなり違う。<br>
+また、ここにはログを上げなかったけれど、インストール済みのパッケージに更新があったら、驚くくらいさっさとやってくれる。<br>
 それにpkgngは依存関係を担保してくれてるようなのも安心。</p>
-
 <p>ただ、まだ使い始めたばかりなので、実はいろいろと不便なところがあるのかもしれない。まあ、そこはおいおいと。</p>
-
-<p>（追記）しばらく使った結果は<a href="../../../?p=1975">こちら</a>と<a href="../../../?p=1988" target="_blank">こちら</a>。</p>
+<p>（追記）しばらく使った結果は<a href="../../../?p=1975">こちら</a>と<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->。</p>
 <ul class="pa0">
   
 </ul>

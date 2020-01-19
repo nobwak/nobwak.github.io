@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2012-03-02T01:00:00+09:00" />
 <meta itemprop="name" content="popサーバ、dovecot2のインストール">
 <meta itemprop="description" content="&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;popサーバを構築する。&lt;/span&gt; LAN内にゆるーく作るので、とにか">
-
-
 <meta itemprop="datePublished" content="2012-03-02T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2012-03-02T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="1187">
+<meta itemprop="wordCount" content="1196">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="popサーバ、dovecot2のインストール"/>
 <meta name="twitter:description" content="&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;popサーバを構築する。&lt;/span&gt; LAN内にゆるーく作るので、とにか"/>
 
@@ -140,9 +137,7 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;popサーバを構築する。&lt;/span&gt;
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;popサーバを構築する。&lt;/span&gt;
 
 
 
@@ -189,26 +184,17 @@ FreeBSD handbook 29.2.4.1章を眺めて、dovecot2を選んだ。
 
 設定ファイルは下記だが。
 </code></pre>
-
-<pre><code class="language-console">/usr/local/etc/dovecot
+<pre><code class="language-console" data-lang="console">/usr/local/etc/dovecot
+</code></pre><pre><code>READMEがポツリ。
 </code></pre>
-
-<pre><code>READMEがポツリ。
-</code></pre>
-
-<pre><code class="language-console">Configuration files go to this directory. See example configuration files in
+<pre><code class="language-console" data-lang="console">Configuration files go to this directory. See example configuration files in
 /usr/local/share/doc/dovecot/example-config/
+</code></pre><pre><code>ということでまるごとコピー。
 </code></pre>
-
-<pre><code>ということでまるごとコピー。
-</code></pre>
-
-<pre><code class="language-console"># cd /usr/local/share/doc/dovecot/example-config/
+<pre><code class="language-console" data-lang="console"># cd /usr/local/share/doc/dovecot/example-config/
 # cp ./dovecot.conf /usr/local/etc/dovecot/
 # cp -R ./conf.d /usr/local/etc/dovecot/
-</code></pre>
-
-<pre><code>設定ファイルの書き換え。
+</code></pre><pre><code>設定ファイルの書き換え。
 
 
 
@@ -218,13 +204,10 @@ FreeBSD handbook 29.2.4.1章を眺めて、dovecot2を選んだ。
 
 pop3だけにした。
 </code></pre>
-
-<pre><code class="language-console"># Protocols we want to be serving.
+<pre><code class="language-console" data-lang="console"># Protocols we want to be serving.
 #protocols = imap pop3 lmtp
 protocols = pop3
-</code></pre>
-
-<pre><code>メールボックスの場所
+</code></pre><pre><code>メールボックスの場所
 
 
 
@@ -234,14 +217,11 @@ protocols = pop3
 
 mboxで結構。
 </code></pre>
-
-<pre><code class="language-console">vi conf.d/10-mail.conf
+<pre><code class="language-console" data-lang="console">vi conf.d/10-mail.conf
 以下を追加
 #mail_location =
 mail_location = mbox:~/mail:INBOX=/var/mail/%u
-</code></pre>
-
-<pre><code>SSL設定
+</code></pre><pre><code>SSL設定
 
 
 
@@ -279,8 +259,7 @@ FreeBSDを使っているんだし、/usr/local/etc/sslの下にしたい。
 
 では設定と作成。
 </code></pre>
-
-<pre><code class="language-console">conf.d/10-ssl.confにて。
+<pre><code class="language-console" data-lang="console">conf.d/10-ssl.confにて。
 # PEM encoded X.509 SSL/TLS certificate and private key. They&amp;#39;re opened before
 # dropping root privileges, so keep the key file unreadable by anyone but
 # root. Included doc/mkcert.sh can be used to easily generate self-signed
@@ -289,9 +268,7 @@ FreeBSDを使っているんだし、/usr/local/etc/sslの下にしたい。
 #ssl_key = &amp;#60;/etc/ssl/private/dovecot.pem
 ssl_cert = &amp;#60;/usr/local/etc/ssl/certs/dovecot.pem
 ssl_key = &amp;#60;/usr/local/etc/ssl/private/dovecot.pem
-</code></pre>
-
-<pre><code>pem作成。
+</code></pre><pre><code>pem作成。
 
 
 
@@ -320,39 +297,25 @@ portsでdovecot2を作ったところに戻る。
 
 make cleanしてしまった場合、portmaster等でインストールした場合には、慌てず/usr/ports/mail/dovecot2/で「make extract」すればOK。そして、
 </code></pre>
-
-<pre><code class="language-console">$ cd /usr/ports/mail/dovecot2/work/dovecot-2.0.16/doc/
-</code></pre>
-
-<pre><code>ここでスクリプトを実行してもよいし、どこかにコピーしてもよい。
+<pre><code class="language-console" data-lang="console">$ cd /usr/ports/mail/dovecot2/work/dovecot-2.0.16/doc/
+</code></pre><pre><code>ここでスクリプトを実行してもよいし、どこかにコピーしてもよい。
 
 
 
 俺様は、なんだか別のことにも使えそうなので、ホームディレクトリにコピーしておいた。スクリプトはdovecot-openssl.cnfを参照するのでこれもコピー。
 </code></pre>
-
-<pre><code class="language-console">$ cp ./mkcert.sh ~/bin/
+<pre><code class="language-console" data-lang="console">$ cp ./mkcert.sh ~/bin/
 $ cp ./dovecot-openssl.cnf ~/bin/
+</code></pre><pre><code>準備をして実行。以下はsh、あるいはbashでの例。
 </code></pre>
-
-<pre><code>準備をして実行。以下はsh、あるいはbashでの例。
-</code></pre>
-
-<p>``` console</p>
-
-<h1 id="mkdir-usr-local-etc-ssl-br">mkdir /usr/local/etc/ssl<br /></h1>
-
-<h1 id="mkdir-usr-local-etc-ssl-private-br">mkdir /usr/local/etc/ssl/private<br /></h1>
-
-<h1 id="mkdir-usr-local-etc-ssl-certs-br">mkdir /usr/local/etc/ssl/certs<br /></h1>
-
-<h1 id="ssldir-usr-local-etc-ssl-sh-mkcert-sh-br">SSLDIR=/usr/local/etc/ssl sh ./mkcert.sh<br /></h1>
-
-<p>Generating a 1024 bit RSA private key<br />
-..++++++<br />
-&hellip;&hellip;&hellip;&hellip;..++++++<br />
-writing new private key to &#39;/usr/local/etc/ssl/private/dovecot.pem&#39;</p>
-<ul class="pa0">
+<pre><code class="language-console" data-lang="console"># mkdir /usr/local/etc/ssl&lt;br /&gt;
+# mkdir /usr/local/etc/ssl/private&lt;br /&gt;
+# mkdir /usr/local/etc/ssl/certs&lt;br /&gt;
+# SSLDIR=/usr/local/etc/ssl sh ./mkcert.sh&lt;br /&gt;
+Generating a 1024 bit RSA private key&lt;br /&gt;
+..++++++&lt;br /&gt;
+..............++++++&lt;br /&gt;
+writing new private key to &amp;#39;/usr/local/etc/ssl/private/dovecot.pem&amp;#39;</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

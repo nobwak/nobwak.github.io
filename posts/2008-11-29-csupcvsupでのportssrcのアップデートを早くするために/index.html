@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-11-29T01:00:00+09:00" />
 <meta itemprop="name" content="csup(cvsup)でのports、srcのアップデートを早くするために">
 <meta itemprop="description" content="2014/3/20追記 なぜだかこの記事が未だにアクセスされているので追記。 もうFreeBSDではcsupは使われませんので注意のほどを。 追記">
-
-
 <meta itemprop="datePublished" content="2008-11-29T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-11-29T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="734">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="csup(cvsup)でのports、srcのアップデートを早くするために"/>
 <meta name="twitter:description" content="2014/3/20追記 なぜだかこの記事が未だにアクセスされているので追記。 もうFreeBSDではcsupは使われませんので注意のほどを。 追記"/>
 
@@ -140,11 +137,10 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><em>2014/3/20追記</em><br />
-<em>なぜだかこの記事が未だにアクセスされているので追記。</em><br />
-<em>もうFreeBSDではcsupは使われませんので注意のほどを。</em><br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><em>2014/3/20追記</em><br>
+<em>なぜだかこの記事が未だにアクセスされているので追記。</em><br>
+<em>もうFreeBSDではcsupは使われませんので注意のほどを。</em><br>
 <em>追記ここまで</em></p>
-
 <pre><code>&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071021/p2&quot; target=&quot;_blank&quot;&gt;ここ&lt;/a&gt;でも書いたが、portsのアップデートはcsupにしている。
 
 
@@ -163,8 +159,7 @@ if (!doNotTrack) {
 
 実行例。
 </code></pre>
-
-<pre><code class="language-console">[flageo@xxx ]$ fastest_cvsup -c jp
+<pre><code class="language-console" data-lang="console">[flageo@xxx ]$ fastest_cvsup -c jp
 &gt;&gt;  Querying servers in countries: jp
 --&gt; Connecting to cvsup.jp.freebsd.org [210.224.172.75]...
 - server replied: OK 17 0 SNAP_16_1h CVSup server ready
@@ -188,23 +183,18 @@ if (!doNotTrack) {
 - 1st: cvsup2.jp.freebsd.org
 - 2nd: cvsup3.jp.freebsd.org
 - 3rd: cvsup4.jp.freebsd.org
-</code></pre>
-
-<pre><code>で、-qオプションを与えてやると一番速いとこだけを返すようになるので、これをcsupに食わせてやる。
+</code></pre><pre><code>で、-qオプションを与えてやると一番速いとこだけを返すようになるので、これをcsupに食わせてやる。
 
 
 
 実行例
 </code></pre>
-
-<pre><code class="language-console"># csup -h `/usr/local/bin/fastest_cvsup -q -c jp` -g /etc/supfile-ports
+<pre><code class="language-console" data-lang="console"># csup -h `/usr/local/bin/fastest_cvsup -q -c jp` -g /etc/supfile-ports
 -=(oooooo)=(cvsup6.jp.freebsd.org)=-
 Connected to 203.216.196.85
 Updating collection ports-all/cvs
 (略)
-</code></pre>
-
-<pre><code>その時々でネットワークの状況だったり、サーバの混み具合が違い、結果として速いサーバも変わってくるので、csup実行時にチェックできるのがいいと思う。
+</code></pre><pre><code>その時々でネットワークの状況だったり、サーバの混み具合が違い、結果として速いサーバも変わってくるので、csup実行時にチェックできるのがいいと思う。
 
 
 
@@ -214,8 +204,7 @@ Updating collection ports-all/cvs
 
 こうしておくと、不要なファイルのダウンロードはしない。
 </code></pre>
-
-<pre><code class="language-console">$ cat /var/db/sup/refuse
+<pre><code class="language-console" data-lang="console">$ cat /var/db/sup/refuse
 doc/bn_*
 doc/da_*
 doc/de_*
@@ -247,8 +236,7 @@ ports/portuguese
 ports/russian
 ports/ukrainian
 ports/vietnamese
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2007-11-25T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDでのGNOMEインストール">
 <meta itemprop="description" content="「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 &lt;span style=&quot;font-style:italic;&quot;&gt;* 2008/11追記: 過疎blogにも">
-
-
 <meta itemprop="datePublished" content="2007-11-25T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2007-11-25T01:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="3075">
+<meta itemprop="wordCount" content="2968">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDでのGNOMEインストール"/>
 <meta name="twitter:description" content="「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 &lt;span style=&quot;font-style:italic;&quot;&gt;* 2008/11追記: 過疎blogにも"/>
 
@@ -207,18 +204,14 @@ FreeBSDにもPC-BSDとかあるが、デスクトップ環境がKDEだし・・�
 
 xorgからgnomeをportsでインストールした日には何日かかるかわからないので、全部パッケージで入れることにする。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  # PACKAGEROOT=&quot;&lt;a href=&quot;ftp://ftp2.jp.freebsd.org&quot; target=&quot;_blank&quot;&gt;ftp://ftp2.jp.freebsd.org&lt;/a&gt;&quot;;export PACKAGEROOT
 
 
 
   # pkg_add -r xorg
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>とすれば、xorgに関係するパッケージを全部入れてくれる(Bシェル系の場合)。
 
 
@@ -265,8 +258,7 @@ root権限でXorg -configureとして実行すると、/rootにxorg.conf.newが�
 
 Section &quot;InputDevice&quot;のキーボードに青字部分を追加
 </code></pre>
-
-<pre><code class="language-console">Section &quot;InputDevice&quot;
+<pre><code class="language-console" data-lang="console">Section &quot;InputDevice&quot;
 Identifier  &quot;Keyboard0&quot;
 Driver      &quot;kbd&quot;
 &lt;span style=&quot;color:#000099;&quot;&gt;	#日本語配列
@@ -275,15 +267,10 @@ Option          &quot;XkbLayout&quot;     &quot;jp&quot;
 #CTRLとCAPSLOCK入れ替え
 Option          &quot;XkbOptions&quot;    &quot;ctrl:swapcaps&quot;&lt;/span&gt;
 EndSection
+</code></pre><pre><code>Section &quot;Monitor&quot;に追加
 </code></pre>
-
-<pre><code>Section &quot;Monitor&quot;に追加
-</code></pre>
-
-<pre><code class="language-console">option          &quot;DPMS&quot;
-</code></pre>
-
-<pre><code>DPMSはディスプレイ省電力。
+<pre><code class="language-console" data-lang="console">option          &quot;DPMS&quot;
+</code></pre><pre><code>DPMSはディスプレイ省電力。
 
 
 
@@ -300,14 +287,10 @@ startxでtwmの起動まで確認したら、次はgnome2。
 
 &lt;span style=&quot;font-weight:bold;&quot;&gt;GNOMEのインストール&lt;/span&gt;
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  # pkg_add -r gnome2
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>としてインストール開始。
 
 
@@ -326,9 +309,7 @@ startxでtwmの起動まで確認したら、次はgnome2。
 
 /etc/rc.confに下記のとおり追加。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  gdm_enable=&quot;YES&quot;
 
 
@@ -355,9 +336,7 @@ startxでtwmの起動まで確認したら、次はgnome2。
 
   system_tools_backends_enable=&quot;YES&quot;
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>gnome_enable=&quot;YES&quot;とすればgnome関連デーモンの起動もしてくれる。
 
 
@@ -396,27 +375,10 @@ gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。
 
 大まかな流れ。
 </code></pre>
-
-<p><ol>
-    <li>
-      サウンド向けメタドライバをロードして、メジャーなサウンドドライバを片っ端から読み込む。
-    </li>
-    <li>
-      勝手に適当なドライバを判断してくれるのでそれを確認。
-    </li>
-    <li>
-      音を鳴らしてみて確認。OKなら、
-    </li>
-    <li>
-      見つけたドライバを起動時に読み込むよう設定。
-    </li>
-  </ol></p>
-
+<!-- raw HTML omitted -->
 <pre><code>具体的な手順は以下のとおり。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  # kldload snd_driver
 
 
@@ -443,19 +405,13 @@ gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。
 
   pcm0: &lt;Intel ICH3 (82801CA)&gt; at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld &lt;span style=&quot;font-weight:bold;&quot;&gt;snd_ich&lt;/span&gt;　[MPSAFE] (1p:1v/1r:1v channels duplex default)
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  snd_ich_load=&quot;YES&quot;
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>この時点でドライバはインストールされているが、GNOMEに認識させるために、一度再起動したほうがいいかも。
 
 
@@ -469,9 +425,7 @@ gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。
 
 俺の入れたソフト。
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  画像閲覧
 
 
@@ -522,8 +476,7 @@ gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。
 
   　ja-vlgothic
 </code></pre>
-
-<p></blockquote></p>
+<!-- raw HTML omitted -->
 <ul class="pa0">
   
 </ul>

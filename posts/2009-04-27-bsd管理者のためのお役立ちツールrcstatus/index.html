@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-04-27T01:00:00+09:00" />
 <meta itemprop="name" content="BSD管理者のためのお役立ちツールrcstatus">
 <meta itemprop="description" content="FreeBSDでは各種サーバソフトウェアの起動スクリプトは/etc/rc.d、/usr/local/etc/rc.d等のrc.dディレクトリ">
-
-
 <meta itemprop="datePublished" content="2009-04-27T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-04-27T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="981">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="BSD管理者のためのお役立ちツールrcstatus"/>
 <meta name="twitter:description" content="FreeBSDでは各種サーバソフトウェアの起動スクリプトは/etc/rc.d、/usr/local/etc/rc.d等のrc.dディレクトリ"/>
 
@@ -146,12 +143,9 @@ if (!doNotTrack) {
 
 /usr/ports/sysutils/bsdadminscriptsでインストールされるシェルスクリプトに以下のようなものがある。
 </code></pre>
-
-<pre><code class="language-console">rcstart rcstatus rcstop rcrestart
+<pre><code class="language-console" data-lang="console">rcstart rcstatus rcstop rcrestart
 rconestart rconestatus rconestop rconerestart
-</code></pre>
-
-<pre><code>これらのスクリプトは、rc.d配下のスクリプトの扱いを（少しだけ）楽にしてくれる。
+</code></pre><pre><code>これらのスクリプトは、rc.d配下のスクリプトの扱いを（少しだけ）楽にしてくれる。
 
 
 
@@ -172,8 +166,7 @@ rconestart rconestatus rconestop rconerestart
 
 実行例
 </code></pre>
-
-<pre><code class="language-console">$ rcstatus -s
+<pre><code class="language-console" data-lang="console">$ rcstatus -s
 DAEMON
 FILESYSTEMS
 LOGIN
@@ -188,12 +181,9 @@ $ rcstatus -p
 /etc/rc.d
 /usr/local/etc/rc.d
 $
+</code></pre><pre><code>/etc/rc.confにftpd_enable=&quot;YES&quot;がない場合の実行例。pidの読み取りには管理者権限が必要のようだ。
 </code></pre>
-
-<pre><code>/etc/rc.confにftpd_enable=&quot;YES&quot;がない場合の実行例。pidの読み取りには管理者権限が必要のようだ。
-</code></pre>
-
-<pre><code class="language-console">$ grep ftpd /etc/rc.conf
+<pre><code class="language-console" data-lang="console">$ grep ftpd /etc/rc.conf
 $
 $ rcstatus ftpd
 $ rconestatus ftpd
@@ -209,16 +199,13 @@ ftpd is running as pid 99650.
 $ sudo rconestop ftpd
 Stopping ftpd.
 $
-</code></pre>
-
-<pre><code>注意点としては、ftpdなどのサービスの指定は、rc.dディレクトリにあるスクリプトファイル名ではなく、スクリプトファイル中に書かれるPROVIDE行での指定に準ずるところ。
+</code></pre><pre><code>注意点としては、ftpdなどのサービスの指定は、rc.dディレクトリにあるスクリプトファイル名ではなく、スクリプトファイル中に書かれるPROVIDE行での指定に準ずるところ。
 
 
 
 なので、こんなことが起こった。
 </code></pre>
-
-<pre><code class="language-console">$ grep samba /etc/rc.conf
+<pre><code class="language-console" data-lang="console">$ grep samba /etc/rc.conf
 samba_enable=&amp;#34;YES&amp;#34;
 $ rcstatus samba
 $ rcstatus smbd
@@ -235,9 +222,7 @@ $ rcstatus &amp;#34;nmbd smbd&amp;#34;
 nmbd is running as pid 99768.
 smbd is running as pid 99772.
 $
-</code></pre>
-
-<pre><code>Sambaはsmb, samba等では理解してくれず、&quot;nmbd smbd&quot;と指定する必要がある。
+</code></pre><pre><code>Sambaはsmb, samba等では理解してくれず、&quot;nmbd smbd&quot;と指定する必要がある。
 </code></pre>
 <ul class="pa0">
   

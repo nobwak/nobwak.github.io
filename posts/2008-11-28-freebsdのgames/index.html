@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2008-11-28T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSDのgames">
 <meta itemprop="description" content="2chのFreeBSD関連スレを徒然に眺めていたら出てきたgrdc。 コンソール画面いっぱいにデジタル時計を表示するコマンドで、なんだかすごく">
-
-
 <meta itemprop="datePublished" content="2008-11-28T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2008-11-28T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="836">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDのgames"/>
 <meta name="twitter:description" content="2chのFreeBSD関連スレを徒然に眺めていたら出てきたgrdc。 コンソール画面いっぱいにデジタル時計を表示するコマンドで、なんだかすごく"/>
 
@@ -162,8 +159,7 @@ if (!doNotTrack) {
 
 インストールする方法はいくらでもあるが、俺はソースだけは全部インストールしておいたので、コンパイル後インストール。
 </code></pre>
-
-<pre><code class="language-console">[flageo@xxxxx /usr/src/games/grdc]$ ls
+<pre><code class="language-console" data-lang="console">[flageo@xxxxx /usr/src/games/grdc]$ ls
 Makefile        grdc.6          grdc.c
 [flageo@xxxxx /usr/src/games/grdc]$ sudo make
 （中略）
@@ -175,9 +171,7 @@ install -s -o root -g wheel -m 555   grdc /usr/games
 install -o root -g wheel -m 444 grdc.6.gz  /usr/share/man/man6
 rm -f grdc grdc.o grdc.6.gz grdc.6.cat.gz
 [flageo@xxxxx /usr/src/games/grdc]$
-</code></pre>
-
-<pre><code>オプションは-sでスクロール、-tで12時間フォーマット、数字nを引数で与えてやるとn秒後にストップする。ただスクロールさせると表示が間に合わないかもね。とのこと。なんだそれ。
+</code></pre><pre><code>オプションは-sでスクロール、-tで12時間フォーマット、数字nを引数で与えてやるとn秒後にストップする。ただスクロールさせると表示が間に合わないかもね。とのこと。なんだそれ。
 
 
 
@@ -198,9 +192,7 @@ rm -f grdc grdc.o grdc.6.gz grdc.6.cat.gz
 
 さっそくインストールして実行してみた。（訳俺）
 </code></pre>
-
-<p><blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>  ウェイター「コーヒーと紅茶、どちらになさいますか？」
 
 
@@ -219,9 +211,7 @@ rm -f grdc grdc.o grdc.6.gz grdc.6.cat.gz
 
   ウェイター「紅茶を二つお持ちしました。清潔なカップを頼まれたのはどちら様ですか？」
 </code></pre>
-
-<p></blockquote></p>
-
+<!-- raw HTML omitted -->
 <pre><code>…。
 
 

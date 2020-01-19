@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-02-15T01:00:00+09:00" />
 <meta itemprop="name" content="sshログインしたユーザのディレクトリを制限するには。">
 <meta itemprop="description" content="要するにchroot。 リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使">
-
-
 <meta itemprop="datePublished" content="2009-02-15T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-02-15T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="787">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="sshログインしたユーザのディレクトリを制限するには。"/>
 <meta name="twitter:description" content="要するにchroot。 リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使"/>
 
@@ -165,8 +162,7 @@ sshd_configのChrootDirectoryに続けてディレクトリを指定すれば、
 
 ユーザ「someone」がsshログインした際、ディレクトリ/chroot/をルートディレクトリになるよう設定した例。
 </code></pre>
-
-<pre><code class="language-console"># Example of overriding settings on a per-user basis
+<pre><code class="language-console" data-lang="console"># Example of overriding settings on a per-user basis
 Match User someone
 ChrootDirectory /chroot/
 #ChrootDirectory %h
@@ -175,9 +171,7 @@ AllowTcpForwarding no
 # override default of no subsystems
 #Subsystem      sftp    /usr/local/libexec/sftp-server
 Subsystem       sftp    internal-sftp
-</code></pre>
-
-<pre><code>なお、上記の例でユーザsomeoneがログインした場合、/chroot/etc/passwdのsomeoneレコードに示すホームディレクトリへ移動することになる。someoneのホームディレクトリが/home/someoneとなっていた場合には、/chroot/home/someoneへと移動する。/chroot/直下へ移動するわけではない。
+</code></pre><pre><code>なお、上記の例でユーザsomeoneがログインした場合、/chroot/etc/passwdのsomeoneレコードに示すホームディレクトリへ移動することになる。someoneのホームディレクトリが/home/someoneとなっていた場合には、/chroot/home/someoneへと移動する。/chroot/直下へ移動するわけではない。
 
 
 

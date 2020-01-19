@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2016-06-12T21:48:06+09:00" />
 <meta itemprop="name" content="[メモ] SlackとMattermostそれぞれのincomingWebhookへのポスト方法の違い">
 <meta itemprop="description" content="MattermostはSlackのクローンであるが、incomingWebhookへのポストだけは、どうも違いがあるようだ。 以下にSlack">
-
-
 <meta itemprop="datePublished" content="2016-06-12T21:48:06&#43;09:00" />
 <meta itemprop="dateModified" content="2016-06-12T21:48:06&#43;09:00" />
 <meta itemprop="wordCount" content="209">
 
 
 
-<meta itemprop="keywords" content="mattermost,python,slack," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="mattermost,python,slack," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[メモ] SlackとMattermostそれぞれのincomingWebhookへのポスト方法の違い"/>
 <meta name="twitter:description" content="MattermostはSlackのクローンであるが、incomingWebhookへのポストだけは、どうも違いがあるようだ。 以下にSlack"/>
 
@@ -140,69 +137,64 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>MattermostはSlackのクローンであるが、incomingWebhookへのポストだけは、どうも違いがあるようだ。<br />
-以下にSlack/Mattermostそれぞれでの実例を示す。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>MattermostはSlackのクローンであるが、incomingWebhookへのポストだけは、どうも違いがあるようだ。<br>
+以下にSlack/Mattermostそれぞれでの実例を示す。<br>
 まずmattermost</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># mattermost</span>
 
-<pre><code class="language-python"># mattermost
+<span style="color:#f92672">import</span> requests
 
-import requests
+incomWebHook <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">http://192.168.10.1/hooks/xxxxx</span><span style="color:#e6db74">&#39;</span>
+msg <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">test message</span><span style="color:#e6db74">&#39;</span>
+icon_url <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">http://192.168.10.10/graphix/robot.png</span><span style="color:#e6db74">&#39;</span>
+username <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">bot</span><span style="color:#e6db74">&#39;</span>
 
-incomWebHook = 'http://192.168.10.1/hooks/xxxxx'
-msg = 'test message'
-icon_url = 'http://192.168.10.10/graphix/robot.png'
-username = 'bot'
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sendMsg</span>(incomWebHook, icon_url, username, msg):
+    payload <span style="color:#f92672">=</span> {
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">text</span><span style="color:#e6db74">&#39;</span>: msg,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">icon_url</span><span style="color:#e6db74">&#39;</span>: icon_url,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">username</span><span style="color:#e6db74">&#39;</span>: username}
 
-def sendMsg(incomWebHook, icon_url, username, msg):
-    payload = {
-            'text': msg,
-            'icon_url': icon_url,
-            'username': username}
-
-    r = requests.post(
+    r <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(
         incomWebHook,
-        json=payload)
+        json<span style="color:#f92672">=</span>payload)
 
-    return r
+    <span style="color:#66d9ef">return</span> r
 
-r = sendMsg(incomWebHook, icon_url, username, msg)
-</code></pre>
+r <span style="color:#f92672">=</span> sendMsg(incomWebHook, icon_url, username, msg)
+</code></pre></div><p>Slack</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># slack</span>
+<span style="color:#f92672">import</span> requests
 
-<p>Slack</p>
+incomWebHook <span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">https://slack.com/api/chat.postMessage</span><span style="color:#e6db74">&#34;</span>
+msg <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">test message</span><span style="color:#e6db74">&#39;</span>
+username <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">bot</span><span style="color:#e6db74">&#39;</span>
+token <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">xoxb-xxxx-xxxx</span><span style="color:#e6db74">&#34;</span>
 
-<pre><code class="language-python"># slack
-import requests
-
-incomWebHook =&quot;https://slack.com/api/chat.postMessage&quot;
-msg = 'test message'
-username = 'bot'
-token = &quot;xoxb-xxxx-xxxx&quot;
-
-def sendMsg(incomWebHook, token, username, msg):
-    payload_dic = {
-            &quot;token&quot;: token
-            &quot;type&quot;: &quot;message&quot;,
-            &quot;channel&quot;: &quot;#general&quot;,
-            &quot;text&quot;: msg,
-            &quot;username&quot;: username,
-            &quot;icon_emoji&quot;: &quot;:bird:&quot;,
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sendMsg</span>(incomWebHook, token, username, msg):
+    payload_dic <span style="color:#f92672">=</span> {
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">token</span><span style="color:#e6db74">&#34;</span>: token
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">type</span><span style="color:#e6db74">&#34;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">message</span><span style="color:#e6db74">&#34;</span>,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">channel</span><span style="color:#e6db74">&#34;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#general</span><span style="color:#e6db74">&#34;</span>,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">text</span><span style="color:#e6db74">&#34;</span>: msg,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">username</span><span style="color:#e6db74">&#34;</span>: username,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">icon_emoji</span><span style="color:#e6db74">&#34;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">:bird:</span><span style="color:#e6db74">&#34;</span>,
             }
 
-    headers = {
-            'Content-type': 'application/json',
-            'Accept': 'text/plain'
+    headers <span style="color:#f92672">=</span> {
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Content-type</span><span style="color:#e6db74">&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">application/json</span><span style="color:#e6db74">&#39;</span>,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Accept</span><span style="color:#e6db74">&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">text/plain</span><span style="color:#e6db74">&#39;</span>
             }
 
-    r = requests.post(
+    r <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(
             incomWebHook,
-            params=payload_dic,
-            headers=headers)
+            params<span style="color:#f92672">=</span>payload_dic,
+            headers<span style="color:#f92672">=</span>headers)
 
-    return r
+    <span style="color:#66d9ef">return</span> r
 
-r = sendMsg(incomWebHook, token, username, msg)
-</code></pre>
-<ul class="pa0">
+r <span style="color:#f92672">=</span> sendMsg(incomWebHook, token, username, msg)
+</code></pre></div><ul class="pa0">
   
    <li class="list">
      <a href="/tags/mattermost" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">mattermost</a>

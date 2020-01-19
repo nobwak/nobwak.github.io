@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-02-12T23:33:20+09:00" />
 <meta itemprop="name" content="FreeBSDに、現状でdefaultではないRuby1.9をインストールするには">
 <meta itemprop="description" content="備忘のために残す。 2013/2/12現在、FreeBSDで何も考えずにRubyをインストールすると1.8になってしまう。 しかし世の中はもう1">
-
-
 <meta itemprop="datePublished" content="2013-02-12T23:33:20&#43;09:00" />
 <meta itemprop="dateModified" content="2013-02-12T23:33:20&#43;09:00" />
-<meta itemprop="wordCount" content="865">
+<meta itemprop="wordCount" content="866">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSDに、現状でdefaultではないRuby1.9をインストールするには"/>
 <meta name="twitter:description" content="備忘のために残す。 2013/2/12現在、FreeBSDで何も考えずにRubyをインストールすると1.8になってしまう。 しかし世の中はもう1"/>
 
@@ -141,41 +138,28 @@ if (!doNotTrack) {
     </header>
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>備忘のために残す。</p>
-
-<p>2013/2/12現在、FreeBSDで何も考えずにRubyをインストールすると1.8になってしまう。<br />
+<p>2013/2/12現在、FreeBSDで何も考えずにRubyをインストールすると1.8になってしまう。<br>
 しかし世の中はもう1.9で動いているのでこれでは困るのである。</p>
-
 <p>ところが、デフォルトとはちょっと変わった事をやりだすといろいろ面倒の発生するのがports。</p>
-
 <p><strong>Ruby 1.9をインストールする「前」に即すべきこと。</strong></p>
-
 <p>おもむろに/etc/make.confを開き、以下の二行を加えよ。</p>
-
-<blockquote style="border: 1px solid gray; padding: 5px; background-color: #eeeeee; font-style: normal;">
-  
-    RUBY_VERSION=1.9.3<br /> RUBY_DEFAULT_VER=1.9
-  
-</blockquote>
-
-<p>一行目の意味は、/usr/local/bin/rubyを作るという意味。<br />
-意味が分からないかもしれないが、ほんとう。<br />
+<!-- raw HTML omitted -->
+<pre><code>RUBY_VERSION=1.9.3&lt;br /&gt; RUBY_DEFAULT_VER=1.9
+</code></pre>
+<!-- raw HTML omitted -->
+<p>一行目の意味は、/usr/local/bin/rubyを作るという意味。<br>
+意味が分からないかもしれないが、ほんとう。<br>
 というのも、現時点でRuby 1.9をインストールすると、/usr/local/bin/ruby19が作成され、/usr/local/bin/rubyは出来ない。</p>
-
-<p>一行目の記載をしておけばインストール時にruby19から「ハードリンク」を張ってくれる。<br />
+<p>一行目の記載をしておけばインストール時にruby19から「ハードリンク」を張ってくれる。<br>
 symlink張ってもいいのだが、こういうのはシステム側にやらせておいた方がいい。</p>
-
-<p>ちなみに、検索するとmake.confにこう書け、と教えてくれるページはいくらでもあるのだが、根拠は見つけられなかった。<br />
+<p>ちなみに、検索するとmake.confにこう書け、と教えてくれるページはいくらでもあるのだが、根拠は見つけられなかった。<br>
 根拠、つまりインストール前にこういうところを見ておけばいい、というのが分からないので、今後もまず躓いてから考える事になる。これは&hellip;。</p>
-
-<p>二行目は、その名の通り、システムデフォルトをRuby1.9にするということ。<br />
+<p>二行目は、その名の通り、システムデフォルトをRuby1.9にするということ。<br>
 これがないと、例えばRuby Gemsをインストールするとき、Ruby1.9がインストール済みでも問答無用でRuby 1.8をインストールし始めるので注意。</p>
-
-<p>なおこちらは/usr/ports/UPDATINGに記載があった。<br />
+<p>なおこちらは/usr/ports/UPDATINGに記載があった。<br>
 ただこれをインストール前に知る事が出来るのだろうか。「UPDATING」じゃないか。アップデートするときに読むものじゃないか。</p>
-
 <p><strong>Rubyそのほか</strong></p>
-
-<p>make.confに追記したら、lang/ruby19をインストール。<br />
+<p>make.confに追記したら、lang/ruby19をインストール。<br>
 Ruby on Railsが必要であれば、続いてdevel/ruby-gems, www/rubygem-railsをインストールする。</p>
 <ul class="pa0">
   

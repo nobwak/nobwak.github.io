@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-03-20T21:56:31+09:00" />
 <meta itemprop="name" content="[FreeBSD] オフラインマシンでのpkgng（日常使いのpkgng その2）">
 <meta itemprop="description" content="pkgngをインターネット接続していないマシンでも使いたい。 そういう場合には、他のマシンでpkgを作って持っていくというのが一番簡単な方法。">
-
-
 <meta itemprop="datePublished" content="2013-03-20T21:56:31&#43;09:00" />
 <meta itemprop="dateModified" content="2013-03-20T21:56:31&#43;09:00" />
 <meta itemprop="wordCount" content="1045">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] オフラインマシンでのpkgng（日常使いのpkgng その2）"/>
 <meta name="twitter:description" content="pkgngをインターネット接続していないマシンでも使いたい。 そういう場合には、他のマシンでpkgを作って持っていくというのが一番簡単な方法。"/>
 
@@ -140,37 +137,27 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>pkgngをインターネット接続していないマシンでも使いたい。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>pkgngをインターネット接続していないマシンでも使いたい。<br>
 そういう場合には、他のマシンでpkgを作って持っていくというのが一番簡単な方法。</p>
-
-<p>自前のPKGSITEを作る方法もあるようだが、軽く調べたところ根こそぎすべてのpkgを作る方法のようだ。<br />
-それはきつい。<br />
-また、pkgを作ったうえで、自前のrepo.txzを作ってもいいけど、やっぱり手間。<br />
+<p>自前のPKGSITEを作る方法もあるようだが、軽く調べたところ根こそぎすべてのpkgを作る方法のようだ。<br>
+それはきつい。<br>
+また、pkgを作ったうえで、自前のrepo.txzを作ってもいいけど、やっぱり手間。<br>
 やっぱり必要なものだけ作って持っていくのが良いと思う。</p>
-
 <p>私がよくやるのは以下の方法。</p>
-
 <ol>
 <li>インターネット接続できるマシン上で、仮想マシンに構築する。</li>
 <li>仮想マシンでターゲットとなるマシンと同じ環境を作る。</li>
 <li>仮想マシンで使ったpkgを全部ターゲットマシンに持っていく。</li>
 </ol>
-
-<h3 id="span-style-text-decoration-underline-pkgの持ち運びには-pkg-createを使う-span"><span style="text-decoration: underline;">pkgの持ち運びには、pkg createを使う。</span></h3>
-
+<h3 id="span-styletext-decoration-underlinepkgpkg-createspan"><!-- raw HTML omitted -->pkgの持ち運びには、pkg createを使う。<!-- raw HTML omitted --></h3>
 <p>pkg createの使い方。</p>
-
-<p>pkg help createでだいたい分かるけれども;<br />
--oオプションで作成場所を選べる。<br />
--aオプションだとそのマシンにインストール済みのpkgを全部作る。<br />
+<p>pkg help createでだいたい分かるけれども;<br>
+-oオプションで作成場所を選べる。<br>
+-aオプションだとそのマシンにインストール済みのpkgを全部作る。<br>
 -nオプションを付けるとすでにあるものは作らない。</p>
-
-<p>以下、コマンド例。<br />
+<p>以下、コマンド例。<br>
 ああそうそう、pkg createはroot権限でやること。スーパーユーザでないとアクセスできないファイルもあるので。</p>
-
-<pre><code class="language-console"># pkg create -o ./ bash
+<pre><code class="language-console" data-lang="console"># pkg create -o ./ bash
 Creating package for bash-4.2.42
 
 # pkg create -n -o ./ bash
@@ -181,56 +168,38 @@ Loading package list...
 Creating package for GentiumBasic-110
 Creating package for GeoIP-1.4.8_3
 Creating package for ORBit2-2.14.19
-</code></pre>
-
-<p>そして出来上がったpkgをターゲットマシンに持っていく。<br />
+</code></pre><p>そして出来上がったpkgをターゲットマシンに持っていく。<br>
 ターゲットマシンでpkgをインストールするには、pkg addを使う。pkg installではダメなことに注意。</p>
-
-<h3 id="span-style-text-decoration-underline-pkg-add-span"><span style="text-decoration: underline;">pkg add</span></h3>
-
-<p>なんにも難しいことはない。<br />
+<h3 id="span-styletext-decoration-underlinepkg-addspan"><!-- raw HTML omitted -->pkg add<!-- raw HTML omitted --></h3>
+<p>なんにも難しいことはない。<br>
 以下のようにすればOK。</p>
-
-<pre><code class="language-console">pkg add ./xorg-7.5.2.txz
-</code></pre>
-
-<p>なお、pkg addで追加するpkgはローカルにある必要はなくて、ftp, http, https経由でアクセスできる場所にあればよい。<br />
-pkg help addで出てくるように、pkg add <a href="ftp://somewhere/some/dir/pkg-nameとかすればよい。">ftp://somewhere/some/dir/pkg-nameとかすればよい。</a></p>
-
-<h3 id="span-style-text-decoration-underline-pkg-createが遅え-span"><span style="text-decoration: underline;">pkg createが遅え。</span></h3>
-
-<p>ところでpkg createは遅い。すごく遅い。<br />
-これはファイルをxzで圧縮しているから。<br />
+<pre><code class="language-console" data-lang="console">pkg add ./xorg-7.5.2.txz
+</code></pre><p>なお、pkg addで追加するpkgはローカルにある必要はなくて、ftp, http, https経由でアクセスできる場所にあればよい。<br>
+pkg help addで出てくるように、pkg add ftp://somewhere/some/dir/pkg-nameとかすればよい。</p>
+<h3 id="span-styletext-decoration-underlinepkg-createspan"><!-- raw HTML omitted -->pkg createが遅え。<!-- raw HTML omitted --></h3>
+<p>ところでpkg createは遅い。すごく遅い。<br>
+これはファイルをxzで圧縮しているから。<br>
 今回の用途では、スピードの方が大事なので、わざわざxzを使ってもらわなくてよい。</p>
-
-<p>pkg createは-fオプションで圧縮方法を決定できる。<br />
+<p>pkg createは-fオプションで圧縮方法を決定できる。<br>
 txz（デフォルト）, tgz, tbzから選ぶ。</p>
-
-<p>tgzとtxzだと、bash程度でもtgz: 1.5秒、txz: 5秒と、時間に結構な差がでる。<br />
+<p>tgzとtxzだと、bash程度でもtgz: 1.5秒、txz: 5秒と、時間に結構な差がでる。<br>
 もちろんそのぶん、サイズもtgz: 1.5MB、txz: 900KBとxz形式の面目躍如。</p>
+<pre><code class="language-console" data-lang="console"># time pkg create -f tgz -o ./ bash
+Creating package for bash-4.2.42
 
-<p>``` console</p>
-
-<h1 id="time-pkg-create-f-tgz-o-bash">time pkg create -f tgz -o ./ bash</h1>
-
-<p>Creating package for bash-4.2.42</p>
-
-<p>real    0m1.526s
+real    0m1.526s
 user    0m1.415s
-sys     0m0.098s</p>
+sys     0m0.098s
+# time pkg create  -o ./ bash
+Creating package for bash-4.2.42
 
-<h1 id="time-pkg-create-o-bash">time pkg create  -o ./ bash</h1>
-
-<p>Creating package for bash-4.2.42</p>
-
-<p>real    0m4.985s
+real    0m4.985s
 user    0m1.070s
-sys     0m3.861s</p>
+sys     0m3.861s
 
-<p>$ du -sh ./bash*
+$ du -sh ./bash*
 1.5M    ./bash-4.2.42.tgz
-896k    ./bash-4.2.42.txz```</p>
-<ul class="pa0">
+896k    ./bash-4.2.42.txz```</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">

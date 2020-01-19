@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2010-02-10T01:00:00+09:00" />
 <meta itemprop="name" content="ThunarにWindows Networkをブラウズさせるには。">
 <meta itemprop="description" content="Xubuntuは、Linuxの便利さを堪能できる割に軽いので素敵だ。 ThunarがWindows Networkを見にいけないのだけが残念だっ">
-
-
 <meta itemprop="datePublished" content="2010-02-10T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2010-02-10T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="704">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ThunarにWindows Networkをブラウズさせるには。"/>
 <meta name="twitter:description" content="Xubuntuは、Linuxの便利さを堪能できる割に軽いので素敵だ。 ThunarがWindows Networkを見にいけないのだけが残念だっ"/>
 
@@ -157,11 +154,8 @@ ThunarがWindows Networkを見にいけないのだけが残念だったが、&l
 
 2.fusesmbをインストール
 </code></pre>
-
-<pre><code class="language-console">$ sudo apt-get install fusesmb
-</code></pre>
-
-<pre><code>3./etc/modulesに&quot;fuse&quot;と一行を追加（ダブルクオーテーションは不要）
+<pre><code class="language-console" data-lang="console">$ sudo apt-get install fusesmb
+</code></pre><pre><code>3./etc/modulesに&quot;fuse&quot;と一行を追加（ダブルクオーテーションは不要）
 
 
 
@@ -182,12 +176,9 @@ ThunarがWindows Networkを見にいけないのだけが残念だったが、&l
 
 　どこだってよい。パーミッションは777に。
 </code></pre>
-
-<pre><code class="language-console">$ sudo mkdir /media/network
+<pre><code class="language-console" data-lang="console">$ sudo mkdir /media/network
 $ sudo chmod 777 /media/network
-</code></pre>
-
-<pre><code>7.Applications -&gt; システム -&gt; ユーザとグループ -&gt; グループの管理でfuseグループに自分がいることを確認
+</code></pre><pre><code>7.Applications -&gt; システム -&gt; ユーザとグループ -&gt; グループの管理でfuseグループに自分がいることを確認
 
 
 
@@ -201,11 +192,8 @@ $ sudo chmod 777 /media/network
 
 　適当に名前、説明を入れたあとに、以下のコマンドを設定
 </code></pre>
-
-<pre><code class="language-console">fusesmb /media/network
-</code></pre>
-
-<pre><code>10.マウントポイントをショートカットペインに作っておく。
+<pre><code class="language-console" data-lang="console">fusesmb /media/network
+</code></pre><pre><code>10.マウントポイントをショートカットペインに作っておく。
 
 
 

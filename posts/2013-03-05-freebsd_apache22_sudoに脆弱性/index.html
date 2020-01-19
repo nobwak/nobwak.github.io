@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-03-05T23:13:10+09:00" />
 <meta itemprop="name" content="[FreeBSD] apache22, sudoに脆弱性">
 <meta itemprop="description" content="apache22, sudoに脆弱性ありとのこと。 （みんな、FreeBSDが毎日送ってくれるsecurity run outputはしっかり見ようね！） Checking for packages with security vulnerabilities: Affected">
-
-
 <meta itemprop="datePublished" content="2013-03-05T23:13:10&#43;09:00" />
 <meta itemprop="dateModified" content="2013-03-05T23:13:10&#43;09:00" />
 <meta itemprop="wordCount" content="254">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[FreeBSD] apache22, sudoに脆弱性"/>
 <meta name="twitter:description" content="apache22, sudoに脆弱性ありとのこと。 （みんな、FreeBSDが毎日送ってくれるsecurity run outputはしっかり見ようね！） Checking for packages with security vulnerabilities: Affected"/>
 
@@ -140,10 +137,9 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>apache22, sudoに脆弱性ありとのこと。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>apache22, sudoに脆弱性ありとのこと。<br>
 （みんな、FreeBSDが毎日送ってくれるsecurity run outputはしっかり見ようね！）</p>
-
-<pre><code class="language-console">Checking for packages with security vulnerabilities:
+<pre><code class="language-console" data-lang="console">Checking for packages with security vulnerabilities:
 
 Affected package: apache22-2.2.23_3
 Type of problem: apache22 -- several vulnerabilities.
@@ -156,11 +152,8 @@ Reference: http://portaudit.FreeBSD.org/764344fb-8214-11e2-9273-902b343deec9.htm
 Affected package: sudo-1.8.6.p3_1
 Type of problem: sudo -- Potential bypass of tty_tickets constraints.
 Reference: http://portaudit.FreeBSD.org/82cfd919-8213-11e2-9273-902b343deec9.html
-</code></pre>
-
-<p>さっさとsudo portsnap fetch updateしてからpkg_replace sudo apache22して、service apache22 restartしておしまい。</p>
-
-<p>このサーバはまだports運用。pkgngにしようかしら。portsnap fetch updateだるいし。<br />
+</code></pre><p>さっさとsudo portsnap fetch updateしてからpkg_replace sudo apache22して、service apache22 restartしておしまい。</p>
+<p>このサーバはまだports運用。pkgngにしようかしら。portsnap fetch updateだるいし。<br>
 でもまあ、試験環境でpkgngをしばらく使ってからかな。</p>
 <ul class="pa0">
   

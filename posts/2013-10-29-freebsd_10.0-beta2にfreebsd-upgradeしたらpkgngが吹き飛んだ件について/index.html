@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-10-29T21:27:02+09:00" />
 <meta itemprop="name" content="FreeBSD 10.0-BETA2にfreebsd-upgradeしたらpkgngが吹き飛んだ件について">
 <meta itemprop="description" content="FreeBSD 10.0は、ALPHAからBETA1まで怒涛のアップデートが続いたと思ったら、BETA2でいきなり足踏みがあった。 これは、freebsd-">
-
-
 <meta itemprop="datePublished" content="2013-10-29T21:27:02&#43;09:00" />
 <meta itemprop="dateModified" content="2013-10-29T21:27:02&#43;09:00" />
-<meta itemprop="wordCount" content="2305">
+<meta itemprop="wordCount" content="2308">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSD 10.0-BETA2にfreebsd-upgradeしたらpkgngが吹き飛んだ件について"/>
 <meta name="twitter:description" content="FreeBSD 10.0は、ALPHAからBETA1まで怒涛のアップデートが続いたと思ったら、BETA2でいきなり足踏みがあった。 これは、freebsd-"/>
 
@@ -140,41 +137,29 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>FreeBSD 10.0は、ALPHAからBETA1まで怒涛のアップデートが続いたと思ったら、BETA2でいきなり足踏みがあった。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSD 10.0は、ALPHAからBETA1まで怒涛のアップデートが続いたと思ったら、BETA2でいきなり足踏みがあった。<br>
 これは、freebsd-update(8)にバグがあったためで、結果として以下の問題があったようだ。</p>
-
-<p>①freebsd-updateでFreeBSD 10.0-BETA1へのアップグレードができない<br />
+<p>①freebsd-updateでFreeBSD 10.0-BETA1へのアップグレードができない<br>
 ②FreeBSD 10.0-BETA1でfreebsd-updateを使えない。</p>
-
-<p>それが2013/10/29（日本時間）に解決された。<br />
-各OSバージョンでいったんfreebsd-updateし、最新の状態にしてから10.0-BETA2に更新すればよい。<br />
-詳細は以下。<br />
-<a href="http://www.freebsd.org/security/advisories/FreeBSD-EN-13:04.freebsd-update.asc" target="_blank">Multiple freebsd-update bugs break upgrading to FreeBSD 10.0</a></p>
-
-<h2 id="span-style-text-decoration-underline-油断してるとpkgngが死ぬ-span"><span style="text-decoration: underline;">油断してるとpkgngが死ぬ</span></h2>
-
-<p>もう一つ。<br />
-今回のfreebsd-updateでは、freebsd-update installを3回求められた。<br />
+<p>それが2013/10/29（日本時間）に解決された。<br>
+各OSバージョンでいったんfreebsd-updateし、最新の状態にしてから10.0-BETA2に更新すればよい。<br>
+詳細は以下。<br>
+<!-- raw HTML omitted -->Multiple freebsd-update bugs break upgrading to FreeBSD 10.0<!-- raw HTML omitted --></p>
+<h2 id="span-styletext-decoration-underlinepkgngspan"><!-- raw HTML omitted -->油断してるとpkgngが死ぬ<!-- raw HTML omitted --></h2>
+<p>もう一つ。<br>
+今回のfreebsd-updateでは、freebsd-update installを3回求められた。<br>
 あまり記憶がないのだが、前からこうだったかな..。</p>
-
-<p>ただこの3回目のinstallが曲者である。<br />
-メッセージ（後述）を見ると分かるが、古いライブラリを削除するもののようだ（make delete-old-libsのようなもの）。<br />
-したがって、ports, pkgでインストールしたソフトウェアは動かなくなる可能性がある。<br />
-恐ろしいのは、<span style="text-decoration: underline;">pkgコマンド（pkgng）も対象であるということ</span>だ。</p>
-
+<p>ただこの3回目のinstallが曲者である。<br>
+メッセージ（後述）を見ると分かるが、古いライブラリを削除するもののようだ（make delete-old-libsのようなもの）。<br>
+したがって、ports, pkgでインストールしたソフトウェアは動かなくなる可能性がある。<br>
+恐ろしいのは、<!-- raw HTML omitted -->pkgコマンド（pkgng）も対象であるということ<!-- raw HTML omitted -->だ。</p>
 <p>告白すると、「面倒くせえ。そんなもん、後でゆっくりアップグレードするわい」と進めたら、pkgが死んでその他のソフトウェアもアップグレードできなくなって頭を抱えました。はい。</p>
-
 <p>さて以下に正しい手順を示す。</p>
-
-<h2 id="span-style-text-decoration-underline-アップグレード例-freebsd-10-0-beta1からbeta2へ-span"><span style="text-decoration: underline;">アップグレード例（FreeBSD 10.0-BETA1からBETA2へ)</span></h2>
-
-<p>ではまず現状の確認。<br />
-upgradeすると失敗する。<br />
+<h2 id="span-styletext-decoration-underlinefreebsd-100-beta1beta2span"><!-- raw HTML omitted -->アップグレード例（FreeBSD 10.0-BETA1からBETA2へ)<!-- raw HTML omitted --></h2>
+<p>ではまず現状の確認。<br>
+upgradeすると失敗する。<br>
 情報通りですな。</p>
-
-<pre><code class="language-console"># uname -a
+<pre><code class="language-console" data-lang="console"># uname -a
 FreeBSD testsv 10.0-BETA1 FreeBSD 10.0-BETA1 #0 r256420: Sun Oct 13 01:43:07 UTC 2013     root@snap.freebsd.org:/usr/obj/usr/src/sys/GENERIC  amd64
 # freebsd-update upgrade -r 10.0-BETA2
 Password:
@@ -188,11 +173,8 @@ The update metadata is correctly signed, but
 failed an integrity check.
 Cowardly refusing to proceed any further.
 #
-</code></pre>
-
-<p>そこでupgradeではなく、いったんupdateするとfreebsd-updateが更新される。</p>
-
-<pre><code class="language-console"># freebsd-update fetch
+</code></pre><p>そこでupgradeではなく、いったんupdateするとfreebsd-updateが更新される。</p>
+<pre><code class="language-console" data-lang="console"># freebsd-update fetch
 （略）
 The following files will be updated as part of updating to 10.0-BETA1-p1:
 /bin/freebsd-version
@@ -205,12 +187,9 @@ release within the next 1 month.
 # freebsd-update install
 Installing updates... done.
 #
-</code></pre>
-
-<p>フレッシュなfreebsd-updateで改めてアップグレード。<br />
+</code></pre><p>フレッシュなfreebsd-updateで改めてアップグレード。<br>
 今度は問題なし。</p>
-
-<pre><code class="language-console"># freebsd-update upgrade -r 10.0-BETA2
+<pre><code class="language-console" data-lang="console"># freebsd-update upgrade -r 10.0-BETA2
 Looking up update.FreeBSD.org mirrors... none found.
 Fetching metadata signature for 10.0-BETA1 from update.FreeBSD.org... done.
 Fetching metadata index... done.
@@ -224,24 +203,18 @@ world/doc
 
 Does this look reasonable (y/n)?
 （略）
-</code></pre>
-
-<p>あとは指定されるままにinstall, reboot,もう一回installをすると以下のメッセージが。</p>
-
-<pre><code class="language-console"># freebsd-update install
+</code></pre><p>あとは指定されるままにinstall, reboot,もう一回installをすると以下のメッセージが。</p>
+<pre><code class="language-console" data-lang="console"># freebsd-update install
 Password:
 Installing updates...
 Completing this upgrade requires removing old shared object files.
 Please rebuild all installed 3rd party software (e.g., programs
 installed from the ports tree) and then run &quot;/usr/sbin/freebsd-update install&quot;
 again to finish installing updates.
-</code></pre>
-
-<p>ここで迂闊に3回目のfreebsd-updateをすると、先述の通り面倒なことになる。<br />
-pkgコマンドですべてのソフトウェアを強制再インストールする。<br />
+</code></pre><p>ここで迂闊に3回目のfreebsd-updateをすると、先述の通り面倒なことになる。<br>
+pkgコマンドですべてのソフトウェアを強制再インストールする。<br>
 man pkg-installしてもそれっぽいのが無かったので、以下のようにした。</p>
-
-<pre><code class="language-console"># pkg info|cut -f1 -d&quot; &quot;|xargs pkg install -fy
+<pre><code class="language-console" data-lang="console"># pkg info|cut -f1 -d&quot; &quot;|xargs pkg install -fy
 Updating repository catalogue
 pkg: No packages matching 'gettext-0.18.3.1' has been found in the repositories
 （略）
@@ -251,44 +224,31 @@ pkg: No packages matching 'gettext-0.18.3.1' has been found in the repositories
 （2013/11/18 追記)
  pkg upgrade -fyですべてのpkgを再インストール可能
 （2013/11/18 追記ここまで）
-</code></pre>
-
-<p>freebsd-update installをもう一回して終了。</p>
-
-<h2 id="span-style-text-decoration-underline-freebsd-updateの修正-span"><span style="text-decoration: underline;">freebsd-updateの修正</span></h2>
-
-<p>以上、なのだが。<br />
-今回のfreebsd-updateバグ回避方法にはもうひとつ、freebsd-updateそのものを更新する方法がある。<br />
-その方法も試したので以下に示す。<br />
+</code></pre><p>freebsd-update installをもう一回して終了。</p>
+<h2 id="span-styletext-decoration-underlinefreebsd-updatespan"><!-- raw HTML omitted -->freebsd-updateの修正<!-- raw HTML omitted --></h2>
+<p>以上、なのだが。<br>
+今回のfreebsd-updateバグ回避方法にはもうひとつ、freebsd-updateそのものを更新する方法がある。<br>
+その方法も試したので以下に示す。<br>
 （正直に言うと、ERRATAの「Perform one of the following:」を読み飛ばし、freebsd-updateにパッチ当てるという余計な手間をかけた。悔しいので手順を示す）</p>
-
-<p>とはいえ、freebsd-updateの修正とOSアップデート手順は先述URLに丁寧に書かれている。<br />
-英語ではあるけれども、鍛えられたFreeBSDソルジャーなら屁でもない。<br />
-が、どこかに有用と感じてくれる人がいるかもしれない。<br />
+<p>とはいえ、freebsd-updateの修正とOSアップデート手順は先述URLに丁寧に書かれている。<br>
+英語ではあるけれども、鍛えられたFreeBSDソルジャーなら屁でもない。<br>
+が、どこかに有用と感じてくれる人がいるかもしれない。<br>
 以下は10.0-BETA1から10.0-BETA2にアップグレードした例。</p>
-
-<p>必要なものはsrc。<br />
+<p>必要なものはsrc。<br>
 gpgもあるといいけど、まあ要らない。</p>
-
-<h2 id="span-style-text-decoration-underline-srcの展開-span"><span style="text-decoration: underline;">srcの展開</span></h2>
-
-<p>srcのある人はスキップしてよい。<br />
-bsdconfigやら、DVDイメージ、DVDから展開する。<br />
+<h2 id="span-styletext-decoration-underlinesrcspan"><!-- raw HTML omitted -->srcの展開<!-- raw HTML omitted --></h2>
+<p>srcのある人はスキップしてよい。<br>
+bsdconfigやら、DVDイメージ、DVDから展開する。<br>
 以下はDVDから展開する例（実際は仮想マシンからディスクイメージ読んでるだけなんですけどね）。</p>
-
-<pre><code class="language-console">$ sudo mount -t cd9660 /dev/cd0 /mnt
+<pre><code class="language-console" data-lang="console">$ sudo mount -t cd9660 /dev/cd0 /mnt
 $ cd /mnt/usr/freebsd-dist
 $ sudo tar -C / -xvzpf ./src.txz
 （略）
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-gnupgのインストール-span"><span style="text-decoration: underline;">gnupgのインストール</span></h2>
-
-<p>これも、まあ本気のサーバ管理をしている人以外は不要じゃないかな。<br />
-以下はpkgでインストールする例。<br />
+</code></pre><h2 id="span-styletext-decoration-underlinegnupgspan"><!-- raw HTML omitted -->gnupgのインストール<!-- raw HTML omitted --></h2>
+<p>これも、まあ本気のサーバ管理をしている人以外は不要じゃないかな。<br>
+以下はpkgでインストールする例。<br>
 意外にたくさんのお友達を連れてきた。</p>
-
-<pre><code class="language-console">$ pkg search gnupg
+<pre><code class="language-console" data-lang="console">$ pkg search gnupg
 gnupg-1.4.15
 gnupg-2.0.22
 pecl-gnupg-1.3.3_1
@@ -311,38 +271,27 @@ The installation will require 15 MB more space
 
 3 MB to be downloaded
 (略)
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-パッチの入手と適用-span"><span style="text-decoration: underline;">パッチの入手と適用</span></h2>
-
+</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->パッチの入手と適用<!-- raw HTML omitted --></h2>
 <p>gnupgのない人は拡張子.ascのダウンロードは不要。</p>
-
-<pre><code class="language-console">$ fetch http://security.freebsd.org/patches/EN-13:04/freebsd-update.patch
+<pre><code class="language-console" data-lang="console">$ fetch http://security.freebsd.org/patches/EN-13:04/freebsd-update.patch
 fetch: http://security.freebsd.org/patches/EN-13:04/freebsd-update.patch: size of remote file is not known
 freebsd-update.patch                                  2754  B   25 kBps 00m00s
 $ fetch http://security.freebsd.org/patches/EN-13:04/freebsd-update.patch.asc
 fetch: http://security.freebsd.org/patches/EN-13:04/freebsd-update.patch.asc: size of remote file is not known
 freebsd-update.patch.asc                               801  B 3785  Bps 00m00s
 $
-</code></pre>
-
-<p>gpgでファイルの確認。<br />
+</code></pre><p>gpgでファイルの確認。<br>
 gpgが無ければスキップしてよい。</p>
-
-<pre><code class="language-console">$ gpg --verify ./freebsd-update.patch.asc
+<pre><code class="language-console" data-lang="console">$ gpg --verify ./freebsd-update.patch.asc
 Warning: using insecure memory!
 gpg: Signature made Sun Oct 27 05:14:13 2013 JST using RSA key ID 5DCF6AE7
 gpg: Good signature from &quot;FreeBSD Security Officer &lt;security-officer@FreeBSD.org&gt;&quot;
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 1CF7 FF6F ADF5 CA9F BE1B  8CB2 ED67 ECD6 5DCF 6AE7
-</code></pre>
-
-<p>なんかWARNINGでてるけどまあいいでしょ。</p>
-
-<h2 id="span-style-text-decoration-underline-パッチ適用-span"><span style="text-decoration: underline;">パッチ適用</span></h2>
-
-<pre><code class="language-console">$ cd /usr/src
+</code></pre><p>なんかWARNINGでてるけどまあいいでしょ。</p>
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->パッチ適用<!-- raw HTML omitted --></h2>
+<pre><code class="language-console" data-lang="console">$ cd /usr/src
 $ sudo patch &lt; ~/somewhere/freebsd-update.patch
 Hmm...  Looks like a unified diff to me...
 The text leading up to this was:
@@ -358,24 +307,15 @@ Hunk #2 succeeded at 2814.
 Hunk #3 succeeded at 2852.
 Hunk #4 succeeded at 2876.
 done
-</code></pre>
-
-<h2 id="span-style-text-decoration-underline-freebsd-updateのコンパイルとインストール-span"><span style="text-decoration: underline;">freebsd-updateのコンパイルとインストール</span></h2>
-
-<pre><code class="language-console">$ cd /usr/src/usr.sbin/freebsd-update/
+</code></pre><h2 id="span-styletext-decoration-underlinefreebsd-updatespan-1"><!-- raw HTML omitted -->freebsd-updateのコンパイルとインストール<!-- raw HTML omitted --></h2>
+<pre><code class="language-console" data-lang="console">$ cd /usr/src/usr.sbin/freebsd-update/
 $ sudo make install -DWITHOUT_MAN
 install -o root  -g wheel -m 555  freebsd-update.sh  /usr/sbin/freebsd-update
 $
-</code></pre>
-
-<p>10.0-BETA1のみ以下を実行</p>
-
-<pre><code class="language-console">$ sudo sed -i '' -e 's/%@/%~@/' /usr/sbin/freebsd-update
-</code></pre>
-
-<p>freebsd-updateの修正は以上で完了。<br />
+</code></pre><p>10.0-BETA1のみ以下を実行</p>
+<pre><code class="language-console" data-lang="console">$ sudo sed -i '' -e 's/%@/%~@/' /usr/sbin/freebsd-update
+</code></pre><p>freebsd-updateの修正は以上で完了。<br>
 改めてfreebsd-updateを実行すればよい。</p>
-
 <p>以上</p>
 <ul class="pa0">
   

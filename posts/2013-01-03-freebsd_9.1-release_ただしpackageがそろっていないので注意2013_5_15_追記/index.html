@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-01-03T01:00:00+09:00" />
 <meta itemprop="name" content="FreeBSD 9.1-RELEASE! ただしpackageがそろっていないので注意!(2013/5/15 追記)">
 <meta itemprop="description" content="遅れに遅れた9.1-RELEASEがついに。 もともとの進捗が悪いうえに、freebsd.orgに&lt;a href=&quot;http://www.freebsd.org/news/2012-compromise.html&quot; target=&quot;_bl">
-
-
 <meta itemprop="datePublished" content="2013-01-03T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2013-01-03T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1506">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="FreeBSD 9.1-RELEASE! ただしpackageがそろっていないので注意!(2013/5/15 追記)"/>
 <meta name="twitter:description" content="遅れに遅れた9.1-RELEASEがついに。 もともとの進捗が悪いうえに、freebsd.orgに&lt;a href=&quot;http://www.freebsd.org/news/2012-compromise.html&quot; target=&quot;_bl"/>
 
@@ -243,21 +240,17 @@ FreeBSDは、apacheやらMySQLやらから、Perlなどの言語系までの、�
 
 （全削除するとsudoも使えなくなるから、suしてから）
 </code></pre>
-
-<pre><code class="language-console">$ pkg_info &gt; pkg.list.txt
+<pre><code class="language-console" data-lang="console">$ pkg_info &gt; pkg.list.txt
 $ su
 Password:
 # pkg_info | cut -f1 -d&quot; &quot; | xargs -n1 pkg_delete -f
-</code></pre>
-
-<pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;手順1. ファイルダウンロード&lt;/span&gt;
+</code></pre><pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;手順1. ファイルダウンロード&lt;/span&gt;
 
 
 
 必要なファイルをダウンロードする。
 </code></pre>
-
-<pre><code class="language-console"># freebsd-update -r 9.1-RELEASE upgrade
+<pre><code class="language-console" data-lang="console"># freebsd-update -r 9.1-RELEASE upgrade
 Looking up update3.freebsd.org mirrors... none found.
 Fetching metadata signature for 9.0-RELEASE from update3.freebsd.org... done.
 Fetching metadata index... done.
@@ -267,12 +260,9 @@ kernel/generic src/src world/base world/games world/lib32
 The following components of FreeBSD do not seem to be installed:
 world/doc
 Does this look reasonable (y/n)?y
+</code></pre><pre><code>yと答える。
 </code></pre>
-
-<pre><code>yと答える。
-</code></pre>
-
-<pre><code class="language-console">Fetching metadata signature for 9.1-RELEASE from update3.freebsd.org... done.
+<pre><code class="language-console" data-lang="console">Fetching metadata signature for 9.1-RELEASE from update3.freebsd.org... done.
 Fetching metadata index... done.
 Fetching 1 metadata patches. done.
 Applying metadata patches... done.
@@ -289,9 +279,7 @@ The following changes, which occurred between FreeBSD 9.0-RELEASE and
 FreeBSD 9.1-RELEASE have been merged into /etc/defaults/periodic.conf:
 /var/yp/Makefile.dist
 To install the downloaded upgrades, run &quot;/usr/sbin/freebsd-update install&quot;.
-</code></pre>
-
-<pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;手順2. Kernel差し替えと再起動&lt;/span&gt;
+</code></pre><pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;手順2. Kernel差し替えと再起動&lt;/span&gt;
 
 
 
@@ -310,43 +298,28 @@ To install the downloaded upgrades, run &quot;/usr/sbin/freebsd-update install&q
 
 これがうまく行ったら、次はユーザランドの更新だが、まずは。
 </code></pre>
-
-<pre><code class="language-console"># freebsd-update install
+<pre><code class="language-console" data-lang="console"># freebsd-update install
 Installing updates...
 Kernel updates have been installed.  Please reboot and run
 &quot;/usr/sbin/freebsd-update install&quot; again to finish installing updates.
+</code></pre><pre><code>再起動前。
 </code></pre>
-
-<pre><code>再起動前。
+<pre><code class="language-console" data-lang="console"># shutdown -r now
+</code></pre><pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;手順3. ユーザランド更新と再起動&lt;/span&gt;
 </code></pre>
-
-<pre><code class="language-console"># shutdown -r now
-</code></pre>
-
-<pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;手順3. ユーザランド更新と再起動&lt;/span&gt;
-</code></pre>
-
-<pre><code class="language-console"># freebsd-update install
+<pre><code class="language-console" data-lang="console"># freebsd-update install
 Installing updates...
 # shutdown -r now
+</code></pre><pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;手順4. unameの確認と...&lt;/span&gt;
 </code></pre>
-
-<pre><code>&lt;span class=&quot;deco&quot; style=&quot;font-weight: bold;&quot;&gt;手順4. unameの確認と...&lt;/span&gt;
-</code></pre>
-
-<pre><code class="language-console"># uname -a
+<pre><code class="language-console" data-lang="console"># uname -a
 FreeBSD sylph 9.1-RELEASE FreeBSD 9.1-RELEASE #0 r243825: Tue Dec  4 09:23:10 UTC 2012     root@farrell.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC  amd64
+</code></pre><pre><code>で、ここからpackageの再インストール...
 </code></pre>
-
-<pre><code>で、ここからpackageの再インストール...
-</code></pre>
-
-<pre><code class="language-console">pkg_add -r ftp://ftp2.jp.freebsd.org/pub/FreeBSD/ports/amd64/packages-9-stable/shells/bash-4.2.37.tbz
+<pre><code class="language-console" data-lang="console">pkg_add -r ftp://ftp2.jp.freebsd.org/pub/FreeBSD/ports/amd64/packages-9-stable/shells/bash-4.2.37.tbz
 pkg_add -r ftp://ftp2.jp.freebsd.org/pub/FreeBSD/ports/amd64/packages-9-stable/security/sudo-1.8.6.p3_1.tbz
 pkg_add -r ftp://ftp2.jp.freebsd.org/pub/FreeBSD/ports/amd64/packages-9-stable/All/perl-5.12.4_4.tbz
-</code></pre>
-
-<pre><code>以降はガチコンパイル。
+</code></pre><pre><code>以降はガチコンパイル。
 </code></pre>
 <ul class="pa0">
   

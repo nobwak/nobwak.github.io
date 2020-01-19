@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2014-03-29T22:55:00+09:00" />
 <meta itemprop="name" content="Sambaの汚物（ウイルス）は消毒だ。samba-virusfilter編">
 <meta itemprop="description" content="Sambaの汚物（ウイルス）は消毒だ。哀愁のsamba-virusfilter編である。 virusfilterはsambaのvfs。 samb">
-
-
 <meta itemprop="datePublished" content="2014-03-29T22:55:00&#43;09:00" />
 <meta itemprop="dateModified" content="2014-03-29T22:55:00&#43;09:00" />
 <meta itemprop="wordCount" content="662">
 
 
 
-<meta itemprop="keywords" content="FreeBSD,security," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="FreeBSD,security," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Sambaの汚物（ウイルス）は消毒だ。samba-virusfilter編"/>
 <meta name="twitter:description" content="Sambaの汚物（ウイルス）は消毒だ。哀愁のsamba-virusfilter編である。 virusfilterはsambaのvfs。 samb"/>
 
@@ -140,25 +137,19 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p>Sambaの汚物（ウイルス）は消毒だ。哀愁の<a href="https://github.com/fumiyas/samba-virusfilter" target="_blank">samba-virusfilter</a>編である。<br />
-virusfilterはsambaのvfs。<br />
-samba上ファイルを開くときにclamavでスキャンしてくれる。<br />
-そういうタイプのvfsはvscan-clamavが有名だが、FreeBSDのportsやpkgには見当たらない。<br />
-そこでvirusfilterで試してみた。<br />
-試してみた、というのは、ファイルの開け閉めの際にスキャンするのはどうもいただけなく感じるので、本運用には至らなかったから。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Sambaの汚物（ウイルス）は消毒だ。哀愁の<!-- raw HTML omitted -->samba-virusfilter<!-- raw HTML omitted -->編である。<br>
+virusfilterはsambaのvfs。<br>
+samba上ファイルを開くときにclamavでスキャンしてくれる。<br>
+そういうタイプのvfsはvscan-clamavが有名だが、FreeBSDのportsやpkgには見当たらない。<br>
+そこでvirusfilterで試してみた。<br>
+試してみた、というのは、ファイルの開け閉めの際にスキャンするのはどうもいただけなく感じるので、本運用には至らなかったから。<br>
 なお、clamav、sambaはインストール済みの前提。</p>
-
-<h2 id="samba-virusfilterのインストール">samba-virusfilterのインストール</h2>
-
-<p>security/samba-virusfilterからインストールできる。<br />
-設定ファイルの説明は以下を参照。ただしclamdが動いている前提。<br />
-<a href="https://github.com/fumiyas/samba-virusfilter/blob/master/etc/smb.svf-clamav.conf.tmpl" target="_blank"><a href="https://github.com/fumiyas/samba-virusfilter/blob/master/etc/smb.svf-clamav.conf.tmpl">https://github.com/fumiyas/samba-virusfilter/blob/master/etc/smb.svf-clamav.conf.tmpl</a></a></p>
-
-<h2 id="span-style-text-decoration-underline-設定例-span"><span style="text-decoration: underline;">設定例</span></h2>
-
-<pre><code class="language-console">vfs objects = svf-clamav
+<h2 id="samba-virusfilter">samba-virusfilterのインストール</h2>
+<p>security/samba-virusfilterからインストールできる。<br>
+設定ファイルの説明は以下を参照。ただしclamdが動いている前提。<br>
+<!-- raw HTML omitted --><a href="https://github.com/fumiyas/samba-virusfilter/blob/master/etc/smb.svf-clamav.conf.tmpl%3C/a%3E">https://github.com/fumiyas/samba-virusfilter/blob/master/etc/smb.svf-clamav.conf.tmpl&lt;/a&gt;</a></p>
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->設定例<!-- raw HTML omitted --></h2>
+<pre><code class="language-console" data-lang="console">vfs objects = svf-clamav
   svf-clamav:socket path = /var/run/clamav/clamd.sock # clamavのソケット
   svf-clamav:can on open = yes # ファイルを開くときにスキャンする
   svf-clamav:can on close = no # ファイルを閉じるときにもスキャンする
@@ -173,16 +164,12 @@ samba上ファイルを開くときにclamavでスキャンしてくれる。<br
   svf-clamav:quarantine directory = @SAMBA_LOCKDIR@/svf/quarantine
   ## Prefix for files in quarantine directory
   svf-clamav:quarantine prefix = svf.
-</code></pre>
-
-<p>ウイルスを見つけたき「何もしない」を選択した場合、感染ファイルはそのまま共有ディレクトリ上に残るし見える。<br />
-しかしユーザは当該ファイルを開くことはできない。<br />
+</code></pre><p>ウイルスを見つけたき「何もしない」を選択した場合、感染ファイルはそのまま共有ディレクトリ上に残るし見える。<br>
+しかしユーザは当該ファイルを開くことはできない。<br>
 ウイルスを発見したとき、ログとしては/var/log/samba下のログに、以下のように記録される。</p>
-
-<pre><code class="language-console">[2014/03/22 22:51:19.578805,  0] ../include/svf-vfs.h:668(svf_scan)
+<pre><code class="language-console" data-lang="console">[2014/03/22 22:51:19.578805,  0] ../include/svf-vfs.h:668(svf_scan)
   Scan result: Infected: /usr/home/vanilla/share/testvirus.txt: Eicar-Test-Signature
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>

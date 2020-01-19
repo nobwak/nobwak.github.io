@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2013-07-28T23:00:32+09:00" />
 <meta itemprop="name" content="コード、エラー、設定ファイル共有サイトのすすめ">
 <meta itemprop="description" content="sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ">
-
-
 <meta itemprop="datePublished" content="2013-07-28T23:00:32&#43;09:00" />
 <meta itemprop="dateModified" content="2013-07-28T23:00:32&#43;09:00" />
-<meta itemprop="wordCount" content="1600">
+<meta itemprop="wordCount" content="1633">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="コード、エラー、設定ファイル共有サイトのすすめ"/>
 <meta name="twitter:description" content="sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ"/>
 
@@ -140,116 +137,72 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
-
-<p><a href="http://sprunge.us" target="_blank">sprunge.us</a>というサービスがあるのを、いまさら知って驚いてそして大感謝した。<br />
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><!-- raw HTML omitted -->sprunge.us<!-- raw HTML omitted -->というサービスがあるのを、いまさら知って驚いてそして大感謝した。<br>
 以下に顛末を記す。</p>
-
-<h2 id="span-style-text-decoration-underline-sprunge-usってなんだ-span"><span style="text-decoration: underline;">sprunge.usってなんだ。</span></h2>
-
+<h2 id="span-styletext-decoration-underlinesprungeusspan"><!-- raw HTML omitted -->sprunge.usってなんだ。<!-- raw HTML omitted --></h2>
 <p>ブラウザでsprunge.usを開くと、manページのような見てくれで何か間違えたかと二度見するようなサイトなのだが、よく見ると凄い事が書いてある。</p>
-
-<p>何らかのコマンドの標準出力をsprunge.usに食わすと、URLが返る。<br />
+<p>何らかのコマンドの標準出力をsprunge.usに食わすと、URLが返る。<br>
 そのURLへアクセスすると、先の出力結果が見えるというわけ。</p>
-
-<h2 id="span-style-text-decoration-underline-sprunge-usの使い方-span"><span style="text-decoration: underline;">sprunge.usの使い方</span></h2>
-
-<p>使い方といっても上記の通りなんだが、やってみるのが早い。<br />
+<h2 id="span-styletext-decoration-underlinesprungeusspan-1"><!-- raw HTML omitted -->sprunge.usの使い方<!-- raw HTML omitted --></h2>
+<p>使い方といっても上記の通りなんだが、やってみるのが早い。<br>
 uname -aの結果を食べさせてみる。</p>
-
-<pre><code class="language-console">$ uname -a | curl -F 'sprunge=&lt;-' http://sprunge.us
+<pre><code class="language-console" data-lang="console">$ uname -a | curl -F 'sprunge=&lt;-' http://sprunge.us
 http://sprunge.us/CTQL
-</code></pre>
-
-<p>返ってきたURL、<a href="http://sprunge.us/CTQL" target="_blank"><a href="http://sprunge.us/CTQL">http://sprunge.us/CTQL</a></a>にアクセスしていただくと、uname -aの結果、すなわち我輩の鯖の詳細が分かる。</p>
-
-<h2 id="span-style-text-decoration-underline-使いどころ-span"><span style="text-decoration: underline;">使いどころ</span></h2>
-
-<p>このサービスの何が便利なのか。<br />
+</code></pre><p>返ってきたURL、<!-- raw HTML omitted --><a href="http://sprunge.us/CTQL%3C/a%3E">http://sprunge.us/CTQL&lt;/a&gt;</a>にアクセスしていただくと、uname -aの結果、すなわち我輩の鯖の詳細が分かる。</p>
+<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->使いどころ<!-- raw HTML omitted --></h2>
+<p>このサービスの何が便利なのか。<br>
 sprunge.usを使うことで、エラーや設定ファイル、ちょっとしたスクリプト、ソースを手軽に共有できる。</p>
-
-<p>たとえば私が、あるサーバが意図した動作をせず困っているときに、助けを求めるとする。<br />
-助けを求める相手が、twitterにいるとする。<br />
-twitterには140文字しか書けないので、エラー、使用している設定ファイルの中身をすべて貼り付けるのは無理がある。<br />
-ではどこかのサイト（いわゆるアップローダと言われているサイトなど）にアップロードするか？それも面倒。<br />
+<p>たとえば私が、あるサーバが意図した動作をせず困っているときに、助けを求めるとする。<br>
+助けを求める相手が、twitterにいるとする。<br>
+twitterには140文字しか書けないので、エラー、使用している設定ファイルの中身をすべて貼り付けるのは無理がある。<br>
+ではどこかのサイト（いわゆるアップローダと言われているサイトなど）にアップロードするか？それも面倒。<br>
 そこでコマンドラインからsprunge.usにアップロードし、そのURLを相手に送る。</p>
-
-<p>これは便利じゃありませんかみなさん。<br />
+<p>これは便利じゃありませんかみなさん。<br>
 まあ、助けを求める相手がいる限りにおいてですが。</p>
-
-<h2 id="span-style-text-decoration-underline-いつまで残るの-span"><span style="text-decoration: underline;">いつまで残るの・・・？</span></h2>
-
-<p>sprungeに載せた内容はいつまで残るのか。<br />
-調べてみたけど、ちょっと分からなかった。<br />
+<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->いつまで残るの・・・？<!-- raw HTML omitted --></h2>
+<p>sprungeに載せた内容はいつまで残るのか。<br>
+調べてみたけど、ちょっと分からなかった。<br>
 末尾で触れるpastebinだと、残す期間を選べたりするのだが。</p>
-
-<h2 id="span-style-text-decoration-underline-やってもうた時は-span"><span style="text-decoration: underline;">やってもうた時は？</span></h2>
-
-<p>共有すべきでない内容をsprunge.usしてしまった時はどうするのだろうか。<br />
-これも検索したけど分からない。<br />
+<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->やってもうた時は？<!-- raw HTML omitted --></h2>
+<p>共有すべきでない内容をsprunge.usしてしまった時はどうするのだろうか。<br>
+これも検索したけど分からない。<br>
 センシティブな情報、IDとかパスワードとかが含まれそうな場合は、後述のpastbinの方がよいかも。</p>
-
-<h2 id="span-style-text-decoration-underline-sprungeをもっと便利に使う-span"><span style="text-decoration: underline;">sprungeをもっと便利に使う。</span></h2>
-
-<p>まずですね、aliasを設定しましょう。<br />
-こんな長いの、いちいちタイプできんですよ。<br />
+<h2 id="span-styletext-decoration-underlinesprungespan"><!-- raw HTML omitted -->sprungeをもっと便利に使う。<!-- raw HTML omitted --></h2>
+<p>まずですね、aliasを設定しましょう。<br>
+こんな長いの、いちいちタイプできんですよ。<br>
 設定したらすぐ確かめるのが紳士のたしなみ。ここだとaliasを引数なしですぐさま叩く。</p>
-
-<pre><code class="language-console">$ alias sprunge=&quot;curl -F 'sprunge=&lt;-' http://sprunge.us&quot;
+<pre><code class="language-console" data-lang="console">$ alias sprunge=&quot;curl -F 'sprunge=&lt;-' http://sprunge.us&quot;
 $ alias
 alias sprunge='curl -F '\''sprunge=&lt;-'\'' http://sprunge.us'
-</code></pre>
-
-<p>テストして問題なければ、シェルに合わせた初期設定ファイルに書き込んでおく。<br />
+</code></pre><p>テストして問題なければ、シェルに合わせた初期設定ファイルに書き込んでおく。<br>
 ~/.profileとか。</p>
-
-<h2 id="span-style-text-decoration-underline-sprungeはファイルの内容だってok-span"><span style="text-decoration: underline;">sprungeはファイルの内容だってOK。</span></h2>
-
-<p>sprungeは標準出力を受け付けるので、ファイルの内容だって貼り付けられる。<br />
-FreeBSDのftpd起動シェルスクリプトで試してみよう。<br />
+<h2 id="span-styletext-decoration-underlinesprungeokspan"><!-- raw HTML omitted -->sprungeはファイルの内容だってOK。<!-- raw HTML omitted --></h2>
+<p>sprungeは標準出力を受け付けるので、ファイルの内容だって貼り付けられる。<br>
+FreeBSDのftpd起動シェルスクリプトで試してみよう。<br>
 どうせなら、上記で作成したaliasで。</p>
-
-<pre><code class="language-console">$ cat /etc/rc.d/ftpd | sprunge
+<pre><code class="language-console" data-lang="console">$ cat /etc/rc.d/ftpd | sprunge
 http://sprunge.us/LQCZ
-</code></pre>
-
-<p><a href="http://sprunge.us/LQCZ" target="_blank"><a href="http://sprunge.us/LQCZ">http://sprunge.us/LQCZ</a></a> どうだろうか。</p>
-
-<h2 id="span-style-text-decoration-underline-構文強調と行番号表示もできる-span"><span style="text-decoration: underline;">構文強調と行番号表示もできる。</span></h2>
-
+</code></pre><p><!-- raw HTML omitted --><a href="http://sprunge.us/LQCZ%3C/a%3E">http://sprunge.us/LQCZ&lt;/a&gt;</a> どうだろうか。</p>
+<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->構文強調と行番号表示もできる。<!-- raw HTML omitted --></h2>
 <p>sprunge.usに以下のように書いてある。</p>
-
-<pre><code class="language-console">add ?&lt;lang&gt; to resulting url for line numbers and syntax highlighting
+<pre><code class="language-console" data-lang="console">add ?&lt;lang&gt; to resulting url for line numbers and syntax highlighting
     use this form to paste from a browser
-</code></pre>
-
-<p>上記のftpdシェルスクリプトを例に引く。<br />
+</code></pre><p>上記のftpdシェルスクリプトを例に引く。<br>
 シェルスクリプトなので、「sh」を?に続けてURLに加えればよい。</p>
-
-<p><a href="http://sprunge.us/LQCZ?sh" target="_blank"><a href="http://sprunge.us/LQCZ">http://sprunge.us/LQCZ</a><span style="color: #ff0000;">?sh</span></a></p>
-
-<h2 id="span-style-text-decoration-underline-sprungeに意地悪をしてみる-span"><span style="text-decoration: underline;">sprungeに意地悪をしてみる。</span></h2>
-
-<p>知る人ぞ知るコマンドに<a href="http://ja.wikipedia.org/wiki/Sl_%28UNIX%29" target="_blank">sl</a>がある。</p>
-
-<p>これはlsをslとタイプミスしてしまったとき、アスキーアートのSL機関車がターミナルを爆走する豪快なコマンドだ。<br />
-slコマンドをご存じなく、UNIX系マシンをお持ちの方はぜひインストールしてその目で確かめてほしい。<br />
+<p><!-- raw HTML omitted --><a href="http://sprunge.us/LQCZ%3Cspan">http://sprunge.us/LQCZ&lt;span</a> style=&quot;color: #ff0000;&ldquo;&gt;?sh<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="span-styletext-decoration-underlinesprungespan-1"><!-- raw HTML omitted -->sprungeに意地悪をしてみる。<!-- raw HTML omitted --></h2>
+<p>知る人ぞ知るコマンドに<!-- raw HTML omitted -->sl<!-- raw HTML omitted -->がある。</p>
+<p>これはlsをslとタイプミスしてしまったとき、アスキーアートのSL機関車がターミナルを爆走する豪快なコマンドだ。<br>
+slコマンドをご存じなく、UNIX系マシンをお持ちの方はぜひインストールしてその目で確かめてほしい。<br>
 ちなみにFreeBSDではportsに収録されている。games/slからどうぞ。</p>
-
 <p>で、これをsprungeに食わせてみた。</p>
-
-<pre><code class="language-console">$ sl | sprunge
+<pre><code class="language-console" data-lang="console">$ sl | sprunge
 http://sprunge.us/Sijg
-</code></pre>
-
-<p><a href="http://sprunge.us/Sijg" target="_blank"><a href="http://sprunge.us/Sijg">http://sprunge.us/Sijg</a></a> &hellip;うん。まあ。仕方ないね。</p>
-
-<h2 id="span-style-text-decoration-underline-同様の別サービス-span"><span style="text-decoration: underline;">同様の別サービス</span></h2>
-
-<p>sprunge.usと同様のサービスにpastbinがある。<br />
-<a href="http://pastebin.com/" target="_blank"><a href="http://pastebin.com/">http://pastebin.com/</a></a><br />
+</code></pre><p><!-- raw HTML omitted --><a href="http://sprunge.us/Sijg%3C/a%3E">http://sprunge.us/Sijg&lt;/a&gt;</a> &hellip;うん。まあ。仕方ないね。</p>
+<h2 id="span-styletext-decoration-underlinespan-4"><!-- raw HTML omitted -->同様の別サービス<!-- raw HTML omitted --></h2>
+<p>sprunge.usと同様のサービスにpastbinがある。<br>
+<!-- raw HTML omitted --><a href="http://pastebin.com/%3C/a%3E">http://pastebin.com/&lt;/a&gt;</a><br>
 世間的にはsprunge.usよりこちらの方が有名な様子。</p>
-
 <p>CUIから使うためにwgetpastといったツールもある。</p>
 <ul class="pa0">
   

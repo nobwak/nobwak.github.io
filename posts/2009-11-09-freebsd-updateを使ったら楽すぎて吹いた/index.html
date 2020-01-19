@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.62.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -36,16 +36,13 @@
 <meta property="article:modified_time" content="2009-11-09T01:00:00+09:00" />
 <meta itemprop="name" content="freebsd-updateを使ったら楽すぎて吹いた。">
 <meta itemprop="description" content="自宅サーバはほぼ10年前のノートPCだ。 ここにFreeBSDを入れてApache, Samba, mt-daapdを動かしている。バッテリーはさすがに死ん">
-
-
 <meta itemprop="datePublished" content="2009-11-09T01:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2009-11-09T01:00:00&#43;09:00" />
 <meta itemprop="wordCount" content="1253">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="freebsd-updateを使ったら楽すぎて吹いた。"/>
 <meta name="twitter:description" content="自宅サーバはほぼ10年前のノートPCだ。 ここにFreeBSDを入れてApache, Samba, mt-daapdを動かしている。バッテリーはさすがに死ん"/>
 
@@ -192,8 +189,7 @@ FreeBSDにはRELEASEブランチのほかに開発版であるSTABLE, CURRENTと
 
 freebsd-update fetchで必要なファイルをダウンロード。
 </code></pre>
-
-<pre><code class="language-console"># uname -r
+<pre><code class="language-console" data-lang="console"># uname -r
 7.2-RELEASE
 # freebsd-update fetch
 Looking up update.FreeBSD.org mirrors... none found.
@@ -219,24 +215,19 @@ The following files will be updated as part of updating to 7.2-RELEASE-p3:
 /usr/src/sys/kern/sys_pipe.c
 /usr/src/sys/netinet6/in6.c
 #
-</code></pre>
-
-<pre><code>その後、installして再起動。
+</code></pre><pre><code>その後、installして再起動。
 
 
 
 uname -rとすればパッチレベルの上がっている事が確認できる…はずだが、unameの応答はp2になっていてp3ではない。
 </code></pre>
-
-<pre><code class="language-console"># freebsd-update install
+<pre><code class="language-console" data-lang="console"># freebsd-update install
 # reboot
 （略）
 $ uname -r
 7.2-RELEASE-p2
 $
-</code></pre>
-
-<pre><code>これはなぜかというと、p2からp3で修正されたのはbindだけで、kernelは修正されておらず、p2の時のままだから。
+</code></pre><pre><code>これはなぜかというと、p2からp3で修正されたのはbindだけで、kernelは修正されておらず、p2の時のままだから。
 
 
 
@@ -261,8 +252,7 @@ unameに対してkernelが返す値は、/usr/src/sys/conf/newvers.shが元に�
 
 ロールバックも試しにやってみた。
 </code></pre>
-
-<pre><code class="language-console"># uname -r
+<pre><code class="language-console" data-lang="console"># uname -r
 7.2-RELEASE
 $ uname -r
 7.2-RELEASE-p2
@@ -270,8 +260,7 @@ $ uname -r
 Uninstalling updates... done.
 $ uname -r
 7.2-RELEASE
-</code></pre>
-<ul class="pa0">
+</code></pre><ul class="pa0">
   
 </ul>
 <div class="mt6">
