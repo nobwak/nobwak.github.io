@@ -3,21 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://nobwak.github.io/posts/2020-01-18-visualstudiocode_python_windows%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/</loc>
-    <lastmod>2020-01-18T11:51:31+09:00</lastmod>
+    <loc>https://nobwak.github.io/posts/2020-02-09-%E7%A2%BA%E5%AE%9A%E7%94%B3%E5%91%8A%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/</loc>
+    <lastmod>2020-02-09T19:36:30+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://nobwak.github.io/</loc>
-    <lastmod>2020-01-18T11:51:31+09:00</lastmod>
+    <lastmod>2020-02-09T19:36:30+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://nobwak.github.io/posts/</loc>
+    <lastmod>2020-02-09T19:36:30+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nobwak.github.io/posts/2020-01-18-visualstudiocode_python_windows%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/</loc>
     <lastmod>2020-01-18T11:51:31+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
