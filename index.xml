@@ -6,10 +6,19 @@
     <description>Recent content on Nobwak&#39;s Lair</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
-    <lastBuildDate>Sun, 09 Feb 2020 19:36:30 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 11 Feb 2020 09:14:09 +0900</lastBuildDate>
     
 	<atom:link href="https://nobwak.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2020-02-11-PortableGitセットアップ（Windows）</title>
+      <link>https://nobwak.github.io/posts/2020-02-11-portablegit%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97_windows/</link>
+      <pubDate>Tue, 11 Feb 2020 09:14:09 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2020-02-11-portablegit%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97_windows/</guid>
+      <description>はじめに gitのセットアップメモ。 ただしポータブルバージョン。 レジストリに手を触れないのは何かにつけて重宝するからね。 ただのメモだから手順だ</description>
+    </item>
     
     <item>
       <title>2020-02-09-確定申告セットアップ</title>
