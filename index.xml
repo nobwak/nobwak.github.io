@@ -6,10 +6,19 @@
     <description>Recent content on Nobwak&#39;s Lair</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
-    <lastBuildDate>Sat, 22 Feb 2020 14:11:08 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 23 Feb 2020 22:36:52 +0900</lastBuildDate>
     
 	<atom:link href="https://nobwak.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2020-02-22-京急の運行状況をpythonで取得しよう</title>
+      <link>https://nobwak.github.io/posts/2020-02-22-%E4%BA%AC%E6%80%A5%E3%81%AE%E9%81%8B%E8%A1%8C%E7%8A%B6%E6%B3%81%E3%82%92python%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%97%E3%82%88%E3%81%86/</link>
+      <pubDate>Sun, 23 Feb 2020 22:36:52 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2020-02-22-%E4%BA%AC%E6%80%A5%E3%81%AE%E9%81%8B%E8%A1%8C%E7%8A%B6%E6%B3%81%E3%82%92python%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%97%E3%82%88%E3%81%86/</guid>
+      <description>はじめに 端的に言えば、本稿では、ある特定のwebページから、必要な情報を取り出す方法をまとめる。 具体的にはpythonを使って、京急のweb</description>
+    </item>
     
     <item>
       <title>2020-02-21-VisualCodeStudioでgitを使う</title>
@@ -22,23 +31,25 @@ git、VSCのインストールは終わっている前提。
 サマリ git initしたフォルダをVSCで開く。
 それだけ。
 なにはともあれ、git init gitで管理したいフォルダを開く。
-アドレスバーにcmdと入れてEnterすればコマンドプロンプトが開く。
+アドレスバーにcmdと入れてEnterすればそのフォルダでコマンドプロンプトが開く。
 ご覧の通り。
 あとはそのフォルダをSHIFT+右クリックしてPowerShellウインドウをここで開く(S)をしてもよい。
-以降、コマンドプロンプトの方で。
+Poweshellでもコマンドプロンプトのどちらでも構わないが、以降、コマンドプロンプトの方で。
 で、git init。
 VSCでの操作 以上でフォルダの準備は整ったので、VSCでそのフォルダを開く。
-見た目は何も変わらない。
+VSC状の見た目は何も変わらない。
 しかしファイルを置くと&amp;hellip;。
 ファイルtest.pyのファイル名が緑になり、右端にUが付いた。
 このUとはUntrackedという意味で、gitで捕捉されていないファイルという意味。
 そして一番左、虫眼鏡アイコンの下のアイコンに「1」が表示される。
-これがgit。
+マウスオーバーすると分かるが、Source Controlのアイコンである。
+Source Controlでファイルを1つ検知したという意味。
 さっそくクリックすると。
-CHANGESの下にファイルがリストされる。
+CHANGESの下にファイルがリストされている。
 ここでファイル名の右にある+を押すとファイルはステージングに移る。
 Messageにコミットメッセージを入れて、上のチェックマークをクリックすればコミット完了。
-ターミナルでも操作可 </description>
+ターミナルでも操作可 VSCのターミナルでもgitの操作が可能。
+これを利用してtag打ちとかができる。</description>
     </item>
     
     <item>
