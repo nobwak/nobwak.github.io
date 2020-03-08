@@ -38,7 +38,7 @@
 <meta itemprop="description" content="はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな">
 <meta itemprop="datePublished" content="2020-03-07T11:36:54&#43;09:00" />
 <meta itemprop="dateModified" content="2020-03-07T11:36:54&#43;09:00" />
-<meta itemprop="wordCount" content="2917">
+<meta itemprop="wordCount" content="2955">
 
 
 
@@ -141,14 +141,15 @@ if (!doNotTrack) {
 <p>ファイルをどう暗号化するか。</p>
 <p>そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。<br>
 内容を覗かれないようにする目的を考えてみると、データが盗まれたときのため、安全でない経路を通して特定の人にデータを渡すため、である。</p>
-<p>このうち、後者の「安全なデータ授受」についてだが、今時いろんな方法はあるものの、そもそも仕事場がモダンな通信手段を許可しておらず、メールだけ、あるいは自家製の糞ファイル授受システムくらいしかない。</p>
-<p>仕方なくパスワード付きzipをメールで送ることになるんだけど、これはこれでブルートフォースでパスワード総当たりされるリスクはある。<br>
-それなら公開鍵を使った方法で暗号化できたらいいよね。</p>
-<p>そうすると候補に挙がるのはPGPであるが、PGPはもうかれこれ30歳(1991年生まれ)でいろいろと古く、セキュリティ強度に不安があるうえに、使い方の理解が非常に難しく、そもそも鍵が長すぎるんだよ。</p>
+<p>このうち、後者の「安全なデータ授受」についてだが、今時いろんな方法はあるものの、そもそも仕事場がモダンな通信手段を許可しておらず、メールだけ、あるいは会社製のファイル授受糞システムくらいしかない。</p>
+<p>仕方なくパスワード付きzipをメールで送ることになるんだけど、これはいわば共通鍵方式でありリスクはある。<br>
+「パスワードは後のメールで送ります」なんてね。<br>
+ほんとに秘密のファイルを送るなら、公開鍵暗号を使いたい。</p>
+<p>そうすると候補に挙がるのはPGPであるが、PGPは2020年時点でかれこれ30歳(1991年生まれ)でいろいろと古く、セキュリティ強度に不安があるうえに、使い方の理解が非常に難しく、そもそも鍵が長すぎるんだよ。</p>
 <p>試しに「まあ安全」と言われるレベルの2048bitのPGP鍵を作ったらこんな感じである。<br>
 本来なら（略）とかするが、この場合PGP鍵の長さを示すのが目的なのでそのまま示す。<br>
 ぜひマウスホイールを狂ったようにカリカリしてスクロールしてほしい。<br>
-クレイジー。</p>
+クレイジーである。</p>
 <pre><code class="language-pgp" data-lang="pgp">-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: Keybase OpenPGP v1.0.0
 Comment: https://keybase.io/crypto
@@ -185,7 +186,7 @@ NO7wF7n2e3jSBKx7L2Y6sgpwcxN7jZtMTwgJZIAqpYdwIAkR0NpRPz5pfKPNGInu
 ffj5eBqNHc7WQETmmflNiXAxSmY2ucLJNu0I149m+fQDviER3rSBEz0Rw1x5uUh2
 iRDd7aTubGvfXvbveTV6mV8kzsBNBF5jFb4BCADIcrA2BwC0Pc0iRFIZKF9zxa2g
 tJwZjKpFKzyY1phRs30pXVH3BGufXKMU49g5E6nvHn3aF64b5EiGMCrNGpWsTOJn
-fWRyMGjicBqO1N7INXMP0tGcZwIHTE4AVFfJGZlDv2yP8JLfKTE+zwWO+Elb7JoV
+fWRyMGjicBqO1N7INXMP0tGcZwIHTE4AVFfJGZlGG2yP8JLfKTE+zwWO+Elb7JoV
 9ZWf9pTddShUM4HzpCFNd8ZYpiIMeV2XBcsZhGdXesByATyhfcK7eNgV8ddmf+6+
 k/03s9aJWOCgbQh2IY2qgxFIm6QCD1ML3iHs3icnfPTlnM+j1MevJNSAiB23FyFt
 twtoqtQoyKcqhHGDpLlkEHMdyPes5XrQ9QX9yxWSY7OvBsQ2+PooiNVXEh8dABEB
@@ -195,7 +196,7 @@ Al5jFb4ACgkQVnHg3HosoRC2PwgAgKXlZRpCJVULLltUQG7t5kcJF1jBh7LcnwH/
 S2sXHueJUZYGh8OKcrpakdiXNa67s89o6g3PEVgGXlwn7a3To0ZXo3vhiZk7SnNj
 onk0SQf/7SMJQ87rhATkqpnr8q54XJi2MmzvmIz7Xgh9MaUaL1tSLbwkacgicXqx
 EwAqBDysoOQdxavSiNuzG4F8zXojTJ/oT6HofyZej7+SsjKwllL3RgYaKKTir8iY
-2BYRcLxaXwhysGMvfiy8E3J8cizJUkvKCCNQ0ZCWPRseVjpQk4DMB/4w9h6ElYaD
+2BYRcLxaXwhysGMvfiy8E3J8cizJUkvKCCN40ZCWPRseVjpQk4DMB/4w9h6ElYaD
 wenOzXzQmKlGSO4ewmo8a6MAjFrFOSLDW6EPNIZvrC8TZRWkC1bYNz8+KG0tPp2Q
 bDXbRqNDG+mXky4hp3YacgZfRTMASo9KivmSmG5S/fPJCG0UoxjOwm94b/LK1tDz
 XLQdJfSW6JukujDf+8C/dtkaOJxrsyrM6GXVcB4OvNbI0NZKp4qgm9OcxWtPBod3
@@ -219,7 +220,7 @@ sshの鍵は以下の通り。</p>
 <pre><code class="language-console" data-lang="console">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkldIB4qJ2iLN7OChd4DnTNlyYdbnYFVQh+nAC5EscgyQJ9cYjXXk+iKz0Ot7fb5+UYZsKzGwe6bri15ts+gl1rX7AlE1QORxUZUAM5bx4VXK3MDKIz6WHpjCRsYHD6gFiw0MTTQCPfrznLMFryfM6njhEqtetCUCJeCOrJtUPYJGKw4GJ7l3hlBfPxgwViVaGT55X3FcuwaAHPR54lS/MahMfF7FuhZDxrJj+azaISNup8w19QedWm7O26f0IyxzR6MJG+5KWxSn8DtI5a3RJ5s0CCEAgZiXmZG3Rlegbq7Vgmd9cjiM5mPjUrC0voJq4UOSydi92OGpAvIVpD7UL
 </code></pre><p>一方、ageの鍵は以下の通りで、短いねえ。</p>
 <pre><code class="language-console" data-lang="console">age1rvvg4xt2f9rvkc0dthy5au7kg42jec355ayd24lmath0euzetsfs8czjff
-</code></pre><p>Windows, Mac, Linux, FreeBSDで使える。<br>
+</code></pre><p>ageはWindows, Mac, Linux, FreeBSDで使える。<br>
 ただ、現時点では単なるコマンドなんで、一般人とのファイル授受にはまだ使えないねえ。</p>
 <p>では以下、インストールと使い方</p>
 <h2 id="heading">インストール</h2>
@@ -228,7 +229,7 @@ Windows, Mac, Linux向けには<a href="https://github.com/FiloSottile/age/relea
 <p>FreeBSDなら<code>pkg install security/age</code>で。</p>
 <h2 id="freebsdage">FreeBSDでのageインストール（不要な人は飛ばせ）</h2>
 <p>とはいってもpkgでインストールするだけ。<br>
-サイズは1MiB。けっこう大きいね。</p>
+取得サイズは1MiB。けっこう大きいね。</p>
 <pre><code class="language-console" data-lang="console">$ sudo pkg install security/age
 パスワード:
 Updating FreeBSD repository catalogue...
@@ -282,7 +283,7 @@ $ pkg list age  # インストールされたファイル一覧。manは無い�
 /usr/local/share/licenses/age-1.0.0/catalog.mk
 $
 </code></pre><h2 id="-h">使い方(まずは-hを確認)</h2>
-<p>実行ファイルは<code>age</code>と<code>age-keygen</code>。<br>
+<p>実行ファイルは<code>age</code>と<code>age-keygen</code>である。<br>
 文字通り<code>age-keygen</code>は鍵を作る。<br>
 <code>age</code>が実際の暗号化、復号を受け持つ。</p>
 <p>前節で少し書いたけど、<code>man</code>はないので<code>-h</code>を付けて使い方を表示させること。</p>
@@ -320,24 +321,24 @@ Example:
     $ tar cvz ~/data | age -r age1ql3z7hjy54pw3hyww5ayffg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p &gt; data.tar.gz.age
     $ age -d -i key.txt -o data.tar.gz data.tar.gz.age
 $
-</code></pre><p>ごらんの通り、<code>age-keygen</code>で鍵を作り、その鍵を使って暗号化・復号するのが基本だが、ageは単なるコマンドなんで、パイプで繋げるのがポイント。</p>
+</code></pre><p>ご覧の通り、<code>age-keygen</code>で鍵を作り、その鍵を使って<code>age</code>で暗号化・復号するのが基本だが、<code>age</code>は単なるコマンドなんで、パイプで繋げられるのがポイント。</p>
 <h2 id="heading-1">実行例</h2>
 <h3 id="heading-2">鍵を作る</h3>
 <p>鍵を作るのは<code>age-keygen</code>。<br>
-なお、ageでは、鍵にsshの公開鍵も使えるが、それは後ほど。<br>
+なお、ageでは、ssh鍵も使えるが、それは後ほど。<br>
 ともかく、<code>-o</code>に続いて書き出すファイルを指定すれば鍵が書き込まれる。</p>
-<pre><code class="language-console" data-lang="console">$ age-keygen -o ./.ssh/age-key.txt
+<pre><code class="language-console" data-lang="console">$ age-keygen -o ~/.config/age/keys.txt
 Public key: age1rvvg4xtywl4ceeaqj5auhkg4qjec315ayd24lmath0euzetsfs8czjff
 $
 </code></pre><p>鍵を作ると問答無用で公開鍵を表示してくれる。<br>
 公開鍵は暗号化するときに使う鍵ですな。<br>
 復号するときに使う秘密鍵については、鍵を書き込んだファイルを表示してみると;</p>
-<pre><code class="language-console" data-lang="console">$ cat ./.ssh/age-key.txt
+<pre><code class="language-console" data-lang="console">$ cat ~/.config/age/keys.txt
 # created: 2020-03-07T10:49:42+09:00
 # public key: age1rvvg4xtywl0cxeaqj5auhkg4qjec355ayd24lmath0euzetsfs8czjff
 AGE-SECRET-KEY-1G9NKY3MA92270K8FWXXXXQQ7ZHPLS3VDTASUGQ9AWG6AD8ZT4SLUM3PM
 $
-</code></pre><p>ご覧の通り<code>AGE-SCRET-KEY</code>から続くものが秘密鍵ですな。<br>
+</code></pre><p>ご覧の通り<code>AGE-SECRET-KEY</code>から続くものが秘密鍵ですな。<br>
 なお、鍵の書き込まれたファイルのパーミッションは600で、他人からは見られないようになっている。<br>
 秘密鍵だからね。このファイルの管理は厳重に。言わずもがな。</p>
 <h3 id="heading-3">暗号化</h3>
