@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.62.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）" />
+<meta property="og:description" content="はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/" />
+<meta property="article:published_time" content="2020-03-07T11:36:54+09:00" />
+<meta property="article:modified_time" content="2020-03-07T11:36:54+09:00" />
+<meta itemprop="name" content="2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）">
+<meta itemprop="description" content="はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな">
+<meta itemprop="datePublished" content="2020-03-07T11:36:54&#43;09:00" />
+<meta itemprop="dateModified" content="2020-03-07T11:36:54&#43;09:00" />
+<meta itemprop="wordCount" content="2917">
+
+
+
+<meta itemprop="keywords" content="Security,FreeBSD,age," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）"/>
+<meta name="twitter:description" content="はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな"/>
+
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-38155461-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <script async src="https://cse.google.com/cse.js?cx=006557840537990471538:a32dqhwjiyl"></script>
+<div class="gcse-search"></div>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-03-07T11:36:54&#43;09:00">March 7, 2020</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="--pgp">はじめに : PGPはオワコン</h2>
+<p>ファイルをどう暗号化するか。</p>
+<p>そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。<br>
+内容を覗かれないようにする目的を考えてみると、データが盗まれたときのため、安全でない経路を通して特定の人にデータを渡すため、である。</p>
+<p>このうち、後者の「安全なデータ授受」についてだが、今時いろんな方法はあるものの、そもそも仕事場がモダンな通信手段を許可しておらず、メールだけ、あるいは自家製の糞ファイル授受システムくらいしかない。</p>
+<p>仕方なくパスワード付きzipをメールで送ることになるんだけど、これはこれでブルートフォースでパスワード総当たりされるリスクはある。<br>
+それなら公開鍵を使った方法で暗号化できたらいいよね。</p>
+<p>そうすると候補に挙がるのはPGPであるが、PGPはもうかれこれ30歳(1991年生まれ)でいろいろと古く、セキュリティ強度に不安があるうえに、使い方の理解が非常に難しく、そもそも鍵が長すぎるんだよ。</p>
+<p>試しに「まあ安全」と言われるレベルの2048bitのPGP鍵を作ったらこんな感じである。<br>
+本来なら（略）とかするが、この場合PGP鍵の長さを示すのが目的なのでそのまま示す。<br>
+ぜひマウスホイールを狂ったようにカリカリしてスクロールしてほしい。<br>
+クレイジー。</p>
+<pre><code class="language-pgp" data-lang="pgp">-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: Keybase OpenPGP v1.0.0
+Comment: https://keybase.io/crypto
+
+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
+6ceBrKxYJQvD
+=DVAW
+-----END PGP PUBLIC KEY BLOCK-----
+</code></pre><p>こんなもん日常使いできるか。<br>
+世の中の皆さんもそう思っているようで、PGPのオワコンについては<a href="https://en.wikipedia.org/wiki/Pretty_Good_Privacy#Current_situation">PGP(Wikipedia)英語</a>に怒涛の記載がある。<br>
+<a href="https://www.wired.co.uk/article/efail-pgp-vulnerability-outlook-thunderbird-smime">We're calling it: PGP is dead (WIRED)</a>は文字通りの記事。</p>
+<h2 id="pgpage">PGPは捨ててage（アゲ）を使う。（他に道がないならば）</h2>
+<p>そんなわけで<code>age</code>である。<br>
+<code>age</code>とは、「簡易でモダンで安全な暗号化ツール」だそうである。(<a href="https://github.com/FiloSottile/age">https://github.com/FiloSottile/age</a>)<br>
+Actually Good Encryptionの略。<br>
+読み方は「<a href="https://docs.google.com/document/d/11yHom20CrsuX8KQJXBBw04s80Unjv8zCg_A7sPAX_9Y/preview">アゲ</a>」。エイジではない。</p>
+<p>PGPに比べれば、鍵は短いし、パイプで繋げられるし、簡単だしで確かにいい。<br>
+特に鍵の短さは特筆すべきものがある。<br>
+PGP鍵は話にならないが、sshの鍵と比べても短い。<br>
+sshの鍵は以下の通り。</p>
+<pre><code class="language-console" data-lang="console">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkldIB4qJ2iLN7OChd4DnTNlyYdbnYFVQh+nAC5EscgyQJ9cYjXXk+iKz0Ot7fb5+UYZsKzGwe6bri15ts+gl1rX7AlE1QORxUZUAM5bx4VXK3MDKIz6WHpjCRsYHD6gFiw0MTTQCPfrznLMFryfM6njhEqtetCUCJeCOrJtUPYJGKw4GJ7l3hlBfPxgwViVaGT55X3FcuwaAHPR54lS/MahMfF7FuhZDxrJj+azaISNup8w19QedWm7O26f0IyxzR6MJG+5KWxSn8DtI5a3RJ5s0CCEAgZiXmZG3Rlegbq7Vgmd9cjiM5mPjUrC0voJq4UOSydi92OGpAvIVpD7UL
+</code></pre><p>一方、ageの鍵は以下の通りで、短いねえ。</p>
+<pre><code class="language-console" data-lang="console">age1rvvg4xt2f9rvkc0dthy5au7kg42jec355ayd24lmath0euzetsfs8czjff
+</code></pre><p>Windows, Mac, Linux, FreeBSDで使える。<br>
+ただ、現時点では単なるコマンドなんで、一般人とのファイル授受にはまだ使えないねえ。</p>
+<p>では以下、インストールと使い方</p>
+<h2 id="heading">インストール</h2>
+<p><a href="https://github.com/FiloSottile/age">github</a>の通り。<br>
+Windows, Mac, Linux向けには<a href="https://github.com/FiloSottile/age/releases">バイナリ</a>もある。</p>
+<p>FreeBSDなら<code>pkg install security/age</code>で。</p>
+<h2 id="freebsdage">FreeBSDでのageインストール（不要な人は飛ばせ）</h2>
+<p>とはいってもpkgでインストールするだけ。<br>
+サイズは1MiB。けっこう大きいね。</p>
+<pre><code class="language-console" data-lang="console">$ sudo pkg install security/age
+パスワード:
+Updating FreeBSD repository catalogue...
+FreeBSD repository is up to date.
+All repositories are up to date.
+The following 1 package(s) will be affected (of 0 checked):
+
+New packages to be INSTALLED:
+        age: 1.0.0
+
+Number of packages to be installed: 1
+
+The process will require 6 MiB more space.
+1 MiB to be downloaded.
+
+Proceed with this action? [y/N]: y
+[1/1] Fetching age-1.0.0.txz: 100%    1 MiB   1.3MB/s    00:01
+Checking integrity... done (0 conflicting)
+[1/1] Installing age-1.0.0...
+[1/1] Extracting age-1.0.0: 100%
+$
+$ pkg info age  # infoは以下の通り。
+age-1.0.0
+Name           : age
+Version        : 1.0.0
+Installed on   : Sat Mar  7 10:37:01 2020 JST
+Origin         : security/age
+Architecture   : FreeBSD:12:amd64
+Prefix         : /usr/local
+Categories     : security
+Licenses       : BSD3CLAUSE
+Maintainer     : dmgk@FreeBSD.org
+WWW            : https://github.com/FiloSottile/age
+Comment        : Simple, modern and secure file encryption tool
+Annotations    :
+        FreeBSD_version: 1200086
+        repo_type      : binary
+        repository     : FreeBSD
+Flat size      : 5.87MiB
+Description    :
+age is a simple, modern and secure encryption tool with small explicit keys, no
+config options, and UNIX-style composability.
+
+WWW: https://github.com/FiloSottile/age
+
+$ pkg list age  # インストールされたファイル一覧。manは無い。
+/usr/local/bin/age
+/usr/local/bin/age-keygen
+/usr/local/share/licenses/age-1.0.0/BSD3CLAUSE
+/usr/local/share/licenses/age-1.0.0/LICENSE
+/usr/local/share/licenses/age-1.0.0/catalog.mk
+$
+</code></pre><h2 id="-h">使い方(まずは-hを確認)</h2>
+<p>実行ファイルは<code>age</code>と<code>age-keygen</code>。<br>
+文字通り<code>age-keygen</code>は鍵を作る。<br>
+<code>age</code>が実際の暗号化、復号を受け持つ。</p>
+<p>前節で少し書いたけど、<code>man</code>はないので<code>-h</code>を付けて使い方を表示させること。</p>
+<p>以下が実行結果であるが、<code>-h</code>を与えたときの<code>age-keygen</code>の素っ気なさと<code>age</code>の熱量の差を感じていただきたい。</p>
+<pre><code class="language-console" data-lang="console">$ age-keygen --help  # -hでも--helpでも同じ。
+Usage of age-keygen:
+  -o FILE
+        output to FILE (default stdout)
+$
+$ age --help
+Usage:
+    age -r RECIPIENT [-a] [-o OUTPUT] [INPUT]
+    age --decrypt [-i KEY] [-o OUTPUT] [INPUT]
+
+Options:
+    -o OUTPUT                   Write the result to the file at path OUTPUT.
+    -a, --armor                 Encrypt to a PEM encoded format.
+    -p, --passphrase            Encrypt with a passphrase.
+    -r, --recipient RECIPIENT   Encrypt to the specified RECIPIENT. Can be repeated.
+    -d, --decrypt               Decrypt the input to the output.
+    -i, --identity KEY          Use the private key file at path KEY. Can be repeated.
+
+INPUT defaults to standard input, and OUTPUT defaults to standard output.
+
+RECIPIENT can be an age public key, as generated by age-keygen, (&quot;age1...&quot;)
+or an SSH public key (&quot;ssh-ed25519 AAAA...&quot;, &quot;ssh-rsa AAAA...&quot;).
+
+KEY is a path to a file with age secret keys, one per line
+(ignoring &quot;#&quot; prefixed comments and empty lines), or to an SSH key file.
+Multiple keys can be provided, and any unused ones will be ignored.
+
+Example:
+    $ age-keygen -o key.txt
+    Public key: age1ql3z7hjy54pw3hyww5ayyfgxzqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p
+    $ tar cvz ~/data | age -r age1ql3z7hjy54pw3hyww5ayffg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p &gt; data.tar.gz.age
+    $ age -d -i key.txt -o data.tar.gz data.tar.gz.age
+$
+</code></pre><p>ごらんの通り、<code>age-keygen</code>で鍵を作り、その鍵を使って暗号化・復号するのが基本だが、ageは単なるコマンドなんで、パイプで繋げるのがポイント。</p>
+<h2 id="heading-1">実行例</h2>
+<h3 id="heading-2">鍵を作る</h3>
+<p>鍵を作るのは<code>age-keygen</code>。<br>
+なお、ageでは、鍵にsshの公開鍵も使えるが、それは後ほど。<br>
+ともかく、<code>-o</code>に続いて書き出すファイルを指定すれば鍵が書き込まれる。</p>
+<pre><code class="language-console" data-lang="console">$ age-keygen -o ./.ssh/age-key.txt
+Public key: age1rvvg4xtywl4ceeaqj5auhkg4qjec315ayd24lmath0euzetsfs8czjff
+$
+</code></pre><p>鍵を作ると問答無用で公開鍵を表示してくれる。<br>
+公開鍵は暗号化するときに使う鍵ですな。<br>
+復号するときに使う秘密鍵については、鍵を書き込んだファイルを表示してみると;</p>
+<pre><code class="language-console" data-lang="console">$ cat ./.ssh/age-key.txt
+# created: 2020-03-07T10:49:42+09:00
+# public key: age1rvvg4xtywl0cxeaqj5auhkg4qjec355ayd24lmath0euzetsfs8czjff
+AGE-SECRET-KEY-1G9NKY3MA92270K8FWXXXXQQ7ZHPLS3VDTASUGQ9AWG6AD8ZT4SLUM3PM
+$
+</code></pre><p>ご覧の通り<code>AGE-SCRET-KEY</code>から続くものが秘密鍵ですな。<br>
+なお、鍵の書き込まれたファイルのパーミッションは600で、他人からは見られないようになっている。<br>
+秘密鍵だからね。このファイルの管理は厳重に。言わずもがな。</p>
+<h3 id="heading-3">暗号化</h3>
+<p>基本的な使い方は<code>cat</code>やらしたファイルをパイプで繋ぐ。<br>
+以下の例では<code>plane.txt</code>の内容を<code>age</code>に渡す。<br>
+<code>-r</code>で公開鍵を指定。<br>
+そのままだと標準出力に暗号化データが吐き出されるので、<code>-o</code>で出力先ファイルを指定。<br>
+以下の例だと<code>plane.age</code>に。</p>
+<pre><code class="language-console" data-lang="console">$ cat ./plane.txt
+ほげほげ
+$ file ./plane.txt
+./plane.txt: UTF-8 Unicode text  # UTF-8のプレインテキスト
+$
+$ cat ./plane.txt |age -o plane.age -r age1rvvg4xtywl0ceeaqj5auhkg4qjec355ayd24lmrth0euzetsfs8czjff
+
+$ file ./plane.age
+./plane.age: data  # 出来上がりはバイナリデータの模様
+$
+$ du -h ./plane*  # やっぱりサイズは増えるよね
+4.5K    ./plane.age
+512B    ./plane.txt
+</code></pre><h3 id="heading-4">復号</h3>
+<p>復号する場合には、<code>--decrypt</code>あるいは<code>-d</code>をオプションに与える。<br>
+鍵は<code>--identity</code>あるいは<code>-i</code>で指定する。<br>
+結果は標準出力に吐き出されるので、必要に応じてファイルにリダイレクトする。</p>
+<pre><code class="language-console" data-lang="console">$ age -i ~/.config/age/keys.txt --decrypt ./plane.age
+ほげほげ
+$
+$ age -i ~/.config/age/keys.txt --decrypt ./plane.age &gt; plane.decrypt.txt
+$ cat plane.decrypt.txt
+ほげほげ
+$
+</code></pre><h3 id="heading-5">暗号化のバリエーション</h3>
+<h4 id="heading-6">公開鍵入力のテクニック</h4>
+<p>いかなageといえど、いちいち公開鍵をコピペするの面倒なので、以下のようにする。</p>
+<pre><code class="language-console" data-lang="console">$ cat ./rcpt.txt
+age12d2x0gquwpuywl0ceeaqjsXXXXXxvp9j8ae6l04xfh5d85n44qaj8e4r
+$ cat ./plane.txt |age -r `cat rcpt.txt`  -o plane.age
+</code></pre><h4 id="heading-7">複数の宛先へ</h4>
+<p>暗号化のとき、公開鍵は複数、設定することができる。<br>
+この場合、いずれの秘密鍵でも復号できる。<br>
+以下の例では、できたファイルはage1AAA, age1BBBの秘密鍵の持ち主それぞれで復号できる</p>
+<pre><code class="language-console" data-lang="console">$ cat ./plane.txt |age -r age1AAA.... -r age1BBB...  -o plane.age
+$
+</code></pre><h4 id="tar">tarなどのアーカイバと組み合わせる</h4>
+<p>ディレクトリをtar, gzで固めたものを暗号化<br>
+zfsのスナップショットと組み合わせるのもいいね。</p>
+<pre><code class="language-console" data-lang="console">$ ls -R ./dir
+a.txt   b.txt
+ tar cvzf - ./dir |age -r age12d.... -o dir.tgz.age
+a ./dir
+a ./dir/a.txt
+a ./dir/b.txt
+$
+</code></pre><h4 id="ssh">sshの鍵</h4>
+<p>sshの公開鍵も使える。</p>
+<pre><code class="language-console" data-lang="console">$ cat plane.txt
+ほげほげ
+$ cat ~/.ssh/id_rsa.pub  # ssh公開鍵
+ssh-rsa AAAA（略）
+$ cat plane.txt|age -o plane.age -r &quot;`cat ~/.ssh/id_rsa.pub`&quot;  # ダブルクオーテーションで括らないといけないことに注意
+$
+$ age -d -i ~/.ssh/id_rsa ./plane.age
+Enter passphrase for &quot;/home/nobwak/.ssh/id_rsa&quot;:  # ssh鍵のパスフレーズ入力
+ほげほげ
+$
+</code></pre><h4 id="heading-8">パスフレーズ</h4>
+<p><code>-p</code>を与えるとパスフレーズが使える。</p>
+<pre><code class="language-console" data-lang="console">$ cat plane.txt
+ほげほげ
+$ age -p ./plane.txt &gt; plane.age
+Enter passphrase:  # パスフレーズを入れる
+$
+$ age -d ./plane.age  # 復号のときは-dオプション不要
+Enter passphrase:
+ほげほげ
+$
+
+</code></pre><ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/security" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Security</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/age" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">age</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2020-03-01-%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%81%A7%E4%BD%BF%E3%81%88%E3%82%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E6%83%85%E5%A0%B1%E8%A1%A8%E7%A4%BA%E3%83%84%E3%83%BC%E3%83%ABneofetch/">2020-03-01-ターミナルで使えるシステム情報表示ツールneofetch</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2018-11-18-zfszpool_zfs%E3%81%AE%E5%88%A5%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/">[zfs][zpool] zfsの別ディスクへの移行</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-08-08-%E3%83%A1%E3%83%A2freebsd_%E8%A4%87%E6%95%B0jail%E3%81%AEpkg_upgrade%E3%82%92%E4%B8%80%E6%B0%97%E3%81%AB%E6%B8%88%E3%81%BE%E3%81%9B%E3%81%9F%E3%81%84/">[メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-04-16-slackhubotjail%E3%83%A1%E3%83%A2_freebsd_jail%E3%81%A7hubot%E3%82%92%E9%A3%BC%E3%81%86/">[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-09-25-sh_%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/">[sh] オレオレ証明書作成シェルスクリプト</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-09-22-%E3%83%A1%E3%83%A2vagrant_freebsd%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/">[メモ][Vagrant] FreeBSDのboxを作る。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-28-freebsd_jail%E3%81%AEetc%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8Bqjail/">[FreeBSD] jailのetcを更新する(qjail)</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/">[FreeBSD][メモ] PlexConnectに関する情報</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-26-freebsd_pkg_quarterly%E3%81%A8latest%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E5%85%B1%E5%AD%98/">[FreeBSD] pkg quarterlyとlatestレポジトリの共存</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-05-freebsd_10.2-release%E3%81%8B%E3%82%89%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%82%8Bpkg_quarterly%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0/">[FreeBSD] 10.2-RELEASEから適用されるpkg quarterlyてなんだ。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-05-09-freebsd%E3%83%A1%E3%83%A2_aclaccess_control_lists%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B/">[FreeBSD][メモ] ACL（Access Control Lists）を有効にする</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-05-07-freebsd_samba_3.x%E3%81%8B%E3%82%89samba_4.x%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/">[FreeBSD] Samba 3.xからSamba 4.xへの移行</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-01-03-freebsd%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E8%A4%87%E6%95%B0%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%8B%E5%A5%B4%E3%81%AF1.4.3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%A6%E3%81%8A%E3%81%91/">[FreeBSD][メモ] pkgngで複数レポジトリ使ってる奴は1.4.3に上げておけ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-01-02-freebsd_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E3%81%AB%E3%81%AFzpoolzfs%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%82%E5%BF%98%E3%82%8C%E3%81%9A%E3%81%ABne/">[FreeBSD] システムアップグレード時にはzpool(ZFS)のアップグレードも忘れずにNE！</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2020 Nobwak&#39;s Lair
+  </a>
+    <div><div id="sharing">
+<font color="FFFFFF">Share with: </font>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-11-portablegit%25E3%2582%25BB%25E3%2583%2583%25E3%2583%2588%25E3%2582%25A2%25E3%2583%2583%25E3%2583%2597_windows%2f" class="facebook" aria-label="share on Facebook">
+    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+  </a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-11-portablegit%25E3%2582%25BB%25E3%2583%2583%25E3%2583%2588%25E3%2582%25A2%25E3%2583%2583%25E3%2583%2597_windows%2f&text=2020-02-11-PortableGit%e3%82%bb%e3%83%83%e3%83%88%e3%82%a2%e3%83%83%e3%83%97%ef%bc%88Windows%ef%bc%89" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+  </a>
+</div>
+</div>
+    <div>
+
+
+
+<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
