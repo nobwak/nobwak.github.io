@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | 2020-03-10-VisualCodeStudioでvirtualenvを使う</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.62.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="2020-03-10-VisualCodeStudioでvirtualenvを使う" />
+<meta property="og:description" content="PythonのvirtualenvをVisual Code Studio（以降、VSC）に認識させるには、のメモ。 一言でいえば、virtualenvを" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2020-03-10-visualcodestudio%E3%81%A7virtualenv%E3%82%92%E4%BD%BF%E3%81%86/" />
+<meta property="article:published_time" content="2020-03-10T19:06:25+09:00" />
+<meta property="article:modified_time" content="2020-03-10T19:06:25+09:00" />
+<meta itemprop="name" content="2020-03-10-VisualCodeStudioでvirtualenvを使う">
+<meta itemprop="description" content="PythonのvirtualenvをVisual Code Studio（以降、VSC）に認識させるには、のメモ。 一言でいえば、virtualenvを">
+<meta itemprop="datePublished" content="2020-03-10T19:06:25&#43;09:00" />
+<meta itemprop="dateModified" content="2020-03-10T19:06:25&#43;09:00" />
+<meta itemprop="wordCount" content="629">
+
+
+
+<meta itemprop="keywords" content="visualcodestudio,python," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2020-03-10-VisualCodeStudioでvirtualenvを使う"/>
+<meta name="twitter:description" content="PythonのvirtualenvをVisual Code Studio（以降、VSC）に認識させるには、のメモ。 一言でいえば、virtualenvを"/>
+
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-38155461-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+      <script async src="https://cse.google.com/cse.js?cx=006557840537990471538:a32dqhwjiyl"></script>
+<div class="gcse-search"></div>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">2020-03-10-VisualCodeStudioでvirtualenvを使う</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-03-10T19:06:25&#43;09:00">March 10, 2020</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>PythonのvirtualenvをVisual Code Studio（以降、VSC）に認識させるには、のメモ。<br>
+一言でいえば、virtualenvをしたフォルダをVSCで開き、virtualenvを選ぶだけ。
+以下、Windowsでの作業例。</p>
+<h2 id="virtualenv">準備：virtualenvを作る</h2>
+<p>まずvirtualenvを作る。<br>
+ここでは<code>C:\Users\nobwak\Downloads\py\test</code>にvirtualenv <code>hogehoge</code> を作る。</p>
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak\Downloads\py\test&gt;virtualenv hogehoge
+
+created virtual environment CPython3.8.1.final.0-32 in 4110ms
+  creator CPython3Windows(dest=C:\Users\nobwak\Downloads\py\test\hogehoge, clear=False, global=False)
+  seeder FromAppData(download=False, pip=latest, setuptools=latest, wheel=latest, via=copy, app_data_dir=C:\Users\nobwak\AppData\Local\Temp\tmpo0qu8vwp\seed-app-data\v1)
+  activators BashActivator,BatchActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+</code></pre><p>通常なら<code>activate</code>してライブラリをインストールしますね。<br>
+Windowsでは<code>activate</code>の仕方がちょっと変わってて、環境が<code>hogehoge</code>なら<code>hogehoge\Scripts\activate.bat</code>になる。</p>
+<pre><code class="language-console" data-lang="console">C:\Users\nobwak\Downloads\py\test&gt;hogehoge\Scripts\activate.bat
+
+(hogehoge) C:\Users\nobwak\Downloads\py\test&gt;
+</code></pre><p>お好みでライブラリをインストール。<br>
+ここでは<code>pyperclip</code>を。</p>
+<pre><code class="language-console" data-lang="console">(hogehoge) C:\Users\nobwak\Downloads\py\test&gt;pip install pyperclip
+Processing c:\users\nobwak\appdata\local\pip\cache\wheels\76\ce\1d\b18ba37ad8d4e115814119ad2b5c6eec1bb680ac298e23405c\pyperclip-1.7.0-py3-none-any.whl
+Installing collected packages: pyperclip
+Successfully installed pyperclip-1.7.0
+
+(hogehoge) C:\Users\nobwak\Downloads\py\test&gt;
+</code></pre><h2 id="vsc">VSCでの操作</h2>
+<p>作ったフォルダを開く。</p>
+<p><img src="/images/20200310/20200310openvsc.png" alt="open"></p>
+<p>おもむろに<code>import pyperclip</code>と書き出す。<br>
+<code>pyperclip</code>は無いので、当然ながらVSCは文句を言う（赤波下線）</p>
+<p><img src="/images/20200310/20200310importerror.png" alt="open"></p>
+<p>画面左下のPython 3.8.1 32-bit&hellip;をクリックすると、画面中央上部に環境の選択肢が出てくるので、そこで選ぶ。</p>
+<p><img src="/images/20200310/20200310changepython.png" alt="open"></p>
+<p>さっきのhogehogeを選ぶ</p>
+<p><img src="/images/20200310/20200310changepythonlang.png" alt="open"></p>
+<p>いちいちマウスクリックが面倒ならば<code>SHIFT + Ctrl + P</code>から、<code>Python Inter</code>くらいまでタイプすればインタプリターの選択が出てくるので、そこから環境を選ぶ。</p>
+<p><img src="/images/20200310/20200310commandpal.png" alt="open"></p>
+<p>さっきの赤波線が消える。</p>
+<p><img src="/images/20200310/20200310changed.jpg" alt="open"></p>
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/visualcodestudio" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">visualcodestudio</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2020-02-22-%E4%BA%AC%E6%80%A5%E3%81%AE%E9%81%8B%E8%A1%8C%E7%8A%B6%E6%B3%81%E3%82%92python%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%97%E3%82%88%E3%81%86/">2020-02-22-京急の運行状況をpythonで取得しよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2020-01-18-visualstudiocode_python_windows%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/">2020-01-18-VisualStudioCode_python_Windowsセットアップ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-06-12-%E3%83%A1%E3%83%A2_slack%E3%81%A8mattermost%E3%81%9D%E3%82%8C%E3%81%9E%E3%82%8C%E3%81%AEincomingwebhook%E3%81%B8%E3%81%AE%E3%83%9D%E3%82%B9%E3%83%88%E6%96%B9%E6%B3%95%E3%81%AE%E9%81%95%E3%81%84/">[メモ] SlackとMattermostそれぞれのincomingWebhookへのポスト方法の違い</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-06-08-%E3%83%A1%E3%83%A2python_anaconda%E3%82%92windows_xp%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%88%E3%81%86%E3%81%A8%E3%81%99%E3%82%8B%E3%81%A8%E5%A4%B1%E6%95%97%E3%81%99%E3%82%8B/">[メモ][Python] AnacondaをWindows xpにインストールしようとすると失敗する</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-06-02-slack_mattermost%E3%81%AEbot%E3%82%92python%E3%81%AEflask%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">Slack/MattermostのbotをPythonのFlaskで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-05-22-python_list%E3%81%AE%E5%B7%AE%E5%88%86%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/">[Python] listの差分を知るには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-05-19-pythonmemo_%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%81%AE%E5%B7%AE%E3%82%92%E6%B1%82%E3%82%81%E3%82%8B/">[Python][memo] タイムスタンプの差を求める</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-05-08-python_requests%E3%81%A8lxml%E3%81%A7%E4%BA%AC%E6%80%A5%E3%81%AE%E9%81%8B%E8%A1%8C%E6%83%85%E5%A0%B1%E3%82%92%E6%8A%BD%E5%87%BA%E3%81%97%E3%82%88%E3%81%86/">[Python] requestsとlxmlで京急の運行情報を抽出しよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-05-python_wxpython%E3%81%A7%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB%E3%83%90%E3%83%BC%E3%81%AB%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python] wxPythonで、タイトルバーにアイコンを表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-01-12-pythonwindows_windows7%E3%81%B8%E3%81%AE%E7%B4%94%E6%AD%A3python%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%83%A1%E3%83%A2/">[Python][Windows] Windows7への純正Pythonインストールメモ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-12-29-python_wxglade%E3%81%A7gui%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%82%92/">[Python] wxGladeでGUIのデザインを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-10-23-python_pyinstaller%E3%81%AE%E9%81%85%E3%81%95%E3%81%AB%E3%81%8C%E3%81%A3%E3%81%8B%E3%82%8A%E3%81%97%E3%81%A6py2exe%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E7%88%86%E9%80%9F%E3%81%A7%E9%A9%9A%E3%81%84%E3%81%9F%E4%BB%B6/">[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-19-%E3%83%A1%E3%83%A2_wxpython%E3%81%8Cos_x%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E8%A7%A3%E6%B1%BA/">[メモ] wxPythonがOS Xにインストールできない（解決）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-14-%E3%83%A1%E3%83%A2pythonsqlite_%E5%B7%A8%E5%A4%A7%E3%81%AAsqlite%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF/">[メモ][Python][SQLite] 巨大なSQLiteデータベースからレコードを取り出すには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-31-%E3%83%A1%E3%83%A2_python%E3%81%A7%E6%A8%99%E6%BA%96%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%BA%E5%8A%9B%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] Pythonで標準エラー出力に表示するには</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2020 Nobwak&#39;s Lair
+  </a>
+    <div><div id="sharing">
+<font color="FFFFFF">Share with: </font>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-11-portablegit%25E3%2582%25BB%25E3%2583%2583%25E3%2583%2588%25E3%2582%25A2%25E3%2583%2583%25E3%2583%2597_windows%2f" class="facebook" aria-label="share on Facebook">
+    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+  </a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-11-portablegit%25E3%2582%25BB%25E3%2583%2583%25E3%2583%2588%25E3%2582%25A2%25E3%2583%2583%25E3%2583%2597_windows%2f&text=2020-02-11-PortableGit%e3%82%bb%e3%83%83%e3%83%88%e3%82%a2%e3%83%83%e3%83%97%ef%bc%88Windows%ef%bc%89" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+  </a>
+</div>
+</div>
+    <div>
+
+
+
+<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
