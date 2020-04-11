@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -38,7 +38,7 @@
 <meta itemprop="description" content="sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ">
 <meta itemprop="datePublished" content="2013-07-28T23:00:32&#43;09:00" />
 <meta itemprop="dateModified" content="2013-07-28T23:00:32&#43;09:00" />
-<meta itemprop="wordCount" content="1633">
+<meta itemprop="wordCount" content="1685">
 
 
 
@@ -139,17 +139,17 @@ if (!doNotTrack) {
 
     <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><!-- raw HTML omitted -->sprunge.us<!-- raw HTML omitted -->というサービスがあるのを、いまさら知って驚いてそして大感謝した。<br>
 以下に顛末を記す。</p>
-<h2 id="span-styletext-decoration-underlinesprungeusspan"><!-- raw HTML omitted -->sprunge.usってなんだ。<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinesprungeusってなんだspan"><!-- raw HTML omitted -->sprunge.usってなんだ。<!-- raw HTML omitted --></h2>
 <p>ブラウザでsprunge.usを開くと、manページのような見てくれで何か間違えたかと二度見するようなサイトなのだが、よく見ると凄い事が書いてある。</p>
 <p>何らかのコマンドの標準出力をsprunge.usに食わすと、URLが返る。<br>
 そのURLへアクセスすると、先の出力結果が見えるというわけ。</p>
-<h2 id="span-styletext-decoration-underlinesprungeusspan-1"><!-- raw HTML omitted -->sprunge.usの使い方<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinesprungeusの使い方span"><!-- raw HTML omitted -->sprunge.usの使い方<!-- raw HTML omitted --></h2>
 <p>使い方といっても上記の通りなんだが、やってみるのが早い。<br>
 uname -aの結果を食べさせてみる。</p>
 <pre><code class="language-console" data-lang="console">$ uname -a | curl -F 'sprunge=&lt;-' http://sprunge.us
 http://sprunge.us/CTQL
-</code></pre><p>返ってきたURL、<!-- raw HTML omitted --><a href="http://sprunge.us/CTQL%3C/a%3E">http://sprunge.us/CTQL&lt;/a&gt;</a>にアクセスしていただくと、uname -aの結果、すなわち我輩の鯖の詳細が分かる。</p>
-<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->使いどころ<!-- raw HTML omitted --></h2>
+</code></pre><p>返ってきたURL、<!-- raw HTML omitted --><a href="http://sprunge.us/CTQL">http://sprunge.us/CTQL</a><!-- raw HTML omitted -->にアクセスしていただくと、uname -aの結果、すなわち我輩の鯖の詳細が分かる。</p>
+<h2 id="span-styletext-decoration-underline使いどころspan"><!-- raw HTML omitted -->使いどころ<!-- raw HTML omitted --></h2>
 <p>このサービスの何が便利なのか。<br>
 sprunge.usを使うことで、エラーや設定ファイル、ちょっとしたスクリプト、ソースを手軽に共有できる。</p>
 <p>たとえば私が、あるサーバが意図した動作をせず困っているときに、助けを求めるとする。<br>
@@ -159,15 +159,15 @@ twitterには140文字しか書けないので、エラー、使用している�
 そこでコマンドラインからsprunge.usにアップロードし、そのURLを相手に送る。</p>
 <p>これは便利じゃありませんかみなさん。<br>
 まあ、助けを求める相手がいる限りにおいてですが。</p>
-<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->いつまで残るの・・・？<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlineいつまで残るのspan"><!-- raw HTML omitted -->いつまで残るの・・・？<!-- raw HTML omitted --></h2>
 <p>sprungeに載せた内容はいつまで残るのか。<br>
 調べてみたけど、ちょっと分からなかった。<br>
 末尾で触れるpastebinだと、残す期間を選べたりするのだが。</p>
-<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->やってもうた時は？<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlineやってもうた時はspan"><!-- raw HTML omitted -->やってもうた時は？<!-- raw HTML omitted --></h2>
 <p>共有すべきでない内容をsprunge.usしてしまった時はどうするのだろうか。<br>
 これも検索したけど分からない。<br>
 センシティブな情報、IDとかパスワードとかが含まれそうな場合は、後述のpastbinの方がよいかも。</p>
-<h2 id="span-styletext-decoration-underlinesprungespan"><!-- raw HTML omitted -->sprungeをもっと便利に使う。<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinesprungeをもっと便利に使うspan"><!-- raw HTML omitted -->sprungeをもっと便利に使う。<!-- raw HTML omitted --></h2>
 <p>まずですね、aliasを設定しましょう。<br>
 こんな長いの、いちいちタイプできんですよ。<br>
 設定したらすぐ確かめるのが紳士のたしなみ。ここだとaliasを引数なしですぐさま叩く。</p>
@@ -176,21 +176,21 @@ $ alias
 alias sprunge='curl -F '\''sprunge=&lt;-'\'' http://sprunge.us'
 </code></pre><p>テストして問題なければ、シェルに合わせた初期設定ファイルに書き込んでおく。<br>
 ~/.profileとか。</p>
-<h2 id="span-styletext-decoration-underlinesprungeokspan"><!-- raw HTML omitted -->sprungeはファイルの内容だってOK。<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinesprungeはファイルの内容だってokspan"><!-- raw HTML omitted -->sprungeはファイルの内容だってOK。<!-- raw HTML omitted --></h2>
 <p>sprungeは標準出力を受け付けるので、ファイルの内容だって貼り付けられる。<br>
 FreeBSDのftpd起動シェルスクリプトで試してみよう。<br>
 どうせなら、上記で作成したaliasで。</p>
 <pre><code class="language-console" data-lang="console">$ cat /etc/rc.d/ftpd | sprunge
 http://sprunge.us/LQCZ
-</code></pre><p><!-- raw HTML omitted --><a href="http://sprunge.us/LQCZ%3C/a%3E">http://sprunge.us/LQCZ&lt;/a&gt;</a> どうだろうか。</p>
-<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->構文強調と行番号表示もできる。<!-- raw HTML omitted --></h2>
+</code></pre><p><!-- raw HTML omitted --><a href="http://sprunge.us/LQCZ">http://sprunge.us/LQCZ</a><!-- raw HTML omitted --> どうだろうか。</p>
+<h2 id="span-styletext-decoration-underline構文強調と行番号表示もできるspan"><!-- raw HTML omitted -->構文強調と行番号表示もできる。<!-- raw HTML omitted --></h2>
 <p>sprunge.usに以下のように書いてある。</p>
 <pre><code class="language-console" data-lang="console">add ?&lt;lang&gt; to resulting url for line numbers and syntax highlighting
     use this form to paste from a browser
 </code></pre><p>上記のftpdシェルスクリプトを例に引く。<br>
 シェルスクリプトなので、「sh」を?に続けてURLに加えればよい。</p>
-<p><!-- raw HTML omitted --><a href="http://sprunge.us/LQCZ%3Cspan">http://sprunge.us/LQCZ&lt;span</a> style=&quot;color: #ff0000;&ldquo;&gt;?sh<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="span-styletext-decoration-underlinesprungespan-1"><!-- raw HTML omitted -->sprungeに意地悪をしてみる。<!-- raw HTML omitted --></h2>
+<p><!-- raw HTML omitted --><a href="http://sprunge.us/LQCZ">http://sprunge.us/LQCZ</a><!-- raw HTML omitted -->?sh<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="span-styletext-decoration-underlinesprungeに意地悪をしてみるspan"><!-- raw HTML omitted -->sprungeに意地悪をしてみる。<!-- raw HTML omitted --></h2>
 <p>知る人ぞ知るコマンドに<!-- raw HTML omitted -->sl<!-- raw HTML omitted -->がある。</p>
 <p>これはlsをslとタイプミスしてしまったとき、アスキーアートのSL機関車がターミナルを爆走する豪快なコマンドだ。<br>
 slコマンドをご存じなく、UNIX系マシンをお持ちの方はぜひインストールしてその目で確かめてほしい。<br>
@@ -198,10 +198,10 @@ slコマンドをご存じなく、UNIX系マシンをお持ちの方はぜひ�
 <p>で、これをsprungeに食わせてみた。</p>
 <pre><code class="language-console" data-lang="console">$ sl | sprunge
 http://sprunge.us/Sijg
-</code></pre><p><!-- raw HTML omitted --><a href="http://sprunge.us/Sijg%3C/a%3E">http://sprunge.us/Sijg&lt;/a&gt;</a> &hellip;うん。まあ。仕方ないね。</p>
-<h2 id="span-styletext-decoration-underlinespan-4"><!-- raw HTML omitted -->同様の別サービス<!-- raw HTML omitted --></h2>
+</code></pre><p><!-- raw HTML omitted --><a href="http://sprunge.us/Sijg">http://sprunge.us/Sijg</a><!-- raw HTML omitted --> &hellip;うん。まあ。仕方ないね。</p>
+<h2 id="span-styletext-decoration-underline同様の別サービスspan"><!-- raw HTML omitted -->同様の別サービス<!-- raw HTML omitted --></h2>
 <p>sprunge.usと同様のサービスにpastbinがある。<br>
-<!-- raw HTML omitted --><a href="http://pastebin.com/%3C/a%3E">http://pastebin.com/&lt;/a&gt;</a><br>
+<!-- raw HTML omitted --><a href="http://pastebin.com/">http://pastebin.com/</a><!-- raw HTML omitted --><br>
 世間的にはsprunge.usよりこちらの方が有名な様子。</p>
 <p>CUIから使うためにwgetpastといったツールもある。</p>
 <ul class="pa0">
@@ -229,11 +229,11 @@ http://sprunge.us/Sijg
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

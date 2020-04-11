@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -38,7 +38,7 @@
 <meta itemprop="description" content="さきに結論。SIPベースのVoIP端末/VoLTE端末が、相互接続で四苦八苦している間に、ブラウザベースでの音声通話に席巻されてしまうんじゃ">
 <meta itemprop="datePublished" content="2013-03-10T22:02:45&#43;09:00" />
 <meta itemprop="dateModified" content="2013-03-10T22:02:45&#43;09:00" />
-<meta itemprop="wordCount" content="1400">
+<meta itemprop="wordCount" content="1464">
 
 
 
@@ -143,43 +143,43 @@ if (!doNotTrack) {
 と、逃げ道をつくったところで。</p>
 <p><strong>VoIPとは。</strong></p>
 <p>SIPあるいはH.323などをセッションプロトコルに使い、IP（インターネットプロトコル）でリアルタイムに音声を伝送するもの、とする。<br>
-<!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/VOIP%3C/a%3E">http://ja.wikipedia.org/wiki/VOIP&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/VOIP">http://ja.wikipedia.org/wiki/VOIP</a><!-- raw HTML omitted --></p>
 <p>そして携帯電話をVoIP端末にするのなら、どこのキャリアもLTEを選びたいだろう。<br>
 というのも2G、3Gでは荷が重すぎるから。つまりVoLTE(Voice Over LTE)。</p>
-<h3 id="volte"><strong>VoLTEとは。</strong></h3>
+<h3 id="volteとは"><strong>VoLTEとは。</strong></h3>
 <p>これも定義が難しいけれど、セッションプロトコルにSIPを使い、無線アクセス区間、有線区間では音声用リアルタイム伝送のためのチューニングを加えたものとする。</p>
-<h3 id="volte-1"><strong>VoLTEへすすめー！</strong></h3>
+<h3 id="volteへすすめー"><strong>VoLTEへすすめー！</strong></h3>
 <p>携帯各社にとっては、データ通信が急速に伸びている以上、電波を効率的に使えるLTEへ移行したい。</p>
 <p>しかし音声通話はダウントレンドであるものの面倒は見なければいけない。<br>
 ではいかにしてLTE上で音声通話を実現するか、の一つの解が先述のVoLTEである。</p>
 <p>検索してみて驚いたのだが、VoLTEは総務省推しだったりもする。2012年7月の記事</p>
 <blockquote>
 <p>総務省がVoLTE技術基準策定、LTE通信・音声通話の一本化で省電力や災害時対策などにメリット<br>
-<!-- raw HTML omitted --><a href="http://appllio.com/news/20120707-2289-volte%3C/a%3E">http://appllio.com/news/20120707-2289-volte&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://appllio.com/news/20120707-2289-volte">http://appllio.com/news/20120707-2289-volte</a><!-- raw HTML omitted --></p>
 </blockquote>
-<h3 id="interoperability"><strong>船頭多くして&hellip;相互接続(InterOperability)の悩み</strong></h3>
+<h3 id="船頭多くして相互接続interoperabilityの悩み"><strong>船頭多くして&hellip;相互接続(InterOperability)の悩み</strong></h3>
 <p>しかし、である。<br>
 VoIP, VoLTEのセッションプロトコルで使われているSIPは、どうも相互接続に難があるようなんである。</p>
 <blockquote>
-<p>SIP is hard, let's go shopping!<br>
-<!-- raw HTML omitted --><a href="http://www.slideshare.net/saghul/sip-is-hard-lets-go-shopping%3C/a%3E">http://www.slideshare.net/saghul/sip-is-hard-lets-go-shopping&lt;/a&gt;</a></p>
+<p>SIP is hard, let&rsquo;s go shopping!<br>
+<!-- raw HTML omitted --><a href="http://www.slideshare.net/saghul/sip-is-hard-lets-go-shopping">http://www.slideshare.net/saghul/sip-is-hard-lets-go-shopping</a><!-- raw HTML omitted --></p>
 <p>Does WebRTC Standardization Matter?<br>
-<!-- raw HTML omitted --><a href="http://lphs.acmepacket.com/blog/bid/172081/Does-WebRTC-Standardization-Matter%3C/a%3E">http://lphs.acmepacket.com/blog/bid/172081/Does-WebRTC-Standardization-Matter&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://lphs.acmepacket.com/blog/bid/172081/Does-WebRTC-Standardization-Matter">http://lphs.acmepacket.com/blog/bid/172081/Does-WebRTC-Standardization-Matter</a><!-- raw HTML omitted --></p>
 <p>WebRTC Browser Interoperability: Heroic. Important. And&hellip;Expected<br>
-<!-- raw HTML omitted --><a href="http://www.nojitter.com/post/240147955/webrtc-browser-interoperability-heroic-important-andexpected%3C/a%3E">http://www.nojitter.com/post/240147955/webrtc-browser-interoperability-heroic-important-andexpected&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://www.nojitter.com/post/240147955/webrtc-browser-interoperability-heroic-important-andexpected">http://www.nojitter.com/post/240147955/webrtc-browser-interoperability-heroic-important-andexpected</a><!-- raw HTML omitted --></p>
 </blockquote>
 <p>SIPはとても複雑なうえに、たくさんのベンダが関わっているので、いつまで経っても相互接続試験が進まない、ということ。</p>
 <p>そして後ろ二つの記事で推されているWebRTC、である。</p>
 <h3 id="webrtc"><strong>WebRTC</strong></h3>
 <p>WebRTCは簡単に言ってしまえばブラウザ間で音声通話してしまうことである。<br>
 (音声通話以外も出来る）</p>
-<p><!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/WebRTC%3C/a%3E">http://ja.wikipedia.org/wiki/WebRTC&lt;/a&gt;</a><br>
+<p><!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/WebRTC">http://ja.wikipedia.org/wiki/WebRTC</a><!-- raw HTML omitted --><br>
 SIPと違って、Googleがさっさとコード書いてオープンソースにしてしまったので、まさにいまグイグイと流行りだしている。<br>
 SIPと比べて有利な点はなんといっても相互接続である。<br>
 要はブラウザさえあればよく、相互接続と言ったってたかが知れている。<br>
 先述のnojitterで触れられている通り、相互接続試験に参加するのはブラウザ&quot;ベンダ&quot;である以下の5社。5社といえどこれだけ確認してもらえば問題ないでしょう。</p>
 <!-- raw HTML omitted -->
-<h3 id="youtube"><strong>音声通話のYoutube</strong></h3>
+<h3 id="音声通話のyoutube"><strong>音声通話のYoutube</strong></h3>
 <p>いうまでもなくWebRTCはアプリレイヤのサービスである。<br>
 オーバーヘッドは大きいし、低いレイヤでは他のデータ通信と変わらず扱われる訳だから、遅延は欠落はあるだろう。<br>
 携帯キャリア、ベンダからしてみれば、通話品質は噴飯ものかもしれない。<br>
@@ -188,7 +188,7 @@ SIPと比べて有利な点はなんといっても相互接続である。<br>
 <p>携帯電話キャリア自ら無料通話アプリを始めるとこだって出てきてるのである。</p>
 <blockquote>
 <p>Orange launches smartphone app for free calls, texts<br>
-<!-- raw HTML omitted --><a href="http://uk.mobile.reuters.com/article/idUKBRE8AL0B720121122?irpc=932%3C/a%3E">http://uk.mobile.reuters.com/article/idUKBRE8AL0B720121122?irpc=932&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://uk.mobile.reuters.com/article/idUKBRE8AL0B720121122?irpc=932">http://uk.mobile.reuters.com/article/idUKBRE8AL0B720121122?irpc=932</a><!-- raw HTML omitted --></p>
 </blockquote>
 <ul class="pa0">
   
@@ -215,11 +215,11 @@ SIPと比べて有利な点はなんといっても相互接続である。<br>
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

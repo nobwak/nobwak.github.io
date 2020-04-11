@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -38,7 +38,7 @@
 <meta itemprop="description" content="pkgngを1.2にアップデートしたら、設定ファイルの扱いが変わって、ちょっとした修正が必要になった。 それをまとめる。 まとめ。 pkgngを更">
 <meta itemprop="datePublished" content="2013-12-02T21:16:22&#43;09:00" />
 <meta itemprop="dateModified" content="2013-12-02T21:16:22&#43;09:00" />
-<meta itemprop="wordCount" content="1387">
+<meta itemprop="wordCount" content="1464">
 
 
 
@@ -145,7 +145,7 @@ if (!doNotTrack) {
 <li>すべてコメントの設定ファイルは受け付けてくれない。</li>
 <li>設定ファイルでのキー指定は、&quot;（クオート）で囲わないこと。</li>
 </ul>
-<h2 id="span-styletext-decoration-underlinepkg-span"><!-- raw HTML omitted -->pkg のアップデートあり<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinepkg-のアップデートありspan"><!-- raw HTML omitted -->pkg のアップデートあり<!-- raw HTML omitted --></h2>
 <p>pkg updateをしたら、やたら文句を言われる。</p>
 <pre><code class="language-console" data-lang="console">$ sudo pkg update
 pkg: Invalid configuration format, ignoring the configuration file
@@ -178,7 +178,7 @@ pkg-1.2.1.txz                       100% 1942KB 323.7KB/s 282.3KB/s   00:06
 Checking integrity... done
 [1/1] Upgrading pkg from 1.1.4_10 to 1.2.1... done
 $
-</code></pre><h2 id="span-styletext-decoration-underlinepkg-12span"><!-- raw HTML omitted -->pkg 1.2でアップデートができない。<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underlinepkg-12でアップデートができないspan"><!-- raw HTML omitted -->pkg 1.2でアップデートができない。<!-- raw HTML omitted --></h2>
 <p>pkgの更新は問題なく完了。<br>
 念のためもう一回pkg updateを試みるが、設定ファイルを読めないと怒られる。</p>
 <pre><code class="language-console" data-lang="console">$ sudo pkg update
@@ -190,7 +190,7 @@ $
 pkgはREPOS_PATHで指定される全てのディレクトリから設定ファイルを探す。<br>
 デフォルトでは、/etc/pkgと/usr/local/etc/pkg/reposである。</p>
 <p>詳しくは以下を参照。<br>
-<!-- raw HTML omitted --><a href="http://lists.freebsd.org/pipermail/freebsd-questions/2013-November/254682.html%3C/a%3E">http://lists.freebsd.org/pipermail/freebsd-questions/2013-November/254682.html&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://lists.freebsd.org/pipermail/freebsd-questions/2013-November/254682.html">http://lists.freebsd.org/pipermail/freebsd-questions/2013-November/254682.html</a><!-- raw HTML omitted --></p>
 <p>注意すべきは、すべてコメント文で出来ている設定ファイルがあると、&ldquo;pkg: Cannot parse configuration file!&ldquo;と言い出してそれ以上の処理をしてくれなくなることだ。<br>
 どうもバグのようだが。<br>
 1.2より前では文句だけだった。</p>
@@ -199,7 +199,7 @@ pkgはREPOS_PATHで指定される全てのディレクトリから設定ファ�
 $
 $ sudo rm /usr/local/etc/pkg.conf
 $
-</code></pre><h2 id="span-styletext-decoration-underlinekeyspan"><!-- raw HTML omitted -->設定ファイルでのkey指定方法の変更<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underline設定ファイルでのkey指定方法の変更span"><!-- raw HTML omitted -->設定ファイルでのkey指定方法の変更<!-- raw HTML omitted --></h2>
 <p>改めてpkg update。今度は問題なしか？</p>
 <pre><code class="language-console" data-lang="console">$ sudo pkg update
 pkg: Warning: expecting a boolean for the 'enabled' key of the 'us-west' repo,  the value has been correctly converted, please consider fixing
@@ -257,7 +257,7 @@ Deinstallation has been requested for the following 6 packages:
 The deinstallation will free 5 MB
 
 Proceed with deinstalling packages [y/N]:
-</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->余談<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underline余談span"><!-- raw HTML omitted -->余談<!-- raw HTML omitted --></h2>
 <p>以下のようにpy27-distributeが邪魔だというので、pkg delete -f py27-distributeしてpkg upgradeした。</p>
 <pre><code class="language-console" data-lang="console">Checking integrity...pkg: WARNING: locally installed py27-distribute-0.6.35 conflicts on /usr/local/bin/easy_install with:
         - py27-setuptools-1.1.7_1
@@ -292,11 +292,11 @@ pkg: WARNING: locally installed py27-distribute-0.6.35 conflicts on /usr/local/l
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

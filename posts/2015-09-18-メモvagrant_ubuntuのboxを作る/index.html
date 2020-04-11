@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -38,7 +38,7 @@
 <meta itemprop="description" content="Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でU">
 <meta itemprop="datePublished" content="2015-09-18T23:07:12&#43;09:00" />
 <meta itemprop="dateModified" content="2015-09-18T23:07:12&#43;09:00" />
-<meta itemprop="wordCount" content="1295">
+<meta itemprop="wordCount" content="1338">
 
 
 
@@ -141,12 +141,12 @@ if (!doNotTrack) {
 torrentに流してくれればいいのに…。<br>
 しかたないので自分でUbuntuのboxを作る。</p>
 <p>参照ドキュメントは公式の以下のもの。<br>
-<!-- raw HTML omitted --><a href="https://docs.vagrantup.com/v2/boxes/base.html%3C/a%3E">https://docs.vagrantup.com/v2/boxes/base.html&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="https://docs.vagrantup.com/v2/boxes/base.html">https://docs.vagrantup.com/v2/boxes/base.html</a><!-- raw HTML omitted --></p>
 <p>VirtualBox上でUbuntu14.04をインストール後、apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgradeまで済ませた前提。<br>
 providerはVirtualBox。<br>
 まずVirtualBox特有の注意点を先に。</p>
-<h2 id="virtualboxbox">VirtualBox向けにBoxを作るときの注意点</h2>
-<p><!-- raw HTML omitted --><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html%3C/a%3E">https://docs.vagrantup.com/v2/virtualbox/boxes.html&lt;/a&gt;</a></p>
+<h2 id="virtualbox向けにboxを作るときの注意点">VirtualBox向けにBoxを作るときの注意点</h2>
+<p><!-- raw HTML omitted --><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html">https://docs.vagrantup.com/v2/virtualbox/boxes.html</a><!-- raw HTML omitted --></p>
 <ol>
 <li>ネットワークインタフェースはNATにしておくこと。</li>
 <li>MACアドレスをメモしておくこと。</li>
@@ -158,10 +158,10 @@ MACアドレスはVirtualBoxのGUIから確認できる。<br>
 三つめの条件を満たすには、あらかじめlinux kernel headersとbasic developer toolsをインストールしておく必要がある。<br>
 手順は後述。<br>
 ではさっそく。</p>
-<h2 id="heading">不要なハードウェアの無効化</h2>
+<h2 id="不要なハードウェアの無効化">不要なハードウェアの無効化</h2>
 <p>USB, オーディオなどを無効化する。<br>
 特にUSBが有効になっていると、無用なバグを引いたりするので、無効化しておくことを強く勧める。</p>
-<h2 id="vagrant">デフォルトユーザ（vagrant）の作成</h2>
+<h2 id="デフォルトユーザvagrantの作成">デフォルトユーザ（vagrant）の作成</h2>
 <p>Vagrantの作業用アカウントを作る。<br>
 Vagrantはデフォルトでユーザ&quot;vagrant&quot;として仮想マシンにSSH接続する。<br>
 vagrantというユーザのいることが明らかだと、それはそれでセキュリティ上のリスクになるのだが、それはVagrantに慣れてから考える。</p>
@@ -177,17 +177,17 @@ vagrantというユーザのいることが明らかだと、それはそれで�
 # chmod 700 /home/vagrant/.ssh
 # chmod 600 /home/vagrant/.ssh/authorized_keys
 # chown -R vagrant:vagrant /home/vagrant/
-</code></pre><h2 id="vagrantsudo">ユーザvagrant向けsudo設定</h2>
+</code></pre><h2 id="ユーザvagrant向けsudo設定">ユーザvagrant向けsudo設定</h2>
 <p>ユーザvagrantがパスワードなしでsudoできるように。<br>
 visudoで以下の行を追加。</p>
 <pre><code class="language-console" data-lang="console"># visudo
 vagrant ALL=(ALL)       NOPASSWD: ALL
 </code></pre><p>さらにrequirettyという記述があればコメントアウト</p>
 <pre><code class="language-console" data-lang="console"># requiretty # コメントアウトでttyなくsudoできる。
-</code></pre><h2 id="root">rootのパスワードも変える。</h2>
+</code></pre><h2 id="rootのパスワードも変える">rootのパスワードも変える。</h2>
 <p>rootのパスワードも&quot;vagrant&quot;に。</p>
 <pre><code class="language-console" data-lang="console"># passwd
-</code></pre><h2 id="sshd">sshd設定</h2>
+</code></pre><h2 id="sshd設定">sshd設定</h2>
 <p>sshdがなければインストール。</p>
 <pre><code class="language-console" data-lang="console"># apt-get install openssh-server
 </code></pre><p>sshdの設定ファイルを書き換え</p>
@@ -198,9 +198,9 @@ vagrant ALL=(ALL)       NOPASSWD: ALL
     AuthorizedKeysFile %h/.ssh/authorized_keys
     PermitEmptyPasswords no
     UseDNS no
-</code></pre><h2 id="virtualbox-guest-additions">VirtualBox Guest Additionsのインストール</h2>
+</code></pre><h2 id="virtualbox-guest-additionsのインストール">VirtualBox Guest Additionsのインストール</h2>
 <p>再掲だが以下のドキュメントに沿って。<br>
-<!-- raw HTML omitted --><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html%3C/a%3E">https://docs.vagrantup.com/v2/virtualbox/boxes.html&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html">https://docs.vagrantup.com/v2/virtualbox/boxes.html</a><!-- raw HTML omitted --></p>
 <pre><code class="language-console" data-lang="console"># apt-get install dkms
 # /etc/init.d/vboxadd setup
 # apt-get install -y build-essential linux-headers-server
@@ -307,11 +307,11 @@ VitualBoxのGUIからCDを挿入し、以下を実行。</p>
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

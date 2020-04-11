@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -159,7 +159,7 @@ TigerVNCなら問題なく接続できるのでこれを準備しておくこと
 <p>VNCはbhyveが用意する仮想マシンへのGUIアクセスなのでbhyveホストに接続する必要があるわけ。<br>
 一方で、仮想マシンそのものでリモートデスクトップやら、VNC Serverを用意すれば、そのときは当然、仮想マシンのIPアドレスを接続先として指定することになる。</p>
 <p>ではISOの準備から。</p>
-<h2 id="--iso">仮想マシンインストール準備（インストーラ = ISO）</h2>
+<h2 id="仮想マシンインストール準備インストーラ--iso">仮想マシンインストール準備（インストーラ = ISO）</h2>
 <p>インストーラの準備。<br>
 ISOイメージを登録する。VirtualBoxでもそういう操作あるよね。</p>
 <p>ISOイメージがあるなら$vm_dir/.isoに移す<br>
@@ -176,7 +176,7 @@ $ sudo vm iso
 DATASTORE           FILENAME
 default             FreeBSD-11.2-RELEASE-amd64-bootonly.iso
 default             Windows10_18090.iso
-</code></pre><h2 id="heading">仮想マシンインストール準備（仮想マシン設定）</h2>
+</code></pre><h2 id="仮想マシンインストール準備仮想マシン設定">仮想マシンインストール準備（仮想マシン設定）</h2>
 <p>前提。<br>
 仮想マシンは$vm_dir/（仮想マシン名）/に置かれる。<br>
 設定ファイルは$vm_dir/（仮想マシン名）/（仮想マシン名）.confである。<br>
@@ -233,7 +233,7 @@ vm-bhyveのデフォルト、publicにしておく。<br>
 </blockquote>
 <p>vm-bhyveは標準で仮想マシンの時刻をUTCに設定するので、<code>utctime=&quot;no&quot;</code>とする。<br>
 <code>xhci_mouse=&quot;yes&quot;</code>にしておかないと、後々VNCで接続したときにまともにマウスが動かない。</p>
-<h2 id="heading-1">仮想マシンインストール</h2>
+<h2 id="仮想マシンインストール">仮想マシンインストール</h2>
 <p>さあインストール。vmにinstallサブコマンドを与えて起動。<br>
 状態はvm listで確認。<br>
 bhyveホスト側では$vm_dirにあるvm-bhyve.logをtailして状況を確認しつつ進めるがよいだろう。</p>
@@ -257,7 +257,7 @@ May 12 17:44:20:  [bhyve console: -l com1,/dev/nmdm-win10.1A]
 May 12 17:44:20:  [bhyve iso device: -s 3:0,ahci-cd,/vm/.config/null.iso]
 May 12 17:44:20: starting bhyve (run 1)
 </code></pre><p><img src="../../../wp-content/uploads/2019/05/win10.png" alt="実行イメージ"></p>
-<h2 id="heading-2">インストール後（ネットワークドライバの変更他）</h2>
+<h2 id="インストール後ネットワークドライバの変更他">インストール後（ネットワークドライバの変更他）</h2>
 <p>無事にインストールが済んだら、ネットワークドライバを変更する。<br>
 ネットワークドライバの変更なのでVNCから接続しておく。<br>
 ドライバの配布先には、仮想マシンから直接、行ってしまってよい。</p>
@@ -283,7 +283,7 @@ disk0_name=&quot;disk0.img&quot;
 uuid=&quot;ff31650b-6ef0-11f9-963c-6cfffff61323&quot;
 utctime=&quot;no&quot;
 xhci_mouse=&quot;yes&quot;
-</code></pre><h2 id="windowscpu">ゲストWindowsに与えるCPU数</h2>
+</code></pre><h2 id="ゲストwindowsに与えるcpu数">ゲストWindowsに与えるCPU数</h2>
 <p>Windows10の場合、割り当てられるCPUは、Homeだと1つ、Proだと2つまで。<br>
 コア/スレッドはHomeだと32、Proだと256。</p>
 <p>コアを二つ以上与えようとしても、vm-bhyveでの指定はCPU数でのみ可能。<br>
@@ -293,7 +293,7 @@ xhci_mouse=&quot;yes&quot;
 <pre><code class="language-console" data-lang="console">hw.vmm.topology.cores_per_package=4
 </code></pre><p>上記パラメータの詳しい説明はこちら。<br>
 <a href="https://forums.freebsd.org/threads/bhyve-cpu-vcpu-cores-nad-threads.60169/">https://forums.freebsd.org/threads/bhyve-cpu-vcpu-cores-nad-threads.60169/</a></p>
-<h2 id="heading-3">ホスト起動時に仮想マシンも起動させるには</h2>
+<h2 id="ホスト起動時に仮想マシンも起動させるには">ホスト起動時に仮想マシンも起動させるには</h2>
 <p>/etc/rc.confに以下の行を追加。<br>
 複数ある場合にはスペースを置いて起動させたい順に記載。<br>
 vm_delayは、複数の仮想マシンを起動する場合のインターバルを秒で指定。</p>
@@ -324,11 +324,11 @@ vm_delay=&quot;5&quot;
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

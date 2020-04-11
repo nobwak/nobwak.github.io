@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -137,24 +137,24 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->バッチファイルにパスワードを書くときの悩み<!-- raw HTML omitted --></h2>
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlineバッチファイルにパスワードを書くときの悩みspan"><!-- raw HTML omitted -->バッチファイルにパスワードを書くときの悩み<!-- raw HTML omitted --></h2>
 <p>ユーザの追加や、属性の変更をバッチファイルで処理したいことがある。<br>
 しかしこういった作業には、しばしばパスワードの操作が含まれる。<br>
 しかしパスワードを平文のまま扱うわけにもいかない。<br>
 パスワードの設定・変更をするコマンドが、暗号化されたパスワードも受け付けるようになっているのは、そのためだ。</p>
 <p>たとえばLinuxには<!-- raw HTML omitted -->chpasswd<!-- raw HTML omitted -->というコマンドがある。chpasswdは暗号化されたパスワードを受け付ける。<br>
 もしバッチファイルを覗かれても、パスワードが暗号化されていれば、まあ大丈夫と言える。</p>
-<h2 id="span-styletext-decoration-underlinemd5sha512span"><!-- raw HTML omitted -->MD5からSHA512へ<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinemd5からsha512へspan"><!-- raw HTML omitted -->MD5からSHA512へ<!-- raw HTML omitted --></h2>
 <p>ところで、<a href="../../../?p=1839">こちらの記事</a>でも触れたとおり、MD5は今そこにある危機であるからして、パスワードのハッシュ方法をSHA512に変えるOSもぼちぼち出てきた。<br>
 そういったOSにおいて、暗号化したパスワードでユーザ情報の操作をするには、とうぜんパスワードをSHA512で暗号化しなければならない。</p>
 <p>ということで、ある文字列をSHA512暗号化する方法を示す。</p>
-<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->パスワードの書式での暗号化<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlineパスワードの書式での暗号化span"><!-- raw HTML omitted -->パスワードの書式での暗号化<!-- raw HTML omitted --></h2>
 <p>SHA512で暗号化だなんていうのは簡単なのだが、しかし、パスワードファイルで使われる形式での暗号化となると、ちょっと工夫が必要だ。</p>
 <p>パスワードファイルの形式は以下の通り。</p>
 <pre><code class="language-console" data-lang="console">$＜ハッシュ方式＞$＜salt＞$＜ハッシュ後のパスワード＞
 </code></pre><p>要するにこういう形式での出力をしてくれるコマンドなりスクリプトでなければならない。<br>
 代表的なものでは、opensslコマンド。</p>
-<h2 id="span-styletext-decoration-underlineopensslspan"><!-- raw HTML omitted -->Opensslコマンドのつかいかた<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlineopensslコマンドのつかいかたspan"><!-- raw HTML omitted -->Opensslコマンドのつかいかた<!-- raw HTML omitted --></h2>
 <p>openssl passwdという書式で使う。</p>
 <pre><code class="language-console" data-lang="console">$ openssl version
 OpenSSL 0.9.8y 5 Feb 2013
@@ -175,7 +175,7 @@ where options are
 <pre><code class="language-console" data-lang="console">$ openssl passwd -1 -salt &quot;SALTsalt&quot; &quot;test&quot;
 $1$SALTsalt$CEvzkj.qgOcLTyU2B5Kg3.
 </code></pre><p>しかし上述のオプション一覧を見ると分かるのだが、sha512形式には対応していない。</p>
-<h2 id="span-styletext-decoration-underlinesha512perlpythonspan"><!-- raw HTML omitted -->SHA512は…いまならperlとかpython<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinesha512はいまならperlとかpythonspan"><!-- raw HTML omitted -->SHA512は…いまならperlとかpython<!-- raw HTML omitted --></h2>
 <p>ここまで引っ張ってナニだが、一発でSHA512ハッシュしてくれるコマンドは見つけられなかった。<br>
 Linuxのmkpasswdも新しければ対応しているようなのだがまだ一般的ではない。<br>
 そこでperl, pythonを使う。<br>
@@ -215,11 +215,11 @@ $6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5ggew6RXLp
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

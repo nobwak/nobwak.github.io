@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -137,7 +137,7 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlinepoudrierespan"><!-- raw HTML omitted -->poudriereとは<!-- raw HTML omitted --></h2>
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlinepoudriereとはspan"><!-- raw HTML omitted -->poudriereとは<!-- raw HTML omitted --></h2>
 <p>中の人曰く:</p>
 <blockquote>
 <p>primarily designed to test package production on FreeBSD. However, most people will find it useful to bulk build ports for FreeBSD.<br>
@@ -147,7 +147,7 @@ if (!doNotTrack) {
 <p><!-- raw HTML omitted -->ちなみにpoudriereとはフランス語であり、英語にするとgunpowder magazine、つまり弾薬庫のことだそうな。<!-- raw HTML omitted --></p>
 <p>物騒であるな。<br>
 あと、poudriereって綴りが覚えづらくて困る。</p>
-<h2 id="span-styletext-decoration-underlinepackagespan"><!-- raw HTML omitted -->カスタムpackageのためのツール？<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlineカスタムpackageのためのツールspan"><!-- raw HTML omitted -->カスタムpackageのためのツール？<!-- raw HTML omitted --></h2>
 <p>一方で、poudriereはカスタムpackageを欲する人にも勧められてたりする。<br>
 というのも。<br>
 現時点では、pkgでインストールするpackageのオプションは決め打ちされていて自由に選ぶことができない。<br>
@@ -159,14 +159,14 @@ packageを作ってしまえば、pkgコマンドで手軽に管理できる。<
 おお。<br>
 これは便利なのか？</p>
 <p>しかしながら準備段階でコンパイルが発生しているわけで、わざわざpkgコマンドなんて経由しないで、portsからコンパイルしてさっさと入れてしまったほうが効率的だろう。</p>
-<h2 id="span-styletext-decoration-underlinepoudriere-span"><!-- raw HTML omitted -->それでもpoudriereが有用なケース①: 複数ホストが対象のとき<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlineそれでもpoudriereが有用なケース-複数ホストが対象のときspan"><!-- raw HTML omitted -->それでもpoudriereが有用なケース①: 複数ホストが対象のとき<!-- raw HTML omitted --></h2>
 <p>ずいぶんネガティブなことを書いたけれども、もしもカスタムpackageを複数ホストで使うのならば、poudriereの利点が活きてくる。<br>
 poudriereの優れているところは、公式のpackageレポジトリの構成とまったく同じものを作る点だ。<br>
 そのディレクトリをwebサーバで公開するだけで、自前のレポジトリができてしまう。<br>
 クライアントでは、pkgコマンドの見に行く場所を自前レポジトリに向けるだけでよい。</p>
 <p>やってみると分かるけど、同じLANにあるレポジトリはめっぽう速くて気分がよい。速いのはあたりまえだけど。<br>
 こうしたことから、カスタムpackageを複数ホストにばら撒くならpoudriereはとても有用である。</p>
-<h2 id="span-styletext-decoration-underlinepoudriere-span-1"><!-- raw HTML omitted -->それでもpoudriereが有用なケース②: オフラインマシン向け<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlineそれでもpoudriereが有用なケース-オフラインマシン向けspan"><!-- raw HTML omitted -->それでもpoudriereが有用なケース②: オフラインマシン向け<!-- raw HTML omitted --></h2>
 <p>もう一つ加えるとすれば、オフラインのマシンにpackageを展開する場合だろう。</p>
 <p>pkgコマンドにはcreateというサブコマンドがあり、インストール済みのpakcageからpackageを再生成できる。<br>
 これを利用して、ネットに繋がるマシン（たいていはセキュリティポリシー上許可されたマシン（多くはWindows）の「上で」動く仮想マシン）でpackageをインストールしてpkg create、ネットに繋げないマシンにまるまる移すことができる。</p>
@@ -182,26 +182,26 @@ poudriereの優れているところは、公式のpackageレポジトリの構�
 そしたら、pkgコマンドも削除されててリアルでorzとなった。<br>
 みんなは気をつけるように。</p>
 <p>話を戻すと、こういうウッカリさんには、poudriereは便利、かもしれない。</p>
-<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->注意点<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline注意点span"><!-- raw HTML omitted -->注意点<!-- raw HTML omitted --></h2>
 <p>仮想マシンでpoudriereを動かす人は以下の点に注意すべき。<br>
 端的に言って、firefox等のブラウザ、libreofficeなどの巨大packageを作る際には、膨大なメモリ、swapが必要である。メモリ、swapそれぞれ1GBでは失敗した。<br>
 メモリを用意できない場合には、出来合いのpackageを持ってくるしかないだろう。<br>
 なお、ブラウザに限って言えば、operaなら悠々とコンパイルできたことをお伝えしておく。</p>
 <p>ながながと前置きをしたが、以下にpoudriereでカスタムpackageを作る方法を示す。</p>
-<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->前提<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline前提span"><!-- raw HTML omitted -->前提<!-- raw HTML omitted --></h2>
 <p>便宜上、「インターネットに繋がっていない」ことを「オフライン」と表現する。<br>
 「オフラインマシン」であれば、「インターネットには繋がっていないマシン」とする。<br>
 ただしオフラインマシンであっても、LANには接続されている前提。</p>
 <p>ネット接続可能で、poudriereのインストールされているマシンをオンラインマシンとする。</p>
 <p>オンラインマシンでpackageを作り、「レポジトリをオフラインマシンにコピーしてから」、オフラインマシンにインストールするという手順にする。<br>
 つまりこれは複数のオフラインマシンを前提にしているというわけ。</p>
-<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->事前準備<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline事前準備span"><!-- raw HTML omitted -->事前準備<!-- raw HTML omitted --></h2>
 <p>オンラインマシンにpoudriereの環境があること。<br>
 作り方は本記事の前編である<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->をどうぞ。<br>
 オフラインマシンには、pkgコマンド、webサーバ（nginx, lighttpd, apacheのいずれか。Pythonでもよい。 Python? ええPythonです）、あとはまあ転送用に、rsyncがあると便利。なくてもよい。</p>
 <p>オフラインマシンへのpkgインストールは<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->を。<br>
 オフラインマシンへのpackageインストールは、poudriereに関する<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->を。</p>
-<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->全体の流れ<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline全体の流れspan"><!-- raw HTML omitted -->全体の流れ<!-- raw HTML omitted --></h2>
 <p>poudriereでカスタムpackageを作るときの流れは以下のようなものである。</p>
 <!-- raw HTML omitted -->
 <p>では。</p>
@@ -366,11 +366,11 @@ Incremental update completed, 537 packages processed:
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

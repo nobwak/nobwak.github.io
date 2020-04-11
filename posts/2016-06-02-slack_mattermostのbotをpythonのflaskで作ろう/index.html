@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -38,7 +38,7 @@
 <meta itemprop="description" content="Slack/Mattermost（以降、まとめてSlack）のbotといえばHubotが有名だ。 Hubotはcoffeescriptで書かれ">
 <meta itemprop="datePublished" content="2016-06-02T23:54:24&#43;09:00" />
 <meta itemprop="dateModified" content="2016-06-02T23:54:24&#43;09:00" />
-<meta itemprop="wordCount" content="1974">
+<meta itemprop="wordCount" content="1980">
 
 
 
@@ -143,7 +143,7 @@ Hubotはcoffeescriptで書かれているのだが、botのためだけに新し
 ちょっとそこまでは…。<br>
 Pythonなら普段使いで最初から環境は作ってあるし、楽だし。<br>
 そう思っていろいろと調べてみた。</p>
-<h2 id="slackbot">Slackのbotに必要なことは？</h2>
+<h2 id="slackのbotに必要なことは">Slackのbotに必要なことは？</h2>
 <p>Slackのbotに必要なのは、端的に以下の二つ。</p>
 <ol>
 <li>Slackからのデータ送信を受ける。</li>
@@ -151,15 +151,15 @@ Pythonなら普段使いで最初から環境は作ってあるし、楽だし�
 </ol>
 <p>1.は、HTTP POSTでやってくるので、POSTを受けることさえできればよい。<br>
 2.は、例えばSlack上で何かの発言をすることだが、こちらはcurl（Pythonならrequests）でも使えば簡単にできる。</p>
-<h2 id="pythonhttp-post">PythonでHTTP POSTを受けるには？</h2>
+<h2 id="pythonでhttp-postを受けるには">PythonでHTTP POSTを受けるには？</h2>
 <p><a href="http://a2c.bitbucket.org/flask/index.html">Flask</a>である。<br>
 Flaskとはごくごく軽量なwebフレームワークである。<br>
 驚くくらい簡単にwebサーバを作ることができる。<br>
 もちろんPOSTを受けるのもすぐにできる。<br>
 以下、説明。</p>
-<h2 id="flask">Flaskのインストール</h2>
+<h2 id="flaskのインストール">Flaskのインストール</h2>
 <p>pipでもなんでも、好きなものを使ってインストールせい。</p>
-<h2 id="flask-1">Flaskのテスト</h2>
+<h2 id="flaskのテスト">Flaskのテスト</h2>
 <p>以下のようなスクリプトを書く。<br>
 適当な名前で保存する。<br>
 flask.pyとかはやめようね。</p>
@@ -169,21 +169,21 @@ flask.pyとかはやめようね。</p>
 
 app <span style="color:#f92672">=</span> Flask(__name__)
 
-<span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">/</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74">&#39;/&#39;</span>)
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">welcome</span>():
-    html <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&lt;html&gt;&lt;title&gt;welcome&lt;/title&gt;</span><span style="color:#e6db74">&#39;</span>
-    html <span style="color:#f92672">=</span> html <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&lt;body&gt;welcome&lt;/body&gt;&lt;/html&gt;</span><span style="color:#e6db74">&#39;</span>
+    html <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;html&gt;&lt;title&gt;welcome&lt;/title&gt;&#39;</span>
+    html <span style="color:#f92672">=</span> html <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;&lt;body&gt;welcome&lt;/body&gt;&lt;/html&gt;&#39;</span>
     <span style="color:#66d9ef">return</span> html
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#39;</span>:
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
     app<span style="color:#f92672">.</span>debug <span style="color:#f92672">=</span> True
-    app<span style="color:#f92672">.</span>run(host<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">0.0.0.0</span><span style="color:#e6db74">&#39;</span>)
+    app<span style="color:#f92672">.</span>run(host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0.0.0.0&#39;</span>)
 </code></pre></div><p>上記のapp.route('/')とは、ルーティング。<br>
 ルートディレクトリ（'/'）へのアクセスがあったら、次のdef welcome()が（デコレートによって）呼ばれる、ということである。</p>
 <p>上記の場合、welcomeと表示するhtmlが返る。</p>
 <p>app.debug = Trueについては後述。<br>
 app.run(host='0.0.0.0&rsquo;)のhost=&hellip;の記述により、サーバを外部に公開することになる。</p>
-<h2 id="heading">テストスクリプトの実行</h2>
+<h2 id="テストスクリプトの実行">テストスクリプトの実行</h2>
 <pre><code class="language-console" data-lang="console">$ python ./flasktest.py
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
  * Restarting with stat
@@ -197,7 +197,7 @@ app.run(host='0.0.0.0&rsquo;)のhost=&hellip;の記述により、サーバを�
  * Restarting with stat
  * Debugger is active!
 </code></pre><p>激烈に便利な機能なので、開発中は有効にしておくこと。</p>
-<h2 id="slackpost">SlackからのPOSTを受ける。</h2>
+<h2 id="slackからのpostを受ける">SlackからのPOSTを受ける。</h2>
 <p>先ほどのスクリプト冒頭のimportを以下のように変更。</p>
 <pre><code class="language-console" data-lang="console">from flask import Flask, request
 </code></pre><p>さらに以下を追加。</p>
@@ -210,10 +210,10 @@ def post():
 <p>以下が例。</p>
 <pre><code class="language-console" data-lang="console">ImmutableMultiDict([('user_id', u'xxxxx'), ('channel_id', u'xxxxx'), ('timestamp', u'1414562326'), ('team_id', u'xxxx'), ('trigger_word', u'test'), ('channel_name', u'off-topic'), ('token', u'xxxtokenxxx'), ('text', u'test'), ('team_domain', u'xxxx'), ('user_name', u'xxxx')])
 </code></pre><p>つまりPOSTの内容はディクショナリになっている。</p>
-<h2 id="slack">Slackへ応答を返そう</h2>
+<h2 id="slackへ応答を返そう">Slackへ応答を返そう</h2>
 <p>Slackへ応答を返す場合には、POSTでもらった中にあるtokenが必要である。<br>
 応答文、tokenのディクショナリを作っておいて、それをjsonに変換し、返してやればよい。<br>
-Mattermostの場合、tokenのキーは'MATTERMOST_TOKEN&rsquo;</p>
+Mattermostの場合、tokenのキーは&rsquo;MATTERMOST_TOKEN&rsquo;</p>
 <p>先ほどのスクリプトを最終的に以下のようにする。<br>
 （わざわざjsonをimportしているが、Flaskにもそういう機能がある気がしてならない）<br>
 これでSlackから通知を受けると、「You said ＜トリガーワード＞」という応答がSlackへ帰る。</p>
@@ -248,7 +248,7 @@ if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0')
 </code></pre><p>あとはどんどん膨らませていけばよい。</p>
-<h3 id="slackoutgoing-webhooks">【補遺】slackのoutgoing webhooks</h3>
+<h3 id="補遺slackのoutgoing-webhooks">【補遺】slackのoutgoing webhooks</h3>
 <p>slackでのwebhooks設定方法を示す。<br>
 webでいうと、左下のAppsからBrowse Appsを選び、outgoins WebHooksを探す<br>
 Add Configurationで設定へ。</p>
@@ -374,11 +374,11 @@ trigger_word=googlebot:
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

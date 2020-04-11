@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -38,7 +38,7 @@
 <meta itemprop="description" content="zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずsc">
 <meta itemprop="datePublished" content="2018-11-18T11:58:47&#43;09:00" />
 <meta itemprop="dateModified" content="2018-11-18T11:58:47&#43;09:00" />
-<meta itemprop="wordCount" content="2155">
+<meta itemprop="wordCount" content="2153">
 
 
 
@@ -157,8 +157,8 @@ if (!doNotTrack) {
 <li>zfs send, recvで丸々コピー</li>
 </ol>
 <p>以下、実作業に触れる前に補足。</p>
-<h3 id="heading">方針についての補足</h3>
-<h4 id="mirror">なぜmirrorにしないのか</h4>
+<h3 id="方針についての補足">方針についての補足</h3>
+<h4 id="なぜmirrorにしないのか">なぜmirrorにしないのか</h4>
 <p>上記の方法のほかには、追加のディスクをmirrorとしてzpoolに追加し、resilveringが終わったら旧ディスクを外してexpandという手がある。<br>
 が、その手は採らない。<br>
 実は、zpool statusをする都度、以下のメッセージが表示されていた。<br>
@@ -178,25 +178,25 @@ NAME STATE READ WRITE CKSUM
 vault ONLINE 0 0 0  
 ada1 ONLINE 0 0 0 block size: 512B configured, 4096B native  
 </code></pre><p>512Bセクタのpoolにmirrorを追加したら、やっぱり512Bになるんではと心配になったので、mirrorではなく新規ディスクの新規Poolに移す。</p>
-<h4 id="gpt">なぜディスクをまるっと使わずgptでパーティションを切るのか</h4>
+<h4 id="なぜディスクをまるっと使わずgptでパーティションを切るのか">なぜディスクをまるっと使わずgptでパーティションを切るのか</h4>
 <p>zpoolは、わざわざgptパーティションにしなくても、ディスクをまるっと使ってzpoolに指定できる。<br>
 できるのだが、/dev/ada2なんて名前よりも、gptラベルでpoolを作成したいのである。<br>
 これの有利な点は、例えば当該ディスクの物理的な位置で名前を付けることができる点である。<br>
 具体的には、slot_1とか名前を付けておくと、ディスク交換の時に楽。<br>
 幸いにもFreeBSDにおいては、gptパーティションを切ってもディスクをそのまま使っても、いずれもパフォーマンスに違いはない。<br>
 それならgptにしましょう。</p>
-<p><!-- raw HTML omitted --><a href="https://www.freebsd.org/doc/handbook/zfs-zpool.html%3C/a%3E">https://www.freebsd.org/doc/handbook/zfs-zpool.html&lt;/a&gt;</a><br>
+<p><!-- raw HTML omitted --><a href="https://www.freebsd.org/doc/handbook/zfs-zpool.html">https://www.freebsd.org/doc/handbook/zfs-zpool.html</a><!-- raw HTML omitted --><br>
 There is no performance penalty on FreeBSD when using a partition rather than a whole disk.<br>
 (2018/11/09)</p>
 <p>ではさっそく作業を。</p>
-<h3 id="heading-1">実作業（移行元ディスクの準備）</h3>
-<h4 id="scrub">scrubをしておく。</h4>
+<h3 id="実作業移行元ディスクの準備">実作業（移行元ディスクの準備）</h3>
+<h4 id="scrubをしておく">scrubをしておく。</h4>
 <p>zpool scrub で。<br>
 かなり時間がかかるので覚悟しておくように。<br>
 なおscrubは最低3か月に一回が推奨<br>
-<!-- raw HTML omitted --><a href="https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub%3C/a%3E">https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub&lt;/a&gt;</a><br>
+<!-- raw HTML omitted --><a href="https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub">https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub</a><!-- raw HTML omitted --><br>
 recommended at least once every three months</p>
-<h4 id="snapshot">作業直前にsnapshot。</h4>
+<h4 id="作業直前にsnapshot">作業直前にsnapshot。</h4>
 <p>pool内に複数のディレクトリがある場合、最上階層でsnapshot -r（recursive）すればよい。<br>
 たとえばvaultというpoolにchamber, itunesがある場合に;</p>
 <pre><code class="language-console" data-lang="console">vault  
@@ -216,8 +216,8 @@ vault/itunes@20180503
 vault/itunes@20181109
 </code></pre><p>※zfs list -t allの出力を一部削除したもの</p>
 <p>となる。いちいち各ディレクトリ配下でコマンドを叩かなくてよい。</p>
-<h3 id="heading-2">移行先作業</h3>
-<h4 id="gpt-1">GPTパーティションの作成</h4>
+<h3 id="移行先作業">移行先作業</h3>
+<h4 id="gptパーティションの作成">GPTパーティションの作成</h4>
 <p>以下のようなディスク</p>
 <pre><code class="language-console" data-lang="console">ada3 at ahcich3 bus 0 scbus3 target 0 lun 0  
 ada3: ACS-3 ATA SATA 3.x device  
@@ -239,7 +239,7 @@ $ gpart show ada3
 $ gpart show -l /dev/ada3  
 40 7814037088 ada3 GPT (3.6T)  
 40 7814037088 1 slot_4 (3.6T)
-</code></pre><h4 id="zpool">zpoolの作成</h4>
+</code></pre><h4 id="zpoolの作成">zpoolの作成</h4>
 <p>/dev/ada3ではなくGPTラベルで指定する。<br>
 GPTラベルで指定するときは、gpt/＜GPTラベル＞というように指定する。</p>
 <pre><code class="language-console" data-lang="console"># zpool create warehouse gpt/slot_4  
@@ -251,7 +251,7 @@ config:
 NAME STATE READ WRITE CKSUM  
 warehouse ONLINE 0 0 0  
 gpt/slot_4 ONLINE 0 0 0
-</code></pre><h4 id="heading-3">プロパティの変更</h4>
+</code></pre><h4 id="プロパティの変更">プロパティの変更</h4>
 <p>zfsを作成する前に。<br>
 圧縮モードをlz4にする。lz4は<!-- raw HTML omitted -->CPU負荷の割には非常に効率が良い<!-- raw HTML omitted -->ので積極的に有効にしたい。<br>
 また、atime（アクセスタイムの記録）もoffに。これがonだと差分snapshotが失敗するから、というのが一つと、これをoffにするとパフォーマンスが上がる（can result in significant performance gains）から。<br>
@@ -273,7 +273,7 @@ warehouse compression lz4 local
 $ zfs get atime warehouse  
 NAME PROPERTY VALUE SOURCE  
 warehouse atime off local
-</code></pre><h4 id="sendrecv">ディレクトリの用意とsend/recv</h4>
+</code></pre><h4 id="ディレクトリの用意とsendrecv">ディレクトリの用意とsend/recv</h4>
 <pre><code class="language-console" data-lang="console"># zfs create warehouse/itunes  
 # zfs create warehouse/chamber  
 </code></pre><p>このとき、勝手にマウントされないようにすべきだった。-uを付ければよかったかな。<br>
@@ -402,11 +402,11 @@ warehouse logicalused 2.02T -
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>
