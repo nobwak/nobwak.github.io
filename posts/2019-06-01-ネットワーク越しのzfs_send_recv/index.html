@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -146,13 +146,13 @@ if (!doNotTrack) {
 これをパイプラインの途中に挟むというわけ。</p>
 <p>なお、「ネットワーク越し」という場合、その「ネットワーク」がプライベート網かインターネットなどの公衆網のどちらなのか、で要件が大きく変わる。<br>
 それについては後述の「データの流れとコマンド実行方法」を参照のこと。</p>
-<h2 id="mbuffer">バッファツールの定番mbuffer</h2>
+<h2 id="バッファツールの定番mbuffer">バッファツールの定番mbuffer</h2>
 <p>バッファツールには定番mbufferを使う。</p>
 <ul>
 <li><a href="http://www.maier-komor.de/mbuffer.html">公式</a></li>
 <li><a href="https://www.freshports.org/misc/mbuffer">freshports</a>(FreeBSDの方)</li>
 </ul>
-<h2 id="pkgfreebsd">pkgでインストール(FreeBSDの方)</h2>
+<h2 id="pkgでインストールfreebsdの方">pkgでインストール(FreeBSDの方)</h2>
 <p>送受それぞれのホストでインストールしましょうね。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo pkg install mbuffer
 Password:
@@ -182,7 +182,7 @@ Checking integrity... <span style="color:#66d9ef">done</span> <span style="color
 <span style="color:#f92672">[</span>2/2<span style="color:#f92672">]</span> Extracting mbuffer-20190127: 100%
 Message from mhash-0.9.9.9_5:
 
-<span style="color:#f92672">=</span><span style="color:#f92672">=</span><span style="color:#f92672">=</span>&gt;   NOTICE:
+<span style="color:#f92672">===</span>&gt;   NOTICE:
 
 The mhash port currently does not have a maintainer. As a result, it is
 more likely to have unresolved issues, not be up-to-date, or even be removed in
@@ -195,7 +195,7 @@ More information about port maintainership is available at:
 https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#maintain-port
 
 </code></pre></div><p>FreeBSDの悲哀を感じるログです（メンテナがいない）。</p>
-<h2 id="mbuffer-1">mbufferのオプション</h2>
+<h2 id="mbufferのオプション">mbufferのオプション</h2>
 <p>よく使うのだけ</p>
 <table>
 <thead>
@@ -245,10 +245,10 @@ https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#mai
 </table>
 <p>-sには、zfsのrecordsizeを指定するとよい。デフォルトでは128k。zfs get recordsizeで分かる。<br>
 バッファサイズはお好きに。メモリを使います。1Gくらいかな。</p>
-<h2 id="heading">データの流れとコマンド実行方法</h2>
+<h2 id="データの流れとコマンド実行方法">データの流れとコマンド実行方法</h2>
 <p>さて、バッファツールを使うとしてデータはどう流すべきか。
 データの流れとコマンド実行方法について、要件の観点で示す。</p>
-<h3 id="heading-1">データを流すのはどういう経路か</h3>
+<h3 id="データを流すのはどういう経路か">データを流すのはどういう経路か</h3>
 <p>ひとまずは以下が一番素直な構成である。</p>
 <pre><code class="language-console" data-lang="console">zfs send --&gt; mbuffer --(network)--&gt; mbuffer --&gt; zfs recv
 </code></pre><p>受け側の方でmbufferとzfs recvを実行して待ち受け状態にしておき、そのあとに送り側でzfs sendとmbufferを実行する、というもの。</p>
@@ -262,7 +262,7 @@ https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#mai
 <pre><code class="language-console" data-lang="console">zfs send --&gt; mbuffer --&gt; ssh --&gt; (network) --&gt; sshd --&gt; mbuffer --&gt; zfs recv
 </code></pre><p>受け側のmbuffer, zfs recvは送り側からのsshによるリモート実行。<br>
 <code>ssh &lt;リモートサーバ&gt; &lt;コマンド&gt;</code> ってやるやつな。</p>
-<h3 id="heading-2">定期的に実行するか</h3>
+<h3 id="定期的に実行するか">定期的に実行するか</h3>
 <p>また別の観点で言えば、zfs send, recvを定期的に実行するかどうかである。</p>
 <p>定期的にバックアップデータをリモートのサーバに送るということなら、経由する網がセキュアであってもsshを使ったほうがよい。</p>
 <p>理由は、コマンドの実行が片方だけのホストで完結するからである。sshを使う場合、例えば送り側でzfs sendし、sshによるリモートコマンド実行で受け側のzfs recvもやってしまう。<br>
@@ -270,10 +270,10 @@ https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#mai
 <p>しかしsshを使わない場合だと、受け側でmbuffer, zfs recvを実行したあとに送り側でzfs send, mbufferを実行する必要がある。これを自動でやるのは非常に面倒だ。<br>
 いまさらrshもないしね。</p>
 <p>したがって、定期的にバックアップをリモートへ送信するなら、やはりsshを使ったほうがよい。</p>
-<h3 id="ssh">じゃあsshでいいじゃないか</h3>
+<h3 id="じゃあsshでいいじゃないか">じゃあsshでいいじゃないか</h3>
 <p>そうなんだけど、sshの場合はちょっと設定が面倒である。<br>
 この先を読んでほしい。</p>
-<h2 id="heading-3">どのユーザで実行するか。</h2>
+<h2 id="どのユーザで実行するか">どのユーザで実行するか。</h2>
 <p>zfsの操作は基本、rootしかできないので、送受それぞれのサーバでrootで実行すること。</p>
 <p>しかし、バックアップしたデータを定期的に送受するのなら、さすがにrootにやらすのは危険だ。<br>
 定期的に、というならcronだし、cronをrootで実行するのはね。<br>
@@ -282,11 +282,11 @@ https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#mai
 (ユーザhousekeeperに、vault/chamberへのcreate, recv, mount, sendを許可)</p>
 <pre><code class="language-console" data-lang="console"># zfs allow -u housekeeper create,receive,mount,send vault/chamber
 </code></pre><p>もちろん鍵認証を使うなどして、パスワードなしでコマンド実行できるようにしておく。</p>
-<h2 id="heading-4">実行</h2>
+<h2 id="実行">実行</h2>
 <p>では、プライベート網を経由する1回限りの転送、という設定で実行する。<br>
 つまり、sshを使わず、送受双方でrootで実行する手順。</p>
 <p>繰り返すが受け側-&gt;送り側の順番で実行すること。</p>
-<h3 id="heading-5">受け側</h3>
+<h3 id="受け側">受け側</h3>
 <p>受け側で以下を実行。</p>
 <p>受け口の指定はポートだけでよい。</p>
 <p>なお。-4オプションを与えて強制的にIPv4にする。そうしないとmbufferはIPv6で延々と待ち続ける。また、-4は最初に指定しないと読んでくれない（末尾に付けたら無視される）<br>
@@ -294,7 +294,7 @@ https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#mai
 (えらい時間を無駄にした)</p>
 <pre><code class="language-console" data-lang="console"># mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes
 
-</code></pre><h3 id="heading-6">送り側</h3>
+</code></pre><h3 id="送り側">送り側</h3>
 <p>送り側で以下を実行。<br>
 こちらではIPアドレス、ポートを指定する。送り側はボロサーバなのでメモリを確保できず500MBにした。<br>
 受け側はすでに待ち状態になっているので、コマンド実行した瞬間に転送が始まる。</p>
@@ -304,14 +304,14 @@ in @ 28.0 MiB/s, out @ 28.0 MiB/s, 10.9 GiB total, buffer 100% full
 </code></pre><p>送り側からデータが来ると受け側では以下の通り画面表示が変化する。</p>
 <pre><code class="language-console" data-lang="console"># mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes
 in @ 28.4 MiB/s, out @ 28.4 MiB/s, 14.4 GiB total, buffer 100% fulll
-</code></pre><h3 id="ssh-1">【参考】ssh経由時のコマンド例</h3>
+</code></pre><h3 id="参考ssh経由時のコマンド例">【参考】ssh経由時のコマンド例</h3>
 <p>参考までに。ただし未検証。<br>
 直接sshに流し込むので、mbufferに-O, -Iなどの出力先、入力元を指定するオプションは不要。</p>
 <pre><code class="language-console" data-lang="console"># zfs send -R &lt;スナップショット&gt; | mbuffer -s 128k -m 1G | ssh &lt;ユーザ&gt;@&lt;リモートホスト&gt; 'mbuffer -s 128k -m 1G | zfs receive &lt;展開先ディレクトリ&gt;'
-</code></pre><h3 id="heading-7">脱線</h3>
+</code></pre><h3 id="脱線">脱線</h3>
 <p>USB3.0のUSB-HDDケース（<a href="https://www.kuroutoshikou.com/product/case/35hdd/gw3_5ax2-su3_rev2_0/">GW3.5AX2-SU3/REV2.0</a>）に書き込んだところ、112 MiB/sなんてスピードが出て興奮したのだが、ものの数分もするとOSを巻き込んで固まるという事象が発生。<br>
 やむなくUSB2.0の口に繋いでみると今度は問題なく動作し安心するがスピードは28 MiB/s。これはダメかもわからんね。</p>
-<h3 id="heading-8">結果</h3>
+<h3 id="結果">結果</h3>
 <p>受け側</p>
 <pre><code class="language-console" data-lang="console">$ mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes
 in @  0.0 kiB/s, out @  0.0 kiB/s, 1121 GiB total, buffer   0% fulll
@@ -348,11 +348,11 @@ summary: 1121 GiByte in 11h 08min 49.5sec - average of 28.6 MiB/s
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

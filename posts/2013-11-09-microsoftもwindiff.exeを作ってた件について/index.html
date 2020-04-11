@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -38,7 +38,7 @@
 <meta itemprop="description" content="Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。 実際のところ、私もDF.exeなどを使っている。 ただ改めて調べ">
 <meta itemprop="datePublished" content="2013-11-09T21:07:30&#43;09:00" />
 <meta itemprop="dateModified" content="2013-11-09T21:07:30&#43;09:00" />
-<meta itemprop="wordCount" content="1277">
+<meta itemprop="wordCount" content="1335">
 
 
 
@@ -145,24 +145,24 @@ if (!doNotTrack) {
 <p>とはいえ。<br>
 結論としては、Microsoft製に価値を見出さないならサードパーティのdiffツールの方がいいかな。</p>
 <p>Windiff.exeにはxp用と7用がある・・・ようだ。</p>
-<h2 id="span-styletext-decoration-underlinexpwindiffexespan"><!-- raw HTML omitted -->xp用Windiff.exe<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinexp用windiffexespan"><!-- raw HTML omitted -->xp用Windiff.exe<!-- raw HTML omitted --></h2>
 <p>xp用Windiff.exeは、microsoft.comに以下の記載が。</p>
 <p>Windiff.exe ユーティリティの使用方法<br>
-<!-- raw HTML omitted --><a href="http://support.microsoft.com/kb/159214/ja%3C/a%3E">http://support.microsoft.com/kb/159214/ja&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://support.microsoft.com/kb/159214/ja">http://support.microsoft.com/kb/159214/ja</a><!-- raw HTML omitted --></p>
 <blockquote>
 <p>Windiff.exe は、Microsoft Windows 2000 以降のオリジナルの CD-ROM の Support\Tools フォルダーに収められています。サポート ツールをインストールするには、Support\Tools フォルダーの Setup.exe を実行します。Windiff.exe は、Support.cab ファイルにも収められています。Support.cab は、各 Service Pack に含まれています。</p>
 </blockquote>
 <p>ただ、上記のページをWindows 7で開くと、「この技術情報は、お客様がご利用の Windows とは異なるバージョン向けの情報です」とのこと。</p>
-<h2 id="span-styletext-decoration-underlinewindows-7windiffexespan"><!-- raw HTML omitted -->Windows 7向けのWindiff.exe<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinewindows-7向けのwindiffexespan"><!-- raw HTML omitted -->Windows 7向けのWindiff.exe<!-- raw HTML omitted --></h2>
 <p>technetで以下を発見。2003用のものを流用すればよさそう。</p>
 <p>Windiff for Windows 7<br>
-<!-- raw HTML omitted --><a href="http://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7%3C/a%3E">http://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7&lt;/a&gt;</a></p>
-<h2 id="span-styletext-decoration-underlinewindows-732bitspan"><!-- raw HTML omitted -->Windows 7（32bit）でのインストールのしかた<!-- raw HTML omitted --></h2>
+<!-- raw HTML omitted --><a href="http://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7">http://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7</a><!-- raw HTML omitted --></p>
+<h2 id="span-styletext-decoration-underlinewindows-732bitでのインストールのしかたspan"><!-- raw HTML omitted -->Windows 7（32bit）でのインストールのしかた<!-- raw HTML omitted --></h2>
 <p>※おそらくMicrosoftは公式には認めない方法です。<br>
 自己責任でどうぞ。</p>
 <p>さっそく以下のページからWindowsServer2003-KB892777-SupportTools-x86-ENU.exe をダウンロード。</p>
 <p>Windows Server 2003 Service Pack 1 32-bit Support Tools<br>
-<!-- raw HTML omitted --><a href="http://www.microsoft.com/en-us/download/details.aspx?id=7911%3C/a%3E">http://www.microsoft.com/en-us/download/details.aspx?id=7911&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://www.microsoft.com/en-us/download/details.aspx?id=7911">http://www.microsoft.com/en-us/download/details.aspx?id=7911</a><!-- raw HTML omitted --></p>
 <p>コマンドラインから実行する。<br>
 オプションを二つ指定する。<br>
 /Cで「展開のみインストールせず」、 /Tで展開先をフルパスで指定する。</p>
@@ -170,10 +170,10 @@ if (!doNotTrack) {
 </code></pre><p>以上の例だとc:\download\supporttoolに内容物が展開される。<br>
 そのうちのsupport.cabをダブルクリックすると、中にwindiff.exeがあるのでそれを取り出す。<br>
 あとはパスの通ったところに置くとか、ランチャーに登録すればよい。</p>
-<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->初期設定<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline初期設定span"><!-- raw HTML omitted -->初期設定<!-- raw HTML omitted --></h2>
 <p>そのままだと日本語を表示できないので、Edit → Set Font でフォントを変える。<br>
 メイリオとかにしとけ。</p>
-<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->使い方<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline使い方span"><!-- raw HTML omitted -->使い方<!-- raw HTML omitted --></h2>
 <p>個別ファイルの差分を調べる場合には、File → Compare Files でファイルを二つ選んでOKをクリック。<br>
 ディレクトリごと差分を調べる場合には、File → Compare Directoriesで出てきた画面に二つのディレクトリパスを貼りつけてOKをクリックする。</p>
 <p>調べたファイルが一覧で表示される。<br>
@@ -181,9 +181,9 @@ if (!doNotTrack) {
 Outlineでファイル一覧に戻る。</p>
 <p>F7, F8で差分のある個所を順番に選んで行ける。<br>
 Pictureは左端に差分箇所を表してくれる。</p>
-<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->制限<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline制限span"><!-- raw HTML omitted -->制限<!-- raw HTML omitted --></h2>
 <p>シフトJISのファイルは読めるけど、UTF-8の日本語は読めないようだ。</p>
-<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->感想<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline感想span"><!-- raw HTML omitted -->感想<!-- raw HTML omitted --></h2>
 <p>使ってみたら分かるけど、ちょっと使いにくいかな…。</p>
 <ul class="pa0">
   
@@ -210,11 +210,11 @@ Pictureは左端に差分箇所を表してくれる。</p>
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

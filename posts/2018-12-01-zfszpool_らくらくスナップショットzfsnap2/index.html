@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -143,7 +143,7 @@ if (!doNotTrack) {
 スナップショットを作成する際には、ファイルシステムやボリュームに続けてスナップショットの名前、スナップネームを指定する必要がある。<br>
 スナップネームはスナップショットを特定するために必要なものなので文句を言う筋合いはないのだが、いちいち名前を付けるのが面倒なんである。日付でもなんでも自動的に付けてほしい。</p>
 <p>なんとか改善したくていろいろ調べてみた。</p>
-<h2 id="heading">スナップショット取得補助ツール</h2>
+<h2 id="スナップショット取得補助ツール">スナップショット取得補助ツール</h2>
 <p>スナップショット関連ではzfstools, zfsnap2, zapの三つを調べた。<br>
 結論から言うと、zfsnap2を選択した。</p>
 <h3 id="zfstools">zfstools</h3>
@@ -162,14 +162,14 @@ if (!doNotTrack) {
 <a href="https://github.com/zfsnap/zfsnap">https://github.com/zfsnap/zfsnap</a><br>
 単純なシェルスクリプト。<br>
 よさそう。</p>
-<h2 id="zfsnap2-snapshot">zfsnap2 お手軽snapshot</h2>
+<h2 id="zfsnap2-お手軽snapshot">zfsnap2 お手軽snapshot</h2>
 <p>まず、zfsnap2は、取得すると日付シリアルをsnapnameに付けてくれる。<br>
 例えば。</p>
 <pre><code class="language-console" data-lang="console">vault/chamber@2018-11-11_09.48.00-1y
 </code></pre><p>ご覧の通り2018/11/11 09:48:00と日付をsnapnameに付ける<br>
 なお、末尾に1yと書いてあるがこれは1年という意味である。<br>
 これは何かというと（次項につづく）</p>
-<h2 id="zfsnap2-snapshotttl">zfsnap2 snapshot削除の仕組みとTTL</h2>
+<h2 id="zfsnap2-snapshot削除の仕組みとttl">zfsnap2 snapshot削除の仕組みとTTL</h2>
 <p>snapshotは取得するだけでなく、消す方の面倒を見ることも重要。<br>
 zfsnap2は、取得したタイムスタンプとTTL(Time To Live)をsnapnameに含めておくのがアイデア（他みも同じようなツールあるかもしれないけど）。<br>
 先ほどの例でいえば、末尾の1yがそれ。1yだから1 year、1年ですな。</p>
@@ -177,7 +177,7 @@ zfsnap2は、取得したタイムスタンプとTTL(Time To Live)をsnapnameに
 </code></pre><p>上記の通り、取得日付、保存期間をsnapname自体に持たせるので、ツール側では状態を記憶しておく必要がない。<br>
 削除を指示されたら、zfsnap2はその都度、snapnameだけを見て判断・処理をするということ。<br>
 何より人間もsnapnameから保存期限を判断できる。これはよい。</p>
-<h2 id="heading-1">とりあえず使う</h2>
+<h2 id="とりあえず使う">とりあえず使う</h2>
 <p>管理者権限でzfsnap snapshotに続けてzfs/zpoolを指定するだけ。<br>
 日付も付けてくれる。</p>
 <pre><code class="language-console" data-lang="console">  
@@ -185,11 +185,11 @@ zfsnap2は、取得したタイムスタンプとTTL(Time To Live)をsnapnameに
 $ zfs list -t snapshot|grep 'zroot/var/tmp';  
 zroot/var/tmp@20181120 56K - 88K -  
 zroot/var/tmp@2018-12-01_22.19.13-1m 0 - 88K -
-</code></pre><h2 id="zfsnap">zfsnap書式概要</h2>
+</code></pre><h2 id="zfsnap書式概要">zfsnap書式概要</h2>
 <p>詳細はman等するとして、概要を示す。<br>
 書式は以下の通り。</p>
 <pre><code class="language-console" data-lang="console">zfsnap コマンド &lt;共通オプション&gt;　&lt;個別オプション&gt; zpool/zfs
-</code></pre><h2 id="zfsnap-1">zfsnapのコマンド</h2>
+</code></pre><h2 id="zfsnapのコマンド">zfsnapのコマンド</h2>
 <p>コマンドにはsnapshot, destroy, recursebackの三つがある。<br>
 それらに続けてzpool, zfsを指定する。こちらの指定は複数でもよい。<br>
 共通オプション（generic option）は、その名の通り、共通的なオプション。<br>
@@ -197,7 +197,7 @@ zroot/var/tmp@2018-12-01_22.19.13-1m 0 - 88K -
 <p>コマンドのsnapshot, destroyは当然ながらそれぞれsnapshot作成、削除。<br>
 recursebackは、zfs rollbackの拡張で、rollbackの際、指定のdataset配下すべてをrollbackするもの。<br>
 本稿では扱わない。</p>
-<h2 id="generic-option">共通オプション（generic option）</h2>
+<h2 id="共通オプションgeneric-option">共通オプション（generic option）</h2>
 <p>主なものだけ示す</p>
 <ul>
 <li>-s  : resilver中は作業しない</li>
@@ -207,7 +207,7 @@ recursebackは、zfs rollbackの拡張で、rollbackの際、指定のdataset配
 <li>-v : 冗長output</li>
 </ul>
 <p>-s, -Sは常時付けておいたほうがいいかな。</p>
-<h2 id="heading-2">個別オプション</h2>
+<h2 id="個別オプション">個別オプション</h2>
 <p>個別オプションなので、これに続けて指定されたzpool/zfsにのみ効果がある。<br>
 主なものだけ示す</p>
 <ul>
@@ -215,7 +215,7 @@ recursebackは、zfs rollbackの拡張で、rollbackの際、指定のdataset配
 <li>-r : 再帰オプション。再帰的にsnapshotを取得</li>
 <li>-R : 非再帰オプション。再帰的なsnapshotを取得「しない」</li>
 </ul>
-<h2 id="ttl">TTLオプション</h2>
+<h2 id="ttlオプション">TTLオプション</h2>
 <p>以下のうち、必要なものだけをズラズラ書けばよい</p>
 <ul>
 <li>y : 年（365日）</li>
@@ -228,7 +228,7 @@ recursebackは、zfs rollbackの拡張で、rollbackの際、指定のdataset配
 </ul>
 <p>1週間と1日なら-a 1w1d。<br>
 2か月なら-a 2m。</p>
-<h2 id="heading-3">実行例</h2>
+<h2 id="実行例">実行例</h2>
 <p>以上を踏まえて;<br>
 resilver, scrub中は実行せず、日付シリアルの秒切り捨て、冗長アウトプットでsnapshotをテスト実行。<br>
 対象zfsその1はzroot/usrで、再帰的に取得し、TTLは1週間と1日。その2はzroot/ROOTで、再帰的に取得「せず」、TTLは1分。<br>
@@ -283,11 +283,11 @@ zroot/ROOT、zroot/usr配下のTTL切れsnapshotを削除<br>
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

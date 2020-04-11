@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -38,7 +38,7 @@
 <meta itemprop="description" content="Pythonが面白くてしょうがいない。 のだが、Windowsで使った場合、文字コードとか改行コードとかパスのデリミタのせいでいろいろと手間が">
 <meta itemprop="datePublished" content="2013-05-17T22:42:14&#43;09:00" />
 <meta itemprop="dateModified" content="2013-05-17T22:42:14&#43;09:00" />
-<meta itemprop="wordCount" content="1175">
+<meta itemprop="wordCount" content="1243">
 
 
 
@@ -142,15 +142,15 @@ if (!doNotTrack) {
 Windows固有の手間をここにまとめる。</p>
 <p>なお、私の使っているのはPython2。<br>
 <code>&lt;br /&gt; ActivePython 2.7.2.5 (ActiveState Software Inc.) based on&lt;br /&gt; Python 2.7.2 (default, Jun 24 2011, 12:22:14) [MSC v.1500 64 bit (AMD64)] on win32</code></p>
-<h3 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->文字コード設定<!-- raw HTML omitted --></h3>
+<h3 id="span-styletext-decoration-underline文字コード設定span"><!-- raw HTML omitted -->文字コード設定<!-- raw HTML omitted --></h3>
 <p>Python2を使っていて扱うファイルがShift-JISばかりなら、PythonもShift-JISで通したほうが楽。<br>
 だってほら、いちいち変換とか面倒ですよ。</p>
 <p>Pythonスクリプトファイルの1行目あるいは2行目には以下を記載する。</p>
 <p><code># coding: ms932</code></p>
 <p># -*- coding:という書式もあるがemacsを使わないならこれでよい。<br>
 詳細は下記リンク<br>
-<!-- raw HTML omitted --><a href="http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations%3C/a%3E">http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations&lt;/a&gt;</a></p>
-<h2 id="span-styletext-decoration-underlinedefault-encodingspan"><!-- raw HTML omitted -->default encodingの設定<!-- raw HTML omitted --></h2>
+<!-- raw HTML omitted --><a href="http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations">http://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations</a><!-- raw HTML omitted --></p>
+<h2 id="span-styletext-decoration-underlinedefault-encodingの設定span"><!-- raw HTML omitted -->default encodingの設定<!-- raw HTML omitted --></h2>
 <p>デフォルトのencodingもms932にしておく。<br>
 いま現在のencodingを確かめるにはimport sysしてからsys.getdefaultencoding()する。<br>
 何もしていなければasciiのはず。</p>
@@ -166,7 +166,7 @@ sys.setdefaultencoding('cp932')
 &gt;&gt;&gt; sys.getdefaultencoding()
 'cp932'
 &gt;&gt;&gt;
-</code></pre><h3 id="span-styletext-decoration-underlinerspan"><!-- raw HTML omitted -->パスの扱い方（頭にrを付ける）<!-- raw HTML omitted --></h3>
+</code></pre><h3 id="span-styletext-decoration-underlineパスの扱い方頭にrを付けるspan"><!-- raw HTML omitted -->パスの扱い方（頭にrを付ける）<!-- raw HTML omitted --></h3>
 <p>Windowsのパス表記はバックスラッシュを使うが、これをそのまま使うとエスケープシーケンスとして扱われてしまう。<br>
 そこでrを頭につける。<br>
 するとrawリテラルとして扱ってくれる。</p>
@@ -176,26 +176,26 @@ owhere<!-- raw HTML omitted --></p>
 <blockquote>
 <blockquote>
 <blockquote>
-<p>print r'c:\nowhere'<!-- raw HTML omitted -->
+<p>print r&rsquo;c:\nowhere'<!-- raw HTML omitted -->
 c:\nowhere<!-- raw HTML omitted -->
 `</p>
 </blockquote>
 </blockquote>
 </blockquote>
-<p><!-- raw HTML omitted --><a href="http://docs.python.org/2/reference/lexical_analysis.html#string-literals%3C/a%3E">http://docs.python.org/2/reference/lexical_analysis.html#string-literals&lt;/a&gt;</a></p>
-<h3 id="span-styletext-decoration-underlinewindowscsvspan"><!-- raw HTML omitted -->WindowsでのCSV書き込み。改行コードに注意。<!-- raw HTML omitted --></h3>
+<p><!-- raw HTML omitted --><a href="http://docs.python.org/2/reference/lexical_analysis.html#string-literals">http://docs.python.org/2/reference/lexical_analysis.html#string-literals</a><!-- raw HTML omitted --></p>
+<h3 id="span-styletext-decoration-underlinewindowsでのcsv書き込み改行コードに注意span"><!-- raw HTML omitted -->WindowsでのCSV書き込み。改行コードに注意。<!-- raw HTML omitted --></h3>
 <p>Windows上PythonからCSV書き出し→ExcelなどWindowsの各種プログラムで開く→一行ごとに空行ができている＼(^o^)／<br>
 CSV書き出し時改行コードのデフォルトが\r\nになっているせい。<br>
 下記のように改行コードを指定すればOK。<br>
 なお読み込みのときは指定不要。<br>
-<!-- raw HTML omitted --><a href="http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator%3C/a%3E">http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator">http://docs.python.jp/2/library/csv.html#csv.Dialect.lineterminator</a><!-- raw HTML omitted --></p>
 <p><code>import csv&lt;br /&gt; csvhandler = csv.writer(open(r'C:\nowhere\output.csv','w'),delimiter=',',lineterminator=&quot;\n&quot;)</code></p>
-<h3 id="span-styletext-decoration-underlineshift-jissqlite3span"><!-- raw HTML omitted -->Shift-JISでのsqlite3<!-- raw HTML omitted --></h3>
+<h3 id="span-styletext-decoration-underlineshift-jisでのsqlite3span"><!-- raw HTML omitted -->Shift-JISでのsqlite3<!-- raw HTML omitted --></h3>
 <p>SQLite3のTEXTデータタイプはデフォルトでUTF-8。<br>
 SQLite3コネクションオブジェクトの.text_factoryアトリビュートをstrにすると、バイトストリングとして扱ってくれる。<br>
-<!-- raw HTML omitted --><a href="http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory%3C/a%3E">http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory">http://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.text_factory</a><!-- raw HTML omitted --></p>
 <p><code>import sqlite&lt;br /&gt; conn = sqlite3.connect(dbfile)&lt;br /&gt; conn.text_factory = str</code></p>
-<h3 id="span-styletext-decoration-underlinepylabmatplotlibspan"><!-- raw HTML omitted -->pylab(Matplotlib)のグラフで日本語表示<!-- raw HTML omitted --></h3>
+<h3 id="span-styletext-decoration-underlinepylabmatplotlibのグラフで日本語表示span"><!-- raw HTML omitted -->pylab(Matplotlib)のグラフで日本語表示<!-- raw HTML omitted --></h3>
 <p>pylabで作ったグラフは、UTF-8でないとダメなようだ。<br>
 こればかりはunicodeにエンコードしてpylabに入力する。<br>
 しかしUTF-８であっても、そのままでは日本語を表示してくれない。<br>
@@ -231,11 +231,11 @@ SQLite3コネクションオブジェクトの.text_factoryアトリビュート
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

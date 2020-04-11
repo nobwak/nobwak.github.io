@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -38,7 +38,7 @@
 <meta itemprop="description" content="poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa">
 <meta itemprop="datePublished" content="2014-02-16T22:21:37&#43;09:00" />
 <meta itemprop="dateModified" content="2014-02-16T22:21:37&#43;09:00" />
-<meta itemprop="wordCount" content="3981">
+<meta itemprop="wordCount" content="4069">
 
 
 
@@ -142,9 +142,9 @@ poudriereは自前のpkgngレポジトリを作るツール。<br>
 自前のレポジトリを作るのは、自前のpackageを置きたいときや、オフラインマシンにpackageを提供したいとき、である。</p>
 <p>poudriereの構築は、以下二つのサイトに沿えばできる。<br>
 ただ、簡潔にまとめられているので、本記事では補足も併せてまとめる。<br>
-<!-- raw HTML omitted --><a href="http://blog.etoilebsd.net/post/Home_made_pkgng_repo%3C/a%3E">http://blog.etoilebsd.net/post/Home_made_pkgng_repo&lt;/a&gt;</a><br>
-<!-- raw HTML omitted --><a href="http://w.vmeta.jp/tdiary/?date=20130205%3C/a%3E">http://w.vmeta.jp/tdiary/?date=20130205&lt;/a&gt;</a></p>
-<h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->仕組み<!-- raw HTML omitted --></h2>
+<!-- raw HTML omitted --><a href="http://blog.etoilebsd.net/post/Home_made_pkgng_repo">http://blog.etoilebsd.net/post/Home_made_pkgng_repo</a><!-- raw HTML omitted --><br>
+<!-- raw HTML omitted --><a href="http://w.vmeta.jp/tdiary/?date=20130205">http://w.vmeta.jp/tdiary/?date=20130205</a><!-- raw HTML omitted --></p>
+<h2 id="span-styletext-decoration-underline仕組みspan"><!-- raw HTML omitted -->仕組み<!-- raw HTML omitted --></h2>
 <p>poudriereがどのようにしてpackageを作るかというと。<br>
 OS/アーキテクチャごとにjailを作り、そこでportsからpackagesを作る。<br>
 つまりホストのOS|アーキテクチャと違っていても大丈夫だが、ホストは最新にしておいた方がよい。</p>
@@ -154,11 +154,11 @@ OS/アーキテクチャごとにjailを作り、そこでportsからpackagesを
 <p>作成するpackagesは自分で選ぶことができる。<br>
 また、オプションも選ぶことができる。<br>
 オプションはまた別途。</p>
-<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->必要なもの<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline必要なものspan"><!-- raw HTML omitted -->必要なもの<!-- raw HTML omitted --></h2>
 <p>zpoolを最低7GB用意しておくこと。</p>
-<h2 id="span-styletext-decoration-underlinespan-2"><!-- raw HTML omitted -->インストール<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlineインストールspan"><!-- raw HTML omitted -->インストール<!-- raw HTML omitted --></h2>
 <p>ports-mgmt/poudriereからportsでもpkgでもよいのでインストール。</p>
-<h2 id="span-styletext-decoration-underlinespan-3"><!-- raw HTML omitted -->設定ファイル<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline設定ファイルspan"><!-- raw HTML omitted -->設定ファイル<!-- raw HTML omitted --></h2>
 <p>まず設定ファイルを作る。<br>
 /usr/local/etc/poudriere.conf.sampleをもとに。</p>
 <p>/usr/local/etc/poudriere.conf</p>
@@ -190,7 +190,7 @@ DISTFILES_CACHE=/usr/ports/distfiles
 # proxyの指定が必要であれば
 export HTTP_PROXY=&quot;http://proxy:8080/&quot;
 export FTP_PROXY=&quot;http://proxy:8080/&quot;
-</code></pre><h2 id="span-styletext-decoration-underlinepoudrierezfsspan"><!-- raw HTML omitted -->poudriere作業用zfsの準備<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underlinepoudriere作業用zfsの準備span"><!-- raw HTML omitted -->poudriere作業用zfsの準備<!-- raw HTML omitted --></h2>
 <p>zpoolからzfsを切り出し、/poudriereにマウント。<br>
 poudriere.confを参照すると、最低でも7GBとある。</p>
 <p>zfsの操作はよろしければこちらをどうぞ。<br>
@@ -228,7 +228,7 @@ vault/poudriere on /poudriere (zfs, local, nfsv4acls)
 /dev/ada0p3     none            swap    sw      0       0
 vault/poudriere /poudriere      zfs     rw      0       0
 </code></pre><p>以降、本格的な作業に。</p>
-<h2 id="span-styletext-decoration-underlineportstree-poudriere-portsspan"><!-- raw HTML omitted -->デフォルトのportstreeを作る。: poudriere ports<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlineデフォルトのportstreeを作る-poudriere-portsspan"><!-- raw HTML omitted -->デフォルトのportstreeを作る。: poudriere ports<!-- raw HTML omitted --></h2>
 <p>jailごとにportsディレクトリを持っていてはディスクがいくらあっても足らない。<br>
 そこでportsディレクトリは全jailsで共有する。<br>
 そのportsディレクトリ、portstreeを作る。</p>
@@ -266,7 +266,7 @@ Applying metadata patches... done.
 Fetching 4 metadata files... done.
 Fetching 11146 patches.....10
 （略）
-</code></pre><h2 id="span-styletext-decoration-underlinejail-poudriere-jailspan"><!-- raw HTML omitted -->各システム向けのJailを作る: poudriere jail<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underline各システム向けのjailを作る-poudriere-jailspan"><!-- raw HTML omitted -->各システム向けのJailを作る: poudriere jail<!-- raw HTML omitted --></h2>
 <p>いよいよ個別のjail。<br>
 pkgを提供したいシステムに合わせてjailを作る。</p>
 <p>jailを作るにはpoudriere jailを使う。<br>
@@ -311,7 +311,7 @@ vault/poudriere/ports on /poudriere/ports (zfs, local, nfsv4acls)
 vault/poudriere/ports/default on /usr/local/poudriere/ports/default (zfs, local, nfsv4acls)
 vault/poudriere/jails on /poudriere/jails (zfs, local, nfsv4acls)
 vault/poudriere/jails/92i386 on /usr/local/poudriere/jails/92i386 (zfs, local, nfsv4acls)
-</code></pre><h2 id="span-styletext-decoration-underlinejailspan"><!-- raw HTML omitted -->jailの作成が失敗するとき<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underlinejailの作成が失敗するときspan"><!-- raw HTML omitted -->jailの作成が失敗するとき<!-- raw HTML omitted --></h2>
 <p>失敗しなかったらこの章は読み飛ばしてOK.<br>
 最初のCreatingで失敗するときは、以前に作った何かが邪魔しているはず。</p>
 <pre><code class="language-console" data-lang="console">$ sudo poudriere jail -c -j 92i386 -v 9.2-RELEASE -a i386
@@ -349,7 +349,7 @@ vault/poudriere/data             32K  18.5G    32K  /usr/local/poudriere/data
 vault/poudriere/jails            32K  18.5G    32K  /poudriere/jails
 vault/poudriere/ports           545M  18.5G    31K  /poudriere/ports
 vault/poudriere/ports/default   545M  18.5G   545M  /usr/local/poudriere/ports/default
-</code></pre><h2 id="span-styletext-decoration-underlinepackagesspan"><!-- raw HTML omitted -->作成したいpackagesのリストを作る<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underline作成したいpackagesのリストを作るspan"><!-- raw HTML omitted -->作成したいpackagesのリストを作る<!-- raw HTML omitted --></h2>
 <p>作成したいpackagesを指定する。<br>
 テキストファイルにpackagesを並べればよい。</p>
 <p>ただしOriginで記載すること。<br>
@@ -378,7 +378,7 @@ sysutils/dirvish          Network backup system based off of rsync
 </code></pre><p>試しにrsyncだけ書く。</p>
 <pre><code class="language-console" data-lang="console">$ cat ./pkg.list
 net/rsync
-</code></pre><h2 id="span-styletext-decoration-underlinepackages-poudriere-bulkspan"><!-- raw HTML omitted -->packagesの作成: poudriere bulk<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underlinepackagesの作成-poudriere-bulkspan"><!-- raw HTML omitted -->packagesの作成: poudriere bulk<!-- raw HTML omitted --></h2>
 <p>いよいよ作成。<br>
 作成にはpoudriere bulkを使う。<br>
 poudriere bulkでオプションを一覧できる。</p>
@@ -417,7 +417,7 @@ Generating repository catalog in /packages: done!
 ====&gt;&gt; [92i386-default] 2 packages built, 0 failures, 0 ignored, 0 skipped
 ====&gt;&gt; Logs: /usr/local/poudriere/data/logs/bulk/92i386-default/2014-01-20_22h03m21s
 $
-</code></pre><h2 id="span-styletext-decoration-underlinepackagesspan-1"><!-- raw HTML omitted -->自家製packagesの公開<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underline自家製packagesの公開span"><!-- raw HTML omitted -->自家製packagesの公開<!-- raw HTML omitted --></h2>
 <p>さて。<br>
 作成したpackagesはどこにあるかというと、今回の場合は以下である。</p>
 <pre><code class="language-console" data-lang="console">/usr/local/poudriere/data/packages/92i386-default/
@@ -494,7 +494,7 @@ packagesite.yaml                                   20-Jan-2014 22:24
             autoindex on;
             root   /usr/local/poudriere/data;
         }
-</code></pre><h2 id="span-styletext-decoration-underlinespan-4"><!-- raw HTML omitted -->クライアント側の設定<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underlineクライアント側の設定span"><!-- raw HTML omitted -->クライアント側の設定<!-- raw HTML omitted --></h2>
 <p>やっとたどり着いた。<br>
 クライアント側では/etc/pkg/の下か、/usr/local/etc/pkg/repos/の下に以下のような設定ファイルを作る。<br>
 ここで192.168.200.111はサーバのアドレス。</p>
@@ -617,11 +617,11 @@ Incremental update completed, 2 packages processed:
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

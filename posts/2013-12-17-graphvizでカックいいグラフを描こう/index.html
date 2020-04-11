@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -38,7 +38,7 @@
 <meta itemprop="description" content="Graphvizとは、AT&amp;T研究所の作ったグラフ描画ソフトである。 ここでのグラフとは棒グラフのグラフではなく、ソーシャルグラフとか">
 <meta itemprop="datePublished" content="2013-12-17T20:57:50&#43;09:00" />
 <meta itemprop="dateModified" content="2013-12-17T20:57:50&#43;09:00" />
-<meta itemprop="wordCount" content="2396">
+<meta itemprop="wordCount" content="2527">
 
 
 
@@ -151,22 +151,22 @@ if (!doNotTrack) {
 （何気なく作ったら一辺が10,000ピクセルを超える巨大画像になったので泣く泣く縮小した。）</p>
 <p>そういったわけで、この記事では(Python経由で)graphvizのグラフ描画についてまとめた。</p>
 <p>以下、特に指定のないかぎり、グラフと記載があれば、それは上記の意味でのグラフである。</p>
-<h2 id="span-styletext-decoration-underlinegraphvizspan"><!-- raw HTML omitted -->Graphvizについて<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinegraphvizについてspan"><!-- raw HTML omitted -->Graphvizについて<!-- raw HTML omitted --></h2>
 <p>手っ取り早くどんなグラフが描けるのかを知りたければ<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->のサンプルグラフなどを。</p>
 <p>関連のwebsiteは以下のとおり。</p>
-<p>Graphviz(公式) <!-- raw HTML omitted --><a href="http://www.graphviz.org/%3C/a%3E">http://www.graphviz.org/&lt;/a&gt;</a><br>
+<p>Graphviz(公式) <!-- raw HTML omitted --><a href="http://www.graphviz.org/">http://www.graphviz.org/</a><!-- raw HTML omitted --><br>
 Graphviz(wiki) <!-- raw HTML omitted --><a href="http://ja.wikipedia.org/wiki/Graphviz">http://ja.wikipedia.org/wiki/Graphviz</a> <!-- raw HTML omitted --></p>
 <p>Graphvizでは、DOTという形式でグラフを描画する。<br>
 しかしDOT形式をそのまま扱うのはちょっと難しい。<br>
 そこで他の言語を通して使う。<br>
 具体的にはpygraphviz。<br>
 PyGraphvizはGraphvizのpythonインタフェースである。</p>
-<h2 id="span-styletext-decoration-underlinepygraphvizspan"><!-- raw HTML omitted -->PyGraphvizのインストール<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinepygraphvizのインストールspan"><!-- raw HTML omitted -->PyGraphvizのインストール<!-- raw HTML omitted --></h2>
 <p>FreeBSD, OS Xでのインストールは確認済みである。<br>
 しかし意外や意外、WindowsのActivePythonではPyGraphvizをインストールできない。PyPMにないのである。<br>
 素のPythonなら出来るのかもしれないが。</p>
 <p>しかし、Graphviz単体ならインストールできる。DOT形式のファイル（以降、DOTファイル）を別マシンからもらえば、WIndows上でもグラフ描画は可能。</p>
-<h2 id="span-styletext-decoration-underlinefreebsdspan"><!-- raw HTML omitted -->FreeBSDでのインストール<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinefreebsdでのインストールspan"><!-- raw HTML omitted -->FreeBSDでのインストール<!-- raw HTML omitted --></h2>
 <p>portsでもpkgでも、pygraphvizで探せば出てくるのでそれをインストールすればよい。<br>
 以下はpkgでの例。<br>
 gccを連れてきてダウロードサイズが100MBを超えた。驚いた。<br>
@@ -196,7 +196,7 @@ The following 12 packages will be installed:
 The installation will require 685 MB more space
 
 110 MB to be downloaded
-</code></pre><h2 id="span-styletext-decoration-underlineos-xspan"><!-- raw HTML omitted -->OS Xでのインストール<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underlineos-xでのインストールspan"><!-- raw HTML omitted -->OS Xでのインストール<!-- raw HTML omitted --></h2>
 <p>graphvizをインストールし、そのあとPython上でpygraphvizをインストールすればよろし。<br>
 以下の例ではbrewでgraphvizを、そのあとpipでpygraphvizをインストールしている。</p>
 <pre><code class="language-console" data-lang="console">$ brew install graphviz
@@ -220,18 +220,18 @@ Downloading/unpacking pygraphviz
 Successfully installed pygraphviz
 Cleaning up...
 $
-</code></pre><h2 id="span-styletext-decoration-underlinewindowsgraphvizspan"><!-- raw HTML omitted -->Windowsでのインストール（graphvizだけ）<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underlinewindowsでのインストールgraphvizだけspan"><!-- raw HTML omitted -->Windowsでのインストール（graphvizだけ）<!-- raw HTML omitted --></h2>
 <p>WindowsのActivePythonではpygraphvizが使えない。<br>
 素のgraphvizをインストールする。<br>
 以下あたりからダウンロードする。</p>
-<p><!-- raw HTML omitted --><a href="http://www.graphviz.org/Download_windows.php%3C/a%3E">http://www.graphviz.org/Download_windows.php&lt;/a&gt;</a></p>
+<p><!-- raw HTML omitted --><a href="http://www.graphviz.org/Download_windows.php">http://www.graphviz.org/Download_windows.php</a><!-- raw HTML omitted --></p>
 <p>インストーラがよければmsiを、レジストリを汚したくないならzipをダウンロード。<br>
 zipは展開するとreleaseというフォルダが出来る。<br>
 リネームしてどこにでも置けばよい。<br>
 実行ファイルはbinの下にある。<br>
 必要ならパスを通しておく。</p>
 <p>実際に使う実行ファイルはdot、circo、neatoあたりでしょう。</p>
-<h2 id="span-styletext-decoration-underlinepygraphvizspan-1"><!-- raw HTML omitted -->pygraphvizインストールの確認<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underlinepygraphvizインストールの確認span"><!-- raw HTML omitted -->pygraphvizインストールの確認<!-- raw HTML omitted --></h2>
 <p>pygraphvizをimportしてみてエラーの出ないことを確認しておこう。<br>
 たとえばIDLEで。</p>
 <pre><code class="language-console" data-lang="console">Python 2.7.5 (default, Oct 17 2013, 07:35:17)
@@ -239,9 +239,9 @@ zipは展開するとreleaseというフォルダが出来る。<br>
 Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license()&quot; for more information.
 &gt;&gt;&gt; import pygraphviz
 &gt;&gt;&gt;
-</code></pre><h2 id="span-styletext-decoration-underlinepygraphvizspan-2"><!-- raw HTML omitted -->PyGraphvizを使ってみよう。<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underlinepygraphvizを使ってみようspan"><!-- raw HTML omitted -->PyGraphvizを使ってみよう。<!-- raw HTML omitted --></h2>
 <p>基本はここのチュートリアルに沿えばよい。<br>
-<!-- raw HTML omitted --><a href="http://networkx.lanl.gov/pygraphviz/tutorial.html%3C/a%3E">http://networkx.lanl.gov/pygraphviz/tutorial.html&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="http://networkx.lanl.gov/pygraphviz/tutorial.html">http://networkx.lanl.gov/pygraphviz/tutorial.html</a><!-- raw HTML omitted --></p>
 <p>pygraphvizをimportし、AGraphクラスを作る。</p>
 <pre><code class="language-console" data-lang="console">import pygraphviz as pgv
 G = pgv.AGraph()
@@ -257,12 +257,12 @@ layoutを指示すると各ノード、エッジの配置がなされ、drawで�
 G.draw('sample01.png')
 </code></pre><p>dotファイルを書き出すには。</p>
 <pre><code class="language-console" data-lang="console">G.write(&quot;sample01.dot&quot;)
-</code></pre><h2 id="span-styletext-decoration-underlinespan"><!-- raw HTML omitted -->サンプルスクリプト<!-- raw HTML omitted --></h2>
+</code></pre><h2 id="span-styletext-decoration-underlineサンプルスクリプトspan"><!-- raw HTML omitted -->サンプルスクリプト<!-- raw HTML omitted --></h2>
 <p>以下、サンプルスクリプトとその結果つくられるグラフを列挙する。<br>
 先述の通りWindowsではpygraphvizが使えない。<br>
 Windowsでグラフを描こうとするなら、MacやFreeBSD他、pygraphvizで生成しておいたdotをWindows上のgraphvizで読みこむしかない。<br>
 その方法は最後に触れる。</p>
-<h3 id="1">サンプル1</h3>
+<h3 id="サンプル1">サンプル1</h3>
 <pre><code class="language-console" data-lang="console">#!/bin/env python
 
 import pygraphviz as pgv
@@ -278,7 +278,7 @@ G.add_edge('e','f')
 G.layout()
 G.draw('sample01.png')
 </code></pre><p><a href="../../../wp-content/uploads/2013/11/sample01.png"><!-- raw HTML omitted --></a></p>
-<h3 id="2">サンプル2</h3>
+<h3 id="サンプル2">サンプル2</h3>
 <p>ノードの追加は、リストでまとめてできる。</p>
 <pre><code class="language-console" data-lang="console">#!/bin/env python
 
@@ -296,7 +296,7 @@ G.add_edge('e','f')
 G.layout()
 G.draw('sample02.png')
 </code></pre><p><a href="../../../wp-content/uploads/2013/11/sample02.png"><!-- raw HTML omitted --></a></p>
-<h3 id="3">サンプル3</h3>
+<h3 id="サンプル3">サンプル3</h3>
 <p>同じエッジを二回追加しても変わらない。</p>
 <pre><code class="language-console" data-lang="console">#!/bin/env python
 
@@ -333,7 +333,7 @@ G.layout()
 G.draw('sample04.png')
 </code></pre><p><a href="../../../wp-content/uploads/2013/11/sample04.png"><!-- raw HTML omitted --></a><br>
 二本になる。</p>
-<h3 id="5">サンプル5</h3>
+<h3 id="サンプル5">サンプル5</h3>
 <p>さらにdirectを指定すれば。</p>
 <pre><code class="language-console" data-lang="console">#!/bin/env python
 
@@ -370,12 +370,12 @@ G.add_edge('h','i')
 G.layout()
 G.draw('sample05.png')
 </code></pre><p><a href="../../../wp-content/uploads/2013/11/sample06.png"><!-- raw HTML omitted --></a></p>
-<h2 id="span-styletext-decoration-underlinespan-1"><!-- raw HTML omitted -->参考<!-- raw HTML omitted --></h2>
+<h2 id="span-styletext-decoration-underline参考span"><!-- raw HTML omitted -->参考<!-- raw HTML omitted --></h2>
 <p>ここから先は、以下を参考にして各自素敵なグラフを作ってくれたまえ。<br>
-<!-- raw HTML omitted --><a href="https://github.com/pygraphviz/pygraphviz/blob/master/examples/miles.py%3C/a%3E">https://github.com/pygraphviz/pygraphviz/blob/master/examples/miles.py&lt;/a&gt;</a></p>
+<!-- raw HTML omitted --><a href="https://github.com/pygraphviz/pygraphviz/blob/master/examples/miles.py">https://github.com/pygraphviz/pygraphviz/blob/master/examples/miles.py</a><!-- raw HTML omitted --></p>
 <p>pygraphviz attrの一覧<br>
-<!-- raw HTML omitted --><a href="http://www.graphviz.org/doc/info/attrs.html%3C/a%3E">http://www.graphviz.org/doc/info/attrs.html&lt;/a&gt;</a></p>
-<h2 id="span-styletext-decoration-underlinewindowsdotspan"><!-- raw HTML omitted -->Windowsでdotからグラフを描画する。<!-- raw HTML omitted --></h2>
+<!-- raw HTML omitted --><a href="http://www.graphviz.org/doc/info/attrs.html">http://www.graphviz.org/doc/info/attrs.html</a><!-- raw HTML omitted --></p>
+<h2 id="span-styletext-decoration-underlinewindowsでdotからグラフを描画するspan"><!-- raw HTML omitted -->Windowsでdotからグラフを描画する。<!-- raw HTML omitted --></h2>
 <p>インストールしたdot, circo, neatoのいずれかに、-Tで出力形式を、-oで出力ファイル名を指定したうえで、dotファイルを与えればよい。</p>
 <pre><code class="language-console" data-lang="console">dot -Tpng -o filename.png filename.dot
 circo -Tpng -o filename.png filename.dot
@@ -405,11 +405,11 @@ neato -Tpng -o filename.png filename.dot
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

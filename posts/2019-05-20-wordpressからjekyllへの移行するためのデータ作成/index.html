@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -137,19 +137,19 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="heading">レンタルサーバにさよならを</h2>
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="レンタルサーバにさよならを">レンタルサーバにさよならを</h2>
 <p>ブログをあるレンタルサーバに置いていた。
 値段もそこそこで、Wordpressも一発で構築できるので重宝していたのだが、SSL対応をすると素の時とは違うアドレスでアクセスしないとダメ、という不条理な仕様のせいで引っ越しをする。</p>
 <p>引っ越しはgithub pagesに決めているのだが、その経緯は別の項に譲り、本稿ではWordpressからJekyllに移行&ndash;正しくはJekyllへインポートできるデータの作成について備忘のため記す。</p>
-<h2 id="wordpress-to-jekyll-exporter">プラグインのWordPress to Jekyll Exporterを使う</h2>
+<h2 id="プラグインのwordpress-to-jekyll-exporterを使う">プラグインのWordPress to Jekyll Exporterを使う</h2>
 <p>これはもう定番で、WordpressのプラグインであるWordPress to Jekyll Exporterを使う。あとはJekyllで読めばよい。</p>
 <p>それだけで終了といえば終了なのだが、いろいろと苦労があったのでこの記事を書いている。</p>
-<h2 id="jekyll-exporter">Jekyll Exporterとは</h2>
+<h2 id="jekyll-exporterとは">Jekyll Exporterとは</h2>
 <p>このプラグインを使うと、Wordpressのデータを根こそぎzipファイルにまとめてくれる。</p>
 <p>Wordpress自体にもエクスポート機能はあるが、こちらは記事をマークダウン形式に変換してくれるし、画像もまとめてくれるのが大きな違い。</p>
 <p>インストールするとダッシュボードの「ツール」に「Export to Jekyll」というメニューが生まれるので、これをクリックするだけ、なのだが。</p>
 <p>いくつか注意点がある。みんなあまりこの辺のことを書かないんだよな。</p>
-<h2 id="export-to-jekyll">Export to Jekyllするときの注意</h2>
+<h2 id="export-to-jekyllするときの注意">Export to Jekyllするときの注意</h2>
 <ol>
 <li>
 <p>データが多いと失敗する</p>
@@ -179,9 +179,9 @@ if (!doNotTrack) {
 <p>Export to Jekyllで作成したzipファイルは、なぜかWindows10で伸張できない。7-zip等のアーカイバを使うこと。FreeBSDのunzipでも伸張できた。</p>
 </li>
 </ol>
-<h2 id="export-to-jekyll-1">Export to Jekyllで得たデータの整形</h2>
+<h2 id="export-to-jekyllで得たデータの整形">Export to Jekyllで得たデータの整形</h2>
 <p>前述のような注意点を踏まえても、出力したデータにはさらに手を加える必要がある。</p>
-<h3 id="heading-1">画像リンク修正</h3>
+<h3 id="画像リンク修正">画像リンク修正</h3>
 <p>Export to Jekyllで出力したzipを展開するとおおよそ以下のようなディレクトリ構成になる。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.
 ├── _config.yml
@@ -218,22 +218,22 @@ if (!doNotTrack) {
 <pre><code class="language-console" data-lang="console">$ sed -i.bak -e 's#http\://hogehoge.hoge/blogs/#\.\./\.\./#g' *.md
 $
 </code></pre><p>そのままだとスラッシュ、コロン、ドットすべてをエスケープしないといけないので、デリミタを#にして、せめてスラッシュくらいは使えるようにしている</p>
-<h2 id="front-matterpermalink">front matterにあるpermalinkの削除</h2>
+<h2 id="front-matterにあるpermalinkの削除">front matterにあるpermalinkの削除</h2>
 <p>Jekyllで記事を書く時には、冒頭にfront matterというエリアを設け、そこに設定を書き込むようになっている。
 例えば以下のようなものだ。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">--<span style="color:#e6db74">-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">id: 3201</span>
-title: FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）
-date: <span style="color:#e6db74">2019-05-12T20:30:48</span><span style="color:#ae81ff">+09</span>:<span style="color:#ae81ff">00</span>
-author: nobwak
-layout: post
-guid: ../../?p=<span style="color:#ae81ff">3201</span>
-permalink: /?p=<span style="color:#ae81ff">3201</span>
-image: /wp-content/uploads/<span style="color:#ae81ff">2019</span>/<span style="color:#ae81ff">05</span>/<span style="color:#ae81ff">18</span>-620x483.jpg
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+<span style="color:#66d9ef">id</span>: <span style="color:#ae81ff">3201</span>
+<span style="color:#66d9ef">title</span>: FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）
+<span style="color:#66d9ef">date</span>: <span style="color:#e6db74">2019-05-12T20:30:48</span><span style="color:#ae81ff">+09</span>:<span style="color:#ae81ff">00</span>
+<span style="color:#66d9ef">author</span>: nobwak
+<span style="color:#66d9ef">layout</span>: post
+<span style="color:#66d9ef">guid</span>: ../../?p=<span style="color:#ae81ff">3201</span>
+<span style="color:#66d9ef">permalink</span>: /?p=<span style="color:#ae81ff">3201</span>
+<span style="color:#66d9ef">image</span>: /wp-content/uploads/<span style="color:#ae81ff">2019</span>/<span style="color:#ae81ff">05</span>/<span style="color:#ae81ff">18</span>-620x483.jpg
 categories:
   - bhyve
---<span style="color:#e6db74">-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74"></span></code></pre></div><p>ここに「permalink」という行がある。
+---
+</code></pre></div><p>ここに「permalink」という行がある。
 これはJekyllがhtmlのリンク構成を作るときに、どうpermalinkを設定するかを制御する。
 参考:<a href="https://jekyllrb.com/docs/front-matter/">https://jekyllrb.com/docs/front-matter/</a></p>
 <p>デフォルトだと年/月/日/タイトル.htmlだが、front matterにこう書かれてしまうとpermalinkが滅茶苦茶になる。
@@ -245,20 +245,20 @@ categories:
 <pre><code class="language-console" data-lang="console">$ sed -i.bak2 -e '8d' *.md
 $
 </code></pre><p>無事に削除された。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">--<span style="color:#e6db74">-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">id: 3201</span>
-title: FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）
-date: <span style="color:#e6db74">2019-05-12T20:30:48</span><span style="color:#ae81ff">+09</span>:<span style="color:#ae81ff">00</span>
-author: nobwak
-layout: post
-guid: ../../?p=<span style="color:#ae81ff">3201</span>
-image: /wp-content/uploads/<span style="color:#ae81ff">2019</span>/<span style="color:#ae81ff">05</span>/<span style="color:#ae81ff">18</span>-620x483.jpg
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+<span style="color:#66d9ef">id</span>: <span style="color:#ae81ff">3201</span>
+<span style="color:#66d9ef">title</span>: FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）
+<span style="color:#66d9ef">date</span>: <span style="color:#e6db74">2019-05-12T20:30:48</span><span style="color:#ae81ff">+09</span>:<span style="color:#ae81ff">00</span>
+<span style="color:#66d9ef">author</span>: nobwak
+<span style="color:#66d9ef">layout</span>: post
+<span style="color:#66d9ef">guid</span>: ../../?p=<span style="color:#ae81ff">3201</span>
+<span style="color:#66d9ef">image</span>: /wp-content/uploads/<span style="color:#ae81ff">2019</span>/<span style="color:#ae81ff">05</span>/<span style="color:#ae81ff">18</span>-620x483.jpg
 categories:
   - bhyve
---<span style="color:#e6db74">-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74"></span></code></pre></div><h2 id="jekyll">Jekyllのディレクトリ構成を変えたい</h2>
+---
+</code></pre></div><h2 id="jekyllのディレクトリ構成を変えたい">Jekyllのディレクトリ構成を変えたい</h2>
 <p>Jekyllの設定ファイルである_config.ymlに以下の行を追加すればよいだけ。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">permalink: /:year/:month/:day-:slug:output_ext
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">permalink</span>: /:year/:month/:day-:slug:output_ext
 </code></pre></div><p>書式はJekyll<a href="https://jekyllrb.com/docs/permalinks/">公式サイト</a>の説明を見ればよろしい。</p>
 <p>以上。</p>
 <ul class="pa0">
@@ -286,11 +286,11 @@ categories:
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>

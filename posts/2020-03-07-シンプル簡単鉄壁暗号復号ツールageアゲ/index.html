@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.0" />
+    <meta name="generator" content="Hugo 0.68.3" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -137,7 +137,7 @@ if (!doNotTrack) {
       
     </header>
 
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="--pgp">はじめに : PGPはオワコン</h2>
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="はじめに--pgpはオワコン">はじめに : PGPはオワコン</h2>
 <p>ファイルをどう暗号化するか。</p>
 <p>そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。<br>
 内容を覗かれないようにする目的を考えてみると、データが盗まれたときのため、安全でない経路を通して特定の人にデータを渡すため、である。</p>
@@ -207,8 +207,8 @@ CMJcniqFMjOGnQwruTrYGwIzV9vjvhVQ0qIzlXtwbsiLvzGQWe/QY9jLdxT0Ru5a
 -----END PGP PUBLIC KEY BLOCK-----
 </code></pre><p>こんなもん日常使いできるか。<br>
 世の中の皆さんもそう思っているようで、PGPのオワコンについては<a href="https://en.wikipedia.org/wiki/Pretty_Good_Privacy#Current_situation">PGP(Wikipedia)英語</a>に怒涛の記載がある。<br>
-<a href="https://www.wired.co.uk/article/efail-pgp-vulnerability-outlook-thunderbird-smime">We're calling it: PGP is dead (WIRED)</a>は文字通りの記事。</p>
-<h2 id="pgpage">PGPは捨ててage（アゲ）を使う。（他に道がないならば）</h2>
+<a href="https://www.wired.co.uk/article/efail-pgp-vulnerability-outlook-thunderbird-smime">We&rsquo;re calling it: PGP is dead (WIRED)</a>は文字通りの記事。</p>
+<h2 id="pgpは捨ててageアゲを使う他に道がないならば">PGPは捨ててage（アゲ）を使う。（他に道がないならば）</h2>
 <p>そんなわけで<code>age</code>である。<br>
 <code>age</code>とは、「簡易でモダンで安全な暗号化ツール」だそうである。(<a href="https://github.com/FiloSottile/age">https://github.com/FiloSottile/age</a>)<br>
 Actually Good Encryptionの略。<br>
@@ -223,11 +223,11 @@ sshの鍵は以下の通り。</p>
 </code></pre><p>ageはWindows, Mac, Linux, FreeBSDで使える。<br>
 ただ、現時点では単なるコマンドなんで、一般人とのファイル授受にはまだ使えないねえ。</p>
 <p>では以下、インストールと使い方</p>
-<h2 id="heading">インストール</h2>
+<h2 id="インストール">インストール</h2>
 <p><a href="https://github.com/FiloSottile/age">github</a>の通り。<br>
 Windows, Mac, Linux向けには<a href="https://github.com/FiloSottile/age/releases">バイナリ</a>もある。</p>
 <p>FreeBSDなら<code>pkg install security/age</code>で。</p>
-<h2 id="freebsdage">FreeBSDでのageインストール（不要な人は飛ばせ）</h2>
+<h2 id="freebsdでのageインストール不要な人は飛ばせ">FreeBSDでのageインストール（不要な人は飛ばせ）</h2>
 <p>とはいってもpkgでインストールするだけ。<br>
 取得サイズは1MiB。けっこう大きいね。</p>
 <pre><code class="language-console" data-lang="console">$ sudo pkg install security/age
@@ -282,7 +282,7 @@ $ pkg list age  # インストールされたファイル一覧。manは無い�
 /usr/local/share/licenses/age-1.0.0/LICENSE
 /usr/local/share/licenses/age-1.0.0/catalog.mk
 $
-</code></pre><h2 id="-h">使い方(まずは-hを確認)</h2>
+</code></pre><h2 id="使い方まずは-hを確認">使い方(まずは-hを確認)</h2>
 <p>実行ファイルは<code>age</code>と<code>age-keygen</code>である。<br>
 文字通り<code>age-keygen</code>は鍵を作る。<br>
 <code>age</code>が実際の暗号化、復号を受け持つ。</p>
@@ -322,8 +322,8 @@ Example:
     $ age -d -i key.txt -o data.tar.gz data.tar.gz.age
 $
 </code></pre><p>ご覧の通り、<code>age-keygen</code>で鍵を作り、その鍵を使って<code>age</code>で暗号化・復号するのが基本だが、<code>age</code>は単なるコマンドなんで、パイプで繋げられるのがポイント。</p>
-<h2 id="heading-1">実行例</h2>
-<h3 id="heading-2">鍵を作る</h3>
+<h2 id="実行例">実行例</h2>
+<h3 id="鍵を作る">鍵を作る</h3>
 <p>鍵を作るのは<code>age-keygen</code>。<br>
 なお、ageでは、ssh鍵も使えるが、それは後ほど。<br>
 ともかく、<code>-o</code>に続いて書き出すファイルを指定すれば鍵が書き込まれる。</p>
@@ -341,7 +341,7 @@ $
 </code></pre><p>ご覧の通り<code>AGE-SECRET-KEY</code>から続くものが秘密鍵ですな。<br>
 なお、鍵の書き込まれたファイルのパーミッションは600で、他人からは見られないようになっている。<br>
 秘密鍵だからね。このファイルの管理は厳重に。言わずもがな。</p>
-<h3 id="heading-3">暗号化</h3>
+<h3 id="暗号化">暗号化</h3>
 <p>基本的な使い方は<code>cat</code>やらしたファイルをパイプで繋ぐ。<br>
 以下の例では<code>plane.txt</code>の内容を<code>age</code>に渡す。<br>
 <code>-r</code>で公開鍵を指定。<br>
@@ -360,7 +360,7 @@ $
 $ du -h ./plane*  # やっぱりサイズは増えるよね
 4.5K    ./plane.age
 512B    ./plane.txt
-</code></pre><h3 id="heading-4">復号</h3>
+</code></pre><h3 id="復号">復号</h3>
 <p>復号する場合には、<code>--decrypt</code>あるいは<code>-d</code>をオプションに与える。<br>
 鍵は<code>--identity</code>あるいは<code>-i</code>で指定する。<br>
 結果は標準出力に吐き出されるので、必要に応じてファイルにリダイレクトする。</p>
@@ -371,19 +371,19 @@ $ age -i ~/.config/age/keys.txt --decrypt ./plane.age &gt; plane.decrypt.txt
 $ cat plane.decrypt.txt
 ほげほげ
 $
-</code></pre><h3 id="heading-5">暗号化のバリエーション</h3>
-<h4 id="heading-6">公開鍵入力のテクニック</h4>
+</code></pre><h3 id="暗号化のバリエーション">暗号化のバリエーション</h3>
+<h4 id="公開鍵入力のテクニック">公開鍵入力のテクニック</h4>
 <p>いかなageといえど、いちいち公開鍵をコピペするの面倒なので、以下のようにする。</p>
 <pre><code class="language-console" data-lang="console">$ cat ./rcpt.txt
 age12d2x0gquwpuywl0ceeaqjsXXXXXxvp9j8ae6l04xfh5d85n44qaj8e4r
 $ cat ./plane.txt |age -r `cat rcpt.txt`  -o plane.age
-</code></pre><h4 id="heading-7">複数の宛先へ</h4>
+</code></pre><h4 id="複数の宛先へ">複数の宛先へ</h4>
 <p>暗号化のとき、公開鍵は複数、設定することができる。<br>
 この場合、いずれの秘密鍵でも復号できる。<br>
 以下の例では、できたファイルはage1AAA, age1BBBの秘密鍵の持ち主それぞれで復号できる</p>
 <pre><code class="language-console" data-lang="console">$ cat ./plane.txt |age -r age1AAA.... -r age1BBB...  -o plane.age
 $
-</code></pre><h4 id="tar">tarなどのアーカイバと組み合わせる</h4>
+</code></pre><h4 id="tarなどのアーカイバと組み合わせる">tarなどのアーカイバと組み合わせる</h4>
 <p>ディレクトリをtar, gzで固めたものを暗号化<br>
 zfsのスナップショットと組み合わせるのもいいね。</p>
 <pre><code class="language-console" data-lang="console">$ ls -R ./dir
@@ -393,7 +393,7 @@ a ./dir
 a ./dir/a.txt
 a ./dir/b.txt
 $
-</code></pre><h4 id="ssh">sshの鍵</h4>
+</code></pre><h4 id="sshの鍵">sshの鍵</h4>
 <p>sshの公開鍵も使える。</p>
 <pre><code class="language-console" data-lang="console">$ cat plane.txt
 ほげほげ
@@ -405,7 +405,7 @@ $ age -d -i ~/.ssh/id_rsa ./plane.age
 Enter passphrase for &quot;/home/nobwak/.ssh/id_rsa&quot;:  # ssh鍵のパスフレーズ入力
 ほげほげ
 $
-</code></pre><h4 id="heading-8">パスフレーズ</h4>
+</code></pre><h4 id="パスフレーズ">パスフレーズ</h4>
 <p><code>-p</code>を与えるとパスフレーズが使える。</p>
 <pre><code class="language-console" data-lang="console">$ cat plane.txt
 ほげほげ
@@ -521,11 +521,11 @@ $
   </a>
     <div><div id="sharing">
 <font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f" class="facebook" aria-label="share on Facebook">
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
   </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-02-21-visualcodestudio%25E3%2581%25A7git%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%2586%2f&text=2020-02-21-VisualCodeStudio%e3%81%a7git%e3%82%92%e4%bd%bf%e3%81%86" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
     <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
   </a>
