@@ -1,15 +1,203 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on Nobwak&#39;s Lair</title>
+    <title>Tags on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/tags/</link>
-    <description>Recent content in Tags on Nobwak&#39;s Lair</description>
+    <description>Recent content in Tags on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Sat, 10 Aug 2019 14:24:05 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2020 12:54:02 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FreeBSD</title>
+      <link>https://nobwak.github.io/tags/freebsd/</link>
+      <pubDate>Mon, 13 Apr 2020 12:54:02 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/freebsd/</guid>
+      <description></description>
+    </item>
     
-	<atom:link href="https://nobwak.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FreeBSDasDesktop</title>
+      <link>https://nobwak.github.io/tags/freebsdasdesktop/</link>
+      <pubDate>Mon, 13 Apr 2020 12:54:02 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/freebsdasdesktop/</guid>
+      <description></description>
+    </item>
     
+    <item>
+      <title>python</title>
+      <link>https://nobwak.github.io/tags/python/</link>
+      <pubDate>Tue, 10 Mar 2020 21:50:09 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>virtualenv</title>
+      <link>https://nobwak.github.io/tags/virtualenv/</link>
+      <pubDate>Tue, 10 Mar 2020 21:50:09 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/virtualenv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VisualCodeStudio</title>
+      <link>https://nobwak.github.io/tags/visualcodestudio/</link>
+      <pubDate>Tue, 10 Mar 2020 19:06:25 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/visualcodestudio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>age</title>
+      <link>https://nobwak.github.io/tags/age/</link>
+      <pubDate>Sat, 07 Mar 2020 11:36:54 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/age/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>security</title>
+      <link>https://nobwak.github.io/tags/security/</link>
+      <pubDate>Sat, 07 Mar 2020 11:36:54 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://nobwak.github.io/tags/linux/</link>
+      <pubDate>Sun, 01 Mar 2020 21:27:11 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>automation</title>
+      <link>https://nobwak.github.io/tags/automation/</link>
+      <pubDate>Sun, 23 Feb 2020 22:36:52 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/automation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lxml</title>
+      <link>https://nobwak.github.io/tags/lxml/</link>
+      <pubDate>Sun, 23 Feb 2020 22:36:52 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/lxml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://nobwak.github.io/tags/git/</link>
+      <pubDate>Sat, 22 Feb 2020 14:11:08 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>確定申告</title>
+      <link>https://nobwak.github.io/tags/%E7%A2%BA%E5%AE%9A%E7%94%B3%E5%91%8A/</link>
+      <pubDate>Sun, 09 Feb 2020 19:36:30 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/%E7%A2%BA%E5%AE%9A%E7%94%B3%E5%91%8A/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VisualStudioCode</title>
+      <link>https://nobwak.github.io/tags/visualstudiocode/</link>
+      <pubDate>Sat, 18 Jan 2020 11:51:31 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/visualstudiocode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>evernote</title>
+      <link>https://nobwak.github.io/tags/evernote/</link>
+      <pubDate>Sun, 05 Jan 2020 11:13:49 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/evernote/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>scansnap</title>
+      <link>https://nobwak.github.io/tags/scansnap/</link>
+      <pubDate>Sun, 05 Jan 2020 11:13:49 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/scansnap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DNS</title>
+      <link>https://nobwak.github.io/tags/dns/</link>
+      <pubDate>Sun, 13 Oct 2019 20:22:25 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/dns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>homeserver</title>
+      <link>https://nobwak.github.io/tags/homeserver/</link>
+      <pubDate>Sun, 13 Oct 2019 20:22:25 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/homeserver/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shellscripts</title>
+      <link>https://nobwak.github.io/tags/shellscripts/</link>
+      <pubDate>Sun, 13 Oct 2019 20:22:25 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/shellscripts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HUGO</title>
+      <link>https://nobwak.github.io/tags/hugo/</link>
+      <pubDate>Tue, 24 Sep 2019 00:27:55 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bhyve</title>
+      <link>https://nobwak.github.io/tags/bhyve/</link>
+      <pubDate>Mon, 23 Sep 2019 23:23:04 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/bhyve/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>remotedesktop</title>
+      <link>https://nobwak.github.io/tags/remotedesktop/</link>
+      <pubDate>Mon, 23 Sep 2019 23:23:04 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/remotedesktop/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Windows</title>
@@ -17,87 +205,6 @@
       <pubDate>Sat, 10 Aug 2019 14:24:05 +0900</pubDate>
       
       <guid>https://nobwak.github.io/tags/windows/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>git</title>
-      <link>https://nobwak.github.io/tags/git/</link>
-      <pubDate>Sat, 20 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>HUGO</title>
-      <link>https://nobwak.github.io/tags/hugo/</link>
-      <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/hugo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>shellscripts</title>
-      <link>https://nobwak.github.io/tags/shellscripts/</link>
-      <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/shellscripts/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>VisualStudioCode</title>
-      <link>https://nobwak.github.io/tags/visualstudiocode/</link>
-      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/visualstudiocode/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>snippets</title>
-      <link>https://nobwak.github.io/tags/snippets/</link>
-      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/snippets/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>github</title>
-      <link>https://nobwak.github.io/tags/github/</link>
-      <pubDate>Sun, 09 Jun 2019 19:07:48 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/github/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>StaticSiteGenerator</title>
-      <link>https://nobwak.github.io/tags/staticsitegenerator/</link>
-      <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/staticsitegenerator/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>blog</title>
-      <link>https://nobwak.github.io/tags/blog/</link>
-      <pubDate>Sat, 08 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/blog/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>jekyll</title>
-      <link>https://nobwak.github.io/tags/jekyll/</link>
-      <pubDate>Sat, 08 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/jekyll/</guid>
       <description></description>
     </item>
     
@@ -116,15 +223,6 @@
       <pubDate>Sun, 02 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>https://nobwak.github.io/tags/markdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>FreeBSD</title>
-      <link>https://nobwak.github.io/tags/freebsd/</link>
-      <pubDate>Sun, 18 Nov 2018 11:58:47 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/freebsd/</guid>
       <description></description>
     </item>
     
@@ -170,15 +268,6 @@
       <pubDate>Sun, 12 Jun 2016 21:48:06 +0900</pubDate>
       
       <guid>https://nobwak.github.io/tags/mattermost/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>https://nobwak.github.io/tags/python/</link>
-      <pubDate>Sun, 12 Jun 2016 21:48:06 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/python/</guid>
       <description></description>
     </item>
     
@@ -237,15 +326,6 @@
     </item>
     
     <item>
-      <title>linux</title>
-      <link>https://nobwak.github.io/tags/linux/</link>
-      <pubDate>Fri, 25 Sep 2015 23:31:38 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>sh</title>
       <link>https://nobwak.github.io/tags/sh/</link>
       <pubDate>Fri, 25 Sep 2015 23:31:38 +0900</pubDate>
@@ -300,15 +380,6 @@
     </item>
     
     <item>
-      <title>security</title>
-      <link>https://nobwak.github.io/tags/security/</link>
-      <pubDate>Tue, 02 Sep 2014 21:57:20 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/security/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>hadoop</title>
       <link>https://nobwak.github.io/tags/hadoop/</link>
       <pubDate>Wed, 16 Jul 2014 23:29:13 +0900</pubDate>
@@ -327,20 +398,20 @@
     </item>
     
     <item>
-      <title>Ruby</title>
-      <link>https://nobwak.github.io/tags/ruby/</link>
-      <pubDate>Fri, 30 May 2014 22:24:38 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/ruby/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>homebrew</title>
       <link>https://nobwak.github.io/tags/homebrew/</link>
       <pubDate>Fri, 30 May 2014 22:24:38 +0900</pubDate>
       
       <guid>https://nobwak.github.io/tags/homebrew/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ruby</title>
+      <link>https://nobwak.github.io/tags/ruby/</link>
+      <pubDate>Fri, 30 May 2014 22:24:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/ruby/</guid>
       <description></description>
     </item>
     
@@ -368,15 +439,6 @@
       <pubDate>Tue, 21 Jan 2014 22:12:38 +0900</pubDate>
       
       <guid>https://nobwak.github.io/tags/nginx/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rsync</title>
-      <link>https://nobwak.github.io/tags/rsync/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/rsync/</guid>
       <description></description>
     </item>
     

@@ -1,15 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>security on Nobwak&#39;s Lair</title>
+    <title>security on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/tags/security/</link>
-    <description>Recent content in security on Nobwak&#39;s Lair</description>
+    <description>Recent content in security on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Tue, 02 Sep 2014 21:57:20 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/tags/security/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Sat, 07 Mar 2020 11:36:54 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）</title>
+      <link>https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/</link>
+      <pubDate>Sat, 07 Mar 2020 11:36:54 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/</guid>
+      <description>はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな</description>
+    </item>
     
     <item>
       <title>[メモ] clamav先生、悪意のあるソフトウェア削除ツールにトロイを見つける（誤検出）</title>
@@ -17,7 +25,7 @@
       <pubDate>Tue, 02 Sep 2014 21:57:20 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-09-02-%E3%83%A1%E3%83%A2_clamav%E5%85%88%E7%94%9F%E6%82%AA%E6%84%8F%E3%81%AE%E3%81%82%E3%82%8B%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E5%89%8A%E9%99%A4%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%83%88%E3%83%AD%E3%82%A4%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%8B%E8%AA%A4%E6%A4%9C%E5%87%BA/</guid>
-      <description>Windows xp用にと、大昔に取得していたMicorosoftの&amp;rdquo;悪意のあるソフトウェア削除ツール&amp;rdquo;をclamavでチェックし</description>
+      <description>Windows xp用にと、大昔に取得していたMicorosoftの&amp;quot;悪意のあるソフトウェア削除ツール&amp;quot;をclamavでチェックしたら</description>
     </item>
     
     <item>

@@ -1,143 +1,130 @@
-<!DOCTYPE html>
-<html lang="ja-JP">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Nobwak&#39;s Lair  | nginxとlighttpdで悩んでlighttpd &#43; php5 &#43; fastcgiのインストールと設定へ</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.68.3" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-
-    <meta property="og:title" content="nginxとlighttpdで悩んでlighttpd &#43; php5 &#43; fastcgiのインストールと設定へ" />
-<meta property="og:description" content="apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_&#43;_php5_&#43;_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/" />
-<meta property="article:published_time" content="2013-10-23T20:09:54+09:00" />
-<meta property="article:modified_time" content="2013-10-23T20:09:54+09:00" />
-<meta itemprop="name" content="nginxとlighttpdで悩んでlighttpd &#43; php5 &#43; fastcgiのインストールと設定へ">
-<meta itemprop="description" content="apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま">
-<meta itemprop="datePublished" content="2013-10-23T20:09:54&#43;09:00" />
-<meta itemprop="dateModified" content="2013-10-23T20:09:54&#43;09:00" />
-<meta itemprop="wordCount" content="2806">
-
-
-
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="nginxとlighttpdで悩んでlighttpd &#43; php5 &#43; fastcgiのインストールと設定へ"/>
-<meta name="twitter:description" content="apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま"/>
-
-      
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-38155461-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-    
-  </head>
-
-  <body class="ma0 avenir bg-near-white production">
-
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Nobwak&#39;s Lair
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-    </div>
-  </div>
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ | nobwak's Lair</title>
+<meta name=keywords content>
+<meta name=description content="apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま">
+<meta name=author content="nobwak">
+<link rel=canonical href=https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_+_php5_+_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<link rel=preload href=/apple-touch-icon.png as=image>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ">
+<meta property="og:description" content="apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_+_php5_+_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2013-10-23T20:09:54+09:00">
+<meta property="article:modified_time" content="2013-10-23T20:09:54+09:00"><meta property="og:site_name" content="nobwak's Lair">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ">
+<meta name=twitter:description content="apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ","item":"https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_+_php5_+_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ","name":"nginxとlighttpdで悩んでlighttpd \u002b php5 \u002b fastcgiのインストールと設定へ","description":"apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま","keywords":[],"articleBody":"apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あまりの便利さに感動し、追加ソフトウェアはすべてpkgにしようと決めたのだが。\napacheとphpでいきなり壁に当たりました。\napacheをpkgでインストールすると、phpのモジュールが付いてこないのである。\nphpモジュールが欲しいなら、apacheをportsからインストールしないといけない。\nもちろん、pkgngはportsと一緒に使えるよう考えて作られている。\napacheだけportsからインストールしたって何の問題もない。\nただ、あの巨大な/usr/portsディレクトリをメンテしていくのが億劫なわけですよ。\nならばよろしいapacheはもう捨てよう。\nたぶんまた、吊るしのpkgで使えないソフトウェアが出てくると思うが、その時はその時考えよう。\nnginx, lighttpdのどちらがよいか。 apacheの代替といってすぐに思い浮かぶのはnginxとlighttpdである。\n“nginx lighttpd comparison\"などとググってみると、いくつかのもまとめがヒットする。\nhttp://www.wikivs.com/wiki/Lighttpd_vs_nginxhttp://wiki.dreamhost.com/Web_Server_Performance_Comparison軽く速く柔軟な設定が可能という点では同じだが、概観したところnginx優勢のようである。\nまた、lighttpdには品質面で気になる点もある。\nどうも長い間放置されているメモリリークがあるようだ。\nただlighttpdの設定のほうが分かりやすい、というのは皆の認めるところらしい。\nメモリリークは心配だが、さっさとhttpサーバを設定したいのでlighttpdを選択。\n以下、lighttpdでphpを、fastcgiで動かす。\n環境はFreeBSD 10.0-BETA1。pkgngでインストール。\n設定方法は他OSでも参考になる部分があるかも。\nlighttpd, php5のインストール pkgでインストール。\n簡単。\nlighttpdは依存も少ない。\n# pkg install php5 lighttpd （略） php5のバージョン確認 lighttpdを扱う前に、phpを確認する。\nfastcgi対応かどうか。\n“php5″でインストールされたのは5.4.20\n/usr/local/bin/php-cgiを確認すると、特に指定や追加のインストールの必要なくfastcgi対応であることが分かる。\n# php -v PHP 5.4.20 (cli) (built: Oct 3 2013 03:35:30) Copyright (c) 1997-2013 The PHP Group Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies # php-cgi -v PHP 5.4.20 (cgi-fcgi) (built: Oct 3 2013 03:35:34) Copyright (c) 1997-2013 The PHP Group Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies lighttpdのファイル配置 lighttpdとしてインストールされたファイルを確認する。\n設定ファイル/usr/local/etc/lighttpd下に。\n# cd /usr/local/etc/lighttpd/ # ls RCS lighttpd.conf.sample vhosts.d conf.d modules.conf lighttpd.conf modules.conf.sample ドキュメントルート初期状態では/usr/local/www/dataだが、ディレクトリは自分で作る必要がある。\nlighttpdのログファイル初期状態では/var/log/lighttpd下に。\n# cd /var/log/lighttpd/ # ls access.log error.log ファイルを確認したら、lighttpdの設定に移る。\nlighttpdの設定 流れとしては、\n lighttpd.confで全体の設定を、 modules.confで読み込むモジュールの設定を、 conf.d/下の*.confで各モジュールの設定を行う。  fastcgiを使うなら、\nlighttpd.confで設定ののち、\nmodules.confでfastcgiのモジュールを読み込む指定をし、\nconf.d/fastcgi.confでphpの指定をする、となる。\nなお、php.iniにも一部変更が必要。\nlighttpdオフィシャルのチュートリアルはここ。\n以下、/usr/local/etc/lighttpd下にある設定ファイルに手を加えていく。\nlighttpd.confの修正 lighttpd.conf.sampleから変えたのは以下の3行だけ。\nserver.use-ipv6 = \"disable\" server.bind = \"192.168.154.241\" $SERVER[\"socket\"] == \"192.168.154.241:80\" { } コメント行、空行を除いたlighttpd.confは以下の通り。\ninclude “modules.conf\"と指定がある通り、ここでmoduleを読み込んでいる。\n# grep -v \"^#\" ./lighttpd.conf|grep -v \"^$\" var.log_root = \"/var/log/lighttpd\" var.server_root = \"/usr/local/www/data\" var.state_dir = \"/var/run\" var.home_dir = \"/var/spool/lighttpd\" var.conf_dir = \"/usr/local/etc/lighttpd\" var.vhosts_dir = server_root + \"/vhosts\" var.cache_dir = \"/var/cache/lighttpd\" var.socket_dir = home_dir + \"/sockets\" include \"modules.conf\" server.port = 80 server.use-ipv6 = \"disable\" server.bind = \"192.168.154.241\" server.username = \"www\" server.groupname = \"www\" server.core-files = \"disable\" server.document-root = \"/usr/local/www/data/\" server.tag = \"lighttpd\" server.pid-file = state_dir + \"/lighttpd.pid\" server.errorlog = log_root + \"/error.log\" include \"conf.d/access_log.conf\" include \"conf.d/debug.conf\" server.event-handler = \"freebsd-kqueue\" server.network-backend = \"writev\" server.max-fds = 2048 server.stat-cache-engine = \"simple\" server.max-connections = 1024 index-file.names += ( \"index.xhtml\", \"index.html\", \"index.htm\", \"default.htm\", \"index.php\" ) url.access-deny = ( \"~\", \".inc\" ) $HTTP[\"url\"] =~ \"\\.pdf$\" { server.range-requests = \"disable\" } static-file.exclude-extensions = ( \".php\", \".pl\", \".fcgi\", \".scgi\" ) include \"conf.d/mime.conf\" include \"conf.d/dirlisting.conf\" server.follow-symlink = \"enable\" server.upload-dirs = ( \"/var/tmp\" ) $SERVER[\"socket\"] == \"192.168.154.241:80\" { } modules.conf lighttpd.confで指定されたmodules.confの設定。\nどんなmoduleを読み込むか。\n以下の行を有効にしただけ。\nつまりfastcgiを有効に。\nそのほかにも興味深そうなmoduleはあるがミニマルスタートが原則。\ninclude \"conf.d/fastcgi.conf\" コメント行、空行を除いたlighttpd.confは以下の通り。\n# grep -v \"^#\" ./modules.conf|grep -v \"^$\" server.modules = ( \"mod_access\", ) include \"conf.d/fastcgi.conf\" conf.d/fastcgi.conf fastcgiの設定。\nphpをどう実行するかを指定できる。\nローカルのphp-cgiでもよいし、ローカルホストの別webサーバ（apacheとか）でもよいし、はたまた別ホストのwebサーバでもよい。\n詳細はこちら。\nここでは、ローカルの/usr/local/bin/php-cgiを使う。\nfastcgi対応のphpである。\nローカルなのでIPアドレスやTCP/IPポートの指定は不要で、UNIXドメインソケットして使うファイルを指定すればよい。\n最終的に以下の行を追加\nfastcgi.server = ( \".php\" = ((\"bin-path\" = \"/usr/local/bin/php-cgi\", \"socket\" = \"/tmp/php.socket\" )) ) コメント行、空行を除いたlighttpd.confは以下の通り。\nserver.modules += ( \"mod_fastcgi\" ) fastcgi.server = ( \".php\" = ((\"bin-path\" = \"/usr/local/bin/php-cgi\", \"socket\" = \"/tmp/php.socket\" )) ) 以上でlighttpdの設定は完了\nphp.iniの設定 lighttpdのドキュメントを見ると以下のように書いてあるので、php.iniを修正する。\n If you want to use PATH_INFO and PHP_SELF in you PHP scripts you have to configure php and lighttpd. The php.ini needs the option:\ncgi.fix_pathinfo = 1\n FreeBSDだとphp.iniは/usr/local/etcに置かれるべきもの。\n初期状態ではphp.iniが無いので、sampleからコピーする。\nsampleにはphp.ini-developmentとphp.ini-productionの二つがある。\ndevelopmentの方を選んだ。\n# cd /usr/local/etc/ # cp php.ini-development php.ini 以下の行のコメントを外す。\ncgi.fix_pathinfo=1 起動確認 /usr/local/www/dataを作り、“It works!“とでも書いたindex.htmlを作る。\n# mkdir /usr/local/www/data # echo \"It works\"  /usr/local/www/data/index.html FreeBSDなら/etc/rc.confに以下の行を追加。\n# enable lighttpd at boot lighttpd_enable=\"YES\" 起動。 # service lighttpd start Performing sanity check on lighttpd configuration: Syntax OK Starting lighttpd. ログに異常もなし。\n# tail /var/log/lighttpd/error.log 2013-10-22 21:30:20: (log.c.166) server started # ブラウザでつないで、index.htmlが表示されればOK。\n","wordCount":"2806","inLanguage":"en","datePublished":"2013-10-23T20:09:54+09:00","dateModified":"2013-10-23T20:09:54+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_+_php5_+_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
+<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://nobwak.github.io/posts/ title=posts>
+<span>posts</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
+<span>search</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/categories/ title=categories>
+<span>categories</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/tags/ title=tags>
+<span>tags</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io title="nobwak lair">
+<span>nobwak lair</span>
+</a>
+</li>
+</ul>
 </nav>
-
-      <script async src="https://cse.google.com/cse.js?cx=006557840537990471538:a32dqhwjiyl"></script>
-<div class="gcse-search"></div>
-
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
-  
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        POSTS
-      </p>
-      <h1 class="f1 athelas mb1">nginxとlighttpdで悩んでlighttpd &#43; php5 &#43; fastcgiのインストールと設定へ</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2013-10-23T20:09:54&#43;09:00">October 23, 2013</time>      
-      
-      
-    </header>
-
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="span-styletext-decoration-underlineapacheは吊るしのfreebsd-pkgでphpを使えないspan"><!-- raw HTML omitted -->apacheは吊るしのFreeBSD pkgでphpを使えない。<!-- raw HTML omitted --></h2>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ
+</h1>
+<div class=post-meta><span title="2013-10-23 20:09:54 +0900 JST">October 23, 2013</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2013-10-23-nginx%e3%81%a8lighttpd%e3%81%a7%e6%82%a9%e3%82%93%e3%81%a7lighttpd_+_php5_+_fastcgi%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%a8%e8%a8%ad%e5%ae%9a%e3%81%b8.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details open>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#span-styletext-decoration-underlineapache%e3%81%af%e5%90%8a%e3%82%8b%e3%81%97%e3%81%aefreebsd-pkg%e3%81%a7php%e3%82%92%e4%bd%bf%e3%81%88%e3%81%aa%e3%81%84span aria-label="apacheは吊るしのFreeBSD pkgでphpを使えない。">apacheは吊るしのFreeBSD pkgでphpを使えない。</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinenginx-lighttpd%e3%81%ae%e3%81%a9%e3%81%a1%e3%82%89%e3%81%8c%e3%82%88%e3%81%84%e3%81%8bspan aria-label="nginx, lighttpdのどちらがよいか。">nginx, lighttpdのどちらがよいか。</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinelighttpd-php5%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abspan aria-label="lighttpd, php5のインストール">lighttpd, php5のインストール</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinephp5%e3%81%ae%e3%83%90%e3%83%bc%e3%82%b8%e3%83%a7%e3%83%b3%e7%a2%ba%e8%aa%8dspan aria-label=php5のバージョン確認>php5のバージョン確認</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinelighttpd%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e9%85%8d%e7%bd%aespan aria-label=lighttpdのファイル配置>lighttpdのファイル配置</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinelighttpd%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=lighttpdの設定>lighttpdの設定</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinelighttpdconf%e3%81%ae%e4%bf%ae%e6%ad%a3span aria-label=lighttpd.confの修正>lighttpd.confの修正</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinemodulesconfspan aria-label=modules.conf>modules.conf</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineconfdfastcgiconfspan aria-label=conf.d/fastcgi.conf>conf.d/fastcgi.conf</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinephpini%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=php.iniの設定>php.iniの設定</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e8%b5%b7%e5%8b%95%e7%a2%ba%e8%aa%8dspan aria-label=起動確認>起動確認</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e8%b5%b7%e5%8b%95span aria-label=起動。>起動。</a>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><h2 id=span-styletext-decoration-underlineapacheは吊るしのfreebsd-pkgでphpを使えないspan>apacheは吊るしのFreeBSD pkgでphpを使えない。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineapacheは吊るしのfreebsd-pkgでphpを使えないspan>#</a></h2>
 <p>10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あまりの便利さに感動し、追加ソフトウェアはすべてpkgにしようと決めたのだが。</p>
 <p>apacheとphpでいきなり壁に当たりました。<br>
 apacheをpkgでインストールすると、phpのモジュールが付いてこないのである。<br>
@@ -147,11 +134,11 @@ apacheだけportsからインストールしたって何の問題もない。<br
 ただ、あの巨大な/usr/portsディレクトリをメンテしていくのが億劫なわけですよ。</p>
 <p>ならばよろしいapacheはもう捨てよう。<br>
 たぶんまた、吊るしのpkgで使えないソフトウェアが出てくると思うが、その時はその時考えよう。</p>
-<h2 id="span-styletext-decoration-underlinenginx-lighttpdのどちらがよいかspan"><!-- raw HTML omitted -->nginx, lighttpdのどちらがよいか。<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underlinenginx-lighttpdのどちらがよいかspan>nginx, lighttpdのどちらがよいか。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinenginx-lighttpdのどちらがよいかspan>#</a></h2>
 <p>apacheの代替といってすぐに思い浮かぶのはnginxとlighttpdである。</p>
-<p>&ldquo;nginx lighttpd comparison&quot;などとググってみると、いくつかのもまとめがヒットする。</p>
-<p><!-- raw HTML omitted --><a href="http://www.wikivs.com/wiki/Lighttpd_vs_nginx">http://www.wikivs.com/wiki/Lighttpd_vs_nginx</a><!-- raw HTML omitted --><br>
-<!-- raw HTML omitted --><a href="http://wiki.dreamhost.com/Web_Server_Performance_Comparison">http://wiki.dreamhost.com/Web_Server_Performance_Comparison</a><!-- raw HTML omitted --></p>
+<p>&ldquo;nginx lighttpd comparison"などとググってみると、いくつかのもまとめがヒットする。</p>
+<p><a href=http://www.wikivs.com/wiki/Lighttpd_vs_nginx>http://www.wikivs.com/wiki/Lighttpd_vs_nginx</a><br>
+<a href=http://wiki.dreamhost.com/Web_Server_Performance_Comparison>http://wiki.dreamhost.com/Web_Server_Performance_Comparison</a></p>
 <p>軽く速く柔軟な設定が可能という点では同じだが、概観したところnginx優勢のようである。</p>
 <p>また、lighttpdには品質面で気になる点もある。<br>
 どうも長い間放置されているメモリリークがあるようだ。</p>
@@ -160,43 +147,43 @@ apacheだけportsからインストールしたって何の問題もない。<br
 <p>以下、lighttpdでphpを、fastcgiで動かす。<br>
 環境はFreeBSD 10.0-BETA1。pkgngでインストール。<br>
 設定方法は他OSでも参考になる部分があるかも。</p>
-<h2 id="span-styletext-decoration-underlinelighttpd-php5のインストールspan"><!-- raw HTML omitted -->lighttpd, php5のインストール<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underlinelighttpd-php5のインストールspan>lighttpd, php5のインストール<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinelighttpd-php5のインストールspan>#</a></h2>
 <p>pkgでインストール。<br>
 簡単。<br>
 lighttpdは依存も少ない。</p>
-<pre><code class="language-console" data-lang="console"># pkg install php5 lighttpd
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># pkg install php5 lighttpd
 （略）
-</code></pre><h2 id="span-styletext-decoration-underlinephp5のバージョン確認span"><!-- raw HTML omitted -->php5のバージョン確認<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underlinephp5のバージョン確認span>php5のバージョン確認<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinephp5のバージョン確認span>#</a></h2>
 <p>lighttpdを扱う前に、phpを確認する。<br>
 fastcgi対応かどうか。</p>
 <p>&ldquo;php5″でインストールされたのは5.4.20<br>
 /usr/local/bin/php-cgiを確認すると、特に指定や追加のインストールの必要なくfastcgi対応であることが分かる。</p>
-<pre><code class="language-console" data-lang="console"># php -v
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># php -v
 PHP 5.4.20 (cli) (built: Oct  3 2013 03:35:30)
 Copyright (c) 1997-2013 The PHP Group
 Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies
-
-# php-cgi -v
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># php-cgi -v
 PHP 5.4.20 (cgi-fcgi) (built: Oct  3 2013 03:35:34)
 Copyright (c) 1997-2013 The PHP Group
 Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies
-</code></pre><h2 id="span-styletext-decoration-underlinelighttpdのファイル配置span"><!-- raw HTML omitted -->lighttpdのファイル配置<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underlinelighttpdのファイル配置span>lighttpdのファイル配置<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinelighttpdのファイル配置span>#</a></h2>
 <p>lighttpdとしてインストールされたファイルを確認する。</p>
-<p><!-- raw HTML omitted -->設定ファイル<!-- raw HTML omitted --><br>
+<p>設定ファイル<br>
 /usr/local/etc/lighttpd下に。</p>
-<pre><code class="language-console" data-lang="console"># cd /usr/local/etc/lighttpd/
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># cd /usr/local/etc/lighttpd/
 # ls
 RCS                     lighttpd.conf.sample    vhosts.d
 conf.d                  modules.conf
 lighttpd.conf           modules.conf.sample
-</code></pre><p><!-- raw HTML omitted -->ドキュメントルート<!-- raw HTML omitted --><br>
+</code></pre></div><p>ドキュメントルート<br>
 初期状態では/usr/local/www/dataだが、ディレクトリは自分で作る必要がある。</p>
-<p><!-- raw HTML omitted -->lighttpdのログファイル<!-- raw HTML omitted --> <!-- raw HTML omitted -->初期状態では/var/log/lighttpd下に。</p>
-<pre><code class="language-console" data-lang="console"># cd /var/log/lighttpd/
+<p>lighttpdのログファイル 初期状態では/var/log/lighttpd下に。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># cd /var/log/lighttpd/
 # ls
 access.log      error.log
-</code></pre><p>ファイルを確認したら、lighttpdの設定に移る。</p>
-<h2 id="span-styletext-decoration-underlinelighttpdの設定span"><!-- raw HTML omitted -->lighttpdの設定<!-- raw HTML omitted --></h2>
+</code></pre></div><p>ファイルを確認したら、lighttpdの設定に移る。</p>
+<h2 id=span-styletext-decoration-underlinelighttpdの設定span>lighttpdの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinelighttpdの設定span>#</a></h2>
 <p>流れとしては、</p>
 <ol>
 <li>lighttpd.confで全体の設定を、</li>
@@ -208,91 +195,91 @@ lighttpd.confで設定ののち、<br>
 modules.confでfastcgiのモジュールを読み込む指定をし、<br>
 conf.d/fastcgi.confでphpの指定をする、となる。</p>
 <p>なお、php.iniにも一部変更が必要。</p>
-<p>lighttpdオフィシャルのチュートリアルは<!-- raw HTML omitted -->ここ<!-- raw HTML omitted -->。<br>
+<p>lighttpdオフィシャルのチュートリアルはここ。<br>
 以下、/usr/local/etc/lighttpd下にある設定ファイルに手を加えていく。</p>
-<h2 id="span-styletext-decoration-underlinelighttpdconfの修正span"><!-- raw HTML omitted -->lighttpd.confの修正<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underlinelighttpdconfの修正span>lighttpd.confの修正<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinelighttpdconfの修正span>#</a></h2>
 <p>lighttpd.conf.sampleから変えたのは以下の3行だけ。</p>
-<pre><code class="language-console" data-lang="console">server.use-ipv6 = &quot;disable&quot;
-server.bind = &quot;192.168.154.241&quot;
-$SERVER[&quot;socket&quot;] == &quot;192.168.154.241:80&quot; { }
-</code></pre><p>コメント行、空行を除いたlighttpd.confは以下の通り。<br>
-include &ldquo;modules.conf&quot;と指定がある通り、ここでmoduleを読み込んでいる。</p>
-<pre><code class="language-console" data-lang="console"># grep -v &quot;^#&quot; ./lighttpd.conf|grep -v &quot;^$&quot;
-var.log_root    = &quot;/var/log/lighttpd&quot;
-var.server_root = &quot;/usr/local/www/data&quot;
-var.state_dir   = &quot;/var/run&quot;
-var.home_dir    = &quot;/var/spool/lighttpd&quot;
-var.conf_dir    = &quot;/usr/local/etc/lighttpd&quot;
-var.vhosts_dir  = server_root + &quot;/vhosts&quot;
-var.cache_dir   = &quot;/var/cache/lighttpd&quot;
-var.socket_dir  = home_dir + &quot;/sockets&quot;
-include &quot;modules.conf&quot;
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>server.use-ipv6 = &#34;disable&#34;
+server.bind = &#34;192.168.154.241&#34;
+$SERVER<span style=color:#f92672>[</span><span style=color:#e6db74>&#34;socket&#34;</span><span style=color:#f92672>]</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;192.168.154.241:80&#34;</span> <span style=color:#f92672>{</span> <span style=color:#f92672>}</span>
+</code></pre></div><p>コメント行、空行を除いたlighttpd.confは以下の通り。<br>
+include &ldquo;modules.conf"と指定がある通り、ここでmoduleを読み込んでいる。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># grep -v <span style=color:#e6db74>&#34;^#&#34;</span> ./lighttpd.conf|grep -v <span style=color:#e6db74>&#34;^</span>$<span style=color:#e6db74>&#34;</span>
+var.log_root    = &#34;/var/log/lighttpd&#34;
+var.server_root = &#34;/usr/local/www/data&#34;
+var.state_dir   = &#34;/var/run&#34;
+var.home_dir    = &#34;/var/spool/lighttpd&#34;
+var.conf_dir    = &#34;/usr/local/etc/lighttpd&#34;
+var.vhosts_dir  = server_root + &#34;/vhosts&#34;
+var.cache_dir   = &#34;/var/cache/lighttpd&#34;
+var.socket_dir  = home_dir + &#34;/sockets&#34;
+include &#34;modules.conf&#34;
 server.port = 80
-server.use-ipv6 = &quot;disable&quot;
-server.bind = &quot;192.168.154.241&quot;
-server.username  = &quot;www&quot;
-server.groupname = &quot;www&quot;
-server.core-files = &quot;disable&quot;
-server.document-root = &quot;/usr/local/www/data/&quot;
-server.tag = &quot;lighttpd&quot;
-server.pid-file = state_dir + &quot;/lighttpd.pid&quot;
-server.errorlog             = log_root + &quot;/error.log&quot;
-include &quot;conf.d/access_log.conf&quot;
-include &quot;conf.d/debug.conf&quot;
-server.event-handler = &quot;freebsd-kqueue&quot;
-server.network-backend = &quot;writev&quot;
+server.use-ipv6 = &#34;disable&#34;
+server.bind = &#34;192.168.154.241&#34;
+server.username  = &#34;www&#34;
+server.groupname = &#34;www&#34;
+server.core-files = &#34;disable&#34;
+server.document-root = &#34;/usr/local/www/data/&#34;
+server.tag = &#34;lighttpd&#34;
+server.pid-file = state_dir + &#34;/lighttpd.pid&#34;
+server.errorlog             = log_root + &#34;/error.log&#34;
+include &#34;conf.d/access_log.conf&#34;
+include &#34;conf.d/debug.conf&#34;
+server.event-handler = &#34;freebsd-kqueue&#34;
+server.network-backend = &#34;writev&#34;
 server.max-fds = 2048
-server.stat-cache-engine = &quot;simple&quot;
+server.stat-cache-engine = &#34;simple&#34;
 server.max-connections = 1024
 index-file.names += (
-&quot;index.xhtml&quot;, &quot;index.html&quot;, &quot;index.htm&quot;, &quot;default.htm&quot;, &quot;index.php&quot;
+&#34;index.xhtml&#34;, &#34;index.html&#34;, &#34;index.htm&#34;, &#34;default.htm&#34;, &#34;index.php&#34;
 )
-url.access-deny             = ( &quot;~&quot;, &quot;.inc&quot; )
-$HTTP[&quot;url&quot;] =~ &quot;\.pdf$&quot; {
-server.range-requests = &quot;disable&quot;
+url.access-deny             = ( &#34;~&#34;, &#34;.inc&#34; )
+$HTTP<span style=color:#f92672>[</span><span style=color:#e6db74>&#34;url&#34;</span><span style=color:#f92672>]</span> <span style=color:#f92672>=</span>~ <span style=color:#e6db74>&#34;\.pdf</span>$<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>{</span>
+server.range-requests = &#34;disable&#34;
 }
-static-file.exclude-extensions = ( &quot;.php&quot;, &quot;.pl&quot;, &quot;.fcgi&quot;, &quot;.scgi&quot; )
-include &quot;conf.d/mime.conf&quot;
-include &quot;conf.d/dirlisting.conf&quot;
-server.follow-symlink = &quot;enable&quot;
-server.upload-dirs = ( &quot;/var/tmp&quot; )
-$SERVER[&quot;socket&quot;] == &quot;192.168.154.241:80&quot; { }
-</code></pre><h2 id="span-styletext-decoration-underlinemodulesconfspan"><!-- raw HTML omitted -->modules.conf<!-- raw HTML omitted --></h2>
+static-file.exclude-extensions = ( &#34;.php&#34;, &#34;.pl&#34;, &#34;.fcgi&#34;, &#34;.scgi&#34; )
+include &#34;conf.d/mime.conf&#34;
+include &#34;conf.d/dirlisting.conf&#34;
+server.follow-symlink = &#34;enable&#34;
+server.upload-dirs = ( &#34;/var/tmp&#34; )
+$SERVER<span style=color:#f92672>[</span><span style=color:#e6db74>&#34;socket&#34;</span><span style=color:#f92672>]</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;192.168.154.241:80&#34;</span> <span style=color:#f92672>{</span> <span style=color:#f92672>}</span>
+</code></pre></div><h2 id=span-styletext-decoration-underlinemodulesconfspan>modules.conf<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinemodulesconfspan>#</a></h2>
 <p>lighttpd.confで指定されたmodules.confの設定。<br>
 どんなmoduleを読み込むか。<br>
 以下の行を有効にしただけ。<br>
 つまりfastcgiを有効に。<br>
 そのほかにも興味深そうなmoduleはあるがミニマルスタートが原則。</p>
-<pre><code class="language-console" data-lang="console">include &quot;conf.d/fastcgi.conf&quot;
-</code></pre><p>コメント行、空行を除いたlighttpd.confは以下の通り。</p>
-<pre><code class="language-console" data-lang="console"># grep -v &quot;^#&quot; ./modules.conf|grep -v &quot;^$&quot;
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>include &#34;conf.d/fastcgi.conf&#34;
+</code></pre></div><p>コメント行、空行を除いたlighttpd.confは以下の通り。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># grep -v <span style=color:#e6db74>&#34;^#&#34;</span> ./modules.conf|grep -v <span style=color:#e6db74>&#34;^</span>$<span style=color:#e6db74>&#34;</span>
 server.modules = (
-&quot;mod_access&quot;,
+&#34;mod_access&#34;,
 )
-include &quot;conf.d/fastcgi.conf&quot;
-</code></pre><h2 id="span-styletext-decoration-underlineconfdfastcgiconfspan"><!-- raw HTML omitted -->conf.d/fastcgi.conf<!-- raw HTML omitted --></h2>
+include &#34;conf.d/fastcgi.conf&#34;
+</code></pre></div><h2 id=span-styletext-decoration-underlineconfdfastcgiconfspan>conf.d/fastcgi.conf<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineconfdfastcgiconfspan>#</a></h2>
 <p>fastcgiの設定。<br>
 phpをどう実行するかを指定できる。</p>
 <p>ローカルのphp-cgiでもよいし、ローカルホストの別webサーバ（apacheとか）でもよいし、はたまた別ホストのwebサーバでもよい。<br>
-詳細は<!-- raw HTML omitted -->こちら<!-- raw HTML omitted -->。</p>
+詳細はこちら。</p>
 <p>ここでは、ローカルの/usr/local/bin/php-cgiを使う。<br>
 fastcgi対応のphpである。</p>
 <p>ローカルなのでIPアドレスやTCP/IPポートの指定は不要で、UNIXドメインソケットして使うファイルを指定すればよい。<br>
 最終的に以下の行を追加</p>
-<pre><code class="language-console" data-lang="console">fastcgi.server = ( &quot;.php&quot; =&gt;
-                    ((&quot;bin-path&quot; =&gt; &quot;/usr/local/bin/php-cgi&quot;,
-                      &quot;socket&quot; =&gt; &quot;/tmp/php.socket&quot;
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>fastcgi.server = ( &#34;.php&#34; =&gt;
+                    ((&#34;bin-path&#34; =&gt; &#34;/usr/local/bin/php-cgi&#34;,
+                      &#34;socket&#34; =&gt; &#34;/tmp/php.socket&#34;
                      ))
                  )
-</code></pre><p>コメント行、空行を除いたlighttpd.confは以下の通り。</p>
-<pre><code class="language-console" data-lang="console">server.modules += ( &quot;mod_fastcgi&quot; )
-fastcgi.server = ( &quot;.php&quot; =&gt;
-        ((&quot;bin-path&quot; =&gt; &quot;/usr/local/bin/php-cgi&quot;,
-        &quot;socket&quot; =&gt; &quot;/tmp/php.socket&quot;
+</code></pre></div><p>コメント行、空行を除いたlighttpd.confは以下の通り。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>server.modules += ( &#34;mod_fastcgi&#34; )
+fastcgi.server = ( &#34;.php&#34; =&gt;
+        ((&#34;bin-path&#34; =&gt; &#34;/usr/local/bin/php-cgi&#34;,
+        &#34;socket&#34; =&gt; &#34;/tmp/php.socket&#34;
         ))
         )
-</code></pre><p>以上でlighttpdの設定は完了</p>
-<h2 id="span-styletext-decoration-underlinephpiniの設定span"><!-- raw HTML omitted -->php.iniの設定<!-- raw HTML omitted --></h2>
+</code></pre></div><p>以上でlighttpdの設定は完了</p>
+<h2 id=span-styletext-decoration-underlinephpiniの設定span>php.iniの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinephpiniの設定span>#</a></h2>
 <p>lighttpdのドキュメントを見ると以下のように書いてあるので、php.iniを修正する。</p>
 <blockquote>
 <p>If you want to use PATH_INFO and PHP_SELF in you PHP scripts you have to configure php and lighttpd. The php.ini needs the option:<br>
@@ -302,99 +289,70 @@ cgi.fix_pathinfo = 1</p>
 初期状態ではphp.iniが無いので、sampleからコピーする。<br>
 sampleにはphp.ini-developmentとphp.ini-productionの二つがある。<br>
 developmentの方を選んだ。</p>
-<pre><code class="language-console" data-lang="console"># cd /usr/local/etc/
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># cd /usr/local/etc/
 # cp php.ini-development php.ini
-</code></pre><p>以下の行のコメントを外す。</p>
-<pre><code class="language-console" data-lang="console">cgi.fix_pathinfo=1
-</code></pre><h2 id="span-styletext-decoration-underline起動確認span"><!-- raw HTML omitted -->起動確認<!-- raw HTML omitted --></h2>
+</code></pre></div><p>以下の行のコメントを外す。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>cgi.fix_pathinfo=1
+</code></pre></div><h2 id=span-styletext-decoration-underline起動確認span>起動確認<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline起動確認span>#</a></h2>
 <p>/usr/local/www/dataを作り、&ldquo;It works!&ldquo;とでも書いたindex.htmlを作る。</p>
-<pre><code class="language-console" data-lang="console"># mkdir /usr/local/www/data
-# echo &quot;It works&quot; &gt; /usr/local/www/data/index.html
-</code></pre><p>FreeBSDなら/etc/rc.confに以下の行を追加。</p>
-<pre><code class="language-console" data-lang="console"># enable lighttpd at boot
-lighttpd_enable=&quot;YES&quot;
-</code></pre><h2 id="span-styletext-decoration-underline起動span"><!-- raw HTML omitted -->起動。<!-- raw HTML omitted --></h2>
-<pre><code class="language-console" data-lang="console"># service lighttpd start
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># mkdir /usr/local/www/data
+# echo <span style=color:#e6db74>&#34;It works&#34;</span> &gt; /usr/local/www/data/index.html
+</code></pre></div><p>FreeBSDなら/etc/rc.confに以下の行を追加。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># enable lighttpd at boot
+lighttpd_enable=&#34;YES&#34;
+</code></pre></div><h2 id=span-styletext-decoration-underline起動span>起動。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline起動span>#</a></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># service lighttpd start
 Performing sanity check on lighttpd configuration:
 Syntax OK
 Starting lighttpd.
-</code></pre><p>ログに異常もなし。</p>
-<pre><code class="language-console" data-lang="console"># tail /var/log/lighttpd/error.log
+</code></pre></div><p>ログに異常もなし。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># tail /var/log/lighttpd/error.log
 2013-10-22 21:30:20: (log.c.166) server started
 #
-</code></pre><p>ブラウザでつないで、index.htmlが表示されればOK。</p>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6">
-        
-      </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
-    &copy; 2020 Nobwak&#39;s Lair
-  </a>
-    <div><div id="sharing">
-<font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
-
-  </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-  </a>
+</code></pre></div><p>ブラウザでつないで、index.htmlが表示されればOK。</p>
 </div>
+<footer class=post-footer>
+<nav class=paginav>
+<a class=prev href=https://nobwak.github.io/posts/2013-10-25-%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E6%A7%8B%E7%AF%89caldav%E3%82%B5%E3%83%BC%E3%83%90baikal/>
+<span class=title>« Prev Page</span>
+<br>
+<span>らくらく構築、CalDAVサーバBaikal</span>
+</a>
+<a class=next href=https://nobwak.github.io/posts/2013-10-21-freebsd_pkg_-j_%E3%81%A7jail%E3%81%AE%E5%A4%96%E3%81%8B%E3%82%89pkgng%E6%93%8D%E4%BD%9C%E3%82%92/>
+<span class=title>Next Page »</span>
+<br>
+<span>[FreeBSD] pkg -j でjailの「外から」pkgng操作を。</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ on twitter" href="https://twitter.com/intent/tweet/?text=nginx%e3%81%a8lighttpd%e3%81%a7%e6%82%a9%e3%82%93%e3%81%a7lighttpd%20%2b%20php5%20%2b%20fastcgi%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%a8%e8%a8%ad%e5%ae%9a%e3%81%b8&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-23-nginx%25E3%2581%25A8lighttpd%25E3%2581%25A7%25E6%2582%25A9%25E3%2582%2593%25E3%2581%25A7lighttpd_%2b_php5_%2b_fastcgi%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%25A8%25E8%25A8%25AD%25E5%25AE%259A%25E3%2581%25B8%2f&hashtags="><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-23-nginx%25E3%2581%25A8lighttpd%25E3%2581%25A7%25E6%2582%25A9%25E3%2582%2593%25E3%2581%25A7lighttpd_%2b_php5_%2b_fastcgi%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%25A8%25E8%25A8%25AD%25E5%25AE%259A%25E3%2581%25B8%2f&title=nginx%e3%81%a8lighttpd%e3%81%a7%e6%82%a9%e3%82%93%e3%81%a7lighttpd%20%2b%20php5%20%2b%20fastcgi%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%a8%e8%a8%ad%e5%ae%9a%e3%81%b8&summary=nginx%e3%81%a8lighttpd%e3%81%a7%e6%82%a9%e3%82%93%e3%81%a7lighttpd%20%2b%20php5%20%2b%20fastcgi%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%a8%e8%a8%ad%e5%ae%9a%e3%81%b8&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-23-nginx%25E3%2581%25A8lighttpd%25E3%2581%25A7%25E6%2582%25A9%25E3%2582%2593%25E3%2581%25A7lighttpd_%2b_php5_%2b_fastcgi%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%25A8%25E8%25A8%25AD%25E5%25AE%259A%25E3%2581%25B8%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-23-nginx%25E3%2581%25A8lighttpd%25E3%2581%25A7%25E6%2582%25A9%25E3%2582%2593%25E3%2581%25A7lighttpd_%2b_php5_%2b_fastcgi%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%25A8%25E8%25A8%25AD%25E5%25AE%259A%25E3%2581%25B8%2f&title=nginx%e3%81%a8lighttpd%e3%81%a7%e6%82%a9%e3%82%93%e3%81%a7lighttpd%20%2b%20php5%20%2b%20fastcgi%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%a8%e8%a8%ad%e5%ae%9a%e3%81%b8"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-23-nginx%25E3%2581%25A8lighttpd%25E3%2581%25A7%25E6%2582%25A9%25E3%2582%2593%25E3%2581%25A7lighttpd_%2b_php5_%2b_fastcgi%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%25A8%25E8%25A8%25AD%25E5%25AE%259A%25E3%2581%25B8%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ on whatsapp" href="https://api.whatsapp.com/send?text=nginx%e3%81%a8lighttpd%e3%81%a7%e6%82%a9%e3%82%93%e3%81%a7lighttpd%20%2b%20php5%20%2b%20fastcgi%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%a8%e8%a8%ad%e5%ae%9a%e3%81%b8%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-23-nginx%25E3%2581%25A8lighttpd%25E3%2581%25A7%25E6%2582%25A9%25E3%2582%2593%25E3%2581%25A7lighttpd_%2b_php5_%2b_fastcgi%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%25A8%25E8%25A8%25AD%25E5%25AE%259A%25E3%2581%25B8%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ on telegram" href="https://telegram.me/share/url?text=nginx%e3%81%a8lighttpd%e3%81%a7%e6%82%a9%e3%82%93%e3%81%a7lighttpd%20%2b%20php5%20%2b%20fastcgi%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%a8%e8%a8%ad%e5%ae%9a%e3%81%b8&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-23-nginx%25E3%2581%25A8lighttpd%25E3%2581%25A7%25E6%2582%25A9%25E3%2582%2593%25E3%2581%25A7lighttpd_%2b_php5_%2b_fastcgi%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%25A8%25E8%25A8%25AD%25E5%25AE%259A%25E3%2581%25B8%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
 </div>
-    <div>
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-</div>
-  </div>
 </footer>
-
-    
-
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
-
-
-  </body>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
 </html>

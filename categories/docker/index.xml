@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>docker on Nobwak&#39;s Lair</title>
+    <title>docker on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/categories/docker/</link>
-    <description>Recent content in docker on Nobwak&#39;s Lair</description>
+    <description>Recent content in docker on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Sat, 16 Jan 2016 22:28:39 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 16 Jan 2016 22:28:39 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[docker]dockerのimageを更新し、不要なimageを削除する</title>
       <link>https://nobwak.github.io/posts/2016-01-16-dockerdocker%E3%81%AEimage%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%97%E4%B8%8D%E8%A6%81%E3%81%AAimage%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B/</link>

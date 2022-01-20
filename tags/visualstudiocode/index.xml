@@ -1,23 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>VisualStudioCode on Nobwak&#39;s Lair</title>
+    <title>VisualStudioCode on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/tags/visualstudiocode/</link>
-    <description>Recent content in VisualStudioCode on Nobwak&#39;s Lair</description>
+    <description>Recent content in VisualStudioCode on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Mon, 10 Jun 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/tags/visualstudiocode/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 18 Jan 2020 11:51:31 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/visualstudiocode/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>VSCでHUGOのFrontMatterを書くsnippetsをつくろう</title>
-      <link>https://nobwak.github.io/posts/2019-06-10-hugo_frontmatter%E3%81%AEvsc_snippets%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8D%E3%81%86/</link>
-      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <title>2020-01-18-VisualStudioCode_python_Windowsセットアップ</title>
+      <link>https://nobwak.github.io/posts/2020-01-18-visualstudiocode_python_windows%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/</link>
+      <pubDate>Sat, 18 Jan 2020 11:51:31 +0900</pubDate>
       
-      <guid>https://nobwak.github.io/posts/2019-06-10-hugo_frontmatter%E3%81%AEvsc_snippets%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8D%E3%81%86/</guid>
-      <description>HUGOに食わせるマークダウンファイルを作る場合には、適切なFront matterが必要だ。 hugo new &amp;lt;ファイル&amp;gt;とすれば、Front</description>
+      <guid>https://nobwak.github.io/posts/2020-01-18-visualstudiocode_python_windows%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/</guid>
+      <description>Visual Stuido CodeでPythonセットアップ Visual Code Studioをインストールする。 ここから。 .zipを選べばポータブルバージョンが落ちてくる。 Pyt</description>
     </item>
     
   </channel>

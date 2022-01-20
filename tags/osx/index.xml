@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>OSX on Nobwak&#39;s Lair</title>
+    <title>OSX on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/tags/osx/</link>
-    <description>Recent content in OSX on Nobwak&#39;s Lair</description>
+    <description>Recent content in OSX on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Wed, 09 Jul 2014 20:53:38 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/tags/osx/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 09 Jul 2014 20:53:38 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/osx/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[メモ] MacにPythonのmatplotlibをインストール</title>
       <link>https://nobwak.github.io/posts/2014-07-09-%E3%83%A1%E3%83%A2_mac%E3%81%ABpython%E3%81%AEmatplotlib%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>

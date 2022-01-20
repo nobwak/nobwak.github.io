@@ -1,150 +1,137 @@
-<!DOCTYPE html>
-<html lang="ja-JP">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Nobwak&#39;s Lair  | poudriereでhomebrew（自前） pkgリポジトリを</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.68.3" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-
-    <meta property="og:title" content="poudriereでhomebrew（自前） pkgリポジトリを" />
-<meta property="og:description" content="poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nobwak.github.io/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/" />
-<meta property="article:published_time" content="2014-02-16T22:21:37+09:00" />
-<meta property="article:modified_time" content="2014-02-16T22:21:37+09:00" />
-<meta itemprop="name" content="poudriereでhomebrew（自前） pkgリポジトリを">
-<meta itemprop="description" content="poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa">
-<meta itemprop="datePublished" content="2014-02-16T22:21:37&#43;09:00" />
-<meta itemprop="dateModified" content="2014-02-16T22:21:37&#43;09:00" />
-<meta itemprop="wordCount" content="4069">
-
-
-
-<meta itemprop="keywords" content="FreeBSD,pkgng," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="poudriereでhomebrew（自前） pkgリポジトリを"/>
-<meta name="twitter:description" content="poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa"/>
-
-      
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-38155461-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-    
-  </head>
-
-  <body class="ma0 avenir bg-near-white production">
-
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Nobwak&#39;s Lair
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-    </div>
-  </div>
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>poudriereでhomebrew（自前） pkgリポジトリを | nobwak's Lair</title>
+<meta name=keywords content="FreeBSD,pkgng">
+<meta name=description content="poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa">
+<meta name=author content="nobwak">
+<link rel=canonical href=https://nobwak.github.io/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<link rel=preload href=/apple-touch-icon.png as=image>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="poudriereでhomebrew（自前） pkgリポジトリを">
+<meta property="og:description" content="poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2014-02-16T22:21:37+09:00">
+<meta property="article:modified_time" content="2014-02-16T22:21:37+09:00"><meta property="og:site_name" content="nobwak's Lair">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="poudriereでhomebrew（自前） pkgリポジトリを">
+<meta name=twitter:description content="poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"poudriereでhomebrew（自前） pkgリポジトリを","item":"https://nobwak.github.io/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"poudriereでhomebrew（自前） pkgリポジトリを","name":"poudriereでhomebrew（自前） pkgリポジトリを","description":"poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa","keywords":["FreeBSD","pkgng"],"articleBody":"poudriereを使ったので経緯を記す。\npoudriereは自前のpkgngレポジトリを作るツール。\n自前のレポジトリを作るのは、自前のpackageを置きたいときや、オフラインマシンにpackageを提供したいとき、である。\npoudriereの構築は、以下二つのサイトに沿えばできる。\nただ、簡潔にまとめられているので、本記事では補足も併せてまとめる。\nhttp://blog.etoilebsd.net/post/Home_made_pkgng_repohttp://w.vmeta.jp/tdiary/?date=20130205仕組み poudriereがどのようにしてpackageを作るかというと。\nOS/アーキテクチャごとにjailを作り、そこでportsからpackagesを作る。\nつまりホストのOS|アーキテクチャと違っていても大丈夫だが、ホストは最新にしておいた方がよい。\npackagesはあるディレクトリにまとめられる。\nディレクトリはそのままwebで公開できる形式になっている。\n他のマシンから、pkgngでつなげば、自家製packagesを取得できる。\n作成するpackagesは自分で選ぶことができる。\nまた、オプションも選ぶことができる。\nオプションはまた別途。\n必要なもの zpoolを最低7GB用意しておくこと。\nインストール ports-mgmt/poudriereからportsでもpkgでもよいのでインストール。\n設定ファイル まず設定ファイルを作る。\n/usr/local/etc/poudriere.conf.sampleをもとに。\n/usr/local/etc/poudriere.conf\n# 作成しておいたzpoolの名前をここで指定 ZPOOL=vault # 上記のzpoolから切り出したzfsを、 # ここで示したディレクトリにマウントしておく。 ZROOTFS=/poudriere # FreeBSDの部品の取得先。国内にしておこう。 FREEBSD_HOST=ftp://ftp2.jp.freebsd.org # デフォルトのまま RESOLV_CONF=/etc/resolv.conf # デフォルトでいいでしょう。 BASEFS=/usr/local/poudriere # デフォルトでいいでしょう。 USE_PORTLINT=no # デフォルトでいいでしょう。 USE_TMPFS=yes # デフォルトでいいでしょう。 DISTFILES_CACHE=/usr/ports/distfiles # proxyの指定が必要であれば export HTTP_PROXY=\"http://proxy:8080/\" export FTP_PROXY=\"http://proxy:8080/\" poudriere作業用zfsの準備 zpoolからzfsを切り出し、/poudriereにマウント。\npoudriere.confを参照すると、最低でも7GBとある。\nzfsの操作はよろしければこちらをどうぞ。\n../../../?p=1827結果として以下のような環境。\n20.0Gのzpoolをvaultとして作成している。\n$ zpool list NAME SIZE ALLOC FREE CAP DEDUP HEALTH ALTROOT vault 19.9G 190K 19.9G 0% 1.00x ONLINE - $ zpool status pool: vault state: ONLINE scan: none requested config:  NAME STATE READ WRITE CKSUM vault ONLINE 0 0 0 ada1 ONLINE 0 0 0 errors: No known data errors ここからpoudriereとして切り出し。\n$ zfs list NAME USED AVAIL REFER MOUNTPOINT vault 45.7M 19.5G 31K /vault vault/poudriere 45.0M 19.5G 45.0M /poudriere それを/poudriereにマウント。\n$ mount /dev/ada0p2 on / (ufs, local, journaled soft-updates) devfs on /dev (devfs, local, multilabel) vault/poudriere on /poudriere (zfs, local, nfsv4acls) 再起動しても大丈夫なようにfstabに書き込み\n$ cat fstab # Device Mountpoint FStype Options Dump Pass# /dev/ada0p2 / ufs rw 1 1 /dev/ada0p3 none swap sw 0 0 vault/poudriere /poudriere zfs rw 0 0 以降、本格的な作業に。\nデフォルトのportstreeを作る。: poudriere ports jailごとにportsディレクトリを持っていてはディスクがいくらあっても足らない。\nそこでportsディレクトリは全jailsで共有する。\nそのportsディレクトリ、portstreeを作る。\npoudriere ports -cで作成。\n場所は/poudriere/ports/defaultに作られる。\nちなみに、二回目からは-uで更新。\n指定がなければportsnapが使われる。\nsvnとかが使いたければ-m svnなどと指定する。\n作成例\n$ sudo poudriere ports -c ==== Creating default fs... done ==== Extracting portstree \"default\"... Looking up portsnap.FreeBSD.org mirrors... none found. Fetching public key from portsnap.FreeBSD.org... done. Fetching snapshot tag from portsnap.FreeBSD.org... done. Fetching snapshot metadata... done. Fetching snapshot generated at Fri Nov 1 21:00:43 JST 2013: 98c3a00130d24348ff5bcca8474e4c6cb777d838e8f5d2100% of 69 MB 3590 kBps 00m19s Extracting snapshot... done. Verifying snapshot integrity... （略） 二回目以降の例\nすでにportsがある状態で-cを指定すると怒られる。\n$ sudo poudriere ports -c ==== Error: The ports tree default already exists $ sudo poudriere ports -u ==== Updating portstree \"default\" Looking up portsnap.FreeBSD.org mirrors... none found. Fetching snapshot tag from portsnap.FreeBSD.org... done. Fetching snapshot metadata... done. Updating from Fri Nov 1 21:27:07 JST 2013 to Fri Jan 17 22:08:55 JST 2014. Fetching 4 metadata patches... done. Applying metadata patches... done. Fetching 4 metadata files... done. Fetching 11146 patches.....10 （略） 各システム向けのJailを作る: poudriere jail いよいよ個別のjail。\npkgを提供したいシステムに合わせてjailを作る。\njailを作るにはpoudriere jailを使う。\npoudriere jailでオプション一覧が表示される。\n-jでjailname指定、-vでFreeBSDバージョン、-aでアーキテクチャ（i386かamd64）を指定。\n-cで作成、-dで削除、-lで一覧、-sで開始、-kで停止、-uで更新。\n後で見返した時に分からなくなるので、jail名にはシステム関連の情報を入れておくとよい。\nたとえば9.2-RELEASE i386向けなら92i386というように。\n実行例\n$ sudo poudriere jail -c -j 92i386 -v 9.2-RELEASE -a i386 ==== Creating 92i386 fs... done ==== Fetching base.txz for FreeBSD 9.2-RELEASE i386 /poudriere/jails/92i386/fromftp/base.txz 100% of 60 MB 6703 kBps 00m10s ==== Extracting base.txz... done ==== Fetching src.txz for FreeBSD 9.2-RELEASE i386 /poudriere/jails/92i386/fromftp/src.txz 100% of 95 MB 6049 kBps 00m16s ==== Extracting src.txz... done ==== Fetching games.txz for FreeBSD 9.2-RELEASE i386 /poudriere/jails/92i386/fromftp/games.txz 100% of 861 kB 4705 kBps 00m00s ==== Extracting games.txz... done ==== Cleaning up... done ==== Jail 92i386 9.2-RELEASE i386 is ready to be used 一覧の例\n$ sudo poudriere jail -l JAILNAME VERSION ARCH METHOD 92i386 9.2-RELEASE i386 ftp 削除例\n$ sudo poudriere jail -d -j 92i386 ==== Removing 92i386 jail... done $ $ sudo poudriere jail -l JAILNAME VERSION ARCH METHOD $ このときのmountの出力\nえらいことに。\n$ mount /dev/ada0p2 on / (ufs, local, journaled soft-updates) devfs on /dev (devfs, local, multilabel) vault/poudriere on /poudriere (zfs, local, nfsv4acls) vault/poudriere/data on /usr/local/poudriere/data (zfs, local, nfsv4acls) vault/poudriere/ports on /poudriere/ports (zfs, local, nfsv4acls) vault/poudriere/ports/default on /usr/local/poudriere/ports/default (zfs, local, nfsv4acls) vault/poudriere/jails on /poudriere/jails (zfs, local, nfsv4acls) vault/poudriere/jails/92i386 on /usr/local/poudriere/jails/92i386 (zfs, local, nfsv4acls) jailの作成が失敗するとき 失敗しなかったらこの章は読み飛ばしてOK.\n最初のCreatingで失敗するときは、以前に作った何かが邪魔しているはず。\n$ sudo poudriere jail -c -j 92i386 -v 9.2-RELEASE -a i386 ==== Creating 92i386 fs... done mkdir: /poudriere/jails/92i386: No such file or directory ==== Fetching base.txz for FreeBSD 9.2-RELEASE i386 fetch: /poudriere/jails/92i386/fromftp/base.txz: open(): No such file or directory fetch: /poudriere/jails/92i386/fromftp/base.txz: open(): No such file or directory ==== Error: Failed to fetch from ftp://ftp2.jp.freebsd.org/pub/FreeBSD/releases/i386/i386/9.2-RELEASE/base.txz ==== Error while creating jail, cleaning up. ==== Removing 92i386 jail... done zfs listすると同じ名前の残骸がある。\n$ zfs list NAME USED AVAIL REFER MOUNTPOINT vault 2.06G 17.5G 31K /vault vault/poudriere 2.06G 17.5G 561M /poudriere vault/poudriere/data 32K 17.5G 32K /usr/local/poudriere/data vault/poudriere/jails 1000M 17.5G 32K /poudriere/jails vault/poudriere/jails/92i386 1000M 17.5G 1000M /poudriere/jails/92i386 vault/poudriere/ports 545M 17.5G 31K /poudriere/ports vault/poudriere/ports/default 545M 17.5G 545M /usr/local/poudriere/ports/default 削除。オプションなしではうまくいかないので-rで再トライ。\n$ sudo zfs destroy vault/poudriere/jails/92i386 cannot destroy 'vault/poudriere/jails/92i386': filesystem has children use '-r' to destroy the following datasets: vault/poudriere/jails/92i386@clean $ sudo zfs destroy -r vault/poudriere/jails/92i386 $ きれいになった。\n$ zfs list NAME USED AVAIL REFER MOUNTPOINT vault 1.08G 18.5G 31K /vault vault/poudriere 1.08G 18.5G 561M /poudriere vault/poudriere/data 32K 18.5G 32K /usr/local/poudriere/data vault/poudriere/jails 32K 18.5G 32K /poudriere/jails vault/poudriere/ports 545M 18.5G 31K /poudriere/ports vault/poudriere/ports/default 545M 18.5G 545M /usr/local/poudriere/ports/default 作成したいpackagesのリストを作る 作成したいpackagesを指定する。\nテキストファイルにpackagesを並べればよい。\nただしOriginで記載すること。\nOriginっていうのは…たとえばrsyncならnet/rsyncと書く。\nOriginが分からなければ、pkg searchするときに-oを付ければよい。\n$ pkg search -o rsync net/grsync net/librsync mail/maildirsync net/rsync sysutils/rsyncbackup sysutils/rsyncmanager sysutils/rsyncrypto psearch（ports-mgmt/psearch）でもできる。\n$ psearch rsync archivers/rvm Archive manager that uses rsync to manage backups devel/p5-File-DirSync Perl5 module for synchronizing two directories rapidly mail/maildirsync Online synchronizer for Maildir-format mailboxes net/grsync GTK frontend for rsync net/librsync Library for delta compression of streams net/p5-File-Rsync Perl convenience wrapper for the rsync(1) program net/p5-File-RsyncP Perl Rsync client net/rsync Network file distribution/synchronization utility sysutils/dirvish Network backup system based off of rsync (略) 試しにrsyncだけ書く。\n$ cat ./pkg.list net/rsync packagesの作成: poudriere bulk いよいよ作成。\n作成にはpoudriere bulkを使う。\npoudriere bulkでオプションを一覧できる。\n-fで作成するパッケージリストを指定。さっき作ったやつ。\n特定のjailでのみ実施したい場合は-jでjailname指定。\n-cで作成したpackagesをすべて吹き飛ばす。\n-C -f に書かれたpackagesのみ消す。\nでは実行。\n初回なのでpkgも作ってくれているようですな。\n$ sudo poudriere bulk -j 92i386 -f ./pkg.list ==== Creating the reference jail... done ==== Mounting system devices for 92i386-default ==== Mounting ports/packages/distfiles ==== Mounting packages from: /usr/local/poudriere/data/packages/92i386-default ==== Logs: /usr/local/poudriere/data/logs/bulk/92i386-default/2014-01-20_22h03m21s ==== Appending to make.conf: /usr/local/etc/poudriere.d/92i386-make.conf /etc/resolv.conf - /usr/local/poudriere/data/build/92i386-default/ref/etc/resolv.conf ==== Starting jail 92i386-default ==== Calculating ports order and dependencies ==== pkg package missing, skipping sanity ==== Cleaning the build queue ==== Building 2 packages using 1 builders ==== Starting/Cloning builders ==== Hit CTRL+t at any time to see build progress and stats ==== [01] Starting build of ports-mgmt/pkg ==== [01] Finished build of ports-mgmt/pkg: Success ==== [01] Starting build of net/rsync ==== [01] Finished build of net/rsync: Success ==== Stopping 1 builders ==== Creating pkgng repository Generating repository catalog in /packages: done! ==== Cleaning up ==== Umounting file systems ==== Built ports: ports-mgmt/pkg net/rsync ==== [92i386-default] 2 packages built, 0 failures, 0 ignored, 0 skipped ==== Logs: /usr/local/poudriere/data/logs/bulk/92i386-default/2014-01-20_22h03m21s $ 自家製packagesの公開 さて。\n作成したpackagesはどこにあるかというと、今回の場合は以下である。\n/usr/local/poudriere/data/packages/92i386-default/ このディレクトリをwebサーバで公開する。\n※もちろん、webサーバで公開しているディレクトリに中身を移しても可。\nこの場所は、poudriere.confのPOUDRIERE_DATAで決まる。\n${POUDRIERE_DATA}/packages/＜jailname＞-default/となる。\nもしこの場所が気に食わなかったら、POUDRIERE_DATAを変える。\nlsで中身を見てみると、オフィシャルpkgsiteのものと全くそっくりな内容になっている。\n$ ls /usr/local/poudriere/data/packages/92i386-default/ All Latest digests.txz packagesite.txz ではこれをwebサーバで公開する。\nここではnginxを例にとる。\nnginx.confは下記のように。\nworker_processes 1; events { worker_connections 1024; } http { include mime.types; default_type application/octet-stream; sendfile on; keepalive_timeout 65; server { listen 80; server_name localhost; location / { autoindex on; #Here! root /usr/local/poudriere/data/packages;　#Here! index index.html index.htm; } error_page 500 502 503 504 /50x.html; location = /50x.html { root /usr/local/www/nginx-dist; } } } デフォルトからほとんど変えていない。\n変えたのは、#Here!と記載した箇所。\nrootを/usr/local/poudriere/data/packagesに向ける。\nautoindexをonにする。\nnginxは、デフォルトではautoindex offなので、明示的に指定しないとForbiddenを食らってしまう。\nnginxを起動して;\n$ sudo service nginx start Performing sanity check on nginx configuration: nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful Starting nginx. 接続確認。良さそうですな。\n$ w3m http://localhost/92i386-default/ Index of /92i386-default/ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ../ All/ 20-Jan-2014 22:24 Latest/ 20-Jan-2014 22:06 digests 20-Jan-2014 22:24 digests.txz 20-Jan-2014 22:07 3 packagesite.txz 20-Jan-2014 22:07 12 packagesite.yaml 20-Jan-2014 22:24 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ webサーバを他の用途にも使っている場合には、以下のようにlocation /packages/を/usr/local/poudriere/dataに向ければよい。\n※冗長なのでserverディレクティブの中しか引用しない。\nserver { listen 80; server_name localhost; location / { root /usr/local/www/nginx; index index.html index.htm; } location /packages/ { autoindex on; root /usr/local/poudriere/data; } クライアント側の設定 やっとたどり着いた。\nクライアント側では/etc/pkg/の下か、/usr/local/etc/pkg/repos/の下に以下のような設定ファイルを作る。\nここで192.168.200.111はサーバのアドレス。\n/etc/pkg/homebrew.conf\nhomebrew: { url: \"http://192.168.200.111/92i386-default\", enabled: yes } こうしておき、pkg -vvとすると見えるはず。\nRepositories: homebrew: { url : \"http://192.168.200.111/92i386-default\", enabled : yes } pkg updateするとさっき作ったpackagesも見える。\n$ sudo pkg update Updating repository catalogue digests.txz 100% 352 0.3KB/s 0.3KB/s 00:00 packagesite.txz 100% 1904 1.9KB/s 1.9KB/s 00:00 Incremental update completed, 2 packages processed: 0 packages updated, 0 removed and 2 added. いろんな工夫については別途。\n","wordCount":"4069","inLanguage":"en","datePublished":"2014-02-16T22:21:37+09:00","dateModified":"2014-02-16T22:21:37+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
+<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://nobwak.github.io/posts/ title=posts>
+<span>posts</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
+<span>search</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/categories/ title=categories>
+<span>categories</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/tags/ title=tags>
+<span>tags</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io title="nobwak lair">
+<span>nobwak lair</span>
+</a>
+</li>
+</ul>
 </nav>
-
-      <script async src="https://cse.google.com/cse.js?cx=006557840537990471538:a32dqhwjiyl"></script>
-<div class="gcse-search"></div>
-
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
-  
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        POSTS
-      </p>
-      <h1 class="f1 athelas mb1">poudriereでhomebrew（自前） pkgリポジトリを</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2014-02-16T22:21:37&#43;09:00">February 16, 2014</time>      
-      
-      
-    </header>
-
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>poudriereを使ったので経緯を記す。<br>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+poudriereでhomebrew（自前） pkgリポジトリを
+</h1>
+<div class=post-meta><span title="2014-02-16 22:21:37 +0900 JST">February 16, 2014</span>&nbsp;·&nbsp;9 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2014-02-16-poudriere%e3%81%a7homebrew%ef%bc%88%e8%87%aa%e5%89%8d%ef%bc%89_pkg%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa%e3%82%92.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details open>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#span-styletext-decoration-underline%e4%bb%95%e7%b5%84%e3%81%bfspan aria-label=仕組み>仕組み</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e5%bf%85%e8%a6%81%e3%81%aa%e3%82%82%e3%81%aespan aria-label=必要なもの>必要なもの</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abspan aria-label=インストール>インストール</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e8%a8%ad%e5%ae%9a%e3%83%95%e3%82%a1%e3%82%a4%e3%83%abspan aria-label=設定ファイル>設定ファイル</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinepoudriere%e4%bd%9c%e6%a5%ad%e7%94%a8zfs%e3%81%ae%e6%ba%96%e5%82%99span aria-label=poudriere作業用zfsの準備>poudriere作業用zfsの準備</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e3%83%87%e3%83%95%e3%82%a9%e3%83%ab%e3%83%88%e3%81%aeportstree%e3%82%92%e4%bd%9c%e3%82%8b-poudriere-portsspan aria-label="デフォルトのportstreeを作る。: poudriere ports">デフォルトのportstreeを作る。: poudriere ports</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e5%90%84%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%e5%90%91%e3%81%91%e3%81%aejail%e3%82%92%e4%bd%9c%e3%82%8b-poudriere-jailspan aria-label="各システム向けのJailを作る: poudriere jail">各システム向けのJailを作る: poudriere jail</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinejail%e3%81%ae%e4%bd%9c%e6%88%90%e3%81%8c%e5%a4%b1%e6%95%97%e3%81%99%e3%82%8b%e3%81%a8%e3%81%8dspan aria-label=jailの作成が失敗するとき>jailの作成が失敗するとき</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e4%bd%9c%e6%88%90%e3%81%97%e3%81%9f%e3%81%84packages%e3%81%ae%e3%83%aa%e3%82%b9%e3%83%88%e3%82%92%e4%bd%9c%e3%82%8bspan aria-label=作成したいpackagesのリストを作る>作成したいpackagesのリストを作る</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinepackages%e3%81%ae%e4%bd%9c%e6%88%90-poudriere-bulkspan aria-label="packagesの作成: poudriere bulk">packagesの作成: poudriere bulk</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e8%87%aa%e5%ae%b6%e8%a3%bdpackages%e3%81%ae%e5%85%ac%e9%96%8bspan aria-label=自家製packagesの公開>自家製packagesの公開</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e3%82%af%e3%83%a9%e3%82%a4%e3%82%a2%e3%83%b3%e3%83%88%e5%81%b4%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=クライアント側の設定>クライアント側の設定</a>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p>poudriereを使ったので経緯を記す。<br>
 poudriereは自前のpkgngレポジトリを作るツール。<br>
 自前のレポジトリを作るのは、自前のpackageを置きたいときや、オフラインマシンにpackageを提供したいとき、である。</p>
 <p>poudriereの構築は、以下二つのサイトに沿えばできる。<br>
 ただ、簡潔にまとめられているので、本記事では補足も併せてまとめる。<br>
-<!-- raw HTML omitted --><a href="http://blog.etoilebsd.net/post/Home_made_pkgng_repo">http://blog.etoilebsd.net/post/Home_made_pkgng_repo</a><!-- raw HTML omitted --><br>
-<!-- raw HTML omitted --><a href="http://w.vmeta.jp/tdiary/?date=20130205">http://w.vmeta.jp/tdiary/?date=20130205</a><!-- raw HTML omitted --></p>
-<h2 id="span-styletext-decoration-underline仕組みspan"><!-- raw HTML omitted -->仕組み<!-- raw HTML omitted --></h2>
+<a href=http://blog.etoilebsd.net/post/Home_made_pkgng_repo>http://blog.etoilebsd.net/post/Home_made_pkgng_repo</a><br>
+<a href="http://w.vmeta.jp/tdiary/?date=20130205">http://w.vmeta.jp/tdiary/?date=20130205</a></p>
+<h2 id=span-styletext-decoration-underline仕組みspan>仕組み<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline仕組みspan>#</a></h2>
 <p>poudriereがどのようにしてpackageを作るかというと。<br>
 OS/アーキテクチャごとにjailを作り、そこでportsからpackagesを作る。<br>
 つまりホストのOS|アーキテクチャと違っていても大丈夫だが、ホストは最新にしておいた方がよい。</p>
@@ -154,50 +141,50 @@ OS/アーキテクチャごとにjailを作り、そこでportsからpackagesを
 <p>作成するpackagesは自分で選ぶことができる。<br>
 また、オプションも選ぶことができる。<br>
 オプションはまた別途。</p>
-<h2 id="span-styletext-decoration-underline必要なものspan"><!-- raw HTML omitted -->必要なもの<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underline必要なものspan>必要なもの<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline必要なものspan>#</a></h2>
 <p>zpoolを最低7GB用意しておくこと。</p>
-<h2 id="span-styletext-decoration-underlineインストールspan"><!-- raw HTML omitted -->インストール<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underlineインストールspan>インストール<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineインストールspan>#</a></h2>
 <p>ports-mgmt/poudriereからportsでもpkgでもよいのでインストール。</p>
-<h2 id="span-styletext-decoration-underline設定ファイルspan"><!-- raw HTML omitted -->設定ファイル<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underline設定ファイルspan>設定ファイル<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline設定ファイルspan>#</a></h2>
 <p>まず設定ファイルを作る。<br>
 /usr/local/etc/poudriere.conf.sampleをもとに。</p>
 <p>/usr/local/etc/poudriere.conf</p>
-<pre><code class="language-console" data-lang="console"># 作成しておいたzpoolの名前をここで指定
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># 作成しておいたzpoolの名前をここで指定
 ZPOOL=vault
-
-# 上記のzpoolから切り出したzfsを、
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># 上記のzpoolから切り出したzfsを、
 # ここで示したディレクトリにマウントしておく。
 ZROOTFS=/poudriere
-
-# FreeBSDの部品の取得先。国内にしておこう。
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># FreeBSDの部品の取得先。国内にしておこう。
 FREEBSD_HOST=ftp://ftp2.jp.freebsd.org
-
-# デフォルトのまま
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># デフォルトのまま
 RESOLV_CONF=/etc/resolv.conf
-
-# デフォルトでいいでしょう。
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># デフォルトでいいでしょう。
 BASEFS=/usr/local/poudriere
-
-# デフォルトでいいでしょう。
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># デフォルトでいいでしょう。
 USE_PORTLINT=no
-
-# デフォルトでいいでしょう。
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># デフォルトでいいでしょう。
 USE_TMPFS=yes
-
-# デフォルトでいいでしょう。
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># デフォルトでいいでしょう。
 DISTFILES_CACHE=/usr/ports/distfiles
-
-# proxyの指定が必要であれば
-export HTTP_PROXY=&quot;http://proxy:8080/&quot;
-export FTP_PROXY=&quot;http://proxy:8080/&quot;
-</code></pre><h2 id="span-styletext-decoration-underlinepoudriere作業用zfsの準備span"><!-- raw HTML omitted -->poudriere作業用zfsの準備<!-- raw HTML omitted --></h2>
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># proxyの指定が必要であれば
+export HTTP_PROXY=&#34;http://proxy:8080/&#34;
+export FTP_PROXY=&#34;http://proxy:8080/&#34;
+</code></pre></div><h2 id=span-styletext-decoration-underlinepoudriere作業用zfsの準備span>poudriere作業用zfsの準備<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepoudriere作業用zfsの準備span>#</a></h2>
 <p>zpoolからzfsを切り出し、/poudriereにマウント。<br>
 poudriere.confを参照すると、最低でも7GBとある。</p>
 <p>zfsの操作はよろしければこちらをどうぞ。<br>
-<!-- raw HTML omitted -->../../../?p=1827<!-- raw HTML omitted --></p>
+../../../?p=1827</p>
 <p>結果として以下のような環境。<br>
 20.0Gのzpoolをvaultとして作成している。</p>
-<pre><code class="language-console" data-lang="console">$ zpool list
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ zpool list
 NAME    SIZE  ALLOC   FREE    CAP  DEDUP  HEALTH  ALTROOT
 vault  19.9G   190K  19.9G     0%  1.00x  ONLINE  -
 $ zpool status
@@ -205,30 +192,30 @@ $ zpool status
  state: ONLINE
   scan: none requested
 config:
-
-        NAME        STATE     READ WRITE CKSUM
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>        NAME        STATE     READ WRITE CKSUM
         vault       ONLINE       0     0     0
           ada1      ONLINE       0     0     0
-
-errors: No known data errors
-</code></pre><p>ここからpoudriereとして切り出し。</p>
-<pre><code class="language-console" data-lang="console">$ zfs list
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>errors: No known data errors
+</code></pre></div><p>ここからpoudriereとして切り出し。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ zfs list
 NAME              USED  AVAIL  REFER  MOUNTPOINT
 vault            45.7M  19.5G    31K  /vault
 vault/poudriere  45.0M  19.5G  45.0M  /poudriere
-</code></pre><p>それを/poudriereにマウント。</p>
-<pre><code class="language-console" data-lang="console">$ mount
+</code></pre></div><p>それを/poudriereにマウント。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates)
 devfs on /dev (devfs, local, multilabel)
 vault/poudriere on /poudriere (zfs, local, nfsv4acls)
-</code></pre><p>再起動しても大丈夫なようにfstabに書き込み</p>
-<pre><code class="language-console" data-lang="console">$ cat fstab
+</code></pre></div><p>再起動しても大丈夫なようにfstabに書き込み</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cat fstab
 # Device        Mountpoint      FStype  Options Dump    Pass#
 /dev/ada0p2     /               ufs     rw      1       1
 /dev/ada0p3     none            swap    sw      0       0
 vault/poudriere /poudriere      zfs     rw      0       0
-</code></pre><p>以降、本格的な作業に。</p>
-<h2 id="span-styletext-decoration-underlineデフォルトのportstreeを作る-poudriere-portsspan"><!-- raw HTML omitted -->デフォルトのportstreeを作る。: poudriere ports<!-- raw HTML omitted --></h2>
+</code></pre></div><p>以降、本格的な作業に。</p>
+<h2 id=span-styletext-decoration-underlineデフォルトのportstreeを作る-poudriere-portsspan>デフォルトのportstreeを作る。: poudriere ports<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineデフォルトのportstreeを作る-poudriere-portsspan>#</a></h2>
 <p>jailごとにportsディレクトリを持っていてはディスクがいくらあっても足らない。<br>
 そこでportsディレクトリは全jailsで共有する。<br>
 そのportsディレクトリ、portstreeを作る。</p>
@@ -238,9 +225,9 @@ vault/poudriere /poudriere      zfs     rw      0       0
 指定がなければportsnapが使われる。<br>
 svnとかが使いたければ-m svnなどと指定する。</p>
 <p>作成例</p>
-<pre><code class="language-console" data-lang="console">$ sudo poudriere ports -c
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo poudriere ports -c
 ====&gt;&gt; Creating default fs... done
-====&gt;&gt; Extracting portstree &quot;default&quot;...
+====&gt;&gt; Extracting portstree &#34;default&#34;...
 Looking up portsnap.FreeBSD.org mirrors... none found.
 Fetching public key from portsnap.FreeBSD.org... done.
 Fetching snapshot tag from portsnap.FreeBSD.org... done.
@@ -250,13 +237,13 @@ Fetching snapshot generated at Fri Nov  1 21:00:43 JST 2013:
 Extracting snapshot... done.
 Verifying snapshot integrity...
 （略）
-</code></pre><p>二回目以降の例<br>
+</code></pre></div><p>二回目以降の例<br>
 すでにportsがある状態で-cを指定すると怒られる。</p>
-<pre><code class="language-console" data-lang="console">$ sudo poudriere ports -c
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo poudriere ports -c
 ====&gt;&gt; Error: The ports tree default already exists
-
-$ sudo poudriere ports -u
-====&gt;&gt; Updating portstree &quot;default&quot;
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>$ sudo poudriere ports -u
+====&gt;&gt; Updating portstree &#34;default&#34;
 Looking up portsnap.FreeBSD.org mirrors... none found.
 Fetching snapshot tag from portsnap.FreeBSD.org... done.
 Fetching snapshot metadata... done.
@@ -266,7 +253,7 @@ Applying metadata patches... done.
 Fetching 4 metadata files... done.
 Fetching 11146 patches.....10
 （略）
-</code></pre><h2 id="span-styletext-decoration-underline各システム向けのjailを作る-poudriere-jailspan"><!-- raw HTML omitted -->各システム向けのJailを作る: poudriere jail<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underline各システム向けのjailを作る-poudriere-jailspan>各システム向けのJailを作る: poudriere jail<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline各システム向けのjailを作る-poudriere-jailspan>#</a></h2>
 <p>いよいよ個別のjail。<br>
 pkgを提供したいシステムに合わせてjailを作る。</p>
 <p>jailを作るにはpoudriere jailを使う。<br>
@@ -276,7 +263,7 @@ poudriere jailでオプション一覧が表示される。</p>
 <p>後で見返した時に分からなくなるので、jail名にはシステム関連の情報を入れておくとよい。<br>
 たとえば9.2-RELEASE i386向けなら92i386というように。</p>
 <p>実行例</p>
-<pre><code class="language-console" data-lang="console">$ sudo poudriere jail -c -j 92i386 -v 9.2-RELEASE -a i386
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo poudriere jail -c -j 92i386 -v 9.2-RELEASE -a i386
 ====&gt;&gt; Creating 92i386 fs... done
 ====&gt;&gt; Fetching base.txz for FreeBSD 9.2-RELEASE i386
 /poudriere/jails/92i386/fromftp/base.txz      100% of   60 MB 6703 kBps 00m10s
@@ -289,20 +276,20 @@ poudriere jailでオプション一覧が表示される。</p>
 ====&gt;&gt; Extracting games.txz... done
 ====&gt;&gt; Cleaning up... done
 ====&gt;&gt; Jail 92i386 9.2-RELEASE i386 is ready to be used
-</code></pre><p>一覧の例</p>
-<pre><code class="language-console" data-lang="console">$ sudo poudriere jail -l
+</code></pre></div><p>一覧の例</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo poudriere jail -l
 JAILNAME             VERSION              ARCH    METHOD
 92i386               9.2-RELEASE          i386    ftp
-</code></pre><p>削除例</p>
-<pre><code class="language-console" data-lang="console">$ sudo poudriere jail -d -j 92i386
+</code></pre></div><p>削除例</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo poudriere jail -d -j 92i386
 ====&gt;&gt; Removing 92i386 jail... done
 $
 $ sudo poudriere jail -l
 JAILNAME             VERSION              ARCH    METHOD
 $
-</code></pre><p>このときのmountの出力<br>
+</code></pre></div><p>このときのmountの出力<br>
 えらいことに。</p>
-<pre><code class="language-console" data-lang="console">$ mount
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ mount
 /dev/ada0p2 on / (ufs, local, journaled soft-updates)
 devfs on /dev (devfs, local, multilabel)
 vault/poudriere on /poudriere (zfs, local, nfsv4acls)
@@ -311,10 +298,10 @@ vault/poudriere/ports on /poudriere/ports (zfs, local, nfsv4acls)
 vault/poudriere/ports/default on /usr/local/poudriere/ports/default (zfs, local, nfsv4acls)
 vault/poudriere/jails on /poudriere/jails (zfs, local, nfsv4acls)
 vault/poudriere/jails/92i386 on /usr/local/poudriere/jails/92i386 (zfs, local, nfsv4acls)
-</code></pre><h2 id="span-styletext-decoration-underlinejailの作成が失敗するときspan"><!-- raw HTML omitted -->jailの作成が失敗するとき<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underlinejailの作成が失敗するときspan>jailの作成が失敗するとき<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinejailの作成が失敗するときspan>#</a></h2>
 <p>失敗しなかったらこの章は読み飛ばしてOK.<br>
 最初のCreatingで失敗するときは、以前に作った何かが邪魔しているはず。</p>
-<pre><code class="language-console" data-lang="console">$ sudo poudriere jail -c -j 92i386 -v 9.2-RELEASE -a i386
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo poudriere jail -c -j 92i386 -v 9.2-RELEASE -a i386
 ====&gt;&gt; Creating 92i386 fs... done
 mkdir: /poudriere/jails/92i386: No such file or directory
 ====&gt;&gt; Fetching base.txz for FreeBSD 9.2-RELEASE i386
@@ -323,8 +310,8 @@ fetch: /poudriere/jails/92i386/fromftp/base.txz: open(): No such file or directo
 ====&gt;&gt; Error: Failed to fetch from ftp://ftp2.jp.freebsd.org/pub/FreeBSD/releases/i386/i386/9.2-RELEASE/base.txz
 ====&gt;&gt; Error while creating jail, cleaning up.
 ====&gt;&gt; Removing 92i386 jail... done
-</code></pre><p>zfs listすると同じ名前の残骸がある。</p>
-<pre><code class="language-console" data-lang="console">$ zfs list
+</code></pre></div><p>zfs listすると同じ名前の残骸がある。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ zfs list
 NAME                            USED  AVAIL  REFER  MOUNTPOINT
 vault                          2.06G  17.5G    31K  /vault
 vault/poudriere                2.06G  17.5G   561M  /poudriere
@@ -333,15 +320,15 @@ vault/poudriere/jails          1000M  17.5G    32K  /poudriere/jails
 vault/poudriere/jails/92i386   1000M  17.5G  1000M  /poudriere/jails/92i386
 vault/poudriere/ports           545M  17.5G    31K  /poudriere/ports
 vault/poudriere/ports/default   545M  17.5G   545M  /usr/local/poudriere/ports/default
-</code></pre><p>削除。オプションなしではうまくいかないので-rで再トライ。</p>
-<pre><code class="language-console" data-lang="console">$ sudo zfs destroy vault/poudriere/jails/92i386
-cannot destroy 'vault/poudriere/jails/92i386': filesystem has children
-use '-r' to destroy the following datasets:
+</code></pre></div><p>削除。オプションなしではうまくいかないので-rで再トライ。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo zfs destroy vault/poudriere/jails/92i386
+cannot destroy &#39;vault/poudriere/jails/92i386&#39;: filesystem has children
+use &#39;-r&#39; to destroy the following datasets:
 vault/poudriere/jails/92i386@clean
 $ sudo zfs destroy -r vault/poudriere/jails/92i386
 $
-</code></pre><p>きれいになった。</p>
-<pre><code class="language-console" data-lang="console">$ zfs list
+</code></pre></div><p>きれいになった。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ zfs list
 NAME                            USED  AVAIL  REFER  MOUNTPOINT
 vault                          1.08G  18.5G    31K  /vault
 vault/poudriere                1.08G  18.5G   561M  /poudriere
@@ -349,13 +336,13 @@ vault/poudriere/data             32K  18.5G    32K  /usr/local/poudriere/data
 vault/poudriere/jails            32K  18.5G    32K  /poudriere/jails
 vault/poudriere/ports           545M  18.5G    31K  /poudriere/ports
 vault/poudriere/ports/default   545M  18.5G   545M  /usr/local/poudriere/ports/default
-</code></pre><h2 id="span-styletext-decoration-underline作成したいpackagesのリストを作るspan"><!-- raw HTML omitted -->作成したいpackagesのリストを作る<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underline作成したいpackagesのリストを作るspan>作成したいpackagesのリストを作る<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline作成したいpackagesのリストを作るspan>#</a></h2>
 <p>作成したいpackagesを指定する。<br>
 テキストファイルにpackagesを並べればよい。</p>
 <p>ただしOriginで記載すること。<br>
-Originっていうのは&hellip;たとえばrsyncならnet/rsyncと書く。<br>
+Originっていうのは&mldr;たとえばrsyncならnet/rsyncと書く。<br>
 Originが分からなければ、pkg searchするときに-oを付ければよい。</p>
-<pre><code class="language-console" data-lang="console">$ pkg search -o rsync
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ pkg search -o rsync
 net/grsync
 net/librsync
 mail/maildirsync
@@ -363,8 +350,8 @@ net/rsync
 sysutils/rsyncbackup
 sysutils/rsyncmanager
 sysutils/rsyncrypto
-</code></pre><p>psearch（ports-mgmt/psearch）でもできる。</p>
-<pre><code class="language-console" data-lang="console">$ psearch rsync
+</code></pre></div><p>psearch（ports-mgmt/psearch）でもできる。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ psearch rsync
 archivers/rvm             Archive manager that uses rsync to manage backups
 devel/p5-File-DirSync     Perl5 module for synchronizing two directories rapidly
 mail/maildirsync          Online synchronizer for Maildir-format mailboxes
@@ -375,20 +362,20 @@ net/p5-File-RsyncP        Perl Rsync client
 net/rsync                 Network file distribution/synchronization utility
 sysutils/dirvish          Network backup system based off of rsync
 (略)
-</code></pre><p>試しにrsyncだけ書く。</p>
-<pre><code class="language-console" data-lang="console">$ cat ./pkg.list
+</code></pre></div><p>試しにrsyncだけ書く。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cat ./pkg.list
 net/rsync
-</code></pre><h2 id="span-styletext-decoration-underlinepackagesの作成-poudriere-bulkspan"><!-- raw HTML omitted -->packagesの作成: poudriere bulk<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underlinepackagesの作成-poudriere-bulkspan>packagesの作成: poudriere bulk<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepackagesの作成-poudriere-bulkspan>#</a></h2>
 <p>いよいよ作成。<br>
 作成にはpoudriere bulkを使う。<br>
 poudriere bulkでオプションを一覧できる。</p>
 <p>-fで作成するパッケージリストを指定。さっき作ったやつ。</p>
 <p>特定のjailでのみ実施したい場合は-jでjailname指定。<br>
 -cで作成したpackagesをすべて吹き飛ばす。<br>
--C -f <!-- raw HTML omitted -->に書かれたpackagesのみ消す。</p>
+-C -f に書かれたpackagesのみ消す。</p>
 <p>では実行。<br>
 初回なのでpkgも作ってくれているようですな。</p>
-<pre><code class="language-console" data-lang="console">$ sudo poudriere bulk -j 92i386 -f ./pkg.list
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo poudriere bulk -j 92i386 -f ./pkg.list
 ====&gt;&gt; Creating the reference jail... done
 ====&gt;&gt; Mounting system devices for 92i386-default
 ====&gt;&gt; Mounting ports/packages/distfiles
@@ -413,26 +400,26 @@ Generating repository catalog in /packages: done!
 ====&gt;&gt; Cleaning up
 ====&gt;&gt; Umounting file systems
 ====&gt;&gt; Built ports: ports-mgmt/pkg net/rsync
-
-====&gt;&gt; [92i386-default] 2 packages built, 0 failures, 0 ignored, 0 skipped
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>====&gt;&gt; [92i386-default] 2 packages built, 0 failures, 0 ignored, 0 skipped
 ====&gt;&gt; Logs: /usr/local/poudriere/data/logs/bulk/92i386-default/2014-01-20_22h03m21s
 $
-</code></pre><h2 id="span-styletext-decoration-underline自家製packagesの公開span"><!-- raw HTML omitted -->自家製packagesの公開<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underline自家製packagesの公開span>自家製packagesの公開<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline自家製packagesの公開span>#</a></h2>
 <p>さて。<br>
 作成したpackagesはどこにあるかというと、今回の場合は以下である。</p>
-<pre><code class="language-console" data-lang="console">/usr/local/poudriere/data/packages/92i386-default/
-</code></pre><p>このディレクトリをwebサーバで公開する。<br>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>/usr/local/poudriere/data/packages/92i386-default/
+</code></pre></div><p>このディレクトリをwebサーバで公開する。<br>
 ※もちろん、webサーバで公開しているディレクトリに中身を移しても可。</p>
 <p>この場所は、poudriere.confのPOUDRIERE_DATAで決まる。<br>
 ${POUDRIERE_DATA}/packages/＜jailname＞-default/となる。<br>
 もしこの場所が気に食わなかったら、POUDRIERE_DATAを変える。</p>
 <p>lsで中身を見てみると、オフィシャルpkgsiteのものと全くそっくりな内容になっている。</p>
-<pre><code class="language-console" data-lang="console">$ ls /usr/local/poudriere/data/packages/92i386-default/
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ ls /usr/local/poudriere/data/packages/92i386-default/
 All             Latest          digests.txz     packagesite.txz
-</code></pre><p>ではこれをwebサーバで公開する。<br>
+</code></pre></div><p>ではこれをwebサーバで公開する。<br>
 ここではnginxを例にとる。<br>
 nginx.confは下記のように。</p>
-<pre><code class="language-console" data-lang="console">worker_processes  1;
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>worker_processes  1;
 events {
     worker_connections  1024;
 }
@@ -455,35 +442,35 @@ http {
         }
     }
 }
-</code></pre><p>デフォルトからほとんど変えていない。<br>
+</code></pre></div><p>デフォルトからほとんど変えていない。<br>
 変えたのは、#Here!と記載した箇所。<br>
 rootを/usr/local/poudriere/data/packagesに向ける。<br>
 autoindexをonにする。<br>
 nginxは、デフォルトではautoindex offなので、明示的に指定しないとForbiddenを食らってしまう。</p>
 <p>nginxを起動して;</p>
-<pre><code class="language-console" data-lang="console">$ sudo service nginx start
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo service nginx start
 Performing sanity check on nginx configuration:
 nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful
 Starting nginx.
-</code></pre><p>接続確認。良さそうですな。</p>
-<pre><code class="language-console" data-lang="console">$ w3m http://localhost/92i386-default/
+</code></pre></div><p>接続確認。良さそうですな。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ w3m http://localhost/92i386-default/
 Index of /92i386-default/
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-../
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>../
 All/                                               20-Jan-2014 22:24
 Latest/                                            20-Jan-2014 22:06
 digests                                            20-Jan-2014 22:24
 digests.txz                                        20-Jan-2014 22:07                 3
 packagesite.txz                                    20-Jan-2014 22:07                12
 packagesite.yaml                                   20-Jan-2014 22:24
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-</code></pre><p>webサーバを他の用途にも使っている場合には、以下のようにlocation /packages/を/usr/local/poudriere/dataに向ければよい。<br>
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</code></pre></div><p>webサーバを他の用途にも使っている場合には、以下のようにlocation /packages/を/usr/local/poudriere/dataに向ければよい。<br>
 ※冗長なのでserverディレクティブの中しか引用しない。</p>
-<pre><code class="language-console" data-lang="console">server {
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>server {
         listen       80;
         server_name  localhost;
         location / {
@@ -494,176 +481,76 @@ packagesite.yaml                                   20-Jan-2014 22:24
             autoindex on;
             root   /usr/local/poudriere/data;
         }
-</code></pre><h2 id="span-styletext-decoration-underlineクライアント側の設定span"><!-- raw HTML omitted -->クライアント側の設定<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underlineクライアント側の設定span>クライアント側の設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineクライアント側の設定span>#</a></h2>
 <p>やっとたどり着いた。<br>
 クライアント側では/etc/pkg/の下か、/usr/local/etc/pkg/repos/の下に以下のような設定ファイルを作る。<br>
 ここで192.168.200.111はサーバのアドレス。</p>
 <p>/etc/pkg/homebrew.conf</p>
-<pre><code class="language-console" data-lang="console">homebrew: {
-  url: &quot;http://192.168.200.111/92i386-default&quot;,
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>homebrew: {
+  url: &#34;http://192.168.200.111/92i386-default&#34;,
   enabled: yes
 }
-</code></pre><p>こうしておき、pkg -vvとすると見えるはず。</p>
-<pre><code class="language-console" data-lang="console">Repositories:
+</code></pre></div><p>こうしておき、pkg -vvとすると見えるはず。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>Repositories:
   homebrew: {
-    url             : &quot;http://192.168.200.111/92i386-default&quot;,
+    url             : &#34;http://192.168.200.111/92i386-default&#34;,
     enabled         : yes
   }
-</code></pre><p>pkg updateするとさっき作ったpackagesも見える。</p>
-<pre><code class="language-console" data-lang="console">$ sudo pkg update
+</code></pre></div><p>pkg updateするとさっき作ったpackagesも見える。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo pkg update
 Updating repository catalogue
 digests.txz                         100%  352     0.3KB/s   0.3KB/s   00:00
 packagesite.txz                     100% 1904     1.9KB/s   1.9KB/s   00:00
 Incremental update completed, 2 packages processed:
 0 packages updated, 0 removed and 2 added.
-</code></pre><p>いろんな工夫については別途。</p>
-<ul class="pa0">
-  
-   <li class="list">
-     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
-   </li>
-  
-   <li class="list">
-     <a href="/tags/pkgng" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">pkgng</a>
-   </li>
-  
+</code></pre></div><p>いろんな工夫については別途。</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://nobwak.github.io/tags/freebsd/>FreeBSD</a></li>
+<li><a href=https://nobwak.github.io/tags/pkgng/>pkgng</a></li>
 </ul>
-<div class="mt6">
-        
-      </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
-    <p class="f5 b mb3">Related</p>
-    <ul class="pa0 list">
-	   
-	     <li  class="mb2">
-          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDへのMATEインストール</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/">EasyBotterをFreeBSDで動かす</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-02-freebsd-current%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AFpanicmail%E3%82%92%E3%81%84%E3%81%BE%E3%81%99%E3%81%90%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">FreeBSD-currentユーザはpanicmailをいますぐインストールしろ</a>
-        </li>
-	    
-    </ul>
+<nav class=paginav>
+<a class=prev href=https://nobwak.github.io/posts/2014-02-18-unix%E7%95%8C%E3%81%AE%E6%97%A2%E8%AA%AD%E5%95%8F%E9%A1%8C%E3%81%AFfinger%E3%81%A7%E8%A7%A3%E6%B1%BA/>
+<span class=title>« Prev Page</span>
+<br>
+<span>UNIX界の既読問題はfingerで解決…？</span>
+</a>
+<a class=next href=https://nobwak.github.io/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/>
+<span class=title>Next Page »</span>
+<br>
+<span>pkgのデータが壊れたでござる。よろしい。消しておしまい。</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share poudriereでhomebrew（自前） pkgリポジトリを on twitter" href="https://twitter.com/intent/tweet/?text=poudriere%e3%81%a7homebrew%ef%bc%88%e8%87%aa%e5%89%8d%ef%bc%89%20pkg%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa%e3%82%92&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-02-16-poudriere%25E3%2581%25A7homebrew%25E8%2587%25AA%25E5%2589%258D_pkg%25E3%2583%25AA%25E3%2583%259D%25E3%2582%25B8%25E3%2583%2588%25E3%2583%25AA%25E3%2582%2592%2f&hashtags=FreeBSD%2cpkgng"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share poudriereでhomebrew（自前） pkgリポジトリを on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-02-16-poudriere%25E3%2581%25A7homebrew%25E8%2587%25AA%25E5%2589%258D_pkg%25E3%2583%25AA%25E3%2583%259D%25E3%2582%25B8%25E3%2583%2588%25E3%2583%25AA%25E3%2582%2592%2f&title=poudriere%e3%81%a7homebrew%ef%bc%88%e8%87%aa%e5%89%8d%ef%bc%89%20pkg%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa%e3%82%92&summary=poudriere%e3%81%a7homebrew%ef%bc%88%e8%87%aa%e5%89%8d%ef%bc%89%20pkg%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa%e3%82%92&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-02-16-poudriere%25E3%2581%25A7homebrew%25E8%2587%25AA%25E5%2589%258D_pkg%25E3%2583%25AA%25E3%2583%259D%25E3%2582%25B8%25E3%2583%2588%25E3%2583%25AA%25E3%2582%2592%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share poudriereでhomebrew（自前） pkgリポジトリを on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-02-16-poudriere%25E3%2581%25A7homebrew%25E8%2587%25AA%25E5%2589%258D_pkg%25E3%2583%25AA%25E3%2583%259D%25E3%2582%25B8%25E3%2583%2588%25E3%2583%25AA%25E3%2582%2592%2f&title=poudriere%e3%81%a7homebrew%ef%bc%88%e8%87%aa%e5%89%8d%ef%bc%89%20pkg%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa%e3%82%92"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share poudriereでhomebrew（自前） pkgリポジトリを on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-02-16-poudriere%25E3%2581%25A7homebrew%25E8%2587%25AA%25E5%2589%258D_pkg%25E3%2583%25AA%25E3%2583%259D%25E3%2582%25B8%25E3%2583%2588%25E3%2583%25AA%25E3%2582%2592%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share poudriereでhomebrew（自前） pkgリポジトリを on whatsapp" href="https://api.whatsapp.com/send?text=poudriere%e3%81%a7homebrew%ef%bc%88%e8%87%aa%e5%89%8d%ef%bc%89%20pkg%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa%e3%82%92%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2014-02-16-poudriere%25E3%2581%25A7homebrew%25E8%2587%25AA%25E5%2589%258D_pkg%25E3%2583%25AA%25E3%2583%259D%25E3%2582%25B8%25E3%2583%2588%25E3%2583%25AA%25E3%2582%2592%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share poudriereでhomebrew（自前） pkgリポジトリを on telegram" href="https://telegram.me/share/url?text=poudriere%e3%81%a7homebrew%ef%bc%88%e8%87%aa%e5%89%8d%ef%bc%89%20pkg%e3%83%aa%e3%83%9d%e3%82%b8%e3%83%88%e3%83%aa%e3%82%92&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-02-16-poudriere%25E3%2581%25A7homebrew%25E8%2587%25AA%25E5%2589%258D_pkg%25E3%2583%25AA%25E3%2583%259D%25E3%2582%25B8%25E3%2583%2588%25E3%2583%25AA%25E3%2582%2592%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
 </div>
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
-    &copy; 2020 Nobwak&#39;s Lair
-  </a>
-    <div><div id="sharing">
-<font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
-
-  </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-  </a>
-</div>
-</div>
-    <div>
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-</div>
-  </div>
 </footer>
-
-    
-
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
-
-
-  </body>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
 </html>

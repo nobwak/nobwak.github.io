@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>misc. on Nobwak&#39;s Lair</title>
+    <title>misc. on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/categories/misc./</link>
-    <description>Recent content in misc. on Nobwak&#39;s Lair</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Sat, 16 Feb 2013 00:19:07 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/categories/misc./index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <description>Recent content in misc. on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="https://nobwak.github.io/categories/misc./index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>QCサークルと神話</title>
       <link>https://nobwak.github.io/posts/2013-02-16-qc%E3%82%B5%E3%83%BC%E3%82%AF%E3%83%AB%E3%81%A8%E7%A5%9E%E8%A9%B1/</link>

@@ -1,188 +1,182 @@
-<!DOCTYPE html>
-<html lang="ja-JP">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Nobwak&#39;s Lair  | ネットワーク越しのzfs send recvをmbufferでスピードアップしよう</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.68.3" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-
-    <meta property="og:title" content="ネットワーク越しのzfs send recvをmbufferでスピードアップしよう" />
-<meta property="og:description" content="zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nobwak.github.io/posts/2019-06-01-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B6%8A%E3%81%97%E3%81%AEzfs_send_recv/" />
-<meta property="article:published_time" content="2019-06-01T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-06-15T21:49:36+00:00" />
-<meta itemprop="name" content="ネットワーク越しのzfs send recvをmbufferでスピードアップしよう">
-<meta itemprop="description" content="zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、">
-<meta itemprop="datePublished" content="2019-06-01T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-06-15T21:49:36&#43;00:00" />
-<meta itemprop="wordCount" content="3321">
-
-
-
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ネットワーク越しのzfs send recvをmbufferでスピードアップしよう"/>
-<meta name="twitter:description" content="zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、"/>
-
-      
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-38155461-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-    
-  </head>
-
-  <body class="ma0 avenir bg-near-white production">
-
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Nobwak&#39;s Lair
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-    </div>
-  </div>
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>ネットワーク越しのzfs send recvをmbufferでスピードアップしよう | nobwak's Lair</title>
+<meta name=keywords content>
+<meta name=description content="zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、">
+<meta name=author content="Me">
+<link rel=canonical href=https://nobwak.github.io/posts/2019-06-01-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B6%8A%E3%81%97%E3%81%AEzfs_send_recv/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<link rel=preload href=/apple-touch-icon.png as=image>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="ネットワーク越しのzfs send recvをmbufferでスピードアップしよう">
+<meta property="og:description" content="zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://nobwak.github.io/posts/2019-06-01-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B6%8A%E3%81%97%E3%81%AEzfs_send_recv/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2019-06-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2019-06-01T00:00:00+00:00"><meta property="og:site_name" content="nobwak's Lair">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="ネットワーク越しのzfs send recvをmbufferでスピードアップしよう">
+<meta name=twitter:description content="zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"ネットワーク越しのzfs send recvをmbufferでスピードアップしよう","item":"https://nobwak.github.io/posts/2019-06-01-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B6%8A%E3%81%97%E3%81%AEzfs_send_recv/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ネットワーク越しのzfs send recvをmbufferでスピードアップしよう","name":"ネットワーク越しのzfs send recvをmbufferでスピードアップしよう","description":"zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、","keywords":[],"articleBody":"zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。\nまた、send, recvで送受するデータの実体はストリームなので、sendとrecvをパイプラインで繋ぐ。\nパイプラインで繋ぐということは、ストリームを操作、制御するコマンドをsend, recvの間に挟んでも構わないということになる。\nこういった特性を活かして、ネットワーク越しにzfsデータを送受するときには、間にバッファツールを挟む。\nバッファツールはその名の通りデータをバッファするツールで、今回のケースで言えば、受け側ホストか経路ネットワークの問題か、要するにデータを受け取れないときにはデータをためておき、受け取れるときには限界までデータを流し込む。\nこうすることでzfs send recvの転送速度向上を期待できる。\nなお、「ネットワーク越し」という場合、その「ネットワーク」がプライベート網かインターネットなどの公衆網のどちらなのか、で要件が大きく変わる。\nそれについては後述の「データの流れとコマンド実行方法」を参照のこと。\nバッファツールの定番mbuffer バッファツールには定番mbufferを使う。\n 公式 freshports(FreeBSDの方)  pkgでインストール(FreeBSDの方) 送受それぞれのホストでインストールしましょうね。\n$ sudo pkg install mbuffer Password: Updating FreeBSD repository catalogue... Fetching meta.txz: 100% 944 B 0.9kB/s 00:01 Fetching packagesite.txz: 100% 6 MiB 2.2MB/s 00:03 Processing entries: 100% FreeBSD repository update completed. 31778 packages processed. All repositories are up to date. The following 2 package(s) will be affected (of 0 checked): New packages to be INSTALLED: mbuffer: 20190127 mhash: 0.9.9.9_5 Number of packages to be installed: 2 177 KiB to be downloaded. Proceed with this action? [y/N]: y [1/2] Fetching mbuffer-20190127.txz: 100% 47 KiB 48.1kB/s 00:01 [2/2] Fetching mhash-0.9.9.9_5.txz: 100% 130 KiB 132.8kB/s 00:01 Checking integrity... done (0 conflicting) [1/2] Installing mhash-0.9.9.9_5... [1/2] Extracting mhash-0.9.9.9_5: 100% [2/2] Installing mbuffer-20190127... [2/2] Extracting mbuffer-20190127: 100% Message from mhash-0.9.9.9_5: === NOTICE: The mhash port currently does not have a maintainer. As a result, it is more likely to have unresolved issues, not be up-to-date, or even be removed in the future. To volunteer to maintain this port, please create an issue at: https://bugs.freebsd.org/bugzilla More information about port maintainership is available at: https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#maintain-port FreeBSDの悲哀を感じるログです（メンテナがいない）。\nmbufferのオプション よく使うのだけ\n   Options 説明     -i filename 標準入力の代わりにファイルを指定。   -o filename 標準出力の代わりにファイルを指定。   -I port 標準入力の代わりにポートを指定。   -O host:port 標準出力の代わりにポートを指定。   -s size データを扱う単位。バイト指定だがB,K,M,Gなどの単位指定可   -m size バッファサイズ。バイト指定だがB,K,M,Gなどの単位指定可   -4 強制的にIPv4にする。IPv4の場合は必須。かつ前の方で指定すること   -6 強制的にIPv6にする   -v level verboseレベル。0～6で指定    -sには、zfsのrecordsizeを指定するとよい。デフォルトでは128k。zfs get recordsizeで分かる。\nバッファサイズはお好きに。メモリを使います。1Gくらいかな。\nデータの流れとコマンド実行方法 さて、バッファツールを使うとしてデータはどう流すべきか。 データの流れとコマンド実行方法について、要件の観点で示す。\nデータを流すのはどういう経路か ひとまずは以下が一番素直な構成である。\nzfs send -- mbuffer --(network)-- mbuffer -- zfs recv 受け側の方でmbufferとzfs recvを実行して待ち受け状態にしておき、そのあとに送り側でzfs sendとmbufferを実行する、というもの。\nしかし上記の構成は、プライベート網だけに限るべき。\nというのも、mbufferはデータストリームをそのままネットワークにリダイレクトしているだけなので、データは丸見えだからである。\nまた、この構成の場合、受け側は特定のポートで口を開けて待っているだけで、受け取るデータが適正なものであるかについては一切、関知しない。それどころか認証すらしない。\n来るもの拒まずのガバガバであるからして、非セキュアな網では使ってはいけない。\n経路が信用できないときは、sshを経由すること。認証もあるし、データも暗号化してくれるからね。\nこの場合のデータの流れは以下の通り。\nzfs send -- mbuffer -- ssh -- (network) -- sshd -- mbuffer -- zfs recv 受け側のmbuffer, zfs recvは送り側からのsshによるリモート実行。 ssh リモートサーバ コマンド ってやるやつな。\n定期的に実行するか また別の観点で言えば、zfs send, recvを定期的に実行するかどうかである。\n定期的にバックアップデータをリモートのサーバに送るということなら、経由する網がセキュアであってもsshを使ったほうがよい。\n理由は、コマンドの実行が片方だけのホストで完結するからである。sshを使う場合、例えば送り側でzfs sendし、sshによるリモートコマンド実行で受け側のzfs recvもやってしまう。\nつまりコマンド実行は送り側だけでよい。ということは、cronによる定期的な実行も楽にできる。\nしかしsshを使わない場合だと、受け側でmbuffer, zfs recvを実行したあとに送り側でzfs send, mbufferを実行する必要がある。これを自動でやるのは非常に面倒だ。\nしたがって、定期的にバックアップをリモートへ送信するなら、やはりsshを使ったほうがよい。\nじゃあsshでいいじゃないか そうなんだけど、sshの場合はちょっと設定が面倒である。\nこの先を読んでほしい。\nともあれ、この記事ではプライベート網、一回限りのデータ送信として、sshを使わない方法を採る。\nどのユーザで実行するか。 zfsの操作は基本、rootしかできないので、送受それぞれのサーバでrootで実行すること。\nしかし、定期的にバックアップしたデータを流すのなら、さすがにrootにやらすのは危険だ。\nくわえてパスワードなしで相手先ホストにログインできる設定をしておかないといけない。\nそういう場合には以下のようにして特定ユーザにzfs操作を許可しておき、そのユーザを使う。\n(ユーザhousekeeperに、vault/chamberへのcreate, recv, mount, sendを許可)\n# zfs allow -u housekeeper create,receive,mount,send vault/chamber もちろん鍵認証等、パスワードなしでコマンド実行できるようにしておく。\n実行 繰り返すが受け側-送り側の順で実行すること。\n受け側 受け側で以下を実行。\n受け口の指定はポートだけでよい。\nなお。-4オプションを与えて強制的にIPv4にする。そうしないとmbufferはIPv6で延々と待ち続ける。また、-4は最初に指定しないと読んでくれない（末尾に付けたら無視される）\n怪しいなと思ったらsockstat -l4, sockstat -l6として確認すること。\n(えらい時間を無駄にした)\n# mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes 送り側 送り側で以下を実行。\nこちらではIPアドレス、ポートを指定する。送り側はボロサーバなのでメモリを確保できず500MBにした。\n# zfs send -R vault/itunes@monthly-2019-06-01_05.30.00--1y1d | mbuffer -O 192.168.1.7:8000 -s 128k -m 500m mbuffer: warning: allocating more than half of available memory in @ 28.0 MiB/s, out @ 28.0 MiB/s, 10.9 GiB total, buffer 100% full 送り側からデータが来ると受け側では以下の通り画面表示が変化する。\n# mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes in @ 28.4 MiB/s, out @ 28.4 MiB/s, 14.4 GiB total, buffer 100% fulll 【参考】ssh経由時のコマンド例 参考までに。ただし未検証。\n直接sshに流し込むので、mbufferに-O, -Iなどの出力先、入力元を指定するオプションは不要。\n# zfs send -R  | mbuffer -s 128k -m 1G | ssh @ 'mbuffer -s 128k -m 1G | zfs receive ' 脱線 USB3.0のUSB-HDDケース（GW3.5AX2-SU3/REV2.0）に書き込んだところ、112 MiB/sなんてスピードが出て興奮したのだが、ものの数分もするとOSを巻き込んで固まるという事象が発生。\nやむなくUSB2.0の口に繋いでみると今度は問題なく動作し安心するがスピードは28 MiB/s。これはダメかもわからんね。\n結果 受け側\n$ mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes in @ 0.0 kiB/s, out @ 0.0 kiB/s, 1121 GiB total, buffer 0% fulll summary: 1121 GiByte in 11h 09min 48.8sec - average of 28.6 MiB/s 送り側\n$ zfs send -R vault/itunes@monthly-2019-06-01_05.30.00--1y1d | mbuffer -O 192.168.1.7:8000 -s 128k -m 500m mbuffer: warning: allocating more than half of available memory in @ 0.0 kiB/s, out @ 28.6 MiB/s, 1121 GiB total, buffer 1% fulll summary: 1121 GiByte in 11h 08min 49.5sec - average of 28.6 MiB/s ","wordCount":"3171","inLanguage":"en","datePublished":"2019-06-01T00:00:00Z","dateModified":"2019-06-01T00:00:00Z","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2019-06-01-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B6%8A%E3%81%97%E3%81%AEzfs_send_recv/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
+<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://nobwak.github.io/posts/ title=posts>
+<span>posts</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
+<span>search</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/categories/ title=categories>
+<span>categories</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/tags/ title=tags>
+<span>tags</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io title="nobwak lair">
+<span>nobwak lair</span>
+</a>
+</li>
+</ul>
 </nav>
-
-      <script async src="https://cse.google.com/cse.js?cx=006557840537990471538:a32dqhwjiyl"></script>
-<div class="gcse-search"></div>
-
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
-  
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        POSTS
-      </p>
-      <h1 class="f1 athelas mb1">ネットワーク越しのzfs send recvをmbufferでスピードアップしよう</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2019-06-01T00:00:00Z">June 1, 2019</time>      
-      
-      
-    </header>
-
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+ネットワーク越しのzfs send recvをmbufferでスピードアップしよう
+</h1>
+<div class=post-meta><span title="2019-06-01 00:00:00 +0000 UTC">June 1, 2019</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2019-06-01-%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e8%b6%8a%e3%81%97%e3%81%aezfs_send_recv.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details open>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e3%83%90%e3%83%83%e3%83%95%e3%82%a1%e3%83%84%e3%83%bc%e3%83%ab%e3%81%ae%e5%ae%9a%e7%95%aambuffer aria-label=バッファツールの定番mbuffer>バッファツールの定番mbuffer</a></li>
+<li>
+<a href=#pkg%e3%81%a7%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abfreebsd%e3%81%ae%e6%96%b9 aria-label=pkgでインストール(FreeBSDの方)>pkgでインストール(FreeBSDの方)</a></li>
+<li>
+<a href=#mbuffer%e3%81%ae%e3%82%aa%e3%83%97%e3%82%b7%e3%83%a7%e3%83%b3 aria-label=mbufferのオプション>mbufferのオプション</a></li>
+<li>
+<a href=#%e3%83%87%e3%83%bc%e3%82%bf%e3%81%ae%e6%b5%81%e3%82%8c%e3%81%a8%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e5%ae%9f%e8%a1%8c%e6%96%b9%e6%b3%95 aria-label=データの流れとコマンド実行方法>データの流れとコマンド実行方法</a><ul>
+<li>
+<a href=#%e3%83%87%e3%83%bc%e3%82%bf%e3%82%92%e6%b5%81%e3%81%99%e3%81%ae%e3%81%af%e3%81%a9%e3%81%86%e3%81%84%e3%81%86%e7%b5%8c%e8%b7%af%e3%81%8b aria-label=データを流すのはどういう経路か>データを流すのはどういう経路か</a></li>
+<li>
+<a href=#%e5%ae%9a%e6%9c%9f%e7%9a%84%e3%81%ab%e5%ae%9f%e8%a1%8c%e3%81%99%e3%82%8b%e3%81%8b aria-label=定期的に実行するか>定期的に実行するか</a></li>
+<li>
+<a href=#%e3%81%98%e3%82%83%e3%81%82ssh%e3%81%a7%e3%81%84%e3%81%84%e3%81%98%e3%82%83%e3%81%aa%e3%81%84%e3%81%8b aria-label=じゃあsshでいいじゃないか>じゃあsshでいいじゃないか</a></li></ul>
+</li>
+<li>
+<a href=#%e3%81%a9%e3%81%ae%e3%83%a6%e3%83%bc%e3%82%b6%e3%81%a7%e5%ae%9f%e8%a1%8c%e3%81%99%e3%82%8b%e3%81%8b aria-label=どのユーザで実行するか。>どのユーザで実行するか。</a></li>
+<li>
+<a href=#%e5%ae%9f%e8%a1%8c aria-label=実行>実行</a><ul>
+<li>
+<a href=#%e5%8f%97%e3%81%91%e5%81%b4 aria-label=受け側>受け側</a></li>
+<li>
+<a href=#%e9%80%81%e3%82%8a%e5%81%b4 aria-label=送り側>送り側</a></li>
+<li>
+<a href=#%e5%8f%82%e8%80%83ssh%e7%b5%8c%e7%94%b1%e6%99%82%e3%81%ae%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e4%be%8b aria-label=【参考】ssh経由時のコマンド例>【参考】ssh経由時のコマンド例</a></li>
+<li>
+<a href=#%e8%84%b1%e7%b7%9a aria-label=脱線>脱線</a></li>
+<li>
+<a href=#%e7%b5%90%e6%9e%9c aria-label=結果>結果</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p>zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。
 もちろん、同一ホストでもネットワーク越しでも同じ。</p>
 <p>また、send, recvで送受するデータの実体はストリームなので、sendとrecvをパイプラインで繋ぐ。<br>
 パイプラインで繋ぐということは、ストリームを操作、制御するコマンドをsend, recvの間に挟んでも構わないということになる。</p>
-<p>こういった特性を活かして、ネットワーク越しにzfsデータを送受するときには、間にバッファツールを挟むことで転送速度の向上を期待できる。</p>
+<p>こういった特性を活かして、ネットワーク越しにzfsデータを送受するときには、間にバッファツールを挟む。</p>
 <p>バッファツールはその名の通りデータをバッファするツールで、今回のケースで言えば、受け側ホストか経路ネットワークの問題か、要するにデータを受け取れないときにはデータをためておき、受け取れるときには限界までデータを流し込む。<br>
-これをパイプラインの途中に挟むというわけ。</p>
+こうすることでzfs send recvの転送速度向上を期待できる。</p>
 <p>なお、「ネットワーク越し」という場合、その「ネットワーク」がプライベート網かインターネットなどの公衆網のどちらなのか、で要件が大きく変わる。<br>
 それについては後述の「データの流れとコマンド実行方法」を参照のこと。</p>
-<h2 id="バッファツールの定番mbuffer">バッファツールの定番mbuffer</h2>
+<h2 id=バッファツールの定番mbuffer>バッファツールの定番mbuffer<a hidden class=anchor aria-hidden=true href=#バッファツールの定番mbuffer>#</a></h2>
 <p>バッファツールには定番mbufferを使う。</p>
 <ul>
-<li><a href="http://www.maier-komor.de/mbuffer.html">公式</a></li>
-<li><a href="https://www.freshports.org/misc/mbuffer">freshports</a>(FreeBSDの方)</li>
+<li><a href=http://www.maier-komor.de/mbuffer.html>公式</a></li>
+<li><a href=https://www.freshports.org/misc/mbuffer>freshports</a>(FreeBSDの方)</li>
 </ul>
-<h2 id="pkgでインストールfreebsdの方">pkgでインストール(FreeBSDの方)</h2>
+<h2 id=pkgでインストールfreebsdの方>pkgでインストール(FreeBSDの方)<a hidden class=anchor aria-hidden=true href=#pkgでインストールfreebsdの方>#</a></h2>
 <p>送受それぞれのホストでインストールしましょうね。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo pkg install mbuffer
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ sudo pkg install mbuffer
 Password:
 Updating FreeBSD repository catalogue...
-Fetching meta.txz: 100%    <span style="color:#ae81ff">944</span> B   0.9kB/s    00:01
-Fetching packagesite.txz: 100%    <span style="color:#ae81ff">6</span> MiB   2.2MB/s    00:03
+Fetching meta.txz: 100%    <span style=color:#ae81ff>944</span> B   0.9kB/s    00:01
+Fetching packagesite.txz: 100%    <span style=color:#ae81ff>6</span> MiB   2.2MB/s    00:03
 Processing entries: 100%
-FreeBSD repository update completed. <span style="color:#ae81ff">31778</span> packages processed.
+FreeBSD repository update completed. <span style=color:#ae81ff>31778</span> packages processed.
 All repositories are up to date.
-The following <span style="color:#ae81ff">2</span> package<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> will be affected <span style="color:#f92672">(</span>of <span style="color:#ae81ff">0</span> checked<span style="color:#f92672">)</span>:
+The following <span style=color:#ae81ff>2</span> package<span style=color:#f92672>(</span>s<span style=color:#f92672>)</span> will be affected <span style=color:#f92672>(</span>of <span style=color:#ae81ff>0</span> checked<span style=color:#f92672>)</span>:
 
 New packages to be INSTALLED:
-        mbuffer: 20190127
+        mbuffer: <span style=color:#ae81ff>20190127</span>
         mhash: 0.9.9.9_5
 
-Number of packages to be installed: 2
+Number of packages to be installed: <span style=color:#ae81ff>2</span>
 
-<span style="color:#ae81ff">177</span> KiB to be downloaded.
+<span style=color:#ae81ff>177</span> KiB to be downloaded.
 
-Proceed with this action? <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span>: y
-<span style="color:#f92672">[</span>1/2<span style="color:#f92672">]</span> Fetching mbuffer-20190127.txz: 100%   <span style="color:#ae81ff">47</span> KiB  48.1kB/s    00:01
-<span style="color:#f92672">[</span>2/2<span style="color:#f92672">]</span> Fetching mhash-0.9.9.9_5.txz: 100%  <span style="color:#ae81ff">130</span> KiB 132.8kB/s    00:01
-Checking integrity... <span style="color:#66d9ef">done</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span> conflicting<span style="color:#f92672">)</span>
-<span style="color:#f92672">[</span>1/2<span style="color:#f92672">]</span> Installing mhash-0.9.9.9_5...
-<span style="color:#f92672">[</span>1/2<span style="color:#f92672">]</span> Extracting mhash-0.9.9.9_5: 100%
-<span style="color:#f92672">[</span>2/2<span style="color:#f92672">]</span> Installing mbuffer-20190127...
-<span style="color:#f92672">[</span>2/2<span style="color:#f92672">]</span> Extracting mbuffer-20190127: 100%
+Proceed with this action? <span style=color:#f92672>[</span>y/N<span style=color:#f92672>]</span>: y
+<span style=color:#f92672>[</span>1/2<span style=color:#f92672>]</span> Fetching mbuffer-20190127.txz: 100%   <span style=color:#ae81ff>47</span> KiB  48.1kB/s    00:01
+<span style=color:#f92672>[</span>2/2<span style=color:#f92672>]</span> Fetching mhash-0.9.9.9_5.txz: 100%  <span style=color:#ae81ff>130</span> KiB 132.8kB/s    00:01
+Checking integrity... <span style=color:#66d9ef>done</span> <span style=color:#f92672>(</span><span style=color:#ae81ff>0</span> conflicting<span style=color:#f92672>)</span>
+<span style=color:#f92672>[</span>1/2<span style=color:#f92672>]</span> Installing mhash-0.9.9.9_5...
+<span style=color:#f92672>[</span>1/2<span style=color:#f92672>]</span> Extracting mhash-0.9.9.9_5: 100%
+<span style=color:#f92672>[</span>2/2<span style=color:#f92672>]</span> Installing mbuffer-20190127...
+<span style=color:#f92672>[</span>2/2<span style=color:#f92672>]</span> Extracting mbuffer-20190127: 100%
 Message from mhash-0.9.9.9_5:
 
-<span style="color:#f92672">===</span>&gt;   NOTICE:
+<span style=color:#f92672>===</span>&gt;   NOTICE:
 
 The mhash port currently does not have a maintainer. As a result, it is
 more likely to have unresolved issues, not be up-to-date, or even be removed in
@@ -195,7 +189,7 @@ More information about port maintainership is available at:
 https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#maintain-port
 
 </code></pre></div><p>FreeBSDの悲哀を感じるログです（メンテナがいない）。</p>
-<h2 id="mbufferのオプション">mbufferのオプション</h2>
+<h2 id=mbufferのオプション>mbufferのオプション<a hidden class=anchor aria-hidden=true href=#mbufferのオプション>#</a></h2>
 <p>よく使うのだけ</p>
 <table>
 <thead>
@@ -206,27 +200,27 @@ https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#mai
 </thead>
 <tbody>
 <tr>
-<td>-i &lt;<em>filename</em>&gt;</td>
+<td>-i &lt;<em>filename</em>></td>
 <td>標準入力の代わりにファイルを指定。</td>
 </tr>
 <tr>
-<td>-o &lt;<em>filename</em>&gt;</td>
+<td>-o &lt;<em>filename</em>></td>
 <td>標準出力の代わりにファイルを指定。</td>
 </tr>
 <tr>
-<td>-I &lt;<em>port</em>&gt;</td>
+<td>-I &lt;<em>port</em>></td>
 <td>標準入力の代わりにポートを指定。</td>
 </tr>
 <tr>
-<td>-O &lt;<em>host:port</em>&gt;</td>
+<td>-O &lt;<em>host:port</em>></td>
 <td>標準出力の代わりにポートを指定。</td>
 </tr>
 <tr>
-<td>-s &lt;<em>size</em>&gt;</td>
+<td>-s &lt;<em>size</em>></td>
 <td>データを扱う単位。バイト指定だがB,K,M,Gなどの単位指定可</td>
 </tr>
 <tr>
-<td>-m &lt;<em>size</em>&gt;</td>
+<td>-m &lt;<em>size</em>></td>
 <td>バッファサイズ。バイト指定だがB,K,M,Gなどの単位指定可</td>
 </tr>
 <tr>
@@ -238,163 +232,128 @@ https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#mai
 <td>強制的にIPv6にする</td>
 </tr>
 <tr>
-<td>-v &lt;<em>level</em>&gt;</td>
+<td>-v &lt;<em>level</em>></td>
 <td>verboseレベル。0～6で指定</td>
 </tr>
 </tbody>
 </table>
 <p>-sには、zfsのrecordsizeを指定するとよい。デフォルトでは128k。zfs get recordsizeで分かる。<br>
 バッファサイズはお好きに。メモリを使います。1Gくらいかな。</p>
-<h2 id="データの流れとコマンド実行方法">データの流れとコマンド実行方法</h2>
+<h2 id=データの流れとコマンド実行方法>データの流れとコマンド実行方法<a hidden class=anchor aria-hidden=true href=#データの流れとコマンド実行方法>#</a></h2>
 <p>さて、バッファツールを使うとしてデータはどう流すべきか。
 データの流れとコマンド実行方法について、要件の観点で示す。</p>
-<h3 id="データを流すのはどういう経路か">データを流すのはどういう経路か</h3>
+<h3 id=データを流すのはどういう経路か>データを流すのはどういう経路か<a hidden class=anchor aria-hidden=true href=#データを流すのはどういう経路か>#</a></h3>
 <p>ひとまずは以下が一番素直な構成である。</p>
-<pre><code class="language-console" data-lang="console">zfs send --&gt; mbuffer --(network)--&gt; mbuffer --&gt; zfs recv
-</code></pre><p>受け側の方でmbufferとzfs recvを実行して待ち受け状態にしておき、そのあとに送り側でzfs sendとmbufferを実行する、というもの。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>zfs send --&gt; mbuffer --(network)--&gt; mbuffer --&gt; zfs recv
+</code></pre></div><p>受け側の方でmbufferとzfs recvを実行して待ち受け状態にしておき、そのあとに送り側でzfs sendとmbufferを実行する、というもの。</p>
 <p>しかし上記の構成は、プライベート網だけに限るべき。</p>
 <p>というのも、mbufferはデータストリームをそのままネットワークにリダイレクトしているだけなので、データは丸見えだからである。<br>
-さらに、この構成の場合、受け側は特定のポートで口を開けて待っているだけで、受け取るデータが適正なものであるかについては一切、関知しない。それどころか認証すらしない。<br>
-結果、中身は丸見え、来るもの拒まずのガバガバであるからして、非セキュアな網では使ってはいけない。</p>
-<p>経路が信用できないときは、sshを経由すること。<br>
-認証もあるし、データも暗号化してくれるからね。</p>
+また、この構成の場合、受け側は特定のポートで口を開けて待っているだけで、受け取るデータが適正なものであるかについては一切、関知しない。それどころか認証すらしない。<br>
+来るもの拒まずのガバガバであるからして、非セキュアな網では使ってはいけない。</p>
+<p>経路が信用できないときは、sshを経由すること。認証もあるし、データも暗号化してくれるからね。</p>
 <p>この場合のデータの流れは以下の通り。</p>
-<pre><code class="language-console" data-lang="console">zfs send --&gt; mbuffer --&gt; ssh --&gt; (network) --&gt; sshd --&gt; mbuffer --&gt; zfs recv
-</code></pre><p>受け側のmbuffer, zfs recvは送り側からのsshによるリモート実行。<br>
-<code>ssh &lt;リモートサーバ&gt; &lt;コマンド&gt;</code> ってやるやつな。</p>
-<h3 id="定期的に実行するか">定期的に実行するか</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>zfs send --&gt; mbuffer --&gt; ssh --&gt; (network) --&gt; sshd --&gt; mbuffer --&gt; zfs recv
+</code></pre></div><p>受け側のmbuffer, zfs recvは送り側からのsshによるリモート実行。
+ssh <em>リモートサーバ</em> <em>コマンド</em> ってやるやつな。</p>
+<h3 id=定期的に実行するか>定期的に実行するか<a hidden class=anchor aria-hidden=true href=#定期的に実行するか>#</a></h3>
 <p>また別の観点で言えば、zfs send, recvを定期的に実行するかどうかである。</p>
 <p>定期的にバックアップデータをリモートのサーバに送るということなら、経由する網がセキュアであってもsshを使ったほうがよい。</p>
 <p>理由は、コマンドの実行が片方だけのホストで完結するからである。sshを使う場合、例えば送り側でzfs sendし、sshによるリモートコマンド実行で受け側のzfs recvもやってしまう。<br>
 つまりコマンド実行は送り側だけでよい。ということは、cronによる定期的な実行も楽にできる。</p>
-<p>しかしsshを使わない場合だと、受け側でmbuffer, zfs recvを実行したあとに送り側でzfs send, mbufferを実行する必要がある。これを自動でやるのは非常に面倒だ。<br>
-いまさらrshもないしね。</p>
+<p>しかしsshを使わない場合だと、受け側でmbuffer, zfs recvを実行したあとに送り側でzfs send, mbufferを実行する必要がある。これを自動でやるのは非常に面倒だ。</p>
 <p>したがって、定期的にバックアップをリモートへ送信するなら、やはりsshを使ったほうがよい。</p>
-<h3 id="じゃあsshでいいじゃないか">じゃあsshでいいじゃないか</h3>
+<h3 id=じゃあsshでいいじゃないか>じゃあsshでいいじゃないか<a hidden class=anchor aria-hidden=true href=#じゃあsshでいいじゃないか>#</a></h3>
 <p>そうなんだけど、sshの場合はちょっと設定が面倒である。<br>
 この先を読んでほしい。</p>
-<h2 id="どのユーザで実行するか">どのユーザで実行するか。</h2>
+<p>ともあれ、この記事ではプライベート網、一回限りのデータ送信として、sshを使わない方法を採る。</p>
+<h2 id=どのユーザで実行するか>どのユーザで実行するか。<a hidden class=anchor aria-hidden=true href=#どのユーザで実行するか>#</a></h2>
 <p>zfsの操作は基本、rootしかできないので、送受それぞれのサーバでrootで実行すること。</p>
-<p>しかし、バックアップしたデータを定期的に送受するのなら、さすがにrootにやらすのは危険だ。<br>
-定期的に、というならcronだし、cronをrootで実行するのはね。<br>
+<p>しかし、定期的にバックアップしたデータを流すのなら、さすがにrootにやらすのは危険だ。<br>
 くわえてパスワードなしで相手先ホストにログインできる設定をしておかないといけない。</p>
 <p>そういう場合には以下のようにして特定ユーザにzfs操作を許可しておき、そのユーザを使う。<br>
 (ユーザhousekeeperに、vault/chamberへのcreate, recv, mount, sendを許可)</p>
-<pre><code class="language-console" data-lang="console"># zfs allow -u housekeeper create,receive,mount,send vault/chamber
-</code></pre><p>もちろん鍵認証を使うなどして、パスワードなしでコマンド実行できるようにしておく。</p>
-<h2 id="実行">実行</h2>
-<p>では、プライベート網を経由する1回限りの転送、という設定で実行する。<br>
-つまり、sshを使わず、送受双方でrootで実行する手順。</p>
-<p>繰り返すが受け側-&gt;送り側の順番で実行すること。</p>
-<h3 id="受け側">受け側</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># zfs allow -u housekeeper create,receive,mount,send vault/chamber
+</code></pre></div><p>もちろん鍵認証等、パスワードなしでコマンド実行できるようにしておく。</p>
+<h2 id=実行>実行<a hidden class=anchor aria-hidden=true href=#実行>#</a></h2>
+<p>繰り返すが受け側->送り側の順で実行すること。</p>
+<h3 id=受け側>受け側<a hidden class=anchor aria-hidden=true href=#受け側>#</a></h3>
 <p>受け側で以下を実行。</p>
 <p>受け口の指定はポートだけでよい。</p>
 <p>なお。-4オプションを与えて強制的にIPv4にする。そうしないとmbufferはIPv6で延々と待ち続ける。また、-4は最初に指定しないと読んでくれない（末尾に付けたら無視される）<br>
 怪しいなと思ったらsockstat -l4, sockstat -l6として確認すること。<br>
 (えらい時間を無駄にした)</p>
-<pre><code class="language-console" data-lang="console"># mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes
-
-</code></pre><h3 id="送り側">送り側</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># mbuffer -4 -s 128k -m 1G -I <span style=color:#ae81ff>8000</span> | zfs recv vaults/itunes
+<span style=color:#960050;background-color:#1e0010>
+</span></code></pre></div><h3 id=送り側>送り側<a hidden class=anchor aria-hidden=true href=#送り側>#</a></h3>
 <p>送り側で以下を実行。<br>
-こちらではIPアドレス、ポートを指定する。送り側はボロサーバなのでメモリを確保できず500MBにした。<br>
-受け側はすでに待ち状態になっているので、コマンド実行した瞬間に転送が始まる。</p>
-<pre><code class="language-console" data-lang="console"># zfs send -R vault/itunes@monthly-2019-06-01_05.30.00--1y1d | mbuffer -O 192.168.1.7:8000 -s 128k -m 500m
+こちらではIPアドレス、ポートを指定する。送り側はボロサーバなのでメモリを確保できず500MBにした。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># zfs send -R vault/itunes@monthly-2019-06-01_05.30.00--1y1d | mbuffer -O 192.168.1.7:8000 -s 128k -m 500m
 mbuffer: warning: allocating more than half of available memory
 in @ 28.0 MiB/s, out @ 28.0 MiB/s, 10.9 GiB total, buffer 100% full
-</code></pre><p>送り側からデータが来ると受け側では以下の通り画面表示が変化する。</p>
-<pre><code class="language-console" data-lang="console"># mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes
+</code></pre></div><p>送り側からデータが来ると受け側では以下の通り画面表示が変化する。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># mbuffer -4 -s 128k -m 1G -I <span style=color:#ae81ff>8000</span> | zfs recv vaults/itunes
 in @ 28.4 MiB/s, out @ 28.4 MiB/s, 14.4 GiB total, buffer 100% fulll
-</code></pre><h3 id="参考ssh経由時のコマンド例">【参考】ssh経由時のコマンド例</h3>
+</code></pre></div><h3 id=参考ssh経由時のコマンド例>【参考】ssh経由時のコマンド例<a hidden class=anchor aria-hidden=true href=#参考ssh経由時のコマンド例>#</a></h3>
 <p>参考までに。ただし未検証。<br>
 直接sshに流し込むので、mbufferに-O, -Iなどの出力先、入力元を指定するオプションは不要。</p>
-<pre><code class="language-console" data-lang="console"># zfs send -R &lt;スナップショット&gt; | mbuffer -s 128k -m 1G | ssh &lt;ユーザ&gt;@&lt;リモートホスト&gt; 'mbuffer -s 128k -m 1G | zfs receive &lt;展開先ディレクトリ&gt;'
-</code></pre><h3 id="脱線">脱線</h3>
-<p>USB3.0のUSB-HDDケース（<a href="https://www.kuroutoshikou.com/product/case/35hdd/gw3_5ax2-su3_rev2_0/">GW3.5AX2-SU3/REV2.0</a>）に書き込んだところ、112 MiB/sなんてスピードが出て興奮したのだが、ものの数分もするとOSを巻き込んで固まるという事象が発生。<br>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># zfs send -R &lt;スナップショット&gt; | mbuffer -s 128k -m 1G | ssh &lt;ユーザ&gt;@&lt;リモートホスト&gt; <span style=color:#e6db74>&#39;mbuffer -s 128k -m 1G | zfs receive &lt;展開先ディレクトリ&gt;&#39;</span>
+</code></pre></div><h3 id=脱線>脱線<a hidden class=anchor aria-hidden=true href=#脱線>#</a></h3>
+<p>USB3.0のUSB-HDDケース（<a href=https://www.kuroutoshikou.com/product/case/35hdd/gw3_5ax2-su3_rev2_0/>GW3.5AX2-SU3/REV2.0</a>）に書き込んだところ、112 MiB/sなんてスピードが出て興奮したのだが、ものの数分もするとOSを巻き込んで固まるという事象が発生。<br>
 やむなくUSB2.0の口に繋いでみると今度は問題なく動作し安心するがスピードは28 MiB/s。これはダメかもわからんね。</p>
-<h3 id="結果">結果</h3>
+<h3 id=結果>結果<a hidden class=anchor aria-hidden=true href=#結果>#</a></h3>
 <p>受け側</p>
-<pre><code class="language-console" data-lang="console">$ mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ mbuffer -4 -s 128k -m 1G -I <span style=color:#ae81ff>8000</span> | zfs recv vaults/itunes
 in @  0.0 kiB/s, out @  0.0 kiB/s, 1121 GiB total, buffer   0% fulll
 summary: 1121 GiByte in 11h 09min 48.8sec - average of 28.6 MiB/s
-</code></pre><p>送り側</p>
-<pre><code class="language-console" data-lang="console">$ zfs send -R vault/itunes@monthly-2019-06-01_05.30.00--1y1d | mbuffer -O 192.168.1.7:8000 -s 128k -m 500m
+</code></pre></div><p>送り側</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ zfs send -R vault/itunes@monthly-2019-06-01_05.30.00--1y1d | mbuffer -O 192.168.1.7:8000 -s 128k -m 500m
 mbuffer: warning: allocating more than half of available memory
 in @  0.0 kiB/s, out @ 28.6 MiB/s, 1121 GiB total, buffer   1% fulll
 summary: 1121 GiByte in 11h 08min 49.5sec - average of 28.6 MiB/s
-</code></pre><p>以上。</p>
-<p>更新: 2019-06-15 21:48:31</p>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6">
-        
-      </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
-    &copy; 2020 Nobwak&#39;s Lair
-  </a>
-    <div><div id="sharing">
-<font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
-
-  </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-  </a>
+</code></pre></div>
 </div>
+<footer class=post-footer>
+<nav class=paginav>
+<a class=prev href=https://nobwak.github.io/posts/2019-06-02-markdown%E3%81%A7ascii_art%E3%82%92%E6%9B%B8%E3%81%8D%E3%81%9F%E3%81%84/>
+<span class=title>« Prev Page</span>
+<br>
+<span>markdownでASCII Artを書きたい</span>
+</a>
+<a class=next href=https://nobwak.github.io/posts/2019-05-22-jekyll%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/>
+<span class=title>Next Page »</span>
+<br>
+<span>Jekyllのセットアップ</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share ネットワーク越しのzfs send recvをmbufferでスピードアップしよう on twitter" href="https://twitter.com/intent/tweet/?text=%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e8%b6%8a%e3%81%97%e3%81%aezfs%20send%20recv%e3%82%92mbuffer%e3%81%a7%e3%82%b9%e3%83%94%e3%83%bc%e3%83%89%e3%82%a2%e3%83%83%e3%83%97%e3%81%97%e3%82%88%e3%81%86&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-06-01-%25E3%2583%258D%25E3%2583%2583%25E3%2583%2588%25E3%2583%25AF%25E3%2583%25BC%25E3%2582%25AF%25E8%25B6%258A%25E3%2581%2597%25E3%2581%25AEzfs_send_recv%2f&hashtags="><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share ネットワーク越しのzfs send recvをmbufferでスピードアップしよう on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-06-01-%25E3%2583%258D%25E3%2583%2583%25E3%2583%2588%25E3%2583%25AF%25E3%2583%25BC%25E3%2582%25AF%25E8%25B6%258A%25E3%2581%2597%25E3%2581%25AEzfs_send_recv%2f&title=%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e8%b6%8a%e3%81%97%e3%81%aezfs%20send%20recv%e3%82%92mbuffer%e3%81%a7%e3%82%b9%e3%83%94%e3%83%bc%e3%83%89%e3%82%a2%e3%83%83%e3%83%97%e3%81%97%e3%82%88%e3%81%86&summary=%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e8%b6%8a%e3%81%97%e3%81%aezfs%20send%20recv%e3%82%92mbuffer%e3%81%a7%e3%82%b9%e3%83%94%e3%83%bc%e3%83%89%e3%82%a2%e3%83%83%e3%83%97%e3%81%97%e3%82%88%e3%81%86&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-06-01-%25E3%2583%258D%25E3%2583%2583%25E3%2583%2588%25E3%2583%25AF%25E3%2583%25BC%25E3%2582%25AF%25E8%25B6%258A%25E3%2581%2597%25E3%2581%25AEzfs_send_recv%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share ネットワーク越しのzfs send recvをmbufferでスピードアップしよう on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-06-01-%25E3%2583%258D%25E3%2583%2583%25E3%2583%2588%25E3%2583%25AF%25E3%2583%25BC%25E3%2582%25AF%25E8%25B6%258A%25E3%2581%2597%25E3%2581%25AEzfs_send_recv%2f&title=%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e8%b6%8a%e3%81%97%e3%81%aezfs%20send%20recv%e3%82%92mbuffer%e3%81%a7%e3%82%b9%e3%83%94%e3%83%bc%e3%83%89%e3%82%a2%e3%83%83%e3%83%97%e3%81%97%e3%82%88%e3%81%86"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share ネットワーク越しのzfs send recvをmbufferでスピードアップしよう on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-06-01-%25E3%2583%258D%25E3%2583%2583%25E3%2583%2588%25E3%2583%25AF%25E3%2583%25BC%25E3%2582%25AF%25E8%25B6%258A%25E3%2581%2597%25E3%2581%25AEzfs_send_recv%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share ネットワーク越しのzfs send recvをmbufferでスピードアップしよう on whatsapp" href="https://api.whatsapp.com/send?text=%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e8%b6%8a%e3%81%97%e3%81%aezfs%20send%20recv%e3%82%92mbuffer%e3%81%a7%e3%82%b9%e3%83%94%e3%83%bc%e3%83%89%e3%82%a2%e3%83%83%e3%83%97%e3%81%97%e3%82%88%e3%81%86%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2019-06-01-%25E3%2583%258D%25E3%2583%2583%25E3%2583%2588%25E3%2583%25AF%25E3%2583%25BC%25E3%2582%25AF%25E8%25B6%258A%25E3%2581%2597%25E3%2581%25AEzfs_send_recv%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share ネットワーク越しのzfs send recvをmbufferでスピードアップしよう on telegram" href="https://telegram.me/share/url?text=%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e8%b6%8a%e3%81%97%e3%81%aezfs%20send%20recv%e3%82%92mbuffer%e3%81%a7%e3%82%b9%e3%83%94%e3%83%bc%e3%83%89%e3%82%a2%e3%83%83%e3%83%97%e3%81%97%e3%82%88%e3%81%86&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-06-01-%25E3%2583%258D%25E3%2583%2583%25E3%2583%2588%25E3%2583%25AF%25E3%2583%25BC%25E3%2582%25AF%25E8%25B6%258A%25E3%2581%2597%25E3%2581%25AEzfs_send_recv%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
 </div>
-    <div>
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-</div>
-  </div>
 </footer>
-
-    
-
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
-
-
-  </body>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
 </html>

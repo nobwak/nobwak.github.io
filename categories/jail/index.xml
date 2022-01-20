@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>jail on Nobwak&#39;s Lair</title>
+    <title>jail on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/categories/jail/</link>
-    <description>Recent content in jail on Nobwak&#39;s Lair</description>
+    <description>Recent content in jail on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Fri, 28 Aug 2015 22:55:02 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/categories/jail/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 28 Aug 2015 22:55:02 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/categories/jail/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[FreeBSD] jailのetcを更新する(qjail)</title>
       <link>https://nobwak.github.io/posts/2015-08-28-freebsd_jail%E3%81%AEetc%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8Bqjail/</link>
@@ -80,7 +79,7 @@
       <pubDate>Thu, 03 Oct 2013 21:14:50 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/</guid>
-      <description>[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表</description>
+      <description>[FreeBSD] ezjailを試そうの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表</description>
     </item>
     
     <item>

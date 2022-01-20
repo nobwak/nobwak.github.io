@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Windows on Nobwak&#39;s Lair</title>
+    <title>Windows on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/tags/windows/</link>
-    <description>Recent content in Windows on Nobwak&#39;s Lair</description>
+    <description>Recent content in Windows on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Sat, 10 Aug 2019 14:24:05 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 10 Aug 2019 14:24:05 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Windows Defenderをコマンド操作しよう</title>
       <link>https://nobwak.github.io/posts/windows-defender%E3%82%92%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E6%93%8D%E4%BD%9C%E3%81%97%E3%82%88%E3%81%86/</link>
@@ -62,7 +61,7 @@
       <pubDate>Sun, 22 Mar 2015 19:59:59 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2015-03-22-sublimetext3%E3%81%A7%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>https://www.sublimetext.com/docs/3/font.html を参照。 Preferences &amp;gt; Settings - User と進み、表示されたファイルに設定を書き込む。 書式は以下の通り。 &amp;quot;font_face&amp;quot;: &amp;quot;Courier New&amp;quot;, &amp;quot;font_size&amp;quot;: 10 私の設定ファイルの例。 { &amp;quot;color_scheme&amp;quot;: &amp;quot;Packages/User/SublimeLinter/Monokai (SL).tmTheme&amp;quot;, &amp;quot;font_face&amp;quot;: &amp;quot;VL ゴシック&amp;qu</description>
+      <description>https://www.sublimetext.com/docs/3/font.htmlを参照。 Preferences &amp;gt; Settings - User と進み、表示されたファイルに設定を</description>
     </item>
     
     <item>
@@ -80,7 +79,7 @@
       <pubDate>Mon, 12 Jan 2015 21:46:02 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2015-01-12-pythonwindows_windows7%E3%81%B8%E3%81%AE%E7%B4%94%E6%AD%A3python%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%83%A1%E3%83%A2/</guid>
-      <description>ActivePython入れたり純正Python入れたり訳わかんなくなるからメモ。 Pythonのインストール https://www.python.org/ から2.xでも3.xでもダウン</description>
+      <description>ActivePython入れたり純正Python入れたり訳わかんなくなるからメモ。 Pythonのインストール https://www.pyth</description>
     </item>
     
     <item>
@@ -89,7 +88,7 @@
       <pubDate>Tue, 23 Dec 2014 14:37:05 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-12-23-%E3%83%A1%E3%83%A2windows_%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BD%E3%83%95%E3%83%88%E3%81%A7%E5%B9%B4%E8%B3%80%E7%8A%B6%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8B/</guid>
-      <description>一年に一度しかやらないのでメモ。 とはいえ、いまどき年賀状なんぞどこかに頼んだ方が楽でなんであるが。 フォトレタッチ: paint.net http://www.getpaint.net/index.html フリーのフォトレタッチ</description>
+      <description>一年に一度しかやらないのでメモ。 とはいえ、いまどき年賀状なんぞどこかに頼んだ方が楽でなんであるが。 フォトレタッチ: paint.net http://www.g</description>
     </item>
     
     <item>
@@ -125,7 +124,7 @@
       <pubDate>Tue, 02 Sep 2014 21:57:20 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-09-02-%E3%83%A1%E3%83%A2_clamav%E5%85%88%E7%94%9F%E6%82%AA%E6%84%8F%E3%81%AE%E3%81%82%E3%82%8B%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E5%89%8A%E9%99%A4%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%83%88%E3%83%AD%E3%82%A4%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%8B%E8%AA%A4%E6%A4%9C%E5%87%BA/</guid>
-      <description>Windows xp用にと、大昔に取得していたMicorosoftの&amp;rdquo;悪意のあるソフトウェア削除ツール&amp;rdquo;をclamavでチェックし</description>
+      <description>Windows xp用にと、大昔に取得していたMicorosoftの&amp;quot;悪意のあるソフトウェア削除ツール&amp;quot;をclamavでチェックしたら</description>
     </item>
     
     <item>
@@ -134,7 +133,7 @@
       <pubDate>Fri, 22 Aug 2014 19:57:41 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-08-22-windows%E3%83%90%E3%83%83%E3%83%81%E3%83%A1%E3%83%A2_efs%E3%82%92%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%8B%E3%82%89%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B/</guid>
-      <description>EFSとは、Windowsの暗号化機能。 使用するとファイル名とかフォルダ名とかが緑になるアレな。 以下、Microsoftのサイトより。 http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7 暗号</description>
+      <description>EFSとは、Windowsの暗号化機能。 使用するとファイル名とかフォルダ名とかが緑になるアレな。 以下、Microsoftのサイトより。 htt</description>
     </item>
     
     <item>
@@ -206,7 +205,7 @@
       <pubDate>Thu, 13 Mar 2014 20:45:33 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/</guid>
-      <description>Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。 普通はGUIで使うものだが、実は</description>
+      <description>Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。普通はGUIで使うものだが、実は</description>
     </item>
     
     <item>
@@ -215,7 +214,7 @@
       <pubDate>Thu, 06 Mar 2014 22:41:34 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-03-06-%E3%83%A1%E3%83%A2_ms%E8%A3%BDoffice_2007%E4%BB%A5%E9%99%8D%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E3%83%93%E3%83%A5%E3%83%BC%E3%82%A2/</guid>
-      <description>備忘のためOffice 2007以降のドキュメントを開くMS製Viewerをまとめておく。 Excel Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=10 http://download.microsoft.com/download/4/6/C/46C73A03-F72F-419F-A76E-6C0D9F583E2E/ExcelViewer.exe Word Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=4 http://download.microsoft.com/download/1/0/1/1016da1b-6a19-432a-ad6b-0b3f6e60bb28/wordview_ja-jp.exe PowerPoint Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=13 http://download.microsoft.com/download/9/2/A/92AEA2B8-CBD9-494D-B60B-F1E6D8EE1771/PowerPointViewer.exe Word/Excel/PowerPoint 用 Microsoft Office 互換機能パック http://download.microsoft.com/download/8/B/9/8B97798B-00F8-4523-8CA6-8C0C5867883F/FileFormatConverters.exe</description>
+      <description>備忘のためOffice 2007以降のドキュメントを開くMS製Viewerをまとめておく。 Excel Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=10http://download.microsoft.com/download/4/6/C/46C73A03-F72F-419F-A76E-6C0D9F583E2E/ExcelViewer.exeWord Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=4http://download.microsoft.com/download/1/0/1/1016da1b-6a19-432a-ad6b-0b3f6e60bb28/wordview_ja-jp.exePowerPoint Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=13http://download.microsoft.com/download/9/2/A/92AEA2B8-CBD9-494D-B60B-F1E6D8EE1771/PowerPointViewer.exeWord/Excel/PowerPoint 用 Microsoft Office 互換機能パック http://download.microsoft.com/download/8/B/9/8B97798B-00F8-4523-8CA6-8C0C5867883F/FileFormatConverters.exe</description>
     </item>
     
     <item>
@@ -224,7 +223,7 @@
       <pubDate>Thu, 27 Feb 2014 19:50:38 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-02-27-windows%E3%81%AE%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E3%83%84%E3%83%BC%E3%83%AB/</guid>
-      <description>クリップボードに移したデータに対し、何らかの操作を行うWindowsのツールをまとめる。 任意の文章を引用貼り付け Thunderbirdでは、</description>
+      <description>クリップボードに移したデータに対し、何らかの操作を行うWindowsのツールをまとめる。任意の文章を引用貼り付け Thunderbirdでは、</description>
     </item>
     
     <item>

@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>pkgng on Nobwak&#39;s Lair</title>
+    <title>pkgng on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/tags/pkgng/</link>
-    <description>Recent content in pkgng on Nobwak&#39;s Lair</description>
+    <description>Recent content in pkgng on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Mon, 08 Aug 2016 22:35:58 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/tags/pkgng/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 08 Aug 2016 22:35:58 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/pkgng/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい</title>
       <link>https://nobwak.github.io/posts/2016-08-08-%E3%83%A1%E3%83%A2freebsd_%E8%A4%87%E6%95%B0jail%E3%81%AEpkg_upgrade%E3%82%92%E4%B8%80%E6%B0%97%E3%81%AB%E6%B8%88%E3%81%BE%E3%81%9B%E3%81%9F%E3%81%84/</link>
@@ -35,7 +34,7 @@
       <pubDate>Wed, 05 Aug 2015 21:12:38 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2015-08-05-freebsd_10.2-release%E3%81%8B%E3%82%89%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%82%8Bpkg_quarterly%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0/</guid>
-      <description>10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&amp;rdquo;quartely&amp;rdquo;のものになる。 ◎pkg.con</description>
+      <description>10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&amp;quot;quartely&amp;quot;のものになる。 ◎pkg.confの</description>
     </item>
     
     <item>

@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Linux on Nobwak&#39;s Lair</title>
+    <title>Linux on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/categories/linux/</link>
-    <description>Recent content in Linux on Nobwak&#39;s Lair</description>
+    <description>Recent content in Linux on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Wed, 21 Mar 2018 20:13:48 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 21 Mar 2018 20:13:48 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）</title>
       <link>https://nobwak.github.io/posts/2018-03-21-linux%E3%81%AB%E6%B3%A8%E6%96%87%E3%81%AE%E5%A4%9A%E3%81%84%E6%96%99%E7%90%86%E5%BA%97%E3%82%92%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9D%E3%81%86open_jtalk/</link>
@@ -80,7 +79,7 @@
       <pubDate>Thu, 16 Jan 2014 22:01:54 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>いつも忘れるのでメモ。 あるファイルから、コメント行と空行を除いて表示させるには。 コメント行なら&amp;rdquo;^ *#&amp;ldquo;がマッチ。 空</description>
+      <description>いつも忘れるのでメモ。 あるファイルから、コメント行と空行を除いて表示させるには。 コメント行なら&amp;quot;^ *#&amp;ldquo;がマッチ。 空行</description>
     </item>
     
     <item>
@@ -125,7 +124,7 @@
       <pubDate>Mon, 11 Nov 2013 20:08:18 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-11-11-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%9B%A3%E6%9F%BB%E3%83%84%E3%83%BC%E3%83%ABlynis/</guid>
-      <description>Lynisとは Linux向けのセキュリティ監査ツール。 http://www.rootkit.nl/projects/lynis.html Linux向けではあるが、Linux以外でも使える。 FreeBSD, Solarisに加えてなんとO</description>
+      <description>Lynisとは Linux向けのセキュリティ監査ツール。 http://www.rootkit.nl/projects/lynis.htmlLi</description>
     </item>
     
     <item>
@@ -252,16 +251,11 @@
       
       <guid>https://nobwak.github.io/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/</guid>
       <description>&lt;p&gt;ssh経由bashでコマンド実行するときの環境変数を有効にするには。&lt;/p&gt;
-
 &lt;p&gt;以下のようにして、リモートホストでコマンドを実行する場合、リモートでの環境変数が有効にならない事がある。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-console&#34;&gt;$ ssh user@remotehost /path/command
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。&lt;br /&gt;
-おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。&lt;br /&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;$ ssh user@remotehost /path/command
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。&lt;br&gt;
+おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。&lt;br&gt;
 以下にまとめる。&lt;/p&gt;
-
 &lt;p&gt;なお、複数ホストを用意するのが面倒なので、本記事で実例を示す場合には接続先をlocalhostしている。&lt;/p&gt;</description>
     </item>
     
@@ -289,7 +283,7 @@
       <pubDate>Sun, 18 Mar 2012 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2012-03-18-zfs%E3%81%AE%E9%87%8D%E8%A4%87%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AF%80%E7%B4%84%E6%A9%9F%E8%83%BDdedup%E3%81%8C%E3%81%99%E3%81%92%E3%81%88%E3%81%9F%E3%81%A0%E3%81%97%E3%83%A1%E3%83%A2%E3%83%AA%E5%A4%A7%E5%B0%BD%E3%81%AB%E9%99%90%E3%82%8B/</guid>
-      <description>最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 Dedupとは ZFSにはdedupという機能があ</description>
+      <description>最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 ZFSにはdedupという機能がある。 その機能を</description>
     </item>
     
     <item>

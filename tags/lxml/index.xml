@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>lxml on nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/lxml/</link>
+    <description>Recent content in lxml on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 23 Feb 2020 22:36:52 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/lxml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2020-02-22-京急の運行状況をpythonで取得しよう</title>
+      <link>https://nobwak.github.io/posts/2020-02-22-%E4%BA%AC%E6%80%A5%E3%81%AE%E9%81%8B%E8%A1%8C%E7%8A%B6%E6%B3%81%E3%82%92python%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%97%E3%82%88%E3%81%86/</link>
+      <pubDate>Sun, 23 Feb 2020 22:36:52 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2020-02-22-%E4%BA%AC%E6%80%A5%E3%81%AE%E9%81%8B%E8%A1%8C%E7%8A%B6%E6%B3%81%E3%82%92python%E3%81%A7%E5%8F%96%E5%BE%97%E3%81%97%E3%82%88%E3%81%86/</guid>
+      <description>はじめに 端的に言えば、本稿では、ある特定のwebページから、必要な情報を取り出す方法をまとめる。 具体的にはpythonを使って、京急のweb</description>
+    </item>
+    
+  </channel>
+</rss>

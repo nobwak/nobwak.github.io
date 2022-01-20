@@ -1,15 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>HUGO on Nobwak&#39;s Lair</title>
+    <title>HUGO on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/tags/hugo/</link>
-    <description>Recent content in HUGO on Nobwak&#39;s Lair</description>
+    <description>Recent content in HUGO on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Fri, 12 Jul 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Tue, 24 Sep 2019 00:27:55 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2019-09-24-hugoでstaticディレクトリに画像ファイルを置く</title>
+      <link>https://nobwak.github.io/posts/2019-09-24-hugo%E3%81%A7static%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%81%AB%E7%94%BB%E5%83%8F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E7%BD%AE%E3%81%8F/</link>
+      <pubDate>Tue, 24 Sep 2019 00:27:55 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2019-09-24-hugo%E3%81%A7static%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%81%AB%E7%94%BB%E5%83%8F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E7%BD%AE%E3%81%8F/</guid>
+      <description>blogをhugoで作るとき、記事の中で画像を表示させたいことがある。 その時の方法について。 staticディレクトリに置けばよい ある特殊なフ</description>
+    </item>
     
     <item>
       <title>HUGOで作ったマークダウンをgithub pagesへデプロイするスクリプトを作ろう</title>
@@ -18,33 +26,6 @@
       
       <guid>https://nobwak.github.io/posts/2019-07-12-github_pages%E3%81%B8%E3%81%AEhugo_%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92%E4%BD%9C%E3%82%8D%E3%81%86/</guid>
       <description>HUGOデプロイの効率化 HUGOのおかげで、気軽にメモを書いてgithub pagesに載せられるようになったのだが、こうなってくるとgith</description>
-    </item>
-    
-    <item>
-      <title>VSCでHUGOのFrontMatterを書くsnippetsをつくろう</title>
-      <link>https://nobwak.github.io/posts/2019-06-10-hugo_frontmatter%E3%81%AEvsc_snippets%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8D%E3%81%86/</link>
-      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/posts/2019-06-10-hugo_frontmatter%E3%81%AEvsc_snippets%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8D%E3%81%86/</guid>
-      <description>HUGOに食わせるマークダウンファイルを作る場合には、適切なFront matterが必要だ。 hugo new &amp;lt;ファイル&amp;gt;とすれば、Front</description>
-    </item>
-    
-    <item>
-      <title>HUGOのanankeでgoogleAnalyticsが有効にならない</title>
-      <link>https://nobwak.github.io/posts/2019-06-09-hugo%E3%81%AEananke%E3%81%A7googleanalytics%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%AA%E3%82%89%E3%81%AA%E3%81%84/</link>
-      <pubDate>Sun, 09 Jun 2019 19:07:48 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/posts/2019-06-09-hugo%E3%81%AEananke%E3%81%A7googleanalytics%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%AA%E3%82%89%E3%81%AA%E3%81%84/</guid>
-      <description>ビルドが爆速のHUGOに気をよくしてメモを書いてはgithubにpushしてるんだが、いつまで経ってもgoogle analytisが有効にな</description>
-    </item>
-    
-    <item>
-      <title>爆速静的サイトジェネレータHUGO</title>
-      <link>https://nobwak.github.io/posts/2019-06-09-%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BFhugo/</link>
-      <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://nobwak.github.io/posts/2019-06-09-%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BFhugo/</guid>
-      <description>静的サイトジェネレータとしてJekyllを使っていたが、ビルドがとにかく遅い。 本当に遅い。 そんなところでストレスためてもよくないので環境を引</description>
     </item>
     
   </channel>

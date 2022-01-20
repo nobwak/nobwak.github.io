@@ -1,147 +1,130 @@
-<!DOCTYPE html>
-<html lang="ja-JP">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Nobwak&#39;s Lair  | ezjailのflavoursを使ってみよう その2</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.68.3" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-
-    <meta property="og:title" content="ezjailのflavoursを使ってみよう その2" />
-<meta property="og:description" content="前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-10-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE2/" />
-<meta property="article:published_time" content="2013-10-10T20:43:49+09:00" />
-<meta property="article:modified_time" content="2013-10-10T20:43:49+09:00" />
-<meta itemprop="name" content="ezjailのflavoursを使ってみよう その2">
-<meta itemprop="description" content="前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の">
-<meta itemprop="datePublished" content="2013-10-10T20:43:49&#43;09:00" />
-<meta itemprop="dateModified" content="2013-10-10T20:43:49&#43;09:00" />
-<meta itemprop="wordCount" content="2182">
-
-
-
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ezjailのflavoursを使ってみよう その2"/>
-<meta name="twitter:description" content="前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の"/>
-
-      
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-38155461-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-    
-  </head>
-
-  <body class="ma0 avenir bg-near-white production">
-
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Nobwak&#39;s Lair
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-    </div>
-  </div>
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>ezjailのflavoursを使ってみよう その2 | nobwak's Lair</title>
+<meta name=keywords content>
+<meta name=description content="前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の">
+<meta name=author content="nobwak">
+<link rel=canonical href=https://nobwak.github.io/posts/2013-10-10-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE2/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<link rel=preload href=/apple-touch-icon.png as=image>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="ezjailのflavoursを使ってみよう その2">
+<meta property="og:description" content="前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-10-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE2/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2013-10-10T20:43:49+09:00">
+<meta property="article:modified_time" content="2013-10-10T20:43:49+09:00"><meta property="og:site_name" content="nobwak's Lair">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="ezjailのflavoursを使ってみよう その2">
+<meta name=twitter:description content="前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"ezjailのflavoursを使ってみよう その2","item":"https://nobwak.github.io/posts/2013-10-10-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE2/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ezjailのflavoursを使ってみよう その2","name":"ezjailのflavoursを使ってみよう その2","description":"前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の","keywords":[],"articleBody":"前回の続き\n前提\n以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。\n「Jailホスト」はjail環境で動くホストを表す。子。\n今回の範囲 本記事では二つ目以降を扱う。\n一つ目まではホストOSでの設定作業だったが、今回は実際にflavoursに設定を書き込むことになる。\n ホストで動かしたいサービス\n→sshdのみ。 Jailホストで動かしたいサービス\n→apache, sshd Jailホストに追加するユーザ/グループ\n→vanilla:vanilla Jailホストで使用するソフトウェア\n→apache22, sudo, bash, portaudit, portmaster, tmux  flavoursを作ってみる 設定変更せずezjail-admin installしたなら、flavoursは/usr/jails/flavoursの下にある。\nflavoursの下には、設定サンプルとしてexampleというディレクトリがある。\nexample flavoursをコピーして、“testsv\"というflavoursを作る。\n$ cd /usr/jails/flavours/ $ ls example $ sudo cp -pR ./example ./testsv $ cd /usr/jails/flavours/ $ ls example testsv $ flavourの中身 testsvの下は以下のようなディレクトリ構成で、flavourとして使うファイルがあらかじめ格納される。\n※以下、断りのない限り、./etc/rc.conf などと記載した場合には、ホストのではなく、flavourのファイルとする。\n./etc: make.conf periodic.conf rc.conf rc.d ./etc/rc.d: ezjail.flavour.example ./usr/local/etc: sudoers このうち、ezjail.flavour.exampleはjailホスト初回起動時に実行されるスクリプト。\nユーザ追加やpkgの追加はここで行う。\nまた、rc.confの中を見てみると、sendmailやrpcbindを停止する設定や、syslogdがsocketを掴まないようにする設定が最初から書かれている。\n# Pretuned by German Engineers # No network interfaces in jails network_interfaces=\"\" # Prevent rpc rpcbind_enable=\"NO\" # Prevent loads of jails doing their cron jobs at the same time cron_flags=\"$cron_flags -J 15\" # Prevent syslog to open sockets syslogd_flags=\"-ss\" # Prevent sendmail to try to connect to localhost sendmail_enable=\"NO\" sendmail_submit_enable=\"NO\" sendmail_outbound_enable=\"NO\" sendmail_msp_queue_enable=\"NO\" # Bring up sshd, it takes some time and uses some entropy on first startup # sshd_enable=\"YES\" flavourの設定 ではtest flavourの設定を始める。\n必要に応じてrc.confなどの設定ファイルを書き換えるのと、ezjail.flavour.exampleに、jailホストの初期設定スクリプトを書き込んでいく。\n設定ファイルの書き換えには、ホストのファイルを参考にするとよいでしょう。\n各種設定ファイルの書き換え jailホストで動かしたいのはsshdとapache。\nよって./etc/rc.confに以下二行を加えた。\napache22_enable=\"YES\" sshd_enable=\"YES\" また./usr/local/etc/sudoersに以下を追加。\nここはお好みで。\nDefaults env_keep += \"HTTP_PROXY FTP_PROXY\" Defaults env_keep += \"PKG_PATH PKG_DBDIR PKG_TMPDIR TMPDIR PACKAGEROOT PACKAGESITE PKGDIR FTP_PASSIVE_MODE\" Defaults env_keep += \"PORTSDIR PORTS_INDEX PORTS_DBDIR PACKAGES PKGTOOLS_CONF\" apache22の設定は…、これはjailホストが起動してからでいいか。\nezjail.flavour.exampleでのユーザ/グループ追加 ユーザvanilla、グループvanillaを追加する。\nuid, gidは10010にし、vanillaはwheelグループに加える。\n以下をezjail.flavour.exampleに追加\nユーザ追加スクリプトの詳細はこちら。\nなお、グループ追加を先にすること。\nユーザ追加のときにグループ指定をするから。\npw groupadd -q -n vanilla -g 10010 echo -n '$6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5ggew6RXLpl1eA72TpgX5pGDpr/.' |\\ pw useradd -n vanilla -u 10010 -s /bin/sh \\ -m -d /home/vanilla -G vanilla -c 'vanilla user' \\ -H 0 pw usermod vanilla -G wheel ezjail.flavour.exampleでのpkg追加 pkg_add -rで必要なpkgを並べる。\n./pkgにpkgを置いておく方法もあるのだが、依存関係も考慮して必要なpkgを揃えるのは面倒。\nportsの場合は、basejailにportsのディレクトリを作っておく必要がある。今回は触れない。\n以下のようにpkgを取得するサーバを指定してからpkg_add。\nproxyが必要なら、それも。\n#HTTP_PROXY=\"http://proxyserver:80/\"; export HTTP_PROXY PACKAGEROOT=\"ftp://ftp2.jp.freebsd.org/\"; export PACKAGEROOT pkg_add -r apache22 sudo bash portaudit portmaster tmux シェルの変更 ユーザvanillaのシェルをbashに変えておくために以下を追加。\nchpass -s /usr/local/bin/bash vanilla rootパスワードの変更 rootのパスワードも変える。\nnologinにすると、あとあとezjail-admin consoleでrootログインすることができなくなる。\necho -n '$6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5 ggew6RXLpl1eA72TpgX5pGDpr/.' |\\ pw mod user root \\ -H 0 これでflavoursの設定は終わり。\nflavourでjailホスト作成。 あとは簡単。\njailホストを作成するときに、-fでflavourを指定すればいいだけ。\n$ sudo ezjail-admin create -f testsv example01 'em0|192.168.200.1' /usr/jails/example01/. /usr/jails/example01/./dev /usr/jails/example01/./.cshrc （中略） /usr/jails/example01/./usr/local/etc/sudoers 18 blocks $ 起動。pkg_add -rのせいで少し時間がかかる。\n$ sudo ezjail-admin start example01 Configuring jails:. Starting jails: example01. $ consoleに入ってみると、ユーザvanillaやpkgの追加がなされていることが確認できる。\n同時にsshdも起動している。\napacheは設定も何もしていないので動いてないけど。\n$ sudo ezjail-admin console example01 （中略） root@example01:~ # finger vanilla Login: vanilla Name: vanilla user Directory: /home/vanilla Shell: /usr/local/bin/bash No Mail. No Plan. root@example01:~ # pkg_info apache22-2.2.25 Version 2.2.x of Apache web server with prefork MPM. apr-1.4.8.1.5.2 Apache Portability Library bash-4.2.45 The GNU Project's Bourne Again SHell db42-4.2.52_5 The Berkeley DB package, revision 4.2 expat-2.1.0 XML 1.0 parser written in C gdbm-1.10 GNU database manager gettext-0.18.3 GNU gettext package libevent-1.4.14b_2 Provides an API to execute callback functions on certain ev libiconv-1.14_1 A character set conversion library pcre-8.33 Perl Compatible Regular Expressions library perl-5.14.4 Practical Extraction and Report Language portaudit-0.6.1 Checks installed ports against a list of security vulnerabi portmaster-3.17.1 Manage your ports without external databases or languages sudo-1.8.7_1 Allow others to run commands as root tmux-1.8_1 A Terminal Multiplexer root@example01:~ # service sshd status sshd is running as pid 2945. root@example01:~ # あとは、testsvをさらにコピーし、インストールするpkgを変えればどんどん使い回せる。\nもちろん、その時はユーザやパスワードも変えよう。\nセキュリティのためにjail使ってるのに、同じユーザ同じパスワードだったら全く意味がないし。\n以上、flavoursの作り方。\n","wordCount":"2182","inLanguage":"en","datePublished":"2013-10-10T20:43:49+09:00","dateModified":"2013-10-10T20:43:49+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-10-10-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE2/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
+<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://nobwak.github.io/posts/ title=posts>
+<span>posts</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
+<span>search</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/categories/ title=categories>
+<span>categories</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/tags/ title=tags>
+<span>tags</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io title="nobwak lair">
+<span>nobwak lair</span>
+</a>
+</li>
+</ul>
 </nav>
-
-      <script async src="https://cse.google.com/cse.js?cx=006557840537990471538:a32dqhwjiyl"></script>
-<div class="gcse-search"></div>
-
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
-  
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        POSTS
-      </p>
-      <h1 class="f1 athelas mb1">ezjailのflavoursを使ってみよう その2</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2013-10-10T20:43:49&#43;09:00">October 10, 2013</time>      
-      
-      
-    </header>
-
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><a href="../../../?p=2252">前回</a>の続き</p>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+ezjailのflavoursを使ってみよう その2
+</h1>
+<div class=post-meta><span title="2013-10-10 20:43:49 +0900 JST">October 10, 2013</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2013-10-10-ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86_%e3%81%9d%e3%81%ae2.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details open>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#span-styletext-decoration-underline%e4%bb%8a%e5%9b%9e%e3%81%ae%e7%af%84%e5%9b%b2span aria-label=今回の範囲>今回の範囲</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineflavours%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%8bspan aria-label=flavoursを作ってみる>flavoursを作ってみる</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineflavour%e3%81%ae%e4%b8%ad%e8%ba%abspan aria-label=flavourの中身>flavourの中身</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineflavour%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=flavourの設定>flavourの設定</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e5%90%84%e7%a8%ae%e8%a8%ad%e5%ae%9a%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e6%9b%b8%e3%81%8d%e6%8f%9b%e3%81%88span aria-label=各種設定ファイルの書き換え>各種設定ファイルの書き換え</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineezjailflavourexample%e3%81%a7%e3%81%ae%e3%83%a6%e3%83%bc%e3%82%b6%e3%82%b0%e3%83%ab%e3%83%bc%e3%83%97%e8%bf%bd%e5%8a%a0span aria-label=ezjail.flavour.exampleでのユーザ/グループ追加>ezjail.flavour.exampleでのユーザ/グループ追加</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineezjailflavourexample%e3%81%a7%e3%81%aepkg%e8%bf%bd%e5%8a%a0span aria-label=ezjail.flavour.exampleでのpkg追加>ezjail.flavour.exampleでのpkg追加</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e3%82%b7%e3%82%a7%e3%83%ab%e3%81%ae%e5%a4%89%e6%9b%b4span aria-label=シェルの変更>シェルの変更</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineroot%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%81%ae%e5%a4%89%e6%9b%b4span aria-label=rootパスワードの変更>rootパスワードの変更</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineflavour%e3%81%a7jail%e3%83%9b%e3%82%b9%e3%83%88%e4%bd%9c%e6%88%90span aria-label=flavourでjailホスト作成。>flavourでjailホスト作成。</a>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p><a href="../../../?p=2252">前回</a>の続き</p>
 <p>前提</p>
 <p>以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。<br>
 「Jailホスト」はjail環境で動くホストを表す。子。</p>
-<h2 id="span-styletext-decoration-underline今回の範囲span"><!-- raw HTML omitted -->今回の範囲<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underline今回の範囲span>今回の範囲<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline今回の範囲span>#</a></h2>
 <p>本記事では二つ目以降を扱う。<br>
 一つ目まではホストOSでの設定作業だったが、今回は実際にflavoursに設定を書き込むことになる。</p>
 <ol>
@@ -154,11 +137,11 @@ if (!doNotTrack) {
 <li>Jailホストで使用するソフトウェア<br>
 →apache22, sudo, bash, portaudit, portmaster, tmux</li>
 </ol>
-<h2 id="span-styletext-decoration-underlineflavoursを作ってみるspan"><!-- raw HTML omitted -->flavoursを作ってみる<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underlineflavoursを作ってみるspan>flavoursを作ってみる<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineflavoursを作ってみるspan>#</a></h2>
 <p>設定変更せずezjail-admin installしたなら、flavoursは/usr/jails/flavoursの下にある。<br>
 flavoursの下には、設定サンプルとしてexampleというディレクトリがある。</p>
-<p>example flavoursをコピーして、&ldquo;testsv&quot;というflavoursを作る。</p>
-<pre><code class="language-console" data-lang="console">$ cd /usr/jails/flavours/
+<p>example flavoursをコピーして、&ldquo;testsv"というflavoursを作る。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cd /usr/jails/flavours/
 $ ls
 example
 $ sudo cp -pR ./example ./testsv
@@ -166,98 +149,98 @@ $ cd /usr/jails/flavours/
 $ ls
 example testsv
 $
-</code></pre><h2 id="span-styletext-decoration-underlineflavourの中身span"><!-- raw HTML omitted -->flavourの中身<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underlineflavourの中身span>flavourの中身<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineflavourの中身span>#</a></h2>
 <p>testsvの下は以下のようなディレクトリ構成で、flavourとして使うファイルがあらかじめ格納される。<br>
 ※以下、断りのない限り、./etc/rc.conf などと記載した場合には、ホストのではなく、flavourのファイルとする。</p>
-<pre><code class="language-console" data-lang="console">./etc:
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>./etc:
 make.conf
 periodic.conf
 rc.conf
 rc.d
-
-./etc/rc.d:
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>./etc/rc.d:
 ezjail.flavour.example
-
-./usr/local/etc:
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>./usr/local/etc:
 sudoers
-</code></pre><p>このうち、ezjail.flavour.exampleはjailホスト初回起動時に実行されるスクリプト。<br>
+</code></pre></div><p>このうち、ezjail.flavour.exampleはjailホスト初回起動時に実行されるスクリプト。<br>
 ユーザ追加やpkgの追加はここで行う。</p>
 <p>また、rc.confの中を見てみると、sendmailやrpcbindを停止する設定や、syslogdがsocketを掴まないようにする設定が最初から書かれている。</p>
-<pre><code class="language-console" data-lang="console"># Pretuned by German Engineers
-
-# No network interfaces in jails
-network_interfaces=&quot;&quot;
-
-# Prevent rpc
-rpcbind_enable=&quot;NO&quot;
-
-# Prevent loads of jails doing their cron jobs at the same time
-cron_flags=&quot;$cron_flags -J 15&quot;
-
-# Prevent syslog to open sockets
-syslogd_flags=&quot;-ss&quot;
-
-# Prevent sendmail to try to connect to localhost
-sendmail_enable=&quot;NO&quot;
-sendmail_submit_enable=&quot;NO&quot;
-sendmail_outbound_enable=&quot;NO&quot;
-sendmail_msp_queue_enable=&quot;NO&quot;
-
-# Bring up sshd, it takes some time and uses some entropy on first startup
-# sshd_enable=&quot;YES&quot;
-</code></pre><h2 id="span-styletext-decoration-underlineflavourの設定span"><!-- raw HTML omitted -->flavourの設定<!-- raw HTML omitted --></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Pretuned by German Engineers
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># No network interfaces in jails
+network_interfaces=&#34;&#34;
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># Prevent rpc
+rpcbind_enable=&#34;NO&#34;
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># Prevent loads of jails doing their cron jobs at the same time
+cron_flags=&#34;$cron_flags -J 15&#34;
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># Prevent syslog to open sockets
+syslogd_flags=&#34;-ss&#34;
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># Prevent sendmail to try to connect to localhost
+sendmail_enable=&#34;NO&#34;
+sendmail_submit_enable=&#34;NO&#34;
+sendmail_outbound_enable=&#34;NO&#34;
+sendmail_msp_queue_enable=&#34;NO&#34;
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span># Bring up sshd, it takes some time and uses some entropy on first startup
+# sshd_enable<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;YES&#34;</span>
+</code></pre></div><h2 id=span-styletext-decoration-underlineflavourの設定span>flavourの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineflavourの設定span>#</a></h2>
 <p>ではtest flavourの設定を始める。<br>
 必要に応じてrc.confなどの設定ファイルを書き換えるのと、ezjail.flavour.exampleに、jailホストの初期設定スクリプトを書き込んでいく。<br>
 設定ファイルの書き換えには、ホストのファイルを参考にするとよいでしょう。</p>
-<h2 id="span-styletext-decoration-underline各種設定ファイルの書き換えspan"><!-- raw HTML omitted -->各種設定ファイルの書き換え<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underline各種設定ファイルの書き換えspan>各種設定ファイルの書き換え<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline各種設定ファイルの書き換えspan>#</a></h2>
 <p>jailホストで動かしたいのはsshdとapache。<br>
 よって./etc/rc.confに以下二行を加えた。</p>
-<pre><code class="language-console" data-lang="console">apache22_enable=&quot;YES&quot;
-sshd_enable=&quot;YES&quot;
-</code></pre><p>また./usr/local/etc/sudoersに以下を追加。<br>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>apache22_enable=&#34;YES&#34;
+sshd_enable=&#34;YES&#34;
+</code></pre></div><p>また./usr/local/etc/sudoersに以下を追加。<br>
 ここはお好みで。</p>
-<pre><code class="language-console" data-lang="console">Defaults env_keep += &quot;HTTP_PROXY FTP_PROXY&quot;
-Defaults env_keep += &quot;PKG_PATH PKG_DBDIR PKG_TMPDIR TMPDIR PACKAGEROOT PACKAGESITE PKGDIR FTP_PASSIVE_MODE&quot;
-Defaults env_keep += &quot;PORTSDIR PORTS_INDEX PORTS_DBDIR PACKAGES PKGTOOLS_CONF&quot;
-</code></pre><p>apache22の設定は&hellip;、これはjailホストが起動してからでいいか。</p>
-<h2 id="span-styletext-decoration-underlineezjailflavourexampleでのユーザグループ追加span"><!-- raw HTML omitted -->ezjail.flavour.exampleでのユーザ/グループ追加<!-- raw HTML omitted --></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>Defaults env_keep += &#34;HTTP_PROXY FTP_PROXY&#34;
+Defaults env_keep += &#34;PKG_PATH PKG_DBDIR PKG_TMPDIR TMPDIR PACKAGEROOT PACKAGESITE PKGDIR FTP_PASSIVE_MODE&#34;
+Defaults env_keep += &#34;PORTSDIR PORTS_INDEX PORTS_DBDIR PACKAGES PKGTOOLS_CONF&#34;
+</code></pre></div><p>apache22の設定は&mldr;、これはjailホストが起動してからでいいか。</p>
+<h2 id=span-styletext-decoration-underlineezjailflavourexampleでのユーザグループ追加span>ezjail.flavour.exampleでのユーザ/グループ追加<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineezjailflavourexampleでのユーザグループ追加span>#</a></h2>
 <p>ユーザvanilla、グループvanillaを追加する。<br>
 uid, gidは10010にし、vanillaはwheelグループに加える。</p>
 <p>以下をezjail.flavour.exampleに追加<br>
 ユーザ追加スクリプトの詳細は<a href="../../../?p=2214">こちら</a>。</p>
 <p>なお、グループ追加を先にすること。<br>
 ユーザ追加のときにグループ指定をするから。</p>
-<pre><code class="language-console" data-lang="console">pw groupadd -q -n vanilla -g 10010
-echo -n '$6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5ggew6RXLpl1eA72TpgX5pGDpr/.' |\
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>pw groupadd -q -n vanilla -g 10010
+echo -n &#39;$6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5ggew6RXLpl1eA72TpgX5pGDpr/.&#39; |\
 pw useradd -n vanilla -u 10010 -s /bin/sh \
--m -d /home/vanilla -G vanilla -c 'vanilla user' \
+-m -d /home/vanilla -G vanilla -c &#39;vanilla user&#39; \
 -H 0
 pw usermod vanilla -G wheel
-</code></pre><h2 id="span-styletext-decoration-underlineezjailflavourexampleでのpkg追加span"><!-- raw HTML omitted -->ezjail.flavour.exampleでのpkg追加<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underlineezjailflavourexampleでのpkg追加span>ezjail.flavour.exampleでのpkg追加<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineezjailflavourexampleでのpkg追加span>#</a></h2>
 <p>pkg_add -rで必要なpkgを並べる。<br>
 ./pkgにpkgを置いておく方法もあるのだが、依存関係も考慮して必要なpkgを揃えるのは面倒。<br>
 portsの場合は、basejailにportsのディレクトリを作っておく必要がある。今回は触れない。</p>
 <p>以下のようにpkgを取得するサーバを指定してからpkg_add。<br>
 proxyが必要なら、それも。</p>
-<pre><code class="language-console" data-lang="console">#HTTP_PROXY=&quot;http://proxyserver:80/&quot;; export HTTP_PROXY
-PACKAGEROOT=&quot;ftp://ftp2.jp.freebsd.org/&quot;; export PACKAGEROOT
-
-pkg_add -r apache22 sudo bash portaudit portmaster tmux
-</code></pre><h2 id="span-styletext-decoration-underlineシェルの変更span"><!-- raw HTML omitted -->シェルの変更<!-- raw HTML omitted --></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>#HTTP_PROXY<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;http://proxyserver:80/&#34;</span>; export HTTP_PROXY
+PACKAGEROOT=&#34;ftp://ftp2.jp.freebsd.org/&#34;; export PACKAGEROOT
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>pkg_add -r apache22 sudo bash portaudit portmaster tmux
+</code></pre></div><h2 id=span-styletext-decoration-underlineシェルの変更span>シェルの変更<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineシェルの変更span>#</a></h2>
 <p>ユーザvanillaのシェルをbashに変えておくために以下を追加。</p>
-<pre><code class="language-console" data-lang="console">chpass -s /usr/local/bin/bash vanilla
-</code></pre><h2 id="span-styletext-decoration-underlinerootパスワードの変更span"><!-- raw HTML omitted -->rootパスワードの変更<!-- raw HTML omitted --></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>chpass -s /usr/local/bin/bash vanilla
+</code></pre></div><h2 id=span-styletext-decoration-underlinerootパスワードの変更span>rootパスワードの変更<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinerootパスワードの変更span>#</a></h2>
 <p>rootのパスワードも変える。<br>
 nologinにすると、あとあとezjail-admin consoleでrootログインすることができなくなる。</p>
-<pre><code class="language-console" data-lang="console">echo -n '$6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5
-ggew6RXLpl1eA72TpgX5pGDpr/.' |\
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>echo -n &#39;$6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5
+ggew6RXLpl1eA72TpgX5pGDpr/.&#39; |\
 pw mod user root \
 -H 0
-</code></pre><p>これでflavoursの設定は終わり。</p>
-<h2 id="span-styletext-decoration-underlineflavourでjailホスト作成span"><!-- raw HTML omitted -->flavourでjailホスト作成。<!-- raw HTML omitted --></h2>
+</code></pre></div><p>これでflavoursの設定は終わり。</p>
+<h2 id=span-styletext-decoration-underlineflavourでjailホスト作成span>flavourでjailホスト作成。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineflavourでjailホスト作成span>#</a></h2>
 <p>あとは簡単。<br>
 jailホストを作成するときに、-fでflavourを指定すればいいだけ。</p>
-<pre><code class="language-console" data-lang="console">$ sudo ezjail-admin create -f testsv example01 'em0|192.168.200.1'
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo ezjail-admin create -f testsv example01 <span style=color:#e6db74>&#39;em0|192.168.200.1&#39;</span>
 /usr/jails/example01/.
 /usr/jails/example01/./dev
 /usr/jails/example01/./.cshrc
@@ -265,28 +248,28 @@ jailホストを作成するときに、-fでflavourを指定すればいいだ�
 /usr/jails/example01/./usr/local/etc/sudoers
 18 blocks
 $
-</code></pre><p>起動。pkg_add -rのせいで少し時間がかかる。</p>
-<pre><code class="language-console" data-lang="console">$ sudo ezjail-admin start example01
+</code></pre></div><p>起動。pkg_add -rのせいで少し時間がかかる。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo ezjail-admin start example01
 Configuring jails:.
 Starting jails: example01.
 $
-</code></pre><p>consoleに入ってみると、ユーザvanillaやpkgの追加がなされていることが確認できる。<br>
+</code></pre></div><p>consoleに入ってみると、ユーザvanillaやpkgの追加がなされていることが確認できる。<br>
 同時にsshdも起動している。<br>
 apacheは設定も何もしていないので動いてないけど。</p>
-<pre><code class="language-console" data-lang="console">$ sudo ezjail-admin console example01
-
-（中略）
-
-root@example01:~ # finger vanilla
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo ezjail-admin console example01
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>（中略）
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>root@example01:~ # finger vanilla
 Login: vanilla Name: vanilla user
 Directory: /home/vanilla Shell: /usr/local/bin/bash
 No Mail.
 No Plan.
-
-root@example01:~ # pkg_info
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>root@example01:~ # pkg_info
 apache22-2.2.25 Version 2.2.x of Apache web server with prefork MPM.
 apr-1.4.8.1.5.2 Apache Portability Library
-bash-4.2.45 The GNU Project's Bourne Again SHell
+bash-4.2.45 The GNU Project&#39;s Bourne Again SHell
 db42-4.2.52_5 The Berkeley DB package, revision 4.2
 expat-2.1.0 XML 1.0 parser written in C
 gdbm-1.10 GNU database manager
@@ -302,82 +285,53 @@ tmux-1.8_1 A Terminal Multiplexer
 root@example01:~ # service sshd status
 sshd is running as pid 2945.
 root@example01:~ #
-</code></pre><p>あとは、testsvをさらにコピーし、インストールするpkgを変えればどんどん使い回せる。<br>
+</code></pre></div><p>あとは、testsvをさらにコピーし、インストールするpkgを変えればどんどん使い回せる。<br>
 もちろん、その時はユーザやパスワードも変えよう。<br>
 セキュリティのためにjail使ってるのに、同じユーザ同じパスワードだったら全く意味がないし。</p>
 <p>以上、flavoursの作り方。</p>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6">
-        
-      </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
-    &copy; 2020 Nobwak&#39;s Lair
-  </a>
-    <div><div id="sharing">
-<font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
-
-  </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-  </a>
 </div>
+<footer class=post-footer>
+<nav class=paginav>
+<a class=prev href=https://nobwak.github.io/posts/2013-10-14-freebsd_10%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%A9%E3%81%8B%E3%82%89%E3%81%AEzfs_on_root%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%88%E3%83%BC/>
+<span class=title>« Prev Page</span>
+<br>
+<span>FreeBSD 10インストーラからのzfs on rootを試してみたよー</span>
+</a>
+<a class=next href=https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/>
+<span class=title>Next Page »</span>
+<br>
+<span>ezjailのflavoursを使ってみよう その1</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その2 on twitter" href="https://twitter.com/intent/tweet/?text=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae2&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-10-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE2%2f&hashtags="><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その2 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-10-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE2%2f&title=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae2&summary=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae2&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-10-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE2%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その2 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-10-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE2%2f&title=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae2"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その2 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-10-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE2%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その2 on whatsapp" href="https://api.whatsapp.com/send?text=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae2%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-10-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE2%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その2 on telegram" href="https://telegram.me/share/url?text=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae2&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-10-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE2%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
 </div>
-    <div>
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-</div>
-  </div>
 </footer>
-
-    
-
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
-
-
-  </body>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
 </html>

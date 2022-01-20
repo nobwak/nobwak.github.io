@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Samba on Nobwak&#39;s Lair</title>
+    <title>Samba on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/tags/samba/</link>
-    <description>Recent content in Samba on Nobwak&#39;s Lair</description>
+    <description>Recent content in Samba on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Thu, 07 May 2015 20:13:08 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/tags/samba/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 07 May 2015 20:13:08 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/samba/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[FreeBSD] Samba 3.xからSamba 4.xへの移行</title>
       <link>https://nobwak.github.io/posts/2015-05-07-freebsd_samba_3.x%E3%81%8B%E3%82%89samba_4.x%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/</link>

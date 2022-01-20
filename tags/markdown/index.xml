@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>markdown on Nobwak&#39;s Lair</title>
+    <title>markdown on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/tags/markdown/</link>
-    <description>Recent content in markdown on Nobwak&#39;s Lair</description>
+    <description>Recent content in markdown on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Sun, 02 Jun 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 02 Jun 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://nobwak.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>markdownでASCII Artを書きたい</title>
       <link>https://nobwak.github.io/posts/2019-06-02-markdown%E3%81%A7ascii_art%E3%82%92%E6%9B%B8%E3%81%8D%E3%81%9F%E3%81%84/</link>

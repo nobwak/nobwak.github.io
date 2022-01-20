@@ -1,216 +1,201 @@
-<!DOCTYPE html>
-<html lang="ja-JP">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Nobwak&#39;s Lair  | Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.68.3" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-
-    <meta property="og:title" content="Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）" />
-<meta property="og:description" content="昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/" />
-<meta property="article:published_time" content="2014-01-26T20:19:00+09:00" />
-<meta property="article:modified_time" content="2014-01-26T20:19:00+09:00" />
-<meta itemprop="name" content="Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）">
-<meta itemprop="description" content="昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に">
-<meta itemprop="datePublished" content="2014-01-26T20:19:00&#43;09:00" />
-<meta itemprop="dateModified" content="2014-01-26T20:19:00&#43;09:00" />
-<meta itemprop="wordCount" content="3311">
-
-
-
-<meta itemprop="keywords" content="FreeBSD,linux,Samba,Windows," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）"/>
-<meta name="twitter:description" content="昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に"/>
-
-      
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-38155461-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-    
-  </head>
-
-  <body class="ma0 avenir bg-near-white production">
-
-    
-   
-  
-
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Nobwak&#39;s Lair
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-    </div>
-  </div>
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし） | nobwak's Lair</title>
+<meta name=keywords content="FreeBSD,linux,Samba,Windows">
+<meta name=description content="昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に">
+<meta name=author content="nobwak">
+<link rel=canonical href=https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<link rel=preload href=/apple-touch-icon.png as=image>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）">
+<meta property="og:description" content="昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2014-01-26T20:19:00+09:00">
+<meta property="article:modified_time" content="2014-01-26T20:19:00+09:00"><meta property="og:site_name" content="nobwak's Lair">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）">
+<meta name=twitter:description content="昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）","item":"https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）","name":"Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）","description":"昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に","keywords":["FreeBSD","linux","Samba","Windows"],"articleBody":"昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。\n私の仕事PCも過日、ついに7に変更された。\nさすがに色んなところが改善されていて使いやすくなっているのだが、なぜかSambaに置いてあるファイルが壊れたり、誰も開いていないはずなのに読み取り専用でしか開けない事象が頻発した。\n特に共有設定したOfficeドキュメントで顕著。\nしばらく悩んでいたのだが、Sambaのログにoplocks failedという記録を見つけて（おそらく）対処方法が分かった。\n以下に示す。\nSambaのバージョンは3.6.22である。\n結論 smb.confのglobalセクションに以下を書け。\noplocks = No blocking locks = No ネタ元 ネットを渉猟したところ、やはりOplocksの評判はあまりよくない。\n以下のホワイトペーパーが分かりやすかった。\nOplocksとread cachingが原因と断定している。\nOpportunistic Locking and Read Caching on Microsoft Windows Networks\nhttp://www.dataaccess.com/whitepapers/opportunlockingreadcaching.html先に進む前にプロトコルとしてのSMBでいくつか確認を。\nSMB（プロトコル）のバージョンについて Windowsファイル共有で使われるプロトコルSMBは、Vistaでバージョン2, 7でバージョン2.1になった。\nOplocksとread cachingもバージョン2以降で追加、あるいは強化されている。\n詳細は以下。\nSMB の新機能\nhttp://technet.microsoft.com/ja-jp/library/ff625695.aspxSMB1⇒2⇒2.1への変化と新機能\nhttp://blog.goo.ne.jp/mito_and_tanu/e/10c47629fbb7e7d3d73cbd54a1a9f28dOplocksとは ネットワークの効率化を狙う、Windows固有の機能。\n複数のプロセスが同じファイルをロックでき、なおかつクライアントがデータをキャッシュできる。\nChapter 17. File and Record Locking\nhttp://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/locking.htmlhttp://www.samba.gr.jp/project/translation/Samba3-HOWTO/locking.htmlRead Cachingとは Oplocksの一機能。クライアント側でのデータキャッシュ。\nクライアントがローカルでデータをキャッシュする目的は、ネットワーク越しの書き込み回数を減らすこと、ひいてはネットワークの効率化のため。\nファイルの同じ部分（the same region）に対する書き込みをまとめて、一回で済ませる。\nOplocksの危険性 Oplocksが狙い通りに動けば、目的通りネットワークの効率化が図られる。\n問題なのはネットワークに何か問題が起こり、キャッシュが適切にフラッシュされない場合。ともするとファイルの破壊を引き起こす。\nとくにデータベースが危険。\n以下のリンクに詳細が。\n本記事の末尾に私訳を付す。\nLocks and Oplocks\nhttp://www.samba.org/samba/docs/using_samba/ch08.html対策:Oplocksを無効にしろ ここまで分かれば、対策は簡単。\nOplocksを無効にすればよい。\n無効にする方法には、サーバ側での方法、クライアント側での方法がある。\nクライアントと言っても、たいていはWindowsであろうが、Windowsで対処しようとするとレジストリの変更が必要になる。\nさすがにそれは面倒だ。\nそこでサーバ側、Sambaの設定でOplocksを無効にする。\nsmb.confでOplocksを無効にする oplocks = noとすればよい。\nデフォルト無効にしたければ[global]セクションに、共有ごとに無効にしたければ共有のところに書けばよい。\nsmb.confのmanは一見、共有ごとにしか指定できないように見えるかもしれないが[global]にも使える。\nまた、oplocksはbooleanなのでnoでもfalseでも、はたまた0でも理解してもらえる。\nなお、ファイルごとに有効無効を指定したければveto oplock filesで指定できる。\nsmb.confのmanより抜粋\noplocks (S) This boolean option tells smbd whether to issue oplocks (opportunistic locks) to file open requests on this share. （略） Default: oplocks = yes smb.confのmanよりPARAMETERS抜粋\nPARAMETERS （略） The letter G in parentheses indicates that a parameter is specific to the [global] section. The letter S indicates that a parameter can be specified in a service specific section. All S parameters can also be specified in the [global] section - in which case they will define the default behavior for all services. blocking locks Sambaはロックの方法を指定できる。\nblocking locksというものである。\nこれは、ファイルをロックするときに、特定部分だけをロック（range lock）するか、ファイル全体をロックするか、というものである。\nデフォルトで有効。\nWindowsのRead Cachingに対応してそうな機能である。\n加えてmanを見ると、「range lockに失敗すると、タイムアウトするまで何回かrange lockを再試行する」などと書いてある。\nこれも無効にしよう。\nblocking locks (S) This parameter controls the behavior of smbd(8) when given a request by a client to obtain a byte range lock on a region of an open file, and the request has a time limit associated with it. If this parameter is set and the lock range requested cannot be immediately satisfied, samba will internally queue the lock request, and periodically attempt to obtain the lock until the timeout period expires. If this parameter is set to no, then samba will behave as previous versions of Samba would and will fail the lock request immediately if the lock range cannot be obtained. Default: blocking locks = yes 設定例 以上を踏まえて、以下のように設定\nしょぼい英文は勘弁しておくれ。\n[global] (略) # # Disable oplock # It's supposed to improve network performance but causes problems # # See: # Opportunistic Locking and Read Caching on Microsoft Windows Networks # http://www.dataaccess.com/whitepapers/opportunlockingreadcaching.html # oplocks = no blocking locks = no 再起動しておしまい。\n$ sudo service samba restart Performing sanity check on Samba configuration: OK Stopping winbindd. Waiting for PIDS: 667. Stopping smbd. Waiting for PIDS: 664, 664. Stopping nmbd. Waiting for PIDS: 661. Removing stale Samba tdb files: .. done Starting nmbd. Starting smbd. Starting winbindd. （参考）Locks and Oplocks 私訳 http://www.samba.org/samba/docs/using_samba/ch08.html\nLocks and Oplocks\noplocksの使用によって得られるパフォーマンス増は、大変に望ましいことがほとんどだ。\nしかしながら、クライアントやネットワークのハードウェアの信頼性が怪しいような状況では、クライアントにデータをキャッシュさせることは大きなリスクになり得る。\nクライアントが書き込みのためにファイルを開き、oplockを行う場合を考えてみよう。\nそして他のクライアントが同じファイルを開こうとしたとき、“oplock break\"要求が最初のクライアントに送られる。\nもしこの要求が何らかの理由により失敗し、二番目のクライアントがファイルの書き込みをしたとする。\n二つのプロセスが同時に書き込みをするわけだから、ファイルは簡単に壊れてしまうだろう。\n残念なことに上記のケースは現実に起こりうる。\nSMBネットワークにおける複数のWindowsクライアント環境では、このようなおかしな動きは頻繁にみられる。\nたくさんのクライアントが同時に書き込みを行うデータベースファイルは特に影響を受けてしまう。\noplocksの失敗するもっと具体的な例を挙げると、それはデータベースファイルが大変に大きい場合である。\nクライアントがこのようなファイルを開き、oplockを許可されると、非常に大きな遅延が発生する。\nその一部を修正するためだけであっても、クライアントがファイル全部をキャッシュするからである。\nこのファイルを別のクライアントが開こうとしたとき、状況はさらに悪くなる。\n二番目のクライアントがファイルを開くためには、最初のクライアントがキャッシュをすべてサーバに書き戻す必要があるからだ。\nこのために、また別の遅延が発生する（しかも双方のクライアントで）。\n結果として、タイムアウトにより二番目のクライアントがファイルオープンに失敗し、たぶんデータが壊れた旨のWarning messageも併せて表示されるだろう。\nIn most cases, the extra performance resulting from the use of oplocks is highly desirable. However, allowing the client to cache data can be a big risk if either the client or network hardware are unreliable. Suppose a client opens a file for writing, creating an oplock on it. When another client also tries to open the file, an oplock break request is sent to the first client. If this request goes unfulfilled for any reason and the second client starts writing to the file, the file can be easily corrupted as a result of the two processes writing to it concurrently. Unfortunately, this scenario is very real. Uncoordinated behavior such as this has been observed many times among Windows clients in SMB networks (with files served by Windows NT/2000 or Samba). Typically, the affected files are database files, which multiple clients open concurrently for writing.\nA more concrete example of oplock failure occurs when database files are very large. If a client is allowed to oplock this kind of file, there can be a huge delay while the client copies the entire file from the server to cache it, even though it might need to update only one record. The situation goes from bad to worse when another client tries to open the oplocked file. The first client might need to write the entire file back to the server before the second client’s file open request can succeed. This results in another huge delay (for both clients), which in practice often results in a failed open due to a timeout on the second client, perhaps along with a message warning of possible database corruption!\n","wordCount":"3311","inLanguage":"en","datePublished":"2014-01-26T20:19:00+09:00","dateModified":"2014-01-26T20:19:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
+<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://nobwak.github.io/posts/ title=posts>
+<span>posts</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
+<span>search</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/categories/ title=categories>
+<span>categories</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/tags/ title=tags>
+<span>tags</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io title="nobwak lair">
+<span>nobwak lair</span>
+</a>
+</li>
+</ul>
 </nav>
-
-      <script async src="https://cse.google.com/cse.js?cx=006557840537990471538:a32dqhwjiyl"></script>
-<div class="gcse-search"></div>
-
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
-  
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-
-    <header class="mt4 w-100">
-      <p class="f6 b helvetica tracked">
-          
-        POSTS
-      </p>
-      <h1 class="f1 athelas mb1">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</h1>
-      
-      <time class="f6 mv4 dib tracked" datetime="2014-01-26T20:19:00&#43;09:00">January 26, 2014</time>      
-      
-      
-    </header>
-
-    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。<br>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）
+</h1>
+<div class=post-meta><span title="2014-01-26 20:19:00 +0900 JST">January 26, 2014</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2014-01-26-Windows7%e3%81%a7samba%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%8c%e3%81%86%e3%81%be%e3%81%8f%e9%96%8b%e3%81%91%e3%81%aa%e3%81%84%e4%bb%b6%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%ef%bc%88oplocks%e6%ad%bb%e3%81%99%e3%81%b9%e3%81%97%ef%bc%89.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details open>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#span-styletext-decoration-underline%e7%b5%90%e8%ab%96span aria-label=結論>結論</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e3%83%8d%e3%82%bf%e5%85%83span aria-label=ネタ元>ネタ元</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinesmb%e3%83%97%e3%83%ad%e3%83%88%e3%82%b3%e3%83%ab%e3%81%ae%e3%83%90%e3%83%bc%e3%82%b8%e3%83%a7%e3%83%b3%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6span aria-label=SMB（プロトコル）のバージョンについて>SMB（プロトコル）のバージョンについて</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinebr--oplocks%e3%81%a8%e3%81%afspan aria-label=Oplocksとは> Oplocksとは</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineread-caching%e3%81%a8%e3%81%afspan aria-label="Read Cachingとは">Read Cachingとは</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineoplocks%e3%81%ae%e5%8d%b1%e9%99%ba%e6%80%a7span aria-label=Oplocksの危険性>Oplocksの危険性</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e5%af%be%e7%ad%96oplocks%e3%82%92%e7%84%a1%e5%8a%b9%e3%81%ab%e3%81%97%e3%82%8dspan aria-label=対策:Oplocksを無効にしろ>対策:Oplocksを無効にしろ</a></li>
+<li>
+<a href=#span-styletext-decoration-underlinesmbconf%e3%81%a7oplocks%e3%82%92%e7%84%a1%e5%8a%b9%e3%81%ab%e3%81%99%e3%82%8bspan aria-label=smb.confでOplocksを無効にする>smb.confでOplocksを無効にする</a></li>
+<li>
+<a href=#span-styletext-decoration-underlineblocking-locksspan aria-label="blocking locks">blocking locks</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e8%a8%ad%e5%ae%9a%e4%be%8bspan aria-label=設定例>設定例</a></li>
+<li>
+<a href=#span-styletext-decoration-underline%e5%8f%82%e8%80%83locks-and-oplocks-%e7%a7%81%e8%a8%b3span aria-label="（参考）Locks and Oplocks 私訳">（参考）Locks and Oplocks 私訳</a>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p>昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。<br>
 私の仕事PCも過日、ついに7に変更された。<br>
 さすがに色んなところが改善されていて使いやすくなっているのだが、なぜかSambaに置いてあるファイルが壊れたり、誰も開いていないはずなのに読み取り専用でしか開けない事象が頻発した。<br>
 特に共有設定したOfficeドキュメントで顕著。</p>
 <p>しばらく悩んでいたのだが、Sambaのログにoplocks failedという記録を見つけて（おそらく）対処方法が分かった。<br>
 以下に示す。<br>
 Sambaのバージョンは3.6.22である。</p>
-<h2 id="span-styletext-decoration-underline結論span"><!-- raw HTML omitted -->結論<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underline結論span>結論<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline結論span>#</a></h2>
 <p>smb.confのglobalセクションに以下を書け。</p>
-<pre><code class="language-console" data-lang="console">oplocks = No
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>oplocks = No
 blocking locks = No
-</code></pre><h2 id="span-styletext-decoration-underlineネタ元span"><!-- raw HTML omitted -->ネタ元<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underlineネタ元span>ネタ元<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineネタ元span>#</a></h2>
 <p>ネットを渉猟したところ、やはりOplocksの評判はあまりよくない。</p>
 <p>以下のホワイトペーパーが分かりやすかった。<br>
 Oplocksとread cachingが原因と断定している。</p>
 <p>Opportunistic Locking and Read Caching on Microsoft Windows Networks<br>
-<!-- raw HTML omitted --><a href="http://www.dataaccess.com/whitepapers/opportunlockingreadcaching.html">http://www.dataaccess.com/whitepapers/opportunlockingreadcaching.html</a><!-- raw HTML omitted --></p>
+<a href=http://www.dataaccess.com/whitepapers/opportunlockingreadcaching.html>http://www.dataaccess.com/whitepapers/opportunlockingreadcaching.html</a></p>
 <p>先に進む前にプロトコルとしてのSMBでいくつか確認を。</p>
-<h2 id="span-styletext-decoration-underlinesmbプロトコルのバージョンについてspan"><!-- raw HTML omitted -->SMB（プロトコル）のバージョンについて<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underlinesmbプロトコルのバージョンについてspan>SMB（プロトコル）のバージョンについて<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesmbプロトコルのバージョンについてspan>#</a></h2>
 <p>Windowsファイル共有で使われるプロトコルSMBは、Vistaでバージョン2, 7でバージョン2.1になった。<br>
 Oplocksとread cachingもバージョン2以降で追加、あるいは強化されている。<br>
 詳細は以下。</p>
 <p>SMB の新機能<br>
-<!-- raw HTML omitted --><a href="http://technet.microsoft.com/ja-jp/library/ff625695.aspx">http://technet.microsoft.com/ja-jp/library/ff625695.aspx</a><!-- raw HTML omitted --><br>
+<a href=http://technet.microsoft.com/ja-jp/library/ff625695.aspx>http://technet.microsoft.com/ja-jp/library/ff625695.aspx</a><br>
 SMB1⇒2⇒2.1への変化と新機能<br>
-<!-- raw HTML omitted --><a href="http://blog.goo.ne.jp/mito_and_tanu/e/10c47629fbb7e7d3d73cbd54a1a9f28d">http://blog.goo.ne.jp/mito_and_tanu/e/10c47629fbb7e7d3d73cbd54a1a9f28d</a><!-- raw HTML omitted --></p>
-<h2 id="span-styletext-decoration-underlinebr--oplocksとはspan"><!-- raw HTML omitted --><!-- raw HTML omitted --> Oplocksとは<!-- raw HTML omitted --></h2>
+<a href=http://blog.goo.ne.jp/mito_and_tanu/e/10c47629fbb7e7d3d73cbd54a1a9f28d>http://blog.goo.ne.jp/mito_and_tanu/e/10c47629fbb7e7d3d73cbd54a1a9f28d</a></p>
+<h2 id=span-styletext-decoration-underlinebr--oplocksとはspan> Oplocksとは<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinebr--oplocksとはspan>#</a></h2>
 <p>ネットワークの効率化を狙う、Windows固有の機能。<br>
 複数のプロセスが同じファイルをロックでき、なおかつクライアントがデータをキャッシュできる。</p>
 <p>Chapter 17. File and Record Locking<br>
-<!-- raw HTML omitted --><a href="http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/locking.html">http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/locking.html</a><!-- raw HTML omitted --><br>
-<!-- raw HTML omitted --><a href="http://www.samba.gr.jp/project/translation/Samba3-HOWTO/locking.html">http://www.samba.gr.jp/project/translation/Samba3-HOWTO/locking.html</a><!-- raw HTML omitted --></p>
-<h2 id="span-styletext-decoration-underlineread-cachingとはspan"><!-- raw HTML omitted -->Read Cachingとは<!-- raw HTML omitted --></h2>
+<a href=http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/locking.html>http://www.samba.org/samba/docs/man/Samba-HOWTO-Collection/locking.html</a><br>
+<a href=http://www.samba.gr.jp/project/translation/Samba3-HOWTO/locking.html>http://www.samba.gr.jp/project/translation/Samba3-HOWTO/locking.html</a></p>
+<h2 id=span-styletext-decoration-underlineread-cachingとはspan>Read Cachingとは<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineread-cachingとはspan>#</a></h2>
 <p>Oplocksの一機能。クライアント側でのデータキャッシュ。<br>
 クライアントがローカルでデータをキャッシュする目的は、ネットワーク越しの書き込み回数を減らすこと、ひいてはネットワークの効率化のため。<br>
 ファイルの同じ部分（the same region）に対する書き込みをまとめて、一回で済ませる。</p>
-<h2 id="span-styletext-decoration-underlineoplocksの危険性span"><!-- raw HTML omitted -->Oplocksの危険性<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underlineoplocksの危険性span>Oplocksの危険性<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineoplocksの危険性span>#</a></h2>
 <p>Oplocksが狙い通りに動けば、目的通りネットワークの効率化が図られる。<br>
 問題なのはネットワークに何か問題が起こり、キャッシュが適切にフラッシュされない場合。ともするとファイルの破壊を引き起こす。<br>
 とくにデータベースが危険。<br>
 以下のリンクに詳細が。<br>
 本記事の末尾に私訳を付す。</p>
 <p>Locks and Oplocks<br>
-<!-- raw HTML omitted --><a href="http://www.samba.org/samba/docs/using_samba/ch08.html">http://www.samba.org/samba/docs/using_samba/ch08.html</a><!-- raw HTML omitted --></p>
-<h2 id="span-styletext-decoration-underline対策oplocksを無効にしろspan"><!-- raw HTML omitted -->対策:Oplocksを無効にしろ<!-- raw HTML omitted --></h2>
+<a href=http://www.samba.org/samba/docs/using_samba/ch08.html>http://www.samba.org/samba/docs/using_samba/ch08.html</a></p>
+<h2 id=span-styletext-decoration-underline対策oplocksを無効にしろspan>対策:Oplocksを無効にしろ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline対策oplocksを無効にしろspan>#</a></h2>
 <p>ここまで分かれば、対策は簡単。<br>
 Oplocksを無効にすればよい。<br>
 無効にする方法には、サーバ側での方法、クライアント側での方法がある。<br>
 クライアントと言っても、たいていはWindowsであろうが、Windowsで対処しようとするとレジストリの変更が必要になる。<br>
 さすがにそれは面倒だ。<br>
 そこでサーバ側、Sambaの設定でOplocksを無効にする。</p>
-<h2 id="span-styletext-decoration-underlinesmbconfでoplocksを無効にするspan"><!-- raw HTML omitted -->smb.confでOplocksを無効にする<!-- raw HTML omitted --></h2>
+<h2 id=span-styletext-decoration-underlinesmbconfでoplocksを無効にするspan>smb.confでOplocksを無効にする<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesmbconfでoplocksを無効にするspan>#</a></h2>
 <p>oplocks = noとすればよい。<br>
 デフォルト無効にしたければ[global]セクションに、共有ごとに無効にしたければ共有のところに書けばよい。<br>
 smb.confのmanは一見、共有ごとにしか指定できないように見えるかもしれないが[global]にも使える。<br>
 また、oplocksはbooleanなのでnoでもfalseでも、はたまた0でも理解してもらえる。</p>
 <p>なお、ファイルごとに有効無効を指定したければveto oplock filesで指定できる。</p>
 <p>smb.confのmanより抜粋</p>
-<pre><code class="language-console" data-lang="console">oplocks (S)
-
-This boolean option tells smbd whether to issue oplocks
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>oplocks (S)
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>This boolean option tells smbd whether to issue oplocks
 (opportunistic locks) to file open requests on this share.
 （略）
-
-Default: oplocks = yes
-</code></pre><p>smb.confのmanよりPARAMETERS抜粋</p>
-<pre><code class="language-console" data-lang="console">PARAMETERS
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>Default: oplocks = yes
+</code></pre></div><p>smb.confのmanよりPARAMETERS抜粋</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>PARAMETERS
 （略）
 The letter G in parentheses indicates that a
 parameter is specific to the [global] section. The letter S indicates
 that a parameter can be specified in a service specific section. All S
 parameters can also be specified in the [global] section - in which
 case they will define the default behavior for all services.
-</code></pre><h2 id="span-styletext-decoration-underlineblocking-locksspan"><!-- raw HTML omitted -->blocking locks<!-- raw HTML omitted --></h2>
+</code></pre></div><h2 id=span-styletext-decoration-underlineblocking-locksspan>blocking locks<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineblocking-locksspan>#</a></h2>
 <p>Sambaはロックの方法を指定できる。<br>
 blocking locksというものである。<br>
 これは、ファイルをロックするときに、特定部分だけをロック（range lock）するか、ファイル全体をロックするか、というものである。<br>
@@ -218,39 +203,39 @@ blocking locksというものである。<br>
 WindowsのRead Cachingに対応してそうな機能である。<br>
 加えてmanを見ると、「range lockに失敗すると、タイムアウトするまで何回かrange lockを再試行する」などと書いてある。<br>
 これも無効にしよう。</p>
-<pre><code class="language-console" data-lang="console">blocking locks (S)
-
-This parameter controls the behavior of smbd(8) when given a
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>blocking locks (S)
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>This parameter controls the behavior of smbd(8) when given a
 request by a client to obtain a byte range lock on a region of an
 open file, and the request has a time limit associated with it.
-
-If this parameter is set and the lock range requested cannot be
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>If this parameter is set and the lock range requested cannot be
 immediately satisfied, samba will internally queue the lock
 request, and periodically attempt to obtain the lock until the
 timeout period expires.
-
-If this parameter is set to no, then samba will behave as previous
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>If this parameter is set to no, then samba will behave as previous
 versions of Samba would and will fail the lock request immediately
 if the lock range cannot be obtained.
-
-Default: blocking locks = yes
-</code></pre><h2 id="span-styletext-decoration-underline設定例span"><!-- raw HTML omitted -->設定例<!-- raw HTML omitted --></h2>
+<span style=color:#960050;background-color:#1e0010>
+</span><span style=color:#960050;background-color:#1e0010></span>Default: blocking locks = yes
+</code></pre></div><h2 id=span-styletext-decoration-underline設定例span>設定例<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline設定例span>#</a></h2>
 <p>以上を踏まえて、以下のように設定<br>
 しょぼい英文は勘弁しておくれ。</p>
-<pre><code class="language-console" data-lang="console">[global]
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>[global]
 (略)
 #
-# Disable oplock
-# It's supposed to improve network performance but causes problems
+<span style=color:#75715e># Disable oplock</span>
+# It<span style=color:#960050;background-color:#1e0010>&#39;</span>s supposed to improve network performance but causes problems
 #
-# See:
+<span style=color:#75715e># See:</span>
 # Opportunistic Locking and Read Caching on Microsoft Windows Networks
 # http://www.dataaccess.com/whitepapers/opportunlockingreadcaching.html
 #
-oplocks = no
+oplocks <span style=color:#f92672>=</span> no
 blocking locks = no
-</code></pre><p>再起動しておしまい。</p>
-<pre><code class="language-console" data-lang="console">$ sudo service samba restart
+</code></pre></div><p>再起動しておしまい。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo service samba restart
 Performing sanity check on Samba configuration: OK
 Stopping winbindd.
 Waiting for PIDS: 667.
@@ -262,13 +247,13 @@ Removing stale Samba tdb files: .. done
 Starting nmbd.
 Starting smbd.
 Starting winbindd.
-</code></pre><h2 id="span-styletext-decoration-underline参考locks-and-oplocks-私訳span"><!-- raw HTML omitted -->（参考）Locks and Oplocks 私訳<!-- raw HTML omitted --></h2>
-<p><a href="http://www.samba.org/samba/docs/using_samba/ch08.html">http://www.samba.org/samba/docs/using_samba/ch08.html</a><br>
+</code></pre></div><h2 id=span-styletext-decoration-underline参考locks-and-oplocks-私訳span>（参考）Locks and Oplocks 私訳<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline参考locks-and-oplocks-私訳span>#</a></h2>
+<p><a href=http://www.samba.org/samba/docs/using_samba/ch08.html>http://www.samba.org/samba/docs/using_samba/ch08.html</a><br>
 Locks and Oplocks</p>
 <p>oplocksの使用によって得られるパフォーマンス増は、大変に望ましいことがほとんどだ。<br>
 しかしながら、クライアントやネットワークのハードウェアの信頼性が怪しいような状況では、クライアントにデータをキャッシュさせることは大きなリスクになり得る。<br>
 クライアントが書き込みのためにファイルを開き、oplockを行う場合を考えてみよう。<br>
-そして他のクライアントが同じファイルを開こうとしたとき、&ldquo;oplock break&quot;要求が最初のクライアントに送られる。<br>
+そして他のクライアントが同じファイルを開こうとしたとき、&ldquo;oplock break"要求が最初のクライアントに送られる。<br>
 もしこの要求が何らかの理由により失敗し、二番目のクライアントがファイルの書き込みをしたとする。<br>
 二つのプロセスが同時に書き込みをするわけだから、ファイルは簡単に壊れてしまうだろう。<br>
 残念なことに上記のケースは現実に起こりうる。<br>
@@ -283,149 +268,55 @@ SMBネットワークにおける複数のWindowsクライアント環境では�
 結果として、タイムアウトにより二番目のクライアントがファイルオープンに失敗し、たぶんデータが壊れた旨のWarning messageも併せて表示されるだろう。</p>
 <p>In most cases, the extra performance resulting from the use of oplocks is highly desirable. However, allowing the client to cache data can be a big risk if either the client or network hardware are unreliable. Suppose a client opens a file for writing, creating an oplock on it. When another client also tries to open the file, an oplock break request is sent to the first client. If this request goes unfulfilled for any reason and the second client starts writing to the file, the file can be easily corrupted as a result of the two processes writing to it concurrently. Unfortunately, this scenario is very real. Uncoordinated behavior such as this has been observed many times among Windows clients in SMB networks (with files served by Windows NT/2000 or Samba). Typically, the affected files are database files, which multiple clients open concurrently for writing.</p>
 <p>A more concrete example of oplock failure occurs when database files are very large. If a client is allowed to oplock this kind of file, there can be a huge delay while the client copies the entire file from the server to cache it, even though it might need to update only one record. The situation goes from bad to worse when another client tries to open the oplocked file. The first client might need to write the entire file back to the server before the second client&rsquo;s file open request can succeed. This results in another huge delay (for both clients), which in practice often results in a failed open due to a timeout on the second client, perhaps along with a message warning of possible database corruption!</p>
-<ul class="pa0">
-  
-   <li class="list">
-     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
-   </li>
-  
-   <li class="list">
-     <a href="/tags/linux" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">linux</a>
-   </li>
-  
-   <li class="list">
-     <a href="/tags/samba" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Samba</a>
-   </li>
-  
-   <li class="list">
-     <a href="/tags/windows" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Windows</a>
-   </li>
-  
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://nobwak.github.io/tags/freebsd/>FreeBSD</a></li>
+<li><a href=https://nobwak.github.io/tags/linux/>linux</a></li>
+<li><a href=https://nobwak.github.io/tags/samba/>Samba</a></li>
+<li><a href=https://nobwak.github.io/tags/windows/>Windows</a></li>
 </ul>
-<div class="mt6">
-        
-      </div>
-    </section>
-
-    <aside class="w-30-l mt6-l">
-
-
-
-
-  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
-    <p class="f5 b mb3">Related</p>
-    <ul class="pa0 list">
-	   
-	     <li  class="mb2">
-          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/">EasyBotterをFreeBSDで動かす</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2014-01-02-freebsd-current%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AFpanicmail%E3%82%92%E3%81%84%E3%81%BE%E3%81%99%E3%81%90%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">FreeBSD-currentユーザはpanicmailをいますぐインストールしろ</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/">[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</a>
-        </li>
-	    
-	     <li  class="mb2">
-          <a href="/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSD(FreeNAS)にPlex Media Serverをインストール</a>
-        </li>
-	    
-    </ul>
+<nav class=paginav>
+<a class=prev href=https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/>
+<span class=title>« Prev Page</span>
+<br>
+<span>zfs snapshotの差分send/recvについて</span>
+</a>
+<a class=next href=https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/>
+<span class=title>Next Page »</span>
+<br>
+<span>Hadoopフレンドリーなデータとは</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし） on twitter" href="https://twitter.com/intent/tweet/?text=Windows7%e3%81%a7samba%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%8c%e3%81%86%e3%81%be%e3%81%8f%e9%96%8b%e3%81%91%e3%81%aa%e3%81%84%e4%bb%b6%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%ef%bc%88oplocks%e6%ad%bb%e3%81%99%e3%81%b9%e3%81%97%ef%bc%89&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-01-26-windows7%25E3%2581%25A7samba%25E3%2581%25AE%25E3%2583%2595%25E3%2582%25A1%25E3%2582%25A4%25E3%2583%25AB%25E3%2581%258C%25E3%2581%2586%25E3%2581%25BE%25E3%2581%258F%25E9%2596%258B%25E3%2581%2591%25E3%2581%25AA%25E3%2581%2584%25E4%25BB%25B6%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6oplocks%25E6%25AD%25BB%25E3%2581%2599%25E3%2581%25B9%25E3%2581%2597%2f&hashtags=FreeBSD%2clinux%2cSamba%2cWindows"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし） on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-01-26-windows7%25E3%2581%25A7samba%25E3%2581%25AE%25E3%2583%2595%25E3%2582%25A1%25E3%2582%25A4%25E3%2583%25AB%25E3%2581%258C%25E3%2581%2586%25E3%2581%25BE%25E3%2581%258F%25E9%2596%258B%25E3%2581%2591%25E3%2581%25AA%25E3%2581%2584%25E4%25BB%25B6%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6oplocks%25E6%25AD%25BB%25E3%2581%2599%25E3%2581%25B9%25E3%2581%2597%2f&title=Windows7%e3%81%a7samba%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%8c%e3%81%86%e3%81%be%e3%81%8f%e9%96%8b%e3%81%91%e3%81%aa%e3%81%84%e4%bb%b6%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%ef%bc%88oplocks%e6%ad%bb%e3%81%99%e3%81%b9%e3%81%97%ef%bc%89&summary=Windows7%e3%81%a7samba%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%8c%e3%81%86%e3%81%be%e3%81%8f%e9%96%8b%e3%81%91%e3%81%aa%e3%81%84%e4%bb%b6%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%ef%bc%88oplocks%e6%ad%bb%e3%81%99%e3%81%b9%e3%81%97%ef%bc%89&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-01-26-windows7%25E3%2581%25A7samba%25E3%2581%25AE%25E3%2583%2595%25E3%2582%25A1%25E3%2582%25A4%25E3%2583%25AB%25E3%2581%258C%25E3%2581%2586%25E3%2581%25BE%25E3%2581%258F%25E9%2596%258B%25E3%2581%2591%25E3%2581%25AA%25E3%2581%2584%25E4%25BB%25B6%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6oplocks%25E6%25AD%25BB%25E3%2581%2599%25E3%2581%25B9%25E3%2581%2597%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし） on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-01-26-windows7%25E3%2581%25A7samba%25E3%2581%25AE%25E3%2583%2595%25E3%2582%25A1%25E3%2582%25A4%25E3%2583%25AB%25E3%2581%258C%25E3%2581%2586%25E3%2581%25BE%25E3%2581%258F%25E9%2596%258B%25E3%2581%2591%25E3%2581%25AA%25E3%2581%2584%25E4%25BB%25B6%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6oplocks%25E6%25AD%25BB%25E3%2581%2599%25E3%2581%25B9%25E3%2581%2597%2f&title=Windows7%e3%81%a7samba%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%8c%e3%81%86%e3%81%be%e3%81%8f%e9%96%8b%e3%81%91%e3%81%aa%e3%81%84%e4%bb%b6%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%ef%bc%88oplocks%e6%ad%bb%e3%81%99%e3%81%b9%e3%81%97%ef%bc%89"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし） on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-01-26-windows7%25E3%2581%25A7samba%25E3%2581%25AE%25E3%2583%2595%25E3%2582%25A1%25E3%2582%25A4%25E3%2583%25AB%25E3%2581%258C%25E3%2581%2586%25E3%2581%25BE%25E3%2581%258F%25E9%2596%258B%25E3%2581%2591%25E3%2581%25AA%25E3%2581%2584%25E4%25BB%25B6%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6oplocks%25E6%25AD%25BB%25E3%2581%2599%25E3%2581%25B9%25E3%2581%2597%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし） on whatsapp" href="https://api.whatsapp.com/send?text=Windows7%e3%81%a7samba%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%8c%e3%81%86%e3%81%be%e3%81%8f%e9%96%8b%e3%81%91%e3%81%aa%e3%81%84%e4%bb%b6%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%ef%bc%88oplocks%e6%ad%bb%e3%81%99%e3%81%b9%e3%81%97%ef%bc%89%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2014-01-26-windows7%25E3%2581%25A7samba%25E3%2581%25AE%25E3%2583%2595%25E3%2582%25A1%25E3%2582%25A4%25E3%2583%25AB%25E3%2581%258C%25E3%2581%2586%25E3%2581%25BE%25E3%2581%258F%25E9%2596%258B%25E3%2581%2591%25E3%2581%25AA%25E3%2581%2584%25E4%25BB%25B6%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6oplocks%25E6%25AD%25BB%25E3%2581%2599%25E3%2581%25B9%25E3%2581%2597%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし） on telegram" href="https://telegram.me/share/url?text=Windows7%e3%81%a7samba%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%8c%e3%81%86%e3%81%be%e3%81%8f%e9%96%8b%e3%81%91%e3%81%aa%e3%81%84%e4%bb%b6%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6%ef%bc%88oplocks%e6%ad%bb%e3%81%99%e3%81%b9%e3%81%97%ef%bc%89&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-01-26-windows7%25E3%2581%25A7samba%25E3%2581%25AE%25E3%2583%2595%25E3%2582%25A1%25E3%2582%25A4%25E3%2583%25AB%25E3%2581%258C%25E3%2581%2586%25E3%2581%25BE%25E3%2581%258F%25E9%2596%258B%25E3%2581%2591%25E3%2581%25AA%25E3%2581%2584%25E4%25BB%25B6%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6oplocks%25E6%25AD%25BB%25E3%2581%2599%25E3%2581%25B9%25E3%2581%2597%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
 </div>
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
-    &copy; 2020 Nobwak&#39;s Lair
-  </a>
-    <div><div id="sharing">
-<font color="FFFFFF">Share with: </font>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f" class="facebook" aria-label="share on Facebook">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
-
-  </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2005-08-16-ice_latte_but_no_ice_please%25E3%2581%25A8%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2590%25E3%2583%2583%25E3%2582%25AF%25E3%2582%25B9%25E8%25B2%25AF%25E9%2587%2591%2f&text=Ice%20latte%2c%20but%20no%20ice%20please%e3%81%a8%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%90%e3%83%83%e3%82%af%e3%82%b9%e8%b2%af%e9%87%91" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-  </a>
-</div>
-</div>
-    <div>
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-</div>
-  </div>
 </footer>
-
-    
-
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
-
-
-  </body>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
 </html>

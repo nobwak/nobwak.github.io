@@ -1,23 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>plexmediaserver on Nobwak&#39;s Lair</title>
+    <title>plexmediaserver on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/categories/plexmediaserver/</link>
-    <description>Recent content in plexmediaserver on Nobwak&#39;s Lair</description>
+    <description>Recent content in plexmediaserver on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Thu, 27 Aug 2015 23:16:28 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/categories/plexmediaserver/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 27 Aug 2015 23:16:28 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/categories/plexmediaserver/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[FreeBSD][メモ] PlexConnectに関する情報</title>
       <link>https://nobwak.github.io/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/</link>
       <pubDate>Thu, 27 Aug 2015 23:16:28 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/</guid>
-      <description>PlexConnect https://github.com/iBaa/PlexConnect 最低限入れておくべきもの（jailを想定） plexmediaserver（これは当然） ca_root_nss python2.* スタートアップスクリプト /usr/local/</description>
+      <description>PlexConnect https://github.com/iBaa/PlexConnect最低限入れておくべきもの（jailを想定） plexmediaserv</description>
     </item>
     
     <item>

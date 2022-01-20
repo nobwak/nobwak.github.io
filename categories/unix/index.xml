@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>UNIX on Nobwak&#39;s Lair</title>
+    <title>UNIX on nobwak&#39;s Lair</title>
     <link>https://nobwak.github.io/categories/unix/</link>
-    <description>Recent content in UNIX on Nobwak&#39;s Lair</description>
+    <description>Recent content in UNIX on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-JP</language>
-    <lastBuildDate>Thu, 30 Oct 2014 22:52:56 +0900</lastBuildDate>
-    
-	<atom:link href="https://nobwak.github.io/categories/unix/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 30 Oct 2014 22:52:56 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/categories/unix/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>rsyncのディレクトリ指定でエスケープの必要な文字を含めるには</title>
       <link>https://nobwak.github.io/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/</link>
@@ -72,16 +71,11 @@
       
       <guid>https://nobwak.github.io/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/</guid>
       <description>&lt;p&gt;ssh経由bashでコマンド実行するときの環境変数を有効にするには。&lt;/p&gt;
-
 &lt;p&gt;以下のようにして、リモートホストでコマンドを実行する場合、リモートでの環境変数が有効にならない事がある。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-console&#34;&gt;$ ssh user@remotehost /path/command
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。&lt;br /&gt;
-おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。&lt;br /&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;$ ssh user@remotehost /path/command
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。&lt;br&gt;
+おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。&lt;br&gt;
 以下にまとめる。&lt;/p&gt;
-
 &lt;p&gt;なお、複数ホストを用意するのが面倒なので、本記事で実例を示す場合には接続先をlocalhostしている。&lt;/p&gt;</description>
     </item>
     
@@ -217,7 +211,7 @@
       <pubDate>Tue, 12 Feb 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-02-12-solaris_linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E5%B8%AF%E5%9F%9F%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; metric 0 mtu 1500 options=9b&amp;amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&amp;gt; ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (&amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot;&amp;gt;1000baseTX &amp;amp;#60;full-duplex&amp;gt;&amp;lt;/span&amp;gt;) status: active Boldで示し</description>
+      <description>俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; metric 0 mtu 1500 options=9b&amp;amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&amp;gt; ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (&amp;lt;span style=&amp;#34;font-weight:bold;&amp;#34;&amp;gt;1000baseTX &amp;amp;#60;full-duplex&amp;gt;&amp;lt;/span&amp;gt;) status: active Boldで示し</description>
     </item>
     
     <item>
@@ -266,6 +260,15 @@
     </item>
     
     <item>
+      <title>sources.listに書かれるmain, restrictedなどのコンポーネントの意味</title>
+      <link>https://nobwak.github.io/posts/2007-09-13-sources.list%E3%81%AB%E6%9B%B8%E3%81%8B%E3%82%8C%E3%82%8Bmain_restricted%E3%81%AA%E3%81%A9%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E6%84%8F%E5%91%B3/</link>
+      <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-09-13-sources.list%E3%81%AB%E6%9B%B8%E3%81%8B%E3%82%8C%E3%82%8Bmain_restricted%E3%81%AA%E3%81%A9%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E6%84%8F%E5%91%B3/</guid>
+      <description>コンポーネントを説明した&amp;lt;a href=&amp;quot;http://www.ubuntu.com/community/ubuntustory/components&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.ubuntu.com/c</description>
+    </item>
+    
+    <item>
       <title>Ubuntu 7.04 (”Feisty”)からUbuntu 7.10 (”Gutsy”)へのアップグレード</title>
       <link>https://nobwak.github.io/posts/2007-09-13-ubuntu_7.04_feisty%E3%81%8B%E3%82%89ubuntu_7.10_gutsy%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</link>
       <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
@@ -281,15 +284,6 @@
       
       <guid>https://nobwak.github.io/posts/2007-09-13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
       <description>&amp;lt;a href=&amp;quot;http://www.zabbix.com/index.php&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;ZABBIX&amp;lt;/a&amp;gt;とはフリーの統合監視ソフト。 Webインタフェー</description>
-    </item>
-    
-    <item>
-      <title>sources.listに書かれるmain, restrictedなどのコンポーネントの意味</title>
-      <link>https://nobwak.github.io/posts/2007-09-13-sources.list%E3%81%AB%E6%9B%B8%E3%81%8B%E3%82%8C%E3%82%8Bmain_restricted%E3%81%AA%E3%81%A9%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E6%84%8F%E5%91%B3/</link>
-      <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/posts/2007-09-13-sources.list%E3%81%AB%E6%9B%B8%E3%81%8B%E3%82%8C%E3%82%8Bmain_restricted%E3%81%AA%E3%81%A9%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E6%84%8F%E5%91%B3/</guid>
-      <description>コンポーネントを説明した&amp;lt;a href=&amp;quot;http://www.ubuntu.com/community/ubuntustory/components&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.ubuntu.com/c</description>
     </item>
     
     <item>
@@ -356,21 +350,21 @@
     </item>
     
     <item>
-      <title>WindowsでもOpenSSLでファイルの暗号化を</title>
-      <link>https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/</link>
-      <pubDate>Mon, 16 Oct 2006 01:00:00 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/</guid>
-      <description>会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(&amp;lt;a href=&amp;quot;http://www.openssl.org/related/binaries.html&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;</description>
-    </item>
-    
-    <item>
       <title>ports祭り開催中(FreeBSD)</title>
       <link>https://nobwak.github.io/posts/2006-10-16-ports%E7%A5%AD%E3%82%8A%E9%96%8B%E5%82%AC%E4%B8%ADfreebsd/</link>
       <pubDate>Mon, 16 Oct 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-10-16-ports%E7%A5%AD%E3%82%8A%E9%96%8B%E5%82%AC%E4%B8%ADfreebsd/</guid>
       <description>In addition to the core GNOME ports, &amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot;&amp;gt;almost 500 ports&amp;lt;/span&amp;gt; were also touched to chase the GNOME move from X11BASE to LOCALBASE and fix build problems with the new freetype2. (太字は俺) アッー!</description>
+    </item>
+    
+    <item>
+      <title>WindowsでもOpenSSLでファイルの暗号化を</title>
+      <link>https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/</link>
+      <pubDate>Mon, 16 Oct 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/</guid>
+      <description>会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(&amp;lt;a href=&amp;quot;http://www.openssl.org/related/binaries.html&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;</description>
     </item>
     
     <item>

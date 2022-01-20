@@ -1,1041 +1,643 @@
-<!DOCTYPE html>
-<html lang="ja-JP">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Nobwak&#39;s Lair </title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.55.6" />
-    
-    
-      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-    
-
-    
-    
-      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
-    
-
-    
-
-    
-      
-    
-
-    
-      <link href="https://nobwak.github.io/categories/unix/index.xml" rel="alternate" type="application/rss+xml" title="Nobwak&#39;s Lair" />
-      <link href="https://nobwak.github.io/categories/unix/index.xml" rel="feed" type="application/rss+xml" title="Nobwak&#39;s Lair" />
-    
-
-    <meta property="og:title" content="UNIX" />
-<meta property="og:description" content="Where nobwak sleeps" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://nobwak.github.io/categories/unix/" />
-
-<meta property="og:updated_time" content="2014-10-30T22:52:56&#43;09:00"/>
-
-<meta itemprop="name" content="UNIX">
-<meta itemprop="description" content="Where nobwak sleeps">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="UNIX"/>
-<meta name="twitter:description" content="Where nobwak sleeps"/>
-
-      
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-38155461-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-    
-  </head>
-
-  <body class="ma0 avenir bg-near-white production">
-
-    
-
-  
-  
-  <header class="cover bg-top" style="background-image: url('https://nobwak.github.io/wp-content/cropped-header.jpg');">
-    <div class="bg-black-60">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
-      Nobwak&#39;s Lair
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-    </div>
-  </div>
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>UNIX | nobwak's Lair</title>
+<meta name=keywords content>
+<meta name=description content="Where nobwak livess">
+<meta name=author content="Me">
+<link rel=canonical href=https://nobwak.github.io/categories/unix/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<link rel=preload href=/apple-touch-icon.png as=image>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<link rel=alternate type=application/rss+xml href=https://nobwak.github.io/categories/unix/index.xml>
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="UNIX">
+<meta property="og:description" content="Where nobwak livess">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nobwak.github.io/categories/unix/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="og:site_name" content="nobwak's Lair">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="UNIX">
+<meta name=twitter:description content="Where nobwak livess">
+</head>
+<body class=list id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
+<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://nobwak.github.io/posts/ title=posts>
+<span>posts</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
+<span>search</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/categories/ title=categories>
+<span>categories</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io/tags/ title=tags>
+<span>tags</span>
+</a>
+</li>
+<li>
+<a href=https://nobwak.github.io title="nobwak lair">
+<span>nobwak lair</span>
+</a>
+</li>
+</ul>
 </nav>
-
-      <div class="tc-l pv4 pv6-l ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
-          UNIX
-        </h1>
-        
-      </div>
-    </div>
-  </header>
-
-
-    <main class="pb7" role="main">
-      
-  <article class="cf pa3 pa4-m pa4-l">
-    <div class="measure-wide-l center f4 lh-copy nested-copy-line-height nested-links nested-img mid-gray">
-      <p>Below you will find pages that utilize the taxonomy term “UNIX”</p>
-    </div>
-  </article>
-  <div class="mw8 center">    
-    <section class="flex-ns flex-wrap justify-around mt5">
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/" class="link black dim">
-        rsyncのディレクトリ指定でエスケープの必要な文字を含めるには
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      先に結論:ダブルクオーテーションで括ればよい。 rsyncの対象ディレクトリでカッコ「()」など、エスケープの必要な文字の含まれているケースが
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2013-11-04-vim%E3%81%A7%E3%81%BE%E3%81%95%E3%81%8B%E3%81%AE%E3%82%BF%E3%83%96%E8%A1%A8%E7%A4%BA/" class="link black dim">
-        vimでまさかのタブ表示
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      結論 vim -pで複数ファイルをタブ表示できる。 .profileにaliasを書いとけ。 以上。 -pオプション vimのmanを眺めていたらこんな記載
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_&#43;_php5_&#43;_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/" class="link black dim">
-        nginxとlighttpdで悩んでlighttpd &#43; php5 &#43; fastcgiのインストールと設定へ
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2013-08-04-%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%A4%89%E6%8F%9B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="link black dim">
-        仮想マシンイメージの変換について
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      VMWare PlayerのイメージをESXi用に変換するには VMWareが提供しているコンバータを使う。 以下、まとめ。 なお、動機としては、「手元のVM
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2013-07-28-%E3%82%B3%E3%83%BC%E3%83%89%E3%82%A8%E3%83%A9%E3%83%BC%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/" class="link black dim">
-        コード、エラー、設定ファイル共有サイトのすすめ
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2013-07-28-hadoophadoop_%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3psuedo-distributed%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E8%A8%AD%E5%AE%9A/" class="link black dim">
-        [Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Standaloneモードでは、複数のホストを使った処理は行わない。デーモンも動かさない。 しかしHadoopは分散処理をしてナンボである。 分
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/" class="link black dim">
-        [FreeBSD][Linux] ssh経由でコマンド実行すると環境変数を読まないでござる
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>ssh経由bashでコマンド実行するときの環境変数を有効にするには。</p>
-
-<p>以下のようにして、リモートホストでコマンドを実行する場合、リモートでの環境変数が有効にならない事がある。</p>
-
-<pre><code class="language-console">$ ssh user@remotehost /path/command
-</code></pre>
-
-<p>これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。<br />
-おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。<br />
-以下にまとめる。</p>
-
-<p>なお、複数ホストを用意するのが面倒なので、本記事で実例を示す場合には接続先をlocalhostしている。</p>
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2013-07-23-freebsd_hadoop%E3%81%AEports%E3%81%8B%E3%82%89%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" class="link black dim">
-        [FreeBSD] Hadoopのportsからのインストール
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Hadoopをインストールしたのでメモ。 野良HadoopとportsのHadoop Hadoopを野良で入れるか、portsから入れるか。 結局
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2013-02-11-%E3%82%A2%E3%83%BC%E3%82%AB%E3%82%A4%E3%83%90lz4%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%89%E5%9C%A7%E7%B8%AE%E3%81%AF%E9%80%9F%E3%81%99%E3%81%8E%E7%AC%91%E3%81%A3%E3%81%9F/" class="link black dim">
-        アーカイバlz4を試してみたら（圧縮は）速すぎ笑った
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      lz4という圧縮形式があることを知った。 なんでも、なかなかの圧縮効率を誇るわりには、圧縮伸長が速いとのこと。 公式サイト通りにいえば、圧縮では
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2012-03-03-movabletype/" class="link black dim">
-        MovableType
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      おなごもすなるMovableTypeを。 まず注意。 Xの入っていないサーバにインストールするときには、あらかじめImageMagick-nox
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" class="link black dim">
-        popサーバ、dovecot2のインストール
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      &lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;popサーバを構築する。&lt;/span&gt; LAN内にゆるーく作るので、とにか
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2010-02-07-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" class="link black dim">
-        FreeBSDでのGNOMEインストール
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20071125/p1&quot; target=&quot;_blank&quot;&gt;これ&lt;/a&gt;、古い記事なのに未だに見られているようなのでアップデー
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2009-05-02-dd%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8Bbs%E3%81%AE%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%94%E3%81%A8%E3%81%AE%E5%80%A4%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="link black dim">
-        ddに与えるbsのメディアごとの値について
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      &lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/&quot; target=&quot;_blank&quot;&gt;FreeBSD-questionsメーリングリスト&lt;/a&gt;からのメ
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2009-04-23-%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A5%E5%8A%9B%E3%81%AE%E8%A8%AD%E5%AE%9A/" class="link black dim">
-        日本語入力の設定
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      日本語入力は、GNOMEだと勝手にやってくれたような気がしたが、XFCE4とかfluxboxだと自分でやる必要がある。 ただ、そんなに難しいわ
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2009-04-20-roundcube%E3%82%92%E5%85%A5%E3%82%8C%E3%81%9F/" class="link black dim">
-        roundcubeを入れた
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      webベースのIMAPクライアントであるroundcube（&lt;a href=&quot;http://roundcube.net/&quot; target=&quot;_blank&quot;&gt;本家&lt
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2009-03-18-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE%EF%BC%92/" class="link black dim">
-        Xorg7.4のキーボード設定をkwsk その２
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090316/p1&quot; target=&quot;_blank&quot;&gt;Xorg7.4のキーボード設定をkwsk その1&lt;/a&gt;の続き。 で話
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2009-03-16-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE1/" class="link black dim">
-        Xorg7.4のキーボード設定をkwsk その1
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      HALのキーボード設定ファイルの書き方が分からない。 ググれば設定ファイルは山ほど出てくるが、どう書くかを説明したサイトはなかなか引っかからな
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2009-02-15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/" class="link black dim">
-        sshログインしたユーザのディレクトリを制限するには。
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      要するにchroot。 リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2008-12-17-vsftpd%E3%81%AE%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%AA%E3%82%B9%E3%83%88_%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E8%A8%AD%E5%AE%9A/" class="link black dim">
-        vsftpdのホワイトリスト/ブラックリストの設定
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      仕事でvsftpdを入れたのでメモ。 ホワイトリスト/ブラックリストの設定 userlist_fileで指定するファイル（以降、userlist
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2008-10-31-%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E6%83%85%E5%A0%B1%E3%82%92%E8%AA%AD%E3%81%BF%E5%87%BA%E3%81%99dmidecode/" class="link black dim">
-        ハードウェアの情報を読み出すdmidecode
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      SMBIOSからハードウェアの情報を読み出してくれるコマンドdmidecode（&lt;a href=&quot;http://www.nongnu.org/dmidecode/&quot; target=&quot;_blank&quot
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2008-02-19-%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%8B%E3%82%89%E6%8B%A1%E5%BC%B5%E5%AD%90%E3%82%92%E5%88%A4%E5%AE%9A%E3%81%99%E3%82%8B/" class="link black dim">
-        シェルスクリプトで、ファイル名から拡張子を判定する
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      あくまでも、ファイル名から拡張子を判断するだけ。 以下に、$filenameとして与えられたファイルが拡張子.gzを持つかどうかを確認するシェ
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2008-02-12-solaris_linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E5%B8%AF%E5%9F%9F%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/" class="link black dim">
-        Solaris, LinuxでNICのリンクスピード（帯域）、モードを知るには
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500 options=9b&amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&gt; ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (&lt;span style=&quot;font-weight:bold;&quot;&gt;1000baseTX &amp;#60;full-duplex&gt;&lt;/span&gt;) status: active Boldで示し
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-11-27-portspackage%E5%91%A8%E3%82%8A%E3%81%AE%E5%AE%9A%E6%9C%9F%E4%BD%9C%E6%A5%AD%E3%82%92periodic%E3%81%A7/" class="link black dim">
-        ports/package周りの定期作業をperiodicで。
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      FreeBSDを長く運用していると、/usr/ports/distfiles配下に、portsで使うソースファイルがだんだんと溜まっていき、
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" class="link black dim">
-        FreeBSDでのGNOMEインストール
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 &lt;span style=&quot;font-style:italic;&quot;&gt;* 2008/11追記: 過疎blogにも
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-10-22-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AE%E8%A1%A8%E7%A4%BA%E5%87%BA%E6%9D%A5%E3%82%8Bvi/" class="link black dim">
-        日本語の表示出来るvi
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      そんなんjvimとかnviで決まりなわけだが、次の理由によりvim-liteをインストールした。 該当のFreeBSDマシンは純粋なサーバ運用
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-10-21-freebsdmake.conf%E3%81%AEno%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%8C/" class="link black dim">
-        FreeBSD:make.confのNOオプションが。
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      FreeBSD7.0ではmake.confのNO_***オプションがsrc.confに。 FreeBSDはシステムを再構築する際、/etc/m
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-10-13-ubuntu%E4%B8%8Avmware-player%E3%81%ABfreebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2/" class="link black dim">
-        ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      VMware Playerの入手 &lt;a href=&quot;http://www.vmware.com/download/player/&quot; target=&quot;_blank&quot;&gt;http://www.vmware.com/download/player/&lt;/a&gt; tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeの
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-09-13-ubuntu_7.04_feisty%E3%81%8B%E3%82%89ubuntu_7.10_gutsy%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/" class="link black dim">
-        Ubuntu 7.04 (”Feisty”)からUbuntu 7.10 (”Gutsy”)へのアップグレード
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Ubuntuを7.04にアップグレードしたばかりだが、ある事情により7.10に続けてアップグレードしたその顛末。 とは言っても、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070906/p1&quot; t
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-09-13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" class="link black dim">
-        ZABBIXのインストール
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      &lt;a href=&quot;http://www.zabbix.com/index.php&quot; target=&quot;_blank&quot;&gt;ZABBIX&lt;/a&gt;とはフリーの統合監視ソフト。 Webインタフェー
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-09-13-sources.list%E3%81%AB%E6%9B%B8%E3%81%8B%E3%82%8C%E3%82%8Bmain_restricted%E3%81%AA%E3%81%A9%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E6%84%8F%E5%91%B3/" class="link black dim">
-        sources.listに書かれるmain, restrictedなどのコンポーネントの意味
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      コンポーネントを説明した&lt;a href=&quot;http://www.ubuntu.com/community/ubuntustory/components&quot; target=&quot;_blank&quot;&gt;http://www.ubuntu.com/c
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-09-06-ubuntu_6.10_edgy_eft%E3%81%8B%E3%82%89ubuntu_7.04_feisty_fawn%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88/" class="link black dim">
-        Ubuntu 6.10 (”Edgy Eft”)からUbuntu 7.04 (”Feisty Fawn”)へのアップデート
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      俺メモ。 Ubuntu 6.10から7.04へマニュアルアップグレードしたので、その時のメモ。 といっても、Ubuntu公式サイトに書いてある通り進めるだけ
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-09-06-ubuntu7.04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2_ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F/" class="link black dim">
-        Ubuntu7.04へのアップグレードでなぜかapache2 SSLが動かなくなった。
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070220/p1&quot; target=&quot;_blank&quot;&gt;6.10のときにインストールしたApache2+SSL&lt;/a&gt;だが
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-04-25-php5.2.1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89/" class="link black dim">
-        PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      「a,b,&quot;cde,fg&quot;,e」 こんなCSVをPHPで扱おうとすると、結構面倒くさい。 &lt;a href=&quot;http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html&quot; target=&quot;_b
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-03-03-mt-daapd/" class="link black dim">
-        mt-daapd
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッ
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-03-02-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89%E5%A4%89%E6%8F%9B/" class="link black dim">
-        ファイル名の文字コード変換
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      俺メモ ファイルの中身ではなく、ファイル名そのものの文字コードを変換するには、convmv&lt;a class=&quot;keyword&quot; href=&quot;http://d.hatena.ne.jp/keyword/convmv?mode=edit&quot; rel=&quot;nofollow&
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-02-20-ubuntu6.10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89/" class="link black dim">
-        Ubuntu6.10でのApache/SSL構築
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ ◎apache2のインストー
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2007-02-17-ubuntu%E3%82%92%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" class="link black dim">
-        Ubuntuをネットワークインストール
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Vaio N505A/BPにLinuxをインストールしようと思った顛末をダラダラと書く。 さっそくだが、マシンのスペックは下記の通りとても厳しい。 モバ
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/" class="link black dim">
-        WindowsでもOpenSSLでファイルの暗号化を
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(&lt;a href=&quot;http://www.openssl.org/related/binaries.html&quot; target=&quot;_blank&quot;&
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-10-16-ports%E7%A5%AD%E3%82%8A%E9%96%8B%E5%82%AC%E4%B8%ADfreebsd/" class="link black dim">
-        ports祭り開催中(FreeBSD)
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      In addition to the core GNOME ports, &lt;span style=&quot;font-weight:bold;&quot;&gt;almost 500 ports&lt;/span&gt; were also touched to chase the GNOME move from X11BASE to LOCALBASE and fix build problems with the new freetype2. (太字は俺) アッー!
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-09-17-freebsd%E3%83%8D%E3%82%BF__portutill/" class="link black dim">
-        FreeBSDネタ : portutil
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      2chの&lt;a href=&quot;http://pc8.2ch.net/test/read.cgi/unix/1149936019/371-&quot; target=&quot;_blank&quot;&gt;FreeBSDを語ろう&lt;/a&gt;スレで、pkg/po
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-08-30-%E3%81%82%E3%82%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%82%92%E6%8E%A2%E3%81%99/" class="link black dim">
-        あるファイル、ディスクを使用しているプロセスを探す
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      FreeBSD-users-MLで面白い情報が流れていたのでメモ代わりに。 各UNIXにおいて、あるファイルを使用しているプロセスを探す代表的
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-06-06-%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%83%8F%E3%82%AB%E3%83%BCcharlie_root/" class="link black dim">
-        スーパーハカーCharlie Root
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      世のUNIXアドミニストレーターを時に驚かせる伝説のスーパーハカー、Charlie Rootのひみつ。 -- Charles Henry Rootは、大リーグのシカゴカブス
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/" class="link black dim">
-        portsnapの罠
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20060501#p1&quot; target=&quot;_blank&quot;&gt;先日&lt;/a&gt;の日記でも少し触れたportsnap。日記ではさらりと
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-05-08-freebsd_6.1-release/" class="link black dim">
-        FreeBSD 6.1-RELEASE
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      公式発表はまだだが、6.1-RがFTPにアップされていたのでバージョンアップした。 俺のいるのはRELENG_6だけど。 $ uname -a FreeBSD ***.* 6.1-STABLE FreeBSD 6.1-STABLE #0: Sun May
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-05-01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap/" class="link black dim">
-        認証の必要なPROXY越しのportsnap
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-04-27-freebsd%E3%81%A7ext2%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E6%89%B1%E3%81%86/" class="link black dim">
-        FreeBSDでext2ファイルシステムを扱う
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      マウントにはmount_ext2fsコマンドを使用。 mountコマンドの-tオプションに与えるファイルシステムタイプにはext2fsが使用可
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-04-27-debian%E3%82%92freebsd%E3%81%AEqemu%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" class="link black dim">
-        DebianをFreeBSDのqemuにインストール。
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      ・qemuのインストール portsからqemu, kqemu-kmodをインストール。 # portinstall -m-DWITH_KQEMU qemu # portinstall kqemu-kmod kqemu-kmodはqemuのアクセラレ
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-04-17-desktopbsd/" class="link black dim">
-        DesktopBSD
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      受けるつもりで友人に勉強方法も聞き、参考書も買った情報処理試験。 申し込みすら忘れていたことに昨日気がついた俺が来ましたよ。 それはさておきFr
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/2006-04-11-knoppix%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86/" class="link black dim">
-        Knoppixありがとう。
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      仕事の助けにとSambaサーバをさせていたLinuxマシンが、異音を発し操作を受け付けなくなった。最終的に画面にDisk I/Oエラーを表示し
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-    </section>
-  </div>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
-    &copy; 2019 Nobwak&#39;s Lair
-  </a>
-    <div><div id="sharing">
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fcategories%2fgit%2f" class="facebook" aria-label="share on Facebook">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
-
-  </a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2fnobwak.github.io%2fcategories%2fgit%2f&text=git" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-  </a>
-  <a href="http://twitter.com/intent/tweet?url=%2fcategories%2fgit%2f&text=git" target="_blank" title="Tweet" class="twitter" aria-label="share on Twitter">
-    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-  </a>
-</div>
-</div>
-    <div>
-
-
-
-<a href="https://twitter.com/nobwak" target="_blank" class="link-transition twitter link dib z-999 pt3 pt0-l mr1" title="Twitter link" rel="noopener" aria-label="follow on Twitter——Opens in a new window">
-  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-
-<a href="nobwak" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
-  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
-</svg>
-
-<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
-</svg>
-</span></a>
-
-
-
-
-</div>
-  </div>
+</header>
+<main class=main>
+<header class=page-header><div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/categories/>Categories</a></div>
+<h1>UNIX</h1>
+</header>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>rsyncのディレクトリ指定でエスケープの必要な文字を含めるには
+</h2>
+</header>
+<section class=entry-content>
+<p>先に結論:ダブルクオーテーションで括ればよい。 rsyncの対象ディレクトリでカッコ「()」など、エスケープの必要な文字の含まれているケースが...</p>
+</section>
+<footer class=entry-footer><span title="2014-10-30 22:52:56 +0900 JST">October 30, 2014</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to rsyncのディレクトリ指定でエスケープの必要な文字を含めるには" href=https://nobwak.github.io/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>vimでまさかのタブ表示
+</h2>
+</header>
+<section class=entry-content>
+<p>結論 vim -pで複数ファイルをタブ表示できる。 .profileにaliasを書いとけ。 以上。 -pオプション vimのmanを眺めていたらこんな記載...</p>
+</section>
+<footer class=entry-footer><span title="2013-11-04 20:03:18 +0900 JST">November 4, 2013</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to vimでまさかのタブ表示" href=https://nobwak.github.io/posts/2013-11-04-vim%E3%81%A7%E3%81%BE%E3%81%95%E3%81%8B%E3%81%AE%E3%82%BF%E3%83%96%E8%A1%A8%E7%A4%BA/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ
+</h2>
+</header>
+<section class=entry-content>
+<p>apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま...</p>
+</section>
+<footer class=entry-footer><span title="2013-10-23 20:09:54 +0900 JST">October 23, 2013</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ" href=https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_+_php5_+_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>仮想マシンイメージの変換について
+</h2>
+</header>
+<section class=entry-content>
+<p>VMWare PlayerのイメージをESXi用に変換するには VMWareが提供しているコンバータを使う。 以下、まとめ。 なお、動機としては、「手元のVM...</p>
+</section>
+<footer class=entry-footer><span title="2013-08-04 19:13:14 +0900 JST">August 4, 2013</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to 仮想マシンイメージの変換について" href=https://nobwak.github.io/posts/2013-08-04-%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%A4%89%E6%8F%9B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>コード、エラー、設定ファイル共有サイトのすすめ
+</h2>
+</header>
+<section class=entry-content>
+<p>sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ...</p>
+</section>
+<footer class=entry-footer><span title="2013-07-28 23:00:32 +0900 JST">July 28, 2013</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to コード、エラー、設定ファイル共有サイトのすすめ" href=https://nobwak.github.io/posts/2013-07-28-%E3%82%B3%E3%83%BC%E3%83%89%E3%82%A8%E3%83%A9%E3%83%BC%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定
+</h2>
+</header>
+<section class=entry-content>
+<p>Standaloneモードでは、複数のホストを使った処理は行わない。デーモンも動かさない。 しかしHadoopは分散処理をしてナンボである。 分...</p>
+</section>
+<footer class=entry-footer><span title="2013-07-28 00:23:38 +0900 JST">July 28, 2013</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to [Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定" href=https://nobwak.github.io/posts/2013-07-28-hadoophadoop_%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3psuedo-distributed%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E8%A8%AD%E5%AE%9A/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>[FreeBSD][Linux] ssh経由でコマンド実行すると環境変数を読まないでござる
+</h2>
+</header>
+<section class=entry-content>
+<p>ssh経由bashでコマンド実行するときの環境変数を有効にするには。
+以下のようにして、リモートホストでコマンドを実行する場合、リモートでの環境変数が有効にならない事がある。
+$ ssh user@remotehost /path/command これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。
+おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。
+以下にまとめる。
+なお、複数ホストを用意するのが面倒なので、本記事で実例を示す場合には接続先をlocalhostしている。
+...</p>
+</section>
+<footer class=entry-footer><span title="2013-07-25 23:21:35 +0900 JST">July 25, 2013</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to [FreeBSD][Linux] ssh経由でコマンド実行すると環境変数を読まないでござる" href=https://nobwak.github.io/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>[FreeBSD] Hadoopのportsからのインストール
+</h2>
+</header>
+<section class=entry-content>
+<p>Hadoopをインストールしたのでメモ。 野良HadoopとportsのHadoop Hadoopを野良で入れるか、portsから入れるか。 結局...</p>
+</section>
+<footer class=entry-footer><span title="2013-07-23 22:43:34 +0900 JST">July 23, 2013</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to [FreeBSD] Hadoopのportsからのインストール" href=https://nobwak.github.io/posts/2013-07-23-freebsd_hadoop%E3%81%AEports%E3%81%8B%E3%82%89%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>アーカイバlz4を試してみたら（圧縮は）速すぎ笑った
+</h2>
+</header>
+<section class=entry-content>
+<p>lz4という圧縮形式があることを知った。 なんでも、なかなかの圧縮効率を誇るわりには、圧縮伸長が速いとのこと。 公式サイト通りにいえば、圧縮では...</p>
+</section>
+<footer class=entry-footer><span title="2013-02-11 22:51:32 +0900 JST">February 11, 2013</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to アーカイバlz4を試してみたら（圧縮は）速すぎ笑った" href=https://nobwak.github.io/posts/2013-02-11-%E3%82%A2%E3%83%BC%E3%82%AB%E3%82%A4%E3%83%90lz4%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%89%E5%9C%A7%E7%B8%AE%E3%81%AF%E9%80%9F%E3%81%99%E3%81%8E%E7%AC%91%E3%81%A3%E3%81%9F/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>MovableType
+</h2>
+</header>
+<section class=entry-content>
+<p>おなごもすなるMovableTypeを。 まず注意。 Xの入っていないサーバにインストールするときには、あらかじめImageMagick-nox...</p>
+</section>
+<footer class=entry-footer><span title="2012-03-03 01:00:00 +0900 JST">March 3, 2012</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to MovableType" href=https://nobwak.github.io/posts/2012-03-03-movabletype/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>popサーバ、dovecot2のインストール
+</h2>
+</header>
+<section class=entry-content>
+<p>&lt;span style="font-weight:bold;" class="deco">popサーバを構築する。&lt;/span> LAN内にゆるーく作るので、とにか...</p>
+</section>
+<footer class=entry-footer><span title="2012-03-02 01:00:00 +0900 JST">March 2, 2012</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to popサーバ、dovecot2のインストール" href=https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>FreeBSDでのGNOMEインストール
+</h2>
+</header>
+<section class=entry-content>
+<p>&lt;a href="http://d.hatena.ne.jp/flageo/20071125/p1" target="_blank">これ&lt;/a>、古い記事なのに未だに見られているようなのでアップデー...</p>
+</section>
+<footer class=entry-footer><span title="2010-02-07 01:00:00 +0900 JST">February 7, 2010</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to FreeBSDでのGNOMEインストール" href=https://nobwak.github.io/posts/2010-02-07-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>ddに与えるbsのメディアごとの値について
+</h2>
+</header>
+<section class=entry-content>
+<p>&lt;a href="http://lists.freebsd.org/pipermail/freebsd-questions/" target="_blank">FreeBSD-questionsメーリングリスト&lt;/a>からのメ...</p>
+</section>
+<footer class=entry-footer><span title="2009-05-02 01:00:00 +0900 JST">May 2, 2009</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to ddに与えるbsのメディアごとの値について" href=https://nobwak.github.io/posts/2009-05-02-dd%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8Bbs%E3%81%AE%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%94%E3%81%A8%E3%81%AE%E5%80%A4%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>日本語入力の設定
+</h2>
+</header>
+<section class=entry-content>
+<p>日本語入力は、GNOMEだと勝手にやってくれたような気がしたが、XFCE4とかfluxboxだと自分でやる必要がある。 ただ、そんなに難しいわ...</p>
+</section>
+<footer class=entry-footer><span title="2009-04-23 01:00:00 +0900 JST">April 23, 2009</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to 日本語入力の設定" href=https://nobwak.github.io/posts/2009-04-23-%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A5%E5%8A%9B%E3%81%AE%E8%A8%AD%E5%AE%9A/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>roundcubeを入れた
+</h2>
+</header>
+<section class=entry-content>
+<p>webベースのIMAPクライアントであるroundcube（&lt;a href="http://roundcube.net/" target="_blank">本家&lt;...</p>
+</section>
+<footer class=entry-footer><span title="2009-04-20 01:00:00 +0900 JST">April 20, 2009</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to roundcubeを入れた" href=https://nobwak.github.io/posts/2009-04-20-roundcube%E3%82%92%E5%85%A5%E3%82%8C%E3%81%9F/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Xorg7.4のキーボード設定をkwsk その２
+</h2>
+</header>
+<section class=entry-content>
+<p>&lt;a href="http://d.hatena.ne.jp/flageo/20090316/p1" target="_blank">Xorg7.4のキーボード設定をkwsk その1&lt;/a>の続き。 で話...</p>
+</section>
+<footer class=entry-footer><span title="2009-03-18 01:00:00 +0900 JST">March 18, 2009</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to Xorg7.4のキーボード設定をkwsk その２" href=https://nobwak.github.io/posts/2009-03-18-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE%EF%BC%92/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Xorg7.4のキーボード設定をkwsk その1
+</h2>
+</header>
+<section class=entry-content>
+<p>HALのキーボード設定ファイルの書き方が分からない。 ググれば設定ファイルは山ほど出てくるが、どう書くかを説明したサイトはなかなか引っかからな...</p>
+</section>
+<footer class=entry-footer><span title="2009-03-16 01:00:00 +0900 JST">March 16, 2009</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to Xorg7.4のキーボード設定をkwsk その1" href=https://nobwak.github.io/posts/2009-03-16-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE1/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>sshログインしたユーザのディレクトリを制限するには。
+</h2>
+</header>
+<section class=entry-content>
+<p>要するにchroot。 リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使...</p>
+</section>
+<footer class=entry-footer><span title="2009-02-15 01:00:00 +0900 JST">February 15, 2009</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to sshログインしたユーザのディレクトリを制限するには。" href=https://nobwak.github.io/posts/2009-02-15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>vsftpdのホワイトリスト/ブラックリストの設定
+</h2>
+</header>
+<section class=entry-content>
+<p>仕事でvsftpdを入れたのでメモ。 ホワイトリスト/ブラックリストの設定 userlist_fileで指定するファイル（以降、userlist...</p>
+</section>
+<footer class=entry-footer><span title="2008-12-17 01:00:00 +0900 JST">December 17, 2008</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to vsftpdのホワイトリスト/ブラックリストの設定" href=https://nobwak.github.io/posts/2008-12-17-vsftpd%E3%81%AE%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%AA%E3%82%B9%E3%83%88_%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E8%A8%AD%E5%AE%9A/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>ハードウェアの情報を読み出すdmidecode
+</h2>
+</header>
+<section class=entry-content>
+<p>SMBIOSからハードウェアの情報を読み出してくれるコマンドdmidecode（&lt;a href="http://www.nongnu.org/dmidecode/" target="_blank"...</p>
+</section>
+<footer class=entry-footer><span title="2008-10-31 01:00:00 +0900 JST">October 31, 2008</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to ハードウェアの情報を読み出すdmidecode" href=https://nobwak.github.io/posts/2008-10-31-%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E6%83%85%E5%A0%B1%E3%82%92%E8%AA%AD%E3%81%BF%E5%87%BA%E3%81%99dmidecode/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>シェルスクリプトで、ファイル名から拡張子を判定する
+</h2>
+</header>
+<section class=entry-content>
+<p>あくまでも、ファイル名から拡張子を判断するだけ。 以下に、$filenameとして与えられたファイルが拡張子.gzを持つかどうかを確認するシェ...</p>
+</section>
+<footer class=entry-footer><span title="2008-02-19 01:00:00 +0900 JST">February 19, 2008</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to シェルスクリプトで、ファイル名から拡張子を判定する" href=https://nobwak.github.io/posts/2008-02-19-%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%8B%E3%82%89%E6%8B%A1%E5%BC%B5%E5%AD%90%E3%82%92%E5%88%A4%E5%AE%9A%E3%81%99%E3%82%8B/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Solaris, LinuxでNICのリンクスピード（帯域）、モードを知るには
+</h2>
+</header>
+<section class=entry-content>
+<p>俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500 options=9b&amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM> ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (&lt;span style="font-weight:bold;">1000baseTX &amp;#60;full-duplex>&lt;/span>) status: active Boldで示し...</p>
+</section>
+<footer class=entry-footer><span title="2008-02-12 01:00:00 +0900 JST">February 12, 2008</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to Solaris, LinuxでNICのリンクスピード（帯域）、モードを知るには" href=https://nobwak.github.io/posts/2008-02-12-solaris_linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E5%B8%AF%E5%9F%9F%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>ports/package周りの定期作業をperiodicで。
+</h2>
+</header>
+<section class=entry-content>
+<p>FreeBSDを長く運用していると、/usr/ports/distfiles配下に、portsで使うソースファイルがだんだんと溜まっていき、...</p>
+</section>
+<footer class=entry-footer><span title="2007-11-27 01:00:00 +0900 JST">November 27, 2007</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to ports/package周りの定期作業をperiodicで。" href=https://nobwak.github.io/posts/2007-11-27-portspackage%E5%91%A8%E3%82%8A%E3%81%AE%E5%AE%9A%E6%9C%9F%E4%BD%9C%E6%A5%AD%E3%82%92periodic%E3%81%A7/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>FreeBSDでのGNOMEインストール
+</h2>
+</header>
+<section class=entry-content>
+<p>「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 &lt;span style="font-style:italic;">* 2008/11追記: 過疎blogにも...</p>
+</section>
+<footer class=entry-footer><span title="2007-11-25 01:00:00 +0900 JST">November 25, 2007</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to FreeBSDでのGNOMEインストール" href=https://nobwak.github.io/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>日本語の表示出来るvi
+</h2>
+</header>
+<section class=entry-content>
+<p>そんなんjvimとかnviで決まりなわけだが、次の理由によりvim-liteをインストールした。 該当のFreeBSDマシンは純粋なサーバ運用...</p>
+</section>
+<footer class=entry-footer><span title="2007-10-22 01:00:00 +0900 JST">October 22, 2007</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to 日本語の表示出来るvi" href=https://nobwak.github.io/posts/2007-10-22-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AE%E8%A1%A8%E7%A4%BA%E5%87%BA%E6%9D%A5%E3%82%8Bvi/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>FreeBSD:make.confのNOオプションが。
+</h2>
+</header>
+<section class=entry-content>
+<p>FreeBSD7.0ではmake.confのNO_***オプションがsrc.confに。 FreeBSDはシステムを再構築する際、/etc/m...</p>
+</section>
+<footer class=entry-footer><span title="2007-10-21 01:00:00 +0900 JST">October 21, 2007</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to FreeBSD:make.confのNOオプションが。" href=https://nobwak.github.io/posts/2007-10-21-freebsdmake.conf%E3%81%AEno%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%8C/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ
+</h2>
+</header>
+<section class=entry-content>
+<p>VMware Playerの入手 &lt;a href="http://www.vmware.com/download/player/" target="_blank">http://www.vmware.com/download/player/&lt;/a> tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeの...</p>
+</section>
+<footer class=entry-footer><span title="2007-10-13 01:00:00 +0900 JST">October 13, 2007</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ" href=https://nobwak.github.io/posts/2007-10-13-ubuntu%E4%B8%8Avmware-player%E3%81%ABfreebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>sources.listに書かれるmain, restrictedなどのコンポーネントの意味
+</h2>
+</header>
+<section class=entry-content>
+<p>コンポーネントを説明した&lt;a href="http://www.ubuntu.com/community/ubuntustory/components" target="_blank">http://www.ubuntu.com/c...</p>
+</section>
+<footer class=entry-footer><span title="2007-09-13 01:00:00 +0900 JST">September 13, 2007</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to sources.listに書かれるmain, restrictedなどのコンポーネントの意味" href=https://nobwak.github.io/posts/2007-09-13-sources.list%E3%81%AB%E6%9B%B8%E3%81%8B%E3%82%8C%E3%82%8Bmain_restricted%E3%81%AA%E3%81%A9%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E6%84%8F%E5%91%B3/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Ubuntu 7.04 (”Feisty”)からUbuntu 7.10 (”Gutsy”)へのアップグレード
+</h2>
+</header>
+<section class=entry-content>
+<p>Ubuntuを7.04にアップグレードしたばかりだが、ある事情により7.10に続けてアップグレードしたその顛末。 とは言っても、&lt;a href="http://d.hatena.ne.jp/flageo/20070906/p1" t...</p>
+</section>
+<footer class=entry-footer><span title="2007-09-13 01:00:00 +0900 JST">September 13, 2007</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to Ubuntu 7.04 (”Feisty”)からUbuntu 7.10 (”Gutsy”)へのアップグレード" href=https://nobwak.github.io/posts/2007-09-13-ubuntu_7.04_feisty%E3%81%8B%E3%82%89ubuntu_7.10_gutsy%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>ZABBIXのインストール
+</h2>
+</header>
+<section class=entry-content>
+<p>&lt;a href="http://www.zabbix.com/index.php" target="_blank">ZABBIX&lt;/a>とはフリーの統合監視ソフト。 Webインタフェー...</p>
+</section>
+<footer class=entry-footer><span title="2007-09-13 01:00:00 +0900 JST">September 13, 2007</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to ZABBIXのインストール" href=https://nobwak.github.io/posts/2007-09-13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Ubuntu 6.10 (”Edgy Eft”)からUbuntu 7.04 (”Feisty Fawn”)へのアップデート
+</h2>
+</header>
+<section class=entry-content>
+<p>俺メモ。 Ubuntu 6.10から7.04へマニュアルアップグレードしたので、その時のメモ。 といっても、Ubuntu公式サイトに書いてある通り進めるだけ...</p>
+</section>
+<footer class=entry-footer><span title="2007-09-06 01:00:00 +0900 JST">September 6, 2007</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to Ubuntu 6.10 (”Edgy Eft”)からUbuntu 7.04 (”Feisty Fawn”)へのアップデート" href=https://nobwak.github.io/posts/2007-09-06-ubuntu_6.10_edgy_eft%E3%81%8B%E3%82%89ubuntu_7.04_feisty_fawn%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Ubuntu7.04へのアップグレードでなぜかapache2 SSLが動かなくなった。
+</h2>
+</header>
+<section class=entry-content>
+<p>&lt;a href="http://d.hatena.ne.jp/flageo/20070220/p1" target="_blank">6.10のときにインストールしたApache2+SSL&lt;/a>だが...</p>
+</section>
+<footer class=entry-footer><span title="2007-09-06 01:00:00 +0900 JST">September 6, 2007</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to Ubuntu7.04へのアップグレードでなぜかapache2 SSLが動かなくなった。" href=https://nobwak.github.io/posts/2007-09-06-ubuntu7.04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2_ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら
+</h2>
+</header>
+<section class=entry-content>
+<p>「a,b,"cde,fg",e」 こんなCSVをPHPで扱おうとすると、結構面倒くさい。 &lt;a href="http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html" target="_b...</p>
+</section>
+<footer class=entry-footer><span title="2007-04-25 01:00:00 +0900 JST">April 25, 2007</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら" href=https://nobwak.github.io/posts/2007-04-25-php5.2.1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>mt-daapd
+</h2>
+</header>
+<section class=entry-content>
+<p>UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッ...</p>
+</section>
+<footer class=entry-footer><span title="2007-03-03 01:00:00 +0900 JST">March 3, 2007</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to mt-daapd" href=https://nobwak.github.io/posts/2007-03-03-mt-daapd/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>ファイル名の文字コード変換
+</h2>
+</header>
+<section class=entry-content>
+<p>俺メモ ファイルの中身ではなく、ファイル名そのものの文字コードを変換するには、convmv&lt;a class="keyword" href="http://d.hatena.ne.jp/keyword/convmv?mode=edit" rel="nofollow&...</p>
+</section>
+<footer class=entry-footer><span title="2007-03-02 01:00:00 +0900 JST">March 2, 2007</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to ファイル名の文字コード変換" href=https://nobwak.github.io/posts/2007-03-02-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89%E5%A4%89%E6%8F%9B/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Ubuntu6.10でのApache/SSL構築
+</h2>
+</header>
+<section class=entry-content>
+<p>Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ ◎apache2のインストー...</p>
+</section>
+<footer class=entry-footer><span title="2007-02-20 01:00:00 +0900 JST">February 20, 2007</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to Ubuntu6.10でのApache/SSL構築" href=https://nobwak.github.io/posts/2007-02-20-ubuntu6.10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Ubuntuをネットワークインストール
+</h2>
+</header>
+<section class=entry-content>
+<p>Vaio N505A/BPにLinuxをインストールしようと思った顛末をダラダラと書く。 さっそくだが、マシンのスペックは下記の通りとても厳しい。 モバ...</p>
+</section>
+<footer class=entry-footer><span title="2007-02-17 01:00:00 +0900 JST">February 17, 2007</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to Ubuntuをネットワークインストール" href=https://nobwak.github.io/posts/2007-02-17-ubuntu%E3%82%92%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>ports祭り開催中(FreeBSD)
+</h2>
+</header>
+<section class=entry-content>
+<p>In addition to the core GNOME ports, &lt;span style="font-weight:bold;">almost 500 ports&lt;/span> were also touched to chase the GNOME move from X11BASE to LOCALBASE and fix build problems with the new freetype2. (太字は俺) アッー!</p>
+</section>
+<footer class=entry-footer><span title="2006-10-16 01:00:00 +0900 JST">October 16, 2006</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to ports祭り開催中(FreeBSD)" href=https://nobwak.github.io/posts/2006-10-16-ports%E7%A5%AD%E3%82%8A%E9%96%8B%E5%82%AC%E4%B8%ADfreebsd/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>WindowsでもOpenSSLでファイルの暗号化を
+</h2>
+</header>
+<section class=entry-content>
+<p>会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(&lt;a href="http://www.openssl.org/related/binaries.html" target="_blank"&...</p>
+</section>
+<footer class=entry-footer><span title="2006-10-16 01:00:00 +0900 JST">October 16, 2006</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to WindowsでもOpenSSLでファイルの暗号化を" href=https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>FreeBSDネタ : portutil
+</h2>
+</header>
+<section class=entry-content>
+<p>2chの&lt;a href="http://pc8.2ch.net/test/read.cgi/unix/1149936019/371-" target="_blank">FreeBSDを語ろう&lt;/a>スレで、pkg/po...</p>
+</section>
+<footer class=entry-footer><span title="2006-09-17 01:00:00 +0900 JST">September 17, 2006</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to FreeBSDネタ : portutil" href=https://nobwak.github.io/posts/2006-09-17-freebsd%E3%83%8D%E3%82%BF__portutill/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>あるファイル、ディスクを使用しているプロセスを探す
+</h2>
+</header>
+<section class=entry-content>
+<p>FreeBSD-users-MLで面白い情報が流れていたのでメモ代わりに。 各UNIXにおいて、あるファイルを使用しているプロセスを探す代表的...</p>
+</section>
+<footer class=entry-footer><span title="2006-08-30 01:00:00 +0900 JST">August 30, 2006</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to あるファイル、ディスクを使用しているプロセスを探す" href=https://nobwak.github.io/posts/2006-08-30-%E3%81%82%E3%82%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%82%92%E6%8E%A2%E3%81%99/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>スーパーハカーCharlie Root
+</h2>
+</header>
+<section class=entry-content>
+<p>世のUNIXアドミニストレーターを時に驚かせる伝説のスーパーハカー、Charlie Rootのひみつ。 -- Charles Henry Rootは、大リーグのシカゴカブス...</p>
+</section>
+<footer class=entry-footer><span title="2006-06-06 01:00:00 +0900 JST">June 6, 2006</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to スーパーハカーCharlie Root" href=https://nobwak.github.io/posts/2006-06-06-%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%83%8F%E3%82%AB%E3%83%BCcharlie_root/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>portsnapの罠
+</h2>
+</header>
+<section class=entry-content>
+<p>&lt;a href="http://d.hatena.ne.jp/flageo/20060501#p1" target="_blank">先日&lt;/a>の日記でも少し触れたportsnap。日記ではさらりと...</p>
+</section>
+<footer class=entry-footer><span title="2006-05-15 01:00:00 +0900 JST">May 15, 2006</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to portsnapの罠" href=https://nobwak.github.io/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>FreeBSD 6.1-RELEASE
+</h2>
+</header>
+<section class=entry-content>
+<p>公式発表はまだだが、6.1-RがFTPにアップされていたのでバージョンアップした。 俺のいるのはRELENG_6だけど。 $ uname -a FreeBSD ***.* 6.1-STABLE FreeBSD 6.1-STABLE #0: Sun May...</p>
+</section>
+<footer class=entry-footer><span title="2006-05-08 01:00:00 +0900 JST">May 8, 2006</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to FreeBSD 6.1-RELEASE" href=https://nobwak.github.io/posts/2006-05-08-freebsd_6.1-release/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>認証の必要なPROXY越しのportsnap
+</h2>
+</header>
+<section class=entry-content>
+<p>認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが...</p>
+</section>
+<footer class=entry-footer><span title="2006-05-01 01:00:00 +0900 JST">May 1, 2006</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to 認証の必要なPROXY越しのportsnap" href=https://nobwak.github.io/posts/2006-05-01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>FreeBSDでext2ファイルシステムを扱う
+</h2>
+</header>
+<section class=entry-content>
+<p>マウントにはmount_ext2fsコマンドを使用。 mountコマンドの-tオプションに与えるファイルシステムタイプにはext2fsが使用可...</p>
+</section>
+<footer class=entry-footer><span title="2006-04-27 13:44:47 +0900 JST">April 27, 2006</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to FreeBSDでext2ファイルシステムを扱う" href=https://nobwak.github.io/posts/2006-04-27-freebsd%E3%81%A7ext2%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E6%89%B1%E3%81%86/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>DebianをFreeBSDのqemuにインストール。
+</h2>
+</header>
+<section class=entry-content>
+<p>・qemuのインストール portsからqemu, kqemu-kmodをインストール。 # portinstall -m-DWITH_KQEMU qemu # portinstall kqemu-kmod kqemu-kmodはqemuのアクセラレ...</p>
+</section>
+<footer class=entry-footer><span title="2006-04-27 13:44:46 +0900 JST">April 27, 2006</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to DebianをFreeBSDのqemuにインストール。" href=https://nobwak.github.io/posts/2006-04-27-debian%E3%82%92freebsd%E3%81%AEqemu%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>DesktopBSD
+</h2>
+</header>
+<section class=entry-content>
+<p>受けるつもりで友人に勉強方法も聞き、参考書も買った情報処理試験。 申し込みすら忘れていたことに昨日気がついた俺が来ましたよ。 それはさておきFr...</p>
+</section>
+<footer class=entry-footer><span title="2006-04-17 13:51:13 +0900 JST">April 17, 2006</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to DesktopBSD" href=https://nobwak.github.io/posts/2006-04-17-desktopbsd/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Knoppixありがとう。
+</h2>
+</header>
+<section class=entry-content>
+<p>仕事の助けにとSambaサーバをさせていたLinuxマシンが、異音を発し操作を受け付けなくなった。最終的に画面にDisk I/Oエラーを表示し...</p>
+</section>
+<footer class=entry-footer><span title="2006-04-11 13:52:09 +0900 JST">April 11, 2006</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak</footer>
+<a class=entry-link aria-label="post link to Knoppixありがとう。" href=https://nobwak.github.io/posts/2006-04-11-knoppix%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86/></a>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
 </footer>
-
-    
-
-  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
-
-
-  </body>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+</body>
 </html>
