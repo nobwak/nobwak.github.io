@@ -9,13 +9,103 @@
       <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 13 Apr 2020 12:54:02 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Dec 2021 13:18:50 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>python</title>
+      <link>https://nobwak.github.io/tags/python/</link>
+      <pubDate>Tue, 28 Dec 2021 13:18:50 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SQLite3</title>
+      <link>https://nobwak.github.io/tags/sqlite3/</link>
+      <pubDate>Tue, 28 Dec 2021 13:18:50 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/sqlite3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VSC</title>
+      <link>https://nobwak.github.io/tags/vsc/</link>
+      <pubDate>Fri, 24 Dec 2021 17:45:45 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/vsc/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>FreeBSD</title>
       <link>https://nobwak.github.io/tags/freebsd/</link>
-      <pubDate>Mon, 13 Apr 2020 12:54:02 +0900</pubDate>
+      <pubDate>Mon, 13 Dec 2021 14:34:40 +0900</pubDate>
       
       <guid>https://nobwak.github.io/tags/freebsd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Network</title>
+      <link>https://nobwak.github.io/tags/network/</link>
+      <pubDate>Mon, 13 Dec 2021 14:34:40 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/network/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WiFi</title>
+      <link>https://nobwak.github.io/tags/wifi/</link>
+      <pubDate>Mon, 13 Dec 2021 14:34:40 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/wifi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ネットワーク</title>
+      <link>https://nobwak.github.io/tags/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF/</link>
+      <pubDate>Mon, 13 Dec 2021 09:09:34 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>youtube</title>
+      <link>https://nobwak.github.io/tags/youtube/</link>
+      <pubDate>Mon, 15 Nov 2021 19:13:54 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/youtube/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pkg</title>
+      <link>https://nobwak.github.io/tags/pkg/</link>
+      <pubDate>Mon, 15 Nov 2021 18:44:34 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/pkg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Windows</title>
+      <link>https://nobwak.github.io/tags/windows/</link>
+      <pubDate>Sat, 24 Oct 2020 11:30:13 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/windows/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>動画</title>
+      <link>https://nobwak.github.io/tags/%E5%8B%95%E7%94%BB/</link>
+      <pubDate>Sat, 24 Oct 2020 11:30:13 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/tags/%E5%8B%95%E7%94%BB/</guid>
       <description></description>
     </item>
     
@@ -25,15 +115,6 @@
       <pubDate>Mon, 13 Apr 2020 12:54:02 +0900</pubDate>
       
       <guid>https://nobwak.github.io/tags/freebsdasdesktop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>https://nobwak.github.io/tags/python/</link>
-      <pubDate>Tue, 10 Mar 2020 21:50:09 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/python/</guid>
       <description></description>
     </item>
     
@@ -196,15 +277,6 @@
       <pubDate>Mon, 23 Sep 2019 23:23:04 +0900</pubDate>
       
       <guid>https://nobwak.github.io/tags/remotedesktop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Windows</title>
-      <link>https://nobwak.github.io/tags/windows/</link>
-      <pubDate>Sat, 10 Aug 2019 14:24:05 +0900</pubDate>
-      
-      <guid>https://nobwak.github.io/tags/windows/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ネットワーク on nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF/</link>
+    <description>Recent content in ネットワーク on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 13 Dec 2021 09:09:34 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2021-12-12-FreeBSDをルーターに</title>
+      <link>https://nobwak.github.io/posts/2021-12-12-freebsd%E3%82%92%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AB/</link>
+      <pubDate>Mon, 13 Dec 2021 09:09:34 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2021-12-12-freebsd%E3%82%92%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AB/</guid>
+      <description>FreeBSDをルータに いまどき、ルータといえば、自宅なら無線WiFiルータ、業務でも専用のハードウェアを置くのが当たり前である。 FreeB</description>
+    </item>
+    
+  </channel>
+</rss>
