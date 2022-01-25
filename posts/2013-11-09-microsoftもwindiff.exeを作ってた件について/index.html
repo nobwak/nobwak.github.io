@@ -37,7 +37,7 @@
 <meta name=twitter:title content="MicrosoftもWindiff.exeを作ってた件について">
 <meta name=twitter:description content="Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。 実際のところ、私もDF.exeなどを使っている。 ただ改めて調べ">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"MicrosoftもWindiff.exeを作ってた件について","item":"https://nobwak.github.io/posts/2013-11-09-microsoft%E3%82%82windiff.exe%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"MicrosoftもWindiff.exeを作ってた件について","name":"MicrosoftもWindiff.exeを作ってた件について","description":"Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。 実際のところ、私もDF.exeなどを使っている。 ただ改めて調べ","keywords":[],"articleBody":"Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。\n実際のところ、私もDF.exeなどを使っている。\nただ改めて調べてみたところ、Windows向けにMicrosoft自らdiffツール作ってたらしい。\nその名もWindiff.exe。（Vectorあたりにあるツールと名前かぶってるような）\n使ってみたので顛末を示す。\nとはいえ。\n結論としては、Microsoft製に価値を見出さないならサードパーティのdiffツールの方がいいかな。\nWindiff.exeにはxp用と7用がある・・・ようだ。\nxp用Windiff.exe xp用Windiff.exeは、microsoft.comに以下の記載が。\nWindiff.exe ユーティリティの使用方法\nhttp://support.microsoft.com/kb/159214/ja Windiff.exe は、Microsoft Windows 2000 以降のオリジナルの CD-ROM の Support\\Tools フォルダーに収められています。サポート ツールをインストールするには、Support\\Tools フォルダーの Setup.exe を実行します。Windiff.exe は、Support.cab ファイルにも収められています。Support.cab は、各 Service Pack に含まれています。\n ただ、上記のページをWindows 7で開くと、「この技術情報は、お客様がご利用の Windows とは異なるバージョン向けの情報です」とのこと。\nWindows 7向けのWindiff.exe technetで以下を発見。2003用のものを流用すればよさそう。\nWindiff for Windows 7\nhttp://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7Windows 7（32bit）でのインストールのしかた ※おそらくMicrosoftは公式には認めない方法です。\n自己責任でどうぞ。\nさっそく以下のページからWindowsServer2003-KB892777-SupportTools-x86-ENU.exe をダウンロード。\nWindows Server 2003 Service Pack 1 32-bit Support Tools\nhttp://www.microsoft.com/en-us/download/details.aspx?id=7911コマンドラインから実行する。\nオプションを二つ指定する。\n/Cで「展開のみインストールせず」、 /Tで展開先をフルパスで指定する。\nC:\\downloadWindowsServer2003-KB892777-SupportTools-x86-ENU.exe /C /T:c:\\download\\supporttool 以上の例だとc:\\download\\supporttoolに内容物が展開される。\nそのうちのsupport.cabをダブルクリックすると、中にwindiff.exeがあるのでそれを取り出す。\nあとはパスの通ったところに置くとか、ランチャーに登録すればよい。\n初期設定 そのままだと日本語を表示できないので、Edit → Set Font でフォントを変える。\nメイリオとかにしとけ。\n使い方 個別ファイルの差分を調べる場合には、File → Compare Files でファイルを二つ選んでOKをクリック。\nディレクトリごと差分を調べる場合には、File → Compare Directoriesで出てきた画面に二つのディレクトリパスを貼りつけてOKをクリックする。\n調べたファイルが一覧で表示される。\n差分のあるファイルが赤く表示されるので、選択してExpandでファイルの中身を見られる。\nOutlineでファイル一覧に戻る。\nF7, F8で差分のある個所を順番に選んで行ける。\nPictureは左端に差分箇所を表してくれる。\n制限 シフトJISのファイルは読めるけど、UTF-8の日本語は読めないようだ。\n感想 使ってみたら分かるけど、ちょっと使いにくいかな…。\n","wordCount":"1335","inLanguage":"en","datePublished":"2013-11-09T21:07:30+09:00","dateModified":"2013-11-09T21:07:30+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-11-09-microsoft%E3%82%82windiff.exe%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"MicrosoftもWindiff.exeを作ってた件について","name":"MicrosoftもWindiff.exeを作ってた件について","description":"Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。 実際のところ、私もDF.exeなどを使っている。 ただ改めて調べ","keywords":[],"articleBody":"Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。\n実際のところ、私もDF.exeなどを使っている。\nただ改めて調べてみたところ、Windows向けにMicrosoft自らdiffツール作ってたらしい。\nその名もWindiff.exe。（Vectorあたりにあるツールと名前かぶってるような）\n使ってみたので顛末を示す。\nとはいえ。\n結論としては、Microsoft製に価値を見出さないならサードパーティのdiffツールの方がいいかな。\nWindiff.exeにはxp用と7用がある・・・ようだ。\nxp用Windiff.exe xp用Windiff.exeは、microsoft.comに以下の記載が。\nWindiff.exe ユーティリティの使用方法\nhttp://support.microsoft.com/kb/159214/ja\n Windiff.exe は、Microsoft Windows 2000 以降のオリジナルの CD-ROM の Support\\Tools フォルダーに収められています。サポート ツールをインストールするには、Support\\Tools フォルダーの Setup.exe を実行します。Windiff.exe は、Support.cab ファイルにも収められています。Support.cab は、各 Service Pack に含まれています。\n ただ、上記のページをWindows 7で開くと、「この技術情報は、お客様がご利用の Windows とは異なるバージョン向けの情報です」とのこと。\nWindows 7向けのWindiff.exe technetで以下を発見。2003用のものを流用すればよさそう。\nWindiff for Windows 7\nhttp://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7\nWindows 7（32bit）でのインストールのしかた ※おそらくMicrosoftは公式には認めない方法です。\n自己責任でどうぞ。\nさっそく以下のページからWindowsServer2003-KB892777-SupportTools-x86-ENU.exe をダウンロード。\nWindows Server 2003 Service Pack 1 32-bit Support Tools\nhttp://www.microsoft.com/en-us/download/details.aspx?id=7911\nコマンドラインから実行する。\nオプションを二つ指定する。\n/Cで「展開のみインストールせず」、 /Tで展開先をフルパスで指定する。\nC:\\downloadWindowsServer2003-KB892777-SupportTools-x86-ENU.exe /C /T:c:\\download\\supporttool 以上の例だとc:\\download\\supporttoolに内容物が展開される。\nそのうちのsupport.cabをダブルクリックすると、中にwindiff.exeがあるのでそれを取り出す。\nあとはパスの通ったところに置くとか、ランチャーに登録すればよい。\n初期設定 そのままだと日本語を表示できないので、Edit → Set Font でフォントを変える。\nメイリオとかにしとけ。\n使い方 個別ファイルの差分を調べる場合には、File → Compare Files でファイルを二つ選んでOKをクリック。\nディレクトリごと差分を調べる場合には、File → Compare Directoriesで出てきた画面に二つのディレクトリパスを貼りつけてOKをクリックする。\n調べたファイルが一覧で表示される。\n差分のあるファイルが赤く表示されるので、選択してExpandでファイルの中身を見られる。\nOutlineでファイル一覧に戻る。\nF7, F8で差分のある個所を順番に選んで行ける。\nPictureは左端に差分箇所を表してくれる。\n制限 シフトJISのファイルは読めるけど、UTF-8の日本語は読めないようだ。\n感想 使ってみたら分かるけど、ちょっと使いにくいかな…。\n","wordCount":"1277","inLanguage":"en","datePublished":"2013-11-09T21:07:30+09:00","dateModified":"2013-11-09T21:07:30+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-11-09-microsoft%E3%82%82windiff.exe%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,33 +96,33 @@ MicrosoftもWindiff.exeを作ってた件について
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinexp%e7%94%a8windiffexespan aria-label=xp用Windiff.exe>xp用Windiff.exe</a></li>
+<a href=#xp%e7%94%a8windiffexe aria-label=xp用Windiff.exe>xp用Windiff.exe</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinewindows-7%e5%90%91%e3%81%91%e3%81%aewindiffexespan aria-label="Windows 7向けのWindiff.exe">Windows 7向けのWindiff.exe</a></li>
+<a href=#windows-7%e5%90%91%e3%81%91%e3%81%aewindiffexe aria-label="Windows 7向けのWindiff.exe">Windows 7向けのWindiff.exe</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinewindows-732bit%e3%81%a7%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%ae%e3%81%97%e3%81%8b%e3%81%9fspan aria-label="Windows 7（32bit）でのインストールのしかた">Windows 7（32bit）でのインストールのしかた</a></li>
+<a href=#windows-732bit%e3%81%a7%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%ae%e3%81%97%e3%81%8b%e3%81%9f aria-label="Windows 7（32bit）でのインストールのしかた">Windows 7（32bit）でのインストールのしかた</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%88%9d%e6%9c%9f%e8%a8%ad%e5%ae%9aspan aria-label=初期設定>初期設定</a></li>
+<a href=#%e5%88%9d%e6%9c%9f%e8%a8%ad%e5%ae%9a aria-label=初期設定>初期設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e4%bd%bf%e3%81%84%e6%96%b9span aria-label=使い方>使い方</a></li>
+<a href=#%e4%bd%bf%e3%81%84%e6%96%b9 aria-label=使い方>使い方</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%88%b6%e9%99%90span aria-label=制限>制限</a></li>
+<a href=#%e5%88%b6%e9%99%90 aria-label=制限>制限</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e6%84%9f%e6%83%b3span aria-label=感想>感想</a>
+<a href=#%e6%84%9f%e6%83%b3 aria-label=感想>感想</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
 <div class=post-content><p>Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。<br>
-実際のところ、私もDF.exeなどを使っている。<br>
+実際のところ、私も<a href=http://www.vector.co.jp/soft/win95/util/se113286.html>DF.exe</a>などを使っている。<br>
 ただ改めて調べてみたところ、Windows向けにMicrosoft自らdiffツール作ってたらしい。<br>
 その名もWindiff.exe。（Vectorあたりにあるツールと名前かぶってるような）<br>
 使ってみたので顛末を示す。</p>
 <p>とはいえ。<br>
 結論としては、Microsoft製に価値を見出さないならサードパーティのdiffツールの方がいいかな。</p>
 <p>Windiff.exeにはxp用と7用がある・・・ようだ。</p>
-<h2 id=span-styletext-decoration-underlinexp用windiffexespan>xp用Windiff.exe<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinexp用windiffexespan>#</a></h2>
+<h2 id=xp用windiffexe>xp用Windiff.exe<a hidden class=anchor aria-hidden=true href=#xp用windiffexe>#</a></h2>
 <p>xp用Windiff.exeは、microsoft.comに以下の記載が。</p>
 <p>Windiff.exe ユーティリティの使用方法<br>
 <a href=http://support.microsoft.com/kb/159214/ja>http://support.microsoft.com/kb/159214/ja</a></p>
@@ -130,11 +130,11 @@ MicrosoftもWindiff.exeを作ってた件について
 <p>Windiff.exe は、Microsoft Windows 2000 以降のオリジナルの CD-ROM の Support\Tools フォルダーに収められています。サポート ツールをインストールするには、Support\Tools フォルダーの Setup.exe を実行します。Windiff.exe は、Support.cab ファイルにも収められています。Support.cab は、各 Service Pack に含まれています。</p>
 </blockquote>
 <p>ただ、上記のページをWindows 7で開くと、「この技術情報は、お客様がご利用の Windows とは異なるバージョン向けの情報です」とのこと。</p>
-<h2 id=span-styletext-decoration-underlinewindows-7向けのwindiffexespan>Windows 7向けのWindiff.exe<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinewindows-7向けのwindiffexespan>#</a></h2>
+<h2 id=windows-7向けのwindiffexe>Windows 7向けのWindiff.exe<a hidden class=anchor aria-hidden=true href=#windows-7向けのwindiffexe>#</a></h2>
 <p>technetで以下を発見。2003用のものを流用すればよさそう。</p>
 <p>Windiff for Windows 7<br>
 <a href=http://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7>http://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7</a></p>
-<h2 id=span-styletext-decoration-underlinewindows-732bitでのインストールのしかたspan>Windows 7（32bit）でのインストールのしかた<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinewindows-732bitでのインストールのしかたspan>#</a></h2>
+<h2 id=windows-732bitでのインストールのしかた>Windows 7（32bit）でのインストールのしかた<a hidden class=anchor aria-hidden=true href=#windows-732bitでのインストールのしかた>#</a></h2>
 <p>※おそらくMicrosoftは公式には認めない方法です。<br>
 自己責任でどうぞ。</p>
 <p>さっそく以下のページからWindowsServer2003-KB892777-SupportTools-x86-ENU.exe をダウンロード。</p>
@@ -147,10 +147,10 @@ MicrosoftもWindiff.exeを作ってた件について
 </code></pre></div><p>以上の例だとc:\download\supporttoolに内容物が展開される。<br>
 そのうちのsupport.cabをダブルクリックすると、中にwindiff.exeがあるのでそれを取り出す。<br>
 あとはパスの通ったところに置くとか、ランチャーに登録すればよい。</p>
-<h2 id=span-styletext-decoration-underline初期設定span>初期設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline初期設定span>#</a></h2>
+<h2 id=初期設定>初期設定<a hidden class=anchor aria-hidden=true href=#初期設定>#</a></h2>
 <p>そのままだと日本語を表示できないので、Edit → Set Font でフォントを変える。<br>
 メイリオとかにしとけ。</p>
-<h2 id=span-styletext-decoration-underline使い方span>使い方<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline使い方span>#</a></h2>
+<h2 id=使い方>使い方<a hidden class=anchor aria-hidden=true href=#使い方>#</a></h2>
 <p>個別ファイルの差分を調べる場合には、File → Compare Files でファイルを二つ選んでOKをクリック。<br>
 ディレクトリごと差分を調べる場合には、File → Compare Directoriesで出てきた画面に二つのディレクトリパスを貼りつけてOKをクリックする。</p>
 <p>調べたファイルが一覧で表示される。<br>
@@ -158,9 +158,9 @@ MicrosoftもWindiff.exeを作ってた件について
 Outlineでファイル一覧に戻る。</p>
 <p>F7, F8で差分のある個所を順番に選んで行ける。<br>
 Pictureは左端に差分箇所を表してくれる。</p>
-<h2 id=span-styletext-decoration-underline制限span>制限<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline制限span>#</a></h2>
+<h2 id=制限>制限<a hidden class=anchor aria-hidden=true href=#制限>#</a></h2>
 <p>シフトJISのファイルは読めるけど、UTF-8の日本語は読めないようだ。</p>
-<h2 id=span-styletext-decoration-underline感想span>感想<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline感想span>#</a></h2>
+<h2 id=感想>感想<a hidden class=anchor aria-hidden=true href=#感想>#</a></h2>
 <p>使ってみたら分かるけど、ちょっと使いにくいかな…。</p>
 </div>
 <footer class=post-footer>

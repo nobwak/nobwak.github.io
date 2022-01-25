@@ -110,8 +110,8 @@
 <p>そうそう、二つのタイムスタンプの差、というと何かのターンアラウンドタイムとか、もっというと先方からの応答を測るためですね。<br>
 諸賢には自明のことであろー。</p>
 <h2 id=結論-datetimestrptimeを使う>結論: datetime.strptime()を使う。<a hidden class=anchor aria-hidden=true href=#結論-datetimestrptimeを使う>#</a></h2>
-<p>datetime.strptimeは与えられたフォーマットにしたがって時刻を構文解析し、datetime型に変換してくれる。<br>
-さらにdatetime型どうしで減算すると、timedelta型のオブジェクトが返る。<br>
+<p><a href=http://docs.python.jp/2/library/datetime.html#datetime.datetime.strptime>datetime.strptime</a>は与えられた<a href=http://docs.python.jp/2/library/datetime.html#strftime-strptime>フォーマット</a>にしたがって時刻を構文解析し、<a href=http://docs.python.jp/2/library/datetime.html#datetime-datetime>datetime</a>型に変換してくれる。<br>
+さらにdatetime型どうしで減算すると、<a href=http://docs.python.jp/2/library/datetime.html#datetime.timedelta>timedelta</a>型のオブジェクトが返る。<br>
 timedeltaオブジェクトから読み出し専用のインスタンスで日、秒、マイクロセコンドを取り出せばよい（なお時間（Hour）はない）。</p>
 <h2 id=スクリプト例>スクリプト例<a hidden class=anchor aria-hidden=true href=#スクリプト例>#</a></h2>
 <p>お目汚しではありますが例を示す。<br>

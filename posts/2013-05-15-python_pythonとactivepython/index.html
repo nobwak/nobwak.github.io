@@ -37,7 +37,7 @@
 <meta name=twitter:title content="[Python] PythonとActivePython">
 <meta name=twitter:description content="MIT(マサチューセッツ工科大学）のオンラン講義、John Guttag先生のIntroduction to Computer Science and Programmingを視聴して">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"[Python] PythonとActivePython","item":"https://nobwak.github.io/posts/2013-05-15-python_python%E3%81%A8activepython/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Python] PythonとActivePython","name":"[Python] PythonとActivePython","description":"MIT(マサチューセッツ工科大学）のオンラン講義、John Guttag先生のIntroduction to Computer Science and Programmingを視聴して","keywords":[],"articleBody":"MIT(マサチューセッツ工科大学）のオンラン講義、John Guttag先生のIntroduction to Computer Science and Programmingを視聴して感動したのでPythonをいじってるのである。\nWindowsにおいて、最初はPortableAppのPythonを使っていたのだが、本格的に試してみたくなった。\nのだが、実際のインストールを考えると、選択肢は二つあって、公式PythonとActiveStateのActivePythonがあるようだ。\n違いは何か。\n端的に言えば、両者に違いはそうそうなくて、ActivePythonには最初からいろいろなものが付いてくるので楽、といったところ。\n自分の場合、職場PCにインストールが許容されているActivePythonをインストールしたのだが、zipなどのよく使うモジュールは最初から入ってるし、SQLite3もついてきた。\nセキュリティポリシー上、インターネットへの接続や、インストールできるソフトウェアが制限されるケースでは、これは便利ではないだろうか。\n追記:\nと思ったら、ActivePythonにはPylab(Matplotlib)がない（Windows 64bit)。これは痛い\nなお、idleはWindowsならC:\\Python27\\Lib\\idlelib\\idle.batから起動できる。\nWhy does ActivePython exist?\n\nWhat is the difference between active python and python?\nPythonが普及しない原因 ＜大げさ","wordCount":"596","inLanguage":"en","datePublished":"2013-05-15T22:59:50+09:00","dateModified":"2013-05-15T22:59:50+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-05-15-python_python%E3%81%A8activepython/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Python] PythonとActivePython","name":"[Python] PythonとActivePython","description":"MIT(マサチューセッツ工科大学）のオンラン講義、John Guttag先生のIntroduction to Computer Science and Programmingを視聴して","keywords":[],"articleBody":"MIT(マサチューセッツ工科大学）のオンラン講義、John Guttag先生のIntroduction to Computer Science and Programmingを視聴して感動したのでPythonをいじってるのである。\nWindowsにおいて、最初はPortableAppのPythonを使っていたのだが、本格的に試してみたくなった。\nのだが、実際のインストールを考えると、選択肢は二つあって、公式PythonとActiveStateのActivePythonがあるようだ。\n違いは何か。\n端的に言えば、両者に違いはそうそうなくて、ActivePythonには最初からいろいろなものが付いてくるので楽、といったところ。\n自分の場合、職場PCにインストールが許容されているActivePythonをインストールしたのだが、zipなどのよく使うモジュールは最初から入ってるし、SQLite3もついてきた。\nセキュリティポリシー上、インターネットへの接続や、インストールできるソフトウェアが制限されるケースでは、これは便利ではないだろうか。\n追記:\nと思ったら、ActivePythonにはPylab(Matplotlib)がない（Windows 64bit)。これは痛い\nなお、idleはWindowsならC:\\Python27\\Lib\\idlelib\\idle.batから起動できる。\nWhy does ActivePython exist?\n\nWhat is the difference between active python and python?\nPythonが普及しない原因 ＜大げさ\n","wordCount":"596","inLanguage":"en","datePublished":"2013-05-15T22:59:50+09:00","dateModified":"2013-05-15T22:59:50+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-05-15-python_python%E3%81%A8activepython/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -90,20 +90,20 @@
 <div class=post-meta><span title="2013-05-15 22:59:50 +0900 JST">May 15, 2013</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2013-05-15-[Python]_Python%e3%81%a8ActivePython.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header>
-<div class=post-content><p>MIT(マサチューセッツ工科大学）のオンラン講義、John Guttag先生のIntroduction to Computer Science and Programmingを視聴して感動したのでPythonをいじってるのである。</p>
+<div class=post-content><p>MIT(マサチューセッツ工科大学）のオンラン講義、John Guttag先生の<a href=http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-00sc-introduction-to-computer-science-and-programming-spring-2011/index.htm>Introduction to Computer Science and Programming</a>を視聴して感動したのでPythonをいじってるのである。</p>
 <p>Windowsにおいて、最初はPortableAppのPythonを使っていたのだが、本格的に試してみたくなった。<br>
-のだが、実際のインストールを考えると、選択肢は二つあって、公式PythonとActiveStateのActivePythonがあるようだ。</p>
+のだが、実際のインストールを考えると、選択肢は二つあって、<a href=http://www.python.org/downloads/>公式Python</a>とActiveStateの<a href=http://www.activestate.com/activepython>ActivePython</a>があるようだ。</p>
 <p>違いは何か。<br>
 端的に言えば、両者に違いはそうそうなくて、ActivePythonには最初からいろいろなものが付いてくるので楽、といったところ。<br>
 自分の場合、職場PCにインストールが許容されているActivePythonをインストールしたのだが、zipなどのよく使うモジュールは最初から入ってるし、SQLite3もついてきた。<br>
 セキュリティポリシー上、インターネットへの接続や、インストールできるソフトウェアが制限されるケースでは、これは便利ではないだろうか。</p>
 <p>追記:<br>
-と思ったら、ActivePythonにはPylab(Matplotlib)がない（Windows 64bit)。これは痛い</p>
+と思ったら、<a href=http://code.activestate.com/pypm/>ActivePythonにはPylab(Matplotlib)がない（Windows 64bit)</a>。これは痛い</p>
 <p>なお、idleはWindowsならC:\Python27\Lib\idlelib\idle.batから起動できる。</p>
 <p><a href=http://stackoverflow.com/questions/1352528/why-does-activepython-exist>Why does ActivePython exist?<br>
 </a><br>
 <a href=http://stackoverflow.com/questions/4733252/what-is-the-difference-between-active-python-and-python>What is the difference between active python and python?</a></p>
-<p>Pythonが普及しない原因 ＜大げさ</p>
+<p><a href=http://blawat2015.no-ip.com/~mieki256/diary/200604125.html#200604125>Pythonが普及しない原因 ＜大げさ</a></p>
 </div>
 <footer class=post-footer>
 <nav class=paginav>

@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>portsnapの罠 | nobwak's Lair</title>
 <meta name=keywords content>
-<meta name=description content="<a href=&#34;http://d.hatena.ne.jp/flageo/20060501#p1&#34; target=&#34;_blank&#34;>先日</a>の日記でも少し触れたportsnap。日記ではさらりと">
+<meta name=description content="[先日](http://d.hatena.ne.jp/flageo/20060501#p1)の日記でも少し触れたportsnap。日記ではさ">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="portsnapの罠">
-<meta property="og:description" content="<a href=&#34;http://d.hatena.ne.jp/flageo/20060501#p1&#34; target=&#34;_blank&#34;>先日</a>の日記でも少し触れたportsnap。日記ではさらりと">
+<meta property="og:description" content="[先日](http://d.hatena.ne.jp/flageo/20060501#p1)の日記でも少し触れたportsnap。日記ではさ">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2006-05-15T01:00:00+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="portsnapの罠">
-<meta name=twitter:description content="<a href=&#34;http://d.hatena.ne.jp/flageo/20060501#p1&#34; target=&#34;_blank&#34;>先日</a>の日記でも少し触れたportsnap。日記ではさらりと">
+<meta name=twitter:description content="[先日](http://d.hatena.ne.jp/flageo/20060501#p1)の日記でも少し触れたportsnap。日記ではさ">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"portsnapの罠","item":"https://nobwak.github.io/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"portsnapの罠","name":"portsnapの罠","description":"\u0026lt;a href=\u0026quot;http://d.hatena.ne.jp/flageo/20060501#p1\u0026quot; target=\u0026quot;_blank\u0026quot;\u0026gt;先日\u0026lt;/a\u0026gt;の日記でも少し触れたportsnap。日記ではさらりと","keywords":[],"articleBody":"先日の日記でも少し触れたportsnap。日記ではさらりと書いているが実はすごく苦労した。 最終的にあのような結論に至った訳だが、今回、別のマシンに6.0-RELEASEを入れて分かったことがある。もう少し早く気づけばよかった。 6.0-RELEASEのportsnapでは、認証が必要なPROXY越えは出来ない。 その後、いくつか修正が入ったものの、本当の意味で使えるようになったのは6.1-RELEASEから。 5系列では、5.4-RELEASE、および3/9より以前の5-STABLEも同様にPROXY越え不可。 6系列におけるphttpget.cのバージョンを下記に示す。 6.0-RELEASEのもの。 __FBSDID(\"$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.1 2005/08/15 20:24:08 cperciva Exp $\"); 6.1-RELEASEのもの。 __FBSDID(\"$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $\"); http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c 上記リンクを参照すると分かるが、認証要PROXYに対応したのは1.4.2.2から。 ただしHTTP_PROXY_AUTHについて、誤った書式をもとに読み込んでいるため、正しく動かない。 ここを修正したのが1.4.2.5。 もちろん、1.4.2.5より前のphttpget.cでも上記の情報をもとに修正すれば問題なく動く。  ","wordCount":"532","inLanguage":"en","datePublished":"2006-05-15T01:00:00+09:00","dateModified":"2006-05-15T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"portsnapの罠","name":"portsnapの罠","description":"[先日](http://d.hatena.ne.jp/flageo/20060501#p1)の日記でも少し触れたportsnap。日記ではさ","keywords":[],"articleBody":"[先日](http://d.hatena.ne.jp/flageo/20060501#p1)の日記でも少し触れたportsnap。日記ではさらりと書いているが実はすごく苦労した。 最終的にあのような結論に至った訳だが、今回、別のマシンに6.0-RELEASEを入れて分かったことがある。もう少し早く気づけばよかった。 6.0-RELEASEのportsnapでは、認証が必要なPROXY越えは出来ない。 その後、いくつか修正が入ったものの、本当の意味で使えるようになったのは6.1-RELEASEから。 5系列では、5.4-RELEASE、および3/9より以前の5-STABLEも同様にPROXY越え不可。 6系列におけるphttpget.cのバージョンを下記に示す。 6.0-RELEASEのもの。 __FBSDID(\"$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.1 2005/08/15 20:24:08 cperciva Exp $\"); 6.1-RELEASEのもの。 __FBSDID(\"$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $\"); [http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c](http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c) 上記リンクを参照すると分かるが、認証要PROXYに対応したのは1.4.2.2から。 ただしHTTP_PROXY_AUTHについて、誤った書式をもとに読み込んでいるため、正しく動かない。 ここを修正したのが1.4.2.5。 もちろん、1.4.2.5より前のphttpget.cでも上記の情報をもとに修正すれば問題なく動く。  ","wordCount":"533","inLanguage":"en","datePublished":"2006-05-15T01:00:00+09:00","dateModified":"2006-05-15T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -90,7 +90,7 @@ portsnapの罠
 <div class=post-meta><span title="2006-05-15 01:00:00 +0900 JST">May 15, 2006</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2006-05-15-portsnap%e3%81%ae%e7%bd%a0.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header>
-<div class=post-content><pre><code>&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20060501#p1&quot; target=&quot;_blank&quot;&gt;先日&lt;/a&gt;の日記でも少し触れたportsnap。日記ではさらりと書いているが実はすごく苦労した。
+<div class=post-content><pre><code>[先日](http://d.hatena.ne.jp/flageo/20060501#p1)の日記でも少し触れたportsnap。日記ではさらりと書いているが実はすごく苦労した。
 
 
 
@@ -148,7 +148,7 @@ __FBSDID(&quot;$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 200
 
 
 
-&lt;a href=&quot;http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c&lt;/a&gt;
+[http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c](http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.sbin/portsnap/phttpget/phttpget.c)
 
 
 

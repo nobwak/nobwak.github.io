@@ -96,13 +96,13 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%ab%e3%82%a6%e3%83%b3%e3%83%88%e5%af%be%e8%b1%a1%e3%83%86%e3%82%ad%e3%82%b9%e3%83%88%e3%81%ae%e6%ba%96%e5%82%99span aria-label=カウント対象テキストの準備>カウント対象テキストの準備</a></li>
+<a href=#%e3%82%ab%e3%82%a6%e3%83%b3%e3%83%88%e5%af%be%e8%b1%a1%e3%83%86%e3%82%ad%e3%82%b9%e3%83%88%e3%81%ae%e6%ba%96%e5%82%99 aria-label=カウント対象テキストの準備>カウント対象テキストの準備</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%aehdfs%e3%81%b8%e3%81%ae%e6%a0%bc%e7%b4%8dspan aria-label=ファイルのHDFSへの格納>ファイルのHDFSへの格納</a></li>
+<a href=#%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%aehdfs%e3%81%b8%e3%81%ae%e6%a0%bc%e7%b4%8d aria-label=ファイルのHDFSへの格納>ファイルのHDFSへの格納</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinewordcount%e3%81%ae%e5%ae%9f%e8%a1%8cspan aria-label=wordcountの実行>wordcountの実行</a></li>
+<a href=#wordcount%e3%81%ae%e5%ae%9f%e8%a1%8c aria-label=wordcountの実行>wordcountの実行</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e7%b5%90%e6%9e%9c%e3%81%ae%e7%a2%ba%e8%aa%8dspan aria-label=結果の確認>結果の確認</a>
+<a href=#%e7%b5%90%e6%9e%9c%e3%81%ae%e7%a2%ba%e8%aa%8d aria-label=結果の確認>結果の確認</a>
 </li>
 </ul>
 </div>
@@ -110,7 +110,7 @@
 </div>
 <div class=post-content><p>擬似分散モードで実験してみる。<br>
 Hadoopには、単語を数えるデモが付いてくるのでこれを使う。</p>
-<h2 id=span-styletext-decoration-underlineカウント対象テキストの準備span>カウント対象テキストの準備<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineカウント対象テキストの準備span>#</a></h2>
+<h2 id=カウント対象テキストの準備>カウント対象テキストの準備<a hidden class=anchor aria-hidden=true href=#カウント対象テキストの準備>#</a></h2>
 <p>以下のようなファイルを作る。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>[hadoop@isis ~/sandbox/input]$ ls
 test.txt
@@ -120,7 +120,7 @@ bb
 cc
 aa
 bb
-</code></pre></div><h2 id=span-styletext-decoration-underlineファイルのhdfsへの格納span>ファイルのHDFSへの格納<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineファイルのhdfsへの格納span>#</a></h2>
+</code></pre></div><h2 id=ファイルのhdfsへの格納>ファイルのHDFSへの格納<a hidden class=anchor aria-hidden=true href=#ファイルのhdfsへの格納>#</a></h2>
 <p>上で作ったファイルをHDFSに置く。<br>
 こういったファイル操作は、hadoopコマンドにdfsを付けて、-putとか-lsとか叩く。<br>
 hadoop dfsとやれば使用できるコマンドの一覧が表示される。-catとか-rmとかも使える。ディレクトリの削除は-rmr。</p>
@@ -137,7 +137,7 @@ Found 1 items
 -rw-r--r--   1 hadoop supergroup         15 2013-07-27 23:51 /user/hadoop/input/test.txt
 </code></pre></div><p>送り先には絶対パスを付けなくても自動的に/usr/hadoopの下になっていることが分かる。<br>
 すなわち、~/sandboxにいるときに、送り元、送り先双方にinputを指定すると、ローカルの~/hadoop/sandbox/inputが、HDFS上の/usr/hadoop/inputにコピーされる。</p>
-<h2 id=span-styletext-decoration-underlinewordcountの実行span>wordcountの実行<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinewordcountの実行span>#</a></h2>
+<h2 id=wordcountの実行>wordcountの実行<a hidden class=anchor aria-hidden=true href=#wordcountの実行>#</a></h2>
 <p>hadoop-examples-1.0.0.jarにwordcountと続け、カウント対象のファイルが置かれるディレクトリ、カウント結果のファイルが置かれるディレクトリを指定する。<br>
 下記の例では先にコピーしたinputを、結果をoutputとして指定する。<br>
 outputはこの時点では無くてOK。<br>
@@ -188,7 +188,7 @@ wordcount input output
 13/07/28 00:09:26 INFO mapred.JobClient:     Map output records=5
 [hadoop@isis ~/sandbox]$
 </code></pre></div><p>仮想環境上とはいえ7分てどういうこと。</p>
-<h2 id=span-styletext-decoration-underline結果の確認span>結果の確認<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline結果の確認span>#</a></h2>
+<h2 id=結果の確認>結果の確認<a hidden class=anchor aria-hidden=true href=#結果の確認>#</a></h2>
 <p>結果は。指定したディレクトリ、outputに格納される。<br>
 outputの中身を見ると、処理の成功したことを示す_SUCCESSというファイルに、結果の書き込まれるpart-r-00000が格納されている。<br>
 hadoop dfs -catで中身を確認すると、各単語の数がリストされている。</p>

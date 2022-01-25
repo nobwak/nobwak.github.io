@@ -96,11 +96,11 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e5%85%a8%e4%bd%93%e3%81%ae%e6%b5%81%e3%82%8cspan aria-label=全体の流れ>全体の流れ</a></li>
+<a href=#%e5%85%a8%e4%bd%93%e3%81%ae%e6%b5%81%e3%82%8c aria-label=全体の流れ>全体の流れ</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineovf%e3%81%b8%e3%81%ae%e5%a4%89%e6%8f%9bspan aria-label=OVFへの変換。>OVFへの変換。</a></li>
+<a href=#ovf%e3%81%b8%e3%81%ae%e5%a4%89%e6%8f%9b aria-label=OVFへの変換。>OVFへの変換。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinevirtualbox%e3%81%a7%e3%81%ae%e3%82%a4%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%88span aria-label=VirtualBoxでのインポート>VirtualBoxでのインポート</a>
+<a href=#virtualbox%e3%81%a7%e3%81%ae%e3%82%a4%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%88 aria-label=VirtualBoxでのインポート>VirtualBoxでのインポート</a>
 </li>
 </ul>
 </div>
@@ -111,19 +111,19 @@
 snapshot機能がないと実験が途端に面倒になる。</p>
 <p>こればかりはどうしようもない。仕方がないので、手元の仮想マシンはすべてVirtualBoxに移行する。<br>
 そのときのメモ。</p>
-<h2 id=span-styletext-decoration-underline全体の流れspan>全体の流れ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline全体の流れspan>#</a></h2>
+<h2 id=全体の流れ>全体の流れ<a hidden class=anchor aria-hidden=true href=#全体の流れ>#</a></h2>
 <ol>
 <li>VMWare Player付属のツールでOVFに変換する。</li>
 <li>それをVirtualBoxでインポート。</li>
 </ol>
-<p>OVFとはOpen Virtualization Formatのこと。詳しくはWikipedia。</p>
+<p>OVFとはOpen Virtualization Formatのこと。詳しくは<a href=http://ja.wikipedia.org/wiki/OVF>Wikipedia</a>。</p>
 <p>VMWare Player付属のovftool.exeについて</p>
 <p>VMWareのイメージをOVFフォーマットに変換するツール。<br>
 コマンドプロンプトで使う。<br>
 書式は以下の通り。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>ovftool &lt;変換元イメージ&gt; &lt;変換先イメージ&gt;
 </code></pre></div><p>実際にやってみる。</p>
-<h2 id=span-styletext-decoration-underlineovfへの変換span>OVFへの変換。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineovfへの変換span>#</a></h2>
+<h2 id=ovfへの変換>OVFへの変換。<a hidden class=anchor aria-hidden=true href=#ovfへの変換>#</a></h2>
 <p>ovftool.exeはVMWare Playerのインストールフォルダにある。<br>
 作業はコマンドプロンプトで行う。<br>
 いちいちcdしていくのが面倒なので、以下のようにしてコマンドプロンプトを開く。</p>
@@ -137,12 +137,12 @@ snapshot機能がないと実験が途端に面倒になる。</p>
 <p><img loading=lazy src=/wp-content/uploads/2013/08/convert004.png alt=img>
 <img loading=lazy src=/wp-content/uploads/2013/08/convert005.png alt=img>
 </p>
-<h2 id=span-styletext-decoration-underlinevirtualboxでのインポートspan>VirtualBoxでのインポート<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinevirtualboxでのインポートspan>#</a></h2>
+<h2 id=virtualboxでのインポート>VirtualBoxでのインポート<a hidden class=anchor aria-hidden=true href=#virtualboxでのインポート>#</a></h2>
 <p>大して難しいことはない。<br>
 が、注意点が一つだけ。</p>
 <p>OVFファイルのあるフォルダに、拡張子.mfを持つファイルがある。<br>
 VirtualBoxでのインポート前に削除しておくこと。<br>
-.mfとはManifestファイルであり、これがあるとインポートに失敗する。</p>
+.mfとはManifestファイルであり、これがあると<a href=http://davejsteele.wordpress.com/2012/08/12/virtualbox-ovf-import-error-verr_manifest_file_mismatch-failed-to-import-appliance/>インポートに失敗する</a>。</p>
 <p><img loading=lazy src=/wp-content/uploads/2013/08/convert0071.png alt=img>
 </p>
 <p>後は素直に。英語ならpretty straightforwardとかいうでしょうか。</p>

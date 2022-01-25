@@ -96,15 +96,15 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinepw8span aria-label=pw(8)>pw(8)</a></li>
+<a href=#pw8 aria-label=pw(8)>pw(8)</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinepw%e3%81%a7%e3%81%ae%e3%82%b0%e3%83%ab%e3%83%bc%e3%83%97%e8%bf%bd%e5%8a%a0span aria-label=pwでのグループ追加>pwでのグループ追加</a></li>
+<a href=#pw%e3%81%a7%e3%81%ae%e3%82%b0%e3%83%ab%e3%83%bc%e3%83%97%e8%bf%bd%e5%8a%a0 aria-label=pwでのグループ追加>pwでのグループ追加</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinepw%e3%81%a7%e3%81%ae%e3%83%a6%e3%83%bc%e3%82%b6%e8%bf%bd%e5%8a%a0span aria-label=pwでのユーザ追加>pwでのユーザ追加</a></li>
+<a href=#pw%e3%81%a7%e3%81%ae%e3%83%a6%e3%83%bc%e3%82%b6%e8%bf%bd%e5%8a%a0 aria-label=pwでのユーザ追加>pwでのユーザ追加</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e8%a8%ad%e5%ae%9a%e3%82%82%e7%84%a1%e4%ba%ba%e3%81%a7%e3%81%97%e3%81%9f%e3%81%84span aria-label=パスワード設定も無人でしたい。>パスワード設定も無人でしたい。</a></li>
+<a href=#%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e8%a8%ad%e5%ae%9a%e3%82%82%e7%84%a1%e4%ba%ba%e3%81%a7%e3%81%97%e3%81%9f%e3%81%84 aria-label=パスワード設定も無人でしたい。>パスワード設定も無人でしたい。</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e6%9a%97%e5%8f%b7%e5%8c%96%e6%b8%88%e3%81%bf%e3%81%ae%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%82%92%e7%84%a1%e4%ba%ba%e3%81%a7%e8%a8%ad%e5%ae%9a%e3%81%99%e3%82%8b%e3%81%ab%e3%81%afspan aria-label=暗号化済みのパスワードを無人で設定するには。>暗号化済みのパスワードを無人で設定するには。</a>
+<a href=#%e6%9a%97%e5%8f%b7%e5%8c%96%e6%b8%88%e3%81%bf%e3%81%ae%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%82%92%e7%84%a1%e4%ba%ba%e3%81%a7%e8%a8%ad%e5%ae%9a%e3%81%99%e3%82%8b%e3%81%ab%e3%81%af aria-label=暗号化済みのパスワードを無人で設定するには。>暗号化済みのパスワードを無人で設定するには。</a>
 </li>
 </ul>
 </div>
@@ -112,21 +112,21 @@
 </div>
 <div class=post-content><p>仮想化全盛のこの世の中、OSインストール直後の各種設定はなるだけ無人化したい。<br>
 そこでFreeBSDでのユーザ設定の無人化について。</p>
-<h2 id=span-styletext-decoration-underlinepw8span>pw(8)<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepw8span>#</a></h2>
+<h2 id=pw8>pw(8)<a hidden class=anchor aria-hidden=true href=#pw8>#</a></h2>
 <p>pwを使う。<br>
 man pwすると画面いっぱいに広がるSYNOPSISにまずのけぞる。<br>
 そのくらい、たくさんのことができるpwコマンドであるが、使うのは二つだけ。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>pw groupadd
 pw useradd
 </code></pre></div><p>グループ追加とユーザ追加ですな。</p>
-<h2 id=span-styletext-decoration-underlinepwでのグループ追加span>pwでのグループ追加<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepwでのグループ追加span>#</a></h2>
+<h2 id=pwでのグループ追加>pwでのグループ追加<a hidden class=anchor aria-hidden=true href=#pwでのグループ追加>#</a></h2>
 <p>書式は以下の通り</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>pw groupadd -q -n &lt;グループ名&gt; -g &lt;GID&gt;
 </code></pre></div><p>-qはエラーメッセージの抑制。<br>
 じゃ実際にエラーが発生したらどうすんだ、って話になるが、そこはステータスコードを使う。</p>
 <p>グループ:testgをgroup ID:10010で追加するなら、以下の通り。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>pw groupadd -q -n testg -g 10010
-</code></pre></div><h2 id=span-styletext-decoration-underlinepwでのユーザ追加span>pwでのユーザ追加<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepwでのユーザ追加span>#</a></h2>
+</code></pre></div><h2 id=pwでのユーザ追加>pwでのユーザ追加<a hidden class=anchor aria-hidden=true href=#pwでのユーザ追加>#</a></h2>
 <p>グループ追加に比べ、こちらはちょっと複雑。<br>
 書式は以下の通り。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>pw useradd -n &lt;ユーザ名&gt; -u &lt;UID&gt; -s &lt;シェル&gt; \
@@ -135,7 +135,7 @@ pw useradd
 </code></pre></div><p>特に-mを除いて説明の必要はないと思う。<br>
 -mはホームディレクトリを新規に作る、という意味。</p>
 <p>しかしこれだけだとパスワードを訊かれてしまう。</p>
-<h2 id=span-styletext-decoration-underlineパスワード設定も無人でしたいspan>パスワード設定も無人でしたい。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineパスワード設定も無人でしたいspan>#</a></h2>
+<h2 id=パスワード設定も無人でしたい>パスワード設定も無人でしたい。<a hidden class=anchor aria-hidden=true href=#パスワード設定も無人でしたい>#</a></h2>
 <p>パスワード設定も自動化するには、以下のようにする。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>echo -n &#39;&lt;パスワード&gt;&#39; |\
 pw useradd -n &lt;ユーザ名&gt; -u &lt;UID&gt; -s &lt;シェル&gt; \
@@ -152,7 +152,7 @@ pw useradd -n test -u 10010 -s /bin/sh \
 </code></pre></div><p>いや、でもさあ、パスワード丸見えじゃないか。<br>
 そう思ったあなたは正しい。<br>
 上記のスクリプトは使うべきでない。</p>
-<h2 id=span-styletext-decoration-underline暗号化済みのパスワードを無人で設定するにはspan>暗号化済みのパスワードを無人で設定するには。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline暗号化済みのパスワードを無人で設定するにはspan>#</a></h2>
+<h2 id=暗号化済みのパスワードを無人で設定するには>暗号化済みのパスワードを無人で設定するには。<a hidden class=anchor aria-hidden=true href=#暗号化済みのパスワードを無人で設定するには>#</a></h2>
 <p>前章で追加した-hオプションを-Hにすれば、pwは暗号化済みのパスワードを受け付けてくれる。<br>
 こうしておけば、仮にスクリプトを覗かれたって、パスワードを平文で書いてあるよりははるかに危険度は少ない。</p>
 <p>パスワードにtest, uidに10010, シェルに/bin/sh, ホームディレクトリは/home/test, グループ:testに所属するユーザtestを作成するケースを考える。</p>

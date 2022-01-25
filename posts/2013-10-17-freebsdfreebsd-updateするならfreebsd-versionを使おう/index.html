@@ -96,17 +96,17 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinefreebsd-version1span aria-label=freebsd-version(1)>freebsd-version(1)</a></li>
+<a href=#freebsd-version1 aria-label=freebsd-version(1)>freebsd-version(1)</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e4%bd%bf%e3%81%84%e6%96%b9span aria-label=使い方>使い方</a></li>
+<a href=#%e4%bd%bf%e3%81%84%e6%96%b9 aria-label=使い方>使い方</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineuname--u-uname--kspan aria-label="uname -U, uname -K">uname -U, uname -K</a>
+<a href=#uname--u-uname--k aria-label="uname -U, uname -K">uname -U, uname -K</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><h2 id=span-styletext-decoration-underlinefreebsd-version1span>freebsd-version(1)<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinefreebsd-version1span>#</a></h2>
+<div class=post-content><h2 id=freebsd-version1>freebsd-version(1)<a hidden class=anchor aria-hidden=true href=#freebsd-version1>#</a></h2>
 <p>10.0-BETA1で、freebsd-versionというFreeBSDのパッチレベルを教えてくれるコマンドが生まれた。<br>
 便利なコマンドなのでメモ。</p>
 <p>FreeBSDには、freebsd-updateというバイナリアップデートコマンドがある。<br>
@@ -119,7 +119,7 @@ make buildworld, buildkernelしなくても、必要なファイルだけを更�
 これでは本当にfreebsd-updateが完了したか不安になる。</p>
 <p>カーネルを再コンパイルすればきちんと9.2-RELEASE-p1と返してくれるようになるが、これでは何のためのfreebsd-updateなのか分からなくなる。</p>
 <p>今回のfreebsd-versionは、このfreebsd-updateの困ったことを解決してくれるコマンドである。</p>
-<h2 id=span-styletext-decoration-underline使い方span>使い方<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline使い方span>#</a></h2>
+<h2 id=使い方>使い方<a hidden class=anchor aria-hidden=true href=#使い方>#</a></h2>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ freebsd-version
 10.0-BETA1
 $ which freebsd-version
@@ -159,8 +159,8 @@ env ROOT=/mnt /mnt/bin/freebsd-version -ku
 <span style=color:#960050;background-color:#1e0010>
 </span><span style=color:#960050;background-color:#1e0010></span>SEE ALSO
 uname(1), loader.conf(5), freebsd-version$1n
-</code></pre></div><h2 id=span-styletext-decoration-underlineuname--u-uname--kspan>uname -U, uname -K<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineuname--u-uname--kspan>#</a></h2>
-<p>と、この記事をまとめた後（この記事は予約投稿なのです）に、HEADに修正が入った。<br>
+</code></pre></div><h2 id=uname--u-uname--k>uname -U, uname -K<a hidden class=anchor aria-hidden=true href=#uname--u-uname--k>#</a></h2>
+<p>と、この記事をまとめた後（この記事は予約投稿なのです）に、<a href="http://svnweb.freebsd.org/base?view=revision&revision=256557">HEADに修正が入った</a>。<br>
 unameに新しいオプションが追加される。-Uと-K。</p>
 <p>-Uがユーザランドの、-Kがカーネルのバージョンを返す。<br>
 HEADだから11.0に入るのかな。<br>

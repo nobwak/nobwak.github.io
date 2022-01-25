@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>FreeBSDでmsdosfs上の日本語ファイルを扱うには | nobwak's Lair</title>
 <meta name=keywords content>
-<meta name=description content="MSDOSFSの日本語ファイル名に使われる文字コードはCP932(<a href=&#34;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932&#34; target=&#34;_blank&#34;>Sh">
+<meta name=description content="MSDOSFSの日本語ファイル名に使われる文字コードはCP932([Shit_JIS](http://ja.wikipedia.org/wi">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2009-01-12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="FreeBSDでmsdosfs上の日本語ファイルを扱うには">
-<meta property="og:description" content="MSDOSFSの日本語ファイル名に使われる文字コードはCP932(<a href=&#34;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932&#34; target=&#34;_blank&#34;>Sh">
+<meta property="og:description" content="MSDOSFSの日本語ファイル名に使われる文字コードはCP932([Shit_JIS](http://ja.wikipedia.org/wi">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2009-01-12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2009-01-12T01:00:00+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="FreeBSDでmsdosfs上の日本語ファイルを扱うには">
-<meta name=twitter:description content="MSDOSFSの日本語ファイル名に使われる文字コードはCP932(<a href=&#34;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932&#34; target=&#34;_blank&#34;>Sh">
+<meta name=twitter:description content="MSDOSFSの日本語ファイル名に使われる文字コードはCP932([Shit_JIS](http://ja.wikipedia.org/wi">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"FreeBSDでmsdosfs上の日本語ファイルを扱うには","item":"https://nobwak.github.io/posts/2009-01-12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSDでmsdosfs上の日本語ファイルを扱うには","name":"FreeBSDでmsdosfs上の日本語ファイルを扱うには","description":"MSDOSFSの日本語ファイル名に使われる文字コードはCP932(\u0026lt;a href=\u0026quot;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932\u0026quot; target=\u0026quot;_blank\u0026quot;\u0026gt;Sh","keywords":[],"articleBody":"MSDOSFSの日本語ファイル名に使われる文字コードはCP932(Shit_JIS)だが、これをFreeBSDでマウントするには少々の手間がかかる。 結論からいえば、現時点(2009/01/12)でUTF-8に変換すると問題があるため、EUC-JPに変換する。 具体的には、mount_msdosfsに-L, -Dオプションを与えて使う。 ◎実行例  # dmesg|grep da0 Jan 12 12:37:10 onyx kernel: da0 at umass-sim0 bus 0 target 0 lun 0 Jan 12 12:37:10 onyx kernel: da0: \u0026#60;Maxtor OneTouch 0200 Fixed Direct Access SCSI-0 device Jan 12 12:37:10 onyx kernel: da0: 40.000MB/s transfers Jan 12 12:37:10 onyx kernel: da0: 194480MB (398295040 512 byte sectors: 255H 63S/T 24792C) ＜略＞ # mount_msdosfs -o large -Lja_JP.eucJP -D CP932 /dev/da0s1 /mnt これでファイル名はEUC-JPで表示されるので、LANG=ja_JP.eucJP;export LANGとしたうえで、ターミナルの設定を変えてやればOK。 UTF-8のターミナルでファイル名を確認したい場合には、nkf( /usr/ports/japanese/nkf)やiconv(/usr/ports/converters/libiconv)で変換する。 ◎実行例  $ ls /mnt/Document/*.url /mnt/Document/SUPPORT\u0026#91;Support Info.]Windows 2000 ???????.url /mnt/Document/????????????????.url $ ls /mnt/Document/*.url|iconv -f EUC-JP -t UTF-8 /mnt/Document/SUPPORT\u0026#91;Support Info.]Windows 2000 関連情報.url /mnt/Document/ファイアウォール.url $ nkfの場合にはiconvの代わりにnkf -Ewとする。 ファイル名の文字コード自体を変換したい場合には、convmv(ファイル名の文字コード変換)を使う。 なお、mount_msdosfsでUTF-8への変換時に発生する問題については下記のリンクを参照のこと。 ”(FreeBSD-users-jp 91921) Re: Trouble in msdosfs UTF-8 conversion of japanese filename” 一部引用。   Q cd9600 msdosfs ntfs などの CP932 なファイルシステムで 日本語を含むファイルがある場合、UTF-8 に変換して mount する (たとえば # mount_msdosfs -L ja_JP.UTF-8 ) と、日本語を 含むファイルへのアクセスがおかしいようです。 A カーネル内部のコード変換が、バイト数が変化する変換に完全にはまだ 対応できていないためです（ UTF-8 では漢字は 3 バイト）。EUC への 変換で回避するか、imuraさんによる kiconv enhancement パッチ http://people.freebsd.org/~imura/kiconv/ を自分で当てて、対応したカーネルを作成する必要があります。  ","wordCount":"973","inLanguage":"en","datePublished":"2009-01-12T01:00:00+09:00","dateModified":"2009-01-12T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2009-01-12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSDでmsdosfs上の日本語ファイルを扱うには","name":"FreeBSDでmsdosfs上の日本語ファイルを扱うには","description":"MSDOSFSの日本語ファイル名に使われる文字コードはCP932([Shit_JIS](http://ja.wikipedia.org/wi","keywords":[],"articleBody":"MSDOSFSの日本語ファイル名に使われる文字コードはCP932([Shit_JIS](http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932))だが、これをFreeBSDでマウントするには少々の手間がかかる。 結論からいえば、現時点(2009/01/12)でUTF-8に変換すると問題があるため、EUC-JPに変換する。 具体的には、mount_msdosfsに-L, -Dオプションを与えて使う。 ◎実行例  # dmesg|grep da0 Jan 12 12:37:10 onyx kernel: da0 at umass-sim0 bus 0 target 0 lun 0 Jan 12 12:37:10 onyx kernel: da0: \u0026#60;Maxtor OneTouch 0200 Fixed Direct Access SCSI-0 device Jan 12 12:37:10 onyx kernel: da0: 40.000MB/s transfers Jan 12 12:37:10 onyx kernel: da0: 194480MB (398295040 512 byte sectors: 255H 63S/T 24792C) ＜略＞ # mount_msdosfs -o large -Lja_JP.eucJP -D CP932 /dev/da0s1 /mnt これでファイル名はEUC-JPで表示されるので、LANG=ja_JP.eucJP;export LANGとしたうえで、ターミナルの設定を変えてやればOK。 UTF-8のターミナルでファイル名を確認したい場合には、nkf( /usr/ports/japanese/nkf)やiconv(/usr/ports/converters/libiconv)で変換する。 ◎実行例  $ ls /mnt/Document/*.url /mnt/Document/SUPPORT\u0026#91;Support Info.]Windows 2000 ???????.url /mnt/Document/????????????????.url $ ls /mnt/Document/*.url|iconv -f EUC-JP -t UTF-8 /mnt/Document/SUPPORT\u0026#91;Support Info.]Windows 2000 関連情報.url /mnt/Document/ファイアウォール.url $ nkfの場合にはiconvの代わりにnkf -Ewとする。 ファイル名の文字コード自体を変換したい場合には、convmv([ファイル名の文字コード変換](http://d.hatena.ne.jp/flageo/20070302/p1))を使う。 なお、mount_msdosfsでUTF-8への変換時に発生する問題については下記のリンクを参照のこと。 [”(FreeBSD-users-jp 91921) Re: Trouble in msdosfs UTF-8 conversion of japanese filename”](http://www.mail-archive.com/freebsd-users-jp@jp.freebsd.org/msg03158.html) 一部引用。   Q cd9600 msdosfs ntfs などの CP932 なファイルシステムで 日本語を含むファイルがある場合、UTF-8 に変換して mount する (たとえば # mount_msdosfs -L ja_JP.UTF-8 ) と、日本語を 含むファイルへのアクセスがおかしいようです。 A カーネル内部のコード変換が、バイト数が変化する変換に完全にはまだ 対応できていないためです（ UTF-8 では漢字は 3 バイト）。EUC への 変換で回避するか、imuraさんによる kiconv enhancement パッチ [http://people.freebsd.org/~imura/kiconv/](http://people.freebsd.org/~imura/kiconv/) を自分で当てて、対応したカーネルを作成する必要があります。  ","wordCount":"1060","inLanguage":"en","datePublished":"2009-01-12T01:00:00+09:00","dateModified":"2009-01-12T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2009-01-12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -87,10 +87,10 @@
 <h1 class=post-title>
 FreeBSDでmsdosfs上の日本語ファイルを扱うには
 </h1>
-<div class=post-meta><span title="2009-01-12 01:00:00 +0900 JST">January 12, 2009</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2009-01-12-FreeBSD%e3%81%a7msdosfs%e4%b8%8a%e3%81%ae%e6%97%a5%e6%9c%ac%e8%aa%9e%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e6%89%b1%e3%81%86%e3%81%ab%e3%81%af.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+<div class=post-meta><span title="2009-01-12 01:00:00 +0900 JST">January 12, 2009</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2009-01-12-FreeBSD%e3%81%a7msdosfs%e4%b8%8a%e3%81%ae%e6%97%a5%e6%9c%ac%e8%aa%9e%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e6%89%b1%e3%81%86%e3%81%ab%e3%81%af.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header>
-<div class=post-content><pre><code>MSDOSFSの日本語ファイル名に使われる文字コードはCP932(&lt;a href=&quot;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932&quot; target=&quot;_blank&quot;&gt;Shit_JIS&lt;/a&gt;)だが、これをFreeBSDでマウントするには少々の手間がかかる。
+<div class=post-content><pre><code>MSDOSFSの日本語ファイル名に使われる文字コードはCP932([Shit_JIS](http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932))だが、これをFreeBSDでマウントするには少々の手間がかかる。
 
 
 
@@ -138,7 +138,7 @@ $
 
 
 
-ファイル名の文字コード自体を変換したい場合には、convmv(&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070302/p1&quot; target=&quot;_blank&quot;&gt;ファイル名の文字コード変換&lt;/a&gt;)を使う。
+ファイル名の文字コード自体を変換したい場合には、convmv([ファイル名の文字コード変換](http://d.hatena.ne.jp/flageo/20070302/p1))を使う。
 
 
 
@@ -146,7 +146,7 @@ $
 
 
 
-&lt;a href=&quot;http://www.mail-archive.com/freebsd-users-jp@jp.freebsd.org/msg03158.html&quot; target=&quot;_blank&quot;&gt;”(FreeBSD-users-jp 91921) Re: Trouble in msdosfs UTF-8 conversion of japanese filename”&lt;/a&gt;
+[”(FreeBSD-users-jp 91921) Re: Trouble in msdosfs UTF-8 conversion of japanese filename”](http://www.mail-archive.com/freebsd-users-jp@jp.freebsd.org/msg03158.html)
 
 
 
@@ -188,7 +188,7 @@ $
 
 
 
-  &lt;a href=&quot;http://people.freebsd.org/~imura/kiconv/&quot; target=&quot;_blank&quot;&gt;http://people.freebsd.org/~imura/kiconv/&lt;/a&gt;
+  [http://people.freebsd.org/~imura/kiconv/](http://people.freebsd.org/~imura/kiconv/)
 
 
 

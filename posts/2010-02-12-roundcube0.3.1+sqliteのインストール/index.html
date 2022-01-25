@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>roundcube0.3.1+SQLiteのインストール | nobwak's Lair</title>
 <meta name=keywords content>
-<meta name=description content="FreeBSDに<a href=&#34;http://roundcube.net/&#34; target=&#34;_blank&#34;>Roundcube</a>を再インストール">
+<meta name=description content="FreeBSDに[Roundcube](http://roundcube.net/)を再インストールしたのでメモ。 RoundcubeとはIM">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2010-02-12-roundcube0.3.1+sqlite%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="roundcube0.3.1+SQLiteのインストール">
-<meta property="og:description" content="FreeBSDに<a href=&#34;http://roundcube.net/&#34; target=&#34;_blank&#34;>Roundcube</a>を再インストール">
+<meta property="og:description" content="FreeBSDに[Roundcube](http://roundcube.net/)を再インストールしたのでメモ。 RoundcubeとはIM">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2010-02-12-roundcube0.3.1+sqlite%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2010-02-12T01:00:00+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="roundcube0.3.1+SQLiteのインストール">
-<meta name=twitter:description content="FreeBSDに<a href=&#34;http://roundcube.net/&#34; target=&#34;_blank&#34;>Roundcube</a>を再インストール">
+<meta name=twitter:description content="FreeBSDに[Roundcube](http://roundcube.net/)を再インストールしたのでメモ。 RoundcubeとはIM">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"roundcube0.3.1+SQLiteのインストール","item":"https://nobwak.github.io/posts/2010-02-12-roundcube0.3.1+sqlite%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"roundcube0.3.1+SQLiteのインストール","name":"roundcube0.3.1\u002bSQLiteのインストール","description":"FreeBSDに\u0026lt;a href=\u0026quot;http://roundcube.net/\u0026quot; target=\u0026quot;_blank\u0026quot;\u0026gt;Roundcube\u0026lt;/a\u0026gt;を再インストール","keywords":[],"articleBody":"FreeBSDにRoundcubeを再インストールしたのでメモ。 RoundcubeとはIMAPサーバへのwebインタフェース。まあ、Gmailへのインタフェースと思えば。 いわゆるLAMPサーバ上で動くが、FreeBSD, Apache, SQLite, PHP5の組み合わせでだって動く。 インストール apache, php5がインストールされている前提。 roundcubeインストール。packagesの出来合い設定だと都合が悪いのでportsでインストールする。 わざわざMySQL, PostgreSQLなんて重いDBを使いたくないのでチェックマークを外し、SQLiteにチェックする。 さらにSSLにもチェックし、make install cleanする。  $ cd /usr/ports/mail/roundcube # make config ＜オプションを選択＞ # make install clean sqliteもインストールする。 sqlite2じゃないとダメなので注意。ただ、こちらはデフォルト設定でよいのでpackagesでインストール。portsとpackagesの使い分けこそFreeBSDのキモ。 なお、sqlite3とは競合しないので問題無し。（sqlite3はsqlite3、sqlite2はsqliteとしてインストールされる）  # pkg_add -r sqlite2 Fetching ftp://ftp1.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7-stable/Latest/sqlite2.tbz... Done. apacheの設定 roundcubeは/usr/local/www/roundcubeにインストールされるので、apacheの公開ディレクトリにaliasを作る。 apache設定ファイル/usr/local/etc/apache22/httpd.confに以下の記載を追加。  Alias /roundcube /usr/local/www/roundcube \u0026#60;Directory /usr/local/www/roundcube AllowOverride None Order allow,deny Allow from all \u0026#60;/Directory apacheの再起動を忘れないこと。下記のrcrestartコマンドは便利な管理ツール。  # rcrestart apache22 Performing sanity check on apache22 configuration: Syntax OK Stopping apache22. Waiting for PIDS: 23644. Syntax OK Starting apache22. roundcubeの設定 最低限、データベース設定ファイルである/usr/local/www/roundcube/config/db.inc.phpを修正すればOK。 ここでデータベースのタイプ（sqliteか、mysqlか）と、データベースへの接続方法を指定する。 sqliteにするので、mysql指定になっている行をコメントアウトして、例に沿って一行追加。 sqliteなのでデータベースのファイルを指定する。念のためroundcubeディレクトリとは別の場所にした。 ◎/usr/local/www/roundcube/config/db.inc.php  //$rcmail_config\u0026#91;\u0026#39;db_dsnw\u0026#39;] = \u0026#39;mysql://roundcube:pass@localhost/roundcubemail\u0026#39;; $rcmail_config\u0026#91;\u0026#39;db_dsnw\u0026#39;] = \u0026#39;sqlite:////usr/local/www/maildb/mail.db?mode=0646\u0026#39;; // postgres example: \u0026#39;pgsql://roundcube:pass@localhost/roundcubemail\u0026#39;; // Warning: for SQLite use absolute path in DSN: // sqlite example: \u0026#39;sqlite:////full/path/to/sqlite.db?mode=0646\u0026#39;; データベースファイルの作成 上記で指定した場所にファイルを作り、データベースの初期設定をする。 sqliteからは「.quit」で抜ける。オーナを変更する。 なお、マニュアルにはchmod o+wするように書いてあるが、web serverが読み書きできれば良いので省略。  # mkdir /usr/local/www/maildb/ # cd /usr/local/www/maildb # sqlite -init ../roundcube/SQL/sqlite.initial.sql mail.db Loading resources from ../roundcube/SQL/sqlite.initial.sql SQLite version 2.8.17 Enter \u0026#34;.help\u0026#34; for instructions sqlite .quit # chown -R www:www ../maildb アクセス あとはブラウザでhttp://webサーバ/roundcube/へアクセス。 ユーザ、パスワード、IMAPサーバを入力すればOK。 Gmailの場合は、「ssl://imap.gmail.com:993」と指定すれば良い。 Gmail用設定 Gmailにしか繋がない、という場合には、roundcubeの設定ファイルを修正しておけば、サーバ名の入力を省略できる。…ただ、サーバ名入力フォーム自体が無くなるので注意。  # vi /usr/local/www/roundcube/config/main.inc.php //$rcmail_config\u0026#91;\u0026#39;default_host\u0026#39;] = \u0026#39;\u0026#39;; $rcmail_config\u0026#91;\u0026#39;default_host\u0026#39;] = \u0026#39;ssl://imap.gmail.com:993\u0026#39;; ","wordCount":"1749","inLanguage":"en","datePublished":"2010-02-12T01:00:00+09:00","dateModified":"2010-02-12T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2010-02-12-roundcube0.3.1+sqlite%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"roundcube0.3.1+SQLiteのインストール","name":"roundcube0.3.1\u002bSQLiteのインストール","description":"FreeBSDに[Roundcube](http://roundcube.net/)を再インストールしたのでメモ。 RoundcubeとはIM","keywords":[],"articleBody":"FreeBSDに[Roundcube](http://roundcube.net/)を再インストールしたのでメモ。 RoundcubeとはIMAPサーバへのwebインタフェース。まあ、Gmailへのインタフェースと思えば。 いわゆるLAMPサーバ上で動くが、FreeBSD, Apache, SQLite, PHP5の組み合わせでだって動く。 インストール apache, php5がインストールされている前提。 roundcubeインストール。packagesの出来合い設定だと都合が悪いのでportsでインストールする。 わざわざMySQL, PostgreSQLなんて重いDBを使いたくないのでチェックマークを外し、SQLiteにチェックする。 さらにSSLにもチェックし、make install cleanする。  $ cd /usr/ports/mail/roundcube # make config ＜オプションを選択＞ # make install clean sqliteもインストールする。 sqlite2じゃないとダメなので注意。ただ、こちらはデフォルト設定でよいのでpackagesでインストール。portsとpackagesの使い分けこそFreeBSDのキモ。 なお、sqlite3とは競合しないので問題無し。（sqlite3はsqlite3、sqlite2はsqliteとしてインストールされる）  # pkg_add -r sqlite2 Fetching ftp://ftp1.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7-stable/Latest/sqlite2.tbz... Done. apacheの設定 roundcubeは/usr/local/www/roundcubeにインストールされるので、apacheの公開ディレクトリにaliasを作る。 apache設定ファイル/usr/local/etc/apache22/httpd.confに以下の記載を追加。  Alias /roundcube /usr/local/www/roundcube \u0026#60;Directory /usr/local/www/roundcube AllowOverride None Order allow,deny Allow from all \u0026#60;/Directory apacheの再起動を忘れないこと。下記のrcrestartコマンドは便利な管理ツール。  # rcrestart apache22 Performing sanity check on apache22 configuration: Syntax OK Stopping apache22. Waiting for PIDS: 23644. Syntax OK Starting apache22. roundcubeの設定 最低限、データベース設定ファイルである/usr/local/www/roundcube/config/db.inc.phpを修正すればOK。 ここでデータベースのタイプ（sqliteか、mysqlか）と、データベースへの接続方法を指定する。 sqliteにするので、mysql指定になっている行をコメントアウトして、例に沿って一行追加。 sqliteなのでデータベースのファイルを指定する。念のためroundcubeディレクトリとは別の場所にした。 ◎/usr/local/www/roundcube/config/db.inc.php  //$rcmail_config\u0026#91;\u0026#39;db_dsnw\u0026#39;] = \u0026#39;mysql://roundcube:pass@localhost/roundcubemail\u0026#39;; $rcmail_config\u0026#91;\u0026#39;db_dsnw\u0026#39;] = \u0026#39;sqlite:////usr/local/www/maildb/mail.db?mode=0646\u0026#39;; // postgres example: \u0026#39;pgsql://roundcube:pass@localhost/roundcubemail\u0026#39;; // Warning: for SQLite use absolute path in DSN: // sqlite example: \u0026#39;sqlite:////full/path/to/sqlite.db?mode=0646\u0026#39;; データベースファイルの作成 上記で指定した場所にファイルを作り、データベースの初期設定をする。 sqliteからは「.quit」で抜ける。オーナを変更する。 なお、マニュアルにはchmod o+wするように書いてあるが、web serverが読み書きできれば良いので省略。  # mkdir /usr/local/www/maildb/ # cd /usr/local/www/maildb # sqlite -init ../roundcube/SQL/sqlite.initial.sql mail.db Loading resources from ../roundcube/SQL/sqlite.initial.sql SQLite version 2.8.17 Enter \u0026#34;.help\u0026#34; for instructions sqlite .quit # chown -R www:www ../maildb アクセス あとはブラウザでhttp://webサーバ/roundcube/へアクセス。 ユーザ、パスワード、IMAPサーバを入力すればOK。 Gmailの場合は、「ssl://imap.gmail.com:993」と指定すれば良い。 Gmail用設定 Gmailにしか繋がない、という場合には、roundcubeの設定ファイルを修正しておけば、サーバ名の入力を省略できる。…ただ、サーバ名入力フォーム自体が無くなるので注意。  # vi /usr/local/www/roundcube/config/main.inc.php //$rcmail_config\u0026#91;\u0026#39;default_host\u0026#39;] = \u0026#39;\u0026#39;; $rcmail_config\u0026#91;\u0026#39;default_host\u0026#39;] = \u0026#39;ssl://imap.gmail.com:993\u0026#39;; ","wordCount":"1411","inLanguage":"en","datePublished":"2010-02-12T01:00:00+09:00","dateModified":"2010-02-12T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2010-02-12-roundcube0.3.1+sqlite%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -87,10 +87,10 @@
 <h1 class=post-title>
 roundcube0.3.1+SQLiteのインストール
 </h1>
-<div class=post-meta><span title="2010-02-12 01:00:00 +0900 JST">February 12, 2010</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2010-02-12-roundcube0.3.1+SQLite%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+<div class=post-meta><span title="2010-02-12 01:00:00 +0900 JST">February 12, 2010</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2010-02-12-roundcube0.3.1+SQLite%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header>
-<div class=post-content><pre><code>FreeBSDに&lt;a href=&quot;http://roundcube.net/&quot; target=&quot;_blank&quot;&gt;Roundcube&lt;/a&gt;を再インストールしたのでメモ。
+<div class=post-content><pre><code>FreeBSDに[Roundcube](http://roundcube.net/)を再インストールしたのでメモ。
 
 
 
@@ -105,7 +105,7 @@ RoundcubeとはIMAPサーバへのwebインタフェース。まあ、Gmailへ�
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot;&gt;インストール&lt;/span&gt;
+インストール
 
 
 
@@ -139,7 +139,7 @@ sqlite2じゃないとダメなので注意。ただ、こちらはデフォル�
 </code></pre>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># pkg_add -r sqlite2
 Fetching ftp://ftp1.jp.freebsd.org/pub/FreeBSD/ports/i386/packages-7-stable/Latest/sqlite2.tbz... Done.
-</code></pre></div><pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;apacheの設定&lt;/span&gt;
+</code></pre></div><pre><code>apacheの設定
 
 
 
@@ -164,7 +164,7 @@ Stopping apache22.
 Waiting for PIDS: 23644.
 Syntax OK
 Starting apache22.
-</code></pre></div><pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;roundcubeの設定&lt;/span&gt;
+</code></pre></div><pre><code>roundcubeの設定
 
 
 
@@ -191,7 +191,7 @@ $rcmail_config&amp;<span style=color:#75715e>#91;&amp;#39;db_dsnw&amp;#39;] = &a
 // postgres example: &amp;#39;pgsql://roundcube:pass@localhost/roundcubemail&amp;#39;;
 // Warning: for SQLite use absolute path in DSN:
 // sqlite example: &amp;#39;sqlite:////full/path/to/sqlite.db?mode=0646&amp;#39;;
-</code></pre></div><pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;データベースファイルの作成&lt;/span&gt;
+</code></pre></div><pre><code>データベースファイルの作成
 
 
 
@@ -213,7 +213,7 @@ SQLite version 2.8.17
 Enter &amp;#34;.help&amp;#34; for instructions
 sqlite&gt; .quit
 # chown -R www:www ../maildb
-</code></pre></div><pre><code>&lt;span style=&quot;font-weight:bold;&quot;&gt;アクセス&lt;/span&gt;
+</code></pre></div><pre><code>アクセス
 
 
 
@@ -232,7 +232,7 @@ Gmailの場合は、「ssl://imap.gmail.com:993」と指定すれば良い。
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot;&gt;Gmail用設定&lt;/span&gt;
+Gmail用設定
 
 
 

@@ -108,25 +108,25 @@ Sambaの汚物（ウイルス）は消毒だ。scannedonly編。
 <li>
 <a href=#scannedonly-vfs%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label="scannedonly vfsの設定">scannedonly vfsの設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%b5%b7%e5%8b%95span aria-label=起動>起動</a></li>
+<a href=#%e8%b5%b7%e5%8b%95 aria-label=起動>起動</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinebr--%e5%ae%9f%e9%a8%93%e6%9c%aa%e3%82%b9%e3%82%ad%e3%83%a3%e3%83%b3%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%af%e3%81%a9%e3%81%86%e8%a1%a8%e7%a4%ba%e3%81%95%e3%82%8c%e3%82%8b%e3%81%8bspan aria-label=実験:未スキャンのファイルはどう表示されるか。> 実験:未スキャンのファイルはどう表示されるか。</a></li>
+<a href=#br--%e5%ae%9f%e9%a8%93%e6%9c%aa%e3%82%b9%e3%82%ad%e3%83%a3%e3%83%b3%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%af%e3%81%a9%e3%81%86%e8%a1%a8%e7%a4%ba%e3%81%95%e3%82%8c%e3%82%8b%e3%81%8b aria-label=実験:未スキャンのファイルはどう表示されるか。> 実験:未スキャンのファイルはどう表示されるか。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineoffice%e3%83%89%e3%82%ad%e3%83%a5%e3%83%a1%e3%83%b3%e3%83%88%e3%82%92%e5%85%b1%e6%9c%89%e3%81%99%e3%82%8b%e5%a0%b4%e5%90%88span aria-label=Officeドキュメントを共有する場合>Officeドキュメントを共有する場合</a></li>
+<a href=#office%e3%83%89%e3%82%ad%e3%83%a5%e3%83%a1%e3%83%b3%e3%83%88%e3%82%92%e5%85%b1%e6%9c%89%e3%81%99%e3%82%8b%e5%a0%b4%e5%90%88 aria-label=Officeドキュメントを共有する場合>Officeドキュメントを共有する場合</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%90%e3%83%83%e3%82%af%e3%83%a4%e3%83%bc%e3%83%89%e3%81%a7%e3%81%afspan aria-label=バックヤードでは>バックヤードでは</a></li>
+<a href=#%e3%83%90%e3%83%83%e3%82%af%e3%83%a4%e3%83%bc%e3%83%89%e3%81%a7%e3%81%af aria-label=バックヤードでは>バックヤードでは</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinebr--%e5%ae%9f%e9%a8%93-virus%e3%81%8c%e8%a6%8b%e3%81%a4%e3%81%8b%e3%81%a3%e3%81%9f%e3%82%89%e3%81%a9%e3%81%86%e3%81%aa%e3%82%8bspan aria-label="実験: virusが見つかったらどうなる？"> 実験: virusが見つかったらどうなる？</a>
+<a href=#br--%e5%ae%9f%e9%a8%93-virus%e3%81%8c%e8%a6%8b%e3%81%a4%e3%81%8b%e3%81%a3%e3%81%9f%e3%82%89%e3%81%a9%e3%81%86%e3%81%aa%e3%82%8b aria-label="実験: virusが見つかったらどうなる？"> 実験: virusが見つかったらどうなる？</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
 <div class=post-content><h2 id=sambaのvfs-scannedonly>sambaのvfs, scannedonly<a hidden class=anchor aria-hidden=true href=#sambaのvfs-scannedonly>#</a></h2>
-<p>scannedonlyとは、sambaのvfs。<br>
+<p><a href=http://olivier.sessink.nl/scannedonly/>scannedonly</a>とは、sambaのvfs。<br>
 その名前の通り、スキャン済みのもののみ開いたりダウンロードできるようになる。</p>
 <h2 id=scannedonlyのインストール>scannedonlyのインストール<a hidden class=anchor aria-hidden=true href=#scannedonlyのインストール>#</a></h2>
-<p>scannedonlyのvfsは、実はSambaに含まれる。<br>
+<p><a href=http://olivier.sessink.nl/scannedonly/>scannedonly</a>のvfsは、実はSambaに含まれる。<br>
 あれ？じゃあすぐ使えるの？と思ったのだが、それは間違いで、実際にスキャンを行うdaemonを別にインストールする必要がある。<br>
 その代わりと言っては何だが、clamdを立ち上げる必要はない。<br>
 security/scannedonlyからインストールできる。<br>
@@ -196,7 +196,7 @@ scannedonly:socketname = /var/run/scannedonlyd.sock # domain socketの指定
 scannedonly:hide_nonscanned_files = True # 未スキャンファイルを隠し、（下の行に続く）
 scannedonly:scanning_message = is being scanned for viruses # スキャン中である旨表示する。
 scannedonly:allow_nonscanned_files = True # Officeドキュメントを共有するならTrueに。後述。
-</code></pre></div><h2 id=span-styletext-decoration-underline起動span>起動<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline起動span>#</a></h2>
+</code></pre></div><h2 id=起動>起動<a hidden class=anchor aria-hidden=true href=#起動>#</a></h2>
 <p>scannedonly daemonを起動し、そのあとsambaを（再）起動。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo service scannedonly start
 Starting scannedonly_clamav.
@@ -212,7 +212,7 @@ $
 </code></pre></div><p>このとき、/var/log/messagesには以下の表示があるはず。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>Mar 21 21:13:35 yaryka scannedonlyd_clamav[5741]: Starting with socket /var/run/scannedonlyd.sock and 8 threads
 Mar 21 21:13:47 yaryka scannedonlyd_clamav[5741]: Finished building databases. Ready for scanning with 8 threads
-</code></pre></div><h2 id=span-styletext-decoration-underlinebr--実験未スキャンのファイルはどう表示されるかspan> 実験:未スキャンのファイルはどう表示されるか。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinebr--実験未スキャンのファイルはどう表示されるかspan>#</a></h2>
+</code></pre></div><h2 id=br--実験未スキャンのファイルはどう表示されるか> 実験:未スキャンのファイルはどう表示されるか。<a hidden class=anchor aria-hidden=true href=#br--実験未スキャンのファイルはどう表示されるか>#</a></h2>
 <p>さっそく共有フォルダにファイルを放り込んでみよう。<br>
 小さいファイルだと変わらないようにみえるが、ちょっと大きいファイルになると、コピーが終わってからスキャンが終わるまで、以下のような表示になるはず。<br>
 <img loading=lazy src=/wp-content/uploads/2014/03/beingscanned.png alt=img>
@@ -223,7 +223,7 @@ Mar 21 21:13:47 yaryka scannedonlyd_clamav[5741]: Finished building databases. R
 ユーザからしてみれば、ファイルが見えるのに開けないのはストレスでしかない。<br>
 hide_nonscanned_filesはTrueをお勧めする。<br>
 しかし。</p>
-<h2 id=span-styletext-decoration-underlineofficeドキュメントを共有する場合span>Officeドキュメントを共有する場合<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineofficeドキュメントを共有する場合span>#</a></h2>
+<h2 id=officeドキュメントを共有する場合>Officeドキュメントを共有する場合<a hidden class=anchor aria-hidden=true href=#officeドキュメントを共有する場合>#</a></h2>
 <p>scannedonlyの仕組みで困るのは、Officeドキュメント。<br>
 というのも、Officeはファイルを頻繁に開け閉めするから。<br>
 その都度、スキャンが走り、終わるまでファイルを開けなくなる。<br>
@@ -232,7 +232,7 @@ hide_nonscanned_filesはTrueをお勧めする。<br>
 うーん…。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>scannedonly:allow_nonscanned_files = True
 </code></pre></div><p>まあ、仕方ないよね。</p>
-<h2 id=span-styletext-decoration-underlineバックヤードではspan>バックヤードでは<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineバックヤードではspan>#</a></h2>
+<h2 id=バックヤードでは>バックヤードでは<a hidden class=anchor aria-hidden=true href=#バックヤードでは>#</a></h2>
 <p>さて。scannedonlyのバックヤードはどうなっているのだろうか。<br>
 実ディレクトリを見てみると、このようになっている。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ ls -la
@@ -251,7 +251,7 @@ $
 複数スレッドで処理していることと、大きいファイルは1スレッドでしか処理しないことからこのような動作になる。</p>
 <p>また、しばらくすると、/var/log/messagesにはログが増えているはず。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>Mar 21 21:33:47 yaryka scannedonlyd_clamav[5741]: Status: scanned 3 files and 0 large files in 20 minutes; min 0/max 4 requests on small queue, min 0/max 0 requests on large queue
-</code></pre></div><h2 id=span-styletext-decoration-underlinebr--実験-virusが見つかったらどうなるspan> 実験: virusが見つかったらどうなる？<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinebr--実験-virusが見つかったらどうなるspan>#</a></h2>
+</code></pre></div><h2 id=br--実験-virusが見つかったらどうなる> 実験: virusが見つかったらどうなる？<a hidden class=anchor aria-hidden=true href=#br--実験-virusが見つかったらどうなる>#</a></h2>
 <p>試してみた。<br>
 testvirus.txtというファイルを突っ込んでみると、コピーが終わっても共有フォルダには表示がされない。<br>
 代わりに、同じファイル名、ただしファイル名先頭に「VIRUS_found_in_」、末尾に「.txt」と付いたサイズ0のファイルが作られ表示される。<br>

@@ -37,7 +37,7 @@
 <meta name=twitter:title content="[Python] Sublime textのインストールと設定">
 <meta name=twitter:description content="Pythonのエディタとして、長らくIDLEを使っていたけれども、Sublime textに巡り合って満足した。 導入方法について記す。 日曜プロ">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"[Python] Sublime textのインストールと設定","item":"https://nobwak.github.io/posts/2015-02-17-python_sublime_text%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Python] Sublime textのインストールと設定","name":"[Python] Sublime textのインストールと設定","description":"Pythonのエディタとして、長らくIDLEを使っていたけれども、Sublime textに巡り合って満足した。 導入方法について記す。 日曜プロ","keywords":[],"articleBody":"Pythonのエディタとして、長らくIDLEを使っていたけれども、Sublime textに巡り合って満足した。\n導入方法について記す。\n日曜プログラマのコードエディタ 俺みたいな日曜プログラマは間欠泉的にコードを書く。\nつまり日常的にコードを書くわけではないので、文法やらなにやら、すぐに忘れてしまう。\nこういう人々にとっては、コードを書くための支援や補助があるエディタは非常にありがたい。\nとなると、一番に候補に挙がるのはEclipseであるが、日曜プログラマはそんな重量級のIDEを使うほど必死でもない。\nとなると高機能なテキストエディタくらいがちょうど良いのである。\nsublime textは、そんな要望にピッタリであった。\nsublime textとは 「コードを書くための洗練されたテキストエディタ」だそうで。\n追加機能はパッケージシステムで実現されていて、駆使すれば驚くようなことができる。\nsublime textは$70であるが、お金を払わずとも使用はできる。\nWindowsでも、Macでも使える。\nインストール http://www.sublimetext.com/3上記からダウンロード、インストールすればよい。\n2と3があり、3はベータの段階であるが、まあ3でよいでしょう。\nポータブルバージョンもあるのが嬉しい。\nしかし、本体インストールだけでは単なるテキストエディタ。\n続けてパッケージシステムを有効にして、パッケージをいくつかインストールする。\nその前に。\n書いたコードの実行はCtrl + B そのまま。\nコードを書くエディタにテキストエディタを選んだときの一番の欠点は、コードの実行である。\nテキストエディタで書いて、ターミナル/コマンドプロンプトを開いて実行し、またエディタに戻って…というのが苦痛。\nこれが嫌で、かといって重量級IDEも嫌で、しょうがなくPython付属のIDE（？）であるIDLEをしばらく使っていた。\nもちろん、テキストエディタでだって、コードを実行することもできる。\nしかしそれには（俺にとっては）面倒な設定が必要なんだが、Sublime textならCtrl + Bだけで済む。もちろんpython等がPATHに入っている必要はあるけれども。\nではパッケージの話へ。\nパッケージシステムの有効化 パッケージシステムを有効にするには、sublime textでコマンド実行する必要がある。\nそこだけ聞くと面倒そうだが、意外に簡単。\nctrl+` と叩くか、View  Show Console。\n現れた欄に https://packagecontrol.io/installationにあるコードを貼り付ける。\n同サイトに以下の警告がある通り、必ずサイトからコードをコピーすること。\n Warning: Please do not redistribute the install code via another website. It will change with every release. Instead, please link to this page.\n パッケージのインストール さっそくパッケージをインストール。\nPreference  Package Control  Install Package と進むか、Ctrl + Shift + P と叩き、さらに\"install\"とタイプ、リターン。\nインストール可能なパッケージが並ぶので、カーソルで選んでリターンを押すだけ。\nどのパッケージをインストールするか。\n最初は以下のページからザクザクインストールしたらよい。不要なら無効にできるしね。\nパッケージ人気ランキング\nhttps://packagecontrol.io/browse/popular以下、パッケージの説明。\nおすすめパッケージ SublimeLinter\nhttp://sublimelinter.readthedocs.org/en/latest/Sublime​Linter-pep​8\nhttps://packagecontrol.io/packages/SublimeLinter-pep8SublimeLinterは書式をチェックしてくれる（Linter）もの。\n追加で言語パッケージを入れる必要がある。pep8はPython用。\nSideBarEnhancements\nhttps://packagecontrol.io/packages/SideBarEnhancementsSublime Textは、左側ペインにファイルのリストが表示される。ここでの操作を強化するパッケージ。\nTheme-Soda\nhttps://packagecontrol.io/packages/Theme%20-%20Sodaテーマですね。テーマはSublime text全体の見た目を、カラースキームはコード表示を決める。\nBracketHighlighter\nhttps://packagecontrol.io/packages/BracketHighlighterカッコを強調表示。\nSublimeCodeIntel\nhttps://packagecontrol.io/packages/SublimeCodeIntelコード補助だけど、ちょっと鬱陶しいかも。\nAlignment\nhttp://wbond.net/sublime_packages/alignmentイコールの場所を揃えてくれる。\n以下はWindowsの日本語関係\nConvertToUTF8\nhttps://packagecontrol.io/packages/ConvertToUTF8IMESupport\nhttps://packagecontrol.io/packages/IMESupport","wordCount":"1926","inLanguage":"en","datePublished":"2015-02-17T00:32:19+09:00","dateModified":"2015-02-17T00:32:19+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2015-02-17-python_sublime_text%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Python] Sublime textのインストールと設定","name":"[Python] Sublime textのインストールと設定","description":"Pythonのエディタとして、長らくIDLEを使っていたけれども、Sublime textに巡り合って満足した。 導入方法について記す。 日曜プロ","keywords":[],"articleBody":"Pythonのエディタとして、長らくIDLEを使っていたけれども、Sublime textに巡り合って満足した。\n導入方法について記す。\n日曜プログラマのコードエディタ 俺みたいな日曜プログラマは間欠泉的にコードを書く。\nつまり日常的にコードを書くわけではないので、文法やらなにやら、すぐに忘れてしまう。\nこういう人々にとっては、コードを書くための支援や補助があるエディタは非常にありがたい。\nとなると、一番に候補に挙がるのはEclipseであるが、日曜プログラマはそんな重量級のIDEを使うほど必死でもない。\nとなると高機能なテキストエディタくらいがちょうど良いのである。\nsublime textは、そんな要望にピッタリであった。\nsublime textとは 「コードを書くための洗練されたテキストエディタ」だそうで。\n追加機能はパッケージシステムで実現されていて、駆使すれば驚くようなことができる。\nsublime textは$70であるが、お金を払わずとも使用はできる。\nWindowsでも、Macでも使える。\nインストール http://www.sublimetext.com/3\n上記からダウンロード、インストールすればよい。\n2と3があり、3はベータの段階であるが、まあ3でよいでしょう。\nポータブルバージョンもあるのが嬉しい。\nしかし、本体インストールだけでは単なるテキストエディタ。\n続けてパッケージシステムを有効にして、パッケージをいくつかインストールする。\nその前に。\n書いたコードの実行はCtrl + B そのまま。\nコードを書くエディタにテキストエディタを選んだときの一番の欠点は、コードの実行である。\nテキストエディタで書いて、ターミナル/コマンドプロンプトを開いて実行し、またエディタに戻って…というのが苦痛。\nこれが嫌で、かといって重量級IDEも嫌で、しょうがなくPython付属のIDE（？）であるIDLEをしばらく使っていた。\nもちろん、テキストエディタでだって、コードを実行することもできる。\nしかしそれには（俺にとっては）面倒な設定が必要なんだが、Sublime textならCtrl + Bだけで済む。もちろんpython等がPATHに入っている必要はあるけれども。\nではパッケージの話へ。\nパッケージシステムの有効化 パッケージシステムを有効にするには、sublime textでコマンド実行する必要がある。\nそこだけ聞くと面倒そうだが、意外に簡単。\nctrl+` と叩くか、View  Show Console。\n現れた欄に https://packagecontrol.io/installation にあるコードを貼り付ける。\n同サイトに以下の警告がある通り、必ずサイトからコードをコピーすること。\n Warning: Please do not redistribute the install code via another website. It will change with every release. Instead, please link to this page.\n パッケージのインストール さっそくパッケージをインストール。\nPreference  Package Control  Install Package と進むか、Ctrl + Shift + P と叩き、さらに\"install\"とタイプ、リターン。\nインストール可能なパッケージが並ぶので、カーソルで選んでリターンを押すだけ。\nどのパッケージをインストールするか。\n最初は以下のページからザクザクインストールしたらよい。不要なら無効にできるしね。\nパッケージ人気ランキング\nhttps://packagecontrol.io/browse/popular\n以下、パッケージの説明。\nおすすめパッケージ SublimeLinter\nhttp://sublimelinter.readthedocs.org/en/latest/\nSublime​Linter-pep​8\nhttps://packagecontrol.io/packages/SublimeLinter-pep8\nSublimeLinterは書式をチェックしてくれる（Linter）もの。\n追加で言語パッケージを入れる必要がある。pep8はPython用。\nSideBarEnhancements\nhttps://packagecontrol.io/packages/SideBarEnhancements\nSublime Textは、左側ペインにファイルのリストが表示される。ここでの操作を強化するパッケージ。\nTheme-Soda\nhttps://packagecontrol.io/packages/Theme%20-%20Soda\nテーマですね。テーマはSublime text全体の見た目を、カラースキームはコード表示を決める。\nBracketHighlighter\nhttps://packagecontrol.io/packages/BracketHighlighter\nカッコを強調表示。\nSublimeCodeIntel\nhttps://packagecontrol.io/packages/SublimeCodeIntel\nコード補助だけど、ちょっと鬱陶しいかも。\nAlignment\nhttp://wbond.net/sublime_packages/alignment\nイコールの場所を揃えてくれる。\n以下はWindowsの日本語関係\nConvertToUTF8\nhttps://packagecontrol.io/packages/ConvertToUTF8\nIMESupport\nhttps://packagecontrol.io/packages/IMESupport\n","wordCount":"1533","inLanguage":"en","datePublished":"2015-02-17T00:32:19+09:00","dateModified":"2015-02-17T00:32:19+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2015-02-17-python_sublime_text%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,19 +96,19 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e6%97%a5%e6%9b%9c%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9e%e3%81%ae%e3%82%b3%e3%83%bc%e3%83%89%e3%82%a8%e3%83%87%e3%82%a3%e3%82%bfspan aria-label=日曜プログラマのコードエディタ>日曜プログラマのコードエディタ</a></li>
+<a href=#%e6%97%a5%e6%9b%9c%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9e%e3%81%ae%e3%82%b3%e3%83%bc%e3%83%89%e3%82%a8%e3%83%87%e3%82%a3%e3%82%bf aria-label=日曜プログラマのコードエディタ>日曜プログラマのコードエディタ</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesublime-text%e3%81%a8%e3%81%afspan aria-label="sublime textとは">sublime textとは</a></li>
+<a href=#sublime-text%e3%81%a8%e3%81%af aria-label="sublime textとは">sublime textとは</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abspan aria-label=インストール>インストール</a></li>
+<a href=#%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=インストール>インストール</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e6%9b%b8%e3%81%84%e3%81%9f%e3%82%b3%e3%83%bc%e3%83%89%e3%81%ae%e5%ae%9f%e8%a1%8c%e3%81%afctrl--bspan aria-label="書いたコードの実行はCtrl + B">書いたコードの実行はCtrl + B</a></li>
+<a href=#%e6%9b%b8%e3%81%84%e3%81%9f%e3%82%b3%e3%83%bc%e3%83%89%e3%81%ae%e5%ae%9f%e8%a1%8c%e3%81%afctrl--b aria-label="書いたコードの実行はCtrl + B">書いたコードの実行はCtrl + B</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%e3%81%ae%e6%9c%89%e5%8a%b9%e5%8c%96span aria-label=パッケージシステムの有効化>パッケージシステムの有効化</a></li>
+<a href=#%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%e3%81%ae%e6%9c%89%e5%8a%b9%e5%8c%96 aria-label=パッケージシステムの有効化>パッケージシステムの有効化</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abspan aria-label=パッケージのインストール>パッケージのインストール</a></li>
+<a href=#%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=パッケージのインストール>パッケージのインストール</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%81%8a%e3%81%99%e3%81%99%e3%82%81%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8span aria-label=おすすめパッケージ>おすすめパッケージ</a>
+<a href=#%e3%81%8a%e3%81%99%e3%81%99%e3%82%81%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8 aria-label=おすすめパッケージ>おすすめパッケージ</a>
 </li>
 </ul>
 </div>
@@ -116,19 +116,19 @@
 </div>
 <div class=post-content><p>Pythonのエディタとして、長らくIDLEを使っていたけれども、Sublime textに巡り合って満足した。<br>
 導入方法について記す。</p>
-<h2 id=span-styletext-decoration-underline日曜プログラマのコードエディタspan>日曜プログラマのコードエディタ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline日曜プログラマのコードエディタspan>#</a></h2>
+<h2 id=日曜プログラマのコードエディタ>日曜プログラマのコードエディタ<a hidden class=anchor aria-hidden=true href=#日曜プログラマのコードエディタ>#</a></h2>
 <p>俺みたいな日曜プログラマは間欠泉的にコードを書く。<br>
 つまり日常的にコードを書くわけではないので、文法やらなにやら、すぐに忘れてしまう。<br>
 こういう人々にとっては、コードを書くための支援や補助があるエディタは非常にありがたい。<br>
 となると、一番に候補に挙がるのはEclipseであるが、日曜プログラマはそんな重量級のIDEを使うほど必死でもない。<br>
 となると高機能なテキストエディタくらいがちょうど良いのである。<br>
 sublime textは、そんな要望にピッタリであった。</p>
-<h2 id=span-styletext-decoration-underlinesublime-textとはspan>sublime textとは<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesublime-textとはspan>#</a></h2>
+<h2 id=sublime-textとは>sublime textとは<a hidden class=anchor aria-hidden=true href=#sublime-textとは>#</a></h2>
 <p>「コードを書くための洗練されたテキストエディタ」だそうで。<br>
 追加機能はパッケージシステムで実現されていて、駆使すれば驚くようなことができる。<br>
 sublime textは$70であるが、お金を払わずとも使用はできる。<br>
 Windowsでも、Macでも使える。</p>
-<h2 id=span-styletext-decoration-underlineインストールspan>インストール<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineインストールspan>#</a></h2>
+<h2 id=インストール>インストール<a hidden class=anchor aria-hidden=true href=#インストール>#</a></h2>
 <p><a href=http://www.sublimetext.com/3>http://www.sublimetext.com/3</a></p>
 <p>上記からダウンロード、インストールすればよい。<br>
 2と3があり、3はベータの段階であるが、まあ3でよいでしょう。<br>
@@ -136,7 +136,7 @@ Windowsでも、Macでも使える。</p>
 しかし、本体インストールだけでは単なるテキストエディタ。<br>
 続けてパッケージシステムを有効にして、パッケージをいくつかインストールする。<br>
 その前に。</p>
-<h2 id=span-styletext-decoration-underline書いたコードの実行はctrl--bspan>書いたコードの実行はCtrl + B<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline書いたコードの実行はctrl--bspan>#</a></h2>
+<h2 id=書いたコードの実行はctrl--b>書いたコードの実行はCtrl + B<a hidden class=anchor aria-hidden=true href=#書いたコードの実行はctrl--b>#</a></h2>
 <p>そのまま。<br>
 コードを書くエディタにテキストエディタを選んだときの一番の欠点は、コードの実行である。<br>
 テキストエディタで書いて、ターミナル/コマンドプロンプトを開いて実行し、またエディタに戻って…というのが苦痛。<br>
@@ -144,7 +144,7 @@ Windowsでも、Macでも使える。</p>
 もちろん、テキストエディタでだって、コードを実行することもできる。<br>
 しかしそれには（俺にとっては）面倒な設定が必要なんだが、Sublime textならCtrl + Bだけで済む。もちろんpython等がPATHに入っている必要はあるけれども。<br>
 ではパッケージの話へ。</p>
-<h2 id=span-styletext-decoration-underlineパッケージシステムの有効化span>パッケージシステムの有効化<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineパッケージシステムの有効化span>#</a></h2>
+<h2 id=パッケージシステムの有効化>パッケージシステムの有効化<a hidden class=anchor aria-hidden=true href=#パッケージシステムの有効化>#</a></h2>
 <p>パッケージシステムを有効にするには、sublime textでコマンド実行する必要がある。<br>
 そこだけ聞くと面倒そうだが、意外に簡単。</p>
 <p>ctrl+` と叩くか、View > Show Console。<br>
@@ -153,7 +153,7 @@ Windowsでも、Macでも使える。</p>
 <blockquote>
 <p>Warning: Please do not redistribute the install code via another website. It will change with every release. Instead, please link to this page.</p>
 </blockquote>
-<h2 id=span-styletext-decoration-underlineパッケージのインストールspan>パッケージのインストール<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineパッケージのインストールspan>#</a></h2>
+<h2 id=パッケージのインストール>パッケージのインストール<a hidden class=anchor aria-hidden=true href=#パッケージのインストール>#</a></h2>
 <p>さっそくパッケージをインストール。<br>
 Preference > Package Control > Install Package と進むか、Ctrl + Shift + P  と叩き、さらに"install"とタイプ、リターン。<br>
 インストール可能なパッケージが並ぶので、カーソルで選んでリターンを押すだけ。<br>
@@ -162,7 +162,7 @@ Preference > Package Control > Install Package と進むか、Ctrl + Shift + P 
 <p>パッケージ人気ランキング<br>
 <a href=https://packagecontrol.io/browse/popular>https://packagecontrol.io/browse/popular</a></p>
 <p>以下、パッケージの説明。</p>
-<h2 id=span-styletext-decoration-underlineおすすめパッケージspan>おすすめパッケージ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineおすすめパッケージspan>#</a></h2>
+<h2 id=おすすめパッケージ>おすすめパッケージ<a hidden class=anchor aria-hidden=true href=#おすすめパッケージ>#</a></h2>
 <p>SublimeLinter<br>
 <a href=http://sublimelinter.readthedocs.org/en/latest/>http://sublimelinter.readthedocs.org/en/latest/</a><br>
 Sublime​Linter-pep​8<br>

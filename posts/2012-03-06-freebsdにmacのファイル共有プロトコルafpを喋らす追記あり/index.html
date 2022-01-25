@@ -37,7 +37,7 @@
 <meta name=twitter:title content="FreeBSDにMacのファイル共有プロトコルAFPを喋らす。（追記あり）">
 <meta name=twitter:description content="AFP(Apple Filing Protocol)。 Macのファイル共有はOSXからSMB/CIFSになったと勝手に思いこんでたから驚いた。AppleTalkが今に生き">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"FreeBSDにMacのファイル共有プロトコルAFPを喋らす。（追記あり）","item":"https://nobwak.github.io/posts/2012-03-06-freebsd%E3%81%ABmac%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%ABafp%E3%82%92%E5%96%8B%E3%82%89%E3%81%99%E8%BF%BD%E8%A8%98%E3%81%82%E3%82%8A/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSDにMacのファイル共有プロトコルAFPを喋らす。（追記あり）","name":"FreeBSDにMacのファイル共有プロトコルAFPを喋らす。（追記あり）","description":"AFP(Apple Filing Protocol)。 Macのファイル共有はOSXからSMB/CIFSになったと勝手に思いこんでたから驚いた。AppleTalkが今に生き","keywords":[],"articleBody":"AFP(Apple Filing Protocol)。 Macのファイル共有はOSXからSMB/CIFSになったと勝手に思いこんでたから驚いた。AppleTalkが今に生きてるとは。 ただ、AFPは下位レイヤにAppletalkじゃなくTCPを使うことができるそうなので納得。 追記:コメントで教えていただきましたが、さいきんAppletalkは死んでしもうたそうです。R.I.P. UNIX系でAppleTalk互換ソフトウェアといえばNetatalk。 Macでファイル共有するなら正直SMB/CIFSでいいかなとも思ったが、どうもNetatalkの方が軽いと聞いたので、試しに使ってみる。 iTunesのライブラリも置いてみたいのだ。 netatalkには、AFPデーモンのafpd、CNID管理のcnid_metad、appletalkを動かすatalkd、リモートプリントサービスのpapd、Mac向けタイムサーバのtimelordが含まれる。 AFP over TCPで要るのは、afpd, cnid_metadと理解した。 Macのファイル共有で面白いのは各ファイル、フォルダに固有のIDを付けて管理するという点。パスを使わないのだ。これは大昔からaliasという考え方があったせいか。 そして、ホストのファイル、ディレクトリとID（CNID, Catalog Node ID）のくくりつけを管理するのがcnd_metadということらしい。（metaという名前だけに、DBは別にあるのだが） net/netatalkからインストール  # cd /usr/ports/net/netatalk # make config Apple Talkを外す。 # make install clean 苦難の設定 すごく大変だった。 なんかマニュアルがすごく分かりにくく感じる。 共有フォルダ設定はAppleVolumes.defaultを使い、それ以外はnetatalk.conf, afpd.confを使うようだ。 以下を見ながら試行錯誤。 http://netatalk.sourceforge.net/2.2/htmldocs/configuration.html#id1590298 /usr/local/etc/netatalk.confで全般の設定。 変えたのは以下の二点。  #### machine\u0026#39;s AFPserver/AppleTalk name. ATALK_NAME=sylph_osx #### Set which daemons to run. #### If you use AFP file server, run both cnid_metad and afpd. CNID_METAD_RUN=yes AFPD_RUN=yes /usr/local/etc/afpd.conf 変更なし。 /usr/local/etc/AppleVolumes.default ここで共有フォルダの設定。下記において最初の二行はデフォルト。 最後の一行のみ追加した。 ~はホームディレクトリだな。  :DEFAULT: options:upriv,usedots ~ /export/itunes itunes なお、以下にオプションが山ほど。 http://netatalk.sourceforge.net/2.2/htmldocs/AppleVolumes.default.5.html 書式は以下の通り。   [] オプションでめぼしいものは以下の二つくらいかな。  tm OSXのタイムマシンサポートを有効に。 ro 読み取り専用 複数指定する場合にはたとえば（実際にはtmとroを一緒に使うことはないが）以下のようにカンマ(,)でつなぐ。  /dir/path share options:tm,ro そうしたら、/etc/rc.confに以下を追加する。 netatalkを動かすにはavahi_daemonが必要で、avahiを動かすにはdbusが必要だからこんな感じ。 なお運用中に設定を変更した場合にはこれらサービスをすべて再起動したほうがいいようだ。  #AFP dbus_enable=\u0026#34;YES\u0026#34; avahi_daemon_enable=\u0026#34;YES\u0026#34; avahi_dnsconfd_enable=\u0026#34;YES\u0026#34; netatalk_enable=\u0026#34;YES\u0026#34; cnid_metad_enable=\u0026#34;YES\u0026#34; afpd_enable=\u0026#34;YES\u0026#34; で、再起動するか、/usr/local/etc/rc.dで上から順番に起動させればOK。 FreeBSDのnetatalk関連の起動スクリプトは、startさせても何のメッセージも出ないのが不親切だと思う。 macからはafp://の書式でアクセスできる。 運用。安定していないのか? 320GBほどのデータをAFP経由でコピーしたのだが、以下のメッセージが表示されてなかなか終わらない。 何が悪いのだろう?  Mar 6 06:35:22 isis afpd\u0026#91;3237]: afp_disconnect: trying primary reconnect Mar 6 06:35:22 isis afpd\u0026#91;1695]: Reconnect: transfering session to child\u0026#91;1697] Mar 6 06:35:22 isis afpd\u0026#91;1695]: Reconnect: killing new session child\u0026#91;3237] after transfer Mar 6 06:35:22 isis afpd\u0026#91;1697]: afp_dsi_transfer_session: succesfull primary reconnect Mar 6 06:35:29 isis afpd\u0026#91;3237]: afp_disconnect: primary reconnect succeeded Mar 6 06:38:18 isis afpd\u0026#91;1697]: read: Operation timed out Mar 6 06:38:18 isis afpd\u0026#91;1697]: dsi_stream_read: len:-1, Operation timed out Mar 6 06:38:18 isis afpd\u0026#91;1697]: dsi_stream_send: Broken pipe Mar 6 06:38:18 isis afpd\u0026#91;1697]: dsi_wrtreply: Broken pipe Mar 6 06:38:18 isis afpd\u0026#91;1697]: dsi_disconnect: entering disconnected state Mar 6 06:38:18 isis afpd\u0026#91;1697]: dsi_disconnect: entering disconnected state ","wordCount":"1706","inLanguage":"en","datePublished":"2012-03-06T01:00:00+09:00","dateModified":"2012-03-06T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2012-03-06-freebsd%E3%81%ABmac%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%ABafp%E3%82%92%E5%96%8B%E3%82%89%E3%81%99%E8%BF%BD%E8%A8%98%E3%81%82%E3%82%8A/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSDにMacのファイル共有プロトコルAFPを喋らす。（追記あり）","name":"FreeBSDにMacのファイル共有プロトコルAFPを喋らす。（追記あり）","description":"AFP(Apple Filing Protocol)。 Macのファイル共有はOSXからSMB/CIFSになったと勝手に思いこんでたから驚いた。AppleTalkが今に生き","keywords":[],"articleBody":"AFP(Apple Filing Protocol)。 Macのファイル共有はOSXからSMB/CIFSになったと勝手に思いこんでたから驚いた。AppleTalkが今に生きてるとは。 ただ、AFPは下位レイヤにAppletalkじゃなくTCPを使うことができるそうなので納得。 追記:コメントで教えていただきましたが、さいきんAppletalkは死んでしもうたそうです。R.I.P. UNIX系でAppleTalk互換ソフトウェアといえばNetatalk。 Macでファイル共有するなら正直SMB/CIFSでいいかなとも思ったが、どうもNetatalkの方が軽いと聞いたので、試しに使ってみる。 iTunesのライブラリも置いてみたいのだ。 netatalkには、AFPデーモンのafpd、CNID管理のcnid_metad、appletalkを動かすatalkd、リモートプリントサービスのpapd、Mac向けタイムサーバのtimelordが含まれる。 AFP over TCPで要るのは、afpd, cnid_metadと理解した。 Macのファイル共有で面白いのは各ファイル、フォルダに固有のIDを付けて管理するという点。パスを使わないのだ。これは大昔からaliasという考え方があったせいか。 そして、ホストのファイル、ディレクトリとID（CNID, Catalog Node ID）のくくりつけを管理するのがcnd_metadということらしい。（metaという名前だけに、DBは別にあるのだが） net/netatalkからインストール  # cd /usr/ports/net/netatalk # make config Apple Talkを外す。 # make install clean 苦難の設定 すごく大変だった。 なんかマニュアルがすごく分かりにくく感じる。 共有フォルダ設定はAppleVolumes.defaultを使い、それ以外はnetatalk.conf, afpd.confを使うようだ。 以下を見ながら試行錯誤。 [http://netatalk.sourceforge.net/2.2/htmldocs/configuration.html#id1590298](http://netatalk.sourceforge.net/2.2/htmldocs/configuration.html#id1590298) /usr/local/etc/netatalk.confで全般の設定。 変えたのは以下の二点。  #### machine\u0026#39;s AFPserver/AppleTalk name. ATALK_NAME=sylph_osx #### Set which daemons to run. #### If you use AFP file server, run both cnid_metad and afpd. CNID_METAD_RUN=yes AFPD_RUN=yes /usr/local/etc/afpd.conf 変更なし。 /usr/local/etc/AppleVolumes.default ここで共有フォルダの設定。下記において最初の二行はデフォルト。 最後の一行のみ追加した。 ~はホームディレクトリだな。  :DEFAULT: options:upriv,usedots ~ /export/itunes itunes なお、以下にオプションが山ほど。 [http://netatalk.sourceforge.net/2.2/htmldocs/AppleVolumes.default.5.html](http://netatalk.sourceforge.net/2.2/htmldocs/AppleVolumes.default.5.html) 書式は以下の通り。   [] オプションでめぼしいものは以下の二つくらいかな。  tm OSXのタイムマシンサポートを有効に。 ro 読み取り専用 複数指定する場合にはたとえば（実際にはtmとroを一緒に使うことはないが）以下のようにカンマ(,)でつなぐ。  /dir/path share options:tm,ro そうしたら、/etc/rc.confに以下を追加する。 netatalkを動かすにはavahi_daemonが必要で、avahiを動かすにはdbusが必要だからこんな感じ。 なお運用中に設定を変更した場合にはこれらサービスをすべて再起動したほうがいいようだ。  #AFP dbus_enable=\u0026#34;YES\u0026#34; avahi_daemon_enable=\u0026#34;YES\u0026#34; avahi_dnsconfd_enable=\u0026#34;YES\u0026#34; netatalk_enable=\u0026#34;YES\u0026#34; cnid_metad_enable=\u0026#34;YES\u0026#34; afpd_enable=\u0026#34;YES\u0026#34; で、再起動するか、/usr/local/etc/rc.dで上から順番に起動させればOK。 FreeBSDのnetatalk関連の起動スクリプトは、startさせても何のメッセージも出ないのが不親切だと思う。 macからはafp://の書式でアクセスできる。 運用。安定していないのか? 320GBほどのデータをAFP経由でコピーしたのだが、以下のメッセージが表示されてなかなか終わらない。 何が悪いのだろう?  Mar 6 06:35:22 isis afpd\u0026#91;3237]: afp_disconnect: trying primary reconnect Mar 6 06:35:22 isis afpd\u0026#91;1695]: Reconnect: transfering session to child\u0026#91;1697] Mar 6 06:35:22 isis afpd\u0026#91;1695]: Reconnect: killing new session child\u0026#91;3237] after transfer Mar 6 06:35:22 isis afpd\u0026#91;1697]: afp_dsi_transfer_session: succesfull primary reconnect Mar 6 06:35:29 isis afpd\u0026#91;3237]: afp_disconnect: primary reconnect succeeded Mar 6 06:38:18 isis afpd\u0026#91;1697]: read: Operation timed out Mar 6 06:38:18 isis afpd\u0026#91;1697]: dsi_stream_read: len:-1, Operation timed out Mar 6 06:38:18 isis afpd\u0026#91;1697]: dsi_stream_send: Broken pipe Mar 6 06:38:18 isis afpd\u0026#91;1697]: dsi_wrtreply: Broken pipe Mar 6 06:38:18 isis afpd\u0026#91;1697]: dsi_disconnect: entering disconnected state Mar 6 06:38:18 isis afpd\u0026#91;1697]: dsi_disconnect: entering disconnected state ","wordCount":"1534","inLanguage":"en","datePublished":"2012-03-06T01:00:00+09:00","dateModified":"2012-03-06T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2012-03-06-freebsd%E3%81%ABmac%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%ABafp%E3%82%92%E5%96%8B%E3%82%89%E3%81%99%E8%BF%BD%E8%A8%98%E3%81%82%E3%82%8A/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -137,13 +137,13 @@ Macのファイル共有で面白いのは各ファイル、フォルダに固�
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;net/netatalkからインストール&lt;/span&gt;
+net/netatalkからインストール
 </code></pre>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># cd /usr/ports/net/netatalk
 # make config
 Apple Talkを外す。
 # make install clean
-</code></pre></div><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;苦難の設定&lt;/span&gt;
+</code></pre></div><pre><code>苦難の設定
 
 
 
@@ -163,11 +163,11 @@ Apple Talkを外す。
 
 
 
-&lt;a href=&quot;http://netatalk.sourceforge.net/2.2/htmldocs/configuration.html#id1590298&quot; target=&quot;_blank&quot;&gt;http://netatalk.sourceforge.net/2.2/htmldocs/configuration.html#id1590298&lt;/a&gt;
+[http://netatalk.sourceforge.net/2.2/htmldocs/configuration.html#id1590298](http://netatalk.sourceforge.net/2.2/htmldocs/configuration.html#id1590298)
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;/usr/local/etc/netatalk.confで全般の設定。&lt;/span&gt;
+/usr/local/etc/netatalk.confで全般の設定。
 
 
 
@@ -179,7 +179,7 @@ ATALK_NAME=sylph_osx
 #<span style=color:#75715e>### If you use AFP file server, run both cnid_metad and afpd.</span>
 CNID_METAD_RUN=yes
 AFPD_RUN=yes
-</code></pre></div><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;/usr/local/etc/afpd.conf&lt;/span&gt;
+</code></pre></div><pre><code>/usr/local/etc/afpd.conf
 
 
 
@@ -190,7 +190,7 @@ AFPD_RUN=yes
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;/usr/local/etc/AppleVolumes.default&lt;/span&gt;
+/usr/local/etc/AppleVolumes.default
 
 
 
@@ -211,7 +211,7 @@ AFPD_RUN=yes
 
 
 
-&lt;a href=&quot;http://netatalk.sourceforge.net/2.2/htmldocs/AppleVolumes.default.5.html&quot; target=&quot;_blank&quot;&gt;http://netatalk.sourceforge.net/2.2/htmldocs/AppleVolumes.default.5.html&lt;/a&gt;
+[http://netatalk.sourceforge.net/2.2/htmldocs/AppleVolumes.default.5.html](http://netatalk.sourceforge.net/2.2/htmldocs/AppleVolumes.default.5.html)
 
 
 
@@ -259,7 +259,7 @@ macからはafp://&lt;ホスト&gt;の書式でアクセスできる。
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;運用。安定していないのか?&lt;/span&gt;
+運用。安定していないのか?
 
 
 

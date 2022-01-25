@@ -37,7 +37,7 @@
 <meta name=twitter:title content="パスワードハッシュにmd5を使うのは小学生までだよねー">
 <meta name=twitter:description content="おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。 しかし、MD5は1996年に脆弱性">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"パスワードハッシュにmd5を使うのは小学生までだよねー","item":"https://nobwak.github.io/posts/2013-01-13-%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E3%81%ABmd5%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%AF%E5%B0%8F%E5%AD%A6%E7%94%9F%E3%81%BE%E3%81%A7%E3%81%A0%E3%82%88%E3%81%AD%E3%83%BC/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"パスワードハッシュにmd5を使うのは小学生までだよねー","name":"パスワードハッシュにmd5を使うのは小学生までだよねー","description":"おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。 しかし、MD5は1996年に脆弱性","keywords":[],"articleBody":"おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。 しかし、MD5は1996年に脆弱性が見つかって以来、あまり推奨される方式ではなくなっている。 Wikipediaで調べてみても「パソコンレベルで、数10分程度で、同一ハッシュ値の非ユニークなデータ列を生成できる実装が広まっている」などと恐ろしい事が書かれている。 つまり暗号化されていてもMD5ハッシュだと総あたりで易々と破られてしまうということになる。 こういった情勢のもと、多くのシステムでは、パスワードファイルのハッシュ方法を変えたり、または自由に変えられるようになっているので、もしお前らがUNIX-likeシステムを管理しているなら、いますぐ確認しろ。 じゃあ何に変えたらいいの→SHA-2かBlowfishおすすめ。 代替のハッシュ方法としては、Blowfish, SHA-2などが挙げられ、強度としてはBlowfishの方が高いようだが、そのアルゴリズムがNIST(アメリカ国立標準技術研究所)の承認をまだ受けてない事から、SHA-2を選択するケースが多い。 そのシステムがどのハッシュを採っているかは、ハッシュ文字列先頭から判断できる。   $1$: MD5 $2?$: Blowfish. ?はaかyかx. $5$: SHA-2(SHA-256) $6$: SHA-2(SHA-512)  FreeBSD 9.1-RELEASEはsha512(SHA-2)がデフォルト。手元にLinuxがないので確認できないのだが、UbuntuはまだMD5のよう。 しかしFreeBSDはCVSを見ると2012年の7/15に変わっている。9系列で言えば9.1-RELEASEからデフォルトが変更されているようだ。 なお、9.1-RELEASEだから安心と思ったあなた。もしあなたが9.0以前から使い続けているなら注意が必要だ。これについては後述。 FreeBSDでハッシュ方法を変えるには FreeBSDでは/etc/login.confで制御する。 以下の行を書き換えればOK。  :passwd_format=sha512:\u0026#92; md5ならmd5, SHA-2ならsha512, Blowfishならblfである。 書き換えた後、以下のコマンドでlogin.conf.dbを作り直すこと。  cap_mkdb /etc/login.conf パスワードを再設定しないと新ハッシュになりません! 注意。上記設定をしたあと、もう一回パスワード設定しないと反映されません。 なんと不親切な、と思ったけど、よく考えたらそらそうだ。 もし自動的に変更しようとしたら、たとえばmd5でハッシュされた文字列を、いったん元に戻す必要がある。 元に戻させないようにわざわざハッシュしているんだから、自動でできるわけがない。 だから面倒でも、passwordコマンドを叩いて再設定すること。 同じパスワードであっても構わないが、まあ今回の作業の性質を考えると、このタイミングでパスワード変えた方がいいと思う。 9.0以前から使い続けていた人は注意 ということで、もしあなたのFreeBSDが9.1で、デフォルトのハッシュがSHA-2になっていたとしても、9.0以前にパスワード設定してそのままなら、ハッシュはmd5のままである。 実際に俺のマシンは9.0で新規インストールし、ついこの間9.1にアップグレードした。  $ uname -a FreeBSD sylph 9.1-RELEASE FreeBSD 9.1-RELEASE #0 r243825: Tue Dec 4 09:23:10 UTC 2012 root@farrell.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC amd64 $ grep passwd /etc/login.conf|grep -v \u0026#34;^#\u0026#34; :passwd_format=sha512:\u0026#92; とまあこの通り、SHA-2になっている。しかし以下のログで示すように、先頭が$1$になっておりMD5ハッシュであることを示している。 cap_mkdbしても同じ。（なおハッシュの核心部分はさすがにマスクしている）  $ sudo grep harukiya /etc/master.passwd パスワード: harukiya:$1$xxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash $ sudo cap_mkdb /etc/login.conf $ sudo grep doe /etc/master.passwd harukiya:$1$xxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash で、passwdコマンドでパスワードを設定してやると、めでたく先頭が$6$に変化した。 （なおここではマスクしているが、実際にやってみるとハッシュがmd5に比べて長くなっていることが分かる）  $ passwd Changing local password for harukiya Old Password: New Password: Retype New Password: $ sudo grep harukiya /etc/master.passwd harukiya:$6$xxxxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash このままでもいいけど、せっかくだからblowfishに変更。/etc/login.confでsha512をblfへ。  :passwd_format=blf:\u0026#92; めでたくハッシュ先頭が$2a$に。  $ sudo cap_mkdb /etc/login.conf $ passwd Changing local password for harukiya Old Password: New Password: Retype New Password: $ sudo grep harukiya /etc/master.passwd harukiya:$2a$xxxxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash もちろん、このあとrootのパスワードも設定しました。  ","wordCount":"1991","inLanguage":"en","datePublished":"2013-01-13T01:00:00+09:00","dateModified":"2013-01-13T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-01-13-%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E3%81%ABmd5%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%AF%E5%B0%8F%E5%AD%A6%E7%94%9F%E3%81%BE%E3%81%A7%E3%81%A0%E3%82%88%E3%81%AD%E3%83%BC/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"パスワードハッシュにmd5を使うのは小学生までだよねー","name":"パスワードハッシュにmd5を使うのは小学生までだよねー","description":"おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。 しかし、MD5は1996年に脆弱性","keywords":[],"articleBody":"おおよそのUNIX-likeシステムでは、パスワードファイルはMD5でハッシュされるのが一般的だ（った）。 しかし、MD5は1996年に脆弱性が見つかって以来、あまり推奨される方式ではなくなっている。 [Wikipedia](http://ja.wikipedia.org/wiki/MD5)で調べてみても「パソコンレベルで、数10分程度で、同一ハッシュ値の非ユニークなデータ列を生成できる実装が広まっている」などと恐ろしい事が書かれている。 つまり暗号化されていてもMD5ハッシュだと総あたりで易々と破られてしまうということになる。 こういった情勢のもと、多くのシステムでは、パスワードファイルのハッシュ方法を変えたり、または自由に変えられるようになっているので、もしお前らがUNIX-likeシステムを管理しているなら、いますぐ確認しろ。 じゃあ何に変えたらいいの→SHA-2かBlowfishおすすめ。 代替のハッシュ方法としては、[Blowfish](http://ja.wikipedia.org/wiki/Blowfish), [SHA-2](http://ja.wikipedia.org/wiki/SHA)などが挙げられ、強度としてはBlowfishの方が高いようだが、そのアルゴリズムがNIST(アメリカ国立標準技術研究所)の承認をまだ受けてない事から、SHA-2を選択するケースが多い。 そのシステムがどのハッシュを採っているかは、ハッシュ文字列先頭から判断できる。   $1$: MD5 $2?$: Blowfish. ?はaかyかx. $5$: SHA-2(SHA-256) $6$: SHA-2(SHA-512)  FreeBSD 9.1-RELEASEはsha512(SHA-2)がデフォルト。手元にLinuxがないので確認できないのだが、UbuntuはまだMD5のよう。 しかしFreeBSDはCVSを見ると2012年の7/15に[変わっている](http://www.freebsd.org/cgi/cvsweb.cgi/src/etc/login.conf.diff?r1=1.54;r2=1.54.2.2)。9系列で言えば9.1-RELEASEからデフォルトが変更されているようだ。 なお、9.1-RELEASEだから安心と思ったあなた。もしあなたが9.0以前から使い続けているなら注意が必要だ。これについては後述。 FreeBSDでハッシュ方法を変えるには FreeBSDでは/etc/login.confで制御する。 以下の行を書き換えればOK。  :passwd_format=sha512:\u0026#92; md5ならmd5, SHA-2ならsha512, Blowfishならblfである。 書き換えた後、以下のコマンドでlogin.conf.dbを作り直すこと。  cap_mkdb /etc/login.conf パスワードを再設定しないと新ハッシュになりません! 注意。上記設定をしたあと、もう一回パスワード設定しないと反映されません。 なんと不親切な、と思ったけど、よく考えたらそらそうだ。 もし自動的に変更しようとしたら、たとえばmd5でハッシュされた文字列を、いったん元に戻す必要がある。 元に戻させないようにわざわざハッシュしているんだから、自動でできるわけがない。 だから面倒でも、passwordコマンドを叩いて再設定すること。 同じパスワードであっても構わないが、まあ今回の作業の性質を考えると、このタイミングでパスワード変えた方がいいと思う。 9.0以前から使い続けていた人は注意 ということで、もしあなたのFreeBSDが9.1で、デフォルトのハッシュがSHA-2になっていたとしても、9.0以前にパスワード設定してそのままなら、ハッシュはmd5のままである。 実際に俺のマシンは9.0で新規インストールし、ついこの間9.1にアップグレードした。  $ uname -a FreeBSD sylph 9.1-RELEASE FreeBSD 9.1-RELEASE #0 r243825: Tue Dec 4 09:23:10 UTC 2012 root@farrell.cse.buffalo.edu:/usr/obj/usr/src/sys/GENERIC amd64 $ grep passwd /etc/login.conf|grep -v \u0026#34;^#\u0026#34; :passwd_format=sha512:\u0026#92; とまあこの通り、SHA-2になっている。しかし以下のログで示すように、先頭が$1$になっておりMD5ハッシュであることを示している。 cap_mkdbしても同じ。（なおハッシュの核心部分はさすがにマスクしている）  $ sudo grep harukiya /etc/master.passwd パスワード: harukiya:$1$xxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash $ sudo cap_mkdb /etc/login.conf $ sudo grep doe /etc/master.passwd harukiya:$1$xxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash で、passwdコマンドでパスワードを設定してやると、めでたく先頭が$6$に変化した。 （なおここではマスクしているが、実際にやってみるとハッシュがmd5に比べて長くなっていることが分かる）  $ passwd Changing local password for harukiya Old Password: New Password: Retype New Password: $ sudo grep harukiya /etc/master.passwd harukiya:$6$xxxxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash このままでもいいけど、せっかくだからblowfishに変更。/etc/login.confでsha512をblfへ。  :passwd_format=blf:\u0026#92; めでたくハッシュ先頭が$2a$に。  $ sudo cap_mkdb /etc/login.conf $ passwd Changing local password for harukiya Old Password: New Password: Retype New Password: $ sudo grep harukiya /etc/master.passwd harukiya:$2a$xxxxxxxxxx:1001:1001::0:0::/home/harukiya:/usr/local/bin/bash もちろん、このあとrootのパスワードも設定しました。  ","wordCount":"1900","inLanguage":"en","datePublished":"2013-01-13T01:00:00+09:00","dateModified":"2013-01-13T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-01-13-%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E3%81%ABmd5%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%AF%E5%B0%8F%E5%AD%A6%E7%94%9F%E3%81%BE%E3%81%A7%E3%81%A0%E3%82%88%E3%81%AD%E3%83%BC/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -98,7 +98,7 @@
 
 
 
-&lt;a href=&quot;http://ja.wikipedia.org/wiki/MD5&quot; target=&quot;_blank&quot;&gt;Wikipedia&lt;/a&gt;で調べてみても「パソコンレベルで、数10分程度で、同一ハッシュ値の非ユニークなデータ列を生成できる実装が広まっている」などと恐ろしい事が書かれている。
+[Wikipedia](http://ja.wikipedia.org/wiki/MD5)で調べてみても「パソコンレベルで、数10分程度で、同一ハッシュ値の非ユニークなデータ列を生成できる実装が広まっている」などと恐ろしい事が書かれている。
 
 
 
@@ -113,14 +113,14 @@
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;じゃあ何に変えたらいいの→SHA-2かBlowfishおすすめ。&lt;/span&gt;
+じゃあ何に変えたらいいの→SHA-2かBlowfishおすすめ。
 
 
 
 
 
 
-代替のハッシュ方法としては、&lt;a href=&quot;http://ja.wikipedia.org/wiki/Blowfish&quot; target=&quot;_blank&quot;&gt;Blowfish&lt;/a&gt;, &lt;a href=&quot;http://ja.wikipedia.org/wiki/SHA&quot; target=&quot;_blank&quot;&gt;SHA-2&lt;/a&gt;などが挙げられ、強度としてはBlowfishの方が高いようだが、そのアルゴリズムがNIST(アメリカ国立標準技術研究所)の承認をまだ受けてない事から、SHA-2を選択するケースが多い。
+代替のハッシュ方法としては、[Blowfish](http://ja.wikipedia.org/wiki/Blowfish), [SHA-2](http://ja.wikipedia.org/wiki/SHA)などが挙げられ、強度としてはBlowfishの方が高いようだが、そのアルゴリズムがNIST(アメリカ国立標準技術研究所)の承認をまだ受けてない事から、SHA-2を選択するケースが多い。
 
 
 
@@ -147,7 +147,7 @@
 
 
 
-しかしFreeBSDはCVSを見ると2012年の7/15に&lt;a href=&quot;http://www.freebsd.org/cgi/cvsweb.cgi/src/etc/login.conf.diff?r1=1.54;r2=1.54.2.2&quot; target=&quot;_blank&quot;&gt;変わっている&lt;/a&gt;。9系列で言えば9.1-RELEASEからデフォルトが変更されているようだ。
+しかしFreeBSDはCVSを見ると2012年の7/15に[変わっている](http://www.freebsd.org/cgi/cvsweb.cgi/src/etc/login.conf.diff?r1=1.54;r2=1.54.2.2)。9系列で言えば9.1-RELEASEからデフォルトが変更されているようだ。
 
 
 
@@ -155,7 +155,7 @@
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;FreeBSDでハッシュ方法を変えるには&lt;/span&gt;
+FreeBSDでハッシュ方法を変えるには
 
 
 
@@ -176,7 +176,7 @@ FreeBSDでは/etc/login.confで制御する。
 書き換えた後、以下のコマンドでlogin.conf.dbを作り直すこと。
 </code></pre>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>cap_mkdb /etc/login.conf
-</code></pre></div><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;パスワードを再設定しないと新ハッシュになりません!&lt;/span&gt;
+</code></pre></div><pre><code>パスワードを再設定しないと新ハッシュになりません!
 
 
 
@@ -210,7 +210,7 @@ FreeBSDでは/etc/login.confで制御する。
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;9.0以前から使い続けていた人は注意&lt;/span&gt;
+9.0以前から使い続けていた人は注意
 
 
 

@@ -37,7 +37,7 @@
 <meta name=twitter:title content="nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ">
 <meta name=twitter:description content="apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ","item":"https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_+_php5_+_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ","name":"nginxとlighttpdで悩んでlighttpd \u002b php5 \u002b fastcgiのインストールと設定へ","description":"apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま","keywords":[],"articleBody":"apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あまりの便利さに感動し、追加ソフトウェアはすべてpkgにしようと決めたのだが。\napacheとphpでいきなり壁に当たりました。\napacheをpkgでインストールすると、phpのモジュールが付いてこないのである。\nphpモジュールが欲しいなら、apacheをportsからインストールしないといけない。\nもちろん、pkgngはportsと一緒に使えるよう考えて作られている。\napacheだけportsからインストールしたって何の問題もない。\nただ、あの巨大な/usr/portsディレクトリをメンテしていくのが億劫なわけですよ。\nならばよろしいapacheはもう捨てよう。\nたぶんまた、吊るしのpkgで使えないソフトウェアが出てくると思うが、その時はその時考えよう。\nnginx, lighttpdのどちらがよいか。 apacheの代替といってすぐに思い浮かぶのはnginxとlighttpdである。\n“nginx lighttpd comparison\"などとググってみると、いくつかのもまとめがヒットする。\nhttp://www.wikivs.com/wiki/Lighttpd_vs_nginxhttp://wiki.dreamhost.com/Web_Server_Performance_Comparison軽く速く柔軟な設定が可能という点では同じだが、概観したところnginx優勢のようである。\nまた、lighttpdには品質面で気になる点もある。\nどうも長い間放置されているメモリリークがあるようだ。\nただlighttpdの設定のほうが分かりやすい、というのは皆の認めるところらしい。\nメモリリークは心配だが、さっさとhttpサーバを設定したいのでlighttpdを選択。\n以下、lighttpdでphpを、fastcgiで動かす。\n環境はFreeBSD 10.0-BETA1。pkgngでインストール。\n設定方法は他OSでも参考になる部分があるかも。\nlighttpd, php5のインストール pkgでインストール。\n簡単。\nlighttpdは依存も少ない。\n# pkg install php5 lighttpd （略） php5のバージョン確認 lighttpdを扱う前に、phpを確認する。\nfastcgi対応かどうか。\n“php5″でインストールされたのは5.4.20\n/usr/local/bin/php-cgiを確認すると、特に指定や追加のインストールの必要なくfastcgi対応であることが分かる。\n# php -v PHP 5.4.20 (cli) (built: Oct 3 2013 03:35:30) Copyright (c) 1997-2013 The PHP Group Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies # php-cgi -v PHP 5.4.20 (cgi-fcgi) (built: Oct 3 2013 03:35:34) Copyright (c) 1997-2013 The PHP Group Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies lighttpdのファイル配置 lighttpdとしてインストールされたファイルを確認する。\n設定ファイル/usr/local/etc/lighttpd下に。\n# cd /usr/local/etc/lighttpd/ # ls RCS lighttpd.conf.sample vhosts.d conf.d modules.conf lighttpd.conf modules.conf.sample ドキュメントルート初期状態では/usr/local/www/dataだが、ディレクトリは自分で作る必要がある。\nlighttpdのログファイル初期状態では/var/log/lighttpd下に。\n# cd /var/log/lighttpd/ # ls access.log error.log ファイルを確認したら、lighttpdの設定に移る。\nlighttpdの設定 流れとしては、\n lighttpd.confで全体の設定を、 modules.confで読み込むモジュールの設定を、 conf.d/下の*.confで各モジュールの設定を行う。  fastcgiを使うなら、\nlighttpd.confで設定ののち、\nmodules.confでfastcgiのモジュールを読み込む指定をし、\nconf.d/fastcgi.confでphpの指定をする、となる。\nなお、php.iniにも一部変更が必要。\nlighttpdオフィシャルのチュートリアルはここ。\n以下、/usr/local/etc/lighttpd下にある設定ファイルに手を加えていく。\nlighttpd.confの修正 lighttpd.conf.sampleから変えたのは以下の3行だけ。\nserver.use-ipv6 = \"disable\" server.bind = \"192.168.154.241\" $SERVER[\"socket\"] == \"192.168.154.241:80\" { } コメント行、空行を除いたlighttpd.confは以下の通り。\ninclude “modules.conf\"と指定がある通り、ここでmoduleを読み込んでいる。\n# grep -v \"^#\" ./lighttpd.conf|grep -v \"^$\" var.log_root = \"/var/log/lighttpd\" var.server_root = \"/usr/local/www/data\" var.state_dir = \"/var/run\" var.home_dir = \"/var/spool/lighttpd\" var.conf_dir = \"/usr/local/etc/lighttpd\" var.vhosts_dir = server_root + \"/vhosts\" var.cache_dir = \"/var/cache/lighttpd\" var.socket_dir = home_dir + \"/sockets\" include \"modules.conf\" server.port = 80 server.use-ipv6 = \"disable\" server.bind = \"192.168.154.241\" server.username = \"www\" server.groupname = \"www\" server.core-files = \"disable\" server.document-root = \"/usr/local/www/data/\" server.tag = \"lighttpd\" server.pid-file = state_dir + \"/lighttpd.pid\" server.errorlog = log_root + \"/error.log\" include \"conf.d/access_log.conf\" include \"conf.d/debug.conf\" server.event-handler = \"freebsd-kqueue\" server.network-backend = \"writev\" server.max-fds = 2048 server.stat-cache-engine = \"simple\" server.max-connections = 1024 index-file.names += ( \"index.xhtml\", \"index.html\", \"index.htm\", \"default.htm\", \"index.php\" ) url.access-deny = ( \"~\", \".inc\" ) $HTTP[\"url\"] =~ \"\\.pdf$\" { server.range-requests = \"disable\" } static-file.exclude-extensions = ( \".php\", \".pl\", \".fcgi\", \".scgi\" ) include \"conf.d/mime.conf\" include \"conf.d/dirlisting.conf\" server.follow-symlink = \"enable\" server.upload-dirs = ( \"/var/tmp\" ) $SERVER[\"socket\"] == \"192.168.154.241:80\" { } modules.conf lighttpd.confで指定されたmodules.confの設定。\nどんなmoduleを読み込むか。\n以下の行を有効にしただけ。\nつまりfastcgiを有効に。\nそのほかにも興味深そうなmoduleはあるがミニマルスタートが原則。\ninclude \"conf.d/fastcgi.conf\" コメント行、空行を除いたlighttpd.confは以下の通り。\n# grep -v \"^#\" ./modules.conf|grep -v \"^$\" server.modules = ( \"mod_access\", ) include \"conf.d/fastcgi.conf\" conf.d/fastcgi.conf fastcgiの設定。\nphpをどう実行するかを指定できる。\nローカルのphp-cgiでもよいし、ローカルホストの別webサーバ（apacheとか）でもよいし、はたまた別ホストのwebサーバでもよい。\n詳細はこちら。\nここでは、ローカルの/usr/local/bin/php-cgiを使う。\nfastcgi対応のphpである。\nローカルなのでIPアドレスやTCP/IPポートの指定は不要で、UNIXドメインソケットして使うファイルを指定すればよい。\n最終的に以下の行を追加\nfastcgi.server = ( \".php\" = ((\"bin-path\" = \"/usr/local/bin/php-cgi\", \"socket\" = \"/tmp/php.socket\" )) ) コメント行、空行を除いたlighttpd.confは以下の通り。\nserver.modules += ( \"mod_fastcgi\" ) fastcgi.server = ( \".php\" = ((\"bin-path\" = \"/usr/local/bin/php-cgi\", \"socket\" = \"/tmp/php.socket\" )) ) 以上でlighttpdの設定は完了\nphp.iniの設定 lighttpdのドキュメントを見ると以下のように書いてあるので、php.iniを修正する。\n If you want to use PATH_INFO and PHP_SELF in you PHP scripts you have to configure php and lighttpd. The php.ini needs the option:\ncgi.fix_pathinfo = 1\n FreeBSDだとphp.iniは/usr/local/etcに置かれるべきもの。\n初期状態ではphp.iniが無いので、sampleからコピーする。\nsampleにはphp.ini-developmentとphp.ini-productionの二つがある。\ndevelopmentの方を選んだ。\n# cd /usr/local/etc/ # cp php.ini-development php.ini 以下の行のコメントを外す。\ncgi.fix_pathinfo=1 起動確認 /usr/local/www/dataを作り、“It works!“とでも書いたindex.htmlを作る。\n# mkdir /usr/local/www/data # echo \"It works\"  /usr/local/www/data/index.html FreeBSDなら/etc/rc.confに以下の行を追加。\n# enable lighttpd at boot lighttpd_enable=\"YES\" 起動。 # service lighttpd start Performing sanity check on lighttpd configuration: Syntax OK Starting lighttpd. ログに異常もなし。\n# tail /var/log/lighttpd/error.log 2013-10-22 21:30:20: (log.c.166) server started # ブラウザでつないで、index.htmlが表示されればOK。\n","wordCount":"2806","inLanguage":"en","datePublished":"2013-10-23T20:09:54+09:00","dateModified":"2013-10-23T20:09:54+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_+_php5_+_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設定へ","name":"nginxとlighttpdで悩んでlighttpd \u002b php5 \u002b fastcgiのインストールと設定へ","description":"apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま","keywords":[],"articleBody":"apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あまりの便利さに感動し、追加ソフトウェアはすべてpkgにしようと決めたのだが。\napacheとphpでいきなり壁に当たりました。\napacheをpkgでインストールすると、phpのモジュールが付いてこないのである。\nphpモジュールが欲しいなら、apacheをportsからインストールしないといけない。\nもちろん、pkgngはportsと一緒に使えるよう考えて作られている。\napacheだけportsからインストールしたって何の問題もない。\nただ、あの巨大な/usr/portsディレクトリをメンテしていくのが億劫なわけですよ。\nならばよろしいapacheはもう捨てよう。\nたぶんまた、吊るしのpkgで使えないソフトウェアが出てくると思うが、その時はその時考えよう。\nnginx, lighttpdのどちらがよいか。 apacheの代替といってすぐに思い浮かぶのはnginxとlighttpdである。\n“nginx lighttpd comparison\"などとググってみると、いくつかのもまとめがヒットする。\nhttp://www.wikivs.com/wiki/Lighttpd_vs_nginx\nhttp://wiki.dreamhost.com/Web_Server_Performance_Comparison\n軽く速く柔軟な設定が可能という点では同じだが、概観したところnginx優勢のようである。\nまた、lighttpdには品質面で気になる点もある。\nどうも長い間放置されているメモリリークがあるようだ。\nただlighttpdの設定のほうが分かりやすい、というのは皆の認めるところらしい。\nメモリリークは心配だが、さっさとhttpサーバを設定したいのでlighttpdを選択。\n以下、lighttpdでphpを、fastcgiで動かす。\n環境はFreeBSD 10.0-BETA1。pkgngでインストール。\n設定方法は他OSでも参考になる部分があるかも。\nlighttpd, php5のインストール pkgでインストール。\n簡単。\nlighttpdは依存も少ない。\n# pkg install php5 lighttpd （略） php5のバージョン確認 lighttpdを扱う前に、phpを確認する。\nfastcgi対応かどうか。\n“php5″でインストールされたのは5.4.20\n/usr/local/bin/php-cgiを確認すると、特に指定や追加のインストールの必要なくfastcgi対応であることが分かる。\n# php -v PHP 5.4.20 (cli) (built: Oct 3 2013 03:35:30) Copyright (c) 1997-2013 The PHP Group Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies # php-cgi -v PHP 5.4.20 (cgi-fcgi) (built: Oct 3 2013 03:35:34) Copyright (c) 1997-2013 The PHP Group Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies lighttpdのファイル配置 lighttpdとしてインストールされたファイルを確認する。\n設定ファイル\n/usr/local/etc/lighttpd下に。\n# cd /usr/local/etc/lighttpd/ # ls RCS lighttpd.conf.sample vhosts.d conf.d modules.conf lighttpd.conf modules.conf.sample ドキュメントルート\n初期状態では/usr/local/www/dataだが、ディレクトリは自分で作る必要がある。\nlighttpdのログファイル初期状態では/var/log/lighttpd下に。\n# cd /var/log/lighttpd/ # ls access.log error.log ファイルを確認したら、lighttpdの設定に移る。\nlighttpdの設定 流れとしては、\n lighttpd.confで全体の設定を、 modules.confで読み込むモジュールの設定を、 conf.d/下の*.confで各モジュールの設定を行う。  fastcgiを使うなら、\nlighttpd.confで設定ののち、\nmodules.confでfastcgiのモジュールを読み込む指定をし、\nconf.d/fastcgi.confでphpの指定をする、となる。\nなお、php.iniにも一部変更が必要。\nlighttpdオフィシャルのチュートリアルはここ。\n以下、/usr/local/etc/lighttpd下にある設定ファイルに手を加えていく。\nlighttpd.confの修正 lighttpd.conf.sampleから変えたのは以下の3行だけ。\nserver.use-ipv6 = \"disable\" server.bind = \"192.168.154.241\" $SERVER[\"socket\"] == \"192.168.154.241:80\" { } コメント行、空行を除いたlighttpd.confは以下の通り。\ninclude “modules.conf\"と指定がある通り、ここでmoduleを読み込んでいる。\n# grep -v \"^#\" ./lighttpd.conf|grep -v \"^$\" var.log_root = \"/var/log/lighttpd\" var.server_root = \"/usr/local/www/data\" var.state_dir = \"/var/run\" var.home_dir = \"/var/spool/lighttpd\" var.conf_dir = \"/usr/local/etc/lighttpd\" var.vhosts_dir = server_root + \"/vhosts\" var.cache_dir = \"/var/cache/lighttpd\" var.socket_dir = home_dir + \"/sockets\" include \"modules.conf\" server.port = 80 server.use-ipv6 = \"disable\" server.bind = \"192.168.154.241\" server.username = \"www\" server.groupname = \"www\" server.core-files = \"disable\" server.document-root = \"/usr/local/www/data/\" server.tag = \"lighttpd\" server.pid-file = state_dir + \"/lighttpd.pid\" server.errorlog = log_root + \"/error.log\" include \"conf.d/access_log.conf\" include \"conf.d/debug.conf\" server.event-handler = \"freebsd-kqueue\" server.network-backend = \"writev\" server.max-fds = 2048 server.stat-cache-engine = \"simple\" server.max-connections = 1024 index-file.names += ( \"index.xhtml\", \"index.html\", \"index.htm\", \"default.htm\", \"index.php\" ) url.access-deny = ( \"~\", \".inc\" ) $HTTP[\"url\"] =~ \"\\.pdf$\" { server.range-requests = \"disable\" } static-file.exclude-extensions = ( \".php\", \".pl\", \".fcgi\", \".scgi\" ) include \"conf.d/mime.conf\" include \"conf.d/dirlisting.conf\" server.follow-symlink = \"enable\" server.upload-dirs = ( \"/var/tmp\" ) $SERVER[\"socket\"] == \"192.168.154.241:80\" { } modules.conf lighttpd.confで指定されたmodules.confの設定。\nどんなmoduleを読み込むか。\n以下の行を有効にしただけ。\nつまりfastcgiを有効に。\nそのほかにも興味深そうなmoduleはあるがミニマルスタートが原則。\ninclude \"conf.d/fastcgi.conf\" コメント行、空行を除いたlighttpd.confは以下の通り。\n# grep -v \"^#\" ./modules.conf|grep -v \"^$\" server.modules = ( \"mod_access\", ) include \"conf.d/fastcgi.conf\" conf.d/fastcgi.conf fastcgiの設定。\nphpをどう実行するかを指定できる。\nローカルのphp-cgiでもよいし、ローカルホストの別webサーバ（apacheとか）でもよいし、はたまた別ホストのwebサーバでもよい。\n詳細はこちら。\nここでは、ローカルの/usr/local/bin/php-cgiを使う。\nfastcgi対応のphpである。\nローカルなのでIPアドレスやTCP/IPポートの指定は不要で、UNIXドメインソケットして使うファイルを指定すればよい。\n最終的に以下の行を追加\nfastcgi.server = ( \".php\" = ((\"bin-path\" = \"/usr/local/bin/php-cgi\", \"socket\" = \"/tmp/php.socket\" )) ) コメント行、空行を除いたlighttpd.confは以下の通り。\nserver.modules += ( \"mod_fastcgi\" ) fastcgi.server = ( \".php\" = ((\"bin-path\" = \"/usr/local/bin/php-cgi\", \"socket\" = \"/tmp/php.socket\" )) ) 以上でlighttpdの設定は完了\nphp.iniの設定 lighttpdのドキュメントを見ると以下のように書いてあるので、php.iniを修正する。\n If you want to use PATH_INFO and PHP_SELF in you PHP scripts you have to configure php and lighttpd. The php.ini needs the option:\ncgi.fix_pathinfo = 1\n FreeBSDだとphp.iniは/usr/local/etcに置かれるべきもの。\n初期状態ではphp.iniが無いので、sampleからコピーする。\nsampleにはphp.ini-developmentとphp.ini-productionの二つがある。\ndevelopmentの方を選んだ。\n# cd /usr/local/etc/ # cp php.ini-development php.ini 以下の行のコメントを外す。\ncgi.fix_pathinfo=1 起動確認 /usr/local/www/dataを作り、“It works!“とでも書いたindex.htmlを作る。\n# mkdir /usr/local/www/data # echo \"It works\"  /usr/local/www/data/index.html FreeBSDなら/etc/rc.confに以下の行を追加。\n# enable lighttpd at boot lighttpd_enable=\"YES\" 起動。 # service lighttpd start Performing sanity check on lighttpd configuration: Syntax OK Starting lighttpd. ログに異常もなし。\n# tail /var/log/lighttpd/error.log 2013-10-22 21:30:20: (log.c.166) server started # ブラウザでつないで、index.htmlが表示されればOK。\n","wordCount":"2705","inLanguage":"en","datePublished":"2013-10-23T20:09:54+09:00","dateModified":"2013-10-23T20:09:54+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_+_php5_+_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,35 +96,35 @@ nginxとlighttpdで悩んでlighttpd + php5 + fastcgiのインストールと設
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlineapache%e3%81%af%e5%90%8a%e3%82%8b%e3%81%97%e3%81%aefreebsd-pkg%e3%81%a7php%e3%82%92%e4%bd%bf%e3%81%88%e3%81%aa%e3%81%84span aria-label="apacheは吊るしのFreeBSD pkgでphpを使えない。">apacheは吊るしのFreeBSD pkgでphpを使えない。</a></li>
+<a href=#apache%e3%81%af%e5%90%8a%e3%82%8b%e3%81%97%e3%81%aefreebsd-pkg%e3%81%a7php%e3%82%92%e4%bd%bf%e3%81%88%e3%81%aa%e3%81%84 aria-label="apacheは吊るしのFreeBSD pkgでphpを使えない。">apacheは吊るしのFreeBSD pkgでphpを使えない。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinenginx-lighttpd%e3%81%ae%e3%81%a9%e3%81%a1%e3%82%89%e3%81%8c%e3%82%88%e3%81%84%e3%81%8bspan aria-label="nginx, lighttpdのどちらがよいか。">nginx, lighttpdのどちらがよいか。</a></li>
+<a href=#nginx-lighttpd%e3%81%ae%e3%81%a9%e3%81%a1%e3%82%89%e3%81%8c%e3%82%88%e3%81%84%e3%81%8b aria-label="nginx, lighttpdのどちらがよいか。">nginx, lighttpdのどちらがよいか。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinelighttpd-php5%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abspan aria-label="lighttpd, php5のインストール">lighttpd, php5のインストール</a></li>
+<a href=#lighttpd-php5%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label="lighttpd, php5のインストール">lighttpd, php5のインストール</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinephp5%e3%81%ae%e3%83%90%e3%83%bc%e3%82%b8%e3%83%a7%e3%83%b3%e7%a2%ba%e8%aa%8dspan aria-label=php5のバージョン確認>php5のバージョン確認</a></li>
+<a href=#php5%e3%81%ae%e3%83%90%e3%83%bc%e3%82%b8%e3%83%a7%e3%83%b3%e7%a2%ba%e8%aa%8d aria-label=php5のバージョン確認>php5のバージョン確認</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinelighttpd%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e9%85%8d%e7%bd%aespan aria-label=lighttpdのファイル配置>lighttpdのファイル配置</a></li>
+<a href=#lighttpd%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e9%85%8d%e7%bd%ae aria-label=lighttpdのファイル配置>lighttpdのファイル配置</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinelighttpd%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=lighttpdの設定>lighttpdの設定</a></li>
+<a href=#lighttpd%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label=lighttpdの設定>lighttpdの設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinelighttpdconf%e3%81%ae%e4%bf%ae%e6%ad%a3span aria-label=lighttpd.confの修正>lighttpd.confの修正</a></li>
+<a href=#lighttpdconf%e3%81%ae%e4%bf%ae%e6%ad%a3 aria-label=lighttpd.confの修正>lighttpd.confの修正</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinemodulesconfspan aria-label=modules.conf>modules.conf</a></li>
+<a href=#modulesconf aria-label=modules.conf>modules.conf</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineconfdfastcgiconfspan aria-label=conf.d/fastcgi.conf>conf.d/fastcgi.conf</a></li>
+<a href=#confdfastcgiconf aria-label=conf.d/fastcgi.conf>conf.d/fastcgi.conf</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinephpini%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=php.iniの設定>php.iniの設定</a></li>
+<a href=#phpini%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label=php.iniの設定>php.iniの設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%b5%b7%e5%8b%95%e7%a2%ba%e8%aa%8dspan aria-label=起動確認>起動確認</a></li>
+<a href=#%e8%b5%b7%e5%8b%95%e7%a2%ba%e8%aa%8d aria-label=起動確認>起動確認</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%b5%b7%e5%8b%95span aria-label=起動。>起動。</a>
+<a href=#%e8%b5%b7%e5%8b%95 aria-label=起動。>起動。</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><h2 id=span-styletext-decoration-underlineapacheは吊るしのfreebsd-pkgでphpを使えないspan>apacheは吊るしのFreeBSD pkgでphpを使えない。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineapacheは吊るしのfreebsd-pkgでphpを使えないspan>#</a></h2>
+<div class=post-content><h2 id=apacheは吊るしのfreebsd-pkgでphpを使えない>apacheは吊るしのFreeBSD pkgでphpを使えない。<a hidden class=anchor aria-hidden=true href=#apacheは吊るしのfreebsd-pkgでphpを使えない>#</a></h2>
 <p>10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あまりの便利さに感動し、追加ソフトウェアはすべてpkgにしようと決めたのだが。</p>
 <p>apacheとphpでいきなり壁に当たりました。<br>
 apacheをpkgでインストールすると、phpのモジュールが付いてこないのである。<br>
@@ -134,7 +134,7 @@ apacheだけportsからインストールしたって何の問題もない。<br
 ただ、あの巨大な/usr/portsディレクトリをメンテしていくのが億劫なわけですよ。</p>
 <p>ならばよろしいapacheはもう捨てよう。<br>
 たぶんまた、吊るしのpkgで使えないソフトウェアが出てくると思うが、その時はその時考えよう。</p>
-<h2 id=span-styletext-decoration-underlinenginx-lighttpdのどちらがよいかspan>nginx, lighttpdのどちらがよいか。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinenginx-lighttpdのどちらがよいかspan>#</a></h2>
+<h2 id=nginx-lighttpdのどちらがよいか>nginx, lighttpdのどちらがよいか。<a hidden class=anchor aria-hidden=true href=#nginx-lighttpdのどちらがよいか>#</a></h2>
 <p>apacheの代替といってすぐに思い浮かぶのはnginxとlighttpdである。</p>
 <p>&ldquo;nginx lighttpd comparison"などとググってみると、いくつかのもまとめがヒットする。</p>
 <p><a href=http://www.wikivs.com/wiki/Lighttpd_vs_nginx>http://www.wikivs.com/wiki/Lighttpd_vs_nginx</a><br>
@@ -147,13 +147,13 @@ apacheだけportsからインストールしたって何の問題もない。<br
 <p>以下、lighttpdでphpを、fastcgiで動かす。<br>
 環境はFreeBSD 10.0-BETA1。pkgngでインストール。<br>
 設定方法は他OSでも参考になる部分があるかも。</p>
-<h2 id=span-styletext-decoration-underlinelighttpd-php5のインストールspan>lighttpd, php5のインストール<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinelighttpd-php5のインストールspan>#</a></h2>
+<h2 id=lighttpd-php5のインストール>lighttpd, php5のインストール<a hidden class=anchor aria-hidden=true href=#lighttpd-php5のインストール>#</a></h2>
 <p>pkgでインストール。<br>
 簡単。<br>
 lighttpdは依存も少ない。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># pkg install php5 lighttpd
 （略）
-</code></pre></div><h2 id=span-styletext-decoration-underlinephp5のバージョン確認span>php5のバージョン確認<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinephp5のバージョン確認span>#</a></h2>
+</code></pre></div><h2 id=php5のバージョン確認>php5のバージョン確認<a hidden class=anchor aria-hidden=true href=#php5のバージョン確認>#</a></h2>
 <p>lighttpdを扱う前に、phpを確認する。<br>
 fastcgi対応かどうか。</p>
 <p>&ldquo;php5″でインストールされたのは5.4.20<br>
@@ -167,7 +167,7 @@ Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies
 PHP 5.4.20 (cgi-fcgi) (built: Oct  3 2013 03:35:34)
 Copyright (c) 1997-2013 The PHP Group
 Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies
-</code></pre></div><h2 id=span-styletext-decoration-underlinelighttpdのファイル配置span>lighttpdのファイル配置<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinelighttpdのファイル配置span>#</a></h2>
+</code></pre></div><h2 id=lighttpdのファイル配置>lighttpdのファイル配置<a hidden class=anchor aria-hidden=true href=#lighttpdのファイル配置>#</a></h2>
 <p>lighttpdとしてインストールされたファイルを確認する。</p>
 <p>設定ファイル<br>
 /usr/local/etc/lighttpd下に。</p>
@@ -183,7 +183,7 @@ lighttpd.conf           modules.conf.sample
 # ls
 access.log      error.log
 </code></pre></div><p>ファイルを確認したら、lighttpdの設定に移る。</p>
-<h2 id=span-styletext-decoration-underlinelighttpdの設定span>lighttpdの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinelighttpdの設定span>#</a></h2>
+<h2 id=lighttpdの設定>lighttpdの設定<a hidden class=anchor aria-hidden=true href=#lighttpdの設定>#</a></h2>
 <p>流れとしては、</p>
 <ol>
 <li>lighttpd.confで全体の設定を、</li>
@@ -195,9 +195,9 @@ lighttpd.confで設定ののち、<br>
 modules.confでfastcgiのモジュールを読み込む指定をし、<br>
 conf.d/fastcgi.confでphpの指定をする、となる。</p>
 <p>なお、php.iniにも一部変更が必要。</p>
-<p>lighttpdオフィシャルのチュートリアルはここ。<br>
+<p>lighttpdオフィシャルのチュートリアルは<a href=http://redmine.lighttpd.net/projects/1/wiki/TutorialLighttpdAndPHP>ここ</a>。<br>
 以下、/usr/local/etc/lighttpd下にある設定ファイルに手を加えていく。</p>
-<h2 id=span-styletext-decoration-underlinelighttpdconfの修正span>lighttpd.confの修正<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinelighttpdconfの修正span>#</a></h2>
+<h2 id=lighttpdconfの修正>lighttpd.confの修正<a hidden class=anchor aria-hidden=true href=#lighttpdconfの修正>#</a></h2>
 <p>lighttpd.conf.sampleから変えたのは以下の3行だけ。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>server.use-ipv6 = &#34;disable&#34;
 server.bind = &#34;192.168.154.241&#34;
@@ -244,7 +244,7 @@ include &#34;conf.d/dirlisting.conf&#34;
 server.follow-symlink = &#34;enable&#34;
 server.upload-dirs = ( &#34;/var/tmp&#34; )
 $SERVER<span style=color:#f92672>[</span><span style=color:#e6db74>&#34;socket&#34;</span><span style=color:#f92672>]</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;192.168.154.241:80&#34;</span> <span style=color:#f92672>{</span> <span style=color:#f92672>}</span>
-</code></pre></div><h2 id=span-styletext-decoration-underlinemodulesconfspan>modules.conf<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinemodulesconfspan>#</a></h2>
+</code></pre></div><h2 id=modulesconf>modules.conf<a hidden class=anchor aria-hidden=true href=#modulesconf>#</a></h2>
 <p>lighttpd.confで指定されたmodules.confの設定。<br>
 どんなmoduleを読み込むか。<br>
 以下の行を有効にしただけ。<br>
@@ -257,11 +257,11 @@ server.modules = (
 &#34;mod_access&#34;,
 )
 include &#34;conf.d/fastcgi.conf&#34;
-</code></pre></div><h2 id=span-styletext-decoration-underlineconfdfastcgiconfspan>conf.d/fastcgi.conf<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineconfdfastcgiconfspan>#</a></h2>
+</code></pre></div><h2 id=confdfastcgiconf>conf.d/fastcgi.conf<a hidden class=anchor aria-hidden=true href=#confdfastcgiconf>#</a></h2>
 <p>fastcgiの設定。<br>
 phpをどう実行するかを指定できる。</p>
 <p>ローカルのphp-cgiでもよいし、ローカルホストの別webサーバ（apacheとか）でもよいし、はたまた別ホストのwebサーバでもよい。<br>
-詳細はこちら。</p>
+詳細は<a href=http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ModFastCGI>こちら</a>。</p>
 <p>ここでは、ローカルの/usr/local/bin/php-cgiを使う。<br>
 fastcgi対応のphpである。</p>
 <p>ローカルなのでIPアドレスやTCP/IPポートの指定は不要で、UNIXドメインソケットして使うファイルを指定すればよい。<br>
@@ -279,7 +279,7 @@ fastcgi.server = ( &#34;.php&#34; =&gt;
         ))
         )
 </code></pre></div><p>以上でlighttpdの設定は完了</p>
-<h2 id=span-styletext-decoration-underlinephpiniの設定span>php.iniの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinephpiniの設定span>#</a></h2>
+<h2 id=phpiniの設定>php.iniの設定<a hidden class=anchor aria-hidden=true href=#phpiniの設定>#</a></h2>
 <p>lighttpdのドキュメントを見ると以下のように書いてあるので、php.iniを修正する。</p>
 <blockquote>
 <p>If you want to use PATH_INFO and PHP_SELF in you PHP scripts you have to configure php and lighttpd. The php.ini needs the option:<br>
@@ -293,14 +293,14 @@ developmentの方を選んだ。</p>
 # cp php.ini-development php.ini
 </code></pre></div><p>以下の行のコメントを外す。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>cgi.fix_pathinfo=1
-</code></pre></div><h2 id=span-styletext-decoration-underline起動確認span>起動確認<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline起動確認span>#</a></h2>
+</code></pre></div><h2 id=起動確認>起動確認<a hidden class=anchor aria-hidden=true href=#起動確認>#</a></h2>
 <p>/usr/local/www/dataを作り、&ldquo;It works!&ldquo;とでも書いたindex.htmlを作る。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># mkdir /usr/local/www/data
 # echo <span style=color:#e6db74>&#34;It works&#34;</span> &gt; /usr/local/www/data/index.html
 </code></pre></div><p>FreeBSDなら/etc/rc.confに以下の行を追加。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># enable lighttpd at boot
 lighttpd_enable=&#34;YES&#34;
-</code></pre></div><h2 id=span-styletext-decoration-underline起動span>起動。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline起動span>#</a></h2>
+</code></pre></div><h2 id=起動>起動。<a hidden class=anchor aria-hidden=true href=#起動>#</a></h2>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># service lighttpd start
 Performing sanity check on lighttpd configuration:
 Syntax OK

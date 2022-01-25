@@ -37,7 +37,7 @@
 <meta name=twitter:title content="ZFS scrubを過信してはいけません。">
 <meta name=twitter:description content="ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"ZFS scrubを過信してはいけません。","item":"https://nobwak.github.io/posts/2012-12-18-zfs_scrub%E3%82%92%E9%81%8E%E4%BF%A1%E3%81%97%E3%81%A6%E3%81%AF%E3%81%84%E3%81%91%E3%81%BE%E3%81%9B%E3%82%93/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ZFS scrubを過信してはいけません。","name":"ZFS scrubを過信してはいけません。","description":"ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと","keywords":[],"articleBody":"ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと、やってくれるらしいよ」 などという話を聞いた。 全くそんなことやってないので、慌てて調べてみた。 結論として、やっといた方がいいけど、なんか「fsckみたいな」と表現するのはおかしいよな、との理解に至った次第。 ZFSのおさらい ZFSのキモのひとつは、セルフヒーリングにある。 格納されているデータに対して、強力なチェックサムを持っていて、不整合があっても勝手に修復する。 勝手に、というのはどういうことかというと、不整合を見つけ「次第」、つまりアクセスしたファイルに不整合があったらその場で修復してしまう、というところ。 だから、http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html　のとおり   データの不一致が ZFS 構成内のディスク上で発生するとすれば、それはハードウェア障害が発生した場合か、ZFS ソフトウェアにバグが存在する場合だけ  なので、ZFSソフトウェアバグはさておき、論理的なデータ不一致の発生リスクについてはとくに手だて不要というわけだ。 ハードウェア障害ならもうそこは物理的なディスクの冗長でなんとかせい、ということになる。 言い換えると、ZFS上のファイルにアクセスできない場合には、もうこれは尋常ではない障害が起こっているということであり、あなたはヘビーな状況下にいるということである。(その場合はこちら。) http://docs.oracle.com/cd/E19253-01/819-6260/gbctt/index.html じゃあscrubってなによ そういった仕組みを踏まえてscrubというツール。 これは、上述の「不整合があったら修復する」というのを全データに対して行うだけ。 …ということは。 scrubをすれば全データのチェックはする。するけれども、そもそもscrubしてようがしてまいが、そんなことはお構いなしに、個々のファイルにアクセスしたらそのときに不整合チェックはされる。 カブってるじゃないか。 むしろscrub頻繁にやったらディスクに無用な負荷かけないか? となるとscrubのメリットは何か。 http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html   ZFS では、すべての不一致を定期的にチェックする機構が用意されています。この 機能は「スクラブ」と呼ばれ、メモリーやほかのシステム内で、ハードウェアまたはソフトウェア障害が発生する前にエラーを検出および回避する手段として一 般的に使用されます。 定期的にスクラブを実行すると、システム上のすべてのディスクへの継続的な入出力が保証されます。 スクラブを行なっているときまたは必要なファイルにアクセスしているときにエラーが発生した場合には、そのエラーが内部でログに記録されるので、そのプールで認識されているすべてのエラーの概要をすぐに確認できます。  とのこと。 「scrubすれば不整合があっても修復される」というのは、まあ間違ってはいないけど、むしろscrubの主目的はそこよりも、障害の予兆をつかむことにあると理解している。 たとえば。 scrubの定期的な実行をしないとする。 するとデータ不整合チェックは、個々のファイルアクセス契機で行われる。 不整合があればその都度、解消されるだろうし、解消されない場合には、ヘビーな状況だとして障害復旧を行うだろう。 しかし、滅多にアクセスしないファイルで致命的な、おそらく物理的な障害が発生し、影響が徐々に広がっていくような場合、このスタイルでは検知が遅れる可能性がある。 それを防ぐには、定期的にscrubで全ファイルをチェックし、「そのプールで認識されているすべてのエラーの概要」も定期的にチェックすればよい。 結果、「ハードウェアまたはソフトウェア障害が発生する前にエラーを検出および回避」できる可能性が高くなる、と。 scrubの使い方 というわけで使ってみた。まあコマンド例はいくらでもあるから淡々と。  $ zpool list NAME SIZE ALLOC FREE CAP DEDUP HEALTH ALTROOT vault 2.27T 1.30T 990G 57% 1.00x ONLINE - このpoolに対して実行。  $ sudo zpool scrub vault $ （すぐプロンプトが返ってくる）  $ sudo zpool status -v pool: vault state: ONLINE scan: scrub in progress since Tue Dec 18 22:53:46 2012 154M scanned out of 1.30T at 5.70M/s, 66h19m to go 0 repaired, 0.01% done config: NAME STATE READ WRITE CKSUM vault ONLINE 0 0 0 ada1 ONLINE 0 0 0 errors: No known data errors えっ66時間かかるの? （いまだに冗長化してないのが恥ずかしい。今回scrub調べてほんとに危ないのでディスク買わねばと思った）  $ sudo zpool status -v パスワード: pool: vault state: ONLINE scan: scrub in progress since Tue Dec 18 22:53:46 2012 239G scanned out of 1.30T at 81.4M/s, 3h48m to go 0 repaired, 17.95% done config: NAME STATE READ WRITE CKSUM vault ONLINE 0 0 0 ada1 ONLINE 0 0 0 errors: No known data errors OKOK。 なお、エラーが発生すれば、このstatusのほかに、syslogに表示されるし、たとえばFreeBSDならroot宛のメールにZFS poolsの状態も記載される。こんな感じに;   Checking status of zfs pools: all pools are healthy  vaultに対するログにもきっちりと（こういうとこZFSって素敵だ）  $ sudo zpool history vault History for \u0026#39;vault\u0026#39;: 2012-03-05.22:41:40 zpool create vault ada1 2012-03-05.22:54:14 zfs create vault/chamber 2012-03-05.22:56:44 zfs set mountpoint=/chamber vault/chamber 2012-03-18.00:37:52 zfs create vault/test 2012-03-18.00:43:27 zfs set dedup=on vault/test 2012-03-18.00:46:48 zfs destroy vault/test 2012-12-18.22:53:55 zpool scrub vault なお、scrubの停止は-sコマンドで。  ","wordCount":"2107","inLanguage":"en","datePublished":"2012-12-18T01:00:00+09:00","dateModified":"2012-12-18T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2012-12-18-zfs_scrub%E3%82%92%E9%81%8E%E4%BF%A1%E3%81%97%E3%81%A6%E3%81%AF%E3%81%84%E3%81%91%E3%81%BE%E3%81%9B%E3%82%93/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ZFS scrubを過信してはいけません。","name":"ZFS scrubを過信してはいけません。","description":"ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと","keywords":[],"articleBody":"ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと、やってくれるらしいよ」 などという話を聞いた。 全くそんなことやってないので、慌てて調べてみた。 結論として、やっといた方がいいけど、なんか「fsckみたいな」と表現するのはおかしいよな、との理解に至った次第。 ZFSのおさらい ZFSのキモのひとつは、セルフヒーリングにある。 格納されているデータに対して、強力なチェックサムを持っていて、不整合があっても勝手に修復する。 勝手に、というのはどういうことかというと、不整合を見つけ「次第」、つまりアクセスしたファイルに不整合があったらその場で修復してしまう、というところ。 だから、[http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html](http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html)　のとおり   データの不一致が ZFS 構成内のディスク上で発生するとすれば、それはハードウェア障害が発生した場合か、ZFS ソフトウェアにバグが存在する場合だけ  なので、ZFSソフトウェアバグはさておき、論理的なデータ不一致の発生リスクについてはとくに手だて不要というわけだ。 ハードウェア障害ならもうそこは物理的なディスクの冗長でなんとかせい、ということになる。 言い換えると、ZFS上のファイルにアクセスできない場合には、もうこれは尋常ではない障害が起こっているということであり、あなたはヘビーな状況下にいるということである。(その場合はこちら。) [http://docs.oracle.com/cd/E19253-01/819-6260/gbctt/index.html](http://docs.oracle.com/cd/E19253-01/819-6260/gbctt/index.html) じゃあscrubってなによ そういった仕組みを踏まえてscrubというツール。 これは、上述の「不整合があったら修復する」というのを全データに対して行うだけ。 …ということは。 scrubをすれば全データのチェックはする。するけれども、そもそもscrubしてようがしてまいが、そんなことはお構いなしに、個々のファイルにアクセスしたらそのときに不整合チェックはされる。 カブってるじゃないか。 むしろscrub頻繁にやったらディスクに無用な負荷かけないか? となるとscrubのメリットは何か。 [http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html](http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html)   ZFS では、すべての不一致を定期的にチェックする機構が用意されています。この 機能は「スクラブ」と呼ばれ、メモリーやほかのシステム内で、ハードウェアまたはソフトウェア障害が発生する前にエラーを検出および回避する手段として一 般的に使用されます。 定期的にスクラブを実行すると、システム上のすべてのディスクへの継続的な入出力が保証されます。 スクラブを行なっているときまたは必要なファイルにアクセスしているときにエラーが発生した場合には、そのエラーが内部でログに記録されるので、そのプールで認識されているすべてのエラーの概要をすぐに確認できます。  とのこと。 「scrubすれば不整合があっても修復される」というのは、まあ間違ってはいないけど、むしろscrubの主目的はそこよりも、障害の予兆をつかむことにあると理解している。 たとえば。 scrubの定期的な実行をしないとする。 するとデータ不整合チェックは、個々のファイルアクセス契機で行われる。 不整合があればその都度、解消されるだろうし、解消されない場合には、ヘビーな状況だとして障害復旧を行うだろう。 しかし、滅多にアクセスしないファイルで致命的な、おそらく物理的な障害が発生し、影響が徐々に広がっていくような場合、このスタイルでは検知が遅れる可能性がある。 それを防ぐには、定期的にscrubで全ファイルをチェックし、「そのプールで認識されているすべてのエラーの概要」も定期的にチェックすればよい。 結果、「ハードウェアまたはソフトウェア障害が発生する前にエラーを検出および回避」できる可能性が高くなる、と。 scrubの使い方 というわけで使ってみた。まあコマンド例はいくらでもあるから淡々と。  $ zpool list NAME SIZE ALLOC FREE CAP DEDUP HEALTH ALTROOT vault 2.27T 1.30T 990G 57% 1.00x ONLINE - このpoolに対して実行。  $ sudo zpool scrub vault $ （すぐプロンプトが返ってくる）  $ sudo zpool status -v pool: vault state: ONLINE scan: scrub in progress since Tue Dec 18 22:53:46 2012 154M scanned out of 1.30T at 5.70M/s, 66h19m to go 0 repaired, 0.01% done config: NAME STATE READ WRITE CKSUM vault ONLINE 0 0 0 ada1 ONLINE 0 0 0 errors: No known data errors えっ66時間かかるの? （いまだに冗長化してないのが恥ずかしい。今回scrub調べてほんとに危ないのでディスク買わねばと思った）  $ sudo zpool status -v パスワード: pool: vault state: ONLINE scan: scrub in progress since Tue Dec 18 22:53:46 2012 239G scanned out of 1.30T at 81.4M/s, 3h48m to go 0 repaired, 17.95% done config: NAME STATE READ WRITE CKSUM vault ONLINE 0 0 0 ada1 ONLINE 0 0 0 errors: No known data errors OKOK。 なお、エラーが発生すれば、このstatusのほかに、syslogに表示されるし、たとえばFreeBSDならroot宛のメールにZFS poolsの状態も記載される。こんな感じに;   Checking status of zfs pools: all pools are healthy  vaultに対するログにもきっちりと（こういうとこZFSって素敵だ）  $ sudo zpool history vault History for \u0026#39;vault\u0026#39;: 2012-03-05.22:41:40 zpool create vault ada1 2012-03-05.22:54:14 zfs create vault/chamber 2012-03-05.22:56:44 zfs set mountpoint=/chamber vault/chamber 2012-03-18.00:37:52 zfs create vault/test 2012-03-18.00:43:27 zfs set dedup=on vault/test 2012-03-18.00:46:48 zfs destroy vault/test 2012-12-18.22:53:55 zpool scrub vault なお、scrubの停止は-sコマンドで。  ","wordCount":"2099","inLanguage":"en","datePublished":"2012-12-18T01:00:00+09:00","dateModified":"2012-12-18T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2012-12-18-zfs_scrub%E3%82%92%E9%81%8E%E4%BF%A1%E3%81%97%E3%81%A6%E3%81%AF%E3%81%84%E3%81%91%E3%81%BE%E3%81%9B%E3%82%93/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -117,7 +117,7 @@ ZFS scrubを過信してはいけません。
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;ZFSのおさらい&lt;/span&gt;
+ZFSのおさらい
 
 
 
@@ -133,7 +133,7 @@ ZFSのキモのひとつは、セルフヒーリングにある。
 
 
 
-だから、&lt;a href=&quot;http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html&quot; target=&quot;_blank&quot;&gt;http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html&lt;/a&gt;　のとおり
+だから、[http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html](http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html)　のとおり
 </code></pre>
 <pre><code>  データの不一致が ZFS 構成内のディスク上で発生するとすれば、それはハードウェア障害が発生した場合か、ZFS ソフトウェアにバグが存在する場合だけ
 </code></pre>
@@ -149,14 +149,14 @@ ZFSのキモのひとつは、セルフヒーリングにある。
 
 
 
-&lt;a href=&quot;http://docs.oracle.com/cd/E19253-01/819-6260/gbctt/index.html&quot; target=&quot;_blank&quot;&gt;http://docs.oracle.com/cd/E19253-01/819-6260/gbctt/index.html&lt;/a&gt;
+[http://docs.oracle.com/cd/E19253-01/819-6260/gbctt/index.html](http://docs.oracle.com/cd/E19253-01/819-6260/gbctt/index.html)
 
 
 
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;じゃあscrubってなによ&lt;/span&gt;
+じゃあscrubってなによ
 
 
 
@@ -191,7 +191,7 @@ scrubをすれば全データのチェックはする。するけれども、そ
 
 
 
-&lt;a href=&quot;http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html&quot; target=&quot;_blank&quot;&gt;http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html&lt;/a&gt;
+[http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html](http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html)
 </code></pre>
 <pre><code>  ZFS では、すべての不一致を定期的にチェックする機構が用意されています。この 機能は「スクラブ」と呼ばれ、メモリーやほかのシステム内で、ハードウェアまたはソフトウェア障害が発生する前にエラーを検出および回避する手段として一 般的に使用されます。
 
@@ -242,7 +242,7 @@ scrubの定期的な実行をしないとする。
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;scrubの使い方&lt;/span&gt;
+scrubの使い方
 
 
 

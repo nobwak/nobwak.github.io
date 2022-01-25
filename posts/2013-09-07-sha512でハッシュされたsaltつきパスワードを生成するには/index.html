@@ -96,38 +96,38 @@ sha512でハッシュされたsaltつきパスワードを生成するには
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%90%e3%83%83%e3%83%81%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ab%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%82%92%e6%9b%b8%e3%81%8f%e3%81%a8%e3%81%8d%e3%81%ae%e6%82%a9%e3%81%bfspan aria-label=バッチファイルにパスワードを書くときの悩み>バッチファイルにパスワードを書くときの悩み</a></li>
+<a href=#%e3%83%90%e3%83%83%e3%83%81%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ab%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%82%92%e6%9b%b8%e3%81%8f%e3%81%a8%e3%81%8d%e3%81%ae%e6%82%a9%e3%81%bf aria-label=バッチファイルにパスワードを書くときの悩み>バッチファイルにパスワードを書くときの悩み</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinemd5%e3%81%8b%e3%82%89sha512%e3%81%b8span aria-label=MD5からSHA512へ>MD5からSHA512へ</a></li>
+<a href=#md5%e3%81%8b%e3%82%89sha512%e3%81%b8 aria-label=MD5からSHA512へ>MD5からSHA512へ</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%81%ae%e6%9b%b8%e5%bc%8f%e3%81%a7%e3%81%ae%e6%9a%97%e5%8f%b7%e5%8c%96span aria-label=パスワードの書式での暗号化>パスワードの書式での暗号化</a></li>
+<a href=#%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%81%ae%e6%9b%b8%e5%bc%8f%e3%81%a7%e3%81%ae%e6%9a%97%e5%8f%b7%e5%8c%96 aria-label=パスワードの書式での暗号化>パスワードの書式での暗号化</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineopenssl%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%ae%e3%81%a4%e3%81%8b%e3%81%84%e3%81%8b%e3%81%9fspan aria-label=Opensslコマンドのつかいかた>Opensslコマンドのつかいかた</a></li>
+<a href=#openssl%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%ae%e3%81%a4%e3%81%8b%e3%81%84%e3%81%8b%e3%81%9f aria-label=Opensslコマンドのつかいかた>Opensslコマンドのつかいかた</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesha512%e3%81%af%e3%81%84%e3%81%be%e3%81%aa%e3%82%89perl%e3%81%a8%e3%81%8bpythonspan aria-label=SHA512は…いまならperlとかpython>SHA512は…いまならperlとかpython</a>
+<a href=#sha512%e3%81%af%e3%81%84%e3%81%be%e3%81%aa%e3%82%89perl%e3%81%a8%e3%81%8bpython aria-label=SHA512は…いまならperlとかpython>SHA512は…いまならperlとかpython</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><h2 id=span-styletext-decoration-underlineバッチファイルにパスワードを書くときの悩みspan>バッチファイルにパスワードを書くときの悩み<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineバッチファイルにパスワードを書くときの悩みspan>#</a></h2>
+<div class=post-content><h2 id=バッチファイルにパスワードを書くときの悩み>バッチファイルにパスワードを書くときの悩み<a hidden class=anchor aria-hidden=true href=#バッチファイルにパスワードを書くときの悩み>#</a></h2>
 <p>ユーザの追加や、属性の変更をバッチファイルで処理したいことがある。<br>
 しかしこういった作業には、しばしばパスワードの操作が含まれる。<br>
 しかしパスワードを平文のまま扱うわけにもいかない。<br>
 パスワードの設定・変更をするコマンドが、暗号化されたパスワードも受け付けるようになっているのは、そのためだ。</p>
-<p>たとえばLinuxにはchpasswdというコマンドがある。chpasswdは暗号化されたパスワードを受け付ける。<br>
+<p>たとえばLinuxには<a href=http://linuxjm.sourceforge.jp/html/shadow/man8/chpasswd.8.html>chpasswd</a>というコマンドがある。chpasswdは暗号化されたパスワードを受け付ける。<br>
 もしバッチファイルを覗かれても、パスワードが暗号化されていれば、まあ大丈夫と言える。</p>
-<h2 id=span-styletext-decoration-underlinemd5からsha512へspan>MD5からSHA512へ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinemd5からsha512へspan>#</a></h2>
+<h2 id=md5からsha512へ>MD5からSHA512へ<a hidden class=anchor aria-hidden=true href=#md5からsha512へ>#</a></h2>
 <p>ところで、<a href="../../../?p=1839">こちらの記事</a>でも触れたとおり、MD5は今そこにある危機であるからして、パスワードのハッシュ方法をSHA512に変えるOSもぼちぼち出てきた。<br>
 そういったOSにおいて、暗号化したパスワードでユーザ情報の操作をするには、とうぜんパスワードをSHA512で暗号化しなければならない。</p>
 <p>ということで、ある文字列をSHA512暗号化する方法を示す。</p>
-<h2 id=span-styletext-decoration-underlineパスワードの書式での暗号化span>パスワードの書式での暗号化<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineパスワードの書式での暗号化span>#</a></h2>
+<h2 id=パスワードの書式での暗号化>パスワードの書式での暗号化<a hidden class=anchor aria-hidden=true href=#パスワードの書式での暗号化>#</a></h2>
 <p>SHA512で暗号化だなんていうのは簡単なのだが、しかし、パスワードファイルで使われる形式での暗号化となると、ちょっと工夫が必要だ。</p>
 <p>パスワードファイルの形式は以下の通り。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$＜ハッシュ方式＞$＜salt＞$＜ハッシュ後のパスワード＞
 </code></pre></div><p>要するにこういう形式での出力をしてくれるコマンドなりスクリプトでなければならない。<br>
 代表的なものでは、opensslコマンド。</p>
-<h2 id=span-styletext-decoration-underlineopensslコマンドのつかいかたspan>Opensslコマンドのつかいかた<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineopensslコマンドのつかいかたspan>#</a></h2>
+<h2 id=opensslコマンドのつかいかた>Opensslコマンドのつかいかた<a hidden class=anchor aria-hidden=true href=#opensslコマンドのつかいかた>#</a></h2>
 <p>openssl passwdという書式で使う。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ openssl version
 OpenSSL 0.9.8y 5 Feb 2013
@@ -148,7 +148,7 @@ where options are
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ openssl passwd -1 -salt <span style=color:#e6db74>&#34;SALTsalt&#34;</span> <span style=color:#e6db74>&#34;test&#34;</span>
 $1$SALTsalt$CEvzkj.qgOcLTyU2B5Kg3.
 </code></pre></div><p>しかし上述のオプション一覧を見ると分かるのだが、sha512形式には対応していない。</p>
-<h2 id=span-styletext-decoration-underlinesha512はいまならperlとかpythonspan>SHA512は…いまならperlとかpython<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesha512はいまならperlとかpythonspan>#</a></h2>
+<h2 id=sha512はいまならperlとかpython>SHA512は…いまならperlとかpython<a hidden class=anchor aria-hidden=true href=#sha512はいまならperlとかpython>#</a></h2>
 <p>ここまで引っ張ってナニだが、一発でSHA512ハッシュしてくれるコマンドは見つけられなかった。<br>
 Linuxのmkpasswdも新しければ対応しているようなのだがまだ一般的ではない。<br>
 そこでperl, pythonを使う。<br>

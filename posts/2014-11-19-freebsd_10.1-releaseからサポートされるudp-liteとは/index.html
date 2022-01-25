@@ -37,7 +37,7 @@
 <meta name=twitter:title content="FreeBSD 10.1-RELEASEからサポートされるUDP-liteとは">
 <meta name=twitter:description content="FreeBSD 10.1-RELEASEがめでたくリリースされた。 何が更新されたかといえば、UEFIブートやvt等々が世間一般の目玉のようである。 FreeBSD 10.1-RELEASE Release Notes">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"FreeBSD 10.1-RELEASEからサポートされるUDP-liteとは","item":"https://nobwak.github.io/posts/2014-11-19-freebsd_10.1-release%E3%81%8B%E3%82%89%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%81%95%E3%82%8C%E3%82%8Budp-lite%E3%81%A8%E3%81%AF/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSD 10.1-RELEASEからサポートされるUDP-liteとは","name":"FreeBSD 10.1-RELEASEからサポートされるUDP-liteとは","description":"FreeBSD 10.1-RELEASEがめでたくリリースされた。 何が更新されたかといえば、UEFIブートやvt等々が世間一般の目玉のようである。 FreeBSD 10.1-RELEASE Release Notes","keywords":[],"articleBody":"FreeBSD 10.1-RELEASEがめでたくリリースされた。\n何が更新されたかといえば、UEFIブートやvt等々が世間一般の目玉のようである。\nFreeBSD 10.1-RELEASE Release Notes\nUEFIブートを初期サポートした「FreeBSD 10.1-RELEASE」リリース\nそのなかで興味を惹かれたのが、UDP-Lite。\nUDP-Liteとは。以下、公式サイトより俺私訳。\nRFC 3828で規定されるIPトランスポートプロトコルで、音声/動画/ゲームでの使用を想定したもの。\n通常、UDPデータグラムはチェックサムエラーが発生すると破棄される。\nこれはつまり、最大で64KBまでのサイズを許容されるデータパケットのうち、たった1byte誤っただけでパケット全体がドロップされることを示す。\nUDP Liteは、部分的に壊れているパケットのうち、壊れてない部分を使えるようなアプリケーション向けに作られた。\nこちらはWikipedia","wordCount":"380","inLanguage":"en","datePublished":"2014-11-19T22:31:09+09:00","dateModified":"2014-11-19T22:31:09+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-11-19-freebsd_10.1-release%E3%81%8B%E3%82%89%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%81%95%E3%82%8C%E3%82%8Budp-lite%E3%81%A8%E3%81%AF/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSD 10.1-RELEASEからサポートされるUDP-liteとは","name":"FreeBSD 10.1-RELEASEからサポートされるUDP-liteとは","description":"FreeBSD 10.1-RELEASEがめでたくリリースされた。 何が更新されたかといえば、UEFIブートやvt等々が世間一般の目玉のようである。 FreeBSD 10.1-RELEASE Release Notes","keywords":[],"articleBody":"FreeBSD 10.1-RELEASEがめでたくリリースされた。\n何が更新されたかといえば、UEFIブートやvt等々が世間一般の目玉のようである。\nFreeBSD 10.1-RELEASE Release Notes\nUEFIブートを初期サポートした「FreeBSD 10.1-RELEASE」リリース\nそのなかで興味を惹かれたのが、UDP-Lite。\nUDP-Liteとは。以下、公式サイトより俺私訳。\nRFC 3828で規定されるIPトランスポートプロトコルで、音声/動画/ゲームでの使用を想定したもの。\n通常、UDPデータグラムはチェックサムエラーが発生すると破棄される。\nこれはつまり、最大で64KBまでのサイズを許容されるデータパケットのうち、たった1byte誤っただけでパケット全体がドロップされることを示す。\nUDP Liteは、部分的に壊れているパケットのうち、壊れてない部分を使えるようなアプリケーション向けに作られた。\nこちらはWikipedia\n","wordCount":"380","inLanguage":"en","datePublished":"2014-11-19T22:31:09+09:00","dateModified":"2014-11-19T22:31:09+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-11-19-freebsd_10.1-release%E3%81%8B%E3%82%89%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%81%95%E3%82%8C%E3%82%8Budp-lite%E3%81%A8%E3%81%AF/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -95,12 +95,12 @@ FreeBSD 10.1-RELEASEからサポートされるUDP-liteとは
 <p><a href=https://www.freebsd.org/releases/10.1R/relnotes.html>FreeBSD 10.1-RELEASE Release Notes</a><br>
 <a href=http://sourceforge.jp/magazine/14/11/18/163300>UEFIブートを初期サポートした「FreeBSD 10.1-RELEASE」リリース</a></p>
 <p>そのなかで興味を惹かれたのが、UDP-Lite。<br>
-UDP-Liteとは。以下、公式サイトより俺私訳。</p>
+UDP-Liteとは。以下、<a href=http://www.erg.abdn.ac.uk/users/gerrit/udp-lite/>公式サイト</a>より俺私訳。</p>
 <p><em>RFC 3828で規定されるIPトランスポートプロトコルで、音声/動画/ゲームでの使用を想定したもの。</em><br>
 <em>通常、UDPデータグラムはチェックサムエラーが発生すると破棄される。</em><br>
 <em>これはつまり、最大で64KBまでのサイズを許容されるデータパケットのうち、たった1byte誤っただけでパケット全体がドロップされることを示す。</em><br>
 <em>UDP Liteは、部分的に壊れているパケットのうち、壊れてない部分を使えるようなアプリケーション向けに作られた。</em></p>
-<p>こちらはWikipedia</p>
+<p>こちらは<a href=http://ja.wikipedia.org/wiki/UDP-Lite>Wikipedia</a></p>
 </div>
 <footer class=post-footer>
 <nav class=paginav>

@@ -37,7 +37,7 @@
 <meta name=twitter:title content="ActivePythonでPythonパッケージを扱うにはPyPM">
 <meta name=twitter:description content="PyPMはActivePythonのPythonパッケージマネージメントシステムである。 パッケージの提供はActiveState。 ただ、すべ">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"ActivePythonでPythonパッケージを扱うにはPyPM","item":"https://nobwak.github.io/posts/2013-12-01-activepython%E3%81%A7python%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AFpypm/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ActivePythonでPythonパッケージを扱うにはPyPM","name":"ActivePythonでPythonパッケージを扱うにはPyPM","description":"PyPMはActivePythonのPythonパッケージマネージメントシステムである。 パッケージの提供はActiveState。 ただ、すべ","keywords":[],"articleBody":"PyPMはActivePythonのPythonパッケージマネージメントシステムである。\nパッケージの提供はActiveState。\nただ、すべてのパッケージが揃っているわけではなく、ものによってはコンパイルに失敗し、結果としてPyPMでは入手できないものもある。\nたとえば2013/11/14現在、pygraphvizは入手できない。\nhttp://code.activestate.com/pypm/pygraphviz/ pygraphviz is unavailable in PyPM, because there aren’t any builds for it in the package repositories.\n 前後したが、PyPMで揃えられるパッケージは以下のサイトで確認できる。\nhttp://code.activestate.com/pypm/また、PyPMにもパッケージ検索機能が備わっている。\nPyPMの起動 ActivePythonをインストールすると、Python Package Manager(PyPM)というプログラムがスタートメニューにできているはず。\nこれがPyPM。\nプログラムとは言っても、実体はcmd.exeに引数を与えて実行するショートカットである。\nC:\\Windows\\System32\\cmd.exe /k title PyPM \u0026 pypm 実行すると、コマンドプロンプトが開く。\nPyPMの使い方 以下を参照\nhttp://docs.activestate.com/activepython/3.3/pypm.html検索: pypm search ＜パッケージ＞ インストール: pypm install ＜パッケージ＞ 削除: pypm uninstall ＜パッケージ＞ 更新: pypm upgrade 一覧: pypm list 実行例 matplotlibを検索、インストールしてみる。\n検索\nC:\\Windows\\system32pypm search matplotlib boomslang A thin layer over matplotlib that simplifies creation of common p brewer2mpl Connect colorbrewer2.org color maps to Python and matplotlib descartes Use geometric objects as matplotlib paths and patches ezplot Remote Procedure interface to Matplotlib matplotlib Python plotting package pygmyplot Matplotlib wrapper plotting library pywcsgrid2 pywcsgrid2 is a python module to be used with matplotlib for disp root2matplot Tools to plot ROOT histograms using matplotlib sphinxreport SphinxReport : a report generator in python based on Sphinx and m webplotlib A package for creating server-side charts/graphs using matplotlib wxmplot high level wxPython Components for 2D plotting and image display インストール\nC:\\Windows\\system32pypm install matplotlib The following packages will be installed into \"%APPDATA%\\Python\" (2.7): as.mklruntime-1.3 numpy-1.7.1 matplotlib-1.1.1 Get: [pypm-free.activestate.com] as.mklruntime 1.3 downloading: [=========== ] 59% 19.0MB/32.1MB (1m18s; 55s left) インストール済みのパッケージ一覧\nC:\\Windows\\system32pypm list as.mklruntime 1.3 Intel MKL runtime files (Windows only) matplotlib 1.1.1 Python plotting package networkx 1.8.1 Python package for creating and manipulating graphs and net numpy 1.7.1 NumPy: array processing for numbers, strings, records, and プロキシの設定 もしインターネット接続がproxy越しの場合には、環境変数の設定が必要だ。\n以下に記載のあるとおり。\nhttp://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewallsPyPMを実行したあと、以下のように設定してから進めればよい。\nC:\\Windows\\system32set http_proxy=http://proxysomewhere.com:8080/ なお、activestateのサイト通りだとうまくいかなくて、経験的な結果として:\n 　ダブルクオーテーションで囲ったらダメ。 　（おそらく）URLの最後はスラッシュで終わらないとダメ。  使用例\nC:\\Windows\\system32set http_proxy=http://proxysomewhere.com:8080/ C:\\Windows\\system32pypm install networkx Get: [pypm-be.activestate.com] :repository-index: Get: [pypm-free.activestate.com] :repository-index: downloading: [======= ] 39% 2.5MB/6.4MB (10s; 17s left) 以上\n","wordCount":"1040","inLanguage":"en","datePublished":"2013-12-01T22:56:46+09:00","dateModified":"2013-12-01T22:56:46+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-12-01-activepython%E3%81%A7python%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AFpypm/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ActivePythonでPythonパッケージを扱うにはPyPM","name":"ActivePythonでPythonパッケージを扱うにはPyPM","description":"PyPMはActivePythonのPythonパッケージマネージメントシステムである。 パッケージの提供はActiveState。 ただ、すべ","keywords":[],"articleBody":"PyPMはActivePythonのPythonパッケージマネージメントシステムである。\nパッケージの提供はActiveState。\nただ、すべてのパッケージが揃っているわけではなく、ものによってはコンパイルに失敗し、結果としてPyPMでは入手できないものもある。\nたとえば2013/11/14現在、pygraphvizは入手できない。\nhttp://code.activestate.com/pypm/pygraphviz/\n pygraphviz is unavailable in PyPM, because there aren’t any builds for it in the package repositories.\n 前後したが、PyPMで揃えられるパッケージは以下のサイトで確認できる。\nhttp://code.activestate.com/pypm/\nまた、PyPMにもパッケージ検索機能が備わっている。\nPyPMの起動 ActivePythonをインストールすると、Python Package Manager(PyPM)というプログラムがスタートメニューにできているはず。\nこれがPyPM。\nプログラムとは言っても、実体はcmd.exeに引数を与えて実行するショートカットである。\nC:\\Windows\\System32\\cmd.exe /k title PyPM \u0026 pypm 実行すると、コマンドプロンプトが開く。\nPyPMの使い方 以下を参照\nhttp://docs.activestate.com/activepython/3.3/pypm.html\n検索: pypm search ＜パッケージ＞ インストール: pypm install ＜パッケージ＞ 削除: pypm uninstall ＜パッケージ＞ 更新: pypm upgrade 一覧: pypm list 実行例 matplotlibを検索、インストールしてみる。\n検索\nC:\\Windows\\system32pypm search matplotlib boomslang A thin layer over matplotlib that simplifies creation of common p brewer2mpl Connect colorbrewer2.org color maps to Python and matplotlib descartes Use geometric objects as matplotlib paths and patches ezplot Remote Procedure interface to Matplotlib matplotlib Python plotting package pygmyplot Matplotlib wrapper plotting library pywcsgrid2 pywcsgrid2 is a python module to be used with matplotlib for disp root2matplot Tools to plot ROOT histograms using matplotlib sphinxreport SphinxReport : a report generator in python based on Sphinx and m webplotlib A package for creating server-side charts/graphs using matplotlib wxmplot high level wxPython Components for 2D plotting and image display インストール\nC:\\Windows\\system32pypm install matplotlib The following packages will be installed into \"%APPDATA%\\Python\" (2.7): as.mklruntime-1.3 numpy-1.7.1 matplotlib-1.1.1 Get: [pypm-free.activestate.com] as.mklruntime 1.3 downloading: [=========== ] 59% 19.0MB/32.1MB (1m18s; 55s left) インストール済みのパッケージ一覧\nC:\\Windows\\system32pypm list as.mklruntime 1.3 Intel MKL runtime files (Windows only) matplotlib 1.1.1 Python plotting package networkx 1.8.1 Python package for creating and manipulating graphs and net numpy 1.7.1 NumPy: array processing for numbers, strings, records, and プロキシの設定 もしインターネット接続がproxy越しの場合には、環境変数の設定が必要だ。\n以下に記載のあるとおり。\nhttp://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls\nPyPMを実行したあと、以下のように設定してから進めればよい。\nC:\\Windows\\system32set http_proxy=http://proxysomewhere.com:8080/ なお、activestateのサイト通りだとうまくいかなくて、経験的な結果として:\n 　ダブルクオーテーションで囲ったらダメ。 　（おそらく）URLの最後はスラッシュで終わらないとダメ。  使用例\nC:\\Windows\\system32set http_proxy=http://proxysomewhere.com:8080/ C:\\Windows\\system32pypm install networkx Get: [pypm-be.activestate.com] :repository-index: Get: [pypm-free.activestate.com] :repository-index: downloading: [======= ] 39% 2.5MB/6.4MB (10s; 17s left) 以上\n","wordCount":"880","inLanguage":"en","datePublished":"2013-12-01T22:56:46+09:00","dateModified":"2013-12-01T22:56:46+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-12-01-activepython%E3%81%A7python%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AFpypm/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -87,7 +87,7 @@
 <h1 class=post-title>
 ActivePythonでPythonパッケージを扱うにはPyPM
 </h1>
-<div class=post-meta><span title="2013-12-01 22:56:46 +0900 JST">December 1, 2013</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2013-12-01-ActivePython%e3%81%a7Python%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%82%92%e6%89%b1%e3%81%86%e3%81%ab%e3%81%afPyPM.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+<div class=post-meta><span title="2013-12-01 22:56:46 +0900 JST">December 1, 2013</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2013-12-01-ActivePython%e3%81%a7Python%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%82%92%e6%89%b1%e3%81%86%e3%81%ab%e3%81%afPyPM.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header> <div class=toc>
 <details open>
@@ -96,20 +96,20 @@ ActivePythonでPythonパッケージを扱うにはPyPM
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinepypm%e3%81%ae%e8%b5%b7%e5%8b%95span aria-label=PyPMの起動>PyPMの起動</a></li>
+<a href=#pypm%e3%81%ae%e8%b5%b7%e5%8b%95 aria-label=PyPMの起動>PyPMの起動</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinepypm%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9span aria-label=PyPMの使い方>PyPMの使い方</a></li>
+<a href=#pypm%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9 aria-label=PyPMの使い方>PyPMの使い方</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%ae%9f%e8%a1%8c%e4%be%8bspan aria-label=実行例>実行例</a></li>
+<a href=#%e5%ae%9f%e8%a1%8c%e4%be%8b aria-label=実行例>実行例</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%97%e3%83%ad%e3%82%ad%e3%82%b7%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=プロキシの設定>プロキシの設定</a>
+<a href=#%e3%83%97%e3%83%ad%e3%82%ad%e3%82%b7%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label=プロキシの設定>プロキシの設定</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
 <div class=post-content><p>PyPMはActivePythonのPythonパッケージマネージメントシステムである。<br>
-パッケージの提供はActiveState。</p>
+パッケージの提供は<a href=http://www.activestate.com/>ActiveState</a>。</p>
 <p>ただ、すべてのパッケージが揃っているわけではなく、ものによってはコンパイルに失敗し、結果としてPyPMでは入手できないものもある。</p>
 <p>たとえば2013/11/14現在、pygraphvizは入手できない。<br>
 <a href=http://code.activestate.com/pypm/pygraphviz/>http://code.activestate.com/pypm/pygraphviz/</a></p>
@@ -119,7 +119,7 @@ ActivePythonでPythonパッケージを扱うにはPyPM
 <p>前後したが、PyPMで揃えられるパッケージは以下のサイトで確認できる。<br>
 <a href=http://code.activestate.com/pypm/>http://code.activestate.com/pypm/</a><br>
 また、PyPMにもパッケージ検索機能が備わっている。</p>
-<h2 id=span-styletext-decoration-underlinepypmの起動span>PyPMの起動<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepypmの起動span>#</a></h2>
+<h2 id=pypmの起動>PyPMの起動<a hidden class=anchor aria-hidden=true href=#pypmの起動>#</a></h2>
 <p>ActivePythonをインストールすると、Python Package Manager(PyPM)というプログラムがスタートメニューにできているはず。<br>
 これがPyPM。<br>
 <img loading=lazy src=/wp-content/uploads/2013/11/startmenu.png alt=img>
@@ -129,7 +129,7 @@ ActivePythonでPythonパッケージを扱うにはPyPM
 </code></pre></div><p>実行すると、コマンドプロンプトが開く。<br>
 <img loading=lazy src=/wp-content/uploads/2013/11/pypm.png alt=img>
 </p>
-<h2 id=span-styletext-decoration-underlinepypmの使い方span>PyPMの使い方<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepypmの使い方span>#</a></h2>
+<h2 id=pypmの使い方>PyPMの使い方<a hidden class=anchor aria-hidden=true href=#pypmの使い方>#</a></h2>
 <p>以下を参照</p>
 <p><a href=http://docs.activestate.com/activepython/3.3/pypm.html>http://docs.activestate.com/activepython/3.3/pypm.html</a></p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>検索:
@@ -142,7 +142,7 @@ ActivePythonでPythonパッケージを扱うにはPyPM
 　pypm upgrade
 一覧:
 　pypm list
-</code></pre></div><h2 id=span-styletext-decoration-underline実行例span>実行例<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline実行例span>#</a></h2>
+</code></pre></div><h2 id=実行例>実行例<a hidden class=anchor aria-hidden=true href=#実行例>#</a></h2>
 <p>matplotlibを検索、インストールしてみる。</p>
 <p>検索</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>C:\Windows\system32&gt;pypm search matplotlib
@@ -169,7 +169,7 @@ as.mklruntime 1.3   Intel MKL runtime files (Windows only)
 matplotlib    1.1.1 Python plotting package
 networkx      1.8.1 Python package for creating and manipulating graphs and net
 numpy         1.7.1 NumPy: array processing for numbers, strings, records, and
-</code></pre></div><h2 id=span-styletext-decoration-underlineプロキシの設定span>プロキシの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineプロキシの設定span>#</a></h2>
+</code></pre></div><h2 id=プロキシの設定>プロキシの設定<a hidden class=anchor aria-hidden=true href=#プロキシの設定>#</a></h2>
 <p>もしインターネット接続がproxy越しの場合には、環境変数の設定が必要だ。<br>
 以下に記載のあるとおり。<br>
 <a href=http://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls>http://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls</a></p>

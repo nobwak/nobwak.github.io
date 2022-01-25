@@ -37,7 +37,7 @@
 <meta name=twitter:title content="[Windows] 暗号化仮想ディスク管理ツールFreeOTFE">
 <meta name=twitter:description content="ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。 暗号化ツールは、探してみると意外にたくさんある。 また、最近ではOS">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"[Windows] 暗号化仮想ディスク管理ツールFreeOTFE","item":"https://nobwak.github.io/posts/2014-08-08-windows_%E6%9A%97%E5%8F%B7%E5%8C%96%E4%BB%AE%E6%83%B3%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABfreeotfe/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Windows] 暗号化仮想ディスク管理ツールFreeOTFE","name":"[Windows] 暗号化仮想ディスク管理ツールFreeOTFE","description":"ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。 暗号化ツールは、探してみると意外にたくさんある。 また、最近ではOS","keywords":["security","Windows"],"articleBody":"ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。\n暗号化ツールは、探してみると意外にたくさんある。\nまた、最近ではOSで暗号化をサポートするのもトレンドである。\nそういったわけで、どんなものでも選り取り見取り、と思っておりました。\nしかし。\nちょっと条件を付けると途端に選択肢が狭まってしまう。\n具体的には、実ディスク全体を暗号化するのではなく、\n①Windowsで、\n②暗号化仮想ディスクを扱える、\n②フリー（オープンソース）のツール\nである。\n暗号化仮想ディスクのねらい つまり、PC本体の実ディスクはそのままに、暗号化した仮想ディスクを扱いたいわけです。\nなぜわざわざ仮想ディスクが必要なのか。\nなぜファイル単位の暗号化ではダメなのかというと。\n端的に言って、復号した後にもう一回暗号化するのが面倒だから。\n暗号化したファイル、フォルダは、ずっとそのままという訳にはいかない。\nとうぜん閲覧するなり実行したりしたいわけで、そのためには復号、すなわち暗号解除が必要だ。\nしかしひとたび、無事に用事を済ませたら、当然のことながらもう一度暗号化して大事にしまっておかねばならない。\nファイルあるいはフォルダ単位の暗号化ツールは、この「使った後にもう一度鍵をかけてしまう」という作業を考えられていないケースがほとんどだ。\nこれはおそらく、一回限りの暗号化を前提にしているためと思う。\nたとえば、セキュリティに不安のある経路を通してファイルを送受するとか。\n頻繁に暗号化されたファイルにアクセスするようなケースでは、ユーザが意識しなくても、使用後に元通り暗号化されることが望ましい。\n暗号化した仮想ディスクを扱える、というのはそういう使用用途にぴったりである。\n暗号化ファイルを復号するとディスクとしてマウントされる。\nシャットダウンあるいは再起動でマウントが外れ、暗号化されたファイルに戻る。\nぴったり。\nならディスクそのものを暗号化してしまえよWindowsにはBitLockerとかあるんだしさあ、というのはその通り。\nその通りなんだが、実ディスクの設定を気軽に触れないケースもあるってことで。\nFreeOTFE さて上述の検討をもとに選定をする。\nしかし暗号化ツールと言ってもかなりの数がある。\nどうやって探したらいいのだ。\nこういうときに便利なのがWikipedia。\nたいてい便利な比較表がある。\nComparison of disk encryption softwareところが、条件を当てはめていくと急激に数が減る。\n結論として、条件を十分に満足するソフトウェアはなかった。\n次点でFreeOTFE。\nFreeOTFEは、フリーでWindowsで使えて仮想ディスクを扱える。\n一見、問題なさそうに思えたのだが、なんと開発が止まっていた。\nなんという…。\nしたがって、不具合が見つかった場合の修正がなされないのは当然なことながら、64bit Windowsでは暗号化仮想ディスク用のドライバをインストールできず、今後も改善される予定はない。\nもちろん、誰かが開発を引き継いでくれればその限りではないが、昨今はOSで暗号化に対応するのが一般的だし、開発が復活するのは望み薄ではないかなと思っている。\n長くなったので、FreeOTFEのインストール方法は別項で。\n","wordCount":"1321","inLanguage":"en","datePublished":"2014-08-08T23:01:10+09:00","dateModified":"2014-08-08T23:01:10+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-08-08-windows_%E6%9A%97%E5%8F%B7%E5%8C%96%E4%BB%AE%E6%83%B3%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABfreeotfe/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Windows] 暗号化仮想ディスク管理ツールFreeOTFE","name":"[Windows] 暗号化仮想ディスク管理ツールFreeOTFE","description":"ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。 暗号化ツールは、探してみると意外にたくさんある。 また、最近ではOS","keywords":["security","Windows"],"articleBody":"ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。\n暗号化ツールは、探してみると意外にたくさんある。\nまた、最近ではOSで暗号化をサポートするのもトレンドである。\nそういったわけで、どんなものでも選り取り見取り、と思っておりました。\nしかし。\nちょっと条件を付けると途端に選択肢が狭まってしまう。\n具体的には、実ディスク全体を暗号化するのではなく、\n①Windowsで、\n②暗号化仮想ディスクを扱える、\n②フリー（オープンソース）のツール\nである。\n暗号化仮想ディスクのねらい つまり、PC本体の実ディスクはそのままに、暗号化した仮想ディスクを扱いたいわけです。\nなぜわざわざ仮想ディスクが必要なのか。\nなぜファイル単位の暗号化ではダメなのかというと。\n端的に言って、復号した後にもう一回暗号化するのが面倒だから。\n暗号化したファイル、フォルダは、ずっとそのままという訳にはいかない。\nとうぜん閲覧するなり実行したりしたいわけで、そのためには復号、すなわち暗号解除が必要だ。\nしかしひとたび、無事に用事を済ませたら、当然のことながらもう一度暗号化して大事にしまっておかねばならない。\nファイルあるいはフォルダ単位の暗号化ツールは、この「使った後にもう一度鍵をかけてしまう」という作業を考えられていないケースがほとんどだ。\nこれはおそらく、一回限りの暗号化を前提にしているためと思う。\nたとえば、セキュリティに不安のある経路を通してファイルを送受するとか。\n頻繁に暗号化されたファイルにアクセスするようなケースでは、ユーザが意識しなくても、使用後に元通り暗号化されることが望ましい。\n暗号化した仮想ディスクを扱える、というのはそういう使用用途にぴったりである。\n暗号化ファイルを復号するとディスクとしてマウントされる。\nシャットダウンあるいは再起動でマウントが外れ、暗号化されたファイルに戻る。\nぴったり。\nならディスクそのものを暗号化してしまえよWindowsにはBitLockerとかあるんだしさあ、というのはその通り。\nその通りなんだが、実ディスクの設定を気軽に触れないケースもあるってことで。\nFreeOTFE さて上述の検討をもとに選定をする。\nしかし暗号化ツールと言ってもかなりの数がある。\nどうやって探したらいいのだ。\nこういうときに便利なのがWikipedia。\nたいてい便利な比較表がある。\nComparison of disk encryption software\nところが、条件を当てはめていくと急激に数が減る。\n結論として、条件を十分に満足するソフトウェアはなかった。\n次点でFreeOTFE。\nFreeOTFEは、フリーでWindowsで使えて仮想ディスクを扱える。\n一見、問題なさそうに思えたのだが、なんと開発が止まっていた。\nなんという…。\nしたがって、不具合が見つかった場合の修正がなされないのは当然なことながら、64bit Windowsでは暗号化仮想ディスク用のドライバをインストールできず、今後も改善される予定はない。\nもちろん、誰かが開発を引き継いでくれればその限りではないが、昨今はOSで暗号化に対応するのが一般的だし、開発が復活するのは望み薄ではないかなと思っている。\n長くなったので、FreeOTFEのインストール方法は別項で。\n","wordCount":"1314","inLanguage":"en","datePublished":"2014-08-08T23:01:10+09:00","dateModified":"2014-08-08T23:01:10+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-08-08-windows_%E6%9A%97%E5%8F%B7%E5%8C%96%E4%BB%AE%E6%83%B3%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABfreeotfe/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,9 +96,9 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e6%9a%97%e5%8f%b7%e5%8c%96%e4%bb%ae%e6%83%b3%e3%83%87%e3%82%a3%e3%82%b9%e3%82%af%e3%81%ae%e3%81%ad%e3%82%89%e3%81%84span aria-label=暗号化仮想ディスクのねらい>暗号化仮想ディスクのねらい</a></li>
+<a href=#%e6%9a%97%e5%8f%b7%e5%8c%96%e4%bb%ae%e6%83%b3%e3%83%87%e3%82%a3%e3%82%b9%e3%82%af%e3%81%ae%e3%81%ad%e3%82%89%e3%81%84 aria-label=暗号化仮想ディスクのねらい>暗号化仮想ディスクのねらい</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinefreeotfespan aria-label=FreeOTFE>FreeOTFE</a>
+<a href=#freeotfe aria-label=FreeOTFE>FreeOTFE</a>
 </li>
 </ul>
 </div>
@@ -115,7 +115,7 @@
 ②暗号化仮想ディスクを扱える、<br>
 ②フリー（オープンソース）のツール<br>
 である。</p>
-<h2 id=span-styletext-decoration-underline暗号化仮想ディスクのねらいspan>暗号化仮想ディスクのねらい<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline暗号化仮想ディスクのねらいspan>#</a></h2>
+<h2 id=暗号化仮想ディスクのねらい>暗号化仮想ディスクのねらい<a hidden class=anchor aria-hidden=true href=#暗号化仮想ディスクのねらい>#</a></h2>
 <p>つまり、PC本体の実ディスクはそのままに、暗号化した仮想ディスクを扱いたいわけです。<br>
 なぜわざわざ仮想ディスクが必要なのか。<br>
 なぜファイル単位の暗号化ではダメなのかというと。</p>
@@ -135,13 +135,13 @@
 その通りなんだが、実ディスクの設定を気軽に触れないケースもあるってことで。</p>
 <p><img loading=lazy src=/wp-content/uploads/2014/07/2014-07-25_21-55-13.png alt=img>
 </p>
-<h2 id=span-styletext-decoration-underlinefreeotfespan>FreeOTFE<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinefreeotfespan>#</a></h2>
+<h2 id=freeotfe>FreeOTFE<a hidden class=anchor aria-hidden=true href=#freeotfe>#</a></h2>
 <p>さて上述の検討をもとに選定をする。<br>
 しかし暗号化ツールと言ってもかなりの数がある。<br>
 どうやって探したらいいのだ。</p>
 <p>こういうときに便利なのがWikipedia。<br>
 たいてい便利な比較表がある。<br>
-Comparison of disk encryption software</p>
+<a href=http://en.wikipedia.org/wiki/Comparison_of_disk_encryption_software>Comparison of disk encryption software</a></p>
 <p>ところが、条件を当てはめていくと急激に数が減る。<br>
 結論として、条件を十分に満足するソフトウェアはなかった。<br>
 次点でFreeOTFE。</p>

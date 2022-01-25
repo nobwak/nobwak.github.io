@@ -570,7 +570,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Tue, 29 Sep 2015 22:26:12 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2015-09-29-%E3%83%A1%E3%83%A2mysql_secure_installtaion%E3%81%AF%E4%BD%95%E3%82%92%E3%82%84%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%AE/</guid>
-      <description>https://dev.mysql.com/doc/refman/5.6/en/mysql-secure-installation.html</description>
+      <description>https://dev.mysql.com/doc/refman/5.6/en/mysql-secure-installation.html mysql_secure_installationは、perlで書かれたスクリプトで、MySQLのセキュリティを向上させることができる。 具</description>
     </item>
     
     <item>
@@ -642,7 +642,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 27 Aug 2015 23:16:28 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/</guid>
-      <description>PlexConnect https://github.com/iBaa/PlexConnect最低限入れておくべきもの（jailを想定） plexmediaserv</description>
+      <description>PlexConnect https://github.com/iBaa/PlexConnect 最低限入れておくべきもの（jailを想定） plexmediaserver（これは当然） ca_root_nss python2.* スタートアップスクリプト /usr/local/</description>
     </item>
     
     <item>
@@ -714,7 +714,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sun, 22 Mar 2015 19:59:59 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2015-03-22-sublimetext3%E3%81%A7%E3%83%95%E3%82%A9%E3%83%B3%E3%83%88%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>https://www.sublimetext.com/docs/3/font.htmlを参照。 Preferences &amp;gt; Settings - User と進み、表示されたファイルに設定を</description>
+      <description>https://www.sublimetext.com/docs/3/font.html を参照。 Preferences &amp;gt; Settings - User と進み、表示されたファイルに設定を書き込む。 書式は以下の通り。 &amp;#34;font_face&amp;#34;: &amp;#34;Courier New&amp;#34;, &amp;#34;font_size&amp;#34;: 10 私の設定ファイルの例。 { &amp;#34;color_scheme&amp;#34;: &amp;#34;Packages/User/SublimeLinter/Monokai (SL).tmTheme&amp;#34;, &amp;#34;font_face&amp;#34;: &amp;#34;VL ゴシック&amp;#3</description>
     </item>
     
     <item>
@@ -741,7 +741,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 12 Jan 2015 21:46:02 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2015-01-12-pythonwindows_windows7%E3%81%B8%E3%81%AE%E7%B4%94%E6%AD%A3python%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%83%A1%E3%83%A2/</guid>
-      <description>ActivePython入れたり純正Python入れたり訳わかんなくなるからメモ。 Pythonのインストール https://www.pyth</description>
+      <description>ActivePython入れたり純正Python入れたり訳わかんなくなるからメモ。 Pythonのインストール https://www.python.org/ から2.xでも3.xでもダウン</description>
     </item>
     
     <item>
@@ -777,7 +777,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Tue, 23 Dec 2014 14:37:05 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-12-23-%E3%83%A1%E3%83%A2windows_%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BD%E3%83%95%E3%83%88%E3%81%A7%E5%B9%B4%E8%B3%80%E7%8A%B6%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8B/</guid>
-      <description>一年に一度しかやらないのでメモ。 とはいえ、いまどき年賀状なんぞどこかに頼んだ方が楽でなんであるが。 フォトレタッチ: paint.net http://www.g</description>
+      <description>一年に一度しかやらないのでメモ。 とはいえ、いまどき年賀状なんぞどこかに頼んだ方が楽でなんであるが。 フォトレタッチ: paint.net http://www.getpaint.net/index.html フリーのフォトレタッチ</description>
     </item>
     
     <item>
@@ -885,7 +885,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Fri, 22 Aug 2014 19:57:41 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-08-22-windows%E3%83%90%E3%83%83%E3%83%81%E3%83%A1%E3%83%A2_efs%E3%82%92%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%8B%E3%82%89%E6%93%8D%E4%BD%9C%E3%81%99%E3%82%8B/</guid>
-      <description>EFSとは、Windowsの暗号化機能。 使用するとファイル名とかフォルダ名とかが緑になるアレな。 以下、Microsoftのサイトより。 htt</description>
+      <description>EFSとは、Windowsの暗号化機能。 使用するとファイル名とかフォルダ名とかが緑になるアレな。 以下、Microsoftのサイトより。 http://windows.microsoft.com/ja-jp/windows/what-is-encrypting-file-system#1TC=windows-7 暗号</description>
     </item>
     
     <item>
@@ -921,7 +921,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 31 Jul 2014 19:07:48 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-07-31-%E3%83%A1%E3%83%A2_python%E3%81%A7%E6%A8%99%E6%BA%96%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%BA%E5%8A%9B%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>sys.stderrを使う。 例1) import sys sys.stderr.write(&amp;#39;Error occurred!&amp;#39;) 例2) import sys print &amp;gt;&amp;gt; sys.stderr, &amp;#39;Error occurred!&amp;#39; http://docs.python.jp/2/library/sys.html#sys.stderrhttp://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-pythonhttps://sites.google.com/site/diveintopythonjp/home/10-sukuriputo-to-sutorimu/10-2-hyoujun-nyuuryoku-hyoujun-shutsuryoku-soshite-era</description>
+      <description>sys.stderrを使う。 例1) import sys sys.stderr.write(&amp;#39;Error occurred!&amp;#39;) 例2) import sys print &amp;gt;&amp;gt; sys.stderr, &amp;#39;Error occurred!&amp;#39; http://docs.python.jp/2/library/sys.html#sys.stderr http://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-python https://sites.google.com/site/diveintopythonjp/home/10-sukuriputo-to-sutorimu/10-2-hyoujun-nyuuryoku-hyoujun-shutsuryoku-soshite-era</description>
     </item>
     
     <item>
@@ -1137,7 +1137,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 13 Mar 2014 20:45:33 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/</guid>
-      <description>Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。普通はGUIで使うものだが、実は</description>
+      <description>Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。 普通はGUIで使うものだが、実は</description>
     </item>
     
     <item>
@@ -1146,7 +1146,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Tue, 11 Mar 2014 19:43:26 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/</guid>
-      <description>Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/Monitorixの特徴 Per</description>
+      <description>Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/ Monitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrd</description>
     </item>
     
     <item>
@@ -1164,7 +1164,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Fri, 07 Mar 2014 21:14:55 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-03-07-%E3%83%A1%E3%83%A2_%E3%83%90%E3%83%AA%E3%83%90%E3%83%AA%E5%83%8D%E3%81%8F#8230%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%8F%E8%B3%A2%E3%81%8F%E5%83%8D%E3%81%8F5%E3%81%A4%E3%81%AE%E6%96%B9%E6%B3%95/</guid>
-      <description>メモでござる。 5 Scientifically Proven Ways to Work Smarter, Not Harder http://www.inc.com/jeff-haden/5-scientifically-proven-</description>
+      <description>メモでござる。 5 Scientifically Proven Ways to Work Smarter, Not Harder http://www.inc.com/jeff-haden/5-scientifically-proven-ways-to-work-smarter-not-harder-tues.html 上記記事から。 休憩をたくさん取れ 昼寝しろ 自然に触れろ 仕事のカタマリごとに場所変えろ まずメールをチェックしろ</description>
     </item>
     
     <item>
@@ -1173,7 +1173,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 06 Mar 2014 22:41:34 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-03-06-%E3%83%A1%E3%83%A2_ms%E8%A3%BDoffice_2007%E4%BB%A5%E9%99%8D%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E3%83%93%E3%83%A5%E3%83%BC%E3%82%A2/</guid>
-      <description>備忘のためOffice 2007以降のドキュメントを開くMS製Viewerをまとめておく。 Excel Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=10http://download.microsoft.com/download/4/6/C/46C73A03-F72F-419F-A76E-6C0D9F583E2E/ExcelViewer.exeWord Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=4http://download.microsoft.com/download/1/0/1/1016da1b-6a19-432a-ad6b-0b3f6e60bb28/wordview_ja-jp.exePowerPoint Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=13http://download.microsoft.com/download/9/2/A/92AEA2B8-CBD9-494D-B60B-F1E6D8EE1771/PowerPointViewer.exeWord/Excel/PowerPoint 用 Microsoft Office 互換機能パック http://download.microsoft.com/download/8/B/9/8B97798B-00F8-4523-8CA6-8C0C5867883F/FileFormatConverters.exe</description>
+      <description>備忘のためOffice 2007以降のドキュメントを開くMS製Viewerをまとめておく。 Excel Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=10 http://download.microsoft.com/download/4/6/C/46C73A03-F72F-419F-A76E-6C0D9F583E2E/ExcelViewer.exe Word Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=4 http://download.microsoft.com/download/1/0/1/1016da1b-6a19-432a-ad6b-0b3f6e60bb28/wordview_ja-jp.exe PowerPoint Viewer http://www.microsoft.com/ja-jp/download/details.aspx?id=13 http://download.microsoft.com/download/9/2/A/92AEA2B8-CBD9-494D-B60B-F1E6D8EE1771/PowerPointViewer.exe Word/Excel/PowerPoint 用 Microsoft Office 互換機能パック http://download.microsoft.com/download/8/B/9/8B97798B-00F8-4523-8CA6-8C0C5867883F/FileFormatConverters.exe</description>
     </item>
     
     <item>
@@ -1191,7 +1191,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 27 Feb 2014 19:50:38 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-02-27-windows%E3%81%AE%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E3%83%84%E3%83%BC%E3%83%AB/</guid>
-      <description>クリップボードに移したデータに対し、何らかの操作を行うWindowsのツールをまとめる。任意の文章を引用貼り付け Thunderbirdでは、</description>
+      <description>クリップボードに移したデータに対し、何らかの操作を行うWindowsのツールをまとめる。 任意の文章を引用貼り付け Thunderbirdでは、</description>
     </item>
     
     <item>
@@ -1533,7 +1533,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 11 Nov 2013 20:08:18 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-11-11-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%9B%A3%E6%9F%BB%E3%83%84%E3%83%BC%E3%83%ABlynis/</guid>
-      <description>Lynisとは Linux向けのセキュリティ監査ツール。 http://www.rootkit.nl/projects/lynis.htmlLi</description>
+      <description>Lynisとは Linux向けのセキュリティ監査ツール。 http://www.rootkit.nl/projects/lynis.html Linux向けではあるが、Linux以外でも使える。 FreeBSD, Solarisに加えてなんとO</description>
     </item>
     
     <item>
@@ -1551,7 +1551,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Wed, 06 Nov 2013 21:27:46 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-11-06-pkgng%E3%81%8C%E5%BE%A9%E6%B4%BB%E3%81%97%E3%81%9F%E3%81%A8%E8%A8%80%E3%81%A3%E3%81%9F%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AE%E5%A5%B4%E3%81%AB%E3%81%A8%E3%81%A3%E3%81%A6%E3%81%82%E3%82%8C%E3%81%AF%E5%98%98%E3%81%A0srv%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E7%BD%A0/</guid>
-      <description>pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current</description>
+      <description>pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。 原因</description>
     </item>
     
     <item>
@@ -1677,7 +1677,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 03 Oct 2013 21:14:50 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/</guid>
-      <description>[FreeBSD] ezjailを試そうの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表</description>
+      <description>[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表</description>
     </item>
     
     <item>
@@ -1962,7 +1962,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Fri, 26 Apr 2013 22:49:10 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-04-26-freebsd_pc-bsd%E3%81%8Cfreebsd%E5%90%91%E3%81%91pkg_repo%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%9F%E3%81%91%E3%81%A9%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B2013_4_27%E7%8F%BE%E5%9C%A8/</guid>
-      <description>（追記:2013/11/7） 公式のpkgngが公開されている。詳しくは以下を。 ../../../?p=2357（追記ここまで） FreeBSD</description>
+      <description>（追記:2013/11/7） 公式のpkgngが公開されている。詳しくは以下を。 ../../../?p=2357 （追記ここまで） FreeBSDの新ソフトウェア管理ツールであ</description>
     </item>
     
     <item>
@@ -1980,7 +1980,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 18 Apr 2013 23:50:36 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-04-18-teleco_%E7%B1%B3%E5%9B%BD%E3%81%A7%E3%81%AF%E5%BD%93%E5%B1%80%E3%81%8C%E6%90%BA%E5%B8%AF%E9%9B%BB%E8%A9%B1%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%AE%E5%81%9C%E6%AD%A2%E3%82%92%E5%91%BD%E4%BB%A4%E3%81%A7%E3%81%8D%E3%82%8B/</guid>
-      <description>ボストンのテロでは、一時「リモート爆破を防ぐため携帯電話サービスが停止された」と報道が流れた。 Cell Phone Service Has Been Suspended in Boston (Update: It’s Just Overloade</description>
+      <description>ボストンのテロでは、一時「リモート爆破を防ぐため携帯電話サービスが停止された」と報道が流れた。 Cell Phone Service Has Been Suspended in Boston (Update: It’s Just Overloaded) ああ。輻輳してる</description>
     </item>
     
     <item>
@@ -2115,7 +2115,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 04 Feb 2013 23:37:46 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-02-04-telecom_%E6%90%BA%E5%B8%AF%E9%9B%BB%E8%A9%B1%E3%81%A7%E3%81%AE%E9%9F%B3%E5%A3%B0%E9%80%9A%E8%A9%B1%E3%81%AF%E9%AB%98%E3%81%8F%E3%81%AA%E3%82%8B%E3%81%AE%E3%81%8B%E3%81%97%E3%82%89%E3%82%93/</guid>
-      <description>数日前、こんなニュースが見かけて個人として思ったことをつらつらと書く。 音声電話の死: 携帯電話での通話、50%減Vodafone が調べたところ</description>
+      <description>数日前、こんなニュースが見かけて個人として思ったことをつらつらと書く。 音声電話の死: 携帯電話での通話、50%減 Vodafone が調べたところによると、彼ら</description>
     </item>
     
     <item>
@@ -2151,7 +2151,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 03 Jan 2013 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-01-03-freebsd_9.1-release_%E3%81%9F%E3%81%A0%E3%81%97package%E3%81%8C%E3%81%9D%E3%82%8D%E3%81%A3%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E3%81%AE%E3%81%A7%E6%B3%A8%E6%84%8F2013_5_15_%E8%BF%BD%E8%A8%98/</guid>
-      <description>遅れに遅れた9.1-RELEASEがついに。 もともとの進捗が悪いうえに、freebsd.orgに&amp;lt;a href=&amp;quot;http://www.freebsd.org/news/2012-compromise.html&amp;quot; target=&amp;quot;_bl</description>
+      <description>遅れに遅れた9.1-RELEASEがついに。 もともとの進捗が悪いうえに、freebsd.orgに[不正アクセスのあったこと](http://</description>
     </item>
     
     <item>
@@ -2169,7 +2169,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Fri, 03 Aug 2012 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2012-08-03-wireshark_portable%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%81%97%E3%81%8B%E3%81%9F/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://www.wireshark.org/download/automated/win32/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.wireshark.org/download/automated/win32/&amp;lt;/a&amp;gt; 上記からwiresharkportable-x.x.x-SVN-xxxxxx.paf.exeなどをダウンロードする。 「paf」がポータ</description>
+      <description>[http://www.wireshark.org/download/automated/win32/](http://www.wireshark.org/download/automated/win32/) 上記からwiresharkportable-x.x.x-SVN-xxxxxx.paf.exeなどをダウンロードする。 「paf」がポータブル</description>
     </item>
     
     <item>
@@ -2187,7 +2187,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sat, 07 Apr 2012 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2012-04-07-portsnap_freebsd-update%E3%81%ABuserpasswordproxy%E5%BD%A2%E5%BC%8F%E3%81%AEhttp_proxy%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AFphttpget%E3%82%92%E6%94%B9%E9%80%A0/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20060501/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://d.hatena.ne.jp/flageo/20060501/p1&amp;lt;/a&amp;gt; でも書いたけど、phttpget、つまりはportsnap, freebsd-updateはhttp://user:password@p</description>
+      <description>[http://d.hatena.ne.jp/flageo/20060501/p1](http://d.hatena.ne.jp/flageo/20060501/p1) でも書いたけど、phttpget、つまりはportsnap, freebsd-updateはhttp://user:password@pro</description>
     </item>
     
     <item>
@@ -2304,7 +2304,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Fri, 02 Mar 2012 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>&amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot; class=&amp;quot;deco&amp;quot;&amp;gt;popサーバを構築する。&amp;lt;/span&amp;gt; LAN内にゆるーく作るので、とにか</description>
+      <description>popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネッ</description>
     </item>
     
     <item>
@@ -2313,7 +2313,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 01 Mar 2012 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2012-03-01-clamavclamscan%E3%81%A8clamdscan%E3%81%AE%E9%81%95%E3%81%84%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%AA%E3%82%93%E3%81%A0%E3%82%88/</guid>
-      <description>clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト &amp;lt;a href=&amp;quot;http://www.clamav.net/lang/en/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.clamav.net/lang/en/&amp;lt;/a&amp;gt; インストールはportsから。 &amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot; class</description>
+      <description>clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュール</description>
     </item>
     
     <item>
@@ -2412,7 +2412,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Fri, 12 Feb 2010 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2010-02-12-roundcube0.3.1&#43;sqlite%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>FreeBSDに&amp;lt;a href=&amp;quot;http://roundcube.net/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Roundcube&amp;lt;/a&amp;gt;を再インストール</description>
+      <description>FreeBSDに[Roundcube](http://roundcube.net/)を再インストールしたのでメモ。 RoundcubeとはIM</description>
     </item>
     
     <item>
@@ -2439,7 +2439,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Tue, 09 Feb 2010 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2010-02-09-xubuntu%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%8C%96/</guid>
-      <description>以下のとおりにすればOK &amp;lt;a href=&amp;quot;http://www.ubuntulinux.jp/products/JA-Localized&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.ubuntulinux.jp/products/JA-Localized&amp;lt;/a&amp;gt; wget -q https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -O- | sudo apt-key add - wget -q https://www.ubuntulinux.jp/ubuntu-jp-ppa-keyring.gpg -O- | sudo apt-key add - sudo wget https://www.ubuntulinux.jp/sources.list.d/karmic.list -O /etc/apt/sources.list.d/ubuntu-ja.list sudo apt-get update sudo apt-get upgrade で、以下をすればOK デスクトップ環境を利用している場</description>
+      <description>以下のとおりにすればOK [http://www.ubuntulinux.jp/products/JA-Localized](http://www.ubuntulinux.jp/products/JA-Localized) wget -q https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -O- | sudo apt-key add - wget -q https://www.ubuntulinux.jp/ubuntu-jp-ppa-keyring.gpg -O- | sudo apt-key add - sudo wget https://www.ubuntulinux.jp/sources.list.d/karmic.list -O /etc/apt/sources.list.d/ubuntu-ja.list sudo apt-get update sudo apt-get upgrade で、以下をすればOK デスクトップ環境を利用している場合は</description>
     </item>
     
     <item>
@@ -2457,7 +2457,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sun, 07 Feb 2010 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2010-02-07-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20071125/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;これ&amp;lt;/a&amp;gt;、古い記事なのに未だに見られているようなのでアップデー</description>
+      <description>[これ](http://d.hatena.ne.jp/flageo/20071125/p1)、古い記事なのに未だに見られているようなのでアッ</description>
     </item>
     
     <item>
@@ -2826,7 +2826,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Fri, 24 Jul 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-07-24-freebsd%E3%81%AB%E3%81%95%E3%81%A3%E3%81%8F%E3%82%8Ax%E3%81%A8xfce4%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B/</guid>
-      <description>XFCE4をインストールした。 ついでなので&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20071125/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;この記事&amp;lt;/a&amp;gt;</description>
+      <description>XFCE4をインストールした。 ついでなので[この記事](http://d.hatena.ne.jp/flageo/20071125/p1)の</description>
     </item>
     
     <item>
@@ -2862,7 +2862,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 16 Jul 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-07-16-freebsd%E3%82%92%E6%AF%8E%E6%97%A5%E3%83%93%E3%83%AB%E3%83%89%E3%81%97%E3%81%A6iso%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8Ballbsd.org/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://pub.allbsd.org/FreeBSD-snapshots/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://pub.allbsd.org/FreeBSD-snapshots/&amp;lt;/a&amp;gt; ここで（ソースがアップデートされたら）毎日ビルドしてISOイメージまで作ってくれる! すごい! FreeBSDは日々刻々とアップデートされ</description>
+      <description>[http://pub.allbsd.org/FreeBSD-snapshots/](http://pub.allbsd.org/FreeBSD-snapshots/) ここで（ソースがアップデートされたら）毎日ビルドしてISOイメージまで作ってくれる! すごい! FreeBSDは日々刻々とアップデートされてい</description>
     </item>
     
     <item>
@@ -2907,7 +2907,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sat, 02 May 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-05-02-dd%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8Bbs%E3%81%AE%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%94%E3%81%A8%E3%81%AE%E5%80%A4%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://lists.freebsd.org/pipermail/freebsd-questions/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;FreeBSD-questionsメーリングリスト&amp;lt;/a&amp;gt;からのメ</description>
+      <description>[FreeBSD-questionsメーリングリスト](http://lists.freebsd.org/pipermail/freebsd</description>
     </item>
     
     <item>
@@ -2916,7 +2916,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Fri, 01 May 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-05-01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7/</guid>
-      <description>&amp;lt;span style=&amp;quot;font-style:italic;&amp;quot;&amp;gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&amp;</description>
+      <description>2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は[こちら](http://d.hatena.ne.jp/flageo/2009051</description>
     </item>
     
     <item>
@@ -2961,7 +2961,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 20 Apr 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-04-20-roundcube%E3%82%92%E5%85%A5%E3%82%8C%E3%81%9F/</guid>
-      <description>webベースのIMAPクライアントであるroundcube（&amp;lt;a href=&amp;quot;http://roundcube.net/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;本家&amp;lt</description>
+      <description>webベースのIMAPクライアントであるroundcube（[本家](http://roundcube.net/)、[日本語](http:/</description>
     </item>
     
     <item>
@@ -2970,7 +2970,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sun, 19 Apr 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-04-19-mca_platform/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://www.microsoft.com/japan/learning/mca/mca_program.mspx&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;MCA&amp;lt;/a&amp;gt;(マイクロソフト認定アソシエイト)という資格がある。</description>
+      <description>[MCA](http://www.microsoft.com/japan/learning/mca/mca_program.mspx)(マイ</description>
     </item>
     
     <item>
@@ -2979,7 +2979,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sat, 18 Apr 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-04-18-thinkpad_x30%E3%81%A7xorg7.4%E3%81%8C%E3%82%84%E3%81%A3%E3%81%A8%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%AE%E5%B7%BB/</guid>
-      <description>実は年明けのxorg祭りから我がThinkpad x30でXorg7.4（xorg-server1.5, 1.6）は&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090314/p1&amp;quot; target=&amp;</description>
+      <description>実は年明けのxorg祭りから我がThinkpad x30でXorg7.4（xorg-server1.5, 1.6）は[まったく動かなかった](h</description>
     </item>
     
     <item>
@@ -3033,7 +3033,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 19 Mar 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-03-19-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE3/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090316/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Xorg7.4のキーボード設定をkwsk その1&amp;lt;/a&amp;gt;、&amp;lt;a</description>
+      <description>[Xorg7.4のキーボード設定をkwsk その1](http://d.hatena.ne.jp/flageo/20090316/p1)、[X</description>
     </item>
     
     <item>
@@ -3042,7 +3042,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Wed, 18 Mar 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-03-18-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE%EF%BC%92/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090316/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Xorg7.4のキーボード設定をkwsk その1&amp;lt;/a&amp;gt;の続き。 で話</description>
+      <description>[Xorg7.4のキーボード設定をkwsk その1](http://d.hatena.ne.jp/flageo/20090316/p1)の続き</description>
     </item>
     
     <item>
@@ -3060,7 +3060,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sun, 15 Mar 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-03-15-%E3%82%A4%E3%82%AE%E3%83%AA%E3%82%B9%E3%82%A2%E3%83%9E%E3%82%BE%E3%83%B3/</guid>
-      <description>ポンド安だったのでamazon.ukで&amp;lt;a href=&amp;quot;http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%A9%E3%83%8D%E3%83%83%E3%83%88%E3%82%A2%E3%83%BC%E3%82%B9&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;プラネットアース&amp;lt;/a&amp;g</description>
+      <description>ポンド安だったのでamazon.ukで[プラネットアース](http://ja.wikipedia.org/wiki/%E3%83%97%E</description>
     </item>
     
     <item>
@@ -3132,7 +3132,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sat, 21 Feb 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-02-21-%E3%83%86%E3%82%A3%E3%83%9C%E3%83%BC%E3%82%AB%E3%82%B6%E3%83%AB%E3%82%B9%E7%A5%9E%E3%80%85%E3%81%AE%E9%9F%B3%E6%BA%90%E3%81%8C%E8%91%97%E4%BD%9C%E6%A8%A9%E5%88%87%E3%82%8C%E3%81%A3/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://freeclassicmusicmp3.blog23.fc2.com/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;無料クラシックmp3音楽大量ダウンロード（著作権切れの歴史的音源）&amp;lt;/a</description>
+      <description>[無料クラシックmp3音楽大量ダウンロード（著作権切れの歴史的音源）](http://freeclassicmusicmp3.blog23.</description>
     </item>
     
     <item>
@@ -3150,7 +3150,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 16 Feb 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-02-16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F/</guid>
-      <description>&amp;lt;span style=&amp;quot;font-style:italic;&amp;quot;&amp;gt;2009/5/1追記:&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090501/p1&amp;quot; target=&amp;quot</description>
+      <description>2009/5/1追記:[mergemasterのオプションは-UPiFで](http://d.hatena.ne.jp/flageo/200</description>
     </item>
     
     <item>
@@ -3168,7 +3168,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sun, 25 Jan 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-01-25-freebsd%E3%81%A7ntfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%90%8D%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/</guid>
-      <description>FreeBSDでは、先日の&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090112/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;MSDOSFSの件と同じく&amp;lt;/a&amp;gt</description>
+      <description>FreeBSDでは、先日の[MSDOSFSの件と同じく](http://d.hatena.ne.jp/flageo/20090112/p1)</description>
     </item>
     
     <item>
@@ -3177,7 +3177,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 12 Jan 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-01-12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/</guid>
-      <description>MSDOSFSの日本語ファイル名に使われる文字コードはCP932(&amp;lt;a href=&amp;quot;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Sh</description>
+      <description>MSDOSFSの日本語ファイル名に使われる文字コードはCP932([Shit_JIS](http://ja.wikipedia.org/wi</description>
     </item>
     
     <item>
@@ -3222,7 +3222,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Tue, 09 Dec 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-12-09-proflibs%E3%81%A3%E3%81%A6%E4%BD%95/</guid>
-      <description>proflibsが何だか分からなかったんだが。 &amp;lt;a href=&amp;quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-October/184180.html&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://lists.freebsd.org/pipermail/freebsd-questions/2008-October/184180.html&amp;lt;/a&amp;gt; Re: proflibs by Jeremy Chadwick on 2008-10-11T02:10:33+00:00 On Fri, Oct 10, 2008 at 11:06:11PM -0400, Ansar Mohammed wrote: &amp;gt; Can anyone explain what are the proflibs on the install media, and what they &amp;gt; are for? They&amp;#39;re special versions of all the libraries that</description>
+      <description>proflibsが何だか分からなかったんだが。 [http://lists.freebsd.org/pipermail/freebsd-questions/2008-October/184180.html](http://lists.freebsd.org/pipermail/freebsd-questions/2008-October/184180.html) Re: proflibs by Jeremy Chadwick on 2008-10-11T02:10:33+00:00 On Fri, Oct 10, 2008 at 11:06:11PM -0400, Ansar Mohammed wrote: &amp;gt; Can anyone explain what are the proflibs on the install media, and what they &amp;gt; are for? They&amp;#39;re special versions of all the libraries that come with</description>
     </item>
     
     <item>
@@ -3231,7 +3231,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 08 Dec 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-12-08-mergemaster%E3%81%AF-siva%E3%81%A7%E3%81%AA%E3%81%8F-upi%E3%81%A7/</guid>
-      <description>mergemasterについて、FreeBSD-questionsに面白い投稿（&amp;lt;a href=&amp;quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&amp;quot; target=&amp;quot;_blank&amp;quot</description>
+      <description>mergemasterについて、FreeBSD-questionsに面白い投稿（[http://lists.freebsd.org/pipe</description>
     </item>
     
     <item>
@@ -3240,7 +3240,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sat, 06 Dec 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-12-06-grip%E3%81%A7rip_amp_%E3%82%A8%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89/</guid>
-      <description>CDのrippingとmp3エンコードを一緒にやってくれるツールとして&amp;lt;a href=&amp;quot;http://nostatic.org/grip/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;</description>
+      <description>CDのrippingとmp3エンコードを一緒にやってくれるツールとして[grip](http://nostatic.org/grip/)をイ</description>
     </item>
     
     <item>
@@ -3312,7 +3312,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 20 Nov 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-11-20-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9Fports%E3%81%AEpkg%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20081118/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;こんなこと&amp;lt;/a&amp;gt;があったので、やはり曲がりなりにもサーバたるもの</description>
+      <description>[こんなこと](http://d.hatena.ne.jp/flageo/20081118/p1)があったので、やはり曲がりなりにもサーバた</description>
     </item>
     
     <item>
@@ -3348,7 +3348,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Tue, 11 Nov 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-11-11-freebsd%E3%81%A7anonymous_ftp%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>最近はanonymous FTPを立てることは少なくなった。 とはいっても、たまにはあるわけで、その時のためにメモする。 （&amp;lt;a href=&amp;quot;http://www.freebsdnews.net/index.php&amp;quot; targe</description>
+      <description>最近はanonymous FTPを立てることは少なくなった。 とはいっても、たまにはあるわけで、その時のためにメモする。 （[http://www</description>
     </item>
     
     <item>
@@ -3438,7 +3438,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Fri, 31 Oct 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-10-31-%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E6%83%85%E5%A0%B1%E3%82%92%E8%AA%AD%E3%81%BF%E5%87%BA%E3%81%99dmidecode/</guid>
-      <description>SMBIOSからハードウェアの情報を読み出してくれるコマンドdmidecode（&amp;lt;a href=&amp;quot;http://www.nongnu.org/dmidecode/&amp;quot; target=&amp;quot;_blank&amp;quot</description>
+      <description>SMBIOSからハードウェアの情報を読み出してくれるコマンドdmidecode（[http://www.nongnu.org/dmideco</description>
     </item>
     
     <item>
@@ -3582,7 +3582,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 17 Mar 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-03-17-7.0-release%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E3%83%AB%E3%83%BC%E3%83%88%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%A9%BA%E3%81%8D%E5%AE%B9%E9%87%8F%E3%81%8C%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
-      <description>webサーバとして使用しているマシンを7.0-RELEASEにした。 古いマシンなので、ソースからのアップデートは出来ず、&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20080111/p2&amp;quot; targ</description>
+      <description>webサーバとして使用しているマシンを7.0-RELEASEにした。 古いマシンなので、ソースからのアップデートは出来ず、[ISOイメージを使</description>
     </item>
     
     <item>
@@ -3600,7 +3600,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Tue, 04 Mar 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-03-04-mergemaster%E3%82%92%E5%B0%91%E3%81%97%E3%81%A0%E3%81%91%E6%A5%BD%E3%81%AB/</guid>
-      <description>&amp;lt;span style=&amp;quot;font-style:italic;&amp;quot;&amp;gt;200812追記。本件は古い内容なので、&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20081208/p1&amp;quot; tar</description>
+      <description>200812追記。本件は古い内容なので、[こちら](http://d.hatena.ne.jp/flageo/20081208/p1)へ。 F</description>
     </item>
     
     <item>
@@ -3636,7 +3636,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Tue, 12 Feb 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-02-12-solaris_linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E5%B8%AF%E5%9F%9F%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; metric 0 mtu 1500 options=9b&amp;amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&amp;gt; ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (&amp;lt;span style=&amp;#34;font-weight:bold;&amp;#34;&amp;gt;1000baseTX &amp;amp;#60;full-duplex&amp;gt;&amp;lt;/span&amp;gt;) status: active Boldで示し</description>
+      <description>俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; metric 0 mtu 1500 options=9b&amp;amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&amp;gt; ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (1000baseTX &amp;amp;#60;full-duplex&amp;gt;) status: active Boldで示した</description>
     </item>
     
     <item>
@@ -3681,7 +3681,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sun, 09 Dec 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-12-09-%E6%9C%80%E8%BF%91%E8%AA%AD%E3%82%93%E3%81%A0%E6%9C%AC/</guid>
-      <description>■&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/asin/4488513018&amp;quot;&amp;gt;スカラムーシ</description>
+      <description>■[スカラムーシュ (創元推理文庫 513-1)](http://d.hatena.ne.jp/asin/4488513018) サバチニ すげえ面白い。 舞台は革命直前のフランス。いつも冷めてるアンドレ・ルイだが、親友を悪の侯爵にぬっ殺さ</description>
     </item>
     
     <item>
@@ -3708,7 +3708,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sun, 25 Nov 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 &amp;lt;span style=&amp;quot;font-style:italic;&amp;quot;&amp;gt;* 2008/11追記: 過疎blogにも</description>
+      <description>「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 * 2008/11追記: 過疎blogにも関</description>
     </item>
     
     <item>
@@ -3807,7 +3807,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sat, 13 Oct 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-10-13-ubuntu%E4%B8%8Avmware-player%E3%81%ABfreebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
-      <description>VMware Playerの入手 &amp;lt;a href=&amp;quot;http://www.vmware.com/download/player/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.vmware.com/download/player/&amp;lt;/a&amp;gt; tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeの</description>
+      <description>VMware Playerの入手 [http://www.vmware.com/download/player/](http://www.vmware.com/download/player/) tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeのみ設</description>
     </item>
     
     <item>
@@ -3816,7 +3816,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 27 Sep 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-09-27-%E5%A4%A7%E5%A4%89%E3%81%AB%E8%8B%A6%E3%81%97%E3%81%BE%E3%82%8C%E3%81%9F%E3%81%AE%E3%81%A7%E3%81%99%E3%81%AD/</guid>
-      <description>ロマン・ロランの&amp;lt;a href=&amp;quot;http://ja.wikipedia.org/wiki/%E3%82%B8%E3%83%A3%E3%83%B3%E3%83%BB%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88%E3%83%95&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;ジャン・クリストフ&amp;lt;/a&amp;gt;は、いろんな障害</description>
+      <description>ロマン・ロランの[ジャン・クリストフ](http://ja.wikipedia.org/wiki/%E3%82%B8%E3%83%A3%E3</description>
     </item>
     
     <item>
@@ -3825,7 +3825,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-09-13-sources.list%E3%81%AB%E6%9B%B8%E3%81%8B%E3%82%8C%E3%82%8Bmain_restricted%E3%81%AA%E3%81%A9%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E6%84%8F%E5%91%B3/</guid>
-      <description>コンポーネントを説明した&amp;lt;a href=&amp;quot;http://www.ubuntu.com/community/ubuntustory/components&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.ubuntu.com/c</description>
+      <description>コンポーネントを説明した[http://www.ubuntu.com/community/ubuntustory/components](h</description>
     </item>
     
     <item>
@@ -3834,7 +3834,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-09-13-ubuntu_7.04_feisty%E3%81%8B%E3%82%89ubuntu_7.10_gutsy%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</guid>
-      <description>Ubuntuを7.04にアップグレードしたばかりだが、ある事情により7.10に続けてアップグレードしたその顛末。 とは言っても、&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20070906/p1&amp;quot; t</description>
+      <description>Ubuntuを7.04にアップグレードしたばかりだが、ある事情により7.10に続けてアップグレードしたその顛末。 とは言っても、[先日](ht</description>
     </item>
     
     <item>
@@ -3843,7 +3843,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-09-13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://www.zabbix.com/index.php&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;ZABBIX&amp;lt;/a&amp;gt;とはフリーの統合監視ソフト。 Webインタフェー</description>
+      <description>[ZABBIX](http://www.zabbix.com/index.php)とはフリーの統合監視ソフト。 Webインタフェースで楽に設定</description>
     </item>
     
     <item>
@@ -3861,7 +3861,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 06 Sep 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-09-06-ubuntu7.04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2_ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20070220/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;6.10のときにインストールしたApache2+SSL&amp;lt;/a&amp;gt;だが</description>
+      <description>[6.10のときにインストールしたApache2+SSL](http://d.hatena.ne.jp/flageo/20070220/p1</description>
     </item>
     
     <item>
@@ -3888,7 +3888,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Wed, 25 Apr 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-04-25-php5.2.1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89/</guid>
-      <description>「a,b,&amp;quot;cde,fg&amp;quot;,e」 こんなCSVをPHPで扱おうとすると、結構面倒くさい。 &amp;lt;a href=&amp;quot;http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html&amp;quot; target=&amp;quot;_b</description>
+      <description>「a,b,&amp;quot;cde,fg&amp;quot;,e」 こんなCSVをPHPで扱おうとすると、結構面倒くさい。 [ここ](http://nhh.m</description>
     </item>
     
     <item>
@@ -3897,7 +3897,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Thu, 22 Mar 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-03-22-%E5%96%89%E3%81%AE%E7%97%9B%E3%81%BF%E3%81%AB%E3%81%AF%E5%94%90%E8%BE%9B%E5%AD%90%E3%81%A7%E3%81%86%E3%81%8C%E3%81%84%E3%82%92/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://lifehacker.com/software/home-remedies/cure-a-sore-throat-with-cayenne-pepper-245873.php&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;lifehacker&amp;lt;/a&amp;gt;によれば「喉が痛いときにはカイエンペッ</description>
+      <description>[lifehacker](http://lifehacker.com/software/home-remedies/cure-a-sore-</description>
     </item>
     
     <item>
@@ -3960,7 +3960,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 16 Oct 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-10-16-ports%E7%A5%AD%E3%82%8A%E9%96%8B%E5%82%AC%E4%B8%ADfreebsd/</guid>
-      <description>In addition to the core GNOME ports, &amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot;&amp;gt;almost 500 ports&amp;lt;/span&amp;gt; were also touched to chase the GNOME move from X11BASE to LOCALBASE and fix build problems with the new freetype2. (太字は俺) アッー!</description>
+      <description>In addition to the core GNOME ports, almost 500 ports were also touched to chase the GNOME move from X11BASE to LOCALBASE and fix build problems with the new freetype2. (太字は俺) アッー!</description>
     </item>
     
     <item>
@@ -3969,7 +3969,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 16 Oct 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/</guid>
-      <description>会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(&amp;lt;a href=&amp;quot;http://www.openssl.org/related/binaries.html&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;</description>
+      <description>会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは([http://www.openssl.org/related/</description>
     </item>
     
     <item>
@@ -3996,7 +3996,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sun, 17 Sep 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-09-17-freebsd%E3%83%8D%E3%82%BF__portutill/</guid>
-      <description>2chの&amp;lt;a href=&amp;quot;http://pc8.2ch.net/test/read.cgi/unix/1149936019/371-&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;FreeBSDを語ろう&amp;lt;/a&amp;gt;スレで、pkg/po</description>
+      <description>2chの[FreeBSDを語ろう](http://pc8.2ch.net/test/read.cgi/unix/1149936019/371</description>
     </item>
     
     <item>
@@ -4059,7 +4059,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 10 Jul 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-07-10-%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E3%81%A8anna%E3%81%A8%E4%B8%8D%E6%B0%97%E5%91%B3%E3%81%AE%E8%B0%B7/</guid>
-      <description>人工無脳のアルゴリズムについて調べている。 趣味プログラムで人工無脳を書いているためだ。 概要を掴むにあたって、&amp;lt;a href=&amp;quot;http://www.ycf.nantoka.com/~skato/muno/&amp;quot; target=&amp;qu</description>
+      <description>人工無脳のアルゴリズムについて調べている。 趣味プログラムで人工無脳を書いているためだ。 概要を掴むにあたって、[「人工無脳は考える」](htt</description>
     </item>
     
     <item>
@@ -4095,7 +4095,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 15 May 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20060501#p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;先日&amp;lt;/a&amp;gt;の日記でも少し触れたportsnap。日記ではさらりと</description>
+      <description>[先日](http://d.hatena.ne.jp/flageo/20060501#p1)の日記でも少し触れたportsnap。日記ではさ</description>
     </item>
     
     <item>
@@ -4257,7 +4257,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Tue, 14 Mar 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-03-14-%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E3%83%90%E3%83%83%E3%82%AF/</guid>
-      <description>初めてトラックバックをもらったので驚いて更新する。 トラックバックをもらったのは&amp;lt;a href=&amp;quot;http://d.hatena</description>
+      <description>初めてトラックバックをもらったので驚いて更新する。 トラックバックをもらったのは[12/26](http://d.hatena.ne.jp/f</description>
     </item>
     
     <item>
@@ -4320,7 +4320,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sun, 18 Dec 2005 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2005-12-18-%E7%89%87%E9%A0%AD%E7%97%9B/</guid>
-      <description>片頭痛に関する情報源。 頭痛大学 &amp;lt;a href=&amp;quot;http://homepage2.nifty.com/uoh/index.html&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://homepage2.nifty.com/uoh/index.html&amp;lt;/a&amp;gt; 日本頭痛学会 &amp;lt;a href=&amp;quot;http://www.jhsnet.org/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.jhsnet.org/&amp;lt;/a&amp;gt; 適当にググって上位に来たやつ(英語) HealingWell.com &amp;lt;a href=&amp;quot;http://www.healingwell.com/migraines/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.healingwell.com/migraines/&amp;lt;/a&amp;gt; マッキンリーヘルスセンター http://www.mckinley.uiuc.edu/Handouts/migraine_headache.html 俺が今常用して</description>
+      <description>片頭痛に関する情報源。 頭痛大学 [http://homepage2.nifty.com/uoh/index.html](http://homepage2.nifty.com/uoh/index.html) 日本頭痛学会 [http://www.jhsnet.org/](http://www.jhsnet.org/) 適当にググって上位に来たやつ(英語) HealingWell.com [http://www.healingwell.com/migraines/](http://www.healingwell.com/migraines/) マッキンリーヘルスセンター http://www.mckinley.uiuc.edu/Handouts/migraine_headache.html 俺が今常用しているのは&amp;l</description>
     </item>
     
     <item>
@@ -4347,7 +4347,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Sat, 03 Dec 2005 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2005-12-03-%E5%8F%97%E9%A8%93%E3%81%82%E3%82%8A%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%97%E3%81%9F/</guid>
-      <description>某試験の三つめを本日受けて、無事通過。 あと一つでこの試験も終了だから、ゴールがやっと見えてきてホッとしている。 会場は&amp;lt;a href=&amp;q</description>
+      <description>某試験の三つめを本日受けて、無事通過。 あと一つでこの試験も終了だから、ゴールがやっと見えてきてホッとしている。 会場は[アールプロメトリック]</description>
     </item>
     
     <item>
@@ -4410,7 +4410,7 @@ Messageにコミットメッセージを入れて、上のチェックマーク�
       <pubDate>Mon, 17 Oct 2005 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2005-10-17-%E3%83%81%E3%83%A3%E3%83%AB%E3%83%80%E3%83%83%E3%82%B7%E3%83%A5%E3%81%A7%E3%82%AB%E3%82%BF%E3%83%AB%E3%82%B7%E3%82%B9%E4%B9%9E%E3%81%84/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://www.amazon.co.jp/exec/obidos/ASIN/B00005N0V9/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.amazon.co.jp/exec/obidos/ASIN/B00005N0V9/&amp;lt;/a&amp;gt; 引っ越し荷物から出てきたGクレフのCD、ペルメル。 最近、聴いてます。 バイオリン、チェロ、ピアノのトリオで無茶な演奏をする人たち。 特に無</description>
+      <description>[http://www.amazon.co.jp/exec/obidos/ASIN/B00005N0V9/](http://www.amazon.co.jp/exec/obidos/ASIN/B00005N0V9/) 引っ越し荷物から出てきたGクレフのCD、ペルメル。 最近、聴いてます。 バイオリン、チェロ、ピアノのトリオで無茶な演奏をする人たち。 特に無茶な</description>
     </item>
     
     <item>

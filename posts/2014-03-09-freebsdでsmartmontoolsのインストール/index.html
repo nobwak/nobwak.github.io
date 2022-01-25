@@ -37,7 +37,7 @@
 <meta name=twitter:title content="FreeBSDでsmartmontoolsのインストール">
 <meta name=twitter:description content="ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。 FreeBSDではsysutils/sm">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"FreeBSDでsmartmontoolsのインストール","item":"https://nobwak.github.io/posts/2014-03-09-freebsd%E3%81%A7smartmontools%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSDでsmartmontoolsのインストール","name":"FreeBSDでsmartmontoolsのインストール","description":"ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。 FreeBSDではsysutils/sm","keywords":["FreeBSD"],"articleBody":"ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。\nFreeBSDではsysutils/smartmontoolsからインストールできる。\nsmartmontoolsのインストール、実施例はいろんなところに書かれているので、ここではメモ程度にまとめる。\nFreeBSD 9.2-RELEASE-p3(i386), smartmontools-6.2_1での内容。\nインストール portsもpkgもsysutils/smartmontoolsからインストールできる。\nsmartctlとsmartdが/usr/local/sbin/にインストールされる。\nsmartctlがメインのコマンド。\nsmartdがデーモンプログラム。\n立ち上げておくと、定期的にディスクチェックを行い、結果をdaemonファシリティのログに書き込んでくれる。\n必要であれば問題発生時にメールも送ってくれる。\n設定ファイルは/usr/local/etc/smartd.conf。\nディスクの確認 何はともあれ、どんなディスクが繋がっているか調べる。\nsmartctl -scanで得られる。\nなお、SMARTにアクセスするには管理者権限が必要。\n以下は実行例。\nここではHDDは/dev/ada0である。\n環境により/dev/da0の場合もあるでしょう。\n$ sudo smartctl --scan /dev/ada0 -d atacam # /dev/ada0, ATA device /dev/cd0 -d atacam # /dev/cd0, ATA device ディスクが分かったら、SMARTに対応しているかどうかを調べる。\nsmartctlでデバイスファイルを開いてみればよい。\n$ sudo smartctl /dev/ada0 smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build) Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org ATA device successfully opened Use 'smartctl -a' (or '-x') to print SMART (and more) information 大丈夫そう。\nSMARTからの情報の取得 smartctl -a ＜デバイスファイル＞で情報を全部、-xでSMART以外の情報も表示。\n実行例\n$ sudo smartctl -a /dev/ada0 smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build) Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org === START OF INFORMATION SECTION === Model Family: Seagate Barracuda 7200.10 Device Model: ST380815AS Serial Number: 5RW18X0V Firmware Version: 3.ADA User Capacity: 80,000,000,000 bytes [80.0 GB] Sector Size: 512 bytes logical/physical Device is: In smartctl database [for details use: -P show] ATA Version is: ATA/ATAPI-7 (minor revision not indicated) Local Time is: Thu Feb 27 23:10:37 2014 JST SMART support is: Available - device has SMART capability. SMART support is: Enabled === START OF READ SMART DATA SECTION === SMART overall-health self-assessment test result: PASSED See vendor-specific Attribute list for marginal Attributes. （略） ディスクのテスト実行 smartctl -t short ＜デバイスファイル＞で実行する。\n-tはテストの種類の指定。\nshortと指定しているが、shortとくればlongもある。\nそれ以外にもある。\n詳しくはman smartctl（「-test」で検索するとよい）。\nshortだと10分以内、longだと数十分単位でのテスト。\n運用中でも可能。\n上記のコマンドは、ディスクのSMARTに対して「テストをせい」と指示をするだけ。\nコマンド叩いたときには、「何時何分ごろに終わるからね」と言うだけで結果は表示されない。\n結果はsmartctl -aで確認する。\nsmartctl -Xでテストを中止する。\n以下実行例。\n$ sudo smartctl -t short /dev/ada0 パスワード: smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build) Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org === START OF OFFLINE IMMEDIATE AND SELF-TEST SECTION === Sending command: \"Execute SMART Short self-test routine immediately in off-line mode\". Drive command \"Execute SMART Short self-test routine immediately in off-line mode\" successful. Testing has begun. Please wait 2 minutes for test to complete. Test will complete after Thu Feb 27 23:35:37 2014 Use smartctl -X to abort test. $ 結果確認 smartctl -aで確認する。\n見るのはSelf-test execution status、SMART Self-test logの二つのエリア\n以下の通り、「Self-test execution status」「SMART Self-test log」ともにエラーなし（without error）となっている。\nなお、テスト実行をしてすぐsmartctl -aとすると、「いまテストしているところだよ」という表示になるので興味があればご覧ください。\n（前略） Self-test execution status: ( 0) The previous self-test routine completed without error or no self-test has ever been run. （略） SMART Self-test log structure revision number 1 Num Test_Description Status Remaining LifeTime(hours) LBA_of_first_error # 1 Short offline Completed without error 00% 41957 - # 2 Short offline Completed without error 00% 41956 - # 3 Short offline Completed without error 00% 0 - 常時モニタリングのためのsmartd cronでsmartctlを実行してもよいけど、smartdを立ち上げおくのがよい。\nテストの自動実行や、後述するようなディスクの変化についてもレポートしてくれる。\n/usr/local/etc/smartd.confが設定ファイル。\nデフォルトでは問題のあったときにしか報告してくれない。\n日々のログを吐き出させたいのなら、syslogd, newsyslogの設定変更も必要。\nsmartd.confの変更 最低限やることは二つ。\n①DEVICESCANはコメントアウト\n②ディスクとテスト種別、スケジュールを指定。\n①DEVICESCANのコメントアウトデフォルトではDEVICESCANが有効になっている。\nDEVICESCANがあると、smartdはそれ以降の設定をすべて無視して、実行される都度、デバイスのスキャンを行う。\nそれよりも、チェックするデバイスを明示した方がよい。\n②ディスクとテスト種別、スケジュールを指定。書式例は以下の通り。\n＜ディスク＞　＜各種オプション＞　-s ＜スケジュール＞\n実際の例は以下の通り。\n/dev/ada0 -a -o on -S on -s S/../.././02 ＜ディスク＞にはデバイスファイルを指定。\n＜各種オプション＞は以下の通り。\n-a: ATAではデフォルト。全部入り。黙ってつけとけ。\n-o: ATA専用。SMARTのオフラインテストを有効にするか。ONにしとけ。\n-S: autosaveを有効にするか。ONにしとけ。\n-s: T/MM/DD/d/HH でスケジュール指定。\nT/MM/DD/d/HHT: テストのタイプ。short（S）かlong（L）か。\nMM: 月。01-12で指定。必ず二桁で指定。\nDD: 日。01-31で指定。必ず二桁で指定。\nd: 曜日。1が月曜、7が日曜。\nHH: 時刻。00-23で指定。必ず二桁で指定。\n以下だと毎日の午前2時にshortのテストを実施。\n-s S/../.././02 syslogdの設定 smartdは、デフォルトではdaemonファシリティにログを吐く。\nそのままだと使いにくいので、ログの出力先を変える。\nたとえばlocal3ファシリティにする。\nそれには/etc/rc.confで、smartd_flagsとして指定する。\n/etc/rc.conf\n#SMART monitor tool smartd_enable=\"YES\" # マシン起動時にsmartdも起動させる設定 smartd_flags=\" -l local3 \" # ログ出力先の指定 そうしておいて、/etc/syslog.confにて以下を追加。\n/etc/syslog.conf\n# # smartd(smartmontools) # local3.* /var/log/smartd.log 変更したらsyslogdを再起動。\n$ sudo service syslogd restart Stopping syslogd. Waiting for PIDS: 26185 Starting syslogd. $ しかしこのままだとsmartd.logが際限なく大きくなる。\nnewsyslog.confにも変更を加える。\nnewsyslog.confの設定 以下を追加。\n/etc/newsyslog.conf\n# # smartd(smartmontools) # /var/log/smartd.log 640 10 1024 * JC 1MBを超えたらログをローテート。bzipで圧縮。10個まで保存。圧縮後のパーミッションは640。\n終わったらnewsyslogを一回再起動しておくとよいかな。\n$ sudo service newsyslog restart Creating and/or trimming log files. $ やっと準備完了。\nsmartdを起動しよう。\nsmartdの起動 再掲になるけれども、/etc/rc.confを修正してsmartdを起動する。\n/etc/rc.conf\n#SMART monitor tool smartd_enable=\"YES\" # マシン起動時にsmartdも起動させる設定 smartd_flags=\" -l local3 \" # ログ出力先の指定 smartdを起動する。\n$ sudo service smartd start Starting smartd. $ 先ほど指定したログファイルを見る。\n$ cat /var/log/smartd.log Mar 4 22:17:59 ascomoid newsyslog[38905]: logfile first created Mar 4 22:26:32 ascomoid smartd[53036]: smartd 6.2 （略） Mar 4 22:26:32 ascomoid smartd[53038]: file /var/run/smartd.pid written containing PID 53038 動いていますね。\nただこれだけでは、指定したディスクをチェックしてくれるか、分からない。\nsmartdはSIGUSR1シグナルを送ってやるとステータスチェックをしてくれるというので試してみよう。\nなお、smartdのpidはさっきのログファイルに書いてあるし、あるいはservice smartd statusとやればpidを知ることができる。\n$ sudo kill -SIGUSR1 53038 $ そのうえでログファイルを見てみると。\n以下のような行が増えているはず。\n/dev/ada0のチェックが出来ていますね。\nMar 4 22:35:10 ascomoid smartd[53038]: Signal USR1 - checking devices now rather than in 682 seconds. Mar 4 22:35:10 ascomoid smartd[53038]: Device: /dev/ada0, SMART Usage Attribute: 190 Airflow_Temperature_Cel changed from 52 to 53 Mar 4 22:35:10 ascomoid smartd[53038]: Device: /dev/ada0, SMART Usage Attribute: 194 Temperature_Celsius changed from 48 to 47 daily status 以下のような行を/etc/periodic.confに追加するとレポートをroot宛てに送ってくれる。\n複数ディスクの場合は、スペースで区切り。\n下記のようなメールが届く。\nSMART status: Checking health of /dev/ada0: OK Checking health of /dev/ada1: OK Checking health of /dev/ada2: OK 以上。\n","wordCount":"3146","inLanguage":"en","datePublished":"2014-03-09T21:51:59+09:00","dateModified":"2014-03-09T21:51:59+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-03-09-freebsd%E3%81%A7smartmontools%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSDでsmartmontoolsのインストール","name":"FreeBSDでsmartmontoolsのインストール","description":"ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。 FreeBSDではsysutils/sm","keywords":["FreeBSD"],"articleBody":"ディスクのS.M.A.R.T.（以降、SMART）から情報を取得したり、ディスクのチェックができる。\nFreeBSDではsysutils/smartmontoolsからインストールできる。\nsmartmontoolsのインストール、実施例はいろんなところに書かれているので、ここではメモ程度にまとめる。\nFreeBSD 9.2-RELEASE-p3(i386), smartmontools-6.2_1での内容。\nインストール portsもpkgもsysutils/smartmontoolsからインストールできる。\nsmartctlとsmartdが/usr/local/sbin/にインストールされる。\nsmartctlがメインのコマンド。\nsmartdがデーモンプログラム。\n立ち上げておくと、定期的にディスクチェックを行い、結果をdaemonファシリティのログに書き込んでくれる。\n必要であれば問題発生時にメールも送ってくれる。\n設定ファイルは/usr/local/etc/smartd.conf。\nディスクの確認 何はともあれ、どんなディスクが繋がっているか調べる。\nsmartctl -scanで得られる。\nなお、SMARTにアクセスするには管理者権限が必要。\n以下は実行例。\nここではHDDは/dev/ada0である。\n環境により/dev/da0の場合もあるでしょう。\n$ sudo smartctl --scan /dev/ada0 -d atacam # /dev/ada0, ATA device /dev/cd0 -d atacam # /dev/cd0, ATA device ディスクが分かったら、SMARTに対応しているかどうかを調べる。\nsmartctlでデバイスファイルを開いてみればよい。\n$ sudo smartctl /dev/ada0 smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build) Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org ATA device successfully opened Use 'smartctl -a' (or '-x') to print SMART (and more) information 大丈夫そう。\nSMARTからの情報の取得 smartctl -a ＜デバイスファイル＞で情報を全部、-xでSMART以外の情報も表示。\n実行例\n$ sudo smartctl -a /dev/ada0 smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build) Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org === START OF INFORMATION SECTION === Model Family: Seagate Barracuda 7200.10 Device Model: ST380815AS Serial Number: 5RW18X0V Firmware Version: 3.ADA User Capacity: 80,000,000,000 bytes [80.0 GB] Sector Size: 512 bytes logical/physical Device is: In smartctl database [for details use: -P show] ATA Version is: ATA/ATAPI-7 (minor revision not indicated) Local Time is: Thu Feb 27 23:10:37 2014 JST SMART support is: Available - device has SMART capability. SMART support is: Enabled === START OF READ SMART DATA SECTION === SMART overall-health self-assessment test result: PASSED See vendor-specific Attribute list for marginal Attributes. （略） ディスクのテスト実行 smartctl -t short ＜デバイスファイル＞で実行する。\n-tはテストの種類の指定。\nshortと指定しているが、shortとくればlongもある。\nそれ以外にもある。\n詳しくはman smartctl（「-test」で検索するとよい）。\nshortだと10分以内、longだと数十分単位でのテスト。\n運用中でも可能。\n上記のコマンドは、ディスクのSMARTに対して「テストをせい」と指示をするだけ。\nコマンド叩いたときには、「何時何分ごろに終わるからね」と言うだけで結果は表示されない。\n結果はsmartctl -aで確認する。\nsmartctl -Xでテストを中止する。\n以下実行例。\n$ sudo smartctl -t short /dev/ada0 パスワード: smartctl 6.2 2013-07-26 r3841 [FreeBSD 9.2-RELEASE-p3 i386] (local build) Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org === START OF OFFLINE IMMEDIATE AND SELF-TEST SECTION === Sending command: \"Execute SMART Short self-test routine immediately in off-line mode\". Drive command \"Execute SMART Short self-test routine immediately in off-line mode\" successful. Testing has begun. Please wait 2 minutes for test to complete. Test will complete after Thu Feb 27 23:35:37 2014 Use smartctl -X to abort test. $ 結果確認 smartctl -aで確認する。\n見るのはSelf-test execution status、SMART Self-test logの二つのエリア\n以下の通り、「Self-test execution status」「SMART Self-test log」ともにエラーなし（without error）となっている。\nなお、テスト実行をしてすぐsmartctl -aとすると、「いまテストしているところだよ」という表示になるので興味があればご覧ください。\n（前略） Self-test execution status: ( 0) The previous self-test routine completed without error or no self-test has ever been run. （略） SMART Self-test log structure revision number 1 Num Test_Description Status Remaining LifeTime(hours) LBA_of_first_error # 1 Short offline Completed without error 00% 41957 - # 2 Short offline Completed without error 00% 41956 - # 3 Short offline Completed without error 00% 0 - 常時モニタリングのためのsmartd cronでsmartctlを実行してもよいけど、smartdを立ち上げおくのがよい。\nテストの自動実行や、後述するようなディスクの変化についてもレポートしてくれる。\n/usr/local/etc/smartd.confが設定ファイル。\nデフォルトでは問題のあったときにしか報告してくれない。\n日々のログを吐き出させたいのなら、syslogd, newsyslogの設定変更も必要。\nsmartd.confの変更 最低限やることは二つ。\n①DEVICESCANはコメントアウト\n②ディスクとテスト種別、スケジュールを指定。\n①DEVICESCANのコメントアウト\nデフォルトではDEVICESCANが有効になっている。\nDEVICESCANがあると、smartdはそれ以降の設定をすべて無視して、実行される都度、デバイスのスキャンを行う。\nそれよりも、チェックするデバイスを明示した方がよい。\n②ディスクとテスト種別、スケジュールを指定。\n書式例は以下の通り。\n＜ディスク＞　＜各種オプション＞　-s ＜スケジュール＞\n実際の例は以下の通り。\n/dev/ada0 -a -o on -S on -s S/../.././02 ＜ディスク＞にはデバイスファイルを指定。\n＜各種オプション＞は以下の通り。\n-a: ATAではデフォルト。全部入り。黙ってつけとけ。\n-o: ATA専用。SMARTのオフラインテストを有効にするか。ONにしとけ。\n-S: autosaveを有効にするか。ONにしとけ。\n-s: T/MM/DD/d/HH でスケジュール指定。\nT/MM/DD/d/HH\nT: テストのタイプ。short（S）かlong（L）か。\nMM: 月。01-12で指定。必ず二桁で指定。\nDD: 日。01-31で指定。必ず二桁で指定。\nd: 曜日。1が月曜、7が日曜。\nHH: 時刻。00-23で指定。必ず二桁で指定。\n以下だと毎日の午前2時にshortのテストを実施。\n-s S/../.././02 syslogdの設定 smartdは、デフォルトではdaemonファシリティにログを吐く。\nそのままだと使いにくいので、ログの出力先を変える。\nたとえばlocal3ファシリティにする。\nそれには/etc/rc.confで、smartd_flagsとして指定する。\n/etc/rc.conf\n#SMART monitor tool smartd_enable=\"YES\" # マシン起動時にsmartdも起動させる設定 smartd_flags=\" -l local3 \" # ログ出力先の指定 そうしておいて、/etc/syslog.confにて以下を追加。\n/etc/syslog.conf\n# # smartd(smartmontools) # local3.* /var/log/smartd.log 変更したらsyslogdを再起動。\n$ sudo service syslogd restart Stopping syslogd. Waiting for PIDS: 26185 Starting syslogd. $ しかしこのままだとsmartd.logが際限なく大きくなる。\nnewsyslog.confにも変更を加える。\nnewsyslog.confの設定 以下を追加。\n/etc/newsyslog.conf\n# # smartd(smartmontools) # /var/log/smartd.log 640 10 1024 * JC 1MBを超えたらログをローテート。bzipで圧縮。10個まで保存。圧縮後のパーミッションは640。\n終わったらnewsyslogを一回再起動しておくとよいかな。\n$ sudo service newsyslog restart Creating and/or trimming log files. $ やっと準備完了。\nsmartdを起動しよう。\nsmartdの起動 再掲になるけれども、/etc/rc.confを修正してsmartdを起動する。\n/etc/rc.conf\n#SMART monitor tool smartd_enable=\"YES\" # マシン起動時にsmartdも起動させる設定 smartd_flags=\" -l local3 \" # ログ出力先の指定 smartdを起動する。\n$ sudo service smartd start Starting smartd. $ 先ほど指定したログファイルを見る。\n$ cat /var/log/smartd.log Mar 4 22:17:59 ascomoid newsyslog[38905]: logfile first created Mar 4 22:26:32 ascomoid smartd[53036]: smartd 6.2 （略） Mar 4 22:26:32 ascomoid smartd[53038]: file /var/run/smartd.pid written containing PID 53038 動いていますね。\nただこれだけでは、指定したディスクをチェックしてくれるか、分からない。\nsmartdはSIGUSR1シグナルを送ってやるとステータスチェックをしてくれるというので試してみよう。\nなお、smartdのpidはさっきのログファイルに書いてあるし、あるいはservice smartd statusとやればpidを知ることができる。\n$ sudo kill -SIGUSR1 53038 $ そのうえでログファイルを見てみると。\n以下のような行が増えているはず。\n/dev/ada0のチェックが出来ていますね。\nMar 4 22:35:10 ascomoid smartd[53038]: Signal USR1 - checking devices now rather than in 682 seconds. Mar 4 22:35:10 ascomoid smartd[53038]: Device: /dev/ada0, SMART Usage Attribute: 190 Airflow_Temperature_Cel changed from 52 to 53 Mar 4 22:35:10 ascomoid smartd[53038]: Device: /dev/ada0, SMART Usage Attribute: 194 Temperature_Celsius changed from 48 to 47 daily status 以下のような行を/etc/periodic.confに追加するとレポートをroot宛てに送ってくれる。\n複数ディスクの場合は、スペースで区切り。\n下記のようなメールが届く。\nSMART status: Checking health of /dev/ada0: OK Checking health of /dev/ada1: OK Checking health of /dev/ada2: OK 以上。\n","wordCount":"3147","inLanguage":"en","datePublished":"2014-03-09T21:51:59+09:00","dateModified":"2014-03-09T21:51:59+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-03-09-freebsd%E3%81%A7smartmontools%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,27 +96,27 @@ FreeBSDでsmartmontoolsのインストール
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abspan aria-label=インストール>インストール</a></li>
+<a href=#%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=インストール>インストール</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%87%e3%82%a3%e3%82%b9%e3%82%af%e3%81%ae%e7%a2%ba%e8%aa%8dspan aria-label=ディスクの確認>ディスクの確認</a></li>
+<a href=#%e3%83%87%e3%82%a3%e3%82%b9%e3%82%af%e3%81%ae%e7%a2%ba%e8%aa%8d aria-label=ディスクの確認>ディスクの確認</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesmart%e3%81%8b%e3%82%89%e3%81%ae%e6%83%85%e5%a0%b1%e3%81%ae%e5%8f%96%e5%be%97span aria-label=SMARTからの情報の取得>SMARTからの情報の取得</a></li>
+<a href=#smart%e3%81%8b%e3%82%89%e3%81%ae%e6%83%85%e5%a0%b1%e3%81%ae%e5%8f%96%e5%be%97 aria-label=SMARTからの情報の取得>SMARTからの情報の取得</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%87%e3%82%a3%e3%82%b9%e3%82%af%e3%81%ae%e3%83%86%e3%82%b9%e3%83%88%e5%ae%9f%e8%a1%8cspan aria-label=ディスクのテスト実行>ディスクのテスト実行</a></li>
+<a href=#%e3%83%87%e3%82%a3%e3%82%b9%e3%82%af%e3%81%ae%e3%83%86%e3%82%b9%e3%83%88%e5%ae%9f%e8%a1%8c aria-label=ディスクのテスト実行>ディスクのテスト実行</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e7%b5%90%e6%9e%9c%e7%a2%ba%e8%aa%8dspan aria-label=結果確認>結果確認</a></li>
+<a href=#%e7%b5%90%e6%9e%9c%e7%a2%ba%e8%aa%8d aria-label=結果確認>結果確認</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%b8%b8%e6%99%82%e3%83%a2%e3%83%8b%e3%82%bf%e3%83%aa%e3%83%b3%e3%82%b0%e3%81%ae%e3%81%9f%e3%82%81%e3%81%aesmartdspan aria-label=常時モニタリングのためのsmartd>常時モニタリングのためのsmartd</a></li>
+<a href=#%e5%b8%b8%e6%99%82%e3%83%a2%e3%83%8b%e3%82%bf%e3%83%aa%e3%83%b3%e3%82%b0%e3%81%ae%e3%81%9f%e3%82%81%e3%81%aesmartd aria-label=常時モニタリングのためのsmartd>常時モニタリングのためのsmartd</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesmartdconf%e3%81%ae%e5%a4%89%e6%9b%b4span aria-label=smartd.confの変更>smartd.confの変更</a></li>
+<a href=#smartdconf%e3%81%ae%e5%a4%89%e6%9b%b4 aria-label=smartd.confの変更>smartd.confの変更</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesyslogd%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=syslogdの設定>syslogdの設定</a></li>
+<a href=#syslogd%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label=syslogdの設定>syslogdの設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinenewsyslogconf%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=newsyslog.confの設定>newsyslog.confの設定</a></li>
+<a href=#newsyslogconf%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label=newsyslog.confの設定>newsyslog.confの設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesmartd%e3%81%ae%e8%b5%b7%e5%8b%95span aria-label=smartdの起動>smartdの起動</a></li>
+<a href=#smartd%e3%81%ae%e8%b5%b7%e5%8b%95 aria-label=smartdの起動>smartdの起動</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinedaily-statusspan aria-label="daily status">daily status</a>
+<a href=#daily-status aria-label="daily status">daily status</a>
 </li>
 </ul>
 </div>
@@ -126,7 +126,7 @@ FreeBSDでsmartmontoolsのインストール
 FreeBSDではsysutils/smartmontoolsからインストールできる。<br>
 smartmontoolsのインストール、実施例はいろんなところに書かれているので、ここではメモ程度にまとめる。</p>
 <p>FreeBSD 9.2-RELEASE-p3(i386), smartmontools-6.2_1での内容。</p>
-<h2 id=span-styletext-decoration-underlineインストールspan>インストール<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineインストールspan>#</a></h2>
+<h2 id=インストール>インストール<a hidden class=anchor aria-hidden=true href=#インストール>#</a></h2>
 <p>portsもpkgもsysutils/smartmontoolsからインストールできる。<br>
 smartctlとsmartdが/usr/local/sbin/にインストールされる。</p>
 <p>smartctlがメインのコマンド。</p>
@@ -134,7 +134,7 @@ smartctlとsmartdが/usr/local/sbin/にインストールされる。</p>
 立ち上げておくと、定期的にディスクチェックを行い、結果をdaemonファシリティのログに書き込んでくれる。<br>
 必要であれば問題発生時にメールも送ってくれる。<br>
 設定ファイルは/usr/local/etc/smartd.conf。</p>
-<h2 id=span-styletext-decoration-underlineディスクの確認span>ディスクの確認<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineディスクの確認span>#</a></h2>
+<h2 id=ディスクの確認>ディスクの確認<a hidden class=anchor aria-hidden=true href=#ディスクの確認>#</a></h2>
 <p>何はともあれ、どんなディスクが繋がっているか調べる。<br>
 smartctl -scanで得られる。<br>
 なお、SMARTにアクセスするには管理者権限が必要。<br>
@@ -154,7 +154,7 @@ Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
 <span style=color:#960050;background-color:#1e0010>
 </span><span style=color:#960050;background-color:#1e0010></span>Use &#39;smartctl -a&#39; (or &#39;-x&#39;) to print SMART (and more) information
 </code></pre></div><p>大丈夫そう。</p>
-<h2 id=span-styletext-decoration-underlinesmartからの情報の取得span>SMARTからの情報の取得<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesmartからの情報の取得span>#</a></h2>
+<h2 id=smartからの情報の取得>SMARTからの情報の取得<a hidden class=anchor aria-hidden=true href=#smartからの情報の取得>#</a></h2>
 <p>smartctl -a ＜デバイスファイル＞で情報を全部、-xでSMART以外の情報も表示。</p>
 <p>実行例</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo smartctl -a /dev/ada0
@@ -178,7 +178,7 @@ SMART support is: Enabled
 SMART overall-health self-assessment test result: PASSED
 See vendor-specific Attribute list for marginal Attributes.
 （略）
-</code></pre></div><h2 id=span-styletext-decoration-underlineディスクのテスト実行span>ディスクのテスト実行<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineディスクのテスト実行span>#</a></h2>
+</code></pre></div><h2 id=ディスクのテスト実行>ディスクのテスト実行<a hidden class=anchor aria-hidden=true href=#ディスクのテスト実行>#</a></h2>
 <p>smartctl -t short ＜デバイスファイル＞で実行する。<br>
 -tはテストの種類の指定。<br>
 shortと指定しているが、shortとくればlongもある。<br>
@@ -206,7 +206,7 @@ Test will complete after Thu Feb 27 23:35:37 2014
 </span><span style=color:#960050;background-color:#1e0010></span>Use smartctl -X to abort test.
 <span style=color:#960050;background-color:#1e0010>
 </span><span style=color:#960050;background-color:#1e0010></span>$
-</code></pre></div><h2 id=span-styletext-decoration-underline結果確認span>結果確認<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline結果確認span>#</a></h2>
+</code></pre></div><h2 id=結果確認>結果確認<a hidden class=anchor aria-hidden=true href=#結果確認>#</a></h2>
 <p>smartctl -aで確認する。<br>
 見るのはSelf-test execution status、SMART Self-test logの二つのエリア</p>
 <p>以下の通り、「Self-test execution status」「SMART Self-test log」ともにエラーなし（without error）となっている。<br>
@@ -221,13 +221,13 @@ Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA
 # <span style=color:#ae81ff>1</span>  Short offline       Completed without error       00%     <span style=color:#ae81ff>41957</span>         -
 # <span style=color:#ae81ff>2</span>  Short offline       Completed without error       00%     <span style=color:#ae81ff>41956</span>         -
 # <span style=color:#ae81ff>3</span>  Short offline       Completed without error       00%         <span style=color:#ae81ff>0</span>         -
-</code></pre></div><h2 id=span-styletext-decoration-underline常時モニタリングのためのsmartdspan>常時モニタリングのためのsmartd<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline常時モニタリングのためのsmartdspan>#</a></h2>
+</code></pre></div><h2 id=常時モニタリングのためのsmartd>常時モニタリングのためのsmartd<a hidden class=anchor aria-hidden=true href=#常時モニタリングのためのsmartd>#</a></h2>
 <p>cronでsmartctlを実行してもよいけど、smartdを立ち上げおくのがよい。<br>
 テストの自動実行や、後述するようなディスクの変化についてもレポートしてくれる。<br>
 /usr/local/etc/smartd.confが設定ファイル。<br>
 デフォルトでは問題のあったときにしか報告してくれない。<br>
 日々のログを吐き出させたいのなら、syslogd, newsyslogの設定変更も必要。</p>
-<h2 id=span-styletext-decoration-underlinesmartdconfの変更span>smartd.confの変更<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesmartdconfの変更span>#</a></h2>
+<h2 id=smartdconfの変更>smartd.confの変更<a hidden class=anchor aria-hidden=true href=#smartdconfの変更>#</a></h2>
 <p>最低限やることは二つ。<br>
 ①DEVICESCANはコメントアウト<br>
 ②ディスクとテスト種別、スケジュールを指定。</p>
@@ -254,7 +254,7 @@ d: 曜日。1が月曜、7が日曜。<br>
 HH: 時刻。00-23で指定。必ず二桁で指定。</p>
 <p>以下だと毎日の午前2時にshortのテストを実施。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-s S/../.././02
-</code></pre></div><h2 id=span-styletext-decoration-underlinesyslogdの設定span>syslogdの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesyslogdの設定span>#</a></h2>
+</code></pre></div><h2 id=syslogdの設定>syslogdの設定<a hidden class=anchor aria-hidden=true href=#syslogdの設定>#</a></h2>
 <p>smartdは、デフォルトではdaemonファシリティにログを吐く。<br>
 そのままだと使いにくいので、ログの出力先を変える。<br>
 たとえばlocal3ファシリティにする。<br>
@@ -277,7 +277,7 @@ Starting syslogd.
 $
 </code></pre></div><p>しかしこのままだとsmartd.logが際限なく大きくなる。<br>
 newsyslog.confにも変更を加える。</p>
-<h2 id=span-styletext-decoration-underlinenewsyslogconfの設定span>newsyslog.confの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinenewsyslogconfの設定span>#</a></h2>
+<h2 id=newsyslogconfの設定>newsyslog.confの設定<a hidden class=anchor aria-hidden=true href=#newsyslogconfの設定>#</a></h2>
 <p>以下を追加。<br>
 /etc/newsyslog.conf</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>#
@@ -291,7 +291,7 @@ Creating and/or trimming log files.
 $
 </code></pre></div><p>やっと準備完了。<br>
 smartdを起動しよう。</p>
-<h2 id=span-styletext-decoration-underlinesmartdの起動span>smartdの起動<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesmartdの起動span>#</a></h2>
+<h2 id=smartdの起動>smartdの起動<a hidden class=anchor aria-hidden=true href=#smartdの起動>#</a></h2>
 <p>再掲になるけれども、/etc/rc.confを修正してsmartdを起動する。</p>
 <p>/etc/rc.conf</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>#SMART monitor tool
@@ -319,7 +319,7 @@ $
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>Mar  4 22:35:10 ascomoid smartd[53038]: Signal USR1 - checking devices now rather than in 682 seconds.
 Mar  4 22:35:10 ascomoid smartd[53038]: Device: /dev/ada0, SMART Usage Attribute: 190 Airflow_Temperature_Cel changed from 52 to 53
 Mar  4 22:35:10 ascomoid smartd[53038]: Device: /dev/ada0, SMART Usage Attribute: 194 Temperature_Celsius changed from 48 to 47
-</code></pre></div><h2 id=span-styletext-decoration-underlinedaily-statusspan>daily status<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinedaily-statusspan>#</a></h2>
+</code></pre></div><h2 id=daily-status>daily status<a hidden class=anchor aria-hidden=true href=#daily-status>#</a></h2>
 <p>以下のような行を/etc/periodic.confに追加するとレポートをroot宛てに送ってくれる。<br>
 複数ディスクの場合は、スペースで区切り。</p>
 <p>下記のようなメールが届く。</p>

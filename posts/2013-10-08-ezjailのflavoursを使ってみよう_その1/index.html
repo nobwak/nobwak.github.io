@@ -37,7 +37,7 @@
 <meta name=twitter:title content="ezjailのflavoursを使ってみよう その1">
 <meta name=twitter:description content="[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"ezjailのflavoursを使ってみよう その1","item":"https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ezjailのflavoursを使ってみよう その1","name":"ezjailのflavoursを使ってみよう その1","description":"[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親","keywords":[],"articleBody":"[FreeBSD] ezjailを試そう\nezjailで作るjailの基本設定を変えよう\nからの続き\n以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。\n「Jailホスト」はjail環境で動くホストを表す。子。\nezjailのflavoursとは。 新しいJailは、真っ新（まっさら）のFreeBSDで作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。\nflavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。\nたとえば、rc.conf, make.conf, periodic.confやsudoersなどである。\n以下より意訳。\nhttp://erdgeist.org/arts/software/ezjail/#Flavours「flavours」の場所 特に指定をしなければ、ezjail-admin installで/usr/jails/flavoursに格納される。\n初期状態では、サンプルとして/usr/jails/flavours/exampleが用意されている。\nこれを参考に自分用のflavoursを作ればよい。\n「flavours」の中身 exampleの中をのぞくと、/usr/jails/flavours/exampleを起点に、以下のファイルがある。\n./usr/local/etc/sudoers ./etc/make.conf ./etc/periodic.conf ./etc/rc.conf ./etc/rc.d/ezjail.flavour.example ./etcや./usr/local/etcに必要なファイルを入れておけばよいというわけ。\nところでezjail.flavour.exampleだけは特殊。\n「ezjail.flavour.example」とは jailホストが初めて起動する際に実行されるスクリプト。\nここに初期設定で必要なこと、たとえばユーザ・グループの追加やら、パッケージの追加やら、つらつら書いておけばよい。\n（中身を見ればわかるがezjail.flavour.example自体を消す処理も入っている）\njailホストの仕様検討 実際にflavousの作成に入る前に。\n同じHW上で複数のサービスを行うため、jailホストを稼働させるまえに何点か考えておかないといけないことがある。\n仕様検討というのは仰々しいが、あとあと効いてくるので真面目にやる。\nとりあえず以下を決めておけばよいかな、と。\n ホストで動かしたいサービス Jailホストで動かしたいサービス Jailホストに追加するユーザ/グループ Jailホストで使用するソフトウェア  一番注意すべきことは、ポートのListenである。\nホストとJailホストには別々のIPアドレスを付与するものの、サーバソフトウェアが個々のIPアドレスを意識するとは限らない。\nだからして「動かしたいサービス」はJailホストだけでなく、ホストも含めて考えることが必要だし、それぞれで動かすサーバソフトウェアには、ListenするIPアドレスを明示する必要がある。\n以下のように設定した。\n ホストで動かしたいサービス\n→sshdのみ。 Jailホストで動かしたいサービス\n→apache, sshd Jailホストに追加するユーザ/グループ\n→vanilla:vanilla Jailホストで使用するソフトウェア\n→apache22, sudo, bash, portaudit, portmaster, tmux  このうち、最初の件を除いた残りの三つは、すべてflavoursで設定する。\nではひとつずつ。\nホストで動かしたいサービス sshdだけで良いとした。\nではホストで動いているサービスはなんだろうか。sockstat -l4でリストできる。\n$ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sendmail 1002 3 tcp4 127.0.0.1:25 *:* root sshd 992 4 tcp4 *:22 *:* root syslogd 904 7 udp4 *:514 *:* sendmailが動いている。これは不要。\nsshdは動いてても構わないが、Local Addressが*:22になっている。\nこれはIPアドレスを意識せず、ポート22に届いたものはすべて自分宛と認識するということ。Jailホストに来た接続もこちらに繋がってしまう。これはまずい。\nsyslogdも*:514で動いている。これも何らかの対応が必要。\nホストのサービスの調整（sshd） sshdはsshd_configで以下の行を追加し、ホストのIPアドレスでのみListenするように。\nListenAddress ＜ホストのIPアドレス＞ sshdを再起動するとsockstat -l4の表示が変わる。\n$ sudo service sshd restart Stopping sshd. Starting sshd. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 1845 3 tcp4 192.168.154.128:22 *:* root sendmail 1002 3 tcp4 127.0.0.1:25 *:* root syslogd 904 7 udp4 *:514 *:* ホストのサービスの調整（sendmail） sendmailの停止はこちらを参照。\n再起動、あるいはservice sendmail stopでよい。\n$ sudo service sendmail stop Stopping sendmail. Stopping sendmail_clientmqueue. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 1845 3 tcp4 192.168.154.128:22 *:* root syslogd 904 7 udp4 *:514 *:* $ ホストのサービスの調整（syslogd） syslogdは、デフォルトだと\"-s\"オプションで動いているはず。\n“-s\"は、「リモートマシンからのログを受け取らない」というもの。\nこれで不自由してないのなら、\"-ss\"にしてポートすら開けないようにしてもいい。\n“-ss\"にしないのなら、念のため”-b\"オプションでホストのIPアドレスを明示しておくとよい。\nSYSLOGD(8) FreeBSD System Manager's Manual SYSLOGD(8) NAME syslogd -- log systems messages -s Operate in secure mode. Do not log messages from remote machines. If specified twice, no network socket will be opened at all, which also disables logging to remote machines. -b :service Bind to a specific address and/or port. The address can be spec- ified as a hostname, and the port as a service name. If an IPv6 address is specified, it should be enclosed with `[' and `]'. The default service is `syslog'. /etc/rc.confに以下を追記する場合syslogd_flags=\"-ss\" $ sudo service syslogd restart Stopping syslogd. Starting syslogd. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 992 3 tcp4 192.168.154.128:22 *:* $ 以下を追記した場合syslogd_flags=\"-b 192.168.154.128\" $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root syslogd 1540 6 udp4 192.168.154.128:514 *:* root sshd 992 3 tcp4 192.168.154.128:22 *:* ホストのサービスの調整（inetd.conf） もしホストでinetd.confを動かしているのなら、-aオプションでホストのIPアドレスを与えること。\nINETD(8) FreeBSD System Manager's Manual INETD(8) NAME inetd -- internet ``super-server'' -a Specify one specific IP address to bind to. Alternatively, a hostname can be specified, in which case the IPv4 or IPv6 address which corresponds to that hostname is used. Usually a hostname is specified when inetd is run inside a jail(8), in which case the hostname corresponds to that of the jail(8) environment. inetdのデフォルトオプションは”-wW -C 60″なので、以下のようにして/etc/rc.confに追加\ninetd_flags=\"-wW -C 60 -a ＜ホストのIPアドレス＞\" サンプルrc.conf # kill sendmail sendmail_enable=\"NO\" # Run the sendmail inbound daemon (YES/NO). sendmail_submit_enable=\"NO\" # Start a localhost-only MTA for mail submission sendmail_outbound_enable=\"NO\" # Dequeue stuck mail (YES/NO). sendmail_msp_queue_enable=\"NO\" # Dequeue stuck clientmqueue mail (YES/NO). # prohibit syslog to open a socket syslogd_flags=\"-ss\" # make syslog listen on specific ip address # syslogd_flags=\"-b x.x.x.x\" # make inetd listen on specific ip address # inetd_flags=\"-wW -C 60 -a x.x.x.x\" 意外に長くなったのでここまで。\n続きは以下。\nezjailのflavoursを使ってみよう その2\n","wordCount":"2693","inLanguage":"en","datePublished":"2013-10-08T22:43:13+09:00","dateModified":"2013-10-08T22:43:13+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ezjailのflavoursを使ってみよう その1","name":"ezjailのflavoursを使ってみよう その1","description":"[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親","keywords":[],"articleBody":"[FreeBSD] ezjailを試そう\nezjailで作るjailの基本設定を変えよう\nからの続き\n以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。\n「Jailホスト」はjail環境で動くホストを表す。子。\nezjailのflavoursとは。 新しいJailは、真っ新（まっさら）のFreeBSDで作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。\nflavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。\nたとえば、rc.conf, make.conf, periodic.confやsudoersなどである。\n以下より意訳。\nhttp://erdgeist.org/arts/software/ezjail/#Flavours\n「flavours」の場所 特に指定をしなければ、ezjail-admin installで/usr/jails/flavoursに格納される。\n初期状態では、サンプルとして/usr/jails/flavours/exampleが用意されている。\nこれを参考に自分用のflavoursを作ればよい。\n「flavours」の中身 exampleの中をのぞくと、/usr/jails/flavours/exampleを起点に、以下のファイルがある。\n./usr/local/etc/sudoers ./etc/make.conf ./etc/periodic.conf ./etc/rc.conf ./etc/rc.d/ezjail.flavour.example ./etcや./usr/local/etcに必要なファイルを入れておけばよいというわけ。\nところでezjail.flavour.exampleだけは特殊。\n「ezjail.flavour.example」とは jailホストが初めて起動する際に実行されるスクリプト。\nここに初期設定で必要なこと、たとえばユーザ・グループの追加やら、パッケージの追加やら、つらつら書いておけばよい。\n（中身を見ればわかるがezjail.flavour.example自体を消す処理も入っている）\njailホストの仕様検討 実際にflavousの作成に入る前に。\n同じHW上で複数のサービスを行うため、jailホストを稼働させるまえに何点か考えておかないといけないことがある。\n仕様検討というのは仰々しいが、あとあと効いてくるので真面目にやる。\nとりあえず以下を決めておけばよいかな、と。\n ホストで動かしたいサービス Jailホストで動かしたいサービス Jailホストに追加するユーザ/グループ Jailホストで使用するソフトウェア  一番注意すべきことは、ポートのListenである。\nホストとJailホストには別々のIPアドレスを付与するものの、サーバソフトウェアが個々のIPアドレスを意識するとは限らない。\nだからして「動かしたいサービス」はJailホストだけでなく、ホストも含めて考えることが必要だし、それぞれで動かすサーバソフトウェアには、ListenするIPアドレスを明示する必要がある。\n以下のように設定した。\n ホストで動かしたいサービス\n→sshdのみ。 Jailホストで動かしたいサービス\n→apache, sshd Jailホストに追加するユーザ/グループ\n→vanilla:vanilla Jailホストで使用するソフトウェア\n→apache22, sudo, bash, portaudit, portmaster, tmux  このうち、最初の件を除いた残りの三つは、すべてflavoursで設定する。\nではひとつずつ。\nホストで動かしたいサービス sshdだけで良いとした。\nではホストで動いているサービスはなんだろうか。sockstat -l4でリストできる。\n$ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sendmail 1002 3 tcp4 127.0.0.1:25 *:* root sshd 992 4 tcp4 *:22 *:* root syslogd 904 7 udp4 *:514 *:* sendmailが動いている。これは不要。\nsshdは動いてても構わないが、Local Addressが*:22になっている。\nこれはIPアドレスを意識せず、ポート22に届いたものはすべて自分宛と認識するということ。Jailホストに来た接続もこちらに繋がってしまう。これはまずい。\nsyslogdも*:514で動いている。これも何らかの対応が必要。\nホストのサービスの調整（sshd） sshdはsshd_configで以下の行を追加し、ホストのIPアドレスでのみListenするように。\nListenAddress ＜ホストのIPアドレス＞ sshdを再起動するとsockstat -l4の表示が変わる。\n$ sudo service sshd restart Stopping sshd. Starting sshd. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 1845 3 tcp4 192.168.154.128:22 *:* root sendmail 1002 3 tcp4 127.0.0.1:25 *:* root syslogd 904 7 udp4 *:514 *:* ホストのサービスの調整（sendmail） sendmailの停止はこちらを参照。\n再起動、あるいはservice sendmail stopでよい。\n$ sudo service sendmail stop Stopping sendmail. Stopping sendmail_clientmqueue. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 1845 3 tcp4 192.168.154.128:22 *:* root syslogd 904 7 udp4 *:514 *:* $ ホストのサービスの調整（syslogd） syslogdは、デフォルトだと\"-s\"オプションで動いているはず。\n“-s\"は、「リモートマシンからのログを受け取らない」というもの。\nこれで不自由してないのなら、\"-ss\"にしてポートすら開けないようにしてもいい。\n“-ss\"にしないのなら、念のため”-b\"オプションでホストのIPアドレスを明示しておくとよい。\nSYSLOGD(8) FreeBSD System Manager's Manual SYSLOGD(8) NAME syslogd -- log systems messages -s Operate in secure mode. Do not log messages from remote machines. If specified twice, no network socket will be opened at all, which also disables logging to remote machines. -b :service Bind to a specific address and/or port. The address can be spec- ified as a hostname, and the port as a service name. If an IPv6 address is specified, it should be enclosed with `[' and `]'. The default service is `syslog'. /etc/rc.confに以下を追記する場合\nsyslogd_flags=\"-ss\" $ sudo service syslogd restart Stopping syslogd. Starting syslogd. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 992 3 tcp4 192.168.154.128:22 *:* $ 以下を追記した場合\nsyslogd_flags=\"-b 192.168.154.128\" $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root syslogd 1540 6 udp4 192.168.154.128:514 *:* root sshd 992 3 tcp4 192.168.154.128:22 *:* ホストのサービスの調整（inetd.conf） もしホストでinetd.confを動かしているのなら、-aオプションでホストのIPアドレスを与えること。\nINETD(8) FreeBSD System Manager's Manual INETD(8) NAME inetd -- internet ``super-server'' -a Specify one specific IP address to bind to. Alternatively, a hostname can be specified, in which case the IPv4 or IPv6 address which corresponds to that hostname is used. Usually a hostname is specified when inetd is run inside a jail(8), in which case the hostname corresponds to that of the jail(8) environment. inetdのデフォルトオプションは”-wW -C 60″なので、以下のようにして/etc/rc.confに追加\ninetd_flags=\"-wW -C 60 -a ＜ホストのIPアドレス＞\" サンプルrc.conf # kill sendmail sendmail_enable=\"NO\" # Run the sendmail inbound daemon (YES/NO). sendmail_submit_enable=\"NO\" # Start a localhost-only MTA for mail submission sendmail_outbound_enable=\"NO\" # Dequeue stuck mail (YES/NO). sendmail_msp_queue_enable=\"NO\" # Dequeue stuck clientmqueue mail (YES/NO). # prohibit syslog to open a socket syslogd_flags=\"-ss\" # make syslog listen on specific ip address # syslogd_flags=\"-b x.x.x.x\" # make inetd listen on specific ip address # inetd_flags=\"-wW -C 60 -a x.x.x.x\" 意外に長くなったのでここまで。\n続きは以下。\nezjailのflavoursを使ってみよう その2\n","wordCount":"2598","inLanguage":"en","datePublished":"2013-10-08T22:43:13+09:00","dateModified":"2013-10-08T22:43:13+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,27 +96,27 @@ ezjailのflavoursを使ってみよう その1
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlineezjail%e3%81%aeflavours%e3%81%a8%e3%81%afspan aria-label=ezjailのflavoursとは。>ezjailのflavoursとは。</a></li>
+<a href=#ezjail%e3%81%aeflavours%e3%81%a8%e3%81%af aria-label=ezjailのflavoursとは。>ezjailのflavoursとは。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineflavours%e3%81%ae%e5%a0%b4%e6%89%80span aria-label=「flavours」の場所>「flavours」の場所</a></li>
+<a href=#flavours%e3%81%ae%e5%a0%b4%e6%89%80 aria-label=「flavours」の場所>「flavours」の場所</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineflavours%e3%81%ae%e4%b8%ad%e8%ba%abspan aria-label=「flavours」の中身>「flavours」の中身</a></li>
+<a href=#flavours%e3%81%ae%e4%b8%ad%e8%ba%ab aria-label=「flavours」の中身>「flavours」の中身</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineezjailflavourexample%e3%81%a8%e3%81%afspan aria-label=「ezjail.flavour.example」とは>「ezjail.flavour.example」とは</a></li>
+<a href=#ezjailflavourexample%e3%81%a8%e3%81%af aria-label=「ezjail.flavour.example」とは>「ezjail.flavour.example」とは</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinejail%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e4%bb%95%e6%a7%98%e6%a4%9c%e8%a8%8espan aria-label=jailホストの仕様検討>jailホストの仕様検討</a></li>
+<a href=#jail%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e4%bb%95%e6%a7%98%e6%a4%9c%e8%a8%8e aria-label=jailホストの仕様検討>jailホストの仕様検討</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%9b%e3%82%b9%e3%83%88%e3%81%a7%e5%8b%95%e3%81%8b%e3%81%97%e3%81%9f%e3%81%84%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9span aria-label=ホストで動かしたいサービス>ホストで動かしたいサービス</a></li>
+<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%a7%e5%8b%95%e3%81%8b%e3%81%97%e3%81%9f%e3%81%84%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9 aria-label=ホストで動かしたいサービス>ホストで動かしたいサービス</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4sshdspan aria-label=ホストのサービスの調整（sshd）>ホストのサービスの調整（sshd）</a></li>
+<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4sshd aria-label=ホストのサービスの調整（sshd）>ホストのサービスの調整（sshd）</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4sendmailspan aria-label=ホストのサービスの調整（sendmail）>ホストのサービスの調整（sendmail）</a></li>
+<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4sendmail aria-label=ホストのサービスの調整（sendmail）>ホストのサービスの調整（sendmail）</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4syslogdspan aria-label=ホストのサービスの調整（syslogd）>ホストのサービスの調整（syslogd）</a></li>
+<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4syslogd aria-label=ホストのサービスの調整（syslogd）>ホストのサービスの調整（syslogd）</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4inetdconfspan aria-label=ホストのサービスの調整（inetd.conf）>ホストのサービスの調整（inetd.conf）</a></li>
+<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4inetdconf aria-label=ホストのサービスの調整（inetd.conf）>ホストのサービスの調整（inetd.conf）</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%b5%e3%83%b3%e3%83%97%e3%83%abrcconfspan aria-label=サンプルrc.conf>サンプルrc.conf</a>
+<a href=#%e3%82%b5%e3%83%b3%e3%83%97%e3%83%abrcconf aria-label=サンプルrc.conf>サンプルrc.conf</a>
 </li>
 </ul>
 </div>
@@ -127,17 +127,17 @@ ezjailのflavoursを使ってみよう その1
 からの続き</p>
 <p>以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。<br>
 「Jailホスト」はjail環境で動くホストを表す。子。</p>
-<h2 id=span-styletext-decoration-underlineezjailのflavoursとはspan>ezjailのflavoursとは。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineezjailのflavoursとはspan>#</a></h2>
+<h2 id=ezjailのflavoursとは>ezjailのflavoursとは。<a hidden class=anchor aria-hidden=true href=#ezjailのflavoursとは>#</a></h2>
 <p>新しいJailは、真っ新（まっさら）のFreeBSDで作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。<br>
 flavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。<br>
 たとえば、rc.conf, make.conf, periodic.confやsudoersなどである。</p>
 <p>以下より意訳。<br>
 <a href=http://erdgeist.org/arts/software/ezjail/#Flavours>http://erdgeist.org/arts/software/ezjail/#Flavours</a></p>
-<h2 id=span-styletext-decoration-underlineflavoursの場所span>「flavours」の場所<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineflavoursの場所span>#</a></h2>
+<h2 id=flavoursの場所>「flavours」の場所<a hidden class=anchor aria-hidden=true href=#flavoursの場所>#</a></h2>
 <p>特に指定をしなければ、ezjail-admin installで/usr/jails/flavoursに格納される。<br>
 初期状態では、サンプルとして/usr/jails/flavours/exampleが用意されている。<br>
 これを参考に自分用のflavoursを作ればよい。</p>
-<h2 id=span-styletext-decoration-underlineflavoursの中身span>「flavours」の中身<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineflavoursの中身span>#</a></h2>
+<h2 id=flavoursの中身>「flavours」の中身<a hidden class=anchor aria-hidden=true href=#flavoursの中身>#</a></h2>
 <p>exampleの中をのぞくと、/usr/jails/flavours/exampleを起点に、以下のファイルがある。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>./usr/local/etc/sudoers
 ./etc/make.conf
@@ -146,11 +146,11 @@ flavoursでは、予め設定された内容に従って、ファイルをコピ
 ./etc/rc.d/ezjail.flavour.example
 </code></pre></div><p>./etcや./usr/local/etcに必要なファイルを入れておけばよいというわけ。<br>
 ところでezjail.flavour.exampleだけは特殊。</p>
-<h2 id=span-styletext-decoration-underlineezjailflavourexampleとはspan>「ezjail.flavour.example」とは<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineezjailflavourexampleとはspan>#</a></h2>
+<h2 id=ezjailflavourexampleとは>「ezjail.flavour.example」とは<a hidden class=anchor aria-hidden=true href=#ezjailflavourexampleとは>#</a></h2>
 <p>jailホストが初めて起動する際に実行されるスクリプト。<br>
 ここに初期設定で必要なこと、たとえばユーザ・グループの追加やら、パッケージの追加やら、つらつら書いておけばよい。<br>
 （中身を見ればわかるがezjail.flavour.example自体を消す処理も入っている）</p>
-<h2 id=span-styletext-decoration-underlinejailホストの仕様検討span>jailホストの仕様検討<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinejailホストの仕様検討span>#</a></h2>
+<h2 id=jailホストの仕様検討>jailホストの仕様検討<a hidden class=anchor aria-hidden=true href=#jailホストの仕様検討>#</a></h2>
 <p>実際にflavousの作成に入る前に。<br>
 同じHW上で複数のサービスを行うため、jailホストを稼働させるまえに何点か考えておかないといけないことがある。<br>
 仕様検討というのは仰々しいが、あとあと効いてくるので真面目にやる。<br>
@@ -177,7 +177,7 @@ flavoursでは、予め設定された内容に従って、ファイルをコピ
 </ol>
 <p>このうち、最初の件を除いた残りの三つは、すべてflavoursで設定する。<br>
 ではひとつずつ。</p>
-<h2 id=span-styletext-decoration-underlineホストで動かしたいサービスspan>ホストで動かしたいサービス<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineホストで動かしたいサービスspan>#</a></h2>
+<h2 id=ホストで動かしたいサービス>ホストで動かしたいサービス<a hidden class=anchor aria-hidden=true href=#ホストで動かしたいサービス>#</a></h2>
 <p>sshdだけで良いとした。<br>
 ではホストで動いているサービスはなんだろうか。sockstat -l4でリストできる。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sockstat -l4
@@ -189,7 +189,7 @@ root syslogd 904 7 udp4 *:514 *:*
 sshdは動いてても構わないが、Local Addressが*:22になっている。<br>
 これはIPアドレスを意識せず、ポート22に届いたものはすべて自分宛と認識するということ。Jailホストに来た接続もこちらに繋がってしまう。これはまずい。<br>
 syslogdも*:514で動いている。これも何らかの対応が必要。</p>
-<h2 id=span-styletext-decoration-underlineホストのサービスの調整sshdspan>ホストのサービスの調整（sshd）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineホストのサービスの調整sshdspan>#</a></h2>
+<h2 id=ホストのサービスの調整sshd>ホストのサービスの調整（sshd）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整sshd>#</a></h2>
 <p>sshdはsshd_configで以下の行を追加し、ホストのIPアドレスでのみListenするように。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>ListenAddress ＜ホストのIPアドレス＞
 </code></pre></div><p>sshdを再起動するとsockstat -l4の表示が変わる。</p>
@@ -201,8 +201,8 @@ USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
 root sshd 1845 3 tcp4 192.168.154.128:22 *:*
 root sendmail 1002 3 tcp4 127.0.0.1:25 *:*
 root syslogd 904 7 udp4 *:514 *:*
-</code></pre></div><h2 id=span-styletext-decoration-underlineホストのサービスの調整sendmailspan>ホストのサービスの調整（sendmail）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineホストのサービスの調整sendmailspan>#</a></h2>
-<p>sendmailの停止はこちらを参照。<br>
+</code></pre></div><h2 id=ホストのサービスの調整sendmail>ホストのサービスの調整（sendmail）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整sendmail>#</a></h2>
+<p>sendmailの停止は<a href="../../../?p=1823">こちら</a>を参照。<br>
 再起動、あるいはservice sendmail stopでよい。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo service sendmail stop
 Stopping sendmail.
@@ -212,7 +212,7 @@ USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
 root sshd 1845 3 tcp4 192.168.154.128:22 *:*
 root syslogd 904 7 udp4 *:514 *:*
 $
-</code></pre></div><h2 id=span-styletext-decoration-underlineホストのサービスの調整syslogdspan>ホストのサービスの調整（syslogd）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineホストのサービスの調整syslogdspan>#</a></h2>
+</code></pre></div><h2 id=ホストのサービスの調整syslogd>ホストのサービスの調整（syslogd）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整syslogd>#</a></h2>
 <p>syslogdは、デフォルトだと"-s"オプションで動いているはず。<br>
 &ldquo;-s"は、「リモートマシンからのログを受け取らない」というもの。<br>
 これで不自由してないのなら、"-ss"にしてポートすら開けないようにしてもいい。<br>
@@ -246,7 +246,7 @@ $
 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
 root syslogd 1540 6 udp4 192.168.154.128:514 *:*
 root sshd 992 3 tcp4 192.168.154.128:22 *:*
-</code></pre></div><h2 id=span-styletext-decoration-underlineホストのサービスの調整inetdconfspan>ホストのサービスの調整（inetd.conf）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineホストのサービスの調整inetdconfspan>#</a></h2>
+</code></pre></div><h2 id=ホストのサービスの調整inetdconf>ホストのサービスの調整（inetd.conf）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整inetdconf>#</a></h2>
 <p>もしホストでinetd.confを動かしているのなら、-aオプションでホストのIPアドレスを与えること。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>INETD(8) FreeBSD System Manager&#39;s Manual INETD(8)
 <span style=color:#960050;background-color:#1e0010>
@@ -260,7 +260,7 @@ is specified when inetd is run inside a jail(8), in which case
 the hostname corresponds to that of the jail(8) environment.
 </code></pre></div><p>inetdのデフォルトオプションは&rdquo;-wW -C 60″なので、以下のようにして/etc/rc.confに追加</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>inetd_flags=&#34;-wW -C 60 -a ＜ホストのIPアドレス＞&#34;
-</code></pre></div><h2 id=span-styletext-decoration-underlineサンプルrcconfspan>サンプルrc.conf<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineサンプルrcconfspan>#</a></h2>
+</code></pre></div><h2 id=サンプルrcconf>サンプルrc.conf<a hidden class=anchor aria-hidden=true href=#サンプルrcconf>#</a></h2>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># kill sendmail
 sendmail_enable=&#34;NO&#34;    # Run the sendmail inbound daemon (YES/NO).
 sendmail_submit_enable=&#34;NO&#34;     # Start a localhost-only MTA for mail submission

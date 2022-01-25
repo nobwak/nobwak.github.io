@@ -37,7 +37,7 @@
 <meta name=twitter:title content="Ubuntu6.10でのApache/SSL構築">
 <meta name=twitter:description content="Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ ◎apache2のインストー">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"Ubuntu6.10でのApache/SSL構築","item":"https://nobwak.github.io/posts/2007-02-20-ubuntu6.10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Ubuntu6.10でのApache/SSL構築","name":"Ubuntu6.10でのApache\/SSL構築","description":"Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ ◎apache2のインストー","keywords":[],"articleBody":"Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ ◎apache2のインストール 適当にapt-get installで。 ◎sslモジュールの設定ファイル /etc/apache2/mods-enabled/にて /etc/apache2/mods-available/配下のssl.conf、ssl.loadに 同名にてシンボリックリンクを張る。 ただ、ここのssl.confには大した事が書かれていないので、別途exampleなどから持ってくる。 例)/usr/share/doc/apache2/examples/ssl.conf.gz 注:ssl.confについては、このあと7.10にアップグレードしたとき、ちょっとつまづいた。 ◎オレオレ証明書の作成 このへんを参考に作成。 http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html さらにこのへんを参考にブラウザへ証明書をインポート http://takagi-hiromitsu.jp/diary/20050327.html ◎起動 問題なく起動することを確認 また下記コマンドでも接続テスト openssl s_client -connect target:443 GET / HTTP/1.0 (リターンを2回) 参考:http://x68000.q-e-d.net/~68user/unix/pickup?openssl  ","wordCount":"497","inLanguage":"en","datePublished":"2007-02-20T01:00:00+09:00","dateModified":"2007-02-20T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2007-02-20-ubuntu6.10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Ubuntu6.10でのApache/SSL構築","name":"Ubuntu6.10でのApache\/SSL構築","description":"Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ ◎apache2のインストー","keywords":[],"articleBody":"Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ ◎apache2のインストール 適当にapt-get installで。 ◎sslモジュールの設定ファイル /etc/apache2/mods-enabled/にて /etc/apache2/mods-available/配下のssl.conf、ssl.loadに 同名にてシンボリックリンクを張る。 ただ、ここのssl.confには大した事が書かれていないので、別途exampleなどから持ってくる。 例)/usr/share/doc/apache2/examples/ssl.conf.gz 注:ssl.confについては、このあと[7.10にアップグレードしたとき](http://d.hatena.ne.jp/flageo/20070906/p2)、ちょっとつまづいた。 ◎オレオレ証明書の作成 このへんを参考に作成。 [http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html](http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html) さらにこのへんを参考にブラウザへ証明書をインポート [http://takagi-hiromitsu.jp/diary/20050327.html](http://takagi-hiromitsu.jp/diary/20050327.html) ◎起動 問題なく起動することを確認 また下記コマンドでも接続テスト openssl s_client -connect target:443 GET / HTTP/1.0 (リターンを2回) 参考:[http://x68000.q-e-d.net/~68user/unix/pickup?openssl](http://x68000.q-e-d.net/~68user/unix/pickup?openssl)  ","wordCount":"591","inLanguage":"en","datePublished":"2007-02-20T01:00:00+09:00","dateModified":"2007-02-20T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2007-02-20-ubuntu6.10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -87,7 +87,7 @@
 <h1 class=post-title>
 Ubuntu6.10でのApache/SSL構築
 </h1>
-<div class=post-meta><span title="2007-02-20 01:00:00 +0900 JST">February 20, 2007</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2007-02-20-Ubuntu6.10%e3%81%a7%e3%81%aeApacheSSL%e6%a7%8b%e7%af%89.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+<div class=post-meta><span title="2007-02-20 01:00:00 +0900 JST">February 20, 2007</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2007-02-20-Ubuntu6.10%e3%81%a7%e3%81%aeApacheSSL%e6%a7%8b%e7%af%89.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header>
 <div class=post-content><pre><code>Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ
@@ -129,7 +129,7 @@ Ubuntu6.10でのApache/SSL構築
 
 
 
-　注:ssl.confについては、このあと&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20070906/p2&quot; target=&quot;_blank&quot;&gt;7.10にアップグレードしたとき&lt;/a&gt;、ちょっとつまづいた。
+　注:ssl.confについては、このあと[7.10にアップグレードしたとき](http://d.hatena.ne.jp/flageo/20070906/p2)、ちょっとつまづいた。
 
 
 
@@ -144,7 +144,7 @@ Ubuntu6.10でのApache/SSL構築
 
 
 
-&lt;a href=&quot;http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html&quot; target=&quot;_blank&quot;&gt;http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html&lt;/a&gt;
+[http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html](http://www.atmarkit.co.jp/flinux/rensai/linuxtips/702apachessl.html)
 
 
 
@@ -156,7 +156,7 @@ Ubuntu6.10でのApache/SSL構築
 
 
 
-&lt;a href=&quot;http://takagi-hiromitsu.jp/diary/20050327.html&quot; target=&quot;_blank&quot;&gt;http://takagi-hiromitsu.jp/diary/20050327.html&lt;/a&gt;
+[http://takagi-hiromitsu.jp/diary/20050327.html](http://takagi-hiromitsu.jp/diary/20050327.html)
 
 
 
@@ -183,7 +183,7 @@ Ubuntu6.10でのApache/SSL構築
 
 
 
-　参考:&lt;a href=&quot;http://x68000.q-e-d.net/~68user/unix/pickup?openssl&quot; target=&quot;_blank&quot;&gt;http://x68000.q-e-d.net/~68user/unix/pickup?openssl&lt;/a&gt;
+　参考:[http://x68000.q-e-d.net/~68user/unix/pickup?openssl](http://x68000.q-e-d.net/~68user/unix/pickup?openssl)
 </code></pre>
 </div>
 <footer class=post-footer>

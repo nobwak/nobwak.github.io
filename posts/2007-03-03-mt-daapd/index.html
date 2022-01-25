@@ -37,7 +37,7 @@
 <meta name=twitter:title content="mt-daapd">
 <meta name=twitter:description content="UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッ">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"mt-daapd","item":"https://nobwak.github.io/posts/2007-03-03-mt-daapd/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"mt-daapd","name":"mt-daapd","description":"UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッ","keywords":[],"articleBody":"UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッケージからインストールすると、というかそもそもUTF-8にしか対応しておらず、Shift-JISで投入されたID3タグが化けるので、偉い人が作ったパッチを使用しつつソースからインストール。 http://sourceforge.net/projects/mt-daapd ここからソースをダウンロード。 http://www.kzsoft.to/~kazu/mt-daapd/ ここからパッチをダウンロード。 ソースを展開し、ディレクトリに降りたら、patchコマンドへ-p1オプションに続けてパッチのファイル名を与える。 あとは$ ./configure, $ make, # make installで終了。 デフォルトのインストール先である/usr/localから変更したいとき、その他オプションを変更したいときは、./congiure -helpを参考に。 つかgccがあるのに、configureに「実行バイナリを作成することが出来ません」などと言われて頭を抱えたが、build-essentialというパッケージを入れて解決。 なお、id3tag, gdbmのヘッダも要求されたので、libgdbm-dev、libid3tag0-devも入れた。 何か足らなきゃ./configureが怒るので、そのメッセージを参考に。 デフォルト設定では/usr/local/sbinにmt-daapdがインストールされる。 また、設定ファイルは/etc/mt-daapd.conf。 変更したのはweb_root, admin_pw, mp3_dir, servernameぐらい。   $ grep ^[^\\ #] /etc/mt-daapd.conf web_root /usr/local/share/mt-daapd/admin-root port 3689 admin_pw foobar db_dir /var/cache/mt-daapd mp3_dir /export/daapdir servername foo runas nobody playlist /etc/mt-daapd.playlist extensions .mp3,.m4a,.m4p $  mp3_dirで指定したディレクトリにmp3を入れたらmt-daapdを起動。 あとはクライアント側のiTunesがサーバを勝手に見つけてくれる。 なお、設定ファイル上のrescan_intervalを有効にしておけば、ここで指定した秒数ごとにmp3_dirをチェックし、曲リストを更新してくれる。 逆に、有効にしていない場合には、mt-daapdを再起動するか、ポート3689にhttpで繋いで表示される管理画面からrescanしなければ更新されない。 せっかくなので、上記で指定したディレクトリをsambaで公開して、mp3の追加もやりやすくしておく。mp3プレーヤーでもアクセス出来るし。 これで使用してみたところ、iTunes上ではタグも化けてないようだが、不安ならeasytagなどでUTF-8に変更してもいいのかも。  ","wordCount":"1062","inLanguage":"en","datePublished":"2007-03-03T01:00:00+09:00","dateModified":"2007-03-03T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2007-03-03-mt-daapd/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"mt-daapd","name":"mt-daapd","description":"UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッ","keywords":[],"articleBody":"UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッケージからインストールすると、というかそもそもUTF-8にしか対応しておらず、Shift-JISで投入されたID3タグが化けるので、偉い人が作ったパッチを使用しつつソースからインストール。 [http://sourceforge.net/projects/mt-daapd](http://sourceforge.net/projects/mt-daapd) ここからソースをダウンロード。 [http://www.kzsoft.to/~kazu/mt-daapd/](http://www.kzsoft.to/~kazu/mt-daapd/) ここからパッチをダウンロード。 ソースを展開し、ディレクトリに降りたら、patchコマンドへ-p1オプションに続けてパッチのファイル名を与える。 あとは$ ./configure, $ make, # make installで終了。 デフォルトのインストール先である/usr/localから変更したいとき、その他オプションを変更したいときは、./congiure -helpを参考に。 つかgccがあるのに、configureに「実行バイナリを作成することが出来ません」などと言われて頭を抱えたが、build-essentialというパッケージを入れて解決。 なお、id3tag, gdbmのヘッダも要求されたので、libgdbm-dev、libid3tag0-devも入れた。 何か足らなきゃ./configureが怒るので、そのメッセージを参考に。 デフォルト設定では/usr/local/sbinにmt-daapdがインストールされる。 また、設定ファイルは/etc/mt-daapd.conf。 変更したのはweb_root, admin_pw, mp3_dir, servernameぐらい。   $ grep ^[^\\ #] /etc/mt-daapd.conf web_root /usr/local/share/mt-daapd/admin-root port 3689 admin_pw foobar db_dir /var/cache/mt-daapd mp3_dir /export/daapdir servername foo runas nobody playlist /etc/mt-daapd.playlist extensions .mp3,.m4a,.m4p $  mp3_dirで指定したディレクトリにmp3を入れたらmt-daapdを起動。 あとはクライアント側のiTunesがサーバを勝手に見つけてくれる。 なお、設定ファイル上のrescan_intervalを有効にしておけば、ここで指定した秒数ごとにmp3_dirをチェックし、曲リストを更新してくれる。 逆に、有効にしていない場合には、mt-daapdを再起動するか、ポート3689にhttpで繋いで表示される管理画面からrescanしなければ更新されない。 せっかくなので、上記で指定したディレクトリをsambaで公開して、mp3の追加もやりやすくしておく。mp3プレーヤーでもアクセス出来るし。 これで使用してみたところ、iTunes上ではタグも化けてないようだが、不安なら[easytag](http://easytag.sourceforge.net/)などでUTF-8に変更してもいいのかも。  ","wordCount":"1048","inLanguage":"en","datePublished":"2007-03-03T01:00:00+09:00","dateModified":"2007-03-03T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2007-03-03-mt-daapd/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -102,7 +102,7 @@ mt-daapdは、パッケージからインストールすると、というかそ
 
 
 
-&lt;a href=&quot;http://sourceforge.net/projects/mt-daapd&quot; target=&quot;_blank&quot;&gt;http://sourceforge.net/projects/mt-daapd&lt;/a&gt;
+[http://sourceforge.net/projects/mt-daapd](http://sourceforge.net/projects/mt-daapd)
 
 
 
@@ -110,7 +110,7 @@ mt-daapdは、パッケージからインストールすると、というかそ
 
 
 
-&lt;a href=&quot;http://www.kzsoft.to/~kazu/mt-daapd/&quot; target=&quot;_blank&quot;&gt;http://www.kzsoft.to/~kazu/mt-daapd/&lt;/a&gt;
+[http://www.kzsoft.to/~kazu/mt-daapd/](http://www.kzsoft.to/~kazu/mt-daapd/)
 
 
 
@@ -214,7 +214,7 @@ mt-daapdは、パッケージからインストールすると、というかそ
 
 
 
-これで使用してみたところ、iTunes上ではタグも化けてないようだが、不安なら&lt;a href=&quot;http://easytag.sourceforge.net/&quot; target=&quot;_blank&quot;&gt;easytag&lt;/a&gt;などでUTF-8に変更してもいいのかも。
+これで使用してみたところ、iTunes上ではタグも化けてないようだが、不安なら[easytag](http://easytag.sourceforge.net/)などでUTF-8に変更してもいいのかも。
 </code></pre>
 </div>
 <footer class=post-footer>

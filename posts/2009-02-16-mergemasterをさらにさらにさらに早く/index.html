@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>mergemasterをさらにさらにさらに早く | nobwak's Lair</title>
 <meta name=keywords content>
-<meta name=description content="<span style=&#34;font-style:italic;&#34;>2009/5/1追記:<a href=&#34;http://d.hatena.ne.jp/flageo/20090501/p1&#34; target=&quot">
+<meta name=description content="2009/5/1追記:[mergemasterのオプションは-UPiFで](http://d.hatena.ne.jp/flageo/200">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2009-02-16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="mergemasterをさらにさらにさらに早く">
-<meta property="og:description" content="<span style=&#34;font-style:italic;&#34;>2009/5/1追記:<a href=&#34;http://d.hatena.ne.jp/flageo/20090501/p1&#34; target=&quot">
+<meta property="og:description" content="2009/5/1追記:[mergemasterのオプションは-UPiFで](http://d.hatena.ne.jp/flageo/200">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2009-02-16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2009-02-16T01:00:00+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="mergemasterをさらにさらにさらに早く">
-<meta name=twitter:description content="<span style=&#34;font-style:italic;&#34;>2009/5/1追記:<a href=&#34;http://d.hatena.ne.jp/flageo/20090501/p1&#34; target=&quot">
+<meta name=twitter:description content="2009/5/1追記:[mergemasterのオプションは-UPiFで](http://d.hatena.ne.jp/flageo/200">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"mergemasterをさらにさらにさらに早く","item":"https://nobwak.github.io/posts/2009-02-16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"mergemasterをさらにさらにさらに早く","name":"mergemasterをさらにさらにさらに早く","description":"\u0026lt;span style=\u0026quot;font-style:italic;\u0026quot;\u0026gt;2009/5/1追記:\u0026lt;a href=\u0026quot;http://d.hatena.ne.jp/flageo/20090501/p1\u0026quot; target=\u0026quot","keywords":[],"articleBody":"2009/5/1追記:mergemasterのオプションは-UPiFでどうぞ mergemasterについては、mergemasterを少しだけ楽に、mergemasterは-sivaでなく-UPiで。とやってきたが、つい先頃、7.1-STABLEと7.1-RELEASEを行き来した際、CVS Idが違うだけで「どうするよ？」と山ほど聞かれたのにウンザリして、改めてmergemasterのmanを読んだら解決したのでメモ。 結論をさっさと書くと、下記が俺の/etc/mergemaster.rc ポイントは最下行。この指定によりCVS Idを無視して比較してくれるので、かなり楽になる。 ◎/etc/mergemaster.rc  AUTO_UPGRADE=yes AUTO_INSTALL=yes IGNORE_FILES=\u0026#39;/etc/motd\u0026#39; PRESERVE_FILES=yes VERBOSE=yes DIFF_OPTIONS=\u0026#39;-I$FreeBSD:.*\u0026#91;$]\u0026#39; manから引用すると下記の通り。  #Additional options for diff. This will get unset when using -s. #DIFF_OPTIONS=\u0026#39;-I$FreeBSD:.*\u0026#91;$]\u0026#39; # Ignores CVS Id tags 注意すべきは、この設定はコマンドラインオプションでは指定できず、/etc/mergemaster.rcに記載しておく必要がある点。 まあ、上記のようにすれば後はmergemasterと叩くだけだから。 なお、以前の記事でmergemaster.rc内に記載していたIGNORE_MOTDオプションは今後無くなる運命なので、IGNORE_FILESとして/etc/motdを指定すること。  ","wordCount":"729","inLanguage":"en","datePublished":"2009-02-16T01:00:00+09:00","dateModified":"2009-02-16T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2009-02-16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"mergemasterをさらにさらにさらに早く","name":"mergemasterをさらにさらにさらに早く","description":"2009/5/1追記:[mergemasterのオプションは-UPiFで](http://d.hatena.ne.jp/flageo/200","keywords":[],"articleBody":"2009/5/1追記:[mergemasterのオプションは-UPiFで](http://d.hatena.ne.jp/flageo/20090501/p1)どうぞ mergemasterについては、[mergemasterを少しだけ楽に](http://d.hatena.ne.jp/flageo/20080304/p1)、[mergemasterは-sivaでなく-UPiで。](http://d.hatena.ne.jp/flageo/20081208/p1)とやってきたが、つい先頃、7.1-STABLEと7.1-RELEASEを行き来した際、CVS Idが違うだけで「どうするよ？」と山ほど聞かれたのにウンザリして、改めてmergemasterのmanを読んだら解決したのでメモ。 結論をさっさと書くと、下記が俺の/etc/mergemaster.rc ポイントは最下行。この指定によりCVS Idを無視して比較してくれるので、かなり楽になる。 ◎/etc/mergemaster.rc  AUTO_UPGRADE=yes AUTO_INSTALL=yes IGNORE_FILES=\u0026#39;/etc/motd\u0026#39; PRESERVE_FILES=yes VERBOSE=yes DIFF_OPTIONS=\u0026#39;-I$FreeBSD:.*\u0026#91;$]\u0026#39; manから引用すると下記の通り。  #Additional options for diff. This will get unset when using -s. #DIFF_OPTIONS=\u0026#39;-I$FreeBSD:.*\u0026#91;$]\u0026#39; # Ignores CVS Id tags 注意すべきは、この設定はコマンドラインオプションでは指定できず、/etc/mergemaster.rcに記載しておく必要がある点。 まあ、上記のようにすれば後はmergemasterと叩くだけだから。 なお、以前の記事でmergemaster.rc内に記載していたIGNORE_MOTDオプションは今後無くなる運命なので、IGNORE_FILESとして/etc/motdを指定すること。  ","wordCount":"672","inLanguage":"en","datePublished":"2009-02-16T01:00:00+09:00","dateModified":"2009-02-16T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2009-02-16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -90,14 +90,14 @@ mergemasterをさらにさらにさらに早く
 <div class=post-meta><span title="2009-02-16 01:00:00 +0900 JST">February 16, 2009</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2009-02-16-mergemaster%e3%82%92%e3%81%95%e3%82%89%e3%81%ab%e3%81%95%e3%82%89%e3%81%ab%e3%81%95%e3%82%89%e3%81%ab%e6%97%a9%e3%81%8f.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header>
-<div class=post-content><pre><code>&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/1追記:&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090501/p1&quot; target=&quot;_blank&quot;&gt;mergemasterのオプションは-UPiFで&lt;/a&gt;どうぞ&lt;/span&gt;
+<div class=post-content><pre><code>2009/5/1追記:[mergemasterのオプションは-UPiFで](http://d.hatena.ne.jp/flageo/20090501/p1)どうぞ
 
 
 
 
 
 
-mergemasterについては、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080304/p1&quot; target=&quot;_blank&quot;&gt;mergemasterを少しだけ楽に&lt;/a&gt;、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; target=&quot;_blank&quot;&gt;mergemasterは-sivaでなく-UPiで。&lt;/a&gt;とやってきたが、つい先頃、7.1-STABLEと7.1-RELEASEを行き来した際、CVS Idが違うだけで「どうするよ？」と山ほど聞かれたのにウンザリして、改めてmergemasterのmanを読んだら解決したのでメモ。
+mergemasterについては、[mergemasterを少しだけ楽に](http://d.hatena.ne.jp/flageo/20080304/p1)、[mergemasterは-sivaでなく-UPiで。](http://d.hatena.ne.jp/flageo/20081208/p1)とやってきたが、つい先頃、7.1-STABLEと7.1-RELEASEを行き来した際、CVS Idが違うだけで「どうするよ？」と山ほど聞かれたのにウンザリして、改めてmergemasterのmanを読んだら解決したのでメモ。
 
 
 

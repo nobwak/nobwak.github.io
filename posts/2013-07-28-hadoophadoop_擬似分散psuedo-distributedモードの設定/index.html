@@ -96,17 +96,17 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e6%93%ac%e4%bc%bc%e5%88%86%e6%95%a3%e3%83%a2%e3%83%bc%e3%83%89%e3%81%ab%e5%bf%85%e8%a6%81%e3%81%aa%e5%90%84%e8%a8%ad%e5%ae%9a%e3%81%ae%e6%84%8f%e5%91%b3span aria-label=擬似分散モードに必要な各設定の意味>擬似分散モードに必要な各設定の意味</a></li>
+<a href=#%e6%93%ac%e4%bc%bc%e5%88%86%e6%95%a3%e3%83%a2%e3%83%bc%e3%83%89%e3%81%ab%e5%bf%85%e8%a6%81%e3%81%aa%e5%90%84%e8%a8%ad%e5%ae%9a%e3%81%ae%e6%84%8f%e5%91%b3 aria-label=擬似分散モードに必要な各設定の意味>擬似分散モードに必要な各設定の意味</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinenamenode-replication-jobtracker%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label="namenode, replication, JobTrackerの設定">namenode, replication, JobTrackerの設定</a></li>
+<a href=#namenode-replication-jobtracker%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label="namenode, replication, JobTrackerの設定">namenode, replication, JobTrackerの設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinedatanode-tasktracker%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label="datanode, TaskTrackerの設定">datanode, TaskTrackerの設定</a></li>
+<a href=#datanode-tasktracker%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label="datanode, TaskTrackerの設定">datanode, TaskTrackerの設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinehdfs%e3%81%ae%e3%83%95%e3%82%a9%e3%83%bc%e3%83%9e%e3%83%83%e3%83%88span aria-label=HDFSのフォーマット>HDFSのフォーマット</a></li>
+<a href=#hdfs%e3%81%ae%e3%83%95%e3%82%a9%e3%83%bc%e3%83%9e%e3%83%83%e3%83%88 aria-label=HDFSのフォーマット>HDFSのフォーマット</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinehdfs%e3%81%ae%e5%a0%b4%e6%89%80span aria-label=HDFSの場所>HDFSの場所</a></li>
+<a href=#hdfs%e3%81%ae%e5%a0%b4%e6%89%80 aria-label=HDFSの場所>HDFSの場所</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinehadoop%e3%81%ae%e8%b5%b7%e5%8b%95span aria-label=Hadoopの起動>Hadoopの起動</a>
+<a href=#hadoop%e3%81%ae%e8%b5%b7%e5%8b%95 aria-label=Hadoopの起動>Hadoopの起動</a>
 </li>
 </ul>
 </div>
@@ -119,7 +119,7 @@
 <p>ただ、いきなり複数ホストを使うのはハードルが高い。<br>
 そこで、「Hadoopは複数ホストで動いているつもりだけど実際は1台のホストで動いている」モードで設定の確認をする。<br>
 これが擬似分散（Psuedo-distributed）モード。</p>
-<h2 id=span-styletext-decoration-underline擬似分散モードに必要な各設定の意味span>擬似分散モードに必要な各設定の意味<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline擬似分散モードに必要な各設定の意味span>#</a></h2>
+<h2 id=擬似分散モードに必要な各設定の意味>擬似分散モードに必要な各設定の意味<a hidden class=anchor aria-hidden=true href=#擬似分散モードに必要な各設定の意味>#</a></h2>
 <p>擬似分散（Psuedo-distributed）モードの動作には以下、四つの設定が必要。<br>
 完全分散（Full distributed）モードでも変わらないんだけどね。</p>
 <ol>
@@ -132,7 +132,7 @@
 2では1を指定する。<br>
 デフォルトのままだと、複製を3つ作ろうとする。ひいてはホストが3つ必要になってしまう。<br>
 擬似分散モードでは自ホストしか使わないわけだから1を指定するというわけ。</p>
-<h2 id=span-styletext-decoration-underlinenamenode-replication-jobtrackerの設定span>namenode, replication, JobTrackerの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinenamenode-replication-jobtrackerの設定span>#</a></h2>
+<h2 id=namenode-replication-jobtrackerの設定>namenode, replication, JobTrackerの設定<a hidden class=anchor aria-hidden=true href=#namenode-replication-jobtrackerの設定>#</a></h2>
 <p>以下、三つのファイルを変更する。<br>
 前章の1,2,3に対応する。</p>
 <ul>
@@ -162,7 +162,7 @@
                 &lt;value&gt;localhost:8021&lt;/value&gt;
         &lt;/property&gt;
 &lt;/configuration&gt;
-</code></pre></div><h2 id=span-styletext-decoration-underlinedatanode-tasktrackerの設定span>datanode, TaskTrackerの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinedatanode-tasktrackerの設定span>#</a></h2>
+</code></pre></div><h2 id=datanode-tasktrackerの設定>datanode, TaskTrackerの設定<a hidden class=anchor aria-hidden=true href=#datanode-tasktrackerの設定>#</a></h2>
 <p>/usr/local/etc/hadoopの下にmasters, slavesというファイルを作る。<br>
 ここでsecondary namenode, datanode, TaskTrackerを指定する。</p>
 <p>secondary namenodeとは、namenodeのデータをバックアップするノード。<br>
@@ -180,7 +180,7 @@ $
 $ cat slaves
 localhost
 $
-</code></pre></div><h2 id=span-styletext-decoration-underlinehdfsのフォーマットspan>HDFSのフォーマット<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinehdfsのフォーマットspan>#</a></h2>
+</code></pre></div><h2 id=hdfsのフォーマット>HDFSのフォーマット<a hidden class=anchor aria-hidden=true href=#hdfsのフォーマット>#</a></h2>
 <p>初回に限り、HDFSのフォーマットが必要である。<br>
 HDFSにはメタデータを保存するnamenodeと、実データの保存されるdatanodeがある。</p>
 <p>ここでの「HDFSのフォーマット」とは、実際のところnamenodeの初期化を意味する。</p>
@@ -191,7 +191,7 @@ HDFSにはメタデータを保存するnamenodeと、実データの保存さ�
 実運用の際には、secondaly namenodeを立てるなどして事故に備えることになる。</p>
 <p>しかし今は擬似分散モードなので気軽に進める。<br>
 HDFSのフォーマットは以下のようにして行う。<br>
-※フォーマットは、実際にHadoopを使うユーザで行うこと。FreeBSDでportsから入れた場合は注意。</p>
+※フォーマットは、実際にHadoopを使うユーザで行うこと。<a href="../../../?p=2098">FreeBSDでportsから入れた場合は注意</a>。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ hadoop namenode -format
 Warning: $HADOOP_HOME is deprecated.
 <span style=color:#960050;background-color:#1e0010>
@@ -219,7 +219,7 @@ STARTUP_MSG: build = https://svn.apache.org/repos/asf/hadoop/common/branches/bra
 /************************************************************
 SHUTDOWN_MSG: Shutting down NameNode at localhost/127.0.0.1
 ************************************************************/
-</code></pre></div><h2 id=span-styletext-decoration-underlinehdfsの場所span>HDFSの場所<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinehdfsの場所span>#</a></h2>
+</code></pre></div><h2 id=hdfsの場所>HDFSの場所<a hidden class=anchor aria-hidden=true href=#hdfsの場所>#</a></h2>
 <p>上記のログにもある通り、デフォルトでは/tmpの下に作られる。<br>
 厳密に言えば、/tmp/hadoop-${user.name} に作られる。<br>
 namenodeでも、datanodeでも同じ。</p>
@@ -227,7 +227,7 @@ namenodeでも、datanodeでも同じ。</p>
 <p>これらの場所は、hdfs-site.xmlで制御できる。<br>
 hadoop.tmp.dirがprefixなので、これを変えればよい。<br>
 あるいは、dfs.name.dir（namenode向け）、dfs.data.dir（datanode向け）で明示してもよい。</p>
-<h2 id=span-styletext-decoration-underlinehadoopの起動span>Hadoopの起動<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinehadoopの起動span>#</a></h2>
+<h2 id=hadoopの起動>Hadoopの起動<a hidden class=anchor aria-hidden=true href=#hadoopの起動>#</a></h2>
 <p>start-all.shで起動させる。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo su - hadoop
 [hadoop@isis ~]$

@@ -37,7 +37,7 @@
 <meta name=twitter:title content="Xorg7.4だと画面が真っ暗→フリーズ">
 <meta name=twitter:description content="実はXorg7.4が動かない。 マシンはThinkpad x30でIntel 830MGのもの。 7.4へのアップグレードではhald関連やlibx">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"Xorg7.4だと画面が真っ暗→フリーズ","item":"https://nobwak.github.io/posts/2009-03-14-xorg7.4%E3%81%A0%E3%81%A8%E7%94%BB%E9%9D%A2%E3%81%8C%E7%9C%9F%E3%81%A3%E6%9A%97%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Xorg7.4だと画面が真っ暗→フリーズ","name":"Xorg7.4だと画面が真っ暗→フリーズ","description":"実はXorg7.4が動かない。 マシンはThinkpad x30でIntel 830MGのもの。 7.4へのアップグレードではhald関連やlibx","keywords":[],"articleBody":"実はXorg7.4が動かない。 マシンはThinkpad x30でIntel 830MGのもの。 7.4へのアップグレードではhald関連やlibxcbでいろいろと祭りがあったが、それとは別件。 具体的には、グラフィックボードのドライバとしてintelを使い、Xを起動すると画面が真っ暗で、CTRL+ALT+BACKSPACEを押すと画面がぐちゃぐちゃになり、そのままフリーズする。リモートログインもconsole切り替えもダメ。 ドライバがvesaならフリーズはしないが画面は真っ暗のまま。 いろんな手を試してみたが全く改善しない。 ただ、965GM（だったかな？）はOption \"DRI\" \"False\"で動いた。 ググってみたところ、日本では報告例を見つけられなかったが、FreeBSDの公式フォーラムではいくつか報告あり。ただ、症例が一定していないので、対応策もいまいち方向性が分からない。 しばらく7.3で様子見をしたほうがいいみたいだ。 Xorg 7.4 freezes when exit http://www.freebsd.org/cgi/query-pr.cgi?pr=ports/131016 http://www.freebsd.org/cgi/query-pr.cgi?pr=kern/132042  ","wordCount":"432","inLanguage":"en","datePublished":"2009-03-14T01:00:00+09:00","dateModified":"2009-03-14T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2009-03-14-xorg7.4%E3%81%A0%E3%81%A8%E7%94%BB%E9%9D%A2%E3%81%8C%E7%9C%9F%E3%81%A3%E6%9A%97%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Xorg7.4だと画面が真っ暗→フリーズ","name":"Xorg7.4だと画面が真っ暗→フリーズ","description":"実はXorg7.4が動かない。 マシンはThinkpad x30でIntel 830MGのもの。 7.4へのアップグレードではhald関連やlibx","keywords":[],"articleBody":"実はXorg7.4が動かない。 マシンはThinkpad x30でIntel 830MGのもの。 7.4へのアップグレードではhald関連やlibxcbでいろいろと祭りがあったが、それとは別件。 具体的には、グラフィックボードのドライバとしてintelを使い、Xを起動すると画面が真っ暗で、CTRL+ALT+BACKSPACEを押すと画面がぐちゃぐちゃになり、そのままフリーズする。リモートログインもconsole切り替えもダメ。 ドライバがvesaならフリーズはしないが画面は真っ暗のまま。 いろんな手を試してみたが全く改善しない。 ただ、965GM（だったかな？）はOption \"DRI\" \"False\"で動いた。 ググってみたところ、日本では報告例を見つけられなかったが、FreeBSDの公式フォーラムではいくつか報告あり。ただ、症例が一定していないので、対応策もいまいち方向性が分からない。 しばらく7.3で様子見をしたほうがいいみたいだ。 [Xorg 7.4 freezes when exit](http://forums.freebsd.org/showthread.php?t=2486) [http://www.freebsd.org/cgi/query-pr.cgi?pr=ports/131016](http://www.freebsd.org/cgi/query-pr.cgi?pr=ports/131016) [http://www.freebsd.org/cgi/query-pr.cgi?pr=kern/132042](http://www.freebsd.org/cgi/query-pr.cgi?pr=kern/132042)  ","wordCount":"426","inLanguage":"en","datePublished":"2009-03-14T01:00:00+09:00","dateModified":"2009-03-14T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2009-03-14-xorg7.4%E3%81%A0%E3%81%A8%E7%94%BB%E9%9D%A2%E3%81%8C%E7%9C%9F%E3%81%A3%E6%9A%97%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -126,15 +126,15 @@ Xorg7.4だと画面が真っ暗→フリーズ
 
 
 
-&lt;a href=&quot;http://forums.freebsd.org/showthread.php?t=2486&quot; target=&quot;_blank&quot;&gt;Xorg 7.4 freezes when exit&lt;/a&gt;
+[Xorg 7.4 freezes when exit](http://forums.freebsd.org/showthread.php?t=2486)
 
 
 
-&lt;a href=&quot;http://www.freebsd.org/cgi/query-pr.cgi?pr=ports/131016&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/cgi/query-pr.cgi?pr=ports/131016&lt;/a&gt;
+[http://www.freebsd.org/cgi/query-pr.cgi?pr=ports/131016](http://www.freebsd.org/cgi/query-pr.cgi?pr=ports/131016)
 
 
 
-&lt;a href=&quot;http://www.freebsd.org/cgi/query-pr.cgi?pr=kern/132042&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/cgi/query-pr.cgi?pr=kern/132042&lt;/a&gt;
+[http://www.freebsd.org/cgi/query-pr.cgi?pr=kern/132042](http://www.freebsd.org/cgi/query-pr.cgi?pr=kern/132042)
 </code></pre>
 </div>
 <footer class=post-footer>

@@ -37,7 +37,7 @@
 <meta name=twitter:title content="[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）">
 <meta name=twitter:description content="Hadoopへのノードの追加 hadoopの長所は、処理量に応じて簡単にスケールできる点にある。 処理がおっつかなくなってきたら、データノードを">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）","item":"https://nobwak.github.io/posts/2013-08-13-hadoop_%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3%E3%83%A2%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E5%AE%8C%E5%85%A8%E5%88%86%E6%95%A3%E3%83%A2%E3%83%BC%E3%83%89%E3%81%B8%E3%83%87%E3%83%BC%E3%82%BF%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E8%BF%BD%E5%8A%A0/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）","name":"[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）","description":"Hadoopへのノードの追加 hadoopの長所は、処理量に応じて簡単にスケールできる点にある。 処理がおっつかなくなってきたら、データノードを","keywords":[],"articleBody":"Hadoopへのノードの追加 hadoopの長所は、処理量に応じて簡単にスケールできる点にある。\n処理がおっつかなくなってきたら、データノードを追加するだけ。\n擬似分散モードから完全分散モードへの移行は、データノードの追加と同じ。\nもう少し詳しく言うと、最初の1台をnamenode/jobtrackerのままにして、datanode/tasktrackerを追加する。\n※FreeBSDで、hadoop-1.0.0です。\n背景 namenode, datanodeはHDFSのノード種別を表し、namenodeはファイルのメタデータを扱い、datanodeは実データを扱う。\nnamenodeはhadoopクラスタに原則1台。datanodeは1台以上必要。\njobtracker, tasktrackerはMapReduceでのノード種別を表し、jobtrackerは作業の分担を、tasktrackerは作業の実施を行う。\njobtrackerはhadoopクラスタに原則1台。tasktrackerは1台以上必要。\nhadoopクラスタに参加しているノードは、4つの役割のいずれかを担う。複数の役割をこなすのも可。\nただしdatanodeとtasktrackerは必ずセット。\nイメージを示す。\n設定ファイル 再掲になるが。\nどのノードがnamenodeかを指定するのは、core-site.xml 。\nどのノードがjobtrackerかを指定するのは、mapred-site.xml 。\nどのノードがdatanode/tasktrackerかを指定するのは、slaves 。\n擬似分散モードでは、以上3つのファイルに1ノードしか書かれていなかった。\nノードを追加するなら、slavesにdatanode/tasktrackerを追記すればよい。\n擬似分散モードの状態からjobtrackerを分離するには、mapred-site.xmlを書き換えればよい。\n擬似分散モードの状態からnamenodeを分離するには、core-site.xmlを書き換えればよいけど、HDFS上にすでにファイルを置いている状態でそんなことするとファイルが吹き飛ぶので止めよう。\nそしてこれら設定ファイルは、クラスタ内のノードで同じものを使う。\n作業の流れ。 datanode/tasktrackerを追加してみる。\n擬似分散モードを仮想マシンで動かしている場合には、それをまるまるコピーしてしまえばよい。\n私の場合は、ESXi上でHadoop環境を作ったので、それをコピーし、別マシンのESXiに移し替えた。\nもちろんホスト名は別のものにする。\nESXiなどを挟まない場合にはもう一度セットアップ。\nほんとに面倒くさいので、chefやらpuppetなどを使うことになるでしょう。\nなお、ESXiは使わない方がパフォーマンスは良い。これは当たり前。\n追加ノードの注意点 便宜上、擬似分散モードを動かしたノードをoriginal、追加するノードをaddとする。\naddを追加するときの注意点は以下の通り。\n/etc/hostsの設定。original, addの/etc/hostsには、original, addの名前解決ができるようにしておくこと。\n時刻同期original, addで時刻を合わせておくこと。\nslavesへの追記original, addそれぞれでslavesにaddと追記しておく。\nSSHログインの確認originalからaddへsshログインできることを確認しておく。\ndatanode/jobtrackerの制御はsshでされるため。\nreplication数の変更HDFS上でデータのコピーをどれだけ作成するかの設定。\n擬似分散ではreplicationを1にしていた。\nせっかくなのでこれを2に変更する。\nデフォルトは3。\ndatanodeをさらに増やしたなら、ここの上限をとりあえず3として増やそう。\nノード追加の反映 ノードの追加が初めてならstop-all.shで止めて、start-all.shでまるまる再起動するのがいいでしょう。\n当然ながら、hadoop上で何かしらの作業が動いていたらやり直しになってしまう。\n通常は、namenodeでhadoop dfsadmin -refreshNodesを実行。\nさらにhadoop dfsadmin -reportで確認する。\n[hadoop@vfbsd ~]$ hadoop dfsadmin -refreshNodes [hadoop@vfbsd ~]$ hadoop dfsadmin -report Configured Capacity: 96683511808 (90.04 GB) Present Capacity: 57517137920 (53.57 GB) DFS Remaining: 28587847680 (26.62 GB) DFS Used: 28929290240 (26.94 GB) DFS Used%: 50.3% Under replicated blocks: 5 Blocks with corrupt replicas: 0 Missing blocks: 0 ------------------------------------------------- Datanodes available: 2 (2 total, 0 dead) Name: 192.168.200.1:50010 Decommission Status : Normal Configured Capacity: 65501978624 (61 GB) DFS Used: 28920520704 (26.93 GB) Non DFS Used: 35444080640 (33.01 GB) DFS Remaining: 1137377280(1.06 GB) DFS Used%: 44.15% DFS Remaining%: 1.74% Last contact: Mon Aug 12 22:19:15 JST 2013 Name: 192.168.200.100:50010 Decommission Status : Normal Configured Capacity: 31181533184 (29.04 GB) DFS Used: 8769536 (8.36 MB) Non DFS Used: 3722293248 (3.47 GB) DFS Remaining: 27450470400(25.57 GB) DFS Used%: 0.03% DFS Remaining%: 88.03% Last contact: Mon Aug 12 22:19:17 JST 2013 上記の例で言えば、192.168.200.100が追加したdatanode。\n使用量がまだ8MBしかないことが分かるだろうか。\nreplication数を2にしたので、ゆくゆくは192.168.200.1と同じ程度の使用量になるはず。\nしばらく放置が必要。\n（いま気がついたけど、“Under replicated blocks”、つまり所定のreplicationに満たないblockの数が5…）\n擬似分散→擬似分散+1の効果 効果は劇的。\nもともと2時間半かかっていたものが1時間半に短縮できた。\n下記はtimeの結果。上が擬似分散、下が擬似分散+1。\nreal 147m34.258s user 0m6.835s sys 0m2.233s real 82m59.557s user 0m5.624s sys 0m1.604s ああもっとdatanode増やしたい。\n関連エントリ\n[FreeBSD] Hadoopのportsからのインストール[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定[Hadoop]擬似分散モードで実験","wordCount":"2332","inLanguage":"en","datePublished":"2013-08-13T21:34:28+09:00","dateModified":"2013-08-13T21:34:28+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-08-13-hadoop_%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3%E3%83%A2%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E5%AE%8C%E5%85%A8%E5%88%86%E6%95%A3%E3%83%A2%E3%83%BC%E3%83%89%E3%81%B8%E3%83%87%E3%83%BC%E3%82%BF%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E8%BF%BD%E5%8A%A0/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）","name":"[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）","description":"Hadoopへのノードの追加 hadoopの長所は、処理量に応じて簡単にスケールできる点にある。 処理がおっつかなくなってきたら、データノードを","keywords":[],"articleBody":"Hadoopへのノードの追加 hadoopの長所は、処理量に応じて簡単にスケールできる点にある。\n処理がおっつかなくなってきたら、データノードを追加するだけ。\n擬似分散モードから完全分散モードへの移行は、データノードの追加と同じ。\nもう少し詳しく言うと、最初の1台をnamenode/jobtrackerのままにして、datanode/tasktrackerを追加する。\n※FreeBSDで、hadoop-1.0.0です。\n背景 namenode, datanodeはHDFSのノード種別を表し、namenodeはファイルのメタデータを扱い、datanodeは実データを扱う。\nnamenodeはhadoopクラスタに原則1台。datanodeは1台以上必要。\njobtracker, tasktrackerはMapReduceでのノード種別を表し、jobtrackerは作業の分担を、tasktrackerは作業の実施を行う。\njobtrackerはhadoopクラスタに原則1台。tasktrackerは1台以上必要。\nhadoopクラスタに参加しているノードは、4つの役割のいずれかを担う。複数の役割をこなすのも可。\nただしdatanodeとtasktrackerは必ずセット。\nイメージを示す。\n設定ファイル 再掲になるが。\nどのノードがnamenodeかを指定するのは、core-site.xml 。\nどのノードがjobtrackerかを指定するのは、mapred-site.xml 。\nどのノードがdatanode/tasktrackerかを指定するのは、slaves 。\n擬似分散モードでは、以上3つのファイルに1ノードしか書かれていなかった。\nノードを追加するなら、slavesにdatanode/tasktrackerを追記すればよい。\n擬似分散モードの状態からjobtrackerを分離するには、mapred-site.xmlを書き換えればよい。\n擬似分散モードの状態からnamenodeを分離するには、core-site.xmlを書き換えればよいけど、HDFS上にすでにファイルを置いている状態でそんなことするとファイルが吹き飛ぶので止めよう。\nそしてこれら設定ファイルは、クラスタ内のノードで同じものを使う。\n作業の流れ。 datanode/tasktrackerを追加してみる。\n擬似分散モードを仮想マシンで動かしている場合には、それをまるまるコピーしてしまえばよい。\n私の場合は、ESXi上でHadoop環境を作ったので、それをコピーし、別マシンのESXiに移し替えた。\nもちろんホスト名は別のものにする。\nESXiなどを挟まない場合にはもう一度セットアップ。\nほんとに面倒くさいので、chefやらpuppetなどを使うことになるでしょう。\nなお、ESXiは使わない方がパフォーマンスは良い。これは当たり前。\n追加ノードの注意点 便宜上、擬似分散モードを動かしたノードをoriginal、追加するノードをaddとする。\naddを追加するときの注意点は以下の通り。\n/etc/hostsの設定。\noriginal, addの/etc/hostsには、original, addの名前解決ができるようにしておくこと。\n時刻同期\noriginal, addで時刻を合わせておくこと。\nslavesへの追記\noriginal, addそれぞれでslavesにaddと追記しておく。\nSSHログインの確認\noriginalからaddへsshログインできることを確認しておく。\ndatanode/jobtrackerの制御はsshでされるため。\nreplication数の変更\nHDFS上でデータのコピーをどれだけ作成するかの設定。\n擬似分散ではreplicationを1にしていた。\nせっかくなのでこれを2に変更する。\nデフォルトは3。\ndatanodeをさらに増やしたなら、ここの上限をとりあえず3として増やそう。\nノード追加の反映 ノードの追加が初めてならstop-all.shで止めて、start-all.shでまるまる再起動するのがいいでしょう。\n当然ながら、hadoop上で何かしらの作業が動いていたらやり直しになってしまう。\n通常は、namenodeでhadoop dfsadmin -refreshNodesを実行。\nさらにhadoop dfsadmin -reportで確認する。\n[hadoop@vfbsd ~]$ hadoop dfsadmin -refreshNodes [hadoop@vfbsd ~]$ hadoop dfsadmin -report Configured Capacity: 96683511808 (90.04 GB) Present Capacity: 57517137920 (53.57 GB) DFS Remaining: 28587847680 (26.62 GB) DFS Used: 28929290240 (26.94 GB) DFS Used%: 50.3% Under replicated blocks: 5 Blocks with corrupt replicas: 0 Missing blocks: 0 ------------------------------------------------- Datanodes available: 2 (2 total, 0 dead) Name: 192.168.200.1:50010 Decommission Status : Normal Configured Capacity: 65501978624 (61 GB) DFS Used: 28920520704 (26.93 GB) Non DFS Used: 35444080640 (33.01 GB) DFS Remaining: 1137377280(1.06 GB) DFS Used%: 44.15% DFS Remaining%: 1.74% Last contact: Mon Aug 12 22:19:15 JST 2013 Name: 192.168.200.100:50010 Decommission Status : Normal Configured Capacity: 31181533184 (29.04 GB) DFS Used: 8769536 (8.36 MB) Non DFS Used: 3722293248 (3.47 GB) DFS Remaining: 27450470400(25.57 GB) DFS Used%: 0.03% DFS Remaining%: 88.03% Last contact: Mon Aug 12 22:19:17 JST 2013 上記の例で言えば、192.168.200.100が追加したdatanode。\n使用量がまだ8MBしかないことが分かるだろうか。\nreplication数を2にしたので、ゆくゆくは192.168.200.1と同じ程度の使用量になるはず。\nしばらく放置が必要。\n（いま気がついたけど、“Under replicated blocks”、つまり所定のreplicationに満たないblockの数が5…）\n擬似分散→擬似分散+1の効果 効果は劇的。\nもともと2時間半かかっていたものが1時間半に短縮できた。\n下記はtimeの結果。上が擬似分散、下が擬似分散+1。\nreal 147m34.258s user 0m6.835s sys 0m2.233s real 82m59.557s user 0m5.624s sys 0m1.604s ああもっとdatanode増やしたい。\n関連エントリ\n[FreeBSD] Hadoopのportsからのインストール\n[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備\n[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定\n[Hadoop]擬似分散モードで実験\n","wordCount":"2287","inLanguage":"en","datePublished":"2013-08-13T21:34:28+09:00","dateModified":"2013-08-13T21:34:28+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-08-13-hadoop_%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3%E3%83%A2%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E5%AE%8C%E5%85%A8%E5%88%86%E6%95%A3%E3%83%A2%E3%83%BC%E3%83%89%E3%81%B8%E3%83%87%E3%83%BC%E3%82%BF%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E8%BF%BD%E5%8A%A0/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,31 +96,31 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinehadoop%e3%81%b8%e3%81%ae%e3%83%8e%e3%83%bc%e3%83%89%e3%81%ae%e8%bf%bd%e5%8a%a0span aria-label=Hadoopへのノードの追加>Hadoopへのノードの追加</a></li>
+<a href=#hadoop%e3%81%b8%e3%81%ae%e3%83%8e%e3%83%bc%e3%83%89%e3%81%ae%e8%bf%bd%e5%8a%a0 aria-label=Hadoopへのノードの追加>Hadoopへのノードの追加</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%83%8c%e6%99%afspan aria-label=背景>背景</a></li>
+<a href=#%e8%83%8c%e6%99%af aria-label=背景>背景</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%a8%ad%e5%ae%9a%e3%83%95%e3%82%a1%e3%82%a4%e3%83%abspan aria-label=設定ファイル>設定ファイル</a></li>
+<a href=#%e8%a8%ad%e5%ae%9a%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab aria-label=設定ファイル>設定ファイル</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e4%bd%9c%e6%a5%ad%e3%81%ae%e6%b5%81%e3%82%8cspan aria-label=作業の流れ。>作業の流れ。</a></li>
+<a href=#%e4%bd%9c%e6%a5%ad%e3%81%ae%e6%b5%81%e3%82%8c aria-label=作業の流れ。>作業の流れ。</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%bf%bd%e5%8a%a0%e3%83%8e%e3%83%bc%e3%83%89%e3%81%ae%e6%b3%a8%e6%84%8f%e7%82%b9span aria-label=追加ノードの注意点>追加ノードの注意点</a></li>
+<a href=#%e8%bf%bd%e5%8a%a0%e3%83%8e%e3%83%bc%e3%83%89%e3%81%ae%e6%b3%a8%e6%84%8f%e7%82%b9 aria-label=追加ノードの注意点>追加ノードの注意点</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%8e%e3%83%bc%e3%83%89%e8%bf%bd%e5%8a%a0%e3%81%ae%e5%8f%8d%e6%98%a0span aria-label=ノード追加の反映>ノード追加の反映</a></li>
+<a href=#%e3%83%8e%e3%83%bc%e3%83%89%e8%bf%bd%e5%8a%a0%e3%81%ae%e5%8f%8d%e6%98%a0 aria-label=ノード追加の反映>ノード追加の反映</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e6%93%ac%e4%bc%bc%e5%88%86%e6%95%a3%e6%93%ac%e4%bc%bc%e5%88%86%e6%95%a31%e3%81%ae%e5%8a%b9%e6%9e%9cspan aria-label=擬似分散→擬似分散+1の効果>擬似分散→擬似分散+1の効果</a>
+<a href=#%e6%93%ac%e4%bc%bc%e5%88%86%e6%95%a3%e6%93%ac%e4%bc%bc%e5%88%86%e6%95%a31%e3%81%ae%e5%8a%b9%e6%9e%9c aria-label=擬似分散→擬似分散+1の効果>擬似分散→擬似分散+1の効果</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><h2 id=span-styletext-decoration-underlinehadoopへのノードの追加span>Hadoopへのノードの追加<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinehadoopへのノードの追加span>#</a></h2>
+<div class=post-content><h2 id=hadoopへのノードの追加>Hadoopへのノードの追加<a hidden class=anchor aria-hidden=true href=#hadoopへのノードの追加>#</a></h2>
 <p>hadoopの長所は、処理量に応じて簡単にスケールできる点にある。<br>
 処理がおっつかなくなってきたら、データノードを追加するだけ。<br>
 擬似分散モードから完全分散モードへの移行は、データノードの追加と同じ。<br>
 もう少し詳しく言うと、最初の1台をnamenode/jobtrackerのままにして、datanode/tasktrackerを追加する。<br>
 ※FreeBSDで、hadoop-1.0.0です。</p>
-<h2 id=span-styletext-decoration-underline背景span>背景<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline背景span>#</a></h2>
+<h2 id=背景>背景<a hidden class=anchor aria-hidden=true href=#背景>#</a></h2>
 <p>namenode, datanodeはHDFSのノード種別を表し、namenodeはファイルのメタデータを扱い、datanodeは実データを扱う。<br>
 namenodeはhadoopクラスタに原則1台。datanodeは1台以上必要。</p>
 <p>jobtracker, tasktrackerはMapReduceでのノード種別を表し、jobtrackerは作業の分担を、tasktrackerは作業の実施を行う。<br>
@@ -130,7 +130,7 @@ jobtrackerはhadoopクラスタに原則1台。tasktrackerは1台以上必要。
 イメージを示す。</p>
 <p><img loading=lazy src=/wp-content/uploads/2013/08/hadoopmode.png alt=img>
 </p>
-<h2 id=span-styletext-decoration-underline設定ファイルspan>設定ファイル<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline設定ファイルspan>#</a></h2>
+<h2 id=設定ファイル>設定ファイル<a hidden class=anchor aria-hidden=true href=#設定ファイル>#</a></h2>
 <p>再掲になるが。</p>
 <p>どのノードがnamenodeかを指定するのは、core-site.xml 。<br>
 どのノードがjobtrackerかを指定するのは、mapred-site.xml 。<br>
@@ -140,7 +140,7 @@ jobtrackerはhadoopクラスタに原則1台。tasktrackerは1台以上必要。
 擬似分散モードの状態からjobtrackerを分離するには、mapred-site.xmlを書き換えればよい。<br>
 擬似分散モードの状態からnamenodeを分離するには、core-site.xmlを書き換えればよいけど、HDFS上にすでにファイルを置いている状態でそんなことするとファイルが吹き飛ぶので止めよう。</p>
 <p>そしてこれら設定ファイルは、クラスタ内のノードで同じものを使う。</p>
-<h2 id=span-styletext-decoration-underline作業の流れspan>作業の流れ。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline作業の流れspan>#</a></h2>
+<h2 id=作業の流れ>作業の流れ。<a hidden class=anchor aria-hidden=true href=#作業の流れ>#</a></h2>
 <p>datanode/tasktrackerを追加してみる。</p>
 <p>擬似分散モードを仮想マシンで動かしている場合には、それをまるまるコピーしてしまえばよい。<br>
 私の場合は、ESXi上でHadoop環境を作ったので、それをコピーし、別マシンのESXiに移し替えた。<br>
@@ -148,7 +148,7 @@ jobtrackerはhadoopクラスタに原則1台。tasktrackerは1台以上必要。
 <p>ESXiなどを挟まない場合にはもう一度セットアップ。<br>
 ほんとに面倒くさいので、chefやらpuppetなどを使うことになるでしょう。</p>
 <p>なお、ESXiは使わない方がパフォーマンスは良い。これは当たり前。</p>
-<h2 id=span-styletext-decoration-underline追加ノードの注意点span>追加ノードの注意点<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline追加ノードの注意点span>#</a></h2>
+<h2 id=追加ノードの注意点>追加ノードの注意点<a hidden class=anchor aria-hidden=true href=#追加ノードの注意点>#</a></h2>
 <p>便宜上、擬似分散モードを動かしたノードをoriginal、追加するノードをaddとする。<br>
 addを追加するときの注意点は以下の通り。</p>
 <p>/etc/hostsの設定。</p>
@@ -166,7 +166,7 @@ datanode/jobtrackerの制御はsshでされるため。</p>
 せっかくなのでこれを2に変更する。<br>
 デフォルトは3。<br>
 datanodeをさらに増やしたなら、ここの上限をとりあえず3として増やそう。</p>
-<h2 id=span-styletext-decoration-underlineノード追加の反映span>ノード追加の反映<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineノード追加の反映span>#</a></h2>
+<h2 id=ノード追加の反映>ノード追加の反映<a hidden class=anchor aria-hidden=true href=#ノード追加の反映>#</a></h2>
 <p>ノードの追加が初めてならstop-all.shで止めて、start-all.shでまるまる再起動するのがいいでしょう。</p>
 <p>当然ながら、hadoop上で何かしらの作業が動いていたらやり直しになってしまう。<br>
 通常は、namenodeでhadoop dfsadmin -refreshNodesを実行。<br>
@@ -209,7 +209,7 @@ Last contact: Mon Aug 12 22:19:17 JST 2013
 replication数を2にしたので、ゆくゆくは192.168.200.1と同じ程度の使用量になるはず。<br>
 しばらく放置が必要。<br>
 （いま気がついたけど、&ldquo;Under replicated blocks”、つまり所定のreplicationに満たないblockの数が5&mldr;）</p>
-<h2 id=span-styletext-decoration-underline擬似分散擬似分散1の効果span>擬似分散→擬似分散+1の効果<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline擬似分散擬似分散1の効果span>#</a></h2>
+<h2 id=擬似分散擬似分散1の効果>擬似分散→擬似分散+1の効果<a hidden class=anchor aria-hidden=true href=#擬似分散擬似分散1の効果>#</a></h2>
 <p>効果は劇的。<br>
 もともと2時間半かかっていたものが1時間半に短縮できた。<br>
 下記はtimeの結果。上が擬似分散、下が擬似分散+1。</p>
@@ -222,10 +222,10 @@ user    0m5.624s
 sys     0m1.604s
 </code></pre></div><p>ああもっとdatanode増やしたい。</p>
 <p>関連エントリ</p>
-<p>[FreeBSD] Hadoopのportsからのインストール<br>
-[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備<br>
-[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定<br>
-[Hadoop]擬似分散モードで実験</p>
+<p><a href="../../../?p=2068">[FreeBSD] Hadoopのportsからのインストール</a><br>
+<a href="../../../?p=2098">[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備</a><br>
+<a href="../../../?p=2103">[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定</a><br>
+<a href="../../../?p=2115">[Hadoop]擬似分散モードで実験</a></p>
 </div>
 <footer class=post-footer>
 <nav class=paginav>

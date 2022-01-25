@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>ママも安心。軽量手軽な監視ツールMonitorix | nobwak's Lair</title>
 <meta name=keywords content="FreeBSD,monitoring">
-<meta name=description content="Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/Monitorixの特徴 Per">
+<meta name=description content="Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/ Monitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrd">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="ママも安心。軽量手軽な監視ツールMonitorix">
-<meta property="og:description" content="Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/Monitorixの特徴 Per">
+<meta property="og:description" content="Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/ Monitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrd">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2014-03-11T19:43:26+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="ママも安心。軽量手軽な監視ツールMonitorix">
-<meta name=twitter:description content="Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/Monitorixの特徴 Per">
+<meta name=twitter:description content="Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/ Monitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrd">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"ママも安心。軽量手軽な監視ツールMonitorix","item":"https://nobwak.github.io/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ママも安心。軽量手軽な監視ツールMonitorix","name":"ママも安心。軽量手軽な監視ツールMonitorix","description":"Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/Monitorixの特徴 Per","keywords":["FreeBSD","monitoring"],"articleBody":"Monitorixは軽量で手軽に運用できる監視ツールである。\nhttp://www.monitorix.org/Monitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrdtoolを使っている。\nここだけ見ると他の量産型監視ツールとそれほど変わらない。\n特筆すべきはそのサイズ。\n依存ソフトウェアを除いたmonitorix関連ファイルは合計で2MBytesにも満たない。\nそれなのに、ツール自体にhttpサーバも含まれているのでapacheなどを追加でインストールする必要はない（他のhttpサーバを使ってもよい）。\n複数サーバ監視ももちろん可能。\n監視対象サーバ、監視サーバの双方にmonitorixをインストールし、設定で監視サーバ、監視「対象」サーバを分けることになる。\nつまり、これ一つで完結する。\n加えて、監視項目の設定も楽。\nインストールしてすぐグラフが表示されるのは驚きである。\n以下、インストールした記録を示す。\nOSはFreeBSDだが、インストール後の設定はほぼ共通と思う。\nmonitorixビルトインのhttpサーバを使う。\nインストール pkgngでインストールしています。\n$ pkg search -o monitorix sysutils/monitorix $ pkg search monitorix monitorix-3.4.0 $ sudo pkg install monitorix Updating repository catalogue The following 8 packages will be installed:  Installing p5-ParallelUA: 2.57_2 Installing p5-HTTP-Server-Simple: 0.44 Installing p5-CGI.pm: 3.63,1 Installing p5-XML-SAX-Expat: 0.50 Installing p5-Config-General: 2.52 Installing rrdtool: 1.4.8 Installing p5-XML-Simple: 2.20 Installing monitorix: 3.4.0 The installation will require 5 MB more space 1 MB to be downloaded Proceed with installing packages [y/N]: y （略） ご覧の通り私の環境では一部の依存含めて5MB消費するだけだが、rrdtoolのインストールがあるとドッと依存が増える。\n以下のようにインストールされる。\n実行ファイル　/usr/local/bin/monitorix\n設定ファイル　/usr/local/etc/monitorix.conf\nhtmlなどは　/usr/local/www/monitorix/\ncgiは /usr/local/www/cgi-bin/monitorix.cgi\n起動スクリプト　/usr/local/etc/rc.d/monitorix\nPerlモジュール /usr/local/share/monitorix/\nドキュメント　/usr/local/share/doc/monitorix/\nフルリストは pkg info -l monitorix-3.4.0 のようにすれば見られる。\n設定 /usr/local/etc/monitorix.confで行う。\n最低限、変えないといけない場所は以下。\nbase_urlとbase_cgiと、httpdを動かす権限。\n以下はFreeBSDの例だが他OSでも変更する「箇所」は同じ。どう変えるかはOS/monitorixがインストールされた内容に応じて考える。\nまずbase_urlとbase_cgi\nbase_dir = /usr/local/www/monitorix/ base_lib = /var/db/monitorix/ # ↓このままだと/usr/local/www/monitorix/monitorixを # ↓参照してしまう。 # base_url = /monitorix base_url = / # ↓このままだと/usr/local/www/monitorix/monitorix/cgi-binを # ↓参照してしまう。 # base_cgi = /cgi-bin/ # ↓/usr/local/www/monitorix/cgi/が/usr/local/www/cgi-binに # ↓リンクされているのでこうする。 base_cgi = /cgi/ 次にhttpdの動作ユーザ、グループ。\nデフォルトではnobodyに設定されているが、可能なら個別の専用ユーザを設定したほうがよい。\nユーザnobodyは他のサーバソフトウェアでも使われることがある。\nこのため、何らかの問題でnobodyの権限が奪われた場合、monitorixだけでなく、同じnobody権限で動いているソフトウェアにも影響が及んでしまうからである。\nFreeBSDではwebサーバ用のアカウント「www」が用意されているのでこちらを使う。\n（もちろん、同じマシンで他のwebサーバを動かしており、かつ権限がwwwの場合には先述の懸念が発生するので注意）\nグラフの画像が保存される/usr/local/www/monitorix/imgsのオーナ/グループがwwwになっているしね。\nなお、monitorixのhttpdはポート8080を使う。\n同ホスト内の他のサーバがポート8080を使っている場合には変えておくこと。\n enabled = y host = port = 8080 # user = nobody # group = nobody user = www group = www （略）  参考までにFreeBSDにおけるユーザwwwは以下の通り。\n$ finger www Login: www Name: World Wide Web Owner Directory: /nonexistent Shell: /usr/sbin/nologin No Mail. No Plan. テスト起動 FreeBSDでは以下の通りにして起動。\n$ sudo service monitorix onestart : Starting monitorix. $ そしたらブラウザでhttp://＜monitorixサーバ＞:8080/に繋ぐ。\n下記のような画面になれば成功。\nなんというか・・・20世紀末から21世紀初頭のアングラサイトといいましょうか、「Welcome to Underground」とか書いてありそうなサイトで素敵です。\nOKを選んで先に進めばグラフがご覧の通り。\n続き Monitorixをカスタマイズしよう\n","wordCount":"1790","inLanguage":"en","datePublished":"2014-03-11T19:43:26+09:00","dateModified":"2014-03-11T19:43:26+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ママも安心。軽量手軽な監視ツールMonitorix","name":"ママも安心。軽量手軽な監視ツールMonitorix","description":"Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/ Monitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrd","keywords":["FreeBSD","monitoring"],"articleBody":"Monitorixは軽量で手軽に運用できる監視ツールである。\nhttp://www.monitorix.org/\nMonitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrdtoolを使っている。\nここだけ見ると他の量産型監視ツールとそれほど変わらない。\n特筆すべきはそのサイズ。\n依存ソフトウェアを除いたmonitorix関連ファイルは合計で2MBytesにも満たない。\nそれなのに、ツール自体にhttpサーバも含まれているのでapacheなどを追加でインストールする必要はない（他のhttpサーバを使ってもよい）。\n複数サーバ監視ももちろん可能。\n監視対象サーバ、監視サーバの双方にmonitorixをインストールし、設定で監視サーバ、監視「対象」サーバを分けることになる。\nつまり、これ一つで完結する。\n加えて、監視項目の設定も楽。\nインストールしてすぐグラフが表示されるのは驚きである。\n以下、インストールした記録を示す。\nOSはFreeBSDだが、インストール後の設定はほぼ共通と思う。\nmonitorixビルトインのhttpサーバを使う。\nインストール pkgngでインストールしています。\n$ pkg search -o monitorix sysutils/monitorix $ pkg search monitorix monitorix-3.4.0 $ sudo pkg install monitorix Updating repository catalogue The following 8 packages will be installed:  Installing p5-ParallelUA: 2.57_2 Installing p5-HTTP-Server-Simple: 0.44 Installing p5-CGI.pm: 3.63,1 Installing p5-XML-SAX-Expat: 0.50 Installing p5-Config-General: 2.52 Installing rrdtool: 1.4.8 Installing p5-XML-Simple: 2.20 Installing monitorix: 3.4.0 The installation will require 5 MB more space 1 MB to be downloaded Proceed with installing packages [y/N]: y （略） ご覧の通り私の環境では一部の依存含めて5MB消費するだけだが、rrdtoolのインストールがあるとドッと依存が増える。\n以下のようにインストールされる。\n実行ファイル　/usr/local/bin/monitorix\n設定ファイル　/usr/local/etc/monitorix.conf\nhtmlなどは　/usr/local/www/monitorix/\ncgiは /usr/local/www/cgi-bin/monitorix.cgi\n起動スクリプト　/usr/local/etc/rc.d/monitorix\nPerlモジュール /usr/local/share/monitorix/\nドキュメント　/usr/local/share/doc/monitorix/\nフルリストは pkg info -l monitorix-3.4.0 のようにすれば見られる。\n設定 /usr/local/etc/monitorix.confで行う。\n最低限、変えないといけない場所は以下。\nbase_urlとbase_cgiと、httpdを動かす権限。\n以下はFreeBSDの例だが他OSでも変更する「箇所」は同じ。どう変えるかはOS/monitorixがインストールされた内容に応じて考える。\nまずbase_urlとbase_cgi\nbase_dir = /usr/local/www/monitorix/ base_lib = /var/db/monitorix/ # ↓このままだと/usr/local/www/monitorix/monitorixを # ↓参照してしまう。 # base_url = /monitorix base_url = / # ↓このままだと/usr/local/www/monitorix/monitorix/cgi-binを # ↓参照してしまう。 # base_cgi = /cgi-bin/ # ↓/usr/local/www/monitorix/cgi/が/usr/local/www/cgi-binに # ↓リンクされているのでこうする。 base_cgi = /cgi/ 次にhttpdの動作ユーザ、グループ。\nデフォルトではnobodyに設定されているが、可能なら個別の専用ユーザを設定したほうがよい。\nユーザnobodyは他のサーバソフトウェアでも使われることがある。\nこのため、何らかの問題でnobodyの権限が奪われた場合、monitorixだけでなく、同じnobody権限で動いているソフトウェアにも影響が及んでしまうからである。\nFreeBSDではwebサーバ用のアカウント「www」が用意されているのでこちらを使う。\n（もちろん、同じマシンで他のwebサーバを動かしており、かつ権限がwwwの場合には先述の懸念が発生するので注意）\nグラフの画像が保存される/usr/local/www/monitorix/imgsのオーナ/グループがwwwになっているしね。\nなお、monitorixのhttpdはポート8080を使う。\n同ホスト内の他のサーバがポート8080を使っている場合には変えておくこと。\n enabled = y host = port = 8080 # user = nobody # group = nobody user = www group = www （略）  参考までにFreeBSDにおけるユーザwwwは以下の通り。\n$ finger www Login: www Name: World Wide Web Owner Directory: /nonexistent Shell: /usr/sbin/nologin No Mail. No Plan. テスト起動 FreeBSDでは以下の通りにして起動。\n$ sudo service monitorix onestart : Starting monitorix. $ そしたらブラウザでhttp://＜monitorixサーバ＞:8080/に繋ぐ。\n下記のような画面になれば成功。\nなんというか・・・20世紀末から21世紀初頭のアングラサイトといいましょうか、「Welcome to Underground」とか書いてありそうなサイトで素敵です。\nOKを選んで先に進めばグラフがご覧の通り。\n続き Monitorixをカスタマイズしよう\n","wordCount":"1766","inLanguage":"en","datePublished":"2014-03-11T19:43:26+09:00","dateModified":"2014-03-11T19:43:26+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,15 +96,15 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinebr--monitorix%e3%81%ae%e7%89%b9%e5%be%b4span aria-label=Monitorixの特徴> Monitorixの特徴</a></li>
+<a href=#br--monitorix%e3%81%ae%e7%89%b9%e5%be%b4 aria-label=Monitorixの特徴> Monitorixの特徴</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abspan aria-label=インストール>インストール</a></li>
+<a href=#%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=インストール>インストール</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%a8%ad%e5%ae%9aspan aria-label=設定>設定</a></li>
+<a href=#%e8%a8%ad%e5%ae%9a aria-label=設定>設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%86%e3%82%b9%e3%83%88%e8%b5%b7%e5%8b%95span aria-label=テスト起動>テスト起動</a></li>
+<a href=#%e3%83%86%e3%82%b9%e3%83%88%e8%b5%b7%e5%8b%95 aria-label=テスト起動>テスト起動</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e7%b6%9a%e3%81%8dspan aria-label=続き>続き</a>
+<a href=#%e7%b6%9a%e3%81%8d aria-label=続き>続き</a>
 </li>
 </ul>
 </div>
@@ -112,7 +112,7 @@
 </div>
 <div class=post-content><p>Monitorixは軽量で手軽に運用できる監視ツールである。<br>
 <a href=http://www.monitorix.org/>http://www.monitorix.org/</a></p>
-<h2 id=span-styletext-decoration-underlinebr--monitorixの特徴span> Monitorixの特徴<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinebr--monitorixの特徴span>#</a></h2>
+<h2 id=br--monitorixの特徴> Monitorixの特徴<a hidden class=anchor aria-hidden=true href=#br--monitorixの特徴>#</a></h2>
 <p>Perlで書かれており、データ格納、グラフ描画はrrdtoolを使っている。<br>
 ここだけ見ると他の量産型監視ツールとそれほど変わらない。</p>
 <p>特筆すべきはそのサイズ。<br>
@@ -126,7 +126,7 @@
 <p>以下、インストールした記録を示す。<br>
 OSはFreeBSDだが、インストール後の設定はほぼ共通と思う。<br>
 monitorixビルトインのhttpサーバを使う。</p>
-<h2 id=span-styletext-decoration-underlineインストールspan>インストール<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineインストールspan>#</a></h2>
+<h2 id=インストール>インストール<a hidden class=anchor aria-hidden=true href=#インストール>#</a></h2>
 <p>pkgngでインストールしています。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ pkg search -o monitorix
 sysutils/monitorix
@@ -163,7 +163,7 @@ cgiは 　　　　　/usr/local/www/cgi-bin/monitorix.cgi<br>
 Perlモジュール /usr/local/share/monitorix/<br>
 ドキュメント　　/usr/local/share/doc/monitorix/</p>
 <p>フルリストは pkg info -l monitorix-3.4.0 のようにすれば見られる。</p>
-<h2 id=span-styletext-decoration-underline設定span>設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline設定span>#</a></h2>
+<h2 id=設定>設定<a hidden class=anchor aria-hidden=true href=#設定>#</a></h2>
 <p>/usr/local/etc/monitorix.confで行う。<br>
 最低限、変えないといけない場所は以下。<br>
 base_urlとbase_cgiと、httpdを動かす権限。<br>
@@ -206,7 +206,7 @@ Login: www                              Name: World Wide Web Owner
 Directory: /nonexistent                 Shell: /usr/sbin/nologin
 No Mail.
 No Plan.
-</code></pre></div><h2 id=span-styletext-decoration-underlineテスト起動span>テスト起動<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineテスト起動span>#</a></h2>
+</code></pre></div><h2 id=テスト起動>テスト起動<a hidden class=anchor aria-hidden=true href=#テスト起動>#</a></h2>
 <p>FreeBSDでは以下の通りにして起動。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo service monitorix onestart
 :
@@ -220,7 +220,7 @@ $
 <p>OKを選んで先に進めばグラフがご覧の通り。<br>
 <img loading=lazy src=/wp-content/uploads/2014/03/monitorix02.png alt=img>
 </p>
-<h2 id=span-styletext-decoration-underline続きspan>続き<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline続きspan>#</a></h2>
+<h2 id=続き>続き<a hidden class=anchor aria-hidden=true href=#続き>#</a></h2>
 <p><a href=../../../2014/03/monitorix%e3%82%92%e3%82%ab%e3%82%b9%e3%82%bf%e3%83%9e%e3%82%a4%e3%82%ba%e3%81%97%e3%82%88%e3%81%86/ title=Monitorixをカスタマイズしよう>Monitorixをカスタマイズしよう</a></p>
 </div>
 <footer class=post-footer>

@@ -142,7 +142,7 @@
       <pubDate>Wed, 06 Nov 2013 21:27:46 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-11-06-pkgng%E3%81%8C%E5%BE%A9%E6%B4%BB%E3%81%97%E3%81%9F%E3%81%A8%E8%A8%80%E3%81%A3%E3%81%9F%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AE%E5%A5%B4%E3%81%AB%E3%81%A8%E3%81%A3%E3%81%A6%E3%81%82%E3%82%8C%E3%81%AF%E5%98%98%E3%81%A0srv%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E7%BD%A0/</guid>
-      <description>pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current</description>
+      <description>pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。 原因</description>
     </item>
     
     <item>
@@ -178,7 +178,7 @@
       <pubDate>Fri, 26 Apr 2013 22:49:10 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-04-26-freebsd_pc-bsd%E3%81%8Cfreebsd%E5%90%91%E3%81%91pkg_repo%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%9F%E3%81%91%E3%81%A9%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B2013_4_27%E7%8F%BE%E5%9C%A8/</guid>
-      <description>（追記:2013/11/7） 公式のpkgngが公開されている。詳しくは以下を。 ../../../?p=2357（追記ここまで） FreeBSD</description>
+      <description>（追記:2013/11/7） 公式のpkgngが公開されている。詳しくは以下を。 ../../../?p=2357 （追記ここまで） FreeBSDの新ソフトウェア管理ツールであ</description>
     </item>
     
     <item>

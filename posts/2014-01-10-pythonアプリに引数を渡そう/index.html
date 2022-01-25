@@ -96,13 +96,13 @@ Pythonアプリに引数を渡そう
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinesysargvspan aria-label=sys.argv>sys.argv</a></li>
+<a href=#sysargv aria-label=sys.argv>sys.argv</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%bc%95%e6%95%b0%e4%b8%80%e3%81%a4%e7%9b%ae%e3%81%8b%e3%82%89%e6%89%b1%e3%81%86%e3%81%ab%e3%81%afspan aria-label=引数一つ目から扱うには>引数一つ目から扱うには</a></li>
+<a href=#%e5%bc%95%e6%95%b0%e4%b8%80%e3%81%a4%e7%9b%ae%e3%81%8b%e3%82%89%e6%89%b1%e3%81%86%e3%81%ab%e3%81%af aria-label=引数一つ目から扱うには>引数一つ目から扱うには</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%b7%e3%83%a3%e3%83%ac%e3%82%aa%e3%83%84%e3%81%aa%e4%bd%bf%e3%81%84%e6%96%b9%e5%bc%95%e6%95%b0%e3%81%ae%e6%95%b0%e3%82%92%e6%8b%85%e4%bf%9d%e3%81%97%e3%81%9f%e3%81%84span aria-label=シャレオツな使い方（引数の数を担保したい）>シャレオツな使い方（引数の数を担保したい）</a></li>
+<a href=#%e3%82%b7%e3%83%a3%e3%83%ac%e3%82%aa%e3%83%84%e3%81%aa%e4%bd%bf%e3%81%84%e6%96%b9%e5%bc%95%e6%95%b0%e3%81%ae%e6%95%b0%e3%82%92%e6%8b%85%e4%bf%9d%e3%81%97%e3%81%9f%e3%81%84 aria-label=シャレオツな使い方（引数の数を担保したい）>シャレオツな使い方（引数の数を担保したい）</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%b7%e3%83%a3%e3%83%ac%e3%82%aa%e3%83%84%e3%81%aa%e4%bd%bf%e3%81%84%e6%96%b9%e5%bc%95%e6%95%b0%e3%81%ae%e5%86%85%e5%ae%b9%e3%82%92%e6%8b%85%e4%bf%9d%e3%81%97%e3%81%9f%e3%81%84span aria-label=シャレオツな使い方（引数の内容を担保したい）>シャレオツな使い方（引数の内容を担保したい）</a>
+<a href=#%e3%82%b7%e3%83%a3%e3%83%ac%e3%82%aa%e3%83%84%e3%81%aa%e4%bd%bf%e3%81%84%e6%96%b9%e5%bc%95%e6%95%b0%e3%81%ae%e5%86%85%e5%ae%b9%e3%82%92%e6%8b%85%e4%bf%9d%e3%81%97%e3%81%9f%e3%81%84 aria-label=シャレオツな使い方（引数の内容を担保したい）>シャレオツな使い方（引数の内容を担保したい）</a>
 </li>
 </ul>
 </div>
@@ -114,7 +114,7 @@ Pythonアプリに引数を渡そう
 どうしたらできるか。<br>
 …まあ普通にargvで受け取ればいいんですがね。<br>
 以下、Pythonにおけるargvの使い方メモ。</p>
-<h2 id=span-styletext-decoration-underlinesysargvspan>sys.argv<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesysargvspan>#</a></h2>
+<h2 id=sysargv>sys.argv<a hidden class=anchor aria-hidden=true href=#sysargv>#</a></h2>
 <p>sys.argvは、コマンドラインで渡される引数が入ったリスト。<br>
 sys.argv[0]にはスクリプト自身が入る。<br>
 len(sys.argv)で引数の数をカウントできる。<br>
@@ -137,7 +137,7 @@ a
 b
 c
 </code></pre></div><p>sys.argvはリストなのでforなどで中身を一つ一つ参照できるが、自分自身からまず始まるのは美しくない。</p>
-<h2 id=span-styletext-decoration-underline引数一つ目から扱うにはspan>引数一つ目から扱うには<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline引数一つ目から扱うにはspan>#</a></h2>
+<h2 id=引数一つ目から扱うには>引数一つ目から扱うには<a hidden class=anchor aria-hidden=true href=#引数一つ目から扱うには>#</a></h2>
 <p>以下のようにする。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>import sys
 <span style=color:#960050;background-color:#1e0010>
@@ -163,7 +163,7 @@ a
 b
 c
 </code></pre></div><p>ベリーナイス。</p>
-<h2 id=span-styletext-decoration-underlineシャレオツな使い方引数の数を担保したいspan>シャレオツな使い方（引数の数を担保したい）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineシャレオツな使い方引数の数を担保したいspan>#</a></h2>
+<h2 id=シャレオツな使い方引数の数を担保したい>シャレオツな使い方（引数の数を担保したい）<a hidden class=anchor aria-hidden=true href=#シャレオツな使い方引数の数を担保したい>#</a></h2>
 <p>さて。もうちょっと頭のいいことをやってみたい。<br>
 具体的には、引数を一つだけ取るようにしたい。<br>
 さてサンプル。</p>
@@ -186,7 +186,7 @@ the name of script is : ./argv.py
 the number of original arg is : 4
 the number of altered arg is : 3
 Usage: ./argv.py &lt;filename&gt;
-</code></pre></div><h2 id=span-styletext-decoration-underlineシャレオツな使い方引数の内容を担保したいspan>シャレオツな使い方（引数の内容を担保したい）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineシャレオツな使い方引数の内容を担保したいspan>#</a></h2>
+</code></pre></div><h2 id=シャレオツな使い方引数の内容を担保したい>シャレオツな使い方（引数の内容を担保したい）<a hidden class=anchor aria-hidden=true href=#シャレオツな使い方引数の内容を担保したい>#</a></h2>
 <p>さらに。<br>
 ファイルを引数に取るとして（さあ冒頭の話につながってまいりました！）、そのファイルの有無を確認したい。<br>
 サンプル。</p>

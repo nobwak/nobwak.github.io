@@ -96,17 +96,17 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinelz4%e3%81%a7zfs%e3%81%ae%e5%9c%a7%e7%b8%ae%e6%a9%9f%e8%83%bd%e3%82%92%e6%b0%97%e8%bb%bd%e3%81%ab%e8%a9%a6%e3%81%9b%e3%82%8b%e3%82%88%e3%81%86%e3%81%abspan aria-label=lz4でzfsの圧縮機能を気軽に試せるように>lz4でzfsの圧縮機能を気軽に試せるように</a></li>
+<a href=#lz4%e3%81%a7zfs%e3%81%ae%e5%9c%a7%e7%b8%ae%e6%a9%9f%e8%83%bd%e3%82%92%e6%b0%97%e8%bb%bd%e3%81%ab%e8%a9%a6%e3%81%9b%e3%82%8b%e3%82%88%e3%81%86%e3%81%ab aria-label=lz4でzfsの圧縮機能を気軽に試せるように>lz4でzfsの圧縮機能を気軽に試せるように</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%87%e3%82%a3%e3%82%b9%e3%82%af%e3%81%ae%e7%a2%ba%e8%aa%8d%e3%81%a8zfs%e6%a9%9f%e8%83%bd%e3%81%ae%e7%a2%ba%e8%aa%8dspan aria-label=ディスクの確認とzfs機能の確認>ディスクの確認とzfs機能の確認</a></li>
+<a href=#%e3%83%87%e3%82%a3%e3%82%b9%e3%82%af%e3%81%ae%e7%a2%ba%e8%aa%8d%e3%81%a8zfs%e6%a9%9f%e8%83%bd%e3%81%ae%e7%a2%ba%e8%aa%8d aria-label=ディスクの確認とzfs機能の確認>ディスクの確認とzfs機能の確認</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinepoolzfs%e3%81%ae%e4%bd%9c%e6%88%90span aria-label=pool、zfsの作成>pool、zfsの作成</a></li>
+<a href=#poolzfs%e3%81%ae%e4%bd%9c%e6%88%90 aria-label=pool、zfsの作成>pool、zfsの作成</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%9c%a7%e7%b8%ae%e6%a9%9f%e8%83%bd%e3%81%a8%e9%87%8d%e8%a4%87%e6%8e%92%e9%99%a4%e6%a9%9f%e8%83%bd%e3%82%92%e6%9c%89%e5%8a%b9%e3%81%abspan aria-label=圧縮機能と重複排除機能を有効に>圧縮機能と重複排除機能を有効に</a></li>
+<a href=#%e5%9c%a7%e7%b8%ae%e6%a9%9f%e8%83%bd%e3%81%a8%e9%87%8d%e8%a4%87%e6%8e%92%e9%99%a4%e6%a9%9f%e8%83%bd%e3%82%92%e6%9c%89%e5%8a%b9%e3%81%ab aria-label=圧縮機能と重複排除機能を有効に>圧縮機能と重複排除機能を有効に</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e6%9b%b8%e3%81%8d%e8%be%bc%e3%82%93%e3%81%a7%e3%81%bf%e3%82%8bspan aria-label=書き込んでみる>書き込んでみる</a></li>
+<a href=#%e6%9b%b8%e3%81%8d%e8%be%bc%e3%82%93%e3%81%a7%e3%81%bf%e3%82%8b aria-label=書き込んでみる>書き込んでみる</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%b7%ae%e5%88%86snapshot%e3%81%ae%e8%bb%a2%e9%80%81span aria-label=差分snapshotの転送>差分snapshotの転送</a>
+<a href=#%e5%b7%ae%e5%88%86snapshot%e3%81%ae%e8%bb%a2%e9%80%81 aria-label=差分snapshotの転送>差分snapshotの転送</a>
 </li>
 </ul>
 </div>
@@ -115,12 +115,12 @@
 <div class=post-content><p>HDDを増設してZFSを作ったのでメモ。<br>
 一本のHDDにpool、zfsを作成し、圧縮、重複排除機能の有効化まで。<br>
 環境は（残念ながら10.0-Rではなく）FreeBSD 9.2-RELEASE-p1。</p>
-<h2 id=span-styletext-decoration-underlinelz4でzfsの圧縮機能を気軽に試せるようにspan>lz4でzfsの圧縮機能を気軽に試せるように<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinelz4でzfsの圧縮機能を気軽に試せるようにspan>#</a></h2>
+<h2 id=lz4でzfsの圧縮機能を気軽に試せるように>lz4でzfsの圧縮機能を気軽に試せるように<a hidden class=anchor aria-hidden=true href=#lz4でzfsの圧縮機能を気軽に試せるように>#</a></h2>
 <p>ファイルシステムで圧縮機能を有効にすると、読み書きのいずれにもCPUパワーが必要で、要するに遅くなる。<br>
 非力なCPUを使っているとなかなか使いにくい機能なのだが、圧縮方法にlz4が選べるようになってハードルは下がったように思う。<br>
-lz4はここでも触れたが、めっぽう速い圧縮アルゴリズムである。<br>
+lz4は<a href=../../../2013/02/%E3%82%A2%E3%83%BC%E3%82%AB%E3%82%A4%E3%83%90lz4%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%89%EF%BC%88%E5%9C%A7%E7%B8%AE%E3%81%AF%EF%BC%89%E9%80%9F%E3%81%99%E3%81%8E%E7%AC%91/>ここでも触れた</a>が、めっぽう速い圧縮アルゴリズムである。<br>
 これはぜひとも使ってみなければ。</p>
-<h2 id=span-styletext-decoration-underlineディスクの確認とzfs機能の確認span>ディスクの確認とzfs機能の確認<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineディスクの確認とzfs機能の確認span>#</a></h2>
+<h2 id=ディスクの確認とzfs機能の確認>ディスクの確認とzfs機能の確認<a hidden class=anchor aria-hidden=true href=#ディスクの確認とzfs機能の確認>#</a></h2>
 <p>物理ディスクを追加し、ブートしたらdmesgを確認する。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ uname -r
 9.2-RELEASE
@@ -157,7 +157,7 @@ flags.
 Every feature flags pool has all supported features enabled.
 </code></pre></div><p>zfsはバージョン5、zpoolはバージョン28。<br>
 このバージョンであれば、lz4による圧縮機能（LZ4 Compression algorithm support)と、重複排除機能（Deduplication)を使える。</p>
-<h2 id=span-styletext-decoration-underlinepoolzfsの作成span>pool、zfsの作成<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepoolzfsの作成span>#</a></h2>
+<h2 id=poolzfsの作成>pool、zfsの作成<a hidden class=anchor aria-hidden=true href=#poolzfsの作成>#</a></h2>
 <p>warehouseというzpoolを作り、そこからbackupというボリュームを切り出す。</p>
 <p>まずzpoolを作る。<br>
 ほんと簡単で速くて助かる。</p>
@@ -235,7 +235,7 @@ vault/itunes on /itunes (zfs, local, noatime, nfsv4acls)
 vault/chamber on /chamber (zfs, local, noatime, nfsv4acls)
 warehouse on /warehouse (zfs, local, nfsv4acls)
 warehouse/backup on /backup (zfs, local, nfsv4acls)
-</code></pre></div><h2 id=span-styletext-decoration-underline圧縮機能と重複排除機能を有効にspan>圧縮機能と重複排除機能を有効に<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline圧縮機能と重複排除機能を有効にspan>#</a></h2>
+</code></pre></div><h2 id=圧縮機能と重複排除機能を有効に>圧縮機能と重複排除機能を有効に<a hidden class=anchor aria-hidden=true href=#圧縮機能と重複排除機能を有効に>#</a></h2>
 <p>ではさっそく圧縮機能と重複排除機能を有効にする。<br>
 といっても、すっごく簡単なんだけどね。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo zfs set dedup<span style=color:#f92672>=</span>on warehouse/backup
@@ -258,7 +258,7 @@ warehouse/backup  compressratio         1.00x                    -
 warehouse/backup  compression           lz4                      local
 warehouse/backup  dedup                 on                       local
 warehouse/backup  refcompressratio      1.00x                    -
-</code></pre></div><h2 id=span-styletext-decoration-underline書き込んでみるspan>書き込んでみる<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline書き込んでみるspan>#</a></h2>
+</code></pre></div><h2 id=書き込んでみる>書き込んでみる<a hidden class=anchor aria-hidden=true href=#書き込んでみる>#</a></h2>
 <p>今回追加したHDDはもともとバックアップ用途のつもり。<br>
 ここにスナップショットを流しこんでみる。</p>
 <p>以下のようにしてスナップショットを作成する。</p>
@@ -293,7 +293,7 @@ user    0m0.048s
 sys     192m3.897s
 </code></pre></div><p>まる二日半て…。<br>
 これは圧縮か重複排除か、どちらか止めた方がいいかもわからんね。</p>
-<h2 id=span-styletext-decoration-underline差分snapshotの転送span>差分snapshotの転送<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline差分snapshotの転送span>#</a></h2>
+<h2 id=差分snapshotの転送>差分snapshotの転送<a hidden class=anchor aria-hidden=true href=#差分snapshotの転送>#</a></h2>
 <p>オリジナルディスクで複数回snapshotを作成した場合、バックアップディスクにはその差分を送ることができる。<br>
 zfs sendに-iを与え、二つのsnapshotを指定すればよいだけ。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo sh -c <span style=color:#e6db74>&#34;zfs send -i vault/chamber@20131121 vault/chamber@20131125 | zfs recv warehouse/backup/chamber&#34;</span>

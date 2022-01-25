@@ -37,7 +37,7 @@
 <meta name=twitter:title content="[FreeBSD][メモ] svnliteで/usr/portsの管理">
 <meta name=twitter:description content="/usr/portsをportsnapではなく、svnliteで管理してみた。 一般ユーザとしては、portsnapの管理が望ましいのだが、s">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"[FreeBSD][メモ] svnliteで/usr/portsの管理","item":"https://nobwak.github.io/posts/2013-11-23-freebsd%E3%83%A1%E3%83%A2_svnlite%E3%81%A7_usr_ports%E3%81%AE%E7%AE%A1%E7%90%86/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[FreeBSD][メモ] svnliteで/usr/portsの管理","name":"[FreeBSD][メモ] svnliteで\/usr\/portsの管理","description":"/usr/portsをportsnapではなく、svnliteで管理してみた。 一般ユーザとしては、portsnapの管理が望ましいのだが、s","keywords":[],"articleBody":"/usr/portsをportsnapではなく、svnliteで管理してみた。\n一般ユーザとしては、portsnapの管理が望ましいのだが、svnだとportsの個別更新が出来たりする。\nこのためだけにsvnlite管理にした。\nHandbookどおりにしただけ。\n以下のようなマシンで実施。\n$ uname -a FreeBSD vostro 10.0-BETA3 FreeBSD 10.0-BETA3 #0 r257580: Sun Nov 3 19:43:01 UTC 2013 root@snap.freebsd.org:/usr/obj/usr/src/sys/GENERIC amd64 $ which svnlite /usr/bin/svnlite ミラーサイトを選ぶ 以下のページでミラーサイトを選ぶ。\nhttp://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html日本からならsvn0.us-west.FreeBSD.orgでしょうなあ。\nこのとき、SSLフィンガープリントも見ておくこと。\n2013/11/12現在、us-westミラーのフィンガープリントは以下の通り\nSHASHA1 1C:BD:85:95:11:9F:EB:75:A5:4B:C8:A3:FE:08:E4:02:73:06:1E:61 初回チェックアウト /usr/portsの中身が何もないことを確認してからsvnlite checkout。\nSSLフィンガープリントが表示されて、これでよいか訊かれる。\nhandbookの値と同じなので大丈夫ですな。\n$ sudo svnlite checkout https://svn0.us-west.FreeBSD.org/ports/head /usr/ports Password: Error validating server certificate for 'https://svn0.us-west.freebsd.org:443': - The certificate is not issued by a trusted authority. Use the fingerprint to validate the certificate manually! - The certificate hostname does not match. Certificate information: - Hostname: svnmir.ysv.FreeBSD.org - Valid: from Jul 29 22:01:21 2013 GMT until Dec 13 22:01:21 2040 GMT - Issuer: clusteradm, FreeBSD.org, (null), CA, US (clusteradm@FreeBSD.org) - Fingerprint: 1C:BD:85:95:11:9F:EB:75:A5:4B:C8:A3:FE:08:E4:02:73:06:1E:61 (R)eject, accept (t)emporarily or accept (p)ermanently? p  A /usr/ports/net-p2p/eiskaltdcpp-daemon/Makefile A /usr/ports/net-p2p/tribler/pkg-plist A /usr/ports/net-p2p/eiskaltdcpp-daemon/files/patch-nasdc__CMakeLists.txt U /usr/ports Checked out revision 333566. 二回目以降のcheckout svnlite update /usr/portsとすればよい。\n$ sudo svnlite update /usr/ports Updating '/usr/ports':  U /usr/ports/UPDATING Updated to revision 333571. リビジョンが上がってますな。\nportsの個別checkout portsの個別checkoutができる。\nつまり、/usr/ports全部をアップデートするのではなくて、特定のportsだけ更新する。\n$ sudo svnlite update /usr/ports/math/sage Updating '/usr/ports/math/sage': At revision 333571. 以上\n","wordCount":"704","inLanguage":"en","datePublished":"2013-11-23T22:59:36+09:00","dateModified":"2013-11-23T22:59:36+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-11-23-freebsd%E3%83%A1%E3%83%A2_svnlite%E3%81%A7_usr_ports%E3%81%AE%E7%AE%A1%E7%90%86/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[FreeBSD][メモ] svnliteで/usr/portsの管理","name":"[FreeBSD][メモ] svnliteで\/usr\/portsの管理","description":"/usr/portsをportsnapではなく、svnliteで管理してみた。 一般ユーザとしては、portsnapの管理が望ましいのだが、s","keywords":[],"articleBody":"/usr/portsをportsnapではなく、svnliteで管理してみた。\n一般ユーザとしては、portsnapの管理が望ましいのだが、svnだとportsの個別更新が出来たりする。\nこのためだけにsvnlite管理にした。\nHandbookどおりにしただけ。\n以下のようなマシンで実施。\n$ uname -a FreeBSD vostro 10.0-BETA3 FreeBSD 10.0-BETA3 #0 r257580: Sun Nov 3 19:43:01 UTC 2013 root@snap.freebsd.org:/usr/obj/usr/src/sys/GENERIC amd64 $ which svnlite /usr/bin/svnlite ミラーサイトを選ぶ 以下のページでミラーサイトを選ぶ。\nhttp://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html\n日本からならsvn0.us-west.FreeBSD.orgでしょうなあ。\nこのとき、SSLフィンガープリントも見ておくこと。\n2013/11/12現在、us-westミラーのフィンガープリントは以下の通り\nSHASHA1 1C:BD:85:95:11:9F:EB:75:A5:4B:C8:A3:FE:08:E4:02:73:06:1E:61 初回チェックアウト /usr/portsの中身が何もないことを確認してからsvnlite checkout。\nSSLフィンガープリントが表示されて、これでよいか訊かれる。\nhandbookの値と同じなので大丈夫ですな。\n$ sudo svnlite checkout https://svn0.us-west.FreeBSD.org/ports/head /usr/ports Password: Error validating server certificate for 'https://svn0.us-west.freebsd.org:443': - The certificate is not issued by a trusted authority. Use the fingerprint to validate the certificate manually! - The certificate hostname does not match. Certificate information: - Hostname: svnmir.ysv.FreeBSD.org - Valid: from Jul 29 22:01:21 2013 GMT until Dec 13 22:01:21 2040 GMT - Issuer: clusteradm, FreeBSD.org, (null), CA, US (clusteradm@FreeBSD.org) - Fingerprint: 1C:BD:85:95:11:9F:EB:75:A5:4B:C8:A3:FE:08:E4:02:73:06:1E:61 (R)eject, accept (t)emporarily or accept (p)ermanently? p  A /usr/ports/net-p2p/eiskaltdcpp-daemon/Makefile A /usr/ports/net-p2p/tribler/pkg-plist A /usr/ports/net-p2p/eiskaltdcpp-daemon/files/patch-nasdc__CMakeLists.txt U /usr/ports Checked out revision 333566. 二回目以降のcheckout svnlite update /usr/portsとすればよい。\n$ sudo svnlite update /usr/ports Updating '/usr/ports':  U /usr/ports/UPDATING Updated to revision 333571. リビジョンが上がってますな。\nportsの個別checkout portsの個別checkoutができる。\nつまり、/usr/ports全部をアップデートするのではなくて、特定のportsだけ更新する。\n$ sudo svnlite update /usr/ports/math/sage Updating '/usr/ports/math/sage': At revision 333571. 以上\n","wordCount":"644","inLanguage":"en","datePublished":"2013-11-23T22:59:36+09:00","dateModified":"2013-11-23T22:59:36+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-11-23-freebsd%E3%83%A1%E3%83%A2_svnlite%E3%81%A7_usr_ports%E3%81%AE%E7%AE%A1%E7%90%86/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,13 +96,13 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%9f%e3%83%a9%e3%83%bc%e3%82%b5%e3%82%a4%e3%83%88%e3%82%92%e9%81%b8%e3%81%b6span aria-label=ミラーサイトを選ぶ>ミラーサイトを選ぶ</a></li>
+<a href=#%e3%83%9f%e3%83%a9%e3%83%bc%e3%82%b5%e3%82%a4%e3%83%88%e3%82%92%e9%81%b8%e3%81%b6 aria-label=ミラーサイトを選ぶ>ミラーサイトを選ぶ</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%88%9d%e5%9b%9e%e3%83%81%e3%82%a7%e3%83%83%e3%82%af%e3%82%a2%e3%82%a6%e3%83%88span aria-label=初回チェックアウト>初回チェックアウト</a></li>
+<a href=#%e5%88%9d%e5%9b%9e%e3%83%81%e3%82%a7%e3%83%83%e3%82%af%e3%82%a2%e3%82%a6%e3%83%88 aria-label=初回チェックアウト>初回チェックアウト</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e4%ba%8c%e5%9b%9e%e7%9b%ae%e4%bb%a5%e9%99%8d%e3%81%aecheckoutspan aria-label=二回目以降のcheckout>二回目以降のcheckout</a></li>
+<a href=#%e4%ba%8c%e5%9b%9e%e7%9b%ae%e4%bb%a5%e9%99%8d%e3%81%aecheckout aria-label=二回目以降のcheckout>二回目以降のcheckout</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineports%e3%81%ae%e5%80%8b%e5%88%a5checkoutspan aria-label=portsの個別checkout>portsの個別checkout</a>
+<a href=#ports%e3%81%ae%e5%80%8b%e5%88%a5checkout aria-label=portsの個別checkout>portsの個別checkout</a>
 </li>
 </ul>
 </div>
@@ -111,20 +111,20 @@
 <div class=post-content><p>/usr/portsをportsnapではなく、svnliteで管理してみた。<br>
 一般ユーザとしては、portsnapの管理が望ましいのだが、svnだとportsの個別更新が出来たりする。<br>
 このためだけにsvnlite管理にした。<br>
-Handbookどおりにしただけ。</p>
+<a href=http://www.freebsd.org/doc/ja/books/handbook/svn.html>Handbook</a>どおりにしただけ。</p>
 <p>以下のようなマシンで実施。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ uname -a
 FreeBSD vostro 10.0-BETA3 FreeBSD 10.0-BETA3 #0 r257580: Sun Nov  3 19:43:01 UTC 2013     root@snap.freebsd.org:/usr/obj/usr/src/sys/GENERIC  amd64
 $ which svnlite
 /usr/bin/svnlite
-</code></pre></div><h2 id=span-styletext-decoration-underlineミラーサイトを選ぶspan>ミラーサイトを選ぶ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineミラーサイトを選ぶspan>#</a></h2>
+</code></pre></div><h2 id=ミラーサイトを選ぶ>ミラーサイトを選ぶ<a hidden class=anchor aria-hidden=true href=#ミラーサイトを選ぶ>#</a></h2>
 <p>以下のページでミラーサイトを選ぶ。<br>
-<a href=http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html>http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html</a></p>
+<a href=http://web.archive.org/web/20131003105241/http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html>http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html</a></p>
 <p>日本からならsvn0.us-west.FreeBSD.orgでしょうなあ。<br>
 このとき、SSLフィンガープリントも見ておくこと。<br>
 2013/11/12現在、us-westミラーのフィンガープリントは以下の通り</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>SHASHA1 1C:BD:85:95:11:9F:EB:75:A5:4B:C8:A3:FE:08:E4:02:73:06:1E:61
-</code></pre></div><h2 id=span-styletext-decoration-underline初回チェックアウトspan>初回チェックアウト<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline初回チェックアウトspan>#</a></h2>
+</code></pre></div><h2 id=初回チェックアウト>初回チェックアウト<a hidden class=anchor aria-hidden=true href=#初回チェックアウト>#</a></h2>
 <p>/usr/portsの中身が何もないことを確認してからsvnlite checkout。<br>
 SSLフィンガープリントが表示されて、これでよいか訊かれる。<br>
 handbookの値と同じなので大丈夫ですな。</p>
@@ -148,7 +148,7 @@ A    /usr/ports/net-p2p/tribler/pkg-plist
 A    /usr/ports/net-p2p/eiskaltdcpp-daemon/files/patch-nasdc__CMakeLists.txt
  U   /usr/ports
 Checked out revision 333566.
-</code></pre></div><h2 id=span-styletext-decoration-underline二回目以降のcheckoutspan>二回目以降のcheckout<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline二回目以降のcheckoutspan>#</a></h2>
+</code></pre></div><h2 id=二回目以降のcheckout>二回目以降のcheckout<a hidden class=anchor aria-hidden=true href=#二回目以降のcheckout>#</a></h2>
 <p>svnlite update /usr/portsとすればよい。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo svnlite update /usr/ports
 Updating &#39;/usr/ports&#39;:
@@ -156,7 +156,7 @@ Updating &#39;/usr/ports&#39;:
 U    /usr/ports/UPDATING
 Updated to revision 333571.
 </code></pre></div><p>リビジョンが上がってますな。</p>
-<h2 id=span-styletext-decoration-underlineportsの個別checkoutspan>portsの個別checkout<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineportsの個別checkoutspan>#</a></h2>
+<h2 id=portsの個別checkout>portsの個別checkout<a hidden class=anchor aria-hidden=true href=#portsの個別checkout>#</a></h2>
 <p>portsの個別checkoutができる。<br>
 つまり、/usr/ports全部をアップデートするのではなくて、特定のportsだけ更新する。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo svnlite update /usr/ports/math/sage

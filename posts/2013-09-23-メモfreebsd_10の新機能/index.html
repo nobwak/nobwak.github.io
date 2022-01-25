@@ -37,7 +37,7 @@
 <meta name=twitter:title content="メモ: FreeBSD 10の新機能">
 <meta name=twitter:description content="FreeBSD 10が年明けあたりにリリースされる。 今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。 その変更点を以下">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"メモ: FreeBSD 10の新機能","item":"https://nobwak.github.io/posts/2013-09-23-%E3%83%A1%E3%83%A2freebsd_10%E3%81%AE%E6%96%B0%E6%A9%9F%E8%83%BD/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"メモ: FreeBSD 10の新機能","name":"メモ: FreeBSD 10の新機能","description":"FreeBSD 10が年明けあたりにリリースされる。 今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。 その変更点を以下","keywords":[],"articleBody":"FreeBSD 10が年明けあたりにリリースされる。\n今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。\nその変更点を以下にまとめる。あくまでも本日時点。\nなお元ネタはhttps://wiki.freebsd.org/WhatsNew/FreeBSD10FreeBSD 10での変更点 システムpkgサーバソフトウェア  仮想化  ファイルシステム  起動  その他  ","wordCount":"363","inLanguage":"en","datePublished":"2013-09-23T21:28:55+09:00","dateModified":"2013-09-23T21:28:55+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-09-23-%E3%83%A1%E3%83%A2freebsd_10%E3%81%AE%E6%96%B0%E6%A9%9F%E8%83%BD/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"メモ: FreeBSD 10の新機能","name":"メモ: FreeBSD 10の新機能","description":"FreeBSD 10が年明けあたりにリリースされる。 今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。 その変更点を以下","keywords":[],"articleBody":"FreeBSD 10が年明けあたりにリリースされる。\n今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。\nその変更点を以下にまとめる。あくまでも本日時点。\nなお元ネタはhttps://wiki.freebsd.org/WhatsNew/FreeBSD10\nFreeBSD 10での変更点 システム\npkg\nサーバソフトウェア  仮想化  ファイルシステム  起動  その他  ","wordCount":"173","inLanguage":"en","datePublished":"2013-09-23T21:28:55+09:00","dateModified":"2013-09-23T21:28:55+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-09-23-%E3%83%A1%E3%83%A2freebsd_10%E3%81%AE%E6%96%B0%E6%A9%9F%E8%83%BD/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,7 +96,7 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinefreebsd-10%e3%81%a7%e3%81%ae%e5%a4%89%e6%9b%b4%e7%82%b9span aria-label="FreeBSD 10での変更点">FreeBSD 10での変更点</a>
+<a href=#freebsd-10%e3%81%a7%e3%81%ae%e5%a4%89%e6%9b%b4%e7%82%b9 aria-label="FreeBSD 10での変更点">FreeBSD 10での変更点</a>
 </li>
 </ul>
 </div>
@@ -106,18 +106,18 @@
 今回のメジャーバージョンアップは、普段と比べて大きな変更があって、とても注目している。<br>
 その変更点を以下にまとめる。あくまでも本日時点。</p>
 <p>なお元ネタは<a href=https://wiki.freebsd.org/WhatsNew/FreeBSD10>https://wiki.freebsd.org/WhatsNew/FreeBSD10</a></p>
-<h2 id=span-styletext-decoration-underlinefreebsd-10での変更点span>FreeBSD 10での変更点<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinefreebsd-10での変更点span>#</a></h2>
+<h2 id=freebsd-10での変更点>FreeBSD 10での変更点<a hidden class=anchor aria-hidden=true href=#freebsd-10での変更点>#</a></h2>
 <p>システム</p>
 <p>pkg</p>
-<pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;サーバソフトウェア&lt;/span&gt;
+<pre><code>サーバソフトウェア
 </code></pre>
-<pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;仮想化&lt;/span&gt;
+<pre><code>仮想化
 </code></pre>
-<pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;ファイルシステム&lt;/span&gt;
+<pre><code>ファイルシステム
 </code></pre>
-<pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;起動&lt;/span&gt;
+<pre><code>起動
 </code></pre>
-<pre><code>&lt;span style=&quot;text-decoration: underline;&quot;&gt;その他&lt;/span&gt;
+<pre><code>その他
 </code></pre>
 </div>
 <footer class=post-footer>

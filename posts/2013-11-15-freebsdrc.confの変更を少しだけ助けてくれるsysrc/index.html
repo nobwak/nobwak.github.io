@@ -96,13 +96,13 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinercconf%e8%a8%ad%e5%ae%9a%e3%81%ae%e8%a1%a8%e7%a4%baspan aria-label=rc.conf設定の表示>rc.conf設定の表示</a></li>
+<a href=#rcconf%e8%a8%ad%e5%ae%9a%e3%81%ae%e8%a1%a8%e7%a4%ba aria-label=rc.conf設定の表示>rc.conf設定の表示</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%a8%ad%e5%ae%9a%e6%9b%b8%e3%81%8d%e6%8f%9b%e3%81%88span aria-label=設定書き換え>設定書き換え</a></li>
+<a href=#%e8%a8%ad%e5%ae%9a%e6%9b%b8%e3%81%8d%e6%8f%9b%e3%81%88 aria-label=設定書き換え>設定書き換え</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%a8%ad%e5%ae%9a%e6%9b%b8%e3%81%8d%e6%8f%9b%e3%81%88rcconf%e3%81%8b%e3%82%89%e3%81%ae%e5%89%8a%e9%99%a4span aria-label=設定書き換え（rc.confからの削除）>設定書き換え（rc.confからの削除）</a></li>
+<a href=#%e8%a8%ad%e5%ae%9a%e6%9b%b8%e3%81%8d%e6%8f%9b%e3%81%88rcconf%e3%81%8b%e3%82%89%e3%81%ae%e5%89%8a%e9%99%a4 aria-label=設定書き換え（rc.confからの削除）>設定書き換え（rc.confからの削除）</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%a8%ad%e5%ae%9a%e6%9b%b8%e3%81%8d%e6%8f%9b%e3%81%88%e6%96%b0%e8%a6%8f%e3%82%bd%e3%83%95%e3%83%88%e3%82%a6%e3%82%a7%e3%82%a2span aria-label=設定書き換え（新規ソフトウェア）>設定書き換え（新規ソフトウェア）</a>
+<a href=#%e8%a8%ad%e5%ae%9a%e6%9b%b8%e3%81%8d%e6%8f%9b%e3%81%88%e6%96%b0%e8%a6%8f%e3%82%bd%e3%83%95%e3%83%88%e3%82%a6%e3%82%a7%e3%82%a2 aria-label=設定書き換え（新規ソフトウェア）>設定書き換え（新規ソフトウェア）</a>
 </li>
 </ul>
 </div>
@@ -113,9 +113,9 @@
 （こわごわ言うけど、Linuxだったらchkconfig httpd onとかで済むよね。）</p>
 <p>9.2-RELEASEから入ったsysrcというユーティリティがある。<br>
 rc.confの変更を少しだけ助けてくれるものだ。<br>
-serviceコマンドと併せて使えば、rc.conf周りの設定は少しだけ楽になる。</p>
+<a href="../../../?p=1831">serviceコマンド</a>と併せて使えば、rc.conf周りの設定は少しだけ楽になる。</p>
 <p>以下に使用例を示す。</p>
-<h2 id=span-styletext-decoration-underlinercconf設定の表示span>rc.conf設定の表示<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinercconf設定の表示span>#</a></h2>
+<h2 id=rcconf設定の表示>rc.conf設定の表示<a hidden class=anchor aria-hidden=true href=#rcconf設定の表示>#</a></h2>
 <p>まずはrc.confで設定している変数を、sysrcに続けてタイプしてみる。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sysrc hostname
 hostname: ascomoid
@@ -140,7 +140,7 @@ allscreens_kbdflags:
 wpa_supplicant_program: /usr/sbin/wpa_supplicant
 zfs_enable: NO
 $
-</code></pre></div><h2 id=span-styletext-decoration-underline設定書き換えspan>設定書き換え<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline設定書き換えspan>#</a></h2>
+</code></pre></div><h2 id=設定書き換え>設定書き換え<a hidden class=anchor aria-hidden=true href=#設定書き換え>#</a></h2>
 <p>sysrcに変数設定を与えると、rc.confを書き換えてくれる。<br>
 例えばsysrc sshd_enable=&ldquo;NO"というようにすると、/etc/rc.confの該当行が書き換わる。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sysrc sshd_enable
@@ -168,7 +168,7 @@ $ sysrc zfs_enable
 zfs_enable: YES
 $ grep zfs_enable /etc/rc.conf
 zfs_enable=&#34;YES&#34;
-</code></pre></div><h2 id=span-styletext-decoration-underline設定書き換えrcconfからの削除span>設定書き換え（rc.confからの削除）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline設定書き換えrcconfからの削除span>#</a></h2>
+</code></pre></div><h2 id=設定書き換えrcconfからの削除>設定書き換え（rc.confからの削除）<a hidden class=anchor aria-hidden=true href=#設定書き換えrcconfからの削除>#</a></h2>
 <p>zfs_enableをNOに戻すが、/etc/rc.confに記載が残ってしまった。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo sysrc zfs_enable<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;NO&#34;</span>
 zfs_enable: YES -&gt; NO
@@ -181,7 +181,7 @@ $ grep zfs_enable /etc/rc.conf
 $
 $ sysrc zfs_enable
 zfs_enable: NO
-</code></pre></div><h2 id=span-styletext-decoration-underline設定書き換え新規ソフトウェアspan>設定書き換え（新規ソフトウェア）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline設定書き換え新規ソフトウェアspan>#</a></h2>
+</code></pre></div><h2 id=設定書き換え新規ソフトウェア>設定書き換え（新規ソフトウェア）<a hidden class=anchor aria-hidden=true href=#設定書き換え新規ソフトウェア>#</a></h2>
 <p>では/etc/rc.conf, /etc/defaults/rc.confの双方にない変数は？<br>
 これも追加できる。<br>
 以下はlighttpdの場合。</p>

@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>popサーバ、dovecot2のインストール | nobwak's Lair</title>
 <meta name=keywords content>
-<meta name=description content="<span style=&#34;font-weight:bold;&#34; class=&#34;deco&#34;>popサーバを構築する。</span> LAN内にゆるーく作るので、とにか">
+<meta name=description content="popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネッ">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="popサーバ、dovecot2のインストール">
-<meta property="og:description" content="<span style=&#34;font-weight:bold;&#34; class=&#34;deco&#34;>popサーバを構築する。</span> LAN内にゆるーく作るので、とにか">
+<meta property="og:description" content="popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネッ">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2012-03-02T01:00:00+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="popサーバ、dovecot2のインストール">
-<meta name=twitter:description content="<span style=&#34;font-weight:bold;&#34; class=&#34;deco&#34;>popサーバを構築する。</span> LAN内にゆるーく作るので、とにか">
+<meta name=twitter:description content="popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネッ">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"popサーバ、dovecot2のインストール","item":"https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"popサーバ、dovecot2のインストール","name":"popサーバ、dovecot2のインストール","description":"\u0026lt;span style=\u0026quot;font-weight:bold;\u0026quot; class=\u0026quot;deco\u0026quot;\u0026gt;popサーバを構築する。\u0026lt;/span\u0026gt; LAN内にゆるーく作るので、とにか","keywords":[],"articleBody":"popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネットワーク内をパスワードが平文で流れるのは勘弁。 わざわざMaildirにする必要もなく、mbox形式で結構。 FreeBSD handbook 29.2.4.1章を眺めて、dovecot2を選んだ。 http://en.wikipedia.org/wiki/Dovecot_%28software%29 インストールと設定 インストールはportsで、mail/dovecot2から。設定はそのままで。 後述するが、make cleanしないこと! 設定ファイルは下記だが。  /usr/local/etc/dovecot READMEがポツリ。  Configuration files go to this directory. See example configuration files in /usr/local/share/doc/dovecot/example-config/ ということでまるごとコピー。  # cd /usr/local/share/doc/dovecot/example-config/ # cp ./dovecot.conf /usr/local/etc/dovecot/ # cp -R ./conf.d /usr/local/etc/dovecot/ 設定ファイルの書き換え。 受け付けるプロトコルの設定。dovecot.confにて。 pop3だけにした。  # Protocols we want to be serving. #protocols = imap pop3 lmtp protocols = pop3 メールボックスの場所 http://wiki2.dovecot.org/MailLocation のTypical settingsに沿う。 mboxで結構。  vi conf.d/10-mail.conf 以下を追加 #mail_location = mail_location = mbox:~/mail:INBOX=/var/mail/%u SSL設定 LAN内なので、オレオレ証明書で十分。 http://wiki2.dovecot.org/SSL/DovecotConfiguration http://wiki2.dovecot.org/SSL/CertificateCreation 上記を読むと、dovecot2にはオレオレ証明書を作ってくれるスクリプト、mkcert.shがついてくるそうな。 これは便利。 しかしこのスクリプトはインストールされない。make cleanしてはいけないというのはそのため。もちろん、あとからでも取り出せるけど。 ただ、デフォルトでは/etc/sslの下に証明書を書き込むようだ。 FreeBSDを使っているんだし、/usr/local/etc/sslの下にしたい。 では設定と作成。  conf.d/10-ssl.confにて。 # PEM encoded X.509 SSL/TLS certificate and private key. They\u0026#39;re opened before # dropping root privileges, so keep the key file unreadable by anyone but # root. Included doc/mkcert.sh can be used to easily generate self-signed # certificate, just make sure to update the domains in dovecot-openssl.cnf #ssl_cert = \u0026#60;/etc/ssl/certs/dovecot.pem #ssl_key = \u0026#60;/etc/ssl/private/dovecot.pem ssl_cert = \u0026#60;/usr/local/etc/ssl/certs/dovecot.pem ssl_key = \u0026#60;/usr/local/etc/ssl/private/dovecot.pem pem作成。 再び、http://wiki2.dovecot.org/SSL/CertificateCreation Self-signed certificate creation Dovecot includes a script to build self-signed SSL certificates using OpenSSL. In the source distribution this exists in doc/mkcert.sh. Binary installations usually create the certificate automatically when installing Dovecot and don't include the script. 繰り返しになるが、doc/mkcert.shはインストールされない。 portsでdovecot2を作ったところに戻る。 make cleanしてしまった場合、portmaster等でインストールした場合には、慌てず/usr/ports/mail/dovecot2/で「make extract」すればOK。そして、  $ cd /usr/ports/mail/dovecot2/work/dovecot-2.0.16/doc/ ここでスクリプトを実行してもよいし、どこかにコピーしてもよい。 俺様は、なんだか別のことにも使えそうなので、ホームディレクトリにコピーしておいた。スクリプトはdovecot-openssl.cnfを参照するのでこれもコピー。  $ cp ./mkcert.sh ~/bin/ $ cp ./dovecot-openssl.cnf ~/bin/ 準備をして実行。以下はsh、あるいはbashでの例。  # mkdir /usr/local/etc/ssl\n# mkdir /usr/local/etc/ssl/private\n# mkdir /usr/local/etc/ssl/certs\n# SSLDIR=/usr/local/etc/ssl sh ./mkcert.sh\nGenerating a 1024 bit RSA private key\n..++++++\n..............++++++\nwriting new private key to \u0026#39;/usr/local/etc/ssl/private/dovecot.pem\u0026#39; ","wordCount":"1196","inLanguage":"en","datePublished":"2012-03-02T01:00:00+09:00","dateModified":"2012-03-02T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"popサーバ、dovecot2のインストール","name":"popサーバ、dovecot2のインストール","description":"popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネッ","keywords":[],"articleBody":"popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネットワーク内をパスワードが平文で流れるのは勘弁。 わざわざMaildirにする必要もなく、mbox形式で結構。 FreeBSD handbook 29.2.4.1章を眺めて、dovecot2を選んだ。 [http://en.wikipedia.org/wiki/Dovecot_%28software%29](http://en.wikipedia.org/wiki/Dovecot_%28software%29) インストールと設定 インストールはportsで、mail/dovecot2から。設定はそのままで。 後述するが、make cleanしないこと! 設定ファイルは下記だが。  /usr/local/etc/dovecot READMEがポツリ。  Configuration files go to this directory. See example configuration files in /usr/local/share/doc/dovecot/example-config/ ということでまるごとコピー。  # cd /usr/local/share/doc/dovecot/example-config/ # cp ./dovecot.conf /usr/local/etc/dovecot/ # cp -R ./conf.d /usr/local/etc/dovecot/ 設定ファイルの書き換え。 受け付けるプロトコルの設定。dovecot.confにて。 pop3だけにした。  # Protocols we want to be serving. #protocols = imap pop3 lmtp protocols = pop3 メールボックスの場所 [http://wiki2.dovecot.org/MailLocation](http://wiki2.dovecot.org/MailLocation) のTypical settingsに沿う。 mboxで結構。  vi conf.d/10-mail.conf 以下を追加 #mail_location = mail_location = mbox:~/mail:INBOX=/var/mail/%u SSL設定 LAN内なので、オレオレ証明書で十分。 [http://wiki2.dovecot.org/SSL/DovecotConfiguration](http://wiki2.dovecot.org/SSL/DovecotConfiguration) [http://wiki2.dovecot.org/SSL/CertificateCreation](http://wiki2.dovecot.org/SSL/CertificateCreation) 上記を読むと、dovecot2にはオレオレ証明書を作ってくれるスクリプト、mkcert.shがついてくるそうな。 これは便利。 しかしこのスクリプトはインストールされない。make cleanしてはいけないというのはそのため。もちろん、あとからでも取り出せるけど。 ただ、デフォルトでは/etc/sslの下に証明書を書き込むようだ。 FreeBSDを使っているんだし、/usr/local/etc/sslの下にしたい。 では設定と作成。  conf.d/10-ssl.confにて。 # PEM encoded X.509 SSL/TLS certificate and private key. They\u0026#39;re opened before # dropping root privileges, so keep the key file unreadable by anyone but # root. Included doc/mkcert.sh can be used to easily generate self-signed # certificate, just make sure to update the domains in dovecot-openssl.cnf #ssl_cert = \u0026#60;/etc/ssl/certs/dovecot.pem #ssl_key = \u0026#60;/etc/ssl/private/dovecot.pem ssl_cert = \u0026#60;/usr/local/etc/ssl/certs/dovecot.pem ssl_key = \u0026#60;/usr/local/etc/ssl/private/dovecot.pem pem作成。 再び、[http://wiki2.dovecot.org/SSL/CertificateCreation](http://wiki2.dovecot.org/SSL/CertificateCreation) Self-signed certificate creation Dovecot includes a script to build self-signed SSL certificates using OpenSSL. In the source distribution this exists in doc/mkcert.sh. Binary installations usually create the certificate automatically when installing Dovecot and don't include the script. 繰り返しになるが、doc/mkcert.shはインストールされない。 portsでdovecot2を作ったところに戻る。 make cleanしてしまった場合、portmaster等でインストールした場合には、慌てず/usr/ports/mail/dovecot2/で「make extract」すればOK。そして、  $ cd /usr/ports/mail/dovecot2/work/dovecot-2.0.16/doc/ ここでスクリプトを実行してもよいし、どこかにコピーしてもよい。 俺様は、なんだか別のことにも使えそうなので、ホームディレクトリにコピーしておいた。スクリプトはdovecot-openssl.cnfを参照するのでこれもコピー。  $ cp ./mkcert.sh ~/bin/ $ cp ./dovecot-openssl.cnf ~/bin/ 準備をして実行。以下はsh、あるいはbashでの例。  # mkdir /usr/local/etc/ssl\n# mkdir /usr/local/etc/ssl/private\n# mkdir /usr/local/etc/ssl/certs\n# SSLDIR=/usr/local/etc/ssl sh ./mkcert.sh\nGenerating a 1024 bit RSA private key\n..++++++\n..............++++++\nwriting new private key to \u0026#39;/usr/local/etc/ssl/private/dovecot.pem\u0026#39; ","wordCount":"1199","inLanguage":"en","datePublished":"2012-03-02T01:00:00+09:00","dateModified":"2012-03-02T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -90,7 +90,7 @@ popサーバ、dovecot2のインストール
 <div class=post-meta><span title="2012-03-02 01:00:00 +0900 JST">March 2, 2012</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2012-03-02-pop%e3%82%b5%e3%83%bc%e3%83%90%e3%80%81dovecot2%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header>
-<div class=post-content><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;popサーバを構築する。&lt;/span&gt;
+<div class=post-content><pre><code>popサーバを構築する。
 
 
 
@@ -110,14 +110,14 @@ FreeBSD handbook 29.2.4.1章を眺めて、dovecot2を選んだ。
 
 
 
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Dovecot_%28software%29&quot; target=&quot;_blank&quot;&gt;http://en.wikipedia.org/wiki/Dovecot_%28software%29&lt;/a&gt;
+[http://en.wikipedia.org/wiki/Dovecot_%28software%29](http://en.wikipedia.org/wiki/Dovecot_%28software%29)
 
 
 
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;インストールと設定&lt;/span&gt;
+インストールと設定
 
 
 
@@ -164,7 +164,7 @@ protocols = pop3
 
 
 
-&lt;a href=&quot;http://wiki2.dovecot.org/MailLocation&quot; target=&quot;_blank&quot;&gt;http://wiki2.dovecot.org/MailLocation&lt;/a&gt; のTypical settingsに沿う。
+[http://wiki2.dovecot.org/MailLocation](http://wiki2.dovecot.org/MailLocation) のTypical settingsに沿う。
 
 
 
@@ -182,11 +182,11 @@ LAN内なので、オレオレ証明書で十分。
 
 
 
-&lt;a href=&quot;http://wiki2.dovecot.org/SSL/DovecotConfiguration&quot; target=&quot;_blank&quot;&gt;http://wiki2.dovecot.org/SSL/DovecotConfiguration&lt;/a&gt;
+[http://wiki2.dovecot.org/SSL/DovecotConfiguration](http://wiki2.dovecot.org/SSL/DovecotConfiguration)
 
 
 
-&lt;a href=&quot;http://wiki2.dovecot.org/SSL/CertificateCreation&quot; target=&quot;_blank&quot;&gt;http://wiki2.dovecot.org/SSL/CertificateCreation&lt;/a&gt;
+[http://wiki2.dovecot.org/SSL/CertificateCreation](http://wiki2.dovecot.org/SSL/CertificateCreation)
 
 
 
@@ -225,7 +225,7 @@ ssl_key = &amp;#60;/usr/local/etc/ssl/private/dovecot.pem
 
 
 
-再び、&lt;a href=&quot;http://wiki2.dovecot.org/SSL/CertificateCreation&quot; target=&quot;_blank&quot;&gt;http://wiki2.dovecot.org/SSL/CertificateCreation&lt;/a&gt;
+再び、[http://wiki2.dovecot.org/SSL/CertificateCreation](http://wiki2.dovecot.org/SSL/CertificateCreation)
 
 
 

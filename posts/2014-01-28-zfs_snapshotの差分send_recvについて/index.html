@@ -96,26 +96,26 @@ zfs snapshotの差分send/recvについて
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinezfs-snapshot%e3%81%ae%e5%b7%ae%e5%88%86sendrecv%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6span aria-label="zfs snapshotの差分send/recvについて">zfs snapshotの差分send/recvについて</a></li>
+<a href=#zfs-snapshot%e3%81%ae%e5%b7%ae%e5%88%86sendrecv%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6 aria-label="zfs snapshotの差分send/recvについて">zfs snapshotの差分send/recvについて</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%88%e3%82%8d%e3%81%97%e3%81%84%e3%81%a7%e3%81%af%e6%ac%a1%e5%9b%9e%e3%81%8b%e3%82%89%e3%81%afspan aria-label=よろしい。では次回からは…？>よろしい。では次回からは…？</a></li>
+<a href=#%e3%82%88%e3%82%8d%e3%81%97%e3%81%84%e3%81%a7%e3%81%af%e6%ac%a1%e5%9b%9e%e3%81%8b%e3%82%89%e3%81%af aria-label=よろしい。では次回からは…？>よろしい。では次回からは…？</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%bb%a2%e9%80%81%e5%85%88%e3%81%8c%e6%9b%b4%e6%96%b0%e3%81%95%e3%82%8c%e3%81%a6%e3%81%84%e3%82%8b%e3%81%9f%e3%82%81%e5%b7%ae%e5%88%86%e3%82%92%e8%bb%a2%e9%80%81%e3%81%a7%e3%81%8d%e3%81%be%e3%81%9b%e3%82%93span aria-label=「転送先が更新されているため差分を転送できません」>「転送先が更新されているため差分を転送できません」</a></li>
+<a href=#%e8%bb%a2%e9%80%81%e5%85%88%e3%81%8c%e6%9b%b4%e6%96%b0%e3%81%95%e3%82%8c%e3%81%a6%e3%81%84%e3%82%8b%e3%81%9f%e3%82%81%e5%b7%ae%e5%88%86%e3%82%92%e8%bb%a2%e9%80%81%e3%81%a7%e3%81%8d%e3%81%be%e3%81%9b%e3%82%93 aria-label=「転送先が更新されているため差分を転送できません」>「転送先が更新されているため差分を転送できません」</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineatime%e3%81%aeoffspan aria-label=atimeのoff>atimeのoff</a>
+<a href=#atime%e3%81%aeoff aria-label=atimeのoff>atimeのoff</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><h2 id=span-styletext-decoration-underlinezfs-snapshotの差分sendrecvについてspan>zfs snapshotの差分send/recvについて<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinezfs-snapshotの差分sendrecvについてspan>#</a></h2>
+<div class=post-content><h2 id=zfs-snapshotの差分sendrecvについて>zfs snapshotの差分send/recvについて<a hidden class=anchor aria-hidden=true href=#zfs-snapshotの差分sendrecvについて>#</a></h2>
 <p>zfsのバックアップは、snapshotを撮っておいて、自ホストの別zpool、あるいは他ホストの別zpoolに移すことで行われる。<br>
 バックアップは定期的に行われるものであるが、ではそのsnapshotを移す際、毎回毎回まるまる送っていたんでは帯域も時間もディスク寿命も無駄である。<br>
 zfsはそこも考慮していて、差分だけを送ればいいようにincrementalオプションがきちんと用意されている。</p>
 <p>書式は以下の通りsendに-iオプションを与えるだけ。<br>
 （recv側にはsnapshotAがすでに転送済みの前提）</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>zfs send -i ＜snapshotA＞ ＜snapshotB＞ | zfs recv ＜target pool＞
-</code></pre></div><h2 id=span-styletext-decoration-underlineよろしいでは次回からはspan>よろしい。では次回からは…？<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineよろしいでは次回からはspan>#</a></h2>
+</code></pre></div><h2 id=よろしいでは次回からは>よろしい。では次回からは…？<a hidden class=anchor aria-hidden=true href=#よろしいでは次回からは>#</a></h2>
 <p>ふむ。<br>
 では二回目以降はどうするのだろう？<br>
 上記の書式例でsnapshotCが出来たらどうするのだろう？<br>
@@ -124,7 +124,7 @@ zfsはそこも考慮していて、差分だけを送ればいいようにincre
 zfs send -i snapshotA snapshotBでAとBの差分のみが送られる。<br>
 つぎにzfs send -i snapshotB snapshotCでBとCの差分のみが送られる、というわけ。</p>
 <p>では早速試してみる。が。</p>
-<h2 id=span-styletext-decoration-underline転送先が更新されているため差分を転送できませんspan>「転送先が更新されているため差分を転送できません」<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline転送先が更新されているため差分を転送できませんspan>#</a></h2>
+<h2 id=転送先が更新されているため差分を転送できません>「転送先が更新されているため差分を転送できません」<a hidden class=anchor aria-hidden=true href=#転送先が更新されているため差分を転送できません>#</a></h2>
 <p>こんなエラーがでる。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>cannot receive incremental stream: destination warehouse/dir has been modified
 since most recent snapshot
@@ -135,7 +135,7 @@ since most recent snapshot
 <p>下記の例だと、recv側は@20131226にいったんrollbackしてから受け取る。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo sh -c <span style=color:#e6db74>&#34;zfs send -i vault/chamber@20131226 vault/chamber@2014010
 </span><span style=color:#e6db74></span>2 | zfs recv -F warehouse/chamber&#34;
-</code></pre></div><h2 id=span-styletext-decoration-underlineatimeのoffspan>atimeのoff<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineatimeのoffspan>#</a></h2>
+</code></pre></div><h2 id=atimeのoff>atimeのoff<a hidden class=anchor aria-hidden=true href=#atimeのoff>#</a></h2>
 <p>recv側がなぜ更新されてるのか、atimeが怪しいのでoffにしておく。<br>
 recv側のzpoolに対してzfs set atime=offするだけ。<br>
 （zpoolから切り出されたzfsすべてに適用される）</p>

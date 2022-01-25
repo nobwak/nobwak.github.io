@@ -112,7 +112,7 @@
       <pubDate>Fri, 02 Mar 2012 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>&amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot; class=&amp;quot;deco&amp;quot;&amp;gt;popサーバを構築する。&amp;lt;/span&amp;gt; LAN内にゆるーく作るので、とにか</description>
+      <description>popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネッ</description>
     </item>
     
     <item>
@@ -121,7 +121,7 @@
       <pubDate>Sun, 07 Feb 2010 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2010-02-07-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20071125/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;これ&amp;lt;/a&amp;gt;、古い記事なのに未だに見られているようなのでアップデー</description>
+      <description>[これ](http://d.hatena.ne.jp/flageo/20071125/p1)、古い記事なのに未だに見られているようなのでアッ</description>
     </item>
     
     <item>
@@ -130,7 +130,7 @@
       <pubDate>Sat, 02 May 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-05-02-dd%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8Bbs%E3%81%AE%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%94%E3%81%A8%E3%81%AE%E5%80%A4%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://lists.freebsd.org/pipermail/freebsd-questions/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;FreeBSD-questionsメーリングリスト&amp;lt;/a&amp;gt;からのメ</description>
+      <description>[FreeBSD-questionsメーリングリスト](http://lists.freebsd.org/pipermail/freebsd</description>
     </item>
     
     <item>
@@ -148,7 +148,7 @@
       <pubDate>Mon, 20 Apr 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-04-20-roundcube%E3%82%92%E5%85%A5%E3%82%8C%E3%81%9F/</guid>
-      <description>webベースのIMAPクライアントであるroundcube（&amp;lt;a href=&amp;quot;http://roundcube.net/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;本家&amp;lt</description>
+      <description>webベースのIMAPクライアントであるroundcube（[本家](http://roundcube.net/)、[日本語](http:/</description>
     </item>
     
     <item>
@@ -157,7 +157,7 @@
       <pubDate>Wed, 18 Mar 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-03-18-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE%EF%BC%92/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090316/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Xorg7.4のキーボード設定をkwsk その1&amp;lt;/a&amp;gt;の続き。 で話</description>
+      <description>[Xorg7.4のキーボード設定をkwsk その1](http://d.hatena.ne.jp/flageo/20090316/p1)の続き</description>
     </item>
     
     <item>
@@ -193,7 +193,7 @@
       <pubDate>Fri, 31 Oct 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-10-31-%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E6%83%85%E5%A0%B1%E3%82%92%E8%AA%AD%E3%81%BF%E5%87%BA%E3%81%99dmidecode/</guid>
-      <description>SMBIOSからハードウェアの情報を読み出してくれるコマンドdmidecode（&amp;lt;a href=&amp;quot;http://www.nongnu.org/dmidecode/&amp;quot; target=&amp;quot;_blank&amp;quot</description>
+      <description>SMBIOSからハードウェアの情報を読み出してくれるコマンドdmidecode（[http://www.nongnu.org/dmideco</description>
     </item>
     
     <item>
@@ -211,7 +211,7 @@
       <pubDate>Tue, 12 Feb 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-02-12-solaris_linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E5%B8%AF%E5%9F%9F%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; metric 0 mtu 1500 options=9b&amp;amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&amp;gt; ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (&amp;lt;span style=&amp;#34;font-weight:bold;&amp;#34;&amp;gt;1000baseTX &amp;amp;#60;full-duplex&amp;gt;&amp;lt;/span&amp;gt;) status: active Boldで示し</description>
+      <description>俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; metric 0 mtu 1500 options=9b&amp;amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&amp;gt; ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (1000baseTX &amp;amp;#60;full-duplex&amp;gt;) status: active Boldで示した</description>
     </item>
     
     <item>
@@ -229,7 +229,7 @@
       <pubDate>Sun, 25 Nov 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 &amp;lt;span style=&amp;quot;font-style:italic;&amp;quot;&amp;gt;* 2008/11追記: 過疎blogにも</description>
+      <description>「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 * 2008/11追記: 過疎blogにも関</description>
     </item>
     
     <item>
@@ -256,7 +256,7 @@
       <pubDate>Sat, 13 Oct 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-10-13-ubuntu%E4%B8%8Avmware-player%E3%81%ABfreebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
-      <description>VMware Playerの入手 &amp;lt;a href=&amp;quot;http://www.vmware.com/download/player/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.vmware.com/download/player/&amp;lt;/a&amp;gt; tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeの</description>
+      <description>VMware Playerの入手 [http://www.vmware.com/download/player/](http://www.vmware.com/download/player/) tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeのみ設</description>
     </item>
     
     <item>
@@ -265,7 +265,7 @@
       <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-09-13-sources.list%E3%81%AB%E6%9B%B8%E3%81%8B%E3%82%8C%E3%82%8Bmain_restricted%E3%81%AA%E3%81%A9%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E6%84%8F%E5%91%B3/</guid>
-      <description>コンポーネントを説明した&amp;lt;a href=&amp;quot;http://www.ubuntu.com/community/ubuntustory/components&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.ubuntu.com/c</description>
+      <description>コンポーネントを説明した[http://www.ubuntu.com/community/ubuntustory/components](h</description>
     </item>
     
     <item>
@@ -274,7 +274,7 @@
       <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-09-13-ubuntu_7.04_feisty%E3%81%8B%E3%82%89ubuntu_7.10_gutsy%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</guid>
-      <description>Ubuntuを7.04にアップグレードしたばかりだが、ある事情により7.10に続けてアップグレードしたその顛末。 とは言っても、&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20070906/p1&amp;quot; t</description>
+      <description>Ubuntuを7.04にアップグレードしたばかりだが、ある事情により7.10に続けてアップグレードしたその顛末。 とは言っても、[先日](ht</description>
     </item>
     
     <item>
@@ -283,7 +283,7 @@
       <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-09-13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://www.zabbix.com/index.php&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;ZABBIX&amp;lt;/a&amp;gt;とはフリーの統合監視ソフト。 Webインタフェー</description>
+      <description>[ZABBIX](http://www.zabbix.com/index.php)とはフリーの統合監視ソフト。 Webインタフェースで楽に設定</description>
     </item>
     
     <item>
@@ -301,7 +301,7 @@
       <pubDate>Thu, 06 Sep 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-09-06-ubuntu7.04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2_ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20070220/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;6.10のときにインストールしたApache2+SSL&amp;lt;/a&amp;gt;だが</description>
+      <description>[6.10のときにインストールしたApache2+SSL](http://d.hatena.ne.jp/flageo/20070220/p1</description>
     </item>
     
     <item>
@@ -310,7 +310,7 @@
       <pubDate>Wed, 25 Apr 2007 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2007-04-25-php5.2.1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89/</guid>
-      <description>「a,b,&amp;quot;cde,fg&amp;quot;,e」 こんなCSVをPHPで扱おうとすると、結構面倒くさい。 &amp;lt;a href=&amp;quot;http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html&amp;quot; target=&amp;quot;_b</description>
+      <description>「a,b,&amp;quot;cde,fg&amp;quot;,e」 こんなCSVをPHPで扱おうとすると、結構面倒くさい。 [ここ](http://nhh.m</description>
     </item>
     
     <item>
@@ -355,7 +355,7 @@
       <pubDate>Mon, 16 Oct 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-10-16-ports%E7%A5%AD%E3%82%8A%E9%96%8B%E5%82%AC%E4%B8%ADfreebsd/</guid>
-      <description>In addition to the core GNOME ports, &amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot;&amp;gt;almost 500 ports&amp;lt;/span&amp;gt; were also touched to chase the GNOME move from X11BASE to LOCALBASE and fix build problems with the new freetype2. (太字は俺) アッー!</description>
+      <description>In addition to the core GNOME ports, almost 500 ports were also touched to chase the GNOME move from X11BASE to LOCALBASE and fix build problems with the new freetype2. (太字は俺) アッー!</description>
     </item>
     
     <item>
@@ -364,7 +364,7 @@
       <pubDate>Mon, 16 Oct 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/</guid>
-      <description>会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(&amp;lt;a href=&amp;quot;http://www.openssl.org/related/binaries.html&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;</description>
+      <description>会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは([http://www.openssl.org/related/</description>
     </item>
     
     <item>
@@ -373,7 +373,7 @@
       <pubDate>Sun, 17 Sep 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-09-17-freebsd%E3%83%8D%E3%82%BF__portutill/</guid>
-      <description>2chの&amp;lt;a href=&amp;quot;http://pc8.2ch.net/test/read.cgi/unix/1149936019/371-&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;FreeBSDを語ろう&amp;lt;/a&amp;gt;スレで、pkg/po</description>
+      <description>2chの[FreeBSDを語ろう](http://pc8.2ch.net/test/read.cgi/unix/1149936019/371</description>
     </item>
     
     <item>
@@ -400,7 +400,7 @@
       <pubDate>Mon, 15 May 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20060501#p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;先日&amp;lt;/a&amp;gt;の日記でも少し触れたportsnap。日記ではさらりと</description>
+      <description>[先日](http://d.hatena.ne.jp/flageo/20060501#p1)の日記でも少し触れたportsnap。日記ではさ</description>
     </item>
     
     <item>

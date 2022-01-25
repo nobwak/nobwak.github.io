@@ -114,18 +114,18 @@ $ ssh user@remotehost /path/command
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinessh%e3%81%a7%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e5%ae%9f%e8%a1%8c%e3%81%99%e3%82%8b%e3%81%a8%e7%92%b0%e5%a2%83%e5%a4%89%e6%95%b0%e3%81%8c%e6%9c%89%e5%8a%b9%e3%81%ab%e3%81%aa%e3%82%89%e3%81%aa%e3%81%84span aria-label=sshでコマンド実行すると環境変数が有効にならない。>sshでコマンド実行すると環境変数が有効にならない。</a></li>
+<a href=#ssh%e3%81%a7%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e5%ae%9f%e8%a1%8c%e3%81%99%e3%82%8b%e3%81%a8%e7%92%b0%e5%a2%83%e5%a4%89%e6%95%b0%e3%81%8c%e6%9c%89%e5%8a%b9%e3%81%ab%e3%81%aa%e3%82%89%e3%81%aa%e3%81%84 aria-label=sshでコマンド実行すると環境変数が有効にならない。>sshでコマンド実行すると環境変数が有効にならない。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinebash%e3%81%ae%e4%bb%95%e6%a7%98%e3%81%8c%e5%8e%9f%e5%9b%a0span aria-label=bashの仕様が原因>bashの仕様が原因</a><ul>
+<a href=#bash%e3%81%ae%e4%bb%95%e6%a7%98%e3%81%8c%e5%8e%9f%e5%9b%a0 aria-label=bashの仕様が原因>bashの仕様が原因</a><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e5%af%be%e7%ad%96%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e5%ae%9f%e8%a1%8c%e6%99%82%e3%81%abprofile%e8%aa%ad%e3%81%bf%e8%be%bc%e3%81%bf%e3%82%92%e6%98%8e%e7%a4%baspan aria-label=対策①:コマンド実行時にprofile読み込みを明示>対策①:コマンド実行時にprofile読み込みを明示</a></li>
+<a href=#%e5%af%be%e7%ad%96%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e5%ae%9f%e8%a1%8c%e6%99%82%e3%81%abprofile%e8%aa%ad%e3%81%bf%e8%be%bc%e3%81%bf%e3%82%92%e6%98%8e%e7%a4%ba aria-label=対策①:コマンド実行時にprofile読み込みを明示>対策①:コマンド実行時にprofile読み込みを明示</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%af%be%e7%ad%96-sshd%e3%81%ae%e8%a8%ad%e5%ae%9apermituserenvironment%e3%82%92%e5%a4%89%e3%81%88%e3%82%8bspan aria-label="対策②: sshdの設定PermitUserEnvironmentを変える。">対策②: sshdの設定PermitUserEnvironmentを変える。</a></li>
+<a href=#%e5%af%be%e7%ad%96-sshd%e3%81%ae%e8%a8%ad%e5%ae%9apermituserenvironment%e3%82%92%e5%a4%89%e3%81%88%e3%82%8b aria-label="対策②: sshdの設定PermitUserEnvironmentを変える。">対策②: sshdの設定PermitUserEnvironmentを変える。</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%af%be%e7%ad%96-1sshd%e8%a8%ad%e5%ae%9a%e5%a4%89%e6%9b%b4span aria-label=対策②-1:sshd設定変更>対策②-1:sshd設定変更</a></li></ul>
+<a href=#%e5%af%be%e7%ad%96-1sshd%e8%a8%ad%e5%ae%9a%e5%a4%89%e6%9b%b4 aria-label=対策②-1:sshd設定変更>対策②-1:sshd設定変更</a></li></ul>
 </li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%af%be%e7%ad%96-2environment%e3%81%ae%e4%bd%9c%e6%88%90span aria-label=対策②-2:environmentの作成>対策②-2:environmentの作成</a>
+<a href=#%e5%af%be%e7%ad%96-2environment%e3%81%ae%e4%bd%9c%e6%88%90 aria-label=対策②-2:environmentの作成>対策②-2:environmentの作成</a>
 </li>
 </ul>
 </div>
@@ -138,7 +138,7 @@ $ ssh user@remotehost /path/command
 おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。<br>
 以下にまとめる。</p>
 <p>なお、複数ホストを用意するのが面倒なので、本記事で実例を示す場合には接続先をlocalhostしている。</p>
-<h2 id=span-styletext-decoration-underlinesshでコマンド実行すると環境変数が有効にならないspan>sshでコマンド実行すると環境変数が有効にならない。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesshでコマンド実行すると環境変数が有効にならないspan>#</a></h2>
+<h2 id=sshでコマンド実行すると環境変数が有効にならない>sshでコマンド実行すると環境変数が有効にならない。<a hidden class=anchor aria-hidden=true href=#sshでコマンド実行すると環境変数が有効にならない>#</a></h2>
 <p>試しに、user01のprofile、ここでは~user01/.profileでTESTENVという環境変数を設定する。<br>
 sudo su - して通常のログインを擬似してみると、意図した通りTESTENVが設定されている。<br>
 しかしsshでいきなりコマンド実行した場合（ここではenvコマンド）には、TESTENVは設定されない。</p>
@@ -152,7 +152,7 @@ TESTENV=testenv
 [user01@vanilla ~]$ ssh localhost env|grep TESTENV
 [user01@vanilla ~]$
 </code></pre></div><p>``` `</p>
-<h2 id=span-styletext-decoration-underlinebashの仕様が原因span>bashの仕様が原因<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinebashの仕様が原因span>#</a></h2>
+<h2 id=bashの仕様が原因>bashの仕様が原因<a hidden class=anchor aria-hidden=true href=#bashの仕様が原因>#</a></h2>
 <p>ssh経由でコマンド実行した場合、bashはnon-intractive（非対話モード） modeで起動し、.profile等を読み込まない。<br>
 これが原因で環境変数が設定できない。<br>
 対策には、①コマンド実行時に一手間かける ②sshdの設定を変える の二つがある。</p>
@@ -163,7 +163,7 @@ TESTENV=testenv
 （中略）<br>
 (例えばシェルスクリプトを実行するために) 非対話的に起動されると、 bash は環境変数 BASH_ENV を調べ、この変数が定義されていればその値を展開し、 得られた値をファイル名とみなして、 そこからコマンドの読み込みと実行を行います。</p>
 </blockquote>
-<h3 id=span-styletext-decoration-underline対策コマンド実行時にprofile読み込みを明示span>対策①:コマンド実行時にprofile読み込みを明示<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline対策コマンド実行時にprofile読み込みを明示span>#</a></h3>
+<h3 id=対策コマンド実行時にprofile読み込みを明示>対策①:コマンド実行時にprofile読み込みを明示<a hidden class=anchor aria-hidden=true href=#対策コマンド実行時にprofile読み込みを明示>#</a></h3>
 <p>コマンド実行時に以下のようにしてprofile読み込みを明示する。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ ssh user@host <span style=color:#e6db74>&#34;source ~/.profile; /path/to/command&#34;</span>
 </code></pre></div><p>ご覧の通り。<br>
@@ -174,7 +174,7 @@ TESTENV=testenv
 </code></pre></div><p>後述の対策②を採れない場合、つまりsshdの設定ファイルを変更する権限がない場合には有効。<br>
 その一方で、sshで実行するスクリプトが大量にある場合には、それら全部に対して修正が必要になるので、きびしい。<br>
 単発向けの対策と考えるのがよさそう。</p>
-<h3 id=span-styletext-decoration-underline対策-sshdの設定permituserenvironmentを変えるspan>対策②: sshdの設定PermitUserEnvironmentを変える。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline対策-sshdの設定permituserenvironmentを変えるspan>#</a></h3>
+<h3 id=対策-sshdの設定permituserenvironmentを変える>対策②: sshdの設定PermitUserEnvironmentを変える。<a hidden class=anchor aria-hidden=true href=#対策-sshdの設定permituserenvironmentを変える>#</a></h3>
 <p>sshdの設定を変えて、環境変数を読むようにする。<br>
 以下、sshd_configのマニュアルより抜粋。<br>
 <code>&lt;br /> PermitUserEnvironment&lt;br /> Specifies whether ~/.ssh/environment and environment= options in&lt;br /> ~/.ssh/authorized_keys are processed by sshd(8). The default is&lt;br /> ``no''. Enabling environment processing may enable users to&lt;br /> bypass access restrictions in some configurations using mecha-&lt;br /> nisms such as LD_PRELOAD.</code></p>
@@ -183,7 +183,7 @@ TESTENV=testenv
 セキュリティ上の穴になる可能性があるので推奨はされない。<br>
 加えて、先述の通りサーバのsshd設定を書き換える権限が必要。<br>
 それらがクリアできれば、クライアント側では何も意識しなくてよいので楽。</p>
-<h3 id=span-styletext-decoration-underline対策-1sshd設定変更span>対策②-1:sshd設定変更<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline対策-1sshd設定変更span>#</a></h3>
+<h3 id=対策-1sshd設定変更>対策②-1:sshd設定変更<a hidden class=anchor aria-hidden=true href=#対策-1sshd設定変更>#</a></h3>
 <p>sshd_configでPermitUserEnvironment yesにする。<br>
 ``</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo vi /etc/ssh/sshd_config
@@ -196,7 +196,7 @@ PermitUserEnvironment yes
 Stopping sshd.
 Starting sshd.
 $
-</code></pre></div><h2 id=span-styletext-decoration-underline対策-2environmentの作成span>対策②-2:environmentの作成<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline対策-2environmentの作成span>#</a></h2>
+</code></pre></div><h2 id=対策-2environmentの作成>対策②-2:environmentの作成<a hidden class=anchor aria-hidden=true href=#対策-2environmentの作成>#</a></h2>
 <p>~/.ssh/environmentを作る。</p>
 <p>ここで注意点。<br>
 environmentは下記の書式しか受け付けない。詳細は実例で後述。</p>

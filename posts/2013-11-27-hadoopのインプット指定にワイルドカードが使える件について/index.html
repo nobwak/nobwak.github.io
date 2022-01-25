@@ -96,11 +96,11 @@ Hadoopのインプット指定にワイルドカードが使える件につい�
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%b1%e3%83%bc%e3%82%b91%e8%a4%87%e6%95%b0%e3%83%87%e3%82%a3%e3%83%ac%e3%82%af%e3%83%88%e3%83%aa%e3%81%ae%e4%b8%8b%e3%81%ab%e5%87%a6%e7%90%86%e5%af%be%e8%b1%a1%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%8c%e3%81%82%e3%82%8b%e5%a0%b4%e5%90%88span aria-label=ケース1:複数ディレクトリの下に処理対象ファイルがある場合。>ケース1:複数ディレクトリの下に処理対象ファイルがある場合。</a></li>
+<a href=#%e3%82%b1%e3%83%bc%e3%82%b91%e8%a4%87%e6%95%b0%e3%83%87%e3%82%a3%e3%83%ac%e3%82%af%e3%83%88%e3%83%aa%e3%81%ae%e4%b8%8b%e3%81%ab%e5%87%a6%e7%90%86%e5%af%be%e8%b1%a1%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%8c%e3%81%82%e3%82%8b%e5%a0%b4%e5%90%88 aria-label=ケース1:複数ディレクトリの下に処理対象ファイルがある場合。>ケース1:複数ディレクトリの下に処理対象ファイルがある場合。</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%b1%e3%83%bc%e3%82%b92%e7%89%b9%e5%ae%9a%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e3%81%bf%e5%87%a6%e7%90%86%e3%81%97%e3%81%9f%e3%81%84%e5%a0%b4%e5%90%88span aria-label=ケース2:特定のファイルのみ処理したい場合>ケース2:特定のファイルのみ処理したい場合</a></li>
+<a href=#%e3%82%b1%e3%83%bc%e3%82%b92%e7%89%b9%e5%ae%9a%e3%81%ae%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e3%81%bf%e5%87%a6%e7%90%86%e3%81%97%e3%81%9f%e3%81%84%e5%a0%b4%e5%90%88 aria-label=ケース2:特定のファイルのみ処理したい場合>ケース2:特定のファイルのみ処理したい場合</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%b1%e3%83%bc%e3%82%b93%e3%82%b1%e3%83%bc%e3%82%b912%e3%81%ae%e8%a4%87%e5%90%88%e3%82%b1%e3%83%bc%e3%82%b9span aria-label=ケース3:ケース1/2の複合ケース>ケース3:ケース1/2の複合ケース</a>
+<a href=#%e3%82%b1%e3%83%bc%e3%82%b93%e3%82%b1%e3%83%bc%e3%82%b912%e3%81%ae%e8%a4%87%e5%90%88%e3%82%b1%e3%83%bc%e3%82%b9 aria-label=ケース3:ケース1/2の複合ケース>ケース3:ケース1/2の複合ケース</a>
 </li>
 </ul>
 </div>
@@ -114,7 +114,7 @@ Hadoopのインプット指定にワイルドカードが使える件につい�
 </ul>
 <p>実はワイルドカードが使えるので、それで解決。<br>
 以下、hadoop-1.0.0で確認。</p>
-<h2 id=span-styletext-decoration-underlineケース1複数ディレクトリの下に処理対象ファイルがある場合span>ケース1:複数ディレクトリの下に処理対象ファイルがある場合。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineケース1複数ディレクトリの下に処理対象ファイルがある場合span>#</a></h2>
+<h2 id=ケース1複数ディレクトリの下に処理対象ファイルがある場合>ケース1:複数ディレクトリの下に処理対象ファイルがある場合。<a hidden class=anchor aria-hidden=true href=#ケース1複数ディレクトリの下に処理対象ファイルがある場合>#</a></h2>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>top-+-dir1-file1
     |     -file2
     |     -file3
@@ -136,13 +136,13 @@ Streaming Job Failed!
 -output sampleoutput \
 -mapper /home/hadoop/map.py \
 -file /home/hadoop/map.py
-</code></pre></div><h2 id=span-styletext-decoration-underlineケース2特定のファイルのみ処理したい場合span>ケース2:特定のファイルのみ処理したい場合<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineケース2特定のファイルのみ処理したい場合span>#</a></h2>
+</code></pre></div><h2 id=ケース2特定のファイルのみ処理したい場合>ケース2:特定のファイルのみ処理したい場合<a hidden class=anchor aria-hidden=true href=#ケース2特定のファイルのみ処理したい場合>#</a></h2>
 <p>たとえば以下のdir3で.txtのみを処理したい場合。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-dir3-file1.txt
      -file2.bin
      -file3.txt
 </code></pre></div><p>-input dir3/*.txtとすればよい。</p>
-<h2 id=span-styletext-decoration-underlineケース3ケース12の複合ケースspan>ケース3:ケース1/2の複合ケース<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineケース3ケース12の複合ケースspan>#</a></h2>
+<h2 id=ケース3ケース12の複合ケース>ケース3:ケース1/2の複合ケース<a hidden class=anchor aria-hidden=true href=#ケース3ケース12の複合ケース>#</a></h2>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>top-+-dir4-file1.txt
     |     -file2.bin
     |     -file3.txt

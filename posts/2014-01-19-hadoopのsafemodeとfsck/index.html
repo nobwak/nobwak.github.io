@@ -96,15 +96,15 @@ hadoopのsafemodeとfsck
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%b5%e3%83%9e%e3%83%aaspan aria-label=サマリ>サマリ</a></li>
+<a href=#%e3%82%b5%e3%83%9e%e3%83%aa aria-label=サマリ>サマリ</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinehdfs%e3%81%a7%e3%81%aefsckspan aria-label=HDFSでのfsck>HDFSでのfsck</a></li>
+<a href=#hdfs%e3%81%a7%e3%81%aefsck aria-label=HDFSでのfsck>HDFSでのfsck</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%a3%8a%e3%82%8c%e3%81%a6%e3%81%84%e3%82%8b%e5%a0%b4%e5%90%88%e3%81%ae%e5%af%be%e5%87%a6%e6%b6%88%e5%8e%bb%e3%81%8b%e7%a7%bb%e5%8b%95span aria-label=壊れている場合の対処:消去か移動>壊れている場合の対処:消去か移動</a></li>
+<a href=#%e5%a3%8a%e3%82%8c%e3%81%a6%e3%81%84%e3%82%8b%e5%a0%b4%e5%90%88%e3%81%ae%e5%af%be%e5%87%a6%e6%b6%88%e5%8e%bb%e3%81%8b%e7%a7%bb%e5%8b%95 aria-label=壊れている場合の対処:消去か移動>壊れている場合の対処:消去か移動</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesafemode%e3%81%a8%e3%81%afspan aria-label=safemodeとは>safemodeとは</a></li>
+<a href=#safemode%e3%81%a8%e3%81%af aria-label=safemodeとは>safemodeとは</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesafemode%e3%81%ae%e6%93%8d%e4%bd%9cspan aria-label=safemodeの操作>safemodeの操作</a>
+<a href=#safemode%e3%81%ae%e6%93%8d%e4%bd%9c aria-label=safemodeの操作>safemodeの操作</a>
 </li>
 </ul>
 </div>
@@ -114,7 +114,7 @@ hadoopのsafemodeとfsck
 勉強用のHadoopなのでダメージはないのだが、せっかくなのでfsckなどを試した結果を記す。<br>
 hadoop-1.0.0。<br>
 OS側でもfsckはしておいた。</p>
-<h2 id=span-styletext-decoration-underlineサマリspan>サマリ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineサマリspan>#</a></h2>
+<h2 id=サマリ>サマリ<a hidden class=anchor aria-hidden=true href=#サマリ>#</a></h2>
 <ul>
 <li>HDFSにもfsckがある。</li>
 <li>hadoop fsckでチェック、修正できる。</li>
@@ -122,7 +122,7 @@ OS側でもfsckはしておいた。</p>
 <li>namenodeがsafemodeのためにHDFSが読み取り専用になっていることがある。</li>
 <li>読み取り専用ではfsckで修正できないので、safemodeから出る必要がある。</li>
 </ul>
-<h2 id=span-styletext-decoration-underlinehdfsでのfsckspan>HDFSでのfsck<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinehdfsでのfsckspan>#</a></h2>
+<h2 id=hdfsでのfsck>HDFSでのfsck<a hidden class=anchor aria-hidden=true href=#hdfsでのfsck>#</a></h2>
 <p>hadoop fsck ＜path＞と指定すればよい。<br>
 CORRUPT!とのことで、壊れておりますなあ。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ hadoop fsck /
@@ -152,7 +152,7 @@ Number of racks: 1
 FSCK ended at Wed Dec 25 18:51:38 JST 2013 in 1185 milliseconds
 <span style=color:#960050;background-color:#1e0010>
 </span><span style=color:#960050;background-color:#1e0010></span>The filesystem under path &#39;/&#39; is CORRUPT
-</code></pre></div><h2 id=span-styletext-decoration-underline壊れている場合の対処消去か移動span>壊れている場合の対処:消去か移動<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline壊れている場合の対処消去か移動span>#</a></h2>
+</code></pre></div><h2 id=壊れている場合の対処消去か移動>壊れている場合の対処:消去か移動<a hidden class=anchor aria-hidden=true href=#壊れている場合の対処消去か移動>#</a></h2>
 <p>壊れている場合には対処が二つ。<br>
 壊れているブロックを消すか、lost+foundに移すか。<br>
 消す場合には-delete, 移す場合には-moveを指定する。<br>
@@ -167,13 +167,13 @@ Cannot delete /tmp/hadoop-hadoop/mapred/staging/hadoop/.staging/job_201308300823
 The ratio of reported blocks 0.7456 has not reached the threshold 0.9990. Safe mode will be turned off automatically.
 <span style=color:#960050;background-color:#1e0010>
 </span><span style=color:#960050;background-color:#1e0010></span>Fsck on path &#39;/&#39; FAILED
-</code></pre></div><h2 id=span-styletext-decoration-underlinesafemodeとはspan>safemodeとは<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesafemodeとはspan>#</a></h2>
+</code></pre></div><h2 id=safemodeとは>safemodeとは<a hidden class=anchor aria-hidden=true href=#safemodeとは>#</a></h2>
 <p>そもそもnameodeは通常の動作として、起動時には状態がsafemodeである。<br>
 safenodeのまま待機をしているうちに、datanodeが起動し、保管しているブロックの報告をnamenodeに行う。<br>
 namenodeは、充分なブロックの確認ができれば自動的にsafemodeを出る。<br>
 「充分なブロック」がどれくらいか、は設定できる。</p>
 <p>safemodeのときは読み取り専用になり、複製や消去もできないが、手動でsafemodeに入ったり出たりすることができる。</p>
-<p>以下、公式からの引用</p>
+<p>以下、<a href=https://hadoop.apache.org/docs/r1.2.1/commands_manual.html>公式</a>からの引用</p>
 <blockquote>
 <p>Safe mode is entered automatically at Namenode startup, and leaves safe mode automatically when the configured minimum percentage of blocks satisfies the minimum replication condition. Safe mode can also be entered manually, but then it can only be turned off manually as well.<br>
 Safe mode maintenance command. Safe mode is a Namenode state in which it</p>
@@ -187,7 +187,7 @@ Safe mode maintenance command. Safe mode is a Namenode state in which it</p>
 ボロボロである。<br>
 したがって、いつまで待ってもsafemodeから出るはずがない。<br>
 そこで手動でsafemodeを解除する。</p>
-<h2 id=span-styletext-decoration-underlinesafemodeの操作span>safemodeの操作<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesafemodeの操作span>#</a></h2>
+<h2 id=safemodeの操作>safemodeの操作<a hidden class=anchor aria-hidden=true href=#safemodeの操作>#</a></h2>
 <p>safemodeの操作はhadoop dfsadmin -safemodeに続けて行う。<br>
 getで状態を得る。<br>
 enterでsafemodeに入る。<br>

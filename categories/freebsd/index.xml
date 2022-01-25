@@ -277,7 +277,7 @@
       <pubDate>Tue, 11 Mar 2014 19:43:26 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/</guid>
-      <description>Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/Monitorixの特徴 Per</description>
+      <description>Monitorixは軽量で手軽に運用できる監視ツールである。 http://www.monitorix.org/ Monitorixの特徴 Perlで書かれており、データ格納、グラフ描画はrrd</description>
     </item>
     
     <item>
@@ -592,7 +592,7 @@
       <pubDate>Mon, 11 Nov 2013 20:08:18 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-11-11-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%9B%A3%E6%9F%BB%E3%83%84%E3%83%BC%E3%83%ABlynis/</guid>
-      <description>Lynisとは Linux向けのセキュリティ監査ツール。 http://www.rootkit.nl/projects/lynis.htmlLi</description>
+      <description>Lynisとは Linux向けのセキュリティ監査ツール。 http://www.rootkit.nl/projects/lynis.html Linux向けではあるが、Linux以外でも使える。 FreeBSD, Solarisに加えてなんとO</description>
     </item>
     
     <item>
@@ -601,7 +601,7 @@
       <pubDate>Wed, 06 Nov 2013 21:27:46 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-11-06-pkgng%E3%81%8C%E5%BE%A9%E6%B4%BB%E3%81%97%E3%81%9F%E3%81%A8%E8%A8%80%E3%81%A3%E3%81%9F%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AE%E5%A5%B4%E3%81%AB%E3%81%A8%E3%81%A3%E3%81%A6%E3%81%82%E3%82%8C%E3%81%AF%E5%98%98%E3%81%A0srv%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E7%BD%A0/</guid>
-      <description>pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current</description>
+      <description>pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。 原因</description>
     </item>
     
     <item>
@@ -727,7 +727,7 @@
       <pubDate>Thu, 03 Oct 2013 21:14:50 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/</guid>
-      <description>[FreeBSD] ezjailを試そうの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表</description>
+      <description>[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表</description>
     </item>
     
     <item>
@@ -904,7 +904,7 @@
       <pubDate>Fri, 26 Apr 2013 22:49:10 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-04-26-freebsd_pc-bsd%E3%81%8Cfreebsd%E5%90%91%E3%81%91pkg_repo%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%9F%E3%81%91%E3%81%A9%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B2013_4_27%E7%8F%BE%E5%9C%A8/</guid>
-      <description>（追記:2013/11/7） 公式のpkgngが公開されている。詳しくは以下を。 ../../../?p=2357（追記ここまで） FreeBSD</description>
+      <description>（追記:2013/11/7） 公式のpkgngが公開されている。詳しくは以下を。 ../../../?p=2357 （追記ここまで） FreeBSDの新ソフトウェア管理ツールであ</description>
     </item>
     
     <item>
@@ -1003,7 +1003,7 @@
       <pubDate>Thu, 03 Jan 2013 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2013-01-03-freebsd_9.1-release_%E3%81%9F%E3%81%A0%E3%81%97package%E3%81%8C%E3%81%9D%E3%82%8D%E3%81%A3%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E3%81%AE%E3%81%A7%E6%B3%A8%E6%84%8F2013_5_15_%E8%BF%BD%E8%A8%98/</guid>
-      <description>遅れに遅れた9.1-RELEASEがついに。 もともとの進捗が悪いうえに、freebsd.orgに&amp;lt;a href=&amp;quot;http://www.freebsd.org/news/2012-compromise.html&amp;quot; target=&amp;quot;_bl</description>
+      <description>遅れに遅れた9.1-RELEASEがついに。 もともとの進捗が悪いうえに、freebsd.orgに[不正アクセスのあったこと](http://</description>
     </item>
     
     <item>
@@ -1030,7 +1030,7 @@
       <pubDate>Sat, 07 Apr 2012 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2012-04-07-portsnap_freebsd-update%E3%81%ABuserpasswordproxy%E5%BD%A2%E5%BC%8F%E3%81%AEhttp_proxy%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AFphttpget%E3%82%92%E6%94%B9%E9%80%A0/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20060501/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://d.hatena.ne.jp/flageo/20060501/p1&amp;lt;/a&amp;gt; でも書いたけど、phttpget、つまりはportsnap, freebsd-updateはhttp://user:password@p</description>
+      <description>[http://d.hatena.ne.jp/flageo/20060501/p1](http://d.hatena.ne.jp/flageo/20060501/p1) でも書いたけど、phttpget、つまりはportsnap, freebsd-updateはhttp://user:password@pro</description>
     </item>
     
     <item>
@@ -1138,7 +1138,7 @@
       <pubDate>Fri, 02 Mar 2012 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>&amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot; class=&amp;quot;deco&amp;quot;&amp;gt;popサーバを構築する。&amp;lt;/span&amp;gt; LAN内にゆるーく作るので、とにか</description>
+      <description>popサーバを構築する。 LAN内にゆるーく作るので、とにかく手軽に。 手軽にというのはたとえば、imapとか要らない。pop3でいい。ただネッ</description>
     </item>
     
     <item>
@@ -1147,7 +1147,7 @@
       <pubDate>Thu, 01 Mar 2012 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2012-03-01-clamavclamscan%E3%81%A8clamdscan%E3%81%AE%E9%81%95%E3%81%84%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%AA%E3%82%93%E3%81%A0%E3%82%88/</guid>
-      <description>clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト &amp;lt;a href=&amp;quot;http://www.clamav.net/lang/en/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.clamav.net/lang/en/&amp;lt;/a&amp;gt; インストールはportsから。 &amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot; class</description>
+      <description>clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュール</description>
     </item>
     
     <item>
@@ -1201,7 +1201,7 @@
       <pubDate>Fri, 12 Feb 2010 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2010-02-12-roundcube0.3.1&#43;sqlite%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
-      <description>FreeBSDに&amp;lt;a href=&amp;quot;http://roundcube.net/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Roundcube&amp;lt;/a&amp;gt;を再インストール</description>
+      <description>FreeBSDに[Roundcube](http://roundcube.net/)を再インストールしたのでメモ。 RoundcubeとはIM</description>
     </item>
     
     <item>
@@ -1363,7 +1363,7 @@
       <pubDate>Fri, 24 Jul 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-07-24-freebsd%E3%81%AB%E3%81%95%E3%81%A3%E3%81%8F%E3%82%8Ax%E3%81%A8xfce4%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B/</guid>
-      <description>XFCE4をインストールした。 ついでなので&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20071125/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;この記事&amp;lt;/a&amp;gt;</description>
+      <description>XFCE4をインストールした。 ついでなので[この記事](http://d.hatena.ne.jp/flageo/20071125/p1)の</description>
     </item>
     
     <item>
@@ -1390,7 +1390,7 @@
       <pubDate>Thu, 16 Jul 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-07-16-freebsd%E3%82%92%E6%AF%8E%E6%97%A5%E3%83%93%E3%83%AB%E3%83%89%E3%81%97%E3%81%A6iso%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%8F%E3%82%8C%E3%82%8Ballbsd.org/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://pub.allbsd.org/FreeBSD-snapshots/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://pub.allbsd.org/FreeBSD-snapshots/&amp;lt;/a&amp;gt; ここで（ソースがアップデートされたら）毎日ビルドしてISOイメージまで作ってくれる! すごい! FreeBSDは日々刻々とアップデートされ</description>
+      <description>[http://pub.allbsd.org/FreeBSD-snapshots/](http://pub.allbsd.org/FreeBSD-snapshots/) ここで（ソースがアップデートされたら）毎日ビルドしてISOイメージまで作ってくれる! すごい! FreeBSDは日々刻々とアップデートされてい</description>
     </item>
     
     <item>
@@ -1435,7 +1435,7 @@
       <pubDate>Sat, 02 May 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-05-02-dd%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8Bbs%E3%81%AE%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%94%E3%81%A8%E3%81%AE%E5%80%A4%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://lists.freebsd.org/pipermail/freebsd-questions/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;FreeBSD-questionsメーリングリスト&amp;lt;/a&amp;gt;からのメ</description>
+      <description>[FreeBSD-questionsメーリングリスト](http://lists.freebsd.org/pipermail/freebsd</description>
     </item>
     
     <item>
@@ -1444,7 +1444,7 @@
       <pubDate>Fri, 01 May 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-05-01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7/</guid>
-      <description>&amp;lt;span style=&amp;quot;font-style:italic;&amp;quot;&amp;gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&amp;</description>
+      <description>2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は[こちら](http://d.hatena.ne.jp/flageo/2009051</description>
     </item>
     
     <item>
@@ -1471,7 +1471,7 @@
       <pubDate>Mon, 20 Apr 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-04-20-roundcube%E3%82%92%E5%85%A5%E3%82%8C%E3%81%9F/</guid>
-      <description>webベースのIMAPクライアントであるroundcube（&amp;lt;a href=&amp;quot;http://roundcube.net/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;本家&amp;lt</description>
+      <description>webベースのIMAPクライアントであるroundcube（[本家](http://roundcube.net/)、[日本語](http:/</description>
     </item>
     
     <item>
@@ -1480,7 +1480,7 @@
       <pubDate>Sat, 18 Apr 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-04-18-thinkpad_x30%E3%81%A7xorg7.4%E3%81%8C%E3%82%84%E3%81%A3%E3%81%A8%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%AE%E5%B7%BB/</guid>
-      <description>実は年明けのxorg祭りから我がThinkpad x30でXorg7.4（xorg-server1.5, 1.6）は&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090314/p1&amp;quot; target=&amp;</description>
+      <description>実は年明けのxorg祭りから我がThinkpad x30でXorg7.4（xorg-server1.5, 1.6）は[まったく動かなかった](h</description>
     </item>
     
     <item>
@@ -1507,7 +1507,7 @@
       <pubDate>Thu, 19 Mar 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-03-19-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE3/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090316/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Xorg7.4のキーボード設定をkwsk その1&amp;lt;/a&amp;gt;、&amp;lt;a</description>
+      <description>[Xorg7.4のキーボード設定をkwsk その1](http://d.hatena.ne.jp/flageo/20090316/p1)、[X</description>
     </item>
     
     <item>
@@ -1516,7 +1516,7 @@
       <pubDate>Wed, 18 Mar 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-03-18-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE%EF%BC%92/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090316/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Xorg7.4のキーボード設定をkwsk その1&amp;lt;/a&amp;gt;の続き。 で話</description>
+      <description>[Xorg7.4のキーボード設定をkwsk その1](http://d.hatena.ne.jp/flageo/20090316/p1)の続き</description>
     </item>
     
     <item>
@@ -1570,7 +1570,7 @@
       <pubDate>Mon, 16 Feb 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-02-16-mergemaster%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E3%81%95%E3%82%89%E3%81%AB%E6%97%A9%E3%81%8F/</guid>
-      <description>&amp;lt;span style=&amp;quot;font-style:italic;&amp;quot;&amp;gt;2009/5/1追記:&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090501/p1&amp;quot; target=&amp;quot</description>
+      <description>2009/5/1追記:[mergemasterのオプションは-UPiFで](http://d.hatena.ne.jp/flageo/200</description>
     </item>
     
     <item>
@@ -1588,7 +1588,7 @@
       <pubDate>Sun, 25 Jan 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-01-25-freebsd%E3%81%A7ntfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%90%8D%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/</guid>
-      <description>FreeBSDでは、先日の&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090112/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;MSDOSFSの件と同じく&amp;lt;/a&amp;gt</description>
+      <description>FreeBSDでは、先日の[MSDOSFSの件と同じく](http://d.hatena.ne.jp/flageo/20090112/p1)</description>
     </item>
     
     <item>
@@ -1597,7 +1597,7 @@
       <pubDate>Mon, 12 Jan 2009 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2009-01-12-freebsd%E3%81%A7msdosfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/</guid>
-      <description>MSDOSFSの日本語ファイル名に使われる文字コードはCP932(&amp;lt;a href=&amp;quot;http://ja.wikipedia.org/wiki/Microsoft%E3%82%B3%E3%83%BC%E3%83%89%E3%83%9A%E3%83%BC%E3%82%B8932&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Sh</description>
+      <description>MSDOSFSの日本語ファイル名に使われる文字コードはCP932([Shit_JIS](http://ja.wikipedia.org/wi</description>
     </item>
     
     <item>
@@ -1633,7 +1633,7 @@
       <pubDate>Tue, 09 Dec 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-12-09-proflibs%E3%81%A3%E3%81%A6%E4%BD%95/</guid>
-      <description>proflibsが何だか分からなかったんだが。 &amp;lt;a href=&amp;quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-October/184180.html&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://lists.freebsd.org/pipermail/freebsd-questions/2008-October/184180.html&amp;lt;/a&amp;gt; Re: proflibs by Jeremy Chadwick on 2008-10-11T02:10:33+00:00 On Fri, Oct 10, 2008 at 11:06:11PM -0400, Ansar Mohammed wrote: &amp;gt; Can anyone explain what are the proflibs on the install media, and what they &amp;gt; are for? They&amp;#39;re special versions of all the libraries that</description>
+      <description>proflibsが何だか分からなかったんだが。 [http://lists.freebsd.org/pipermail/freebsd-questions/2008-October/184180.html](http://lists.freebsd.org/pipermail/freebsd-questions/2008-October/184180.html) Re: proflibs by Jeremy Chadwick on 2008-10-11T02:10:33+00:00 On Fri, Oct 10, 2008 at 11:06:11PM -0400, Ansar Mohammed wrote: &amp;gt; Can anyone explain what are the proflibs on the install media, and what they &amp;gt; are for? They&amp;#39;re special versions of all the libraries that come with</description>
     </item>
     
     <item>
@@ -1642,7 +1642,7 @@
       <pubDate>Mon, 08 Dec 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-12-08-mergemaster%E3%81%AF-siva%E3%81%A7%E3%81%AA%E3%81%8F-upi%E3%81%A7/</guid>
-      <description>mergemasterについて、FreeBSD-questionsに面白い投稿（&amp;lt;a href=&amp;quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&amp;quot; target=&amp;quot;_blank&amp;quot</description>
+      <description>mergemasterについて、FreeBSD-questionsに面白い投稿（[http://lists.freebsd.org/pipe</description>
     </item>
     
     <item>
@@ -1651,7 +1651,7 @@
       <pubDate>Sat, 06 Dec 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-12-06-grip%E3%81%A7rip_amp_%E3%82%A8%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89/</guid>
-      <description>CDのrippingとmp3エンコードを一緒にやってくれるツールとして&amp;lt;a href=&amp;quot;http://nostatic.org/grip/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;</description>
+      <description>CDのrippingとmp3エンコードを一緒にやってくれるツールとして[grip](http://nostatic.org/grip/)をイ</description>
     </item>
     
     <item>
@@ -1687,7 +1687,7 @@
       <pubDate>Thu, 20 Nov 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-11-20-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9Fports%E3%81%AEpkg%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20081118/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;こんなこと&amp;lt;/a&amp;gt;があったので、やはり曲がりなりにもサーバたるもの</description>
+      <description>[こんなこと](http://d.hatena.ne.jp/flageo/20081118/p1)があったので、やはり曲がりなりにもサーバた</description>
     </item>
     
     <item>
@@ -1705,7 +1705,7 @@
       <pubDate>Tue, 11 Nov 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-11-11-freebsd%E3%81%A7anonymous_ftp%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>最近はanonymous FTPを立てることは少なくなった。 とはいっても、たまにはあるわけで、その時のためにメモする。 （&amp;lt;a href=&amp;quot;http://www.freebsdnews.net/index.php&amp;quot; targe</description>
+      <description>最近はanonymous FTPを立てることは少なくなった。 とはいっても、たまにはあるわけで、その時のためにメモする。 （[http://www</description>
     </item>
     
     <item>
@@ -1741,7 +1741,7 @@
       <pubDate>Fri, 31 Oct 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-10-31-%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E6%83%85%E5%A0%B1%E3%82%92%E8%AA%AD%E3%81%BF%E5%87%BA%E3%81%99dmidecode/</guid>
-      <description>SMBIOSからハードウェアの情報を読み出してくれるコマンドdmidecode（&amp;lt;a href=&amp;quot;http://www.nongnu.org/dmidecode/&amp;quot; target=&amp;quot;_blank&amp;quot</description>
+      <description>SMBIOSからハードウェアの情報を読み出してくれるコマンドdmidecode（[http://www.nongnu.org/dmideco</description>
     </item>
     
     <item>
@@ -1795,7 +1795,7 @@
       <pubDate>Mon, 17 Mar 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-03-17-7.0-release%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E3%83%AB%E3%83%BC%E3%83%88%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%A9%BA%E3%81%8D%E5%AE%B9%E9%87%8F%E3%81%8C%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
-      <description>webサーバとして使用しているマシンを7.0-RELEASEにした。 古いマシンなので、ソースからのアップデートは出来ず、&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20080111/p2&amp;quot; targ</description>
+      <description>webサーバとして使用しているマシンを7.0-RELEASEにした。 古いマシンなので、ソースからのアップデートは出来ず、[ISOイメージを使</description>
     </item>
     
     <item>
@@ -1813,7 +1813,7 @@
       <pubDate>Tue, 04 Mar 2008 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2008-03-04-mergemaster%E3%82%92%E5%B0%91%E3%81%97%E3%81%A0%E3%81%91%E6%A5%BD%E3%81%AB/</guid>
-      <description>&amp;lt;span style=&amp;quot;font-style:italic;&amp;quot;&amp;gt;200812追記。本件は古い内容なので、&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20081208/p1&amp;quot; tar</description>
+      <description>200812追記。本件は古い内容なので、[こちら](http://d.hatena.ne.jp/flageo/20081208/p1)へ。 F</description>
     </item>
     
     <item>

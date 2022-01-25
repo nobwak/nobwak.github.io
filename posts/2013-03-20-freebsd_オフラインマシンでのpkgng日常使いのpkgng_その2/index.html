@@ -96,11 +96,11 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinepkg%e3%81%ae%e6%8c%81%e3%81%a1%e9%81%8b%e3%81%b3%e3%81%ab%e3%81%afpkg-create%e3%82%92%e4%bd%bf%e3%81%86span aria-label="pkgの持ち運びには、pkg createを使う。">pkgの持ち運びには、pkg createを使う。</a></li>
+<a href=#pkg%e3%81%ae%e6%8c%81%e3%81%a1%e9%81%8b%e3%81%b3%e3%81%ab%e3%81%afpkg-create%e3%82%92%e4%bd%bf%e3%81%86 aria-label="pkgの持ち運びには、pkg createを使う。">pkgの持ち運びには、pkg createを使う。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinepkg-addspan aria-label="pkg add">pkg add</a></li>
+<a href=#pkg-add aria-label="pkg add">pkg add</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinepkg-create%e3%81%8c%e9%81%85%e3%81%88span aria-label="pkg createが遅え。">pkg createが遅え。</a>
+<a href=#pkg-create%e3%81%8c%e9%81%85%e3%81%88 aria-label="pkg createが遅え。">pkg createが遅え。</a>
 </li>
 </ul>
 </div>
@@ -118,7 +118,7 @@
 <li>仮想マシンでターゲットとなるマシンと同じ環境を作る。</li>
 <li>仮想マシンで使ったpkgを全部ターゲットマシンに持っていく。</li>
 </ol>
-<h3 id=span-styletext-decoration-underlinepkgの持ち運びにはpkg-createを使うspan>pkgの持ち運びには、pkg createを使う。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepkgの持ち運びにはpkg-createを使うspan>#</a></h3>
+<h3 id=pkgの持ち運びにはpkg-createを使う>pkgの持ち運びには、pkg createを使う。<a hidden class=anchor aria-hidden=true href=#pkgの持ち運びにはpkg-createを使う>#</a></h3>
 <p>pkg createの使い方。</p>
 <p>pkg help createでだいたい分かるけれども;<br>
 -oオプションで作成場所を選べる。<br>
@@ -139,13 +139,13 @@ Creating package for GeoIP-1.4.8_3
 Creating package for ORBit2-2.14.19
 </code></pre></div><p>そして出来上がったpkgをターゲットマシンに持っていく。<br>
 ターゲットマシンでpkgをインストールするには、pkg addを使う。pkg installではダメなことに注意。</p>
-<h3 id=span-styletext-decoration-underlinepkg-addspan>pkg add<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepkg-addspan>#</a></h3>
+<h3 id=pkg-add>pkg add<a hidden class=anchor aria-hidden=true href=#pkg-add>#</a></h3>
 <p>なんにも難しいことはない。<br>
 以下のようにすればOK。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>pkg add ./xorg-7.5.2.txz
 </code></pre></div><p>なお、pkg addで追加するpkgはローカルにある必要はなくて、ftp, http, https経由でアクセスできる場所にあればよい。<br>
 pkg help addで出てくるように、pkg add ftp://somewhere/some/dir/pkg-nameとかすればよい。</p>
-<h3 id=span-styletext-decoration-underlinepkg-createが遅えspan>pkg createが遅え。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepkg-createが遅えspan>#</a></h3>
+<h3 id=pkg-createが遅え>pkg createが遅え。<a hidden class=anchor aria-hidden=true href=#pkg-createが遅え>#</a></h3>
 <p>ところでpkg createは遅い。すごく遅い。<br>
 これはファイルをxzで圧縮しているから。<br>
 今回の用途では、スピードの方が大事なので、わざわざxzを使ってもらわなくてよい。</p>

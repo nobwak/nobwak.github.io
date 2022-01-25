@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>ezjailで作るjailの基本設定を変えよう | nobwak's Lair</title>
 <meta name=keywords content>
-<meta name=description content="[FreeBSD] ezjailを試そうの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表">
+<meta name=description content="[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="ezjailで作るjailの基本設定を変えよう">
-<meta property="og:description" content="[FreeBSD] ezjailを試そうの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表">
+<meta property="og:description" content="[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2013-10-03T21:14:50+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="ezjailで作るjailの基本設定を変えよう">
-<meta name=twitter:description content="[FreeBSD] ezjailを試そうの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表">
+<meta name=twitter:description content="[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"ezjailで作るjailの基本設定を変えよう","item":"https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ezjailで作るjailの基本設定を変えよう","name":"ezjailで作るjailの基本設定を変えよう","description":"[FreeBSD] ezjailを試そうの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表","keywords":[],"articleBody":"[FreeBSD] ezjailを試そうの続き\n以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。\n「Jailホスト」はjail環境で動くホストを表す。子。\nezjailにはflavoursという仕組みがある。\nezjailのflavoursとは。 以下より意訳。\nhttp://erdgeist.org/arts/software/ezjail/#Flavours新しいJailは、真っ新（まっさら）のFreeBSDとして作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。\nflavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。\nたとえば、rc.conf, make.conf, periodic.confやsudoersなどである。\n“flavour\"ではない基本の味付け flavourとは言ってみれば「風味」のこと。\n新しいjailを作る時の「風味づけ」に使われるものだから、逆に言うと基本の味付けには不適切である。\n具体的に言うと、新しいjailを作る際に必ず設定したいものは、flavoursではなく、基本設定に含めるべき、ということになる。\nでは基本設定はどこでするのか、というと、まずezjailの仕組みを確認してから。\nezjailの仕組み /usr/jails/basejailというディレクトリがある。\nこれはFreeBSD環境のコピーで、ホスト上で作られたJailが使う。\n共有して使うので、読み取り専用でマウントしている。\nこれとは別に/usr/jails/newjailというディレクトリがある。\nこちらは、新しいjailを作るときのテンプレートである。\nということは、セキュリティパッチの適用やOSアップグレードはbasejailに対して行い、新しいjailホストを作る時の基本設定はnewjailに対して行えばよい。\n基本の味付けに必要なものは？ パターンは二つある。\n何らかのファイルを追加する場合と、ファイルを書き換える場合。\n追加するファイルには、/etc/resolv.conf、/etc/localtime、/etc/wall_cmos_clockは必須。\nただし、ホストの時刻がUTCなら/etc/wall_cmos_clock不要。\nresolv.confは名前解決（リゾルバ）のためのファイル、localtime, wall_cmos_clockはタイムゾーン関連ファイル。\nそのほか、/etc/hosts, /etc/nsswitch.confも必要であれば。\nファイル書き換えの場合には、例えばportsnap.confを国内のportsnapサーバに向けておきたいとか、rootの.cshrcに手を入れておきたいとか、そういったもの。\nユーザの追加や、pkgの追加はbasejailにはできない（と思う）。\nこういうのはflavoursで。\n基本味付け 前章で挙げたファイルは、端からnewjailに放り込んでいけばよい。\nID, group, パーミッションを保持するために-pオプションはつけましょう。\n$ sudo cp -p /etc/resolv.conf /etc/localtime /etc/wall_cmos_clock /usr/jails/newjail/etc/ $ 書き換え系は、newjail/etcの下のファイルをご自由に\n例えば、/usr/jails/newjail/etc/portsnap.confのSERVERNAMEを以下のように。\nSERVERNAME=portsnap.allbsd.org 試してみよう example01というjailを作ってみる。\n$ sudo ezjail-admin create example01 'em0|192.168.200.1' $ sudo ezjail-admin start example01 Configuring jails:. Starting jails: example01. $ $ sudo ezjail-admin console example01 コンソールログインして試してみると、日付もJSTになっているし、resolv.confも正しく設定されている。\nroot@example01:~ # date Tue Oct 1 12:52:38 JST 2013 root@example01:~ # cat /etc/resolv.conf # Generated by resolvconf search localdomain nameserver 192.168.154.2 root@example01:/ # grep SERVER /etc/portsnap.conf SERVERNAME=portsnap.allbsd.org root@example01:/ # flavoursの使い方はまた今度。\nezjailのflavoursを使ってみよう その1\nezjailのflavoursを使ってみよう その2\n","wordCount":"1605","inLanguage":"en","datePublished":"2013-10-03T21:14:50+09:00","dateModified":"2013-10-03T21:14:50+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ezjailで作るjailの基本設定を変えよう","name":"ezjailで作るjailの基本設定を変えよう","description":"[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表","keywords":[],"articleBody":"[FreeBSD] ezjailを試そう の続き\n以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。\n「Jailホスト」はjail環境で動くホストを表す。子。\nezjailにはflavoursという仕組みがある。\nezjailのflavoursとは。 以下より意訳。\nhttp://erdgeist.org/arts/software/ezjail/#Flavours\n新しいJailは、真っ新（まっさら）のFreeBSDとして作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。\nflavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。\nたとえば、rc.conf, make.conf, periodic.confやsudoersなどである。\n“flavour\"ではない基本の味付け flavourとは言ってみれば「風味」のこと。\n新しいjailを作る時の「風味づけ」に使われるものだから、逆に言うと基本の味付けには不適切である。\n具体的に言うと、新しいjailを作る際に必ず設定したいものは、flavoursではなく、基本設定に含めるべき、ということになる。\nでは基本設定はどこでするのか、というと、まずezjailの仕組みを確認してから。\nezjailの仕組み /usr/jails/basejailというディレクトリがある。\nこれはFreeBSD環境のコピーで、ホスト上で作られたJailが使う。\n共有して使うので、読み取り専用でマウントしている。\nこれとは別に/usr/jails/newjailというディレクトリがある。\nこちらは、新しいjailを作るときのテンプレートである。\nということは、セキュリティパッチの適用やOSアップグレードはbasejailに対して行い、新しいjailホストを作る時の基本設定はnewjailに対して行えばよい。\n基本の味付けに必要なものは？ パターンは二つある。\n何らかのファイルを追加する場合と、ファイルを書き換える場合。\n追加するファイルには、/etc/resolv.conf、/etc/localtime、/etc/wall_cmos_clockは必須。\nただし、ホストの時刻がUTCなら/etc/wall_cmos_clock不要。\nresolv.confは名前解決（リゾルバ）のためのファイル、localtime, wall_cmos_clockはタイムゾーン関連ファイル。\nそのほか、/etc/hosts, /etc/nsswitch.confも必要であれば。\nファイル書き換えの場合には、例えばportsnap.confを国内のportsnapサーバに向けておきたいとか、rootの.cshrcに手を入れておきたいとか、そういったもの。\nユーザの追加や、pkgの追加はbasejailにはできない（と思う）。\nこういうのはflavoursで。\n基本味付け 前章で挙げたファイルは、端からnewjailに放り込んでいけばよい。\nID, group, パーミッションを保持するために-pオプションはつけましょう。\n$ sudo cp -p /etc/resolv.conf /etc/localtime /etc/wall_cmos_clock /usr/jails/newjail/etc/ $ 書き換え系は、newjail/etcの下のファイルをご自由に\n例えば、/usr/jails/newjail/etc/portsnap.confのSERVERNAMEを以下のように。\nSERVERNAME=portsnap.allbsd.org 試してみよう example01というjailを作ってみる。\n$ sudo ezjail-admin create example01 'em0|192.168.200.1' $ sudo ezjail-admin start example01 Configuring jails:. Starting jails: example01. $ $ sudo ezjail-admin console example01 コンソールログインして試してみると、日付もJSTになっているし、resolv.confも正しく設定されている。\nroot@example01:~ # date Tue Oct 1 12:52:38 JST 2013 root@example01:~ # cat /etc/resolv.conf # Generated by resolvconf search localdomain nameserver 192.168.154.2 root@example01:/ # grep SERVER /etc/portsnap.conf SERVERNAME=portsnap.allbsd.org root@example01:/ # flavoursの使い方はまた今度。\nezjailのflavoursを使ってみよう その1\nezjailのflavoursを使ってみよう その2\n","wordCount":"1556","inLanguage":"en","datePublished":"2013-10-03T21:14:50+09:00","dateModified":"2013-10-03T21:14:50+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,45 +96,45 @@ ezjailで作るjailの基本設定を変えよう
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlineezjail%e3%81%aeflavours%e3%81%a8%e3%81%afspan aria-label=ezjailのflavoursとは。>ezjailのflavoursとは。</a></li>
+<a href=#ezjail%e3%81%aeflavours%e3%81%a8%e3%81%af aria-label=ezjailのflavoursとは。>ezjailのflavoursとは。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineflavour%e3%81%a7%e3%81%af%e3%81%aa%e3%81%84%e5%9f%ba%e6%9c%ac%e3%81%ae%e5%91%b3%e4%bb%98%e3%81%91span aria-label=&amp;ldquo;flavour&amp;quot;ではない基本の味付け>&ldquo;flavour"ではない基本の味付け</a></li>
+<a href=#flavour%e3%81%a7%e3%81%af%e3%81%aa%e3%81%84%e5%9f%ba%e6%9c%ac%e3%81%ae%e5%91%b3%e4%bb%98%e3%81%91 aria-label=&amp;ldquo;flavour&amp;quot;ではない基本の味付け>&ldquo;flavour"ではない基本の味付け</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineezjail%e3%81%ae%e4%bb%95%e7%b5%84%e3%81%bfspan aria-label=ezjailの仕組み>ezjailの仕組み</a></li>
+<a href=#ezjail%e3%81%ae%e4%bb%95%e7%b5%84%e3%81%bf aria-label=ezjailの仕組み>ezjailの仕組み</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%9f%ba%e6%9c%ac%e3%81%ae%e5%91%b3%e4%bb%98%e3%81%91%e3%81%ab%e5%bf%85%e8%a6%81%e3%81%aa%e3%82%82%e3%81%ae%e3%81%afspan aria-label=基本の味付けに必要なものは？>基本の味付けに必要なものは？</a></li>
+<a href=#%e5%9f%ba%e6%9c%ac%e3%81%ae%e5%91%b3%e4%bb%98%e3%81%91%e3%81%ab%e5%bf%85%e8%a6%81%e3%81%aa%e3%82%82%e3%81%ae%e3%81%af aria-label=基本の味付けに必要なものは？>基本の味付けに必要なものは？</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%9f%ba%e6%9c%ac%e5%91%b3%e4%bb%98%e3%81%91span aria-label=基本味付け>基本味付け</a></li>
+<a href=#%e5%9f%ba%e6%9c%ac%e5%91%b3%e4%bb%98%e3%81%91 aria-label=基本味付け>基本味付け</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%a9%a6%e3%81%97%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86span aria-label=試してみよう>試してみよう</a>
+<a href=#%e8%a9%a6%e3%81%97%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86 aria-label=試してみよう>試してみよう</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><p>[FreeBSD] ezjailを試そう の続き</p>
+<div class=post-content><p><a href="../../../?p=2229">[FreeBSD] ezjailを試そう</a> の続き</p>
 <p>以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。<br>
 「Jailホスト」はjail環境で動くホストを表す。子。</p>
 <p>ezjailにはflavoursという仕組みがある。</p>
-<h2 id=span-styletext-decoration-underlineezjailのflavoursとはspan>ezjailのflavoursとは。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineezjailのflavoursとはspan>#</a></h2>
+<h2 id=ezjailのflavoursとは>ezjailのflavoursとは。<a hidden class=anchor aria-hidden=true href=#ezjailのflavoursとは>#</a></h2>
 <p>以下より意訳。<br>
 <a href=http://erdgeist.org/arts/software/ezjail/#Flavours>http://erdgeist.org/arts/software/ezjail/#Flavours</a></p>
 <p>新しいJailは、真っ新（まっさら）のFreeBSDとして作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。<br>
 flavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。<br>
 たとえば、rc.conf, make.conf, periodic.confやsudoersなどである。</p>
-<h2 id=span-styletext-decoration-underlineflavourではない基本の味付けspan>&ldquo;flavour"ではない基本の味付け<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineflavourではない基本の味付けspan>#</a></h2>
+<h2 id=flavourではない基本の味付け>&ldquo;flavour"ではない基本の味付け<a hidden class=anchor aria-hidden=true href=#flavourではない基本の味付け>#</a></h2>
 <p>flavourとは言ってみれば「風味」のこと。<br>
 新しいjailを作る時の「風味づけ」に使われるものだから、逆に言うと基本の味付けには不適切である。<br>
 具体的に言うと、新しいjailを作る際に必ず設定したいものは、flavoursではなく、基本設定に含めるべき、ということになる。</p>
 <p>では基本設定はどこでするのか、というと、まずezjailの仕組みを確認してから。</p>
-<h2 id=span-styletext-decoration-underlineezjailの仕組みspan>ezjailの仕組み<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineezjailの仕組みspan>#</a></h2>
+<h2 id=ezjailの仕組み>ezjailの仕組み<a hidden class=anchor aria-hidden=true href=#ezjailの仕組み>#</a></h2>
 <p>/usr/jails/basejailというディレクトリがある。<br>
 これはFreeBSD環境のコピーで、ホスト上で作られたJailが使う。<br>
 共有して使うので、読み取り専用でマウントしている。</p>
 <p>これとは別に/usr/jails/newjailというディレクトリがある。<br>
 こちらは、新しいjailを作るときのテンプレートである。</p>
 <p>ということは、セキュリティパッチの適用やOSアップグレードはbasejailに対して行い、新しいjailホストを作る時の基本設定はnewjailに対して行えばよい。</p>
-<h2 id=span-styletext-decoration-underline基本の味付けに必要なものはspan>基本の味付けに必要なものは？<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline基本の味付けに必要なものはspan>#</a></h2>
+<h2 id=基本の味付けに必要なものは>基本の味付けに必要なものは？<a hidden class=anchor aria-hidden=true href=#基本の味付けに必要なものは>#</a></h2>
 <p>パターンは二つある。<br>
 何らかのファイルを追加する場合と、ファイルを書き換える場合。</p>
 <p>追加するファイルには、/etc/resolv.conf、/etc/localtime、/etc/wall_cmos_clockは必須。<br>
@@ -144,7 +144,7 @@ flavoursでは、予め設定された内容に従って、ファイルをコピ
 <p>ファイル書き換えの場合には、例えばportsnap.confを国内のportsnapサーバに向けておきたいとか、rootの.cshrcに手を入れておきたいとか、そういったもの。<br>
 ユーザの追加や、pkgの追加はbasejailにはできない（と思う）。<br>
 こういうのはflavoursで。</p>
-<h2 id=span-styletext-decoration-underline基本味付けspan>基本味付け<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline基本味付けspan>#</a></h2>
+<h2 id=基本味付け>基本味付け<a hidden class=anchor aria-hidden=true href=#基本味付け>#</a></h2>
 <p>前章で挙げたファイルは、端からnewjailに放り込んでいけばよい。<br>
 ID, group, パーミッションを保持するために-pオプションはつけましょう。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo cp -p /etc/resolv.conf /etc/localtime /etc/wall_cmos_clock /usr/jails/newjail/etc/
@@ -152,7 +152,7 @@ $
 </code></pre></div><p>書き換え系は、newjail/etcの下のファイルをご自由に<br>
 例えば、/usr/jails/newjail/etc/portsnap.confのSERVERNAMEを以下のように。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>SERVERNAME=portsnap.allbsd.org
-</code></pre></div><h2 id=span-styletext-decoration-underline試してみようspan>試してみよう<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline試してみようspan>#</a></h2>
+</code></pre></div><h2 id=試してみよう>試してみよう<a hidden class=anchor aria-hidden=true href=#試してみよう>#</a></h2>
 <p>example01というjailを作ってみる。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo ezjail-admin create example01 <span style=color:#e6db74>&#39;em0|192.168.200.1&#39;</span>
 <span style=color:#960050;background-color:#1e0010>

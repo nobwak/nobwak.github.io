@@ -34,7 +34,7 @@
       <pubDate>Thu, 31 Jul 2014 19:07:48 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2014-07-31-%E3%83%A1%E3%83%A2_python%E3%81%A7%E6%A8%99%E6%BA%96%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%BA%E5%8A%9B%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
-      <description>sys.stderrを使う。 例1) import sys sys.stderr.write(&amp;#39;Error occurred!&amp;#39;) 例2) import sys print &amp;gt;&amp;gt; sys.stderr, &amp;#39;Error occurred!&amp;#39; http://docs.python.jp/2/library/sys.html#sys.stderrhttp://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-pythonhttps://sites.google.com/site/diveintopythonjp/home/10-sukuriputo-to-sutorimu/10-2-hyoujun-nyuuryoku-hyoujun-shutsuryoku-soshite-era</description>
+      <description>sys.stderrを使う。 例1) import sys sys.stderr.write(&amp;#39;Error occurred!&amp;#39;) 例2) import sys print &amp;gt;&amp;gt; sys.stderr, &amp;#39;Error occurred!&amp;#39; http://docs.python.jp/2/library/sys.html#sys.stderr http://stackoverflow.com/questions/5574702/how-to-print-to-stderr-in-python https://sites.google.com/site/diveintopythonjp/home/10-sukuriputo-to-sutorimu/10-2-hyoujun-nyuuryoku-hyoujun-shutsuryoku-soshite-era</description>
     </item>
     
     <item>
@@ -52,7 +52,7 @@
       <pubDate>Fri, 03 Aug 2012 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2012-08-03-wireshark_portable%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%81%97%E3%81%8B%E3%81%9F/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://www.wireshark.org/download/automated/win32/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.wireshark.org/download/automated/win32/&amp;lt;/a&amp;gt; 上記からwiresharkportable-x.x.x-SVN-xxxxxx.paf.exeなどをダウンロードする。 「paf」がポータ</description>
+      <description>[http://www.wireshark.org/download/automated/win32/](http://www.wireshark.org/download/automated/win32/) 上記からwiresharkportable-x.x.x-SVN-xxxxxx.paf.exeなどをダウンロードする。 「paf」がポータブル</description>
     </item>
     
     <item>
@@ -133,7 +133,7 @@
       <pubDate>Tue, 14 Mar 2006 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2006-03-14-%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AE%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E3%83%90%E3%83%83%E3%82%AF/</guid>
-      <description>初めてトラックバックをもらったので驚いて更新する。 トラックバックをもらったのは&amp;lt;a href=&amp;quot;http://d.hatena</description>
+      <description>初めてトラックバックをもらったので驚いて更新する。 トラックバックをもらったのは[12/26](http://d.hatena.ne.jp/f</description>
     </item>
     
     <item>
@@ -196,7 +196,7 @@
       <pubDate>Sun, 18 Dec 2005 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2005-12-18-%E7%89%87%E9%A0%AD%E7%97%9B/</guid>
-      <description>片頭痛に関する情報源。 頭痛大学 &amp;lt;a href=&amp;quot;http://homepage2.nifty.com/uoh/index.html&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://homepage2.nifty.com/uoh/index.html&amp;lt;/a&amp;gt; 日本頭痛学会 &amp;lt;a href=&amp;quot;http://www.jhsnet.org/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.jhsnet.org/&amp;lt;/a&amp;gt; 適当にググって上位に来たやつ(英語) HealingWell.com &amp;lt;a href=&amp;quot;http://www.healingwell.com/migraines/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.healingwell.com/migraines/&amp;lt;/a&amp;gt; マッキンリーヘルスセンター http://www.mckinley.uiuc.edu/Handouts/migraine_headache.html 俺が今常用して</description>
+      <description>片頭痛に関する情報源。 頭痛大学 [http://homepage2.nifty.com/uoh/index.html](http://homepage2.nifty.com/uoh/index.html) 日本頭痛学会 [http://www.jhsnet.org/](http://www.jhsnet.org/) 適当にググって上位に来たやつ(英語) HealingWell.com [http://www.healingwell.com/migraines/](http://www.healingwell.com/migraines/) マッキンリーヘルスセンター http://www.mckinley.uiuc.edu/Handouts/migraine_headache.html 俺が今常用しているのは&amp;l</description>
     </item>
     
     <item>
@@ -223,7 +223,7 @@
       <pubDate>Sat, 03 Dec 2005 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2005-12-03-%E5%8F%97%E9%A8%93%E3%81%82%E3%82%8A%E3%81%A8%E3%81%86%E3%81%94%E3%81%96%E3%81%84%E3%81%97%E3%81%9F/</guid>
-      <description>某試験の三つめを本日受けて、無事通過。 あと一つでこの試験も終了だから、ゴールがやっと見えてきてホッとしている。 会場は&amp;lt;a href=&amp;q</description>
+      <description>某試験の三つめを本日受けて、無事通過。 あと一つでこの試験も終了だから、ゴールがやっと見えてきてホッとしている。 会場は[アールプロメトリック]</description>
     </item>
     
     <item>
@@ -286,7 +286,7 @@
       <pubDate>Mon, 17 Oct 2005 01:00:00 +0900</pubDate>
       
       <guid>https://nobwak.github.io/posts/2005-10-17-%E3%83%81%E3%83%A3%E3%83%AB%E3%83%80%E3%83%83%E3%82%B7%E3%83%A5%E3%81%A7%E3%82%AB%E3%82%BF%E3%83%AB%E3%82%B7%E3%82%B9%E4%B9%9E%E3%81%84/</guid>
-      <description>&amp;lt;a href=&amp;quot;http://www.amazon.co.jp/exec/obidos/ASIN/B00005N0V9/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.amazon.co.jp/exec/obidos/ASIN/B00005N0V9/&amp;lt;/a&amp;gt; 引っ越し荷物から出てきたGクレフのCD、ペルメル。 最近、聴いてます。 バイオリン、チェロ、ピアノのトリオで無茶な演奏をする人たち。 特に無</description>
+      <description>[http://www.amazon.co.jp/exec/obidos/ASIN/B00005N0V9/](http://www.amazon.co.jp/exec/obidos/ASIN/B00005N0V9/) 引っ越し荷物から出てきたGクレフのCD、ペルメル。 最近、聴いてます。 バイオリン、チェロ、ピアノのトリオで無茶な演奏をする人たち。 特に無茶な</description>
     </item>
     
     <item>

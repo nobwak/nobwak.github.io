@@ -37,7 +37,7 @@
 <meta name=twitter:title content="コード、エラー、設定ファイル共有サイトのすすめ">
 <meta name=twitter:description content="sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"コード、エラー、設定ファイル共有サイトのすすめ","item":"https://nobwak.github.io/posts/2013-07-28-%E3%82%B3%E3%83%BC%E3%83%89%E3%82%A8%E3%83%A9%E3%83%BC%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"コード、エラー、設定ファイル共有サイトのすすめ","name":"コード、エラー、設定ファイル共有サイトのすすめ","description":"sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ","keywords":[],"articleBody":"sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。\n以下に顛末を記す。\nsprunge.usってなんだ。 ブラウザでsprunge.usを開くと、manページのような見てくれで何か間違えたかと二度見するようなサイトなのだが、よく見ると凄い事が書いてある。\n何らかのコマンドの標準出力をsprunge.usに食わすと、URLが返る。\nそのURLへアクセスすると、先の出力結果が見えるというわけ。\nsprunge.usの使い方 使い方といっても上記の通りなんだが、やってみるのが早い。\nuname -aの結果を食べさせてみる。\n$ uname -a | curl -F 'sprunge= http://sprunge.us http://sprunge.us/CTQL 返ってきたURL、http://sprunge.us/CTQLにアクセスしていただくと、uname -aの結果、すなわち我輩の鯖の詳細が分かる。\n使いどころ このサービスの何が便利なのか。\nsprunge.usを使うことで、エラーや設定ファイル、ちょっとしたスクリプト、ソースを手軽に共有できる。\nたとえば私が、あるサーバが意図した動作をせず困っているときに、助けを求めるとする。\n助けを求める相手が、twitterにいるとする。\ntwitterには140文字しか書けないので、エラー、使用している設定ファイルの中身をすべて貼り付けるのは無理がある。\nではどこかのサイト（いわゆるアップローダと言われているサイトなど）にアップロードするか？それも面倒。\nそこでコマンドラインからsprunge.usにアップロードし、そのURLを相手に送る。\nこれは便利じゃありませんかみなさん。\nまあ、助けを求める相手がいる限りにおいてですが。\nいつまで残るの・・・？ sprungeに載せた内容はいつまで残るのか。\n調べてみたけど、ちょっと分からなかった。\n末尾で触れるpastebinだと、残す期間を選べたりするのだが。\nやってもうた時は？ 共有すべきでない内容をsprunge.usしてしまった時はどうするのだろうか。\nこれも検索したけど分からない。\nセンシティブな情報、IDとかパスワードとかが含まれそうな場合は、後述のpastbinの方がよいかも。\nsprungeをもっと便利に使う。 まずですね、aliasを設定しましょう。\nこんな長いの、いちいちタイプできんですよ。\n設定したらすぐ確かめるのが紳士のたしなみ。ここだとaliasを引数なしですぐさま叩く。\n$ alias sprunge=\"curl -F 'sprunge=$ alias alias sprunge='curl -F '\\''sprunge=テストして問題なければ、シェルに合わせた初期設定ファイルに書き込んでおく。\n~/.profileとか。\nsprungeはファイルの内容だってOK。 sprungeは標準出力を受け付けるので、ファイルの内容だって貼り付けられる。\nFreeBSDのftpd起動シェルスクリプトで試してみよう。\nどうせなら、上記で作成したaliasで。\n$ cat /etc/rc.d/ftpd | sprunge http://sprunge.us/LQCZ http://sprunge.us/LQCZどうだろうか。\n構文強調と行番号表示もできる。 sprunge.usに以下のように書いてある。\nadd ? to resulting url for line numbers and syntax highlighting use this form to paste from a browser 上記のftpdシェルスクリプトを例に引く。\nシェルスクリプトなので、「sh」を?に続けてURLに加えればよい。\nhttp://sprunge.us/LQCZ?shsprungeに意地悪をしてみる。 知る人ぞ知るコマンドにslがある。\nこれはlsをslとタイプミスしてしまったとき、アスキーアートのSL機関車がターミナルを爆走する豪快なコマンドだ。\nslコマンドをご存じなく、UNIX系マシンをお持ちの方はぜひインストールしてその目で確かめてほしい。\nちなみにFreeBSDではportsに収録されている。games/slからどうぞ。\nで、これをsprungeに食わせてみた。\n$ sl | sprunge http://sprunge.us/Sijg http://sprunge.us/Sijg…うん。まあ。仕方ないね。\n同様の別サービス sprunge.usと同様のサービスにpastbinがある。\nhttp://pastebin.com/世間的にはsprunge.usよりこちらの方が有名な様子。\nCUIから使うためにwgetpastといったツールもある。\n","wordCount":"1685","inLanguage":"en","datePublished":"2013-07-28T23:00:32+09:00","dateModified":"2013-07-28T23:00:32+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-07-28-%E3%82%B3%E3%83%BC%E3%83%89%E3%82%A8%E3%83%A9%E3%83%BC%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"コード、エラー、設定ファイル共有サイトのすすめ","name":"コード、エラー、設定ファイル共有サイトのすすめ","description":"sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ","keywords":[],"articleBody":"sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。\n以下に顛末を記す。\nsprunge.usってなんだ。 ブラウザでsprunge.usを開くと、manページのような見てくれで何か間違えたかと二度見するようなサイトなのだが、よく見ると凄い事が書いてある。\n何らかのコマンドの標準出力をsprunge.usに食わすと、URLが返る。\nそのURLへアクセスすると、先の出力結果が見えるというわけ。\nsprunge.usの使い方 使い方といっても上記の通りなんだが、やってみるのが早い。\nuname -aの結果を食べさせてみる。\n$ uname -a | curl -F 'sprunge= http://sprunge.us http://sprunge.us/CTQL 返ってきたURL、http://sprunge.us/CTQLにアクセスしていただくと、uname -aの結果、すなわち我輩の鯖の詳細が分かる。\n使いどころ このサービスの何が便利なのか。\nsprunge.usを使うことで、エラーや設定ファイル、ちょっとしたスクリプト、ソースを手軽に共有できる。\nたとえば私が、あるサーバが意図した動作をせず困っているときに、助けを求めるとする。\n助けを求める相手が、twitterにいるとする。\ntwitterには140文字しか書けないので、エラー、使用している設定ファイルの中身をすべて貼り付けるのは無理がある。\nではどこかのサイト（いわゆるアップローダと言われているサイトなど）にアップロードするか？それも面倒。\nそこでコマンドラインからsprunge.usにアップロードし、そのURLを相手に送る。\nこれは便利じゃありませんかみなさん。\nまあ、助けを求める相手がいる限りにおいてですが。\nいつまで残るの・・・？ sprungeに載せた内容はいつまで残るのか。\n調べてみたけど、ちょっと分からなかった。\n末尾で触れるpastebinだと、残す期間を選べたりするのだが。\nやってもうた時は？ 共有すべきでない内容をsprunge.usしてしまった時はどうするのだろうか。\nこれも検索したけど分からない。\nセンシティブな情報、IDとかパスワードとかが含まれそうな場合は、後述のpastbinの方がよいかも。\nsprungeをもっと便利に使う。 まずですね、aliasを設定しましょう。\nこんな長いの、いちいちタイプできんですよ。\n設定したらすぐ確かめるのが紳士のたしなみ。ここだとaliasを引数なしですぐさま叩く。\n$ alias sprunge=\"curl -F 'sprunge=$ alias alias sprunge='curl -F '\\''sprunge=テストして問題なければ、シェルに合わせた初期設定ファイルに書き込んでおく。\n~/.profileとか。\nsprungeはファイルの内容だってOK。 sprungeは標準出力を受け付けるので、ファイルの内容だって貼り付けられる。\nFreeBSDのftpd起動シェルスクリプトで試してみよう。\nどうせなら、上記で作成したaliasで。\n$ cat /etc/rc.d/ftpd | sprunge http://sprunge.us/LQCZ http://sprunge.us/LQCZ どうだろうか。\n構文強調と行番号表示もできる。 sprunge.usに以下のように書いてある。\nadd ? to resulting url for line numbers and syntax highlighting use this form to paste from a browser 上記のftpdシェルスクリプトを例に引く。\nシェルスクリプトなので、「sh」を?に続けてURLに加えればよい。\nhttp://sprunge.us/LQCZ?sh\nsprungeに意地悪をしてみる。 知る人ぞ知るコマンドにslがある。\nこれはlsをslとタイプミスしてしまったとき、アスキーアートのSL機関車がターミナルを爆走する豪快なコマンドだ。\nslコマンドをご存じなく、UNIX系マシンをお持ちの方はぜひインストールしてその目で確かめてほしい。\nちなみにFreeBSDではportsに収録されている。games/slからどうぞ。\nで、これをsprungeに食わせてみた。\n$ sl | sprunge http://sprunge.us/Sijg http://sprunge.us/Sijg …うん。まあ。仕方ないね。\n同様の別サービス sprunge.usと同様のサービスにpastbinがある。\nhttp://pastebin.com/\n世間的にはsprunge.usよりこちらの方が有名な様子。\nCUIから使うためにwgetpastといったツールもある。\n","wordCount":"1600","inLanguage":"en","datePublished":"2013-07-28T23:00:32+09:00","dateModified":"2013-07-28T23:00:32+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-07-28-%E3%82%B3%E3%83%BC%E3%83%89%E3%82%A8%E3%83%A9%E3%83%BC%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,43 +96,43 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinesprungeus%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%a0span aria-label=sprunge.usってなんだ。>sprunge.usってなんだ。</a></li>
+<a href=#sprungeus%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%a0 aria-label=sprunge.usってなんだ。>sprunge.usってなんだ。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesprungeus%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9span aria-label=sprunge.usの使い方>sprunge.usの使い方</a></li>
+<a href=#sprungeus%e3%81%ae%e4%bd%bf%e3%81%84%e6%96%b9 aria-label=sprunge.usの使い方>sprunge.usの使い方</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e4%bd%bf%e3%81%84%e3%81%a9%e3%81%93%e3%82%8dspan aria-label=使いどころ>使いどころ</a></li>
+<a href=#%e4%bd%bf%e3%81%84%e3%81%a9%e3%81%93%e3%82%8d aria-label=使いどころ>使いどころ</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%81%84%e3%81%a4%e3%81%be%e3%81%a7%e6%ae%8b%e3%82%8b%e3%81%aespan aria-label=いつまで残るの・・・？>いつまで残るの・・・？</a></li>
+<a href=#%e3%81%84%e3%81%a4%e3%81%be%e3%81%a7%e6%ae%8b%e3%82%8b%e3%81%ae aria-label=いつまで残るの・・・？>いつまで残るの・・・？</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%84%e3%81%a3%e3%81%a6%e3%82%82%e3%81%86%e3%81%9f%e6%99%82%e3%81%afspan aria-label=やってもうた時は？>やってもうた時は？</a></li>
+<a href=#%e3%82%84%e3%81%a3%e3%81%a6%e3%82%82%e3%81%86%e3%81%9f%e6%99%82%e3%81%af aria-label=やってもうた時は？>やってもうた時は？</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesprunge%e3%82%92%e3%82%82%e3%81%a3%e3%81%a8%e4%be%bf%e5%88%a9%e3%81%ab%e4%bd%bf%e3%81%86span aria-label=sprungeをもっと便利に使う。>sprungeをもっと便利に使う。</a></li>
+<a href=#sprunge%e3%82%92%e3%82%82%e3%81%a3%e3%81%a8%e4%be%bf%e5%88%a9%e3%81%ab%e4%bd%bf%e3%81%86 aria-label=sprungeをもっと便利に使う。>sprungeをもっと便利に使う。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesprunge%e3%81%af%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e5%86%85%e5%ae%b9%e3%81%a0%e3%81%a3%e3%81%a6okspan aria-label=sprungeはファイルの内容だってOK。>sprungeはファイルの内容だってOK。</a></li>
+<a href=#sprunge%e3%81%af%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e5%86%85%e5%ae%b9%e3%81%a0%e3%81%a3%e3%81%a6ok aria-label=sprungeはファイルの内容だってOK。>sprungeはファイルの内容だってOK。</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e6%a7%8b%e6%96%87%e5%bc%b7%e8%aa%bf%e3%81%a8%e8%a1%8c%e7%95%aa%e5%8f%b7%e8%a1%a8%e7%a4%ba%e3%82%82%e3%81%a7%e3%81%8d%e3%82%8bspan aria-label=構文強調と行番号表示もできる。>構文強調と行番号表示もできる。</a></li>
+<a href=#%e6%a7%8b%e6%96%87%e5%bc%b7%e8%aa%bf%e3%81%a8%e8%a1%8c%e7%95%aa%e5%8f%b7%e8%a1%a8%e7%a4%ba%e3%82%82%e3%81%a7%e3%81%8d%e3%82%8b aria-label=構文強調と行番号表示もできる。>構文強調と行番号表示もできる。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinesprunge%e3%81%ab%e6%84%8f%e5%9c%b0%e6%82%aa%e3%82%92%e3%81%97%e3%81%a6%e3%81%bf%e3%82%8bspan aria-label=sprungeに意地悪をしてみる。>sprungeに意地悪をしてみる。</a></li>
+<a href=#sprunge%e3%81%ab%e6%84%8f%e5%9c%b0%e6%82%aa%e3%82%92%e3%81%97%e3%81%a6%e3%81%bf%e3%82%8b aria-label=sprungeに意地悪をしてみる。>sprungeに意地悪をしてみる。</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%90%8c%e6%a7%98%e3%81%ae%e5%88%a5%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9span aria-label=同様の別サービス>同様の別サービス</a>
+<a href=#%e5%90%8c%e6%a7%98%e3%81%ae%e5%88%a5%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9 aria-label=同様の別サービス>同様の別サービス</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><p>sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。<br>
+<div class=post-content><p><a href=http://sprunge.us>sprunge.us</a>というサービスがあるのを、いまさら知って驚いてそして大感謝した。<br>
 以下に顛末を記す。</p>
-<h2 id=span-styletext-decoration-underlinesprungeusってなんだspan>sprunge.usってなんだ。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesprungeusってなんだspan>#</a></h2>
+<h2 id=sprungeusってなんだ>sprunge.usってなんだ。<a hidden class=anchor aria-hidden=true href=#sprungeusってなんだ>#</a></h2>
 <p>ブラウザでsprunge.usを開くと、manページのような見てくれで何か間違えたかと二度見するようなサイトなのだが、よく見ると凄い事が書いてある。</p>
 <p>何らかのコマンドの標準出力をsprunge.usに食わすと、URLが返る。<br>
 そのURLへアクセスすると、先の出力結果が見えるというわけ。</p>
-<h2 id=span-styletext-decoration-underlinesprungeusの使い方span>sprunge.usの使い方<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesprungeusの使い方span>#</a></h2>
+<h2 id=sprungeusの使い方>sprunge.usの使い方<a hidden class=anchor aria-hidden=true href=#sprungeusの使い方>#</a></h2>
 <p>使い方といっても上記の通りなんだが、やってみるのが早い。<br>
 uname -aの結果を食べさせてみる。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ uname -a | curl -F <span style=color:#e6db74>&#39;sprunge=&lt;-&#39;</span> http://sprunge.us
 http://sprunge.us/CTQL
 </code></pre></div><p>返ってきたURL、<a href=http://sprunge.us/CTQL>http://sprunge.us/CTQL</a>にアクセスしていただくと、uname -aの結果、すなわち我輩の鯖の詳細が分かる。</p>
-<h2 id=span-styletext-decoration-underline使いどころspan>使いどころ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline使いどころspan>#</a></h2>
+<h2 id=使いどころ>使いどころ<a hidden class=anchor aria-hidden=true href=#使いどころ>#</a></h2>
 <p>このサービスの何が便利なのか。<br>
 sprunge.usを使うことで、エラーや設定ファイル、ちょっとしたスクリプト、ソースを手軽に共有できる。</p>
 <p>たとえば私が、あるサーバが意図した動作をせず困っているときに、助けを求めるとする。<br>
@@ -142,15 +142,15 @@ twitterには140文字しか書けないので、エラー、使用している�
 そこでコマンドラインからsprunge.usにアップロードし、そのURLを相手に送る。</p>
 <p>これは便利じゃありませんかみなさん。<br>
 まあ、助けを求める相手がいる限りにおいてですが。</p>
-<h2 id=span-styletext-decoration-underlineいつまで残るのspan>いつまで残るの・・・？<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineいつまで残るのspan>#</a></h2>
+<h2 id=いつまで残るの>いつまで残るの・・・？<a hidden class=anchor aria-hidden=true href=#いつまで残るの>#</a></h2>
 <p>sprungeに載せた内容はいつまで残るのか。<br>
 調べてみたけど、ちょっと分からなかった。<br>
 末尾で触れるpastebinだと、残す期間を選べたりするのだが。</p>
-<h2 id=span-styletext-decoration-underlineやってもうた時はspan>やってもうた時は？<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineやってもうた時はspan>#</a></h2>
+<h2 id=やってもうた時は>やってもうた時は？<a hidden class=anchor aria-hidden=true href=#やってもうた時は>#</a></h2>
 <p>共有すべきでない内容をsprunge.usしてしまった時はどうするのだろうか。<br>
 これも検索したけど分からない。<br>
 センシティブな情報、IDとかパスワードとかが含まれそうな場合は、後述のpastbinの方がよいかも。</p>
-<h2 id=span-styletext-decoration-underlinesprungeをもっと便利に使うspan>sprungeをもっと便利に使う。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesprungeをもっと便利に使うspan>#</a></h2>
+<h2 id=sprungeをもっと便利に使う>sprungeをもっと便利に使う。<a hidden class=anchor aria-hidden=true href=#sprungeをもっと便利に使う>#</a></h2>
 <p>まずですね、aliasを設定しましょう。<br>
 こんな長いの、いちいちタイプできんですよ。<br>
 設定したらすぐ確かめるのが紳士のたしなみ。ここだとaliasを引数なしですぐさま叩く。</p>
@@ -159,22 +159,22 @@ $ alias
 alias sprunge=&#39;curl -F &#39;\&#39;&#39;sprunge=&lt;-&#39;\&#39;&#39; http://sprunge.us&#39;
 </code></pre></div><p>テストして問題なければ、シェルに合わせた初期設定ファイルに書き込んでおく。<br>
 ~/.profileとか。</p>
-<h2 id=span-styletext-decoration-underlinesprungeはファイルの内容だってokspan>sprungeはファイルの内容だってOK。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesprungeはファイルの内容だってokspan>#</a></h2>
+<h2 id=sprungeはファイルの内容だってok>sprungeはファイルの内容だってOK。<a hidden class=anchor aria-hidden=true href=#sprungeはファイルの内容だってok>#</a></h2>
 <p>sprungeは標準出力を受け付けるので、ファイルの内容だって貼り付けられる。<br>
 FreeBSDのftpd起動シェルスクリプトで試してみよう。<br>
 どうせなら、上記で作成したaliasで。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cat /etc/rc.d/ftpd | sprunge
 http://sprunge.us/LQCZ
 </code></pre></div><p><a href=http://sprunge.us/LQCZ>http://sprunge.us/LQCZ</a> どうだろうか。</p>
-<h2 id=span-styletext-decoration-underline構文強調と行番号表示もできるspan>構文強調と行番号表示もできる。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline構文強調と行番号表示もできるspan>#</a></h2>
+<h2 id=構文強調と行番号表示もできる>構文強調と行番号表示もできる。<a hidden class=anchor aria-hidden=true href=#構文強調と行番号表示もできる>#</a></h2>
 <p>sprunge.usに以下のように書いてある。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>add ?&lt;lang&gt; to resulting url for line numbers and syntax highlighting
     use this form to paste from a browser
 </code></pre></div><p>上記のftpdシェルスクリプトを例に引く。<br>
 シェルスクリプトなので、「sh」を?に続けてURLに加えればよい。</p>
-<p><a href=http://sprunge.us/LQCZ>http://sprunge.us/LQCZ</a>?sh</p>
-<h2 id=span-styletext-decoration-underlinesprungeに意地悪をしてみるspan>sprungeに意地悪をしてみる。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinesprungeに意地悪をしてみるspan>#</a></h2>
-<p>知る人ぞ知るコマンドにslがある。</p>
+<p><a href=http://sprunge.us/LQCZ?sh>http://sprunge.us/LQCZ?sh</a></p>
+<h2 id=sprungeに意地悪をしてみる>sprungeに意地悪をしてみる。<a hidden class=anchor aria-hidden=true href=#sprungeに意地悪をしてみる>#</a></h2>
+<p>知る人ぞ知るコマンドに<a href=http://ja.wikipedia.org/wiki/Sl_%28UNIX%29>sl</a>がある。</p>
 <p>これはlsをslとタイプミスしてしまったとき、アスキーアートのSL機関車がターミナルを爆走する豪快なコマンドだ。<br>
 slコマンドをご存じなく、UNIX系マシンをお持ちの方はぜひインストールしてその目で確かめてほしい。<br>
 ちなみにFreeBSDではportsに収録されている。games/slからどうぞ。</p>
@@ -182,7 +182,7 @@ slコマンドをご存じなく、UNIX系マシンをお持ちの方はぜひ�
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sl | sprunge
 http://sprunge.us/Sijg
 </code></pre></div><p><a href=http://sprunge.us/Sijg>http://sprunge.us/Sijg</a> &mldr;うん。まあ。仕方ないね。</p>
-<h2 id=span-styletext-decoration-underline同様の別サービスspan>同様の別サービス<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline同様の別サービスspan>#</a></h2>
+<h2 id=同様の別サービス>同様の別サービス<a hidden class=anchor aria-hidden=true href=#同様の別サービス>#</a></h2>
 <p>sprunge.usと同様のサービスにpastbinがある。<br>
 <a href=http://pastebin.com/>http://pastebin.com/</a><br>
 世間的にはsprunge.usよりこちらの方が有名な様子。</p>

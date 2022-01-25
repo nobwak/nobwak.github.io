@@ -96,31 +96,31 @@ FreeBSD-currentユーザはpanicmailをいますぐインストールしろ
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinepanicmail%e3%81%a8%e3%81%afspan aria-label=panicmailとは>panicmailとは</a></li>
+<a href=#panicmail%e3%81%a8%e3%81%af aria-label=panicmailとは>panicmailとは</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinekernel-panic%e3%81%a0%e3%81%a8span aria-label="kernel panic&amp;hellip;だと？">kernel panic&mldr;だと？</a></li>
+<a href=#kernel-panic%e3%81%a0%e3%81%a8 aria-label="kernel panic&amp;hellip;だと？">kernel panic&mldr;だと？</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abspan aria-label=インストール>インストール</a></li>
+<a href=#%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=インストール>インストール</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e8%a8%ad%e5%ae%9aspan aria-label=設定>設定</a>
+<a href=#%e8%a8%ad%e5%ae%9a aria-label=設定>設定</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><p>FreeBSDダイモン（守護霊）の一人であらせられるコリン・パーシバル（Colin Percival）神がpanicmailをインストールせい、と仰せになったので入れた。</p>
-<h2 id=span-styletext-decoration-underlinepanicmailとはspan>panicmailとは<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepanicmailとはspan>#</a></h2>
+<div class=post-content><p>FreeBSDダイモン（守護霊）の一人であらせられるコリン・パーシバル（Colin Percival）神が<a href=http://lists.freebsd.org/pipermail/freebsd-current/2013-November/046175.html>panicmailをインストールせい</a>、と仰せになったので入れた。</p>
+<h2 id=panicmailとは>panicmailとは<a hidden class=anchor aria-hidden=true href=#panicmailとは>#</a></h2>
 <p>panicmailとは、FreeBSDがkernel panicを起こしたとき、panic reportをFreeBSDの開発者に送るツールのこと。<br>
 もちろん、panic reportにはセンシティブな情報は含まれないうえに、暗号化された状態で送られる。<br>
 開発者は、受け取ったレポートをもとに開発を進める。</p>
-<h2 id=span-styletext-decoration-underlinekernel-panicだとspan>kernel panic&mldr;だと？<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinekernel-panicだとspan>#</a></h2>
+<h2 id=kernel-panicだと>kernel panic&mldr;だと？<a hidden class=anchor aria-hidden=true href=#kernel-panicだと>#</a></h2>
 <p>そもそも安定しているOSなのでpanicなんて滅多にしない。<br>
 するのはcurrentくらい。<br>
 currentでなければ最初のOSインストールのときくらいではないだろうか。<br>
 それだけにコリン神のアナウンスもcurrentメーリングリストである。<br>
 だからインストールするのはcurrentユーザだけでいいんじゃないですかね。<br>
 RELEASEユーザならまあ保険程度に。</p>
-<h2 id=span-styletext-decoration-underlineインストールspan>インストール<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineインストールspan>#</a></h2>
+<h2 id=インストール>インストール<a hidden class=anchor aria-hidden=true href=#インストール>#</a></h2>
 <p>panicmailはsysutils/panicmailから入れられる。<br>
 以下はpkgngでのインストール例。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo pkg search panicmail
@@ -152,7 +152,7 @@ them if they do not contain any sensitive information. To automatically
 submit panic reports directly, add
 panicmail_autosubmit=&#34;YES&#34;
 to your /etc/rc.conf in addition.
-</code></pre></div><h2 id=span-styletext-decoration-underline設定span>設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline設定span>#</a></h2>
+</code></pre></div><h2 id=設定>設定<a hidden class=anchor aria-hidden=true href=#設定>#</a></h2>
 <p>panicmailを送るには以下が必要。</p>
 <ol>
 <li>dumpdevが有効であること</li>

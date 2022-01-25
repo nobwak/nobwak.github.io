@@ -37,7 +37,7 @@
 <meta name=twitter:title content="/var/logの下がえらいことになっていたでござる。（あるいはFreeBSDでログのローテーション設定をするには(logrotateではなくnewsyslog))。">
 <meta name=twitter:description content="ある日、ふと/var/logの下を見てみたら、1.5GBytesに膨れ上がった某ログファイルがあって腰を抜かした件について。 思えば、サーバソ">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"/var/logの下がえらいことになっていたでござる。（あるいはFreeBSDでログのローテーション設定をするには(logrotateではなくnewsyslog))。","item":"https://nobwak.github.io/posts/2012-03-12-_var_log%E3%81%AE%E4%B8%8B%E3%81%8C%E3%81%88%E3%82%89%E3%81%84%E3%81%93%E3%81%A8%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFfreebsd%E3%81%A7%E3%83%AD%E3%82%B0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%AD%E5%AE%9A%E3%82%92%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AFlogrotate%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%8Fnewsyslog/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"/var/logの下がえらいことになっていたでござる。（あるいはFreeBSDでログのローテーション設定をするには(logrotateではなくnewsyslog))。","name":"\/var\/logの下がえらいことになっていたでござる。（あるいはFreeBSDでログのローテーション設定をするには(logrotateではなくnewsyslog))。","description":"ある日、ふと/var/logの下を見てみたら、1.5GBytesに膨れ上がった某ログファイルがあって腰を抜かした件について。 思えば、サーバソ","keywords":[],"articleBody":"ある日、ふと/var/logの下を見てみたら、1.5GBytesに膨れ上がった某ログファイルがあって腰を抜かした件について。 思えば、サーバソフトウェアなどでは、インストールしたらまずそのものの設定で頭が一杯だ。 一方で、いわゆるシモの世話といいますか、吐き出すログの設定には頭が回ってなかったことに深く反省するのであります。 俺の例でいえば、apache、clamav、dhcpdのログが手つかずでありました（冒頭、1.5GBytesになっていたログはdhcpdのもの）。 portsから入れたサーバのログは、いちど確認したほうがいいだろう。 基本は/var/logの下に出力されるが、/usr/local/var/logが（あれば）見た方がいいし、場合によっては思わぬところに吐き出されてる可能性もある。 newsyslogd さて、FreeBSDではログのローテートはnewsyslogdが行う。Linuxではlogrotateにあたるもの。 handbookではこのへん 英語（推奨） http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/configtuning-configfiles.html 日本語 http://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/book.html#CONFIGTUNING-CONFIGFILES newsyslogの設定サンプル man newsyslog.confを見ればだいたい分かる。以降、英文はここからの引用。 http://www.freebsd.org/cgi/man.cgi?query=newsyslog.conf\u0026apropos=0\u0026sektion=0\u0026manpath=FreeBSD+9.0-RELEASE\u0026arch=default\u0026format=html 以下の順番で並べるだけ。間はスペースで埋めること（separated with whitespace）。  # filename \u0026#91;owner:group] mode count size when \u0026#91;ZB] \u0026#91;/pid_file] \u0026#91;sig_num] 以下、サンプル。  /var/log/local7.log 600 10 1024 * JC /var/log/local7.logが、1MBytesを超えた時点でローテーション。 生成されたログのパーミッションは600で、bzip2で圧縮され（J）、10個保存される。  /var/log/httpd-access.log 644 7 * @T03 JC apacheのログを毎日午前3時にローテーション、圧縮して7日分残す。 設定を変えたらnewsyslogdを再起動。  # /etc/rc.d/newsyslog restart Creating and/or trimming log files. # 設定について filename その名の通り。 [owner:group] 省略可。アーカイブ後ファイルの所有ユーザとグループ mode ログファイルとアーカイブ後ファイルのパーミッション。 サーバソフトが作るオリジナルのパーミッションと合わせておくのがよい。 というのも、newsyslogdがログをローテーションするときに新しいログファイルを作るから。 owner:groupにはなく、こちらにだけ「ログファイル」という記載があるのはなぜでしょうな。 count 残す「アーカイブ後の」ログファイル数。 3なら、アーカイブされたログが3つになる。 size このサイズを超えたときにローテーションされる。 キロバイトで指定。 アスタリスク(*)の場合には、サイズベースでのローテーションはしない。 when ローテーションする時間、時刻契機を指定。 インターバル、時刻を指定できる。 書式は二つ。後述する。 注意すべき点は、newsyslog自体が一時間に一回しか起動しないこと。 これはつまり以下のような動作となる、と理解した。 ・仮に、newsyslogdが毎時0分に起動し、かつ ・毎時1分にローテーションする設定にした場合、 →例えば、1時1分ではなく、2時にローテーションが発生する。 newsyslog.conf(5)より抜粋   If a time is specified, the log file will only be trimmed if newsyslog(8) is run within one hour of the specified time. If an interval is specified, the log file will be trimmed if that many hours have passed since the last rotation.  　書式   @で書くもの、$で書くものの二つ。 @は、[cc]yy]mm]dd][T[hh[mm[ss?] $は、[Dhh], [Ww[Dhhと[Mdd[Dhh サンプルを見るのが一番よい。（これもmanから抜粋） $D0　毎日午前0時。@T00と同じ意味 $D23　毎日23時。@T23と同じ意味 $W0D23　毎週日曜23時 $W5D16　毎週金曜16時 $M1D0　毎月1日の午前0時。@01T00と同じ意味 $M5D6　毎月5日の午前6時。@05T06と同じ意味  flags 一部のみ。基本JCでよい。 J ログをbzip2で圧縮。Zならgzip。Xならxz。 C ログが存在しない場合に作る。 G パターンにマッチしたログファイルを対象にできる。 pid_file 通常、ログをローテーションした後はsyslogdにシグナルが送られる。 syslogd以外のプロセスにシグナルを送りたい場合には、プロセスの pidが書かれたファイルをここで指定する。 以上  ","wordCount":"1756","inLanguage":"en","datePublished":"2012-03-12T01:00:00+09:00","dateModified":"2012-03-12T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2012-03-12-_var_log%E3%81%AE%E4%B8%8B%E3%81%8C%E3%81%88%E3%82%89%E3%81%84%E3%81%93%E3%81%A8%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFfreebsd%E3%81%A7%E3%83%AD%E3%82%B0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%AD%E5%AE%9A%E3%82%92%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AFlogrotate%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%8Fnewsyslog/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"/var/logの下がえらいことになっていたでござる。（あるいはFreeBSDでログのローテーション設定をするには(logrotateではなくnewsyslog))。","name":"\/var\/logの下がえらいことになっていたでござる。（あるいはFreeBSDでログのローテーション設定をするには(logrotateではなくnewsyslog))。","description":"ある日、ふと/var/logの下を見てみたら、1.5GBytesに膨れ上がった某ログファイルがあって腰を抜かした件について。 思えば、サーバソ","keywords":[],"articleBody":"ある日、ふと/var/logの下を見てみたら、1.5GBytesに膨れ上がった某ログファイルがあって腰を抜かした件について。 思えば、サーバソフトウェアなどでは、インストールしたらまずそのものの設定で頭が一杯だ。 一方で、いわゆるシモの世話といいますか、吐き出すログの設定には頭が回ってなかったことに深く反省するのであります。 俺の例でいえば、apache、clamav、dhcpdのログが手つかずでありました（冒頭、1.5GBytesになっていたログはdhcpdのもの）。 portsから入れたサーバのログは、いちど確認したほうがいいだろう。 基本は/var/logの下に出力されるが、/usr/local/var/logが（あれば）見た方がいいし、場合によっては思わぬところに吐き出されてる可能性もある。 newsyslogd さて、FreeBSDではログのローテートはnewsyslogdが行う。Linuxではlogrotateにあたるもの。 handbookではこのへん 英語（推奨） [http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/configtuning-configfiles.html](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/configtuning-configfiles.html) 日本語 [http://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/book.html#CONFIGTUNING-CONFIGFILES](http://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/book.html#CONFIGTUNING-CONFIGFILES) newsyslogの設定サンプル man newsyslog.confを見ればだいたい分かる。以降、英文はここからの引用。 [http://www.freebsd.org/cgi/man.cgi?query=newsyslog.conf\u0026apropos=0\u0026sektion=0\u0026manpath=FreeBSD+9.0-RELEASE\u0026arch=default\u0026format=html](http://www.freebsd.org/cgi/man.cgi?query=newsyslog.conf\u0026#038;apropos=0\u0026#038;sektion=0\u0026#038;manpath=FreeBSD+9.0-RELEASE\u0026#038;arch=default\u0026#038;format=html) 以下の順番で並べるだけ。間はスペースで埋めること（separated with whitespace）。  # filename \u0026#91;owner:group] mode count size when \u0026#91;ZB] \u0026#91;/pid_file] \u0026#91;sig_num] 以下、サンプル。  /var/log/local7.log 600 10 1024 * JC /var/log/local7.logが、1MBytesを超えた時点でローテーション。 生成されたログのパーミッションは600で、bzip2で圧縮され（J）、10個保存される。  /var/log/httpd-access.log 644 7 * @T03 JC apacheのログを毎日午前3時にローテーション、圧縮して7日分残す。 設定を変えたらnewsyslogdを再起動。  # /etc/rc.d/newsyslog restart Creating and/or trimming log files. # 設定について filename その名の通り。 [owner:group] 省略可。アーカイブ後ファイルの所有ユーザとグループ mode ログファイルとアーカイブ後ファイルのパーミッション。 サーバソフトが作るオリジナルのパーミッションと合わせておくのがよい。 というのも、newsyslogdがログをローテーションするときに新しいログファイルを作るから。 owner:groupにはなく、こちらにだけ「ログファイル」という記載があるのはなぜでしょうな。 count 残す「アーカイブ後の」ログファイル数。 3なら、アーカイブされたログが3つになる。 size このサイズを超えたときにローテーションされる。 キロバイトで指定。 アスタリスク(*)の場合には、サイズベースでのローテーションはしない。 when ローテーションする時間、時刻契機を指定。 インターバル、時刻を指定できる。 書式は二つ。後述する。 注意すべき点は、newsyslog自体が一時間に一回しか起動しないこと。 これはつまり以下のような動作となる、と理解した。 ・仮に、newsyslogdが毎時0分に起動し、かつ ・毎時1分にローテーションする設定にした場合、 →例えば、1時1分ではなく、2時にローテーションが発生する。 newsyslog.conf(5)より抜粋   If a time is specified, the log file will only be trimmed if newsyslog(8) is run within one hour of the specified time. If an interval is specified, the log file will be trimmed if that many hours have passed since the last rotation.  　書式   @で書くもの、$で書くものの二つ。 @は、[cc]yy]mm]dd][T[hh[mm[ss?] $は、[Dhh], [Ww[Dhhと[Mdd[Dhh サンプルを見るのが一番よい。（これもmanから抜粋） $D0　毎日午前0時。@T00と同じ意味 $D23　毎日23時。@T23と同じ意味 $W0D23　毎週日曜23時 $W5D16　毎週金曜16時 $M1D0　毎月1日の午前0時。@01T00と同じ意味 $M5D6　毎月5日の午前6時。@05T06と同じ意味  flags 一部のみ。基本JCでよい。 J ログをbzip2で圧縮。Zならgzip。Xならxz。 C ログが存在しない場合に作る。 G パターンにマッチしたログファイルを対象にできる。 pid_file 通常、ログをローテーションした後はsyslogdにシグナルが送られる。 syslogd以外のプロセスにシグナルを送りたい場合には、プロセスの pidが書かれたファイルをここで指定する。 以上  ","wordCount":"1650","inLanguage":"en","datePublished":"2012-03-12T01:00:00+09:00","dateModified":"2012-03-12T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2012-03-12-_var_log%E3%81%AE%E4%B8%8B%E3%81%8C%E3%81%88%E3%82%89%E3%81%84%E3%81%93%E3%81%A8%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%A6%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFfreebsd%E3%81%A7%E3%83%AD%E3%82%B0%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E8%A8%AD%E5%AE%9A%E3%82%92%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AFlogrotate%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%8Fnewsyslog/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -123,7 +123,7 @@ portsから入れたサーバのログは、いちど確認したほうがいい
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;newsyslogd&lt;/span&gt;
+newsyslogd
 
 
 
@@ -142,7 +142,7 @@ handbookではこのへん
 
 
 
-&lt;a href=&quot;http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/configtuning-configfiles.html&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/configtuning-configfiles.html&lt;/a&gt;
+[http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/configtuning-configfiles.html](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/configtuning-configfiles.html)
 
 
 
@@ -150,14 +150,14 @@ handbookではこのへん
 
 
 
-&lt;a href=&quot;http://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/book.html#CONFIGTUNING-CONFIGFILES&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/book.html#CONFIGTUNING-CONFIGFILES&lt;/a&gt;
+[http://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/book.html#CONFIGTUNING-CONFIGFILES](http://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/book.html#CONFIGTUNING-CONFIGFILES)
 
 
 
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;newsyslogの設定サンプル&lt;/span&gt;
+newsyslogの設定サンプル
 
 
 
@@ -165,7 +165,7 @@ man newsyslog.confを見ればだいたい分かる。以降、英文はここ�
 
 
 
-&lt;a href=&quot;http://www.freebsd.org/cgi/man.cgi?query=newsyslog.conf&amp;#038;apropos=0&amp;#038;sektion=0&amp;#038;manpath=FreeBSD+9.0-RELEASE&amp;#038;arch=default&amp;#038;format=html&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/cgi/man.cgi?query=newsyslog.conf&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+9.0-RELEASE&amp;arch=default&amp;format=html&lt;/a&gt;
+[http://www.freebsd.org/cgi/man.cgi?query=newsyslog.conf&amp;apropos=0&amp;sektion=0&amp;manpath=FreeBSD+9.0-RELEASE&amp;arch=default&amp;format=html](http://www.freebsd.org/cgi/man.cgi?query=newsyslog.conf&amp;#038;apropos=0&amp;#038;sektion=0&amp;#038;manpath=FreeBSD+9.0-RELEASE&amp;#038;arch=default&amp;#038;format=html)
 
 
 
@@ -194,14 +194,14 @@ man newsyslog.confを見ればだいたい分かる。以降、英文はここ�
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># /etc/rc.d/newsyslog restart
 Creating and/or trimming log files.
 #
-</code></pre></div><pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;設定について&lt;/span&gt;
+</code></pre></div><pre><code>設定について
 
 
 
 
 
 
-&lt;span style=&quot;font-style:italic;&quot; class=&quot;deco&quot;&gt;filename&lt;/span&gt;
+filename
 
 
 
@@ -209,7 +209,7 @@ Creating and/or trimming log files.
 
 
 
-&lt;span style=&quot;font-style:italic;&quot; class=&quot;deco&quot;&gt;[owner:group]&lt;/span&gt;
+[owner:group]
 
 
 
@@ -217,7 +217,7 @@ Creating and/or trimming log files.
 
 
 
-&lt;span style=&quot;font-style:italic;&quot; class=&quot;deco&quot;&gt;mode&lt;/span&gt;
+mode
 
 
 
@@ -237,7 +237,7 @@ Creating and/or trimming log files.
 
 
 
-&lt;span style=&quot;font-style:italic;&quot; class=&quot;deco&quot;&gt;count&lt;/span&gt;
+count
 
 
 
@@ -249,7 +249,7 @@ Creating and/or trimming log files.
 
 
 
-&lt;span style=&quot;font-style:italic;&quot; class=&quot;deco&quot;&gt;size&lt;/span&gt;
+size
 
 
 
@@ -265,7 +265,7 @@ Creating and/or trimming log files.
 
 
 
-&lt;span style=&quot;font-style:italic;&quot; class=&quot;deco&quot;&gt;when&lt;/span&gt;
+when
 
 
 
@@ -345,7 +345,7 @@ newsyslog.conf(5)より抜粋
 
   　$M5D6　毎月5日の午前6時。@05T06と同じ意味
 </code></pre>
-<pre><code>&lt;span style=&quot;font-style:italic;&quot; class=&quot;deco&quot;&gt;flags&lt;/span&gt; 一部のみ。基本JCでよい。
+<pre><code>flags 一部のみ。基本JCでよい。
 
 
 
@@ -365,7 +365,7 @@ newsyslog.conf(5)より抜粋
 
 
 
-&lt;span style=&quot;font-style:italic;&quot; class=&quot;deco&quot;&gt;pid_file&lt;/span&gt;
+pid_file
 
 
 

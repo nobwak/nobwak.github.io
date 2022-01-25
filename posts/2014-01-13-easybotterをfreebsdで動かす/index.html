@@ -37,7 +37,7 @@
 <meta name=twitter:title content="EasyBotterをFreeBSDで動かす">
 <meta name=twitter:description content="EasyBotterとはTwitter Botツールで、pha氏の手になるもの。 phpで作られている。 設定は以下に沿うとして、このツールをFr">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"EasyBotterをFreeBSDで動かす","item":"https://nobwak.github.io/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"EasyBotterをFreeBSDで動かす","name":"EasyBotterをFreeBSDで動かす","description":"EasyBotterとはTwitter Botツールで、pha氏の手になるもの。 phpで作られている。 設定は以下に沿うとして、このツールをFr","keywords":["FreeBSD"],"articleBody":"EasyBotterとはTwitter Botツールで、pha氏の手になるもの。\nphpで作られている。\n設定は以下に沿うとして、このツールをFreeBSDで動かすために必要な事を記す。\nhttp://pha22.net/twitterbot/http://www26.atwiki.jp/easybotter_wiki/pages/1.htmlFreeBSD 10.0-RC1, pkgngで実施。\nEasyBotterの展開 ダウンロードしたEasyBotterを展開する。\nどこでもよい。\n$ ls EasyBotter.php bot.php license.txt PEAR data.txt log.dat RCS path.txt reply_pattern.php __MACOSX index.html setting.php 設定は冒頭のリンクに沿ってどうぞ。\nphpのインストール 最低限必要なものは以下の三つ。2013/12/16現在。\nphp5-5.4.21 PHP Scripting Language\nphp5-hash-5.4.21 The hash shared extension for php\nphp5-json-5.4.21 The json shared extension for php\nbotの喋る内容はUTF-8で書くので、vimも入れておくとよいかも。\nテスト bot.phpを実行する。\n以下のようになれば成功。\n$ php ./bot.php  EasyBotterTwitterへの投稿に成功しました。 @samplebotに投稿したメッセージ：.... cronに設定 以下のようなどうってことないシェルスクリプトを作って;\n#!/bin/sh cd /home/nobody/files/EasyBotter/ /usr/local/bin/php ./bot.php crontabに設定。\n$ crontab -l 10 * * * * /home/nobody/bin/bot.sh 以上\n","wordCount":"537","inLanguage":"en","datePublished":"2014-01-13T20:19:01+09:00","dateModified":"2014-01-13T20:19:01+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"EasyBotterをFreeBSDで動かす","name":"EasyBotterをFreeBSDで動かす","description":"EasyBotterとはTwitter Botツールで、pha氏の手になるもの。 phpで作られている。 設定は以下に沿うとして、このツールをFr","keywords":["FreeBSD"],"articleBody":"EasyBotterとはTwitter Botツールで、pha氏の手になるもの。\nphpで作られている。\n設定は以下に沿うとして、このツールをFreeBSDで動かすために必要な事を記す。\nhttp://pha22.net/twitterbot/\nhttp://www26.atwiki.jp/easybotter_wiki/pages/1.html\nFreeBSD 10.0-RC1, pkgngで実施。\nEasyBotterの展開 ダウンロードしたEasyBotterを展開する。\nどこでもよい。\n$ ls EasyBotter.php bot.php license.txt PEAR data.txt log.dat RCS path.txt reply_pattern.php __MACOSX index.html setting.php 設定は冒頭のリンクに沿ってどうぞ。\nphpのインストール 最低限必要なものは以下の三つ。2013/12/16現在。\nphp5-5.4.21 PHP Scripting Language\nphp5-hash-5.4.21 The hash shared extension for php\nphp5-json-5.4.21 The json shared extension for php\nbotの喋る内容はUTF-8で書くので、vimも入れておくとよいかも。\nテスト bot.phpを実行する。\n以下のようになれば成功。\n$ php ./bot.php  EasyBotterTwitterへの投稿に成功しました。 @[samplebot](http://twitter.com/samplebot)に投稿したメッセージ：.... cronに設定 以下のようなどうってことないシェルスクリプトを作って;\n#!/bin/sh cd /home/nobody/files/EasyBotter/ /usr/local/bin/php ./bot.php crontabに設定。\n$ crontab -l 10 * * * * /home/nobody/bin/bot.sh 以上\n","wordCount":"538","inLanguage":"en","datePublished":"2014-01-13T20:19:01+09:00","dateModified":"2014-01-13T20:19:01+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,25 +96,25 @@ EasyBotterをFreeBSDで動かす
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlineeasybotter%e3%81%ae%e5%b1%95%e9%96%8bspan aria-label=EasyBotterの展開>EasyBotterの展開</a></li>
+<a href=#easybotter%e3%81%ae%e5%b1%95%e9%96%8b aria-label=EasyBotterの展開>EasyBotterの展開</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinephp%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abspan aria-label=phpのインストール>phpのインストール</a></li>
+<a href=#php%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=phpのインストール>phpのインストール</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%86%e3%82%b9%e3%83%88span aria-label=テスト>テスト</a></li>
+<a href=#%e3%83%86%e3%82%b9%e3%83%88 aria-label=テスト>テスト</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinecron%e3%81%ab%e8%a8%ad%e5%ae%9aspan aria-label=cronに設定>cronに設定</a>
+<a href=#cron%e3%81%ab%e8%a8%ad%e5%ae%9a aria-label=cronに設定>cronに設定</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><p>EasyBotterとはTwitter Botツールで、pha氏の手になるもの。<br>
+<div class=post-content><p>EasyBotterとはTwitter Botツールで、<a href=http://d.hatena.ne.jp/pha/>pha氏</a>の手になるもの。<br>
 phpで作られている。</p>
 <p>設定は以下に沿うとして、このツールをFreeBSDで動かすために必要な事を記す。<br>
 <a href=http://pha22.net/twitterbot/>http://pha22.net/twitterbot/</a><br>
 <a href=http://www26.atwiki.jp/easybotter_wiki/pages/1.html>http://www26.atwiki.jp/easybotter_wiki/pages/1.html</a></p>
 <p>FreeBSD 10.0-RC1, pkgngで実施。</p>
-<h2 id=span-styletext-decoration-underlineeasybotterの展開span>EasyBotterの展開<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineeasybotterの展開span>#</a></h2>
+<h2 id=easybotterの展開>EasyBotterの展開<a hidden class=anchor aria-hidden=true href=#easybotterの展開>#</a></h2>
 <p>ダウンロードしたEasyBotterを展開する。<br>
 どこでもよい。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ ls
@@ -123,13 +123,13 @@ PEAR                    data.txt                log.dat
 RCS                     path.txt                 reply_pattern.php
 __MACOSX                index.html              setting.php
 </code></pre></div><p>設定は冒頭のリンクに沿ってどうぞ。</p>
-<h2 id=span-styletext-decoration-underlinephpのインストールspan>phpのインストール<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinephpのインストールspan>#</a></h2>
+<h2 id=phpのインストール>phpのインストール<a hidden class=anchor aria-hidden=true href=#phpのインストール>#</a></h2>
 <p>最低限必要なものは以下の三つ。2013/12/16現在。<br>
 php5-5.4.21                    PHP Scripting Language<br>
 php5-hash-5.4.21               The hash shared extension for php<br>
 php5-json-5.4.21               The json shared extension for php</p>
 <p>botの喋る内容はUTF-8で書くので、vimも入れておくとよいかも。</p>
-<h2 id=span-styletext-decoration-underlineテストspan>テスト<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineテストspan>#</a></h2>
+<h2 id=テスト>テスト<a hidden class=anchor aria-hidden=true href=#テスト>#</a></h2>
 <p>bot.phpを実行する。<br>
 以下のようになれば成功。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ php ./bot.php
@@ -139,8 +139,8 @@ php5-json-5.4.21               The json shared extension for php</
 &lt;meta http-equiv=&#34;content-language&#34; content=&#34;ja&#34; /&gt;
 &lt;meta http-equiv=&#34;content-type&#34; content=&#34;text/html; charset=UTF-8&#34; /&gt;
 &lt;title&gt;EasyBotter&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;pre&gt;Twitterへの投稿に成功しました。
-&lt;br /&gt;@&lt;a href=&#39;http://twitter.com/samplebot&#39; target=&#39;_blank&#39;&gt;samplebot&lt;/a&gt;に投稿したメッセージ：....
-</code></pre></div><h2 id=span-styletext-decoration-underlinecronに設定span>cronに設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinecronに設定span>#</a></h2>
+&lt;br /&gt;@[samplebot](http://twitter.com/samplebot)に投稿したメッセージ：....
+</code></pre></div><h2 id=cronに設定>cronに設定<a hidden class=anchor aria-hidden=true href=#cronに設定>#</a></h2>
 <p>以下のようなどうってことないシェルスクリプトを作って;</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>#!/bin/sh
 <span style=color:#960050;background-color:#1e0010>

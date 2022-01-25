@@ -37,7 +37,7 @@
 <meta name=twitter:title content="[FreeBSD][メモ] ACL（Access Control Lists）を有効にする">
 <meta name=twitter:description content="ACLとは、一般的なUNIXのパーミッション制御をさらに拡張したものである。 FreeBSDのハンドブックは以下の通りであるが、どうも実動作と">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"[FreeBSD][メモ] ACL（Access Control Lists）を有効にする","item":"https://nobwak.github.io/posts/2015-05-09-freebsd%E3%83%A1%E3%83%A2_aclaccess_control_lists%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[FreeBSD][メモ] ACL（Access Control Lists）を有効にする","name":"[FreeBSD][メモ] ACL（Access Control Lists）を有効にする","description":"ACLとは、一般的なUNIXのパーミッション制御をさらに拡張したものである。 FreeBSDのハンドブックは以下の通りであるが、どうも実動作と","keywords":["FreeBSD"],"articleBody":"ACLとは、一般的なUNIXのパーミッション制御をさらに拡張したものである。\nFreeBSDのハンドブックは以下の通りであるが、どうも実動作とハンドブックの内容に食い違いがあるようなのでメモ。\nhttps://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/fs-acl.htmlhttps://www.freebsd.org/doc/en/books/handbook/fs-acl.htmlACLはファイルシステムごとに有効/無効を設定できる。\n設定変更は、そのファイルシステムをumountするか、リードオンリーの状態でしかできない。\nしたがって、ルートファイルシステムの設定変更は、通常起動した後ではできない。\nACLの有効/無効化 GENERICカーネルであればACLが使える。\nACLを有効にするには、/etc/fstabの当該ファイルシステムオプションにaclsを追加し、再起動すればよい。\nもちろん、ルートファイルシステム以外なら、再起動しないまでも、いったんumount、mountすればよい。\nmount -uによる再マウントでは有効にならないので注意\nfstab設定例は後述\nACLの有効/無効化のしくみ ファイルシステムヘッダのスーパーブロックにACLの有効/無効フラグがある。tunefsコマンドでフラグを変更できる。\nfstabでaclsが指定されていると、マシン起動時に、tunefsでスーパーブロックを書き換えののち、マウントされる。\n注意点（一度ACLを有効にしたら永続…?） ハンドブックによれば、一度ACLを有効にしたらその設定が永続する、という。\n「スーパブロックフラグを設定すると、fstab に記述されていなかったり、デバイスの順番が変わってしまっても、常に ACLs が有効な状態でマウントされます」\n※英語版も同じ。\nハンドブックとの違い？ ところが手元のマシンの動作を見ると、tunefsによる設定に関わらず、fstabのオプションしか参照していないようだ。\nつまり、fstabでaclsを削ると、ACL無効でマウントされるようだ。\n（fstabにaclsが無い場合、tunefs -a disableが実行される?）\nそれはともかく、上記を踏まえた設定例を示す。\nfstabの設定変更 fstabのOptionsのところ、カンマに続けて「acls」と記載。\nルートファイルシステムなら、再起動。\nルートファイルシステム以外なら、umount,mountでよい。\nACLの設定はハンドブック参照。\n設定前\n# Device Mountpoint FStype Options Dump Pass# /dev/ada0p2 / ufs rw 1 1 設定後\n# Device Mountpoint FStype Options Dump Pass# /dev/ada0p2 / ufs rw,acls 1 1 以上。tunefsは考えなくてよし。\n以下は記録。\ntunefsのうごき tunefs -pでACLの状態を確認できる。\n# tunefs -p /dev/ada0p2 tunefs: POSIX.1e ACLs: (-a) disabled tunefs -a enable/disableでACLの有効、無効を設定できる\n# tunefs -a enable /dev/ada0p2 tunefs: POSIX.1e ACLs set # tunefs -p /dev/ada0p2 tunefs: POSIX.1e ACLs: (-a) enabled /dev/ada0p2 は、ルートファイルシステムなのだが、そのまま起動すると、あるいは再起動するとtunefs -pの結果がdisabledに戻ってしまう。\nさらに分からないのは、fstabにaclsの記載あるなしに関わらずdisabledになること。\n実験（fstabしか見ていない…?） fstabにaclsを記載し、あるファイルにsetfaclでACLを設定する。\nls -laで確認すると以下のように+が付く。\n$ setfacl -m u:nobwak:r,o:: file.txt $ ls -la ./file.txt -rw-r-----+ 1 doe doe 8 4月 23 13:45 ./file.txt $ mount /dev/ada0p2 on / (ufs, local, journaled soft-updates, acls) その後、fstabからaclsを削除し、再起動したのち、ls -laで確認すると+がない。\n$ ls -la ./file.txt -rw-r----- 1 doe doe 8 4月 23 13:45 ./file.txt $ mount /dev/ada0p2 on / (ufs, local, journaled soft-updates) なお、上記の再起動前後を通してtunefs -pの結果はdisabled.\n","wordCount":"1521","inLanguage":"en","datePublished":"2015-05-09T20:35:44+09:00","dateModified":"2015-05-09T20:35:44+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2015-05-09-freebsd%E3%83%A1%E3%83%A2_aclaccess_control_lists%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[FreeBSD][メモ] ACL（Access Control Lists）を有効にする","name":"[FreeBSD][メモ] ACL（Access Control Lists）を有効にする","description":"ACLとは、一般的なUNIXのパーミッション制御をさらに拡張したものである。 FreeBSDのハンドブックは以下の通りであるが、どうも実動作と","keywords":["FreeBSD"],"articleBody":"ACLとは、一般的なUNIXのパーミッション制御をさらに拡張したものである。\nFreeBSDのハンドブックは以下の通りであるが、どうも実動作とハンドブックの内容に食い違いがあるようなのでメモ。\nhttps://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/fs-acl.html\nhttps://www.freebsd.org/doc/en/books/handbook/fs-acl.html\nACLはファイルシステムごとに有効/無効を設定できる。\n設定変更は、そのファイルシステムをumountするか、リードオンリーの状態でしかできない。\nしたがって、ルートファイルシステムの設定変更は、通常起動した後ではできない。\nACLの有効/無効化 GENERICカーネルであればACLが使える。\nACLを有効にするには、/etc/fstabの当該ファイルシステムオプションにaclsを追加し、再起動すればよい。\nもちろん、ルートファイルシステム以外なら、再起動しないまでも、いったんumount、mountすればよい。\nmount -uによる再マウントでは有効にならないので注意\nfstab設定例は後述\nACLの有効/無効化のしくみ ファイルシステムヘッダのスーパーブロックにACLの有効/無効フラグがある。tunefsコマンドでフラグを変更できる。\nfstabでaclsが指定されていると、マシン起動時に、tunefsでスーパーブロックを書き換えののち、マウントされる。\n注意点（一度ACLを有効にしたら永続…?） ハンドブックによれば、一度ACLを有効にしたらその設定が永続する、という。\n「スーパブロックフラグを設定すると、fstab に記述されていなかったり、デバイスの順番が変わってしまっても、常に ACLs が有効な状態でマウントされます」\n※英語版も同じ。\nハンドブックとの違い？ ところが手元のマシンの動作を見ると、tunefsによる設定に関わらず、fstabのオプションしか参照していないようだ。\nつまり、fstabでaclsを削ると、ACL無効でマウントされるようだ。\n（fstabにaclsが無い場合、tunefs -a disableが実行される?）\nそれはともかく、上記を踏まえた設定例を示す。\nfstabの設定変更 fstabのOptionsのところ、カンマに続けて「acls」と記載。\nルートファイルシステムなら、再起動。\nルートファイルシステム以外なら、umount,mountでよい。\nACLの設定はハンドブック参照。\n設定前\n# Device Mountpoint FStype Options Dump Pass# /dev/ada0p2 / ufs rw 1 1 設定後\n# Device Mountpoint FStype Options Dump Pass# /dev/ada0p2 / ufs rw,acls 1 1 以上。tunefsは考えなくてよし。\n以下は記録。\ntunefsのうごき tunefs -pでACLの状態を確認できる。\n# tunefs -p /dev/ada0p2 tunefs: POSIX.1e ACLs: (-a) disabled tunefs -a enable/disableでACLの有効、無効を設定できる\n# tunefs -a enable /dev/ada0p2 tunefs: POSIX.1e ACLs set # tunefs -p /dev/ada0p2 tunefs: POSIX.1e ACLs: (-a) enabled /dev/ada0p2 は、ルートファイルシステムなのだが、そのまま起動すると、あるいは再起動するとtunefs -pの結果がdisabledに戻ってしまう。\nさらに分からないのは、fstabにaclsの記載あるなしに関わらずdisabledになること。\n実験（fstabしか見ていない…?） fstabにaclsを記載し、あるファイルにsetfaclでACLを設定する。\nls -laで確認すると以下のように+が付く。\n$ setfacl -m u:nobwak:r,o:: file.txt $ ls -la ./file.txt -rw-r-----+ 1 doe doe 8 4月 23 13:45 ./file.txt $ mount /dev/ada0p2 on / (ufs, local, journaled soft-updates, acls) その後、fstabからaclsを削除し、再起動したのち、ls -laで確認すると+がない。\n$ ls -la ./file.txt -rw-r----- 1 doe doe 8 4月 23 13:45 ./file.txt $ mount /dev/ada0p2 on / (ufs, local, journaled soft-updates) なお、上記の再起動前後を通してtunefs -pの結果はdisabled.\n","wordCount":"1400","inLanguage":"en","datePublished":"2015-05-09T20:35:44+09:00","dateModified":"2015-05-09T20:35:44+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2015-05-09-freebsd%E3%83%A1%E3%83%A2_aclaccess_control_lists%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -87,7 +87,7 @@
 <h1 class=post-title>
 [FreeBSD][メモ] ACL（Access Control Lists）を有効にする
 </h1>
-<div class=post-meta><span title="2015-05-09 20:35:44 +0900 JST">May 9, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2015-05-09-[FreeBSD][%e3%83%a1%e3%83%a2]_ACL%ef%bc%88Access_Control_Lists%ef%bc%89%e3%82%92%e6%9c%89%e5%8a%b9%e3%81%ab%e3%81%99%e3%82%8b.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+<div class=post-meta><span title="2015-05-09 20:35:44 +0900 JST">May 9, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2015-05-09-[FreeBSD][%e3%83%a1%e3%83%a2]_ACL%ef%bc%88Access_Control_Lists%ef%bc%89%e3%82%92%e6%9c%89%e5%8a%b9%e3%81%ab%e3%81%99%e3%82%8b.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header> <div class=toc>
 <details open>
@@ -96,19 +96,19 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlineacl%e3%81%ae%e6%9c%89%e5%8a%b9%e7%84%a1%e5%8a%b9%e5%8c%96span aria-label=ACLの有効/無効化>ACLの有効/無効化</a></li>
+<a href=#acl%e3%81%ae%e6%9c%89%e5%8a%b9%e7%84%a1%e5%8a%b9%e5%8c%96 aria-label=ACLの有効/無効化>ACLの有効/無効化</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineacl%e3%81%ae%e6%9c%89%e5%8a%b9%e7%84%a1%e5%8a%b9%e5%8c%96%e3%81%ae%e3%81%97%e3%81%8f%e3%81%bfspan aria-label=ACLの有効/無効化のしくみ>ACLの有効/無効化のしくみ</a></li>
+<a href=#acl%e3%81%ae%e6%9c%89%e5%8a%b9%e7%84%a1%e5%8a%b9%e5%8c%96%e3%81%ae%e3%81%97%e3%81%8f%e3%81%bf aria-label=ACLの有効/無効化のしくみ>ACLの有効/無効化のしくみ</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e6%b3%a8%e6%84%8f%e7%82%b9%e4%b8%80%e5%ba%a6acl%e3%82%92%e6%9c%89%e5%8a%b9%e3%81%ab%e3%81%97%e3%81%9f%e3%82%89%e6%b0%b8%e7%b6%9aspan aria-label=注意点（一度ACLを有効にしたら永続…?）>注意点（一度ACLを有効にしたら永続…?）</a></li>
+<a href=#%e6%b3%a8%e6%84%8f%e7%82%b9%e4%b8%80%e5%ba%a6acl%e3%82%92%e6%9c%89%e5%8a%b9%e3%81%ab%e3%81%97%e3%81%9f%e3%82%89%e6%b0%b8%e7%b6%9a aria-label=注意点（一度ACLを有効にしたら永続…?）>注意点（一度ACLを有効にしたら永続…?）</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%8f%e3%83%b3%e3%83%89%e3%83%96%e3%83%83%e3%82%af%e3%81%a8%e3%81%ae%e9%81%95%e3%81%84span aria-label=ハンドブックとの違い？>ハンドブックとの違い？</a></li>
+<a href=#%e3%83%8f%e3%83%b3%e3%83%89%e3%83%96%e3%83%83%e3%82%af%e3%81%a8%e3%81%ae%e9%81%95%e3%81%84 aria-label=ハンドブックとの違い？>ハンドブックとの違い？</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinefstab%e3%81%ae%e8%a8%ad%e5%ae%9a%e5%a4%89%e6%9b%b4span aria-label=fstabの設定変更>fstabの設定変更</a></li>
+<a href=#fstab%e3%81%ae%e8%a8%ad%e5%ae%9a%e5%a4%89%e6%9b%b4 aria-label=fstabの設定変更>fstabの設定変更</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinetunefs%e3%81%ae%e3%81%86%e3%81%94%e3%81%8dspan aria-label=tunefsのうごき>tunefsのうごき</a></li>
+<a href=#tunefs%e3%81%ae%e3%81%86%e3%81%94%e3%81%8d aria-label=tunefsのうごき>tunefsのうごき</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%ae%9f%e9%a8%93fstab%e3%81%97%e3%81%8b%e8%a6%8b%e3%81%a6%e3%81%84%e3%81%aa%e3%81%84span aria-label=実験（fstabしか見ていない…?）>実験（fstabしか見ていない…?）</a>
+<a href=#%e5%ae%9f%e9%a8%93fstab%e3%81%97%e3%81%8b%e8%a6%8b%e3%81%a6%e3%81%84%e3%81%aa%e3%81%84 aria-label=実験（fstabしか見ていない…?）>実験（fstabしか見ていない…?）</a>
 </li>
 </ul>
 </div>
@@ -121,25 +121,25 @@ FreeBSDのハンドブックは以下の通りであるが、どうも実動作�
 <p>ACLはファイルシステムごとに有効/無効を設定できる。<br>
 設定変更は、そのファイルシステムをumountするか、リードオンリーの状態でしかできない。<br>
 したがって、ルートファイルシステムの設定変更は、通常起動した後ではできない。</p>
-<h2 id=span-styletext-decoration-underlineaclの有効無効化span>ACLの有効/無効化<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineaclの有効無効化span>#</a></h2>
+<h2 id=aclの有効無効化>ACLの有効/無効化<a hidden class=anchor aria-hidden=true href=#aclの有効無効化>#</a></h2>
 <p>GENERICカーネルであればACLが使える。</p>
 <p>ACLを有効にするには、/etc/fstabの当該ファイルシステムオプションにaclsを追加し、再起動すればよい。<br>
 もちろん、ルートファイルシステム以外なら、再起動しないまでも、いったんumount、mountすればよい。<br>
 mount -uによる再マウントでは有効にならないので注意<br>
 fstab設定例は後述</p>
-<h2 id=span-styletext-decoration-underlineaclの有効無効化のしくみspan>ACLの有効/無効化のしくみ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineaclの有効無効化のしくみspan>#</a></h2>
+<h2 id=aclの有効無効化のしくみ>ACLの有効/無効化のしくみ<a hidden class=anchor aria-hidden=true href=#aclの有効無効化のしくみ>#</a></h2>
 <p>ファイルシステムヘッダのスーパーブロックにACLの有効/無効フラグがある。tunefsコマンドでフラグを変更できる。<br>
 fstabでaclsが指定されていると、マシン起動時に、tunefsでスーパーブロックを書き換えののち、マウントされる。</p>
-<h2 id=span-styletext-decoration-underline注意点一度aclを有効にしたら永続span>注意点（一度ACLを有効にしたら永続…?）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline注意点一度aclを有効にしたら永続span>#</a></h2>
+<h2 id=注意点一度aclを有効にしたら永続>注意点（一度ACLを有効にしたら永続…?）<a hidden class=anchor aria-hidden=true href=#注意点一度aclを有効にしたら永続>#</a></h2>
 <p>ハンドブックによれば、一度ACLを有効にしたらその設定が永続する、という。<br>
 「スーパブロックフラグを設定すると、fstab に記述されていなかったり、デバイスの順番が変わってしまっても、常に ACLs が有効な状態でマウントされます」<br>
 ※英語版も同じ。</p>
-<h2 id=span-styletext-decoration-underlineハンドブックとの違いspan>ハンドブックとの違い？<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineハンドブックとの違いspan>#</a></h2>
+<h2 id=ハンドブックとの違い>ハンドブックとの違い？<a hidden class=anchor aria-hidden=true href=#ハンドブックとの違い>#</a></h2>
 <p>ところが手元のマシンの動作を見ると、tunefsによる設定に関わらず、fstabのオプションしか参照していないようだ。<br>
 つまり、fstabでaclsを削ると、ACL無効でマウントされるようだ。<br>
 （fstabにaclsが無い場合、tunefs -a disableが実行される?）</p>
 <p>それはともかく、上記を踏まえた設定例を示す。</p>
-<h2 id=span-styletext-decoration-underlinefstabの設定変更span>fstabの設定変更<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinefstabの設定変更span>#</a></h2>
+<h2 id=fstabの設定変更>fstabの設定変更<a hidden class=anchor aria-hidden=true href=#fstabの設定変更>#</a></h2>
 <p>fstabのOptionsのところ、カンマに続けて「acls」と記載。<br>
 ルートファイルシステムなら、再起動。<br>
 ルートファイルシステム以外なら、umount,mountでよい。<br>
@@ -152,7 +152,7 @@ ACLの設定はハンドブック参照。</p>
 /dev/ada0p2     /               ufs     rw,acls  1       1
 </code></pre></div><p>以上。tunefsは考えなくてよし。</p>
 <p>以下は記録。</p>
-<h2 id=span-styletext-decoration-underlinetunefsのうごきspan>tunefsのうごき<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinetunefsのうごきspan>#</a></h2>
+<h2 id=tunefsのうごき>tunefsのうごき<a hidden class=anchor aria-hidden=true href=#tunefsのうごき>#</a></h2>
 <p>tunefs -pでACLの状態を確認できる。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># tunefs -p /dev/ada0p2
 tunefs: POSIX.1e ACLs: (-a)   disabled
@@ -164,7 +164,7 @@ tunefs: POSIX.1e ACLs set
 tunefs: POSIX.1e ACLs: (-a)   enabled
 </code></pre></div><p>/dev/ada0p2 は、ルートファイルシステムなのだが、そのまま起動すると、あるいは再起動するとtunefs -pの結果がdisabledに戻ってしまう。<br>
 さらに分からないのは、fstabにaclsの記載あるなしに関わらずdisabledになること。</p>
-<h2 id=span-styletext-decoration-underline実験fstabしか見ていないspan>実験（fstabしか見ていない…?）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline実験fstabしか見ていないspan>#</a></h2>
+<h2 id=実験fstabしか見ていない>実験（fstabしか見ていない…?）<a hidden class=anchor aria-hidden=true href=#実験fstabしか見ていない>#</a></h2>
 <p>fstabにaclsを記載し、あるファイルにsetfaclでACLを設定する。<br>
 ls -laで確認すると以下のように+が付く。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ setfacl -m u:nobwak:r,o:: file.txt

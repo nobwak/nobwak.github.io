@@ -96,9 +96,9 @@ pkgngでgnome2などの「一式」を削除するには。
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinepkg-autoremovespan aria-label="pkg autoremove">pkg autoremove</a></li>
+<a href=#pkg-autoremove aria-label="pkg autoremove">pkg autoremove</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%ae%9f%e8%a1%8c%e4%be%8bgnome2%e5%89%8a%e9%99%a4span aria-label=実行例（gnome2削除）>実行例（gnome2削除）</a>
+<a href=#%e5%ae%9f%e8%a1%8c%e4%be%8bgnome2%e5%89%8a%e9%99%a4 aria-label=実行例（gnome2削除）>実行例（gnome2削除）</a>
 </li>
 </ul>
 </div>
@@ -108,14 +108,14 @@ pkgngでgnome2などの「一式」を削除するには。
 それはそれで良いのだが、ではそのpkgを、依存も含めて一式アンインストールしたい場合にはどうするか。</p>
 <p>いったんpkg Aを削除したあとに、autoremoveを使えばよい。<br>
 これはgnome2などの巨大なものでも同じ。</p>
-<h2 id=span-styletext-decoration-underlinepkg-autoremovespan>pkg autoremove<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinepkg-autoremovespan>#</a></h2>
+<h2 id=pkg-autoremove>pkg autoremove<a hidden class=anchor aria-hidden=true href=#pkg-autoremove>#</a></h2>
 <p>manより抜粋</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>pkg autoremove is used for removing orphan packages, which were installed
      during dependency resolution and are no longer needed.
 </code></pre></div><blockquote>
 <p>pkg autoremoveは、依存関係の解決のためにインストールされたがもう必要のない、いわば「孤児」pkgを削除するのにつかわれる。</p>
 </blockquote>
-<h2 id=span-styletext-decoration-underline実行例gnome2削除span>実行例（gnome2削除）<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline実行例gnome2削除span>#</a></h2>
+<h2 id=実行例gnome2削除>実行例（gnome2削除）<a hidden class=anchor aria-hidden=true href=#実行例gnome2削除>#</a></h2>
 <p>以下にgnome2を削除したときの例を示す。</p>
 <p>gnome2のレベルになると、meta-portが用意されているので、これを削除してからautoremoveすればよい。</p>
 <p>まずはmeta-portを削除</p>

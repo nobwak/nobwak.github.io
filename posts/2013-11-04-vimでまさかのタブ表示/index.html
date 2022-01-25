@@ -96,29 +96,29 @@ vimでまさかのタブ表示
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e7%b5%90%e8%ab%96span aria-label=結論>結論</a></li>
+<a href=#%e7%b5%90%e8%ab%96 aria-label=結論>結論</a></li>
 <li>
-<a href=#span-styletext-decoration-underline-p%e3%82%aa%e3%83%97%e3%82%b7%e3%83%a7%e3%83%b3span aria-label=-pオプション>-pオプション</a></li>
+<a href=#-p%e3%82%aa%e3%83%97%e3%82%b7%e3%83%a7%e3%83%b3 aria-label=-pオプション>-pオプション</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinevim--p-%e3%81%ab%e7%b6%9a%e3%81%91%e3%81%a6%e8%a4%87%e6%95%b0%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e6%8c%87%e5%ae%9aspan aria-label="vim -p に続けて複数ファイルを指定">vim -p に続けて複数ファイルを指定</a></li>
+<a href=#vim--p-%e3%81%ab%e7%b6%9a%e3%81%91%e3%81%a6%e8%a4%87%e6%95%b0%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%82%92%e6%8c%87%e5%ae%9a aria-label="vim -p に続けて複数ファイルを指定">vim -p に続けて複数ファイルを指定</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinealilas%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=alilasの設定>alilasの設定</a>
+<a href=#alilas%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label=alilasの設定>alilasの設定</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><h2 id=span-styletext-decoration-underline結論span>結論<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline結論span>#</a></h2>
+<div class=post-content><h2 id=結論>結論<a hidden class=anchor aria-hidden=true href=#結論>#</a></h2>
 <p>vim -pで複数ファイルをタブ表示できる。<br>
 .profileにaliasを書いとけ。<br>
 以上。</p>
-<h2 id=span-styletext-decoration-underline-pオプションspan>-pオプション<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline-pオプションspan>#</a></h2>
+<h2 id=-pオプション>-pオプション<a hidden class=anchor aria-hidden=true href=#-pオプション>#</a></h2>
 <p>vimのmanを眺めていたらこんな記載が。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-p[N]       Open N tab pages.  When N is omitted, open one tab page for
                    each file.
 </code></pre></div><p>なんですと。<br>
 さっそく試そう！</p>
-<h2 id=span-styletext-decoration-underlinevim--p-に続けて複数ファイルを指定span>vim -p に続けて複数ファイルを指定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinevim--p-に続けて複数ファイルを指定span>#</a></h2>
+<h2 id=vim--p-に続けて複数ファイルを指定>vim -p に続けて複数ファイルを指定<a hidden class=anchor aria-hidden=true href=#vim--p-に続けて複数ファイルを指定>#</a></h2>
 <p>こんな感じ。<br>
 もちろん*.confなんて指定のしかたもできるよ。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># vim -p freebsd-update.conf inetd.conf rc.conf make.conf portsnap.conf
@@ -138,7 +138,7 @@ Press ENTER or type command to continue
 <p>編集を終えて:qで抜けると次のファイルに移る。<br>
 :qを使わなくとも"gt", &ldquo;gT"でファイルを映ることができる。<br>
 &ldquo;gt"で右へ、&ldquo;gT"で左へ。</p>
-<h2 id=span-styletext-decoration-underlinealilasの設定span>alilasの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinealilasの設定span>#</a></h2>
+<h2 id=alilasの設定>alilasの設定<a hidden class=anchor aria-hidden=true href=#alilasの設定>#</a></h2>
 <p>気に入ったらaliasを設定しておく。<br>
 bashなら.profileに書き込んでおく。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>alias vim=&#34;vim -p&#34;

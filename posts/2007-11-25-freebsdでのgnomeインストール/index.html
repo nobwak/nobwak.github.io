@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>FreeBSDでのGNOMEインストール | nobwak's Lair</title>
 <meta name=keywords content>
-<meta name=description content="「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 <span style=&#34;font-style:italic;&#34;>* 2008/11追記: 過疎blogにも">
+<meta name=description content="「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 * 2008/11追記: 過疎blogにも関">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="FreeBSDでのGNOMEインストール">
-<meta property="og:description" content="「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 <span style=&#34;font-style:italic;&#34;>* 2008/11追記: 過疎blogにも">
+<meta property="og:description" content="「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 * 2008/11追記: 過疎blogにも関">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2007-11-25T01:00:00+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="FreeBSDでのGNOMEインストール">
-<meta name=twitter:description content="「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 <span style=&#34;font-style:italic;&#34;>* 2008/11追記: 過疎blogにも">
+<meta name=twitter:description content="「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 * 2008/11追記: 過疎blogにも関">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"FreeBSDでのGNOMEインストール","item":"https://nobwak.github.io/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSDでのGNOMEインストール","name":"FreeBSDでのGNOMEインストール","description":"「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 \u0026lt;span style=\u0026quot;font-style:italic;\u0026quot;\u0026gt;* 2008/11追記: 過疎blogにも","keywords":[],"articleBody":"「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 * 2008/11追記: 過疎blogにも関わらずこの記事に限っては★をいただいているので、出来るだけ内容をアップデートします。さしあたり2008/11/8に誤記、手順誤り、補足などを追記・修正しています。 さらにアップデート メタパッケージをインストールすれば問題ないはずだが、俺の場合、そこに到達するまでに、特にXを設定するあたりで何度も討ち死にしたので諦めていた。 で、OSインストール一発で何から何までやってくれるUbuntuを使っていたのだが、ふと思い立ってFreeBSDでGNOMEのインストールに再チャレンジしてみたら意外に上手くいって驚いた。 それはともかくとして、やっぱりflashを動作させるのに一工夫必要とか、GNOMEの細かな設定を自分でやらないといけないとか、Ubuntuだったら気にしなくていいような事がやっぱりあって、デスクトップ用途で気軽に使うのはやっぱりUbuntuのほうがいいなと思った。 FreeBSDにもPC-BSDとかあるが、デスクトップ環境がKDEだし・・・。 で、インストールした結果思ったのは、気のせいなのか何なのか、同じGNOMEでもUbuntuより心持ち動作が軽いような気がする。 また、CPU使用率もUbuntuより少なめ。（とはいっても、LinuxとFreeBSDではこの辺の算出方法が違うといった話を読んだことがあるので、一概に見た目のCPU使用率で判断してはいけないかも。） 以下、メモ。 ほぼFreeBSDハンドブックの手順どおり。 日本語版もあるが、ちと情報が古いので、英語版を見るのがベター。 FreeBSD-7.0-BETA2にXとGNOME2のインストール。 xorgからgnomeをportsでインストールした日には何日かかるかわからないので、全部パッケージで入れることにする。   # PACKAGEROOT=\"ftp://ftp2.jp.freebsd.org\";export PACKAGEROOT # pkg_add -r xorg  とすれば、xorgに関係するパッケージを全部入れてくれる(Bシェル系の場合)。 普通にやるとftp.freebsd.orgあたりに取りに行ってしまい時間がかかるので、環境変数のPACKAGEROOTで日本のftpを指定しておく。 ただし、普段からportsディレクトリを更新していると、狙いのパッケージがまだ準備されていない場合も（けっこう）あるので注意。 なので、GNOME、Xをインストールするのは、FreeBSDリリースバージョンをインストールするときに一緒にやってしまったほうがよい。 まあ、泣きながらportsでインストールするのもありだし、メジャーバージョンリリース時のインストールCDあたりからportsディレクトリをコピーするとか、いろいろ手はあるけど…。 Xの設定 終わったらxorg.confの設定。 テキストベースの設定ツールxorgcnfigは、立て板に水状態で山盛りの質問してくるので回避。 root権限でXorg -configureとして実行すると、/rootにxorg.conf.newが出来る。 なお、Xの設定では、入力をまったく受け付けない状態になることがよくあるが、そういった場合には、あわてずCtrl+Alt+Backspaceを押すこと。 ハンドブックを参照しつつ修正してみた。 Section \"InputDevice\"のキーボードに青字部分を追加  Section \"InputDevice\" Identifier \"Keyboard0\" Driver \"kbd\" #日本語配列 Option \"XkbModel\" \"jp106\" Option \"XkbLayout\" \"jp\" #CTRLとCAPSLOCK入れ替え Option \"XkbOptions\" \"ctrl:swapcaps\" EndSection Section \"Monitor\"に追加  option \"DPMS\" DPMSはディスプレイ省電力。 そしたら/etc/X11/xorg.confとしてコピー。 startxでtwmの起動まで確認したら、次はgnome2。 GNOMEのインストール   # pkg_add -r gnome2  としてインストール開始。 ・・・してから気がついたんだが、gnome2-liteあたりにしておけばよかった。 再びパッケージが山盛りインストールされる。 いったんログインしてからstartxとするやり方だと、.xinitrcの設定などが面倒なので、システム起動時にgdmも起動させる。 /etc/rc.confに下記のとおり追加。   gdm_enable=\"YES\" gnome_enable=\"YES\" # dbus_enable=\"YES\" polkitd_enable=\"YES\" hald_enable=\"YES\" system_tools_backends_enable=\"YES\"  gnome_enable=\"YES\"とすればgnome関連デーモンの起動もしてくれる。 うまくいかない場合には3行め以降で個別に追加。（2008/11に再インストールしたときは問題なし。） インプットメソッドのインストール pkg_add -r ja-scim-anthyとしてinput methodをインストール。 2008/11追記: 現時点、つまりgnome2.20ではこういったinput methodやlocale設定に問題があるので、gdmのプルダウンメニューでJapaneseを選んで有効にする。あるいは、~/.profileに'export GDM_LANG=ja_JP.UTF-8'という一行を加える。（http://www.freebsd.org/gnome/docs/faq2.html#q29） 終了。 FreeBSDのサウンドカードの設定 gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。 これもFreeBSDハンドブックを参照して解決。 大まかな流れ。  具体的な手順は以下のとおり。   # kldload snd_driver # kldstat （大量のメッセージ） # cat /dev/sndstat FreeBSD Audio Driver (newpcm: 32bit 2007061600/i386) Installed devices: pcm0: at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld snd_ich　[MPSAFE] (1p:1v/1r:1v channels duplex default)  ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。   snd_ich_load=\"YES\"  この時点でドライバはインストールされているが、GNOMEに認識させるために、一度再起動したほうがいいかも。 アプリケーションのインストール 俺の入れたソフト。   画像閲覧 comix gThumb 音楽 Audacious Rhythmbox ID3タグエディタ EasyTag 動画閲覧 MPlayer VLC フォント ja-vlgothic  ","wordCount":"2968","inLanguage":"en","datePublished":"2007-11-25T01:00:00+09:00","dateModified":"2007-11-25T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSDでのGNOMEインストール","name":"FreeBSDでのGNOMEインストール","description":"「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 * 2008/11追記: 過疎blogにも関","keywords":[],"articleBody":"「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 * 2008/11追記: 過疎blogにも関わらずこの記事に限っては★をいただいているので、出来るだけ内容をアップデートします。さしあたり2008/11/8に誤記、手順誤り、補足などを追記・修正しています。 [さらにアップデート](http://d.hatena.ne.jp/flageo/20100207/p1) メタパッケージをインストールすれば問題ないはずだが、俺の場合、そこに到達するまでに、特にXを設定するあたりで何度も討ち死にしたので諦めていた。 で、OSインストール一発で何から何までやってくれるUbuntuを使っていたのだが、ふと思い立ってFreeBSDでGNOMEのインストールに再チャレンジしてみたら意外に上手くいって驚いた。 それはともかくとして、やっぱりflashを動作させるのに一工夫必要とか、GNOMEの細かな設定を自分でやらないといけないとか、Ubuntuだったら気にしなくていいような事がやっぱりあって、デスクトップ用途で気軽に使うのはやっぱりUbuntuのほうがいいなと思った。 FreeBSDにもPC-BSDとかあるが、デスクトップ環境がKDEだし・・・。 で、インストールした結果思ったのは、気のせいなのか何なのか、同じGNOMEでもUbuntuより心持ち動作が軽いような気がする。 また、CPU使用率もUbuntuより少なめ。（とはいっても、LinuxとFreeBSDではこの辺の算出方法が違うといった話を読んだことがあるので、一概に見た目のCPU使用率で判断してはいけないかも。） 以下、メモ。 ほぼ[FreeBSDハンドブック](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/x-config.html)の手順どおり。 [日本語版](http://www.jp.freebsd.org/www.FreeBSD.org/doc/ja_JP.eucJP/books/handbook/x11-wm.html)もあるが、ちと情報が古いので、英語版を見るのがベター。 FreeBSD-7.0-BETA2にXとGNOME2のインストール。 xorgからgnomeをportsでインストールした日には何日かかるかわからないので、全部パッケージで入れることにする。   # PACKAGEROOT=\"[ftp://ftp2.jp.freebsd.org](ftp://ftp2.jp.freebsd.org)\";export PACKAGEROOT # pkg_add -r xorg  とすれば、xorgに関係するパッケージを全部入れてくれる(Bシェル系の場合)。 普通にやるとftp.freebsd.orgあたりに取りに行ってしまい時間がかかるので、環境変数のPACKAGEROOTで日本のftpを指定しておく。 ただし、普段からportsディレクトリを更新していると、狙いのパッケージがまだ準備されていない場合も（けっこう）あるので注意。 なので、GNOME、Xをインストールするのは、FreeBSDリリースバージョンをインストールするときに一緒にやってしまったほうがよい。 まあ、泣きながらportsでインストールするのもありだし、メジャーバージョンリリース時のインストールCDあたりからportsディレクトリをコピーするとか、いろいろ手はあるけど…。 Xの設定 終わったらxorg.confの設定。 テキストベースの設定ツールxorgcnfigは、立て板に水状態で山盛りの質問してくるので回避。 root権限でXorg -configureとして実行すると、/rootにxorg.conf.newが出来る。 なお、Xの設定では、入力をまったく受け付けない状態になることがよくあるが、そういった場合には、あわてずCtrl+Alt+Backspaceを押すこと。 ハンドブックを参照しつつ修正してみた。 Section \"InputDevice\"のキーボードに青字部分を追加  Section \"InputDevice\" Identifier \"Keyboard0\" Driver \"kbd\" #日本語配列 Option \"XkbModel\" \"jp106\" Option \"XkbLayout\" \"jp\" #CTRLとCAPSLOCK入れ替え Option \"XkbOptions\" \"ctrl:swapcaps\" EndSection Section \"Monitor\"に追加  option \"DPMS\" DPMSはディスプレイ省電力。 そしたら/etc/X11/xorg.confとしてコピー。 startxでtwmの起動まで確認したら、次はgnome2。 GNOMEのインストール   # pkg_add -r gnome2  としてインストール開始。 ・・・してから気がついたんだが、gnome2-liteあたりにしておけばよかった。 再びパッケージが山盛りインストールされる。 いったんログインしてからstartxとするやり方だと、.xinitrcの設定などが面倒なので、システム起動時にgdmも起動させる。 /etc/rc.confに下記のとおり追加。   gdm_enable=\"YES\" gnome_enable=\"YES\" # dbus_enable=\"YES\" polkitd_enable=\"YES\" hald_enable=\"YES\" system_tools_backends_enable=\"YES\"  gnome_enable=\"YES\"とすればgnome関連デーモンの起動もしてくれる。 うまくいかない場合には3行め以降で個別に追加。（2008/11に再インストールしたときは問題なし。） インプットメソッドのインストール pkg_add -r ja-scim-anthyとしてinput methodをインストール。 2008/11追記: 現時点、つまりgnome2.20ではこういったinput methodやlocale設定に問題があるので、gdmのプルダウンメニューでJapaneseを選んで有効にする。あるいは、~/.profileに'export GDM_LANG=ja_JP.UTF-8'という一行を加える。（[http://www.freebsd.org/gnome/docs/faq2.html#q29](http://www.freebsd.org/gnome/docs/faq2.html#q29)） 終了。 FreeBSDのサウンドカードの設定 gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。 これも[FreeBSDハンドブック](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/sound-setup.html)を参照して解決。 大まかな流れ。  具体的な手順は以下のとおり。   # kldload snd_driver # kldstat （大量のメッセージ） # cat /dev/sndstat FreeBSD Audio Driver (newpcm: 32bit 2007061600/i386) Installed devices: pcm0: at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld snd_ich　[MPSAFE] (1p:1v/1r:1v channels duplex default)  ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。   snd_ich_load=\"YES\"  この時点でドライバはインストールされているが、GNOMEに認識させるために、一度再起動したほうがいいかも。 アプリケーションのインストール 俺の入れたソフト。   画像閲覧 comix gThumb 音楽 Audacious Rhythmbox ID3タグエディタ EasyTag 動画閲覧 MPlayer VLC フォント ja-vlgothic  ","wordCount":"2736","inLanguage":"en","datePublished":"2007-11-25T01:00:00+09:00","dateModified":"2007-11-25T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -98,11 +98,11 @@ FreeBSDでのGNOMEインストール
 
 
 
-&lt;span style=&quot;font-style:italic;&quot;&gt;* 2008/11追記: 過疎blogにも関わらずこの記事に限っては★をいただいているので、出来るだけ内容をアップデートします。さしあたり2008/11/8に誤記、手順誤り、補足などを追記・修正しています。&lt;/span&gt;
+* 2008/11追記: 過疎blogにも関わらずこの記事に限っては★をいただいているので、出来るだけ内容をアップデートします。さしあたり2008/11/8に誤記、手順誤り、補足などを追記・修正しています。
 
 
 
-&lt;span style=&quot;font-style:italic;&quot;&gt;&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20100207/p1&quot; target=&quot;_blank&quot;&gt;さらにアップデート&lt;/a&gt;&lt;/span&gt;
+[さらにアップデート](http://d.hatena.ne.jp/flageo/20100207/p1)
 
 
 
@@ -137,18 +137,18 @@ FreeBSDにもPC-BSDとかあるが、デスクトップ環境がKDEだし・・�
 
 
 
-ほぼ&lt;a href=&quot;http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/x-config.html&quot; target=&quot;_blank&quot;&gt;FreeBSDハンドブック&lt;/a&gt;の手順どおり。
+ほぼ[FreeBSDハンドブック](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/x-config.html)の手順どおり。
 
 
 
-&lt;a href=&quot;http://www.jp.freebsd.org/www.FreeBSD.org/doc/ja_JP.eucJP/books/handbook/x11-wm.html&quot; target=&quot;_blank&quot;&gt;日本語版&lt;/a&gt;もあるが、ちと情報が古いので、英語版を見るのがベター。
+[日本語版](http://www.jp.freebsd.org/www.FreeBSD.org/doc/ja_JP.eucJP/books/handbook/x11-wm.html)もあるが、ちと情報が古いので、英語版を見るのがベター。
 
 
 
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot;&gt;FreeBSD-7.0-BETA2にXとGNOME2のインストール。&lt;/span&gt;
+FreeBSD-7.0-BETA2にXとGNOME2のインストール。
 
 
 
@@ -157,7 +157,7 @@ FreeBSDにもPC-BSDとかあるが、デスクトップ環境がKDEだし・・�
 
 xorgからgnomeをportsでインストールした日には何日かかるかわからないので、全部パッケージで入れることにする。
 </code></pre>
-<pre><code>  # PACKAGEROOT=&quot;&lt;a href=&quot;ftp://ftp2.jp.freebsd.org&quot; target=&quot;_blank&quot;&gt;ftp://ftp2.jp.freebsd.org&lt;/a&gt;&quot;;export PACKAGEROOT
+<pre><code>  # PACKAGEROOT=&quot;[ftp://ftp2.jp.freebsd.org](ftp://ftp2.jp.freebsd.org)&quot;;export PACKAGEROOT
 
 
 
@@ -183,7 +183,7 @@ xorgからgnomeをportsでインストールした日には何日かかるかわ
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot;&gt;Xの設定&lt;/span&gt;
+Xの設定
 
 
 
@@ -212,11 +212,11 @@ Section &quot;InputDevice&quot;のキーボードに青字部分を追加
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>Section &#34;InputDevice&#34;
 Identifier  &#34;Keyboard0&#34;
 Driver      &#34;kbd&#34;
-&lt;span style=&#34;color:#000099;&#34;&gt;	#日本語配列
+	#日本語配列
 Option          &#34;XkbModel&#34;      &#34;jp106&#34;
 Option          &#34;XkbLayout&#34;     &#34;jp&#34;
 #CTRLとCAPSLOCK入れ替え
-Option          &#34;XkbOptions&#34;    &#34;ctrl:swapcaps&#34;&lt;/span&gt;
+Option          &#34;XkbOptions&#34;    &#34;ctrl:swapcaps&#34;
 EndSection
 </code></pre></div><pre><code>Section &quot;Monitor&quot;に追加
 </code></pre>
@@ -236,7 +236,7 @@ startxでtwmの起動まで確認したら、次はgnome2。
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot;&gt;GNOMEのインストール&lt;/span&gt;
+GNOMEのインストール
 </code></pre>
 <pre><code>  # pkg_add -r gnome2
 </code></pre>
@@ -292,7 +292,7 @@ startxでtwmの起動まで確認したら、次はgnome2。
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot;&gt;インプットメソッドのインストール&lt;/span&gt;
+インプットメソッドのインストール
 
 
 
@@ -300,7 +300,7 @@ pkg_add -r ja-scim-anthyとしてinput methodをインストール。
 
 
 
-2008/11追記: 現時点、つまりgnome2.20ではこういったinput methodやlocale設定に問題があるので、gdmのプルダウンメニューでJapaneseを選んで有効にする。あるいは、~/.profileに'export GDM_LANG=ja_JP.UTF-8'という一行を加える。（&lt;a href=&quot;http://www.freebsd.org/gnome/docs/faq2.html#q29&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/gnome/docs/faq2.html#q29&lt;/a&gt;）
+2008/11追記: 現時点、つまりgnome2.20ではこういったinput methodやlocale設定に問題があるので、gdmのプルダウンメニューでJapaneseを選んで有効にする。あるいは、~/.profileに'export GDM_LANG=ja_JP.UTF-8'という一行を加える。（[http://www.freebsd.org/gnome/docs/faq2.html#q29](http://www.freebsd.org/gnome/docs/faq2.html#q29)）
 
 
 
@@ -308,7 +308,7 @@ pkg_add -r ja-scim-anthyとしてinput methodをインストール。
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot;&gt;FreeBSDのサウンドカードの設定&lt;/span&gt;
+FreeBSDのサウンドカードの設定
 
 
 
@@ -316,7 +316,7 @@ gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。
 
 
 
-これも&lt;a href=&quot;http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/sound-setup.html&quot; target=&quot;_blank&quot;&gt;FreeBSDハンドブック&lt;/a&gt;を参照して解決。
+これも[FreeBSDハンドブック](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/sound-setup.html)を参照して解決。
 
 
 
@@ -348,7 +348,7 @@ gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。
 
 
 
-  pcm0: &lt;Intel ICH3 (82801CA)&gt; at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld &lt;span style=&quot;font-weight:bold;&quot;&gt;snd_ich&lt;/span&gt;　[MPSAFE] (1p:1v/1r:1v channels duplex default)
+  pcm0: &lt;Intel ICH3 (82801CA)&gt; at io 0x1c00, 0x18c0 irq 11 bufsz　16384 kld snd_ich　[MPSAFE] (1p:1v/1r:1v channels duplex default)
 </code></pre>
 <pre><code>ということで、snd_ichが狙いのモジュールと分かったので（上記出力のボールドは俺）、/boot/loader.confに一行追加。
 </code></pre>
@@ -361,7 +361,7 @@ gdmが立ち上がりGNOMEも問題なく起動したが、音がならない。
 
 
 
-&lt;span style=&quot;font-weight:bold;&quot;&gt;アプリケーションのインストール&lt;/span&gt;
+アプリケーションのインストール
 
 
 

@@ -96,9 +96,9 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinelegacy-on-disk-format%e3%81%a7formatspan aria-label="legacy on-disk formatでformat??">legacy on-disk formatでformat??</a></li>
+<a href=#legacy-on-disk-format%e3%81%a7format aria-label="legacy on-disk formatでformat??">legacy on-disk formatでformat??</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinezpool%e3%81%aeupgradespan aria-label=zpoolのupgrade>zpoolのupgrade</a>
+<a href=#zpool%e3%81%aeupgrade aria-label=zpoolのupgrade>zpoolのupgrade</a>
 </li>
 </ul>
 </div>
@@ -106,7 +106,7 @@
 </div>
 <div class=post-content><p>zpoolのupgradeをしたのでメモ。<br>
 結論としては、zpoolのupgradeとは、単にversionを上げるだけ以外にもあるようだ。</p>
-<h2 id=span-styletext-decoration-underlinelegacy-on-disk-formatでformatspan>legacy on-disk formatでformat??<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinelegacy-on-disk-formatでformatspan>#</a></h2>
+<h2 id=legacy-on-disk-formatでformat>legacy on-disk formatでformat??<a hidden class=anchor aria-hidden=true href=#legacy-on-disk-formatでformat>#</a></h2>
 <p>気がつくと、zpool statusで文句を言われていた。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ zpool status
   pool: vault
@@ -154,7 +154,7 @@ vault      feature@empty_bpobj    disabled               local
 vault      feature@lz4_compress   disabled               local
 </code></pre></div><p>featureがいくつかdiabledになっている。<br>
 そうと分かれば素直にupgradeである。</p>
-<h2 id=span-styletext-decoration-underlinezpoolのupgradespan>zpoolのupgrade<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinezpoolのupgradespan>#</a></h2>
+<h2 id=zpoolのupgrade>zpoolのupgrade<a hidden class=anchor aria-hidden=true href=#zpoolのupgrade>#</a></h2>
 <p>zpool upgradeとするだけ。<br>
 ただ、バージョンが変わらないとはいえ、ファイルシステムの基盤をアップグレードするわけだからバックアップは取っといた。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo zpool upgrade vault

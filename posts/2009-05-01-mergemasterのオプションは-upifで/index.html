@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>mergemasterのオプションは-UPiFで。 | nobwak's Lair</title>
 <meta name=keywords content>
-<meta name=description content="<span style=&#34;font-style:italic;&#34;>2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&">
+<meta name=description content="2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は[こちら](http://d.hatena.ne.jp/flageo/2009051">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2009-05-01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="mergemasterのオプションは-UPiFで。">
-<meta property="og:description" content="<span style=&#34;font-style:italic;&#34;>2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&">
+<meta property="og:description" content="2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は[こちら](http://d.hatena.ne.jp/flageo/2009051">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2009-05-01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2009-05-01T01:00:00+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="mergemasterのオプションは-UPiFで。">
-<meta name=twitter:description content="<span style=&#34;font-style:italic;&#34;>2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&">
+<meta name=twitter:description content="2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は[こちら](http://d.hatena.ne.jp/flageo/2009051">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"mergemasterのオプションは-UPiFで。","item":"https://nobwak.github.io/posts/2009-05-01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"mergemasterのオプションは-UPiFで。","name":"mergemasterのオプションは-UPiFで。","description":"\u0026lt;span style=\u0026quot;font-style:italic;\u0026quot;\u0026gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は\u0026","keywords":[],"articleBody":"2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細はこちら。  いつごろからか、mergemasterに新しいオプションが増えた。  Using the [-F] option mergemaster will install the new file for you if they differ only by VCS strings.  -Fオプションを使うと、VCS文字列だけが違って内容は変わらないファイルを自動的にインストールしてくれるとのこと。 ここでのVCS文字列というのは、ファイルに含まれるこんなの。  # $FreeBSD: src/etc/defaults/rc.conf,v 1.318.2.17 2009/03/24 02:56:50 dougb Exp$  以前は、mergemasterをさらにさらにさらに早くで書いていたようにmergemaster.rcでしか指定できなかったが、オプションでも指定できるようになったと。 だからmergemasterのオプションは今までの経緯も含めて-UPiFとするのが良いようだ。 なお、-Fに対応するmergemaster.rcでの指定は「FREEBSD_ID=」となる。 以下に俺のmergemaster.rcを示す。こうしておけばmergemasterと打つだけでOK。  AUTO_UPGRADE=yes AUTO_INSTALL=yes IGNORE_FILES=\u0026#39;/etc/motd\u0026#39; PRESERVE_FILES=yes VERBOSE=yes #DIFF_OPTIONS=\u0026#39;-I$FreeBSD:.*\u0026#91;$]\u0026#39; FREEBSD_ID=yes  手前味噌だけど参考。 mergemasterを少しだけ楽に mergemasterは-sivaでなく-UPiで。  ","wordCount":"682","inLanguage":"en","datePublished":"2009-05-01T01:00:00+09:00","dateModified":"2009-05-01T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2009-05-01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"mergemasterのオプションは-UPiFで。","name":"mergemasterのオプションは-UPiFで。","description":"2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は[こちら](http://d.hatena.ne.jp/flageo/2009051","keywords":[],"articleBody":"2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は[こちら](http://d.hatena.ne.jp/flageo/20090519/p1)。 いつごろからか、mergemasterに新しいオプションが増えた。  Using the [-F] option mergemaster will install the new file for you if they differ only by VCS strings.  -Fオプションを使うと、VCS文字列だけが違って内容は変わらないファイルを自動的にインストールしてくれるとのこと。 ここでのVCS文字列というのは、ファイルに含まれるこんなの。  # $FreeBSD: src/etc/defaults/rc.conf,v 1.318.2.17 2009/03/24 02:56:50 dougb Exp$  以前は、[mergemasterをさらにさらにさらに早く](http://d.hatena.ne.jp/flageo/20090216/p1)で書いていたようにmergemaster.rcでしか指定できなかったが、オプションでも指定できるようになったと。 だからmergemasterのオプションは今までの経緯も含めて-UPiFとするのが良いようだ。 なお、-Fに対応するmergemaster.rcでの指定は「FREEBSD_ID=」となる。 以下に俺のmergemaster.rcを示す。こうしておけばmergemasterと打つだけでOK。  AUTO_UPGRADE=yes AUTO_INSTALL=yes IGNORE_FILES=\u0026#39;/etc/motd\u0026#39; PRESERVE_FILES=yes VERBOSE=yes #DIFF_OPTIONS=\u0026#39;-I$FreeBSD:.*\u0026#91;$]\u0026#39; FREEBSD_ID=yes  手前味噌だけど参考。 [mergemasterを少しだけ楽に](http://d.hatena.ne.jp/flageo/20080304/p1) [mergemasterは-sivaでなく-UPiで。](http://d.hatena.ne.jp/flageo/20081208/p1)  ","wordCount":"644","inLanguage":"en","datePublished":"2009-05-01T01:00:00+09:00","dateModified":"2009-05-01T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2009-05-01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -90,10 +90,10 @@ mergemasterのオプションは-UPiFで。
 <div class=post-meta><span title="2009-05-01 01:00:00 +0900 JST">May 1, 2009</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2009-05-01-mergemaster%e3%81%ae%e3%82%aa%e3%83%97%e3%82%b7%e3%83%a7%e3%83%b3%e3%81%af-UPiF%e3%81%a7%e3%80%82.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header>
-<div class=post-content><pre><code>&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090519/p1&quot; target=&quot;_blank&quot;&gt;こちら&lt;/a&gt;。 
+<div class=post-content><pre><code>2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は[こちら](http://d.hatena.ne.jp/flageo/20090519/p1)。 
 
 
-  &lt;/span&gt;
+  
 
 
 
@@ -117,7 +117,7 @@ mergemasterのオプションは-UPiFで。
   ここでのVCS文字列というのは、ファイルに含まれるこんなの。
 </code></pre>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># $FreeBSD: src/etc/defaults/rc.conf,v 1.318.2.17 2009/03/24 02:56:50 dougb Exp$
-</code></pre></div><pre><code>  以前は、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090216/p1&quot; target=&quot;_blank&quot;&gt;mergemasterをさらにさらにさらに早く&lt;/a&gt;で書いていたようにmergemaster.rcでしか指定できなかったが、オプションでも指定できるようになったと。
+</code></pre></div><pre><code>  以前は、[mergemasterをさらにさらにさらに早く](http://d.hatena.ne.jp/flageo/20090216/p1)で書いていたようにmergemaster.rcでしか指定できなかったが、オプションでも指定できるようになったと。
 
 
 
@@ -142,11 +142,11 @@ FREEBSD_ID=yes
 
 
 
-  &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080304/p1&quot; target=&quot;_blank&quot;&gt;mergemasterを少しだけ楽に&lt;/a&gt;
+  [mergemasterを少しだけ楽に](http://d.hatena.ne.jp/flageo/20080304/p1)
 
 
 
-  &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; target=&quot;_blank&quot;&gt;mergemasterは-sivaでなく-UPiで。&lt;/a&gt;
+  [mergemasterは-sivaでなく-UPiで。](http://d.hatena.ne.jp/flageo/20081208/p1)
 </code></pre>
 </div>
 <footer class=post-footer>

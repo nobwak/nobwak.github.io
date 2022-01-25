@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>Microsoft Security Essentialsをバッチで使おう | nobwak's Lair</title>
 <meta name=keywords content="Windows">
-<meta name=description content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。普通はGUIで使うものだが、実は">
+<meta name=description content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。 普通はGUIで使うものだが、実は">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Microsoft Security Essentialsをバッチで使おう">
-<meta property="og:description" content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。普通はGUIで使うものだが、実は">
+<meta property="og:description" content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。 普通はGUIで使うものだが、実は">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2014-03-13T20:45:33+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="Microsoft Security Essentialsをバッチで使おう">
-<meta name=twitter:description content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。普通はGUIで使うものだが、実は">
+<meta name=twitter:description content="Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。 普通はGUIで使うものだが、実は">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"Microsoft Security Essentialsをバッチで使おう","item":"https://nobwak.github.io/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Microsoft Security Essentialsをバッチで使おう","name":"Microsoft Security Essentialsをバッチで使おう","description":"Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。普通はGUIで使うものだが、実は","keywords":["Windows"],"articleBody":"Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。普通はGUIで使うものだが、実はコマンドラインからも使える。\nコマンドラインから使えると、バッチ処理ができる。\nあらいいですね。\nバッチ処理できると何が便利か。\nたとえばフォルダA、B、C配下すべてのファイルをスキャンしたい。\nしかも定期的に。\nこれをGUIでやろうとすると、その都度、いちいちフォルダをマウスやキーボードで選ばないといけない。\nノーグッドである。\nランチャーに登録したバッチファイルを実行するほうがはるかにビウティフルである。\n以下に方法を示す。\nなおMSEは4.4.304.0、Windows 7での内容である。\nコマンドライン版MSEのありか Microsoftのサイトからインストール済みなら、以下の場所にある。\n%ProgramFiles%\\Microsoft Security Client\\MpCmdRun.exe フォルダを開きたいならWindowsキー+Rで開いたウインドウに以下を貼り付けて実行せよ。\n%ProgramFiles%\\Microsoft Security Client\\ 使うべきMSEのオプション 定義ファイルのアップデート\n-SignatureUpdate\nスキャン\n-Scan -ScanType 3 -File ＜ファイル、あるいはフォルダのパス＞\nなおScanTypeには0〜3がある。\n一見、選択肢がありそうだが、ファイル/フォルダを指定したい場合には3の一択である。\n以下は参考。\n-Scan [-ScanType value] 0 Default, according to your configuration 1 Quick scan 2 Full system scan 3 Single file custom scan  [-File ] Indicates the file path to be scanned, only valid for custom scan バッチファイルの例 下記の通り、-Fileに続けてスキャン対象フォルダを並べるだけ。\nフォルダはリモートフォルダでもよい。\nとなると、使い勝手は格段によくなりますな。\n@echo off setlocal set path=%programfiles%\\Microsoft Security Client\\;%path% @echo on MpCmdRun.exe -SignatureUpdate MpCmdRun.exe -Scan -ScanType 3 -File c:¥data MpCmdRun.exe -Scan -ScanType 3 -File \\\\192.168.0.5\\sharedfolder pause またこの例では、結果を目視確認したいので、最後にpauseを入れてスキャン終了後もコマンドプロンプトを開いたままにしている。\nそれが嫌ならpauseを消して、最初に@echo offをつければよろしい。\nでもその場合、結果はどうやったらわかるのか。\n結果はどこに出るの？ C:\\WINDOWS\\Temp\\MpCmdRun.log にスキャン結果が記録されるので、ゆっくりご覧になればよい。\n以下はログの例\n「MpScan() has detected 0 threats.」とのこと。\n------------------------------------------------------------------------------------- MpCmdRun: Command Line: \"C:\\Program Files\\Microsoft Security Client\\Antimalware\\MpCmdRun.exe\" -scan -Scantype 3 -File \\\\192.168.0.5\\sharedfolder Start Time: ‎日 ‎2 ‎16 ‎2014 17:15:32 Start: MpScan(MP_FEATURE_SUPPORTED, dwOptions=3, path \\\\192.168.0.5\\sharedfolder, DisableRemediation = 0) INFO: This is a resource scan. skipping signature updateScanning path as folder: \\\\192.168.0.5\\sharedfolder. MpScan() started Time Info - ‎日 ‎2 ‎16 ‎2014 19:23:59 MpScan() was completed Finish: MpScanStart(MP_FEATURE_SUPPORTED, dwOptions=16385) Finish: MpScan(MP_FEATURE_SUPPORTED, dwOptions=16385, path \\\\192.168.0.5\\sharedfolder, DisableRemediation = 0) Scanning \\\\192.168.0.5\\sharedfolder found no threats. MpScan() has detected 0 threats. MpCmdRun: End Time: ‎日 ‎2 ‎16 ‎2014 19:23:59 ------------------------------------------------------------------------------------- 応用例 以下のようなバッチファイルを例えばvscan.batという名前で保存する。\n保存先はパスの通った場所にする。\nこうしておけば、Windows + Rでウインドウを開き、vscan ＜スキャンしたいフォルダ＞ と叩けば素早くスキャンできる。\nビウティフル。\n@echo off setlocal set path=%programfiles%\\Microsoft Security Client\\;%path% MpCmdRun.exe -Scan -ScanType 3 -File %1 pause ","wordCount":"1113","inLanguage":"en","datePublished":"2014-03-13T20:45:33+09:00","dateModified":"2014-03-13T20:45:33+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Microsoft Security Essentialsをバッチで使おう","name":"Microsoft Security Essentialsをバッチで使おう","description":"Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。 普通はGUIで使うものだが、実は","keywords":["Windows"],"articleBody":"Microsoft Security Essentials（以下, MSE）はご存知Microsoftが作った アンチウイルスソフトウェアである。\n普通はGUIで使うものだが、実はコマンドラインからも使える。\nコマンドラインから使えると、バッチ処理ができる。\nあらいいですね。\nバッチ処理できると何が便利か。\nたとえばフォルダA、B、C配下すべてのファイルをスキャンしたい。\nしかも定期的に。\nこれをGUIでやろうとすると、その都度、いちいちフォルダをマウスやキーボードで選ばないといけない。\nノーグッドである。\nランチャーに登録したバッチファイルを実行するほうがはるかにビウティフルである。\n以下に方法を示す。\nなおMSEは4.4.304.0、Windows 7での内容である。\nコマンドライン版MSEのありか Microsoftのサイトからインストール済みなら、以下の場所にある。\n%ProgramFiles%\\Microsoft Security Client\\MpCmdRun.exe フォルダを開きたいならWindowsキー+Rで開いたウインドウに以下を貼り付けて実行せよ。\n%ProgramFiles%\\Microsoft Security Client\\ 使うべきMSEのオプション 定義ファイルのアップデート\n-SignatureUpdate\nスキャン\n-Scan -ScanType 3 -File ＜ファイル、あるいはフォルダのパス＞\nなおScanTypeには0〜3がある。\n一見、選択肢がありそうだが、ファイル/フォルダを指定したい場合には3の一択である。\n以下は参考。\n-Scan [-ScanType value] 0 Default, according to your configuration 1 Quick scan 2 Full system scan 3 Single file custom scan  [-File ] Indicates the file path to be scanned, only valid for custom scan バッチファイルの例 下記の通り、-Fileに続けてスキャン対象フォルダを並べるだけ。\nフォルダはリモートフォルダでもよい。\nとなると、使い勝手は格段によくなりますな。\n@echo off setlocal set path=%programfiles%\\Microsoft Security Client\\;%path% @echo on MpCmdRun.exe -SignatureUpdate MpCmdRun.exe -Scan -ScanType 3 -File c:¥data MpCmdRun.exe -Scan -ScanType 3 -File \\\\192.168.0.5\\sharedfolder pause またこの例では、結果を目視確認したいので、最後にpauseを入れてスキャン終了後もコマンドプロンプトを開いたままにしている。\nそれが嫌ならpauseを消して、最初に@echo offをつければよろしい。\nでもその場合、結果はどうやったらわかるのか。\n結果はどこに出るの？ C:\\WINDOWS\\Temp\\MpCmdRun.log にスキャン結果が記録されるので、ゆっくりご覧になればよい。\n以下はログの例\n「MpScan() has detected 0 threats.」とのこと。\n------------------------------------------------------------------------------------- MpCmdRun: Command Line: \"C:\\Program Files\\Microsoft Security Client\\Antimalware\\MpCmdRun.exe\" -scan -Scantype 3 -File \\\\192.168.0.5\\sharedfolder Start Time: ‎日 ‎2 ‎16 ‎2014 17:15:32 Start: MpScan(MP_FEATURE_SUPPORTED, dwOptions=3, path \\\\192.168.0.5\\sharedfolder, DisableRemediation = 0) INFO: This is a resource scan. skipping signature updateScanning path as folder: \\\\192.168.0.5\\sharedfolder. MpScan() started Time Info - ‎日 ‎2 ‎16 ‎2014 19:23:59 MpScan() was completed Finish: MpScanStart(MP_FEATURE_SUPPORTED, dwOptions=16385) Finish: MpScan(MP_FEATURE_SUPPORTED, dwOptions=16385, path \\\\192.168.0.5\\sharedfolder, DisableRemediation = 0) Scanning \\\\192.168.0.5\\sharedfolder found no threats. MpScan() has detected 0 threats. MpCmdRun: End Time: ‎日 ‎2 ‎16 ‎2014 19:23:59 ------------------------------------------------------------------------------------- 応用例 以下のようなバッチファイルを例えばvscan.batという名前で保存する。\n保存先はパスの通った場所にする。\nこうしておけば、Windows + Rでウインドウを開き、vscan ＜スキャンしたいフォルダ＞ と叩けば素早くスキャンできる。\nビウティフル。\n@echo off setlocal set path=%programfiles%\\Microsoft Security Client\\;%path% MpCmdRun.exe -Scan -ScanType 3 -File %1 pause ","wordCount":"1113","inLanguage":"en","datePublished":"2014-03-13T20:45:33+09:00","dateModified":"2014-03-13T20:45:33+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,15 +96,15 @@ Microsoft Security Essentialsをバッチで使おう
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%83%a9%e3%82%a4%e3%83%b3%e7%89%88mse%e3%81%ae%e3%81%82%e3%82%8a%e3%81%8bspan aria-label=コマンドライン版MSEのありか>コマンドライン版MSEのありか</a></li>
+<a href=#%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%83%a9%e3%82%a4%e3%83%b3%e7%89%88mse%e3%81%ae%e3%81%82%e3%82%8a%e3%81%8b aria-label=コマンドライン版MSEのありか>コマンドライン版MSEのありか</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e4%bd%bf%e3%81%86%e3%81%b9%e3%81%8dmse%e3%81%ae%e3%82%aa%e3%83%97%e3%82%b7%e3%83%a7%e3%83%b3span aria-label=使うべきMSEのオプション>使うべきMSEのオプション</a></li>
+<a href=#%e4%bd%bf%e3%81%86%e3%81%b9%e3%81%8dmse%e3%81%ae%e3%82%aa%e3%83%97%e3%82%b7%e3%83%a7%e3%83%b3 aria-label=使うべきMSEのオプション>使うべきMSEのオプション</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%90%e3%83%83%e3%83%81%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e4%be%8bspan aria-label=バッチファイルの例>バッチファイルの例</a></li>
+<a href=#%e3%83%90%e3%83%83%e3%83%81%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e4%be%8b aria-label=バッチファイルの例>バッチファイルの例</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e7%b5%90%e6%9e%9c%e3%81%af%e3%81%a9%e3%81%93%e3%81%ab%e5%87%ba%e3%82%8b%e3%81%aespan aria-label=結果はどこに出るの？>結果はどこに出るの？</a></li>
+<a href=#%e7%b5%90%e6%9e%9c%e3%81%af%e3%81%a9%e3%81%93%e3%81%ab%e5%87%ba%e3%82%8b%e3%81%ae aria-label=結果はどこに出るの？>結果はどこに出るの？</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%bf%9c%e7%94%a8%e4%be%8bspan aria-label=応用例>応用例</a>
+<a href=#%e5%bf%9c%e7%94%a8%e4%be%8b aria-label=応用例>応用例</a>
 </li>
 </ul>
 </div>
@@ -122,12 +122,12 @@ Microsoft Security Essentialsをバッチで使おう
 ランチャーに登録したバッチファイルを実行するほうがはるかにビウティフルである。<br>
 以下に方法を示す。<br>
 なおMSEは4.4.304.0、Windows 7での内容である。</p>
-<h2 id=span-styletext-decoration-underlineコマンドライン版mseのありかspan>コマンドライン版MSEのありか<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineコマンドライン版mseのありかspan>#</a></h2>
-<p>Microsoftのサイトからインストール済みなら、以下の場所にある。</p>
+<h2 id=コマンドライン版mseのありか>コマンドライン版MSEのありか<a hidden class=anchor aria-hidden=true href=#コマンドライン版mseのありか>#</a></h2>
+<p><a href=http://windows.microsoft.com/ja-jp/windows/security-essentials-download>Microsoftのサイト</a>からインストール済みなら、以下の場所にある。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>%ProgramFiles%<span style=color:#ae81ff>\M</span>icrosoft Security Client<span style=color:#ae81ff>\M</span>pCmdRun.exe
 </code></pre></div><p>フォルダを開きたいならWindowsキー+Rで開いたウインドウに以下を貼り付けて実行せよ。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>%ProgramFiles%<span style=color:#ae81ff>\M</span>icrosoft Security Client<span style=color:#ae81ff>\
-</span></code></pre></div><h2 id=span-styletext-decoration-underline使うべきmseのオプションspan>使うべきMSEのオプション<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline使うべきmseのオプションspan>#</a></h2>
+</span></code></pre></div><h2 id=使うべきmseのオプション>使うべきMSEのオプション<a hidden class=anchor aria-hidden=true href=#使うべきmseのオプション>#</a></h2>
 <p>定義ファイルのアップデート<br>
 -SignatureUpdate<br>
 スキャン<br>
@@ -143,7 +143,7 @@ Microsoft Security Essentialsをバッチで使おう
 <span style=color:#960050;background-color:#1e0010>
 </span><span style=color:#960050;background-color:#1e0010></span>       [-File ]
             Indicates the file path to be scanned, only valid for custom scan
-</code></pre></div><h2 id=span-styletext-decoration-underlineバッチファイルの例span>バッチファイルの例<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineバッチファイルの例span>#</a></h2>
+</code></pre></div><h2 id=バッチファイルの例>バッチファイルの例<a hidden class=anchor aria-hidden=true href=#バッチファイルの例>#</a></h2>
 <p>下記の通り、-Fileに続けてスキャン対象フォルダを並べるだけ。<br>
 フォルダはリモートフォルダでもよい。<br>
 となると、使い勝手は格段によくなりますな。</p>
@@ -158,7 +158,7 @@ pause
 </code></pre></div><p>またこの例では、結果を目視確認したいので、最後にpauseを入れてスキャン終了後もコマンドプロンプトを開いたままにしている。<br>
 それが嫌ならpauseを消して、最初に@echo offをつければよろしい。<br>
 でもその場合、結果はどうやったらわかるのか。</p>
-<h2 id=span-styletext-decoration-underline結果はどこに出るのspan>結果はどこに出るの？<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline結果はどこに出るのspan>#</a></h2>
+<h2 id=結果はどこに出るの>結果はどこに出るの？<a hidden class=anchor aria-hidden=true href=#結果はどこに出るの>#</a></h2>
 <p>C:\WINDOWS\Temp\MpCmdRun.log にスキャン結果が記録されるので、ゆっくりご覧になればよい。</p>
 <p>以下はログの例<br>
 「MpScan() has detected 0 threats.」とのこと。</p>
@@ -176,7 +176,7 @@ Scanning \\192.168.0.5\sharedfolder found no threats.
 MpScan() has detected 0 threats.
 MpCmdRun: End Time: ‎日 ‎2 ‎16 ‎2014 19:23:59
 -------------------------------------------------------------------------------------
-</code></pre></div><h2 id=span-styletext-decoration-underline応用例span>応用例<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline応用例span>#</a></h2>
+</code></pre></div><h2 id=応用例>応用例<a hidden class=anchor aria-hidden=true href=#応用例>#</a></h2>
 <p>以下のようなバッチファイルを例えばvscan.batという名前で保存する。<br>
 保存先はパスの通った場所にする。<br>
 こうしておけば、Windows + Rでウインドウを開き、vscan ＜スキャンしたいフォルダ＞ と叩けば素早くスキャンできる。<br>

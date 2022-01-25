@@ -96,22 +96,22 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinehadoop-streaming%e3%81%a7%e5%9b%b0%e3%82%8b%e3%81%93%e3%81%a8span aria-label="hadoop streamingで困ること。">hadoop streamingで困ること。</a></li>
+<a href=#hadoop-streaming%e3%81%a7%e5%9b%b0%e3%82%8b%e3%81%93%e3%81%a8 aria-label="hadoop streamingで困ること。">hadoop streamingで困ること。</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%9b%9e%e9%81%bf%e7%ad%96span aria-label=回避策>回避策</a></li>
+<a href=#%e5%9b%9e%e9%81%bf%e7%ad%96 aria-label=回避策>回避策</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e5%9b%9e%e9%81%bf%e7%ad%96%e3%81%a8%e3%81%af%e3%81%84%e3%81%a3%e3%81%a6%e3%82%82span aria-label=回避策とはいっても。>回避策とはいっても。</a></li>
+<a href=#%e5%9b%9e%e9%81%bf%e7%ad%96%e3%81%a8%e3%81%af%e3%81%84%e3%81%a3%e3%81%a6%e3%82%82 aria-label=回避策とはいっても。>回避策とはいっても。</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinemapper%e3%81%ae%e4%be%8bspan aria-label=mapperの例>mapperの例</a></li>
+<a href=#mapper%e3%81%ae%e4%be%8b aria-label=mapperの例>mapperの例</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e6%b3%a8%e6%84%8f%e7%82%b9span aria-label=注意点>注意点</a>
+<a href=#%e6%b3%a8%e6%84%8f%e7%82%b9 aria-label=注意点>注意点</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
 <div class=post-content><p>※hadoop-1.0.0です。</p>
-<h2 id=span-styletext-decoration-underlinehadoop-streamingで困ることspan>hadoop streamingで困ること。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinehadoop-streamingで困ることspan>#</a></h2>
+<h2 id=hadoop-streamingで困ること>hadoop streamingで困ること。<a hidden class=anchor aria-hidden=true href=#hadoop-streamingで困ること>#</a></h2>
 <p>作業データ（たとえばログ）を与えると、Hadoopはまず分割をする。<br>
 分割されたものはinput splits, あるいは単にsplitsと呼ばれる。<br>
 splitsのサイズはデフォルトで64MBytesだ。<br>
@@ -128,13 +128,13 @@ Hadoop（JobTracker）は作業ノード（TaskTracker）にsplitsを割り当�
 →2点の間で分割されると計算できない。</li>
 </ul>
 <h2 id=heading><a hidden class=anchor aria-hidden=true href=#heading>#</a></h2>
-<h2 id=span-styletext-decoration-underline回避策span>回避策<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline回避策span>#</a></h2>
+<h2 id=回避策>回避策<a hidden class=anchor aria-hidden=true href=#回避策>#</a></h2>
 <p>下記の通り。</p>
 <p>How do I process files, one per map?</p>
 <p>つまり、hadoopへの入力に、いきなり「ファイルの内容」を送り込むのではなく、「ファイルのリスト」を渡す。<br>
 ファイルのリストだから、いくら分割してもファイル自体は分割されない。<br>
 なるほど。</p>
-<h2 id=span-styletext-decoration-underline回避策とはいってもspan>回避策とはいっても。<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline回避策とはいってもspan>#</a></h2>
+<h2 id=回避策とはいっても>回避策とはいっても。<a hidden class=anchor aria-hidden=true href=#回避策とはいっても>#</a></h2>
 <p>しかし、この場合mapper側に工夫が必要になる。</p>
 <p>通常であれば、標準入力からファイルの中身がドバドバやってくる。<br>
 PythonだろうとRubyだろうとstdinをforループで読むだけ。<br>
@@ -148,7 +148,7 @@ PythonだろうとRubyだろうとstdinをforループで読むだけ。<br>
 <p>つまり、作業ノードと実際のデータのある場所が一致するとは限らない。<br>
 一致しなければ、作業ノードはデータを別ノードからダウンロードしなければならない。</p>
 <p>ノード間通信はコスト高なのでなるべく避けよう、というHadoopの思想にはそぐわない。</p>
-<h2 id=span-styletext-decoration-underlinemapperの例span>mapperの例<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinemapperの例span>#</a></h2>
+<h2 id=mapperの例>mapperの例<a hidden class=anchor aria-hidden=true href=#mapperの例>#</a></h2>
 <p>しかし選択肢はないので進める。<br>
 以下はpythonでファイルリストを受けた場合の処理例。<br>
 作業データはHDFS上にあるので、subprocessで「hadoop dfs -cat ＜ファイル＞」する。</p>
@@ -170,7 +170,7 @@ PythonだろうとRubyだろうとstdinをforループで読むだけ。<br>
 </code></pre></div><p>大したことではないけれど、下記のように必ずテストしてからhdoopに投入すること。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cat filelist.txt | mapper.py | sort | reducer.py
 </code></pre></div><p>hadoopは自前mapper, reducerが失敗しても、エラー内容を教えてはくれないので（たぶん）。</p>
-<h2 id=span-styletext-decoration-underline注意点span>注意点<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline注意点span>#</a></h2>
+<h2 id=注意点>注意点<a hidden class=anchor aria-hidden=true href=#注意点>#</a></h2>
 <p>HDFS上にファイルを置いている場合、絶対パスで指定すること。<br>
 相対パスではダメだった。<br>
 また、HDFSでは「/user/hadoop/input」のように、「user」であって「usr」でないことに注意。</p>

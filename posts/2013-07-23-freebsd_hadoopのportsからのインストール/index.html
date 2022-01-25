@@ -37,7 +37,7 @@
 <meta name=twitter:title content="[FreeBSD] Hadoopのportsからのインストール">
 <meta name=twitter:description content="Hadoopをインストールしたのでメモ。 野良HadoopとportsのHadoop Hadoopを野良で入れるか、portsから入れるか。 結局">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"[FreeBSD] Hadoopのportsからのインストール","item":"https://nobwak.github.io/posts/2013-07-23-freebsd_hadoop%E3%81%AEports%E3%81%8B%E3%82%89%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[FreeBSD] Hadoopのportsからのインストール","name":"[FreeBSD] Hadoopのportsからのインストール","description":"Hadoopをインストールしたのでメモ。 野良HadoopとportsのHadoop Hadoopを野良で入れるか、portsから入れるか。 結局","keywords":[],"articleBody":"Hadoopをインストールしたのでメモ。\n野良HadoopとportsのHadoop Hadoopを野良で入れるか、portsから入れるか。\n結局portsにした。その訳は。\nhadoopはJavaで動作する。\nということは、Javaさえ入っていれば、インストールに特殊な手間の必要なくhadoopが動作するはず。\nだからインストールを扱う記事、blog等々はhadoopをダウンロードしてtarで展開して…、というものがほとんど。\nFreeBSDでだってそれは同じ。\nしかしFreeBSDでは、hadoopがportsに収録されている。\nportsだと依存するportsを一括で入れてくれるし、ユーザ追加や権限設定なども自動でしてくれる。\n便利な一方、世の中の記事とは違うところ（おもにファイル配置）が出てきたり、ひょっとすると最新版を使えないリスクもある。\nどっちもどっちだが、hadoopが初めてならportsから入れるのが良いと判断した。\nJavaなど依存portsのインストールが面倒だし、そもそもやりたいことはHadoopのセットアップではなくてその先にあるわけだから。\nなお2013/7/23時点でportsのhadoopは1.0.0の模様。\nhadoopのインストール ports、と言っておきながらなんだけど、けっこう量があるのでスピード重視でpackageから入れた。\nまずpackageの入手先を近所のftpに設定する。~/.profileに書いとけ。\nPACKAGEROOT=\"ftp://ftp2.jp.freebsd.org\";export PACKAGEROOT sudoを使うならvisudoで以下の行をアンコメントしておく。\nDefaults env_keep += \"PKG_PATH PKG_DBDIR PKG_TMPDIR TMPDIR PACKAGEROOT PACKAGESITE PKGDIR FTP_PASSIVE_MODE\" インストール。あそうそう、bashとrsyncも忘れずにね。\n$ sudo pkg_add -r bash rsync hadoop しばらく放置。\n事前準備 一式が入ったのだが、hadoopを動かす前に準備がいる。\nOpenJDK向け設定、ホスト名の設定、JAVA_HOMEの設定。\nOpenJDK向けの設定 OpenJDKをインストールすると以下の表示が現れる。\n素直に設定する。\n=============================================================== This OpenJDK implementation requires fdescfs(5) mounted on /dev/fd and procfs(5) mounted on /proc. If you have not done it yet, please do the following: mount -t fdescfs fdesc /dev/fd mount -t procfs proc /proc To make it permanent, you need the following lines in /etc/fstab: fdesc /dev/fd fdescfs rw 0 0 proc /proc procfs rw 0 0 =============================================================== 以下のように。\n$ sudo mount -t fdescfs fdesc /dev/fd $ sudo mount -t procfs proc /proc $ mount /dev/da0p2 on / (ufs, local, journaled soft-updates) devfs on /dev (devfs, local, multilabel) fdescfs on /dev/fd (fdescfs) procfs on /proc (procfs, local) /etc/fstabにも以下の通り記載しておく（空白はタブで）\nfdesc /dev/fd fdescfs rw 0 0 proc /proc procfs rw 0 0 ホスト名の設定 hadoopはhostnameが解決できないと動作しない。\n/etc/hostsにhostnameの記載があるか確認して、なければ加える。\nDHCPでIPアドレス取得しているなら、127.0.0.1のところにホスト名を入れる。\n以下はhostnameがvanillaの場合\n127.0.0.1 localhost localhost.my.domain vanilla JAVA_HOMEの設定 portsからHadoopをインストールしているなら不要。\n/usr/local/etc/hadoop/envvars.d/000.java_home.envでJAVA_HOMEを設定している。\nそして000.java_home.envは起動の都度、読み込まれる(後述)。\nexport JAVA_HOME=${JAVA_HOME:-/usr/local/openjdk6} portsから入れていないんだったら、hadoopを使うユーザの~/.profileで設定しておく。\nJAVA_HOME=/usr/local/openjdk6;export JAVA_HOME ファイル配置 ファイル配置の確認。\nportsから入れると、FreeBSDの流儀に沿ってファイルが配置される。\nopenjdk6の場所/usr/local/openjdk6 hadoop関連各ディレクトリの中身openjdk6\n$ ls /usr/local/openjdk6/ ASSEMBLY_EXCEPTION demo man LICENSE include sample THIRD_PARTY_README jre src.zip bin lib hadoop関連ファイル\n$ ls /usr/local/etc/hadoop capacity-scheduler.xml hadoop-policy.xml configuration.xsl hdfs-site.xml core-site.xml log4j.properties envvars.d mapred-queue-acls.xml fair-scheduler.xml mapred-site.xml hadoop-env.sh taskcontroller.cfg hadoop-metrics2.properties $ ls /usr/local/share/hadoop/ bin hadoop-core-1.0.0.jar lib contrib hadoop-test-1.0.0.jar webapps hadoop-ant-1.0.0.jar hadoop-tools-1.0.0.jar $ ls /usr/local/share/examples/hadoop/ conf hdfs-default.xml core-default.xml mapred-default.xml hadoop-examples-1.0.0.jar これでインストールはおしまい。\nhadoopはこれだけでも動く。しかしその前に。\n/usr/local/bin/hadoopってなんだ FreeBSDのports特有のものと思うけど、/usr/local/bin/hadoopについて。\n/usr/local/bin/hadoopを便宜的にhadoopコマンドと呼ぶ。\nhadoop一式は/usr/local/share/hadoop下にあるのに一体これはなんだろう。\n中身を見ればすぐ分かる。hadoopコマンドの正体はbashスクリプト。\nもう少し見ると、環境変数を設定してからhadoopの実体を呼ぶwrapperであると分かる。\nと同時に、環境変数の設定は/usr/local/etc/hadoop/envvars.dの下に置いておけばよいと言う点も分かる。\n#!/usr/bin/env bash for i in `ls /usr/local/etc/hadoop/envvars.d/*.env` do . ${i} done exec /usr/local/share/hadoop/bin/hadoop $@ 続き\n[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定[Hadoop]擬似分散モードで実験[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）","wordCount":"1994","inLanguage":"en","datePublished":"2013-07-23T22:43:34+09:00","dateModified":"2013-07-23T22:43:34+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-07-23-freebsd_hadoop%E3%81%AEports%E3%81%8B%E3%82%89%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[FreeBSD] Hadoopのportsからのインストール","name":"[FreeBSD] Hadoopのportsからのインストール","description":"Hadoopをインストールしたのでメモ。 野良HadoopとportsのHadoop Hadoopを野良で入れるか、portsから入れるか。 結局","keywords":[],"articleBody":"Hadoopをインストールしたのでメモ。\n野良HadoopとportsのHadoop Hadoopを野良で入れるか、portsから入れるか。\n結局portsにした。その訳は。\nhadoopはJavaで動作する。\nということは、Javaさえ入っていれば、インストールに特殊な手間の必要なくhadoopが動作するはず。\nだからインストールを扱う記事、blog等々はhadoopをダウンロードしてtarで展開して…、というものがほとんど。\nFreeBSDでだってそれは同じ。\nしかしFreeBSDでは、hadoopがportsに収録されている。\nportsだと依存するportsを一括で入れてくれるし、ユーザ追加や権限設定なども自動でしてくれる。\n便利な一方、世の中の記事とは違うところ（おもにファイル配置）が出てきたり、ひょっとすると最新版を使えないリスクもある。\nどっちもどっちだが、hadoopが初めてならportsから入れるのが良いと判断した。\nJavaなど依存portsのインストールが面倒だし、そもそもやりたいことはHadoopのセットアップではなくてその先にあるわけだから。\nなお2013/7/23時点でportsのhadoopは1.0.0の模様。\nhadoopのインストール ports、と言っておきながらなんだけど、けっこう量があるのでスピード重視でpackageから入れた。\nまずpackageの入手先を近所のftpに設定する。~/.profileに書いとけ。\nPACKAGEROOT=\"ftp://ftp2.jp.freebsd.org\";export PACKAGEROOT sudoを使うならvisudoで以下の行をアンコメントしておく。\nDefaults env_keep += \"PKG_PATH PKG_DBDIR PKG_TMPDIR TMPDIR PACKAGEROOT PACKAGESITE PKGDIR FTP_PASSIVE_MODE\" インストール。あそうそう、bashとrsyncも忘れずにね。\n$ sudo pkg_add -r bash rsync hadoop しばらく放置。\n事前準備 一式が入ったのだが、hadoopを動かす前に準備がいる。\nOpenJDK向け設定、ホスト名の設定、JAVA_HOMEの設定。\nOpenJDK向けの設定 OpenJDKをインストールすると以下の表示が現れる。\n素直に設定する。\n=============================================================== This OpenJDK implementation requires fdescfs(5) mounted on /dev/fd and procfs(5) mounted on /proc. If you have not done it yet, please do the following: mount -t fdescfs fdesc /dev/fd mount -t procfs proc /proc To make it permanent, you need the following lines in /etc/fstab: fdesc /dev/fd fdescfs rw 0 0 proc /proc procfs rw 0 0 =============================================================== 以下のように。\n$ sudo mount -t fdescfs fdesc /dev/fd $ sudo mount -t procfs proc /proc $ mount /dev/da0p2 on / (ufs, local, journaled soft-updates) devfs on /dev (devfs, local, multilabel) fdescfs on /dev/fd (fdescfs) procfs on /proc (procfs, local) /etc/fstabにも以下の通り記載しておく（空白はタブで）\nfdesc /dev/fd fdescfs rw 0 0 proc /proc procfs rw 0 0 ホスト名の設定 hadoopはhostnameが解決できないと動作しない。\n/etc/hostsにhostnameの記載があるか確認して、なければ加える。\nDHCPでIPアドレス取得しているなら、127.0.0.1のところにホスト名を入れる。\n以下はhostnameがvanillaの場合\n127.0.0.1 localhost localhost.my.domain vanilla JAVA_HOMEの設定 portsからHadoopをインストールしているなら不要。\n/usr/local/etc/hadoop/envvars.d/000.java_home.envでJAVA_HOMEを設定している。\nそして000.java_home.envは起動の都度、読み込まれる(後述)。\nexport JAVA_HOME=${JAVA_HOME:-/usr/local/openjdk6} portsから入れていないんだったら、hadoopを使うユーザの~/.profileで設定しておく。\nJAVA_HOME=/usr/local/openjdk6;export JAVA_HOME ファイル配置 ファイル配置の確認。\nportsから入れると、FreeBSDの流儀に沿ってファイルが配置される。\nopenjdk6の場所\n/usr/local/openjdk6 hadoop関連\n各ディレクトリの中身\nopenjdk6\n$ ls /usr/local/openjdk6/ ASSEMBLY_EXCEPTION demo man LICENSE include sample THIRD_PARTY_README jre src.zip bin lib hadoop関連ファイル\n$ ls /usr/local/etc/hadoop capacity-scheduler.xml hadoop-policy.xml configuration.xsl hdfs-site.xml core-site.xml log4j.properties envvars.d mapred-queue-acls.xml fair-scheduler.xml mapred-site.xml hadoop-env.sh taskcontroller.cfg hadoop-metrics2.properties $ ls /usr/local/share/hadoop/ bin hadoop-core-1.0.0.jar lib contrib hadoop-test-1.0.0.jar webapps hadoop-ant-1.0.0.jar hadoop-tools-1.0.0.jar $ ls /usr/local/share/examples/hadoop/ conf hdfs-default.xml core-default.xml mapred-default.xml hadoop-examples-1.0.0.jar これでインストールはおしまい。\nhadoopはこれだけでも動く。しかしその前に。\n/usr/local/bin/hadoopってなんだ FreeBSDのports特有のものと思うけど、/usr/local/bin/hadoopについて。\n/usr/local/bin/hadoopを便宜的にhadoopコマンドと呼ぶ。\nhadoop一式は/usr/local/share/hadoop下にあるのに一体これはなんだろう。\n中身を見ればすぐ分かる。hadoopコマンドの正体はbashスクリプト。\nもう少し見ると、環境変数を設定してからhadoopの実体を呼ぶwrapperであると分かる。\nと同時に、環境変数の設定は/usr/local/etc/hadoop/envvars.dの下に置いておけばよいと言う点も分かる。\n#!/usr/bin/env bash for i in `ls /usr/local/etc/hadoop/envvars.d/*.env` do . ${i} done exec /usr/local/share/hadoop/bin/hadoop $@ 続き\n[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備\n[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定\n[Hadoop]擬似分散モードで実験\n[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）\n","wordCount":"1949","inLanguage":"en","datePublished":"2013-07-23T22:43:34+09:00","dateModified":"2013-07-23T22:43:34+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-07-23-freebsd_hadoop%E3%81%AEports%E3%81%8B%E3%82%89%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,28 +96,28 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underline%e9%87%8e%e8%89%afhadoop%e3%81%a8ports%e3%81%aehadoopspan aria-label=野良HadoopとportsのHadoop>野良HadoopとportsのHadoop</a></li>
+<a href=#%e9%87%8e%e8%89%afhadoop%e3%81%a8ports%e3%81%aehadoop aria-label=野良HadoopとportsのHadoop>野良HadoopとportsのHadoop</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinehadoop%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%abspan aria-label=hadoopのインストール>hadoopのインストール</a></li>
+<a href=#hadoop%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=hadoopのインストール>hadoopのインストール</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e4%ba%8b%e5%89%8d%e6%ba%96%e5%82%99span aria-label=事前準備>事前準備</a></li>
+<a href=#%e4%ba%8b%e5%89%8d%e6%ba%96%e5%82%99 aria-label=事前準備>事前準備</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineopenjdk%e5%90%91%e3%81%91%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=OpenJDK向けの設定>OpenJDK向けの設定</a></li>
+<a href=#openjdk%e5%90%91%e3%81%91%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label=OpenJDK向けの設定>OpenJDK向けの設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%9b%e3%82%b9%e3%83%88%e5%90%8d%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=ホスト名の設定>ホスト名の設定</a></li>
+<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e5%90%8d%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label=ホスト名の設定>ホスト名の設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underlinejava_home%e3%81%ae%e8%a8%ad%e5%ae%9aspan aria-label=JAVA_HOMEの設定>JAVA_HOMEの設定</a></li>
+<a href=#java_home%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label=JAVA_HOMEの設定>JAVA_HOMEの設定</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e9%85%8d%e7%bd%aespan aria-label=ファイル配置>ファイル配置</a></li>
+<a href=#%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e9%85%8d%e7%bd%ae aria-label=ファイル配置>ファイル配置</a></li>
 <li>
-<a href=#span-styletext-decoration-underlineusrlocalbinhadoop%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%a0span aria-label=/usr/local/bin/hadoopってなんだ>/usr/local/bin/hadoopってなんだ</a>
+<a href=#usrlocalbinhadoop%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%a0 aria-label=/usr/local/bin/hadoopってなんだ>/usr/local/bin/hadoopってなんだ</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
 <div class=post-content><p>Hadoopをインストールしたのでメモ。</p>
-<h3 id=span-styletext-decoration-underline野良hadoopとportsのhadoopspan>野良HadoopとportsのHadoop<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline野良hadoopとportsのhadoopspan>#</a></h3>
+<h3 id=野良hadoopとportsのhadoop>野良HadoopとportsのHadoop<a hidden class=anchor aria-hidden=true href=#野良hadoopとportsのhadoop>#</a></h3>
 <p>Hadoopを野良で入れるか、portsから入れるか。<br>
 結局portsにした。その訳は。</p>
 <p>hadoopはJavaで動作する。<br>
@@ -130,7 +130,7 @@ portsだと依存するportsを一括で入れてくれるし、ユーザ追加�
 <p>どっちもどっちだが、hadoopが初めてならportsから入れるのが良いと判断した。<br>
 Javaなど依存portsのインストールが面倒だし、そもそもやりたいことはHadoopのセットアップではなくてその先にあるわけだから。<br>
 なお2013/7/23時点でportsのhadoopは1.0.0の模様。</p>
-<h3 id=span-styletext-decoration-underlinehadoopのインストールspan>hadoopのインストール<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinehadoopのインストールspan>#</a></h3>
+<h3 id=hadoopのインストール>hadoopのインストール<a hidden class=anchor aria-hidden=true href=#hadoopのインストール>#</a></h3>
 <p>ports、と言っておきながらなんだけど、けっこう量があるのでスピード重視でpackageから入れた。</p>
 <p>まずpackageの入手先を近所のftpに設定する。~/.profileに書いとけ。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>PACKAGEROOT=&#34;ftp://ftp2.jp.freebsd.org&#34;;export PACKAGEROOT
@@ -139,10 +139,10 @@ Javaなど依存portsのインストールが面倒だし、そもそもやり�
 </code></pre></div><p>インストール。あそうそう、bashとrsyncも忘れずにね。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo pkg_add -r bash rsync hadoop
 </code></pre></div><p>しばらく放置。</p>
-<h3 id=span-styletext-decoration-underline事前準備span>事前準備<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underline事前準備span>#</a></h3>
+<h3 id=事前準備>事前準備<a hidden class=anchor aria-hidden=true href=#事前準備>#</a></h3>
 <p>一式が入ったのだが、hadoopを動かす前に準備がいる。<br>
 OpenJDK向け設定、ホスト名の設定、JAVA_HOMEの設定。</p>
-<h3 id=span-styletext-decoration-underlineopenjdk向けの設定span>OpenJDK向けの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineopenjdk向けの設定span>#</a></h3>
+<h3 id=openjdk向けの設定>OpenJDK向けの設定<a hidden class=anchor aria-hidden=true href=#openjdk向けの設定>#</a></h3>
 <p>OpenJDKをインストールすると以下の表示が現れる。<br>
 素直に設定する。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>===============================================================
@@ -171,20 +171,20 @@ procfs on /proc (procfs, local)
 </code></pre></div><p>/etc/fstabにも以下の通り記載しておく（空白はタブで）</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>fdesc /dev/fd fdescfs rw 0 0
 proc /proc procfs rw 0 0
-</code></pre></div><h3 id=span-styletext-decoration-underlineホスト名の設定span>ホスト名の設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineホスト名の設定span>#</a></h3>
+</code></pre></div><h3 id=ホスト名の設定>ホスト名の設定<a hidden class=anchor aria-hidden=true href=#ホスト名の設定>#</a></h3>
 <p>hadoopはhostnameが解決できないと動作しない。<br>
 /etc/hostsにhostnameの記載があるか確認して、なければ加える。<br>
 DHCPでIPアドレス取得しているなら、127.0.0.1のところにホスト名を入れる。<br>
 以下はhostnameがvanillaの場合</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>127.0.0.1 localhost localhost.my.domain vanilla
-</code></pre></div><h3 id=span-styletext-decoration-underlinejava_homeの設定span>JAVA_HOMEの設定<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinejava_homeの設定span>#</a></h3>
+</code></pre></div><h3 id=java_homeの設定>JAVA_HOMEの設定<a hidden class=anchor aria-hidden=true href=#java_homeの設定>#</a></h3>
 <p>portsからHadoopをインストールしているなら不要。<br>
 /usr/local/etc/hadoop/envvars.d/000.java_home.envでJAVA_HOMEを設定している。<br>
 そして000.java_home.envは起動の都度、読み込まれる(後述)。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>export JAVA_HOME=${JAVA_HOME:-/usr/local/openjdk6}
 </code></pre></div><p>portsから入れていないんだったら、hadoopを使うユーザの~/.profileで設定しておく。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>JAVA_HOME=/usr/local/openjdk6;export JAVA_HOME
-</code></pre></div><h3 id=span-styletext-decoration-underlineファイル配置span>ファイル配置<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineファイル配置span>#</a></h3>
+</code></pre></div><h3 id=ファイル配置>ファイル配置<a hidden class=anchor aria-hidden=true href=#ファイル配置>#</a></h3>
 <p>ファイル配置の確認。<br>
 portsから入れると、FreeBSDの流儀に沿ってファイルが配置される。</p>
 <p>openjdk6の場所</p>
@@ -217,7 +217,7 @@ core-default.xml mapred-default.xml
 hadoop-examples-1.0.0.jar
 </code></pre></div><p>これでインストールはおしまい。<br>
 hadoopはこれだけでも動く。しかしその前に。</p>
-<h3 id=span-styletext-decoration-underlineusrlocalbinhadoopってなんだspan>/usr/local/bin/hadoopってなんだ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineusrlocalbinhadoopってなんだspan>#</a></h3>
+<h3 id=usrlocalbinhadoopってなんだ>/usr/local/bin/hadoopってなんだ<a hidden class=anchor aria-hidden=true href=#usrlocalbinhadoopってなんだ>#</a></h3>
 <p>FreeBSDのports特有のものと思うけど、/usr/local/bin/hadoopについて。</p>
 <p>/usr/local/bin/hadoopを便宜的にhadoopコマンドと呼ぶ。<br>
 hadoop一式は/usr/local/share/hadoop下にあるのに一体これはなんだろう。</p>
@@ -232,10 +232,10 @@ done
 <span style=color:#960050;background-color:#1e0010>
 </span><span style=color:#960050;background-color:#1e0010></span>exec /usr/local/share/hadoop/bin/hadoop $@
 </code></pre></div><p>続き</p>
-<p>[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備<br>
-[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定<br>
-[Hadoop]擬似分散モードで実験<br>
-[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）</p>
+<p><a href="../../../?p=2098">[FreeBSD] portsのHadoopで分散（x-distributed）モードを動かす準備</a><br>
+<a href="../../../?p=2103">[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定</a><br>
+<a href="../../../?p=2115">[Hadoop]擬似分散モードで実験</a><br>
+<a href="../../../?p=2158">[Hadoop] 擬似分散モードから完全分散モードへ（データノードの追加）</a></p>
 </div>
 <footer class=post-footer>
 <nav class=paginav>

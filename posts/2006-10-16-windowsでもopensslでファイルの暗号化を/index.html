@@ -5,7 +5,7 @@
 <meta name=robots content="index, follow">
 <title>WindowsでもOpenSSLでファイルの暗号化を | nobwak's Lair</title>
 <meta name=keywords content>
-<meta name=description content="会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(<a href=&#34;http://www.openssl.org/related/binaries.html&#34; target=&#34;_blank&#34;&">
+<meta name=description content="会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは([http://www.openssl.org/related/">
 <meta name=author content="nobwak">
 <link rel=canonical href=https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/>
 <meta name=google-site-verification content="XYZabc">
@@ -27,7 +27,7 @@
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="WindowsでもOpenSSLでファイルの暗号化を">
-<meta property="og:description" content="会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(<a href=&#34;http://www.openssl.org/related/binaries.html&#34; target=&#34;_blank&#34;&">
+<meta property="og:description" content="会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは([http://www.openssl.org/related/">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2006-10-16T01:00:00+09:00">
@@ -35,9 +35,9 @@
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
 <meta name=twitter:title content="WindowsでもOpenSSLでファイルの暗号化を">
-<meta name=twitter:description content="会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(<a href=&#34;http://www.openssl.org/related/binaries.html&#34; target=&#34;_blank&#34;&">
+<meta name=twitter:description content="会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは([http://www.openssl.org/related/">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"WindowsでもOpenSSLでファイルの暗号化を","item":"https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WindowsでもOpenSSLでファイルの暗号化を","name":"WindowsでもOpenSSLでファイルの暗号化を","description":"会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(\u0026lt;a href=\u0026quot;http://www.openssl.org/related/binaries.html\u0026quot; target=\u0026quot;_blank\u0026quot;\u0026","keywords":[],"articleBody":"会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(http://www.openssl.org/related/binaries.html)で手に入る。 俺の会社では、PCへの暗号化ソフトのインストール、およびデータの暗号化は必須である。 暗号化は大変よろしいのだが、常々思っていたのは、PCがクラッシュしたときのデータリカバリだ。 プロプライエタリな暗号化ソフトなので、有事の際にはきちんと復号出来るのか非常に不安だ。 あくまでも想像だが、一般のツールは使えず、通常はその暗号化ソフト付属のツールでしか復旧は出来ないように思える。 つい先だって、Windows2000で、NTFS上での圧縮ファイルが破損するという話があった(slashdot.jp , 2ch[dat落ちしてるかも] 今では修正パッチ提供済み)。 NTFSもプロプライエタリものだが、超メジャーであったせいで、LinuxやFreeBSDが対応しており、それらOSから復旧を試みることができた結果、偶然にもFreeBSDから壊れたファイルを読むことが出来たそうな（これは別にFreeBSDが優れているという話ではなく、あくまでたまたまOKだっただけ）。 きっとこの暗号化ソフトもメジャーであればあるほど、外部ツールは充実されるんだろうが、メジャー度は正直よく知らない。 最終的には、ソフトベンダにお金払って復旧してもらうんだろう。たぶん。 まあそんなわけで、素人の俺様が考えるに、暗号化ソフト（と言っていいのか知らんが）は、オープンかつメジャーなものが良いと思った。 翻って俺の会社の話。 業務で生成した成果物は共有のファイルサーバにアップしているので問題ないのだが、問題は業務関連だが個人用のデータ。 要するにメールのデータなどだ。 もちろん、個人のデータであっても、業務上のデータであるので、緊急時には管理者がバックドアなりマスターキーなり何なりで復号するのは当然だが、普段の話として。 一応、会社は吊しのNASに、社員ごとのフォルダを用意してくれているのだが、そこに生のデータをアップするのは抵抗がある。 かといって個人持ちの外部記憶装置は禁止なので、フラッシュメモリ、USBのHDDは使えない。 ということで、前半で述べた俺様判断の結果により、オープンかつメジャーなOpenSSLで暗号化し、その後にNASにアップすることにした。 なんかあったらWindowsだけじゃなく、LinuxやFreeBSDその他で復号出来るし。 冒頭で書いたとおり、Windows用のバイナリは(http://www.openssl.org/related/binaries.html)で手に入る。 c:\\OpenSSL\\binにインストールされるのでパスを通す。 OpenSSLは使えるオプションがクソ多くて混乱するが、@ITに使用例が載っていた。 一応、ここにも使用例を載せておく。 書式   openssl   -in  -out   サンプル   (暗号化) openssl des -e -in test.doc -out test.doc.crypted (復号) openssl des -d -in test.doc.crypted -out test.doc  試しに暗号化されたファイルの頭をダンプしてみたらSaltedになっていた。きちんと暗号化されてるようだ。  ","wordCount":"1535","inLanguage":"en","datePublished":"2006-10-16T01:00:00+09:00","dateModified":"2006-10-16T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WindowsでもOpenSSLでファイルの暗号化を","name":"WindowsでもOpenSSLでファイルの暗号化を","description":"会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは([http://www.openssl.org/related/","keywords":[],"articleBody":"会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは([http://www.openssl.org/related/binaries.html](http://www.openssl.org/related/binaries.html))で手に入る。 俺の会社では、PCへの暗号化ソフトのインストール、およびデータの暗号化は必須である。 暗号化は大変よろしいのだが、常々思っていたのは、PCがクラッシュしたときのデータリカバリだ。 プロプライエタリな暗号化ソフトなので、有事の際にはきちんと復号出来るのか非常に不安だ。 あくまでも想像だが、一般のツールは使えず、通常はその暗号化ソフト付属のツールでしか復旧は出来ないように思える。 つい先だって、Windows2000で、NTFS上での圧縮ファイルが破損するという話があった([slashdot.jp](http://slashdot.jp/~oops/journal/) , [2ch](http://pc8.2ch.net/test/read.cgi/win/1151414872/)[dat落ちしてるかも] 今では修正パッチ提供済み)。 NTFSもプロプライエタリものだが、超メジャーであったせいで、LinuxやFreeBSDが対応しており、それらOSから復旧を試みることができた結果、偶然にもFreeBSDから壊れたファイルを読むことが出来たそうな（これは別にFreeBSDが優れているという話ではなく、あくまでたまたまOKだっただけ）。 きっとこの暗号化ソフトもメジャーであればあるほど、外部ツールは充実されるんだろうが、メジャー度は正直よく知らない。 最終的には、ソフトベンダにお金払って復旧してもらうんだろう。たぶん。 まあそんなわけで、素人の俺様が考えるに、暗号化ソフト（と言っていいのか知らんが）は、オープンかつメジャーなものが良いと思った。 翻って俺の会社の話。 業務で生成した成果物は共有のファイルサーバにアップしているので問題ないのだが、問題は業務関連だが個人用のデータ。 要するにメールのデータなどだ。 もちろん、個人のデータであっても、業務上のデータであるので、緊急時には管理者がバックドアなりマスターキーなり何なりで復号するのは当然だが、普段の話として。 一応、会社は吊しのNASに、社員ごとのフォルダを用意してくれているのだが、そこに生のデータをアップするのは抵抗がある。 かといって個人持ちの外部記憶装置は禁止なので、フラッシュメモリ、USBのHDDは使えない。 ということで、前半で述べた俺様判断の結果により、オープンかつメジャーなOpenSSLで暗号化し、その後にNASにアップすることにした。 なんかあったらWindowsだけじゃなく、LinuxやFreeBSDその他で復号出来るし。 冒頭で書いたとおり、Windows用のバイナリは([http://www.openssl.org/related/binaries.html](http://www.openssl.org/related/binaries.html))で手に入る。 c:\\OpenSSL\\binにインストールされるのでパスを通す。 OpenSSLは使えるオプションがクソ多くて混乱するが、[@IT](http://www.atmarkit.co.jp/fsecurity/rensai/securitytips/026openssl.html)に使用例が載っていた。 一応、ここにも使用例を載せておく。 書式   openssl   -in  -out   サンプル   (暗号化) openssl des -e -in test.doc -out test.doc.crypted (復号) openssl des -d -in test.doc.crypted -out test.doc  試しに暗号化されたファイルの頭をダンプしてみたらSaltedになっていた。きちんと暗号化されてるようだ。  ","wordCount":"1623","inLanguage":"en","datePublished":"2006-10-16T01:00:00+09:00","dateModified":"2006-10-16T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -94,7 +94,7 @@ WindowsでもOpenSSLでファイルの暗号化を
 
 
 
-バイナリは(&lt;a href=&quot;http://www.openssl.org/related/binaries.html&quot; target=&quot;_blank&quot;&gt;http://www.openssl.org/related/binaries.html&lt;/a&gt;)で手に入る。
+バイナリは([http://www.openssl.org/related/binaries.html](http://www.openssl.org/related/binaries.html))で手に入る。
 
 
 
@@ -117,7 +117,7 @@ WindowsでもOpenSSLでファイルの暗号化を
 
 
 
-つい先だって、Windows2000で、NTFS上での圧縮ファイルが破損するという話があった(&lt;a href=&quot;http://slashdot.jp/~oops/journal/&quot; target=&quot;_blank&quot;&gt;slashdot.jp&lt;/a&gt; , &lt;a href=&quot;http://pc8.2ch.net/test/read.cgi/win/1151414872/&quot; target=&quot;_blank&quot;&gt;2ch&lt;/a&gt;[dat落ちしてるかも] 今では修正パッチ提供済み)。
+つい先だって、Windows2000で、NTFS上での圧縮ファイルが破損するという話があった([slashdot.jp](http://slashdot.jp/~oops/journal/) , [2ch](http://pc8.2ch.net/test/read.cgi/win/1151414872/)[dat落ちしてるかも] 今では修正パッチ提供済み)。
 
 
 
@@ -181,7 +181,7 @@ NTFSもプロプライエタリものだが、超メジャーであったせい�
 
 
 
-冒頭で書いたとおり、Windows用のバイナリは(&lt;a href=&quot;http://www.openssl.org/related/binaries.html&quot; target=&quot;_blank&quot;&gt;http://www.openssl.org/related/binaries.html&lt;/a&gt;)で手に入る。
+冒頭で書いたとおり、Windows用のバイナリは([http://www.openssl.org/related/binaries.html](http://www.openssl.org/related/binaries.html))で手に入る。
 
 
 
@@ -189,7 +189,7 @@ c:\OpenSSL\binにインストールされるのでパスを通す。
 
 
 
-OpenSSLは使えるオプションがクソ多くて混乱するが、&lt;a href=&quot;http://www.atmarkit.co.jp/fsecurity/rensai/securitytips/026openssl.html&quot; target=&quot;_blank&quot;&gt;@IT&lt;/a&gt;に使用例が載っていた。
+OpenSSLは使えるオプションがクソ多くて混乱するが、[@IT](http://www.atmarkit.co.jp/fsecurity/rensai/securitytips/026openssl.html)に使用例が載っていた。
 
 
 

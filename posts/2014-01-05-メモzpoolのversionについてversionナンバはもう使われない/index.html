@@ -37,7 +37,7 @@
 <meta name=twitter:title content="[メモ]zpoolのVersionについて（Versionナンバはもう使われない）">
 <meta name=twitter:description content="過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。 したのだが、よく分からないことがいくつかあった">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"[メモ]zpoolのVersionについて（Versionナンバはもう使われない）","item":"https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[メモ]zpoolのVersionについて（Versionナンバはもう使われない）","name":"[メモ]zpoolのVersionについて（Versionナンバはもう使われない）","description":"過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。 したのだが、よく分からないことがいくつかあった","keywords":["FreeBSD","linux","OSX","zfs"],"articleBody":"過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。\nしたのだが、よく分からないことがいくつかあった。\nすなわち、最新のはずのv28なのにアップグレードを促されたこと、アップグレードしたら zpool get allの結果からバージョンが消えてしまったこと、である。\nWikipediaのZFSやOpenZFSを眺めてみて分かったのは、zpool（(Open)ZFS）はv28以降、バージョンナンバの使用を止めてしまったせいとの由。\nhttp://en.wikipedia.org/wiki/OpenZFShttp://en.wikipedia.org/wiki/ZFS#RELEASEHISTORY以下に調べた結果を示す。\nなお、ご覧の通り情報の出所はwikipediaである。\n問題ないとは思うが、各位においてはご留意されたい。\nZFSの歴史 もともと、zpoolやZFS filesytemに機能が追加されるたび、バージョンナンバがインクリメントされてきた。\nしかし2010年、OpenSoralisの開発が停止され、ZFSはオープンソースではなくなった。\n本家（Oracle）のZFSはプロプライエタリとなって、2013/12/24現在、ZFS filesystemはv6, ZFS Poolはv34まで進んでいる。\nそれはそれとして、illumos(OpenSolaris後継）やBSD/Linux/OSX関連の方々は、オープンであったzfs v5, zpool v28をベースに本家とは別の開発が進める。\nこれが2013年にOpenZFSとなる。\nバージョンナンバとフィーチャーフラグ OpenZFSはいろんな所でいろんな人々が開発を続けている。\nこういった状態で、単一のバージョンナンバを付与することは不可能である。\nそこでフィーチャーフラグ（feature flags）という考え方を導入する。\n機能ごとに個別の名前を与える、というもの。\n個別の名前は、feature@:という書式で表される。\norg-nameは当該機能を開発した組織名。一意の名前。もちろん、勝手につけることは許されない。\norg-nameが明らかな場合には、feature@と短縮してもよい。\nfeature@async_destroyというように。\nフィーチャーの状態 フィーチャーの状態には三つある。\ndisabled, enabled, activeである。\n disabled: 無効。機能を使えない状態。 enabled: 機能を使える状態。有効にはなっていない。 active: 機能が有効。旧バージョンとの互換性がなくなっている。  フィーチャーの種類  features for write : 書き込みには必須の機能。読み込みのみであれば不要。 features for read : 読み込み、あるいはpoolを開くために必須の機能。  たとえばasync_destroyはデータ書き込みの時だけ必要な機能なのでfeatures for write。\nバージョンについて 一つでもフィーチャーを有効にするとpoolのバージョンは1000になる。\n1000とはめちゃくちゃな数に見えるかもしれないが、本家のバージョンと被らないようにするため。\nおわりに ここで改めてzpoolの出力を見てみると、poolのバージョンがハイフンになっていることや、フィーチャーの記載など、なるほどと理解できることがありますな。\n$ zpool get all|grep vault vault size 2.27T - vault capacity 64% - vault health ONLINE - vault version - default （略） vault feature@async_destroy enabled local vault feature@empty_bpobj enabled local vault feature@lz4_compress enabled local ","wordCount":"1371","inLanguage":"en","datePublished":"2014-01-05T21:53:46+09:00","dateModified":"2014-01-05T21:53:46+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"[メモ]zpoolのVersionについて（Versionナンバはもう使われない）","name":"[メモ]zpoolのVersionについて（Versionナンバはもう使われない）","description":"過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。 したのだが、よく分からないことがいくつかあった","keywords":["FreeBSD","linux","OSX","zfs"],"articleBody":"過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。\nしたのだが、よく分からないことがいくつかあった。\nすなわち、最新のはずのv28なのにアップグレードを促されたこと、アップグレードしたら zpool get allの結果からバージョンが消えてしまったこと、である。\nWikipediaのZFSやOpenZFSを眺めてみて分かったのは、zpool（(Open)ZFS）はv28以降、バージョンナンバの使用を止めてしまったせいとの由。\nhttp://en.wikipedia.org/wiki/OpenZFS\nhttp://en.wikipedia.org/wiki/ZFS#RELEASEHISTORY\n以下に調べた結果を示す。\nなお、ご覧の通り情報の出所はwikipediaである。\n問題ないとは思うが、各位においてはご留意されたい。\nZFSの歴史 もともと、zpoolやZFS filesytemに機能が追加されるたび、バージョンナンバがインクリメントされてきた。\nしかし2010年、OpenSoralisの開発が停止され、ZFSはオープンソースではなくなった。\n本家（Oracle）のZFSはプロプライエタリとなって、2013/12/24現在、ZFS filesystemはv6, ZFS Poolはv34まで進んでいる。\nそれはそれとして、illumos(OpenSolaris後継）やBSD/Linux/OSX関連の方々は、オープンであったzfs v5, zpool v28をベースに本家とは別の開発が進める。\nこれが2013年にOpenZFSとなる。\nバージョンナンバとフィーチャーフラグ OpenZFSはいろんな所でいろんな人々が開発を続けている。\nこういった状態で、単一のバージョンナンバを付与することは不可能である。\nそこでフィーチャーフラグ（feature flags）という考え方を導入する。\n機能ごとに個別の名前を与える、というもの。\n個別の名前は、feature@:という書式で表される。\norg-nameは当該機能を開発した組織名。一意の名前。もちろん、勝手につけることは許されない。\norg-nameが明らかな場合には、feature@と短縮してもよい。\nfeature@async_destroyというように。\nフィーチャーの状態 フィーチャーの状態には三つある。\ndisabled, enabled, activeである。\n disabled: 無効。機能を使えない状態。 enabled: 機能を使える状態。有効にはなっていない。 active: 機能が有効。旧バージョンとの互換性がなくなっている。  フィーチャーの種類  features for write : 書き込みには必須の機能。読み込みのみであれば不要。 features for read : 読み込み、あるいはpoolを開くために必須の機能。  たとえばasync_destroyはデータ書き込みの時だけ必要な機能なのでfeatures for write。\nバージョンについて 一つでもフィーチャーを有効にするとpoolのバージョンは1000になる。\n1000とはめちゃくちゃな数に見えるかもしれないが、本家のバージョンと被らないようにするため。\nおわりに ここで改めてzpoolの出力を見てみると、poolのバージョンがハイフンになっていることや、フィーチャーの記載など、なるほどと理解できることがありますな。\n$ zpool get all|grep vault vault size 2.27T - vault capacity 64% - vault health ONLINE - vault version - default （略） vault feature@async_destroy enabled local vault feature@empty_bpobj enabled local vault feature@lz4_compress enabled local ","wordCount":"1290","inLanguage":"en","datePublished":"2014-01-05T21:53:46+09:00","dateModified":"2014-01-05T21:53:46+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -96,23 +96,23 @@
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#span-styletext-decoration-underlinezfs%e3%81%ae%e6%ad%b4%e5%8f%b2span aria-label=ZFSの歴史>ZFSの歴史</a></li>
+<a href=#zfs%e3%81%ae%e6%ad%b4%e5%8f%b2 aria-label=ZFSの歴史>ZFSの歴史</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%90%e3%83%bc%e3%82%b8%e3%83%a7%e3%83%b3%e3%83%8a%e3%83%b3%e3%83%90%e3%81%a8%e3%83%95%e3%82%a3%e3%83%bc%e3%83%81%e3%83%a3%e3%83%bc%e3%83%95%e3%83%a9%e3%82%b0span aria-label=バージョンナンバとフィーチャーフラグ>バージョンナンバとフィーチャーフラグ</a></li>
+<a href=#%e3%83%90%e3%83%bc%e3%82%b8%e3%83%a7%e3%83%b3%e3%83%8a%e3%83%b3%e3%83%90%e3%81%a8%e3%83%95%e3%82%a3%e3%83%bc%e3%83%81%e3%83%a3%e3%83%bc%e3%83%95%e3%83%a9%e3%82%b0 aria-label=バージョンナンバとフィーチャーフラグ>バージョンナンバとフィーチャーフラグ</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%95%e3%82%a3%e3%83%bc%e3%83%81%e3%83%a3%e3%83%bc%e3%81%ae%e7%8a%b6%e6%85%8bspan aria-label=フィーチャーの状態>フィーチャーの状態</a></li>
+<a href=#%e3%83%95%e3%82%a3%e3%83%bc%e3%83%81%e3%83%a3%e3%83%bc%e3%81%ae%e7%8a%b6%e6%85%8b aria-label=フィーチャーの状態>フィーチャーの状態</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%95%e3%82%a3%e3%83%bc%e3%83%81%e3%83%a3%e3%83%bc%e3%81%ae%e7%a8%ae%e9%a1%9espan aria-label=フィーチャーの種類>フィーチャーの種類</a></li>
+<a href=#%e3%83%95%e3%82%a3%e3%83%bc%e3%83%81%e3%83%a3%e3%83%bc%e3%81%ae%e7%a8%ae%e9%a1%9e aria-label=フィーチャーの種類>フィーチャーの種類</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%83%90%e3%83%bc%e3%82%b8%e3%83%a7%e3%83%b3%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6span aria-label=バージョンについて>バージョンについて</a></li>
+<a href=#%e3%83%90%e3%83%bc%e3%82%b8%e3%83%a7%e3%83%b3%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6 aria-label=バージョンについて>バージョンについて</a></li>
 <li>
-<a href=#span-styletext-decoration-underline%e3%81%8a%e3%82%8f%e3%82%8a%e3%81%abspan aria-label=おわりに>おわりに</a>
+<a href=#%e3%81%8a%e3%82%8f%e3%82%8a%e3%81%ab aria-label=おわりに>おわりに</a>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><p>過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。<br>
+<div class=post-content><p>過日、<a href=../../../2013/12/%E3%83%A1%E3%83%A2zpool%E3%81%AEupgrade/>zpool v28のアップグレードをして</a>、いくつかのfeature flagsを有効にした。<br>
 したのだが、よく分からないことがいくつかあった。</p>
 <p>すなわち、最新のはずのv28なのにアップグレードを促されたこと、アップグレードしたら zpool get allの結果からバージョンが消えてしまったこと、である。</p>
 <p>WikipediaのZFSやOpenZFSを眺めてみて分かったのは、zpool（(Open)ZFS）はv28以降、バージョンナンバの使用を止めてしまったせいとの由。<br>
@@ -121,13 +121,13 @@
 <p>以下に調べた結果を示す。<br>
 なお、ご覧の通り情報の出所はwikipediaである。<br>
 問題ないとは思うが、各位においてはご留意されたい。</p>
-<h2 id=span-styletext-decoration-underlinezfsの歴史span>ZFSの歴史<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlinezfsの歴史span>#</a></h2>
+<h2 id=zfsの歴史>ZFSの歴史<a hidden class=anchor aria-hidden=true href=#zfsの歴史>#</a></h2>
 <p>もともと、zpoolやZFS filesytemに機能が追加されるたび、バージョンナンバがインクリメントされてきた。<br>
 しかし2010年、OpenSoralisの開発が停止され、ZFSはオープンソースではなくなった。<br>
 本家（Oracle）のZFSはプロプライエタリとなって、2013/12/24現在、ZFS filesystemはv6, ZFS Poolはv34まで進んでいる。</p>
 <p>それはそれとして、illumos(OpenSolaris後継）やBSD/Linux/OSX関連の方々は、オープンであったzfs v5, zpool v28をベースに本家とは別の開発が進める。<br>
 これが2013年にOpenZFSとなる。</p>
-<h2 id=span-styletext-decoration-underlineバージョンナンバとフィーチャーフラグspan>バージョンナンバとフィーチャーフラグ<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineバージョンナンバとフィーチャーフラグspan>#</a></h2>
+<h2 id=バージョンナンバとフィーチャーフラグ>バージョンナンバとフィーチャーフラグ<a hidden class=anchor aria-hidden=true href=#バージョンナンバとフィーチャーフラグ>#</a></h2>
 <p>OpenZFSはいろんな所でいろんな人々が開発を続けている。<br>
 こういった状態で、単一のバージョンナンバを付与することは不可能である。<br>
 そこでフィーチャーフラグ（feature flags）という考え方を導入する。<br>
@@ -136,7 +136,7 @@
 org-nameは当該機能を開発した組織名。一意の名前。もちろん、勝手につけることは許されない。<br>
 org-nameが明らかな場合には、feature@と短縮してもよい。<br>
 feature@async_destroyというように。</p>
-<h2 id=span-styletext-decoration-underlineフィーチャーの状態span>フィーチャーの状態<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineフィーチャーの状態span>#</a></h2>
+<h2 id=フィーチャーの状態>フィーチャーの状態<a hidden class=anchor aria-hidden=true href=#フィーチャーの状態>#</a></h2>
 <p>フィーチャーの状態には三つある。<br>
 disabled, enabled, activeである。</p>
 <ul>
@@ -144,16 +144,16 @@ disabled, enabled, activeである。</p>
 <li>enabled: 機能を使える状態。有効にはなっていない。</li>
 <li>active: 機能が有効。旧バージョンとの互換性がなくなっている。</li>
 </ul>
-<h2 id=span-styletext-decoration-underlineフィーチャーの種類span>フィーチャーの種類<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineフィーチャーの種類span>#</a></h2>
+<h2 id=フィーチャーの種類>フィーチャーの種類<a hidden class=anchor aria-hidden=true href=#フィーチャーの種類>#</a></h2>
 <ul>
 <li>features for write : 書き込みには必須の機能。読み込みのみであれば不要。</li>
 <li>features for read : 読み込み、あるいはpoolを開くために必須の機能。</li>
 </ul>
 <p>たとえばasync_destroyはデータ書き込みの時だけ必要な機能なのでfeatures for write。</p>
-<h2 id=span-styletext-decoration-underlineバージョンについてspan>バージョンについて<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineバージョンについてspan>#</a></h2>
+<h2 id=バージョンについて>バージョンについて<a hidden class=anchor aria-hidden=true href=#バージョンについて>#</a></h2>
 <p>一つでもフィーチャーを有効にするとpoolのバージョンは1000になる。<br>
 1000とはめちゃくちゃな数に見えるかもしれないが、本家のバージョンと被らないようにするため。</p>
-<h2 id=span-styletext-decoration-underlineおわりにspan>おわりに<a hidden class=anchor aria-hidden=true href=#span-styletext-decoration-underlineおわりにspan>#</a></h2>
+<h2 id=おわりに>おわりに<a hidden class=anchor aria-hidden=true href=#おわりに>#</a></h2>
 <p>ここで改めてzpoolの出力を見てみると、poolのバージョンがハイフンになっていることや、フィーチャーの記載など、なるほどと理解できることがありますな。</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ zpool get all|grep vault
 vault size 2.27T -
