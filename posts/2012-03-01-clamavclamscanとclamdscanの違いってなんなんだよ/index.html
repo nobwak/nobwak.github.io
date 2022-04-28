@@ -1,96 +1,6 @@
-<!doctype html><html lang=en dir=auto>
-<head><meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
-<meta name=robots content="index, follow">
-<title>clamav: clamscanとclamdscanの違いってなんなんだよ | nobwak's Lair</title>
-<meta name=keywords content>
-<meta name=description content="clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュール">
-<meta name=author content="nobwak">
-<link rel=canonical href=https://nobwak.github.io/posts/2012-03-01-clamavclamscan%E3%81%A8clamdscan%E3%81%AE%E9%81%95%E3%81%84%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%AA%E3%82%93%E3%81%A0%E3%82%88/>
-<meta name=google-site-verification content="XYZabc">
-<meta name=yandex-verification content="XYZabc">
-<meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
-<link rel=preload href=/apple-touch-icon.png as=image>
-<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<meta name=theme-color content="#2e2e33">
-<meta name=msapplication-TileColor content="#2e2e33">
-<meta name=generator content="Hugo 0.91.2">
-<noscript>
-<style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="clamav: clamscanとclamdscanの違いってなんなんだよ">
-<meta property="og:description" content="clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュール">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://nobwak.github.io/posts/2012-03-01-clamavclamscan%E3%81%A8clamdscan%E3%81%AE%E9%81%95%E3%81%84%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%AA%E3%82%93%E3%81%A0%E3%82%88/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2012-03-01T01:00:00+09:00">
-<meta property="article:modified_time" content="2012-03-01T01:00:00+09:00"><meta property="og:site_name" content="nobwak's Lair">
-<meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
-<meta name=twitter:title content="clamav: clamscanとclamdscanの違いってなんなんだよ">
-<meta name=twitter:description content="clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュール">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"clamav: clamscanとclamdscanの違いってなんなんだよ","item":"https://nobwak.github.io/posts/2012-03-01-clamavclamscan%E3%81%A8clamdscan%E3%81%AE%E9%81%95%E3%81%84%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%AA%E3%82%93%E3%81%A0%E3%82%88/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"clamav: clamscanとclamdscanの違いってなんなんだよ","name":"clamav: clamscanとclamdscanの違いってなんなんだよ","description":"clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュール","keywords":[],"articleBody":"clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュールのみ以下にまとめます。  ・clamscan 単品で動くウイルススキャナ。 一回だけのスキャンに使用する。 遅い。 ・clamd ウイルススキャナデーモン 後述のclamdscanとセットで使う。 あるいはメールのスキャンなどに。 ・clamdscan clamdとセットで動くウイルススキャナ。 指定されたファイルのパスをclamdに教えると、clamdがスキャンしてくれる。 clamdは定義ファイルをメモリ展開しているのでclamscan（clam*d*scanじゃなく）よりもスキャンが断然速い。 ・freshclam 定義ファイルのダウンローダ。 オンデマンドで実行もできるし、常駐化させておいて定期的にダウンロードさせることもできる。 使い方: ウイルスデータベース更新 インストールすれば、すぐに使える。 まずは念のためウイルスデータベースを更新。freshclamを実行するだけ。  # freshclam ClamAV update process started at Wed Feb 29 14:22:04 2012 Reading CVD header (main.cvd): OK main.cvd is up to date (version: 54, sigs: 1044387, f-level: 60, builder: sven) Reading CVD header (daily.cvd): OK Downloading daily-14555.cdiff \u0026#91;100%] daily.cld updated (version: 14555, sigs: 108764, f-level: 63, builder: guitar) Reading CVD header (bytecode.cvd): OK bytecode.cvd is up to date (version: 167, sigs: 40, f-level: 63, builder: edwin) Database updated (1153191 signatures) from database.clamav.net Clamd successfully notified about the update. 使い方: スキャン: clamscan あとはclamscanにファイル名を引数で渡せばよい。  $ clamscan \u0026#60;file $ clamscan -r \u0026#60;dir そのほか、よく使用するオプションとしては、  -i: 感染したファイルのみ表示 --move \u0026#60;dirA : 感染したファイルを\u0026#60;dirAに移動 --copy \u0026#60;dirB : 感染したファイルを\u0026#60;dirBに移動 -d \u0026#91;\u0026#60;file|\u0026#60;dir] : デフォルトと異なる場所に置いたウイルスデータベースを指定。 -l \u0026#60;logfile : スキャンログを\u0026#60;logfileに書き出し。 -f \u0026#60;filelist : \u0026#60;filelistにリストされたファイルをスキャン clamscanとclamdscan 先述の通り、clamscanとclamdscanではスピードが違う。 実験をしてみるとその差は歴然。 というより、clamscanが遅すぎる。 定期的にスキャンするなら、絶対にclamdscanがよい。 注意点はあるが、それは後述。  $ clamscan ./messages ./lpd-errs ./messages: OK ./lpd-errs: OK ----------- SCAN SUMMARY ----------- （中略） Infected files: 0 Data scanned: 0.02 MB Data read: 0.01 MB (ratio 2.00:1) Time: 7.878 sec (0 m 7 s) $ clamdscan ./messages ./lpd-errs /var/log/./messages: OK /var/log/./lpd-errs: OK ----------- SCAN SUMMARY ----------- Infected files: 0 Time: 0.033 sec (0 m 0 s) 使い方:clamdscan 仕組みは以下の通りと理解している。 スキャンするときには、ファイルの場所をclamdscanに伝える。 clamdscanはdaemonとして常駐しているので、いちいちウイルスデータベースを読み込まなくてよい。 だから速い。 しかしNFSマウントしたファイルのスキャンなど、ファイルへのアクセス権限が特殊な場合に問題となるケースがあった。 clamdscan起動の準備をする。/etc/rc.confに以下を追加。 ついでにfreshclamもdaemonモードで起動するように。  #clamd clamav_clamd_enable=\u0026#34;YES\u0026#34; clamav_freshclam_enable=\u0026#34;YES\u0026#34; portsから入れたなら、clamd.conf、freshclam.confは特にデフォルトでよい。 起動させる。  # /usr/local/etc/rc.d/clamav-clamd start # /usr/local/etc/rc.d/clamav-freshclam start 以上。 以下は参考。 /usr/local/etc/freshclam.conf 影響しそうなところのみピックアップ ・ウイルスデータベース格納場所  # Path to the database directory. # WARNING: It must match clamd.conf\u0026#39;s directive! # Default: hardcoded (depends on installation options) DatabaseDirectory /var/db/clamav ・freshclamのログファイル場所  # Path to the log file (make sure it has proper permissions) # Default: disabled UpdateLogFile /var/log/clamav/freshclam.log ・定義ファイル更新を試みる頻度  # Number of database checks per day. # Default: 12 (every two hours) #Checks 24 ・プロキシ設定。これはありがたい。  # Proxy settings # Default: disabled #HTTPProxyServer myproxy.com #HTTPProxyPort 1234 #HTTPProxyUsername myusername #HTTPProxyPassword mypass ・データベース更新時にclamdに再読み込みさせる。  # Send the RELOAD command to clamd. # Default: no NotifyClamd /usr/local/etc/clamd.conf ・データベース更新が失敗したときに実行するコマンド 興味あるが今は保留  # Run command when database update process fails. # Default: disabled #OnErrorExecute command ・データベースが古い場合に実行するコマンド 興味あるが今は保留  # Run command when freshclam reports outdated version. # In the command string %v will be replaced by the new version number. # Default: disabled #OnOutdatedExecute command /usr/local/etc/clamd.conf 基本デフォルト。MaxScanSize、MaxFileSizeくらいか。  # Uncomment this option to enable logging. # LogFile must be writable for the user running daemon. # A full path is required. # Default: disabled LogFile /var/log/clamav/clamd.log # Maximum size of the log file. # Value of 0 disables the limit. # You may use \u0026#39;M\u0026#39; or \u0026#39;m\u0026#39; for megabytes (1M = 1m = 1048576 bytes) # and \u0026#39;K\u0026#39; or \u0026#39;k\u0026#39; for kilobytes (1K = 1k = 1024 bytes). To specify the size # in bytes just don\u0026#39;t use modifiers. # Default: 1M #LogFileMaxSize 2M # Specify the type of syslog messages - please refer to \u0026#39;man syslog\u0026#39; # for facility names. # Default: LOG_LOCAL6 #LogFacility LOG_MAIL # Path to the database directory. # Default: hardcoded (depends on installation options) DatabaseDirectory /var/db/clamav # Don\u0026#39;t scan files and directories matching regex # This directive can be used multiple times # Default: scan all #ExcludePath ^/proc/ #ExcludePath ^/sys/ # Maximum depth directories are scanned at. # Default: 15 #MaxDirectoryRecursion 20 # Follow directory symlinks. # Default: no #FollowDirectorySymlinks yes # Perform a database check. # Default: 600 (10 min) #SelfCheck 600 # Execute a command when virus is found. In the command string %v will # be replaced with the virus name. # Default: no #VirusEvent /usr/local/bin/send_sms 123456789 \u0026#34;VIRUS ALERT: %v\u0026#34; # Run as another user (clamd must be started by root for this option to work) # Default: don\u0026#39;t drop privileges User clamav # PE stands for Portable Executable - it\u0026#39;s an executable file format used # in all 32 and 64-bit versions of Windows operating systems. This option allows # ClamAV to perform a deeper analysis of executable files and it\u0026#39;s also # required for decompression of popular executable packers such as UPX, FSG, # and Petite. If you turn off this option, the original files will still be # scanned, but without additional processing. # Default: yes #ScanPE yes # Executable and Linking Format is a standard format for UN*X executables. # This option allows you to control the scanning of ELF files. # If you turn off this option, the original files will still be scanned, but # without additional processing. # Default: yes #ScanELF yes ## Documents ## # This option enables scanning of OLE2 files, such as Microsoft Office # documents and .msi files. # If you turn off this option, the original files will still be scanned, but # without additional processing. # Default: yes #ScanOLE2 yes # With this option enabled OLE2 files with VBA macros, which were not # detected by signatures will be marked as \u0026#34;Heuristics.OLE2.ContainsMacros\u0026#34;. # Default: no #OLE2BlockMacros no # This option enables scanning within PDF files. # If you turn off this option, the original files will still be scanned, but # without decoding and additional processing. # Default: yes #ScanPDF yes ## ## Archives ## # ClamAV can scan within archives and compressed files. # If you turn off this option, the original files will still be scanned, but # without unpacking and additional processing. # Default: yes #ScanArchive yes # Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR). # Default: no #ArchiveBlockEncrypted no # This option sets the maximum amount of data to be scanned for each input file. # Archives and other containers are recursively extracted and scanned up to this # value. # Value of 0 disables the limit # Note: disabling this limit or setting it too high may result in severe damage # to the system. # Default: 100M #MaxScanSize 150M # Files larger than this limit won\u0026#39;t be scanned. Affects the input file itself # as well as files contained inside it (when the input file is an archive, a # document or some other kind of container). # Value of 0 disables the limit. # Note: disabling this limit or setting it too high may result in severe damage # to the system. # Default: 25M #MaxFileSize 30M # Nested archives are scanned recursively, e.g. if a Zip archive contains a RAR # file, all files within it will also be scanned. This options specifies how # deeply the process should be continued. # Note: setting this limit too high may result in severe damage to the system. # Default: 16 #MaxRecursion 10 # Number of files to be scanned within an archive, a document, or any other # container file. # Value of 0 disables the limit. # Note: disabling this limit or setting it too high may result in severe damage # to the system. # Default: 10000 #MaxFiles 15000 ","wordCount":"2367","inLanguage":"en","datePublished":"2012-03-01T01:00:00+09:00","dateModified":"2012-03-01T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2012-03-01-clamavclamscan%E3%81%A8clamdscan%E3%81%AE%E9%81%95%E3%81%84%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%AA%E3%82%93%E3%81%A0%E3%82%88/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
-</head>
-<body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
-<header class=header>
-<nav class=nav>
-<div class=logo>
-<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
-<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-</button>
-</span>
-</div>
-<ul id=menu>
-<li>
-<a href=https://nobwak.github.io/posts/ title=posts>
-<span>posts</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
-<span>search</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/categories/ title=categories>
-<span>categories</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/tags/ title=tags>
-<span>tags</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io title="nobwak lair">
-<span>nobwak lair</span>
-</a>
-</li>
-</ul>
-</nav>
-</header>
-<main class=main>
-<article class=post-single>
-<header class=post-header>
-<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
-<h1 class=post-title>
-clamav: clamscanとclamdscanの違いってなんなんだよ
-</h1>
-<div class=post-meta><span title="2012-03-01 01:00:00 +0900 JST">March 1, 2012</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2012-03-01-clamavclamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
-</div>
-</header>
-<div class=post-content><pre><code>clamavはフリーのアンチウイルスソフトウェア
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>clamav: clamscanとclamdscanの違いってなんなんだよ | nobwak's Lair</title><meta name=keywords content><meta name=description content="clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュール"><meta name=author content="nobwak"><link rel=canonical href=https://nobwak.github.io/posts/2012-03-01-clamavclamscan%E3%81%A8clamdscan%E3%81%AE%E9%81%95%E3%81%84%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%AA%E3%82%93%E3%81%A0%E3%82%88/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style><link rel=preload href=/apple-touch-icon.png as=image><script defer crossorigin=anonymous src=/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><meta name=generator content="Hugo 0.96.0"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="clamav: clamscanとclamdscanの違いってなんなんだよ"><meta property="og:description" content="clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュール"><meta property="og:type" content="article"><meta property="og:url" content="https://nobwak.github.io/posts/2012-03-01-clamavclamscan%E3%81%A8clamdscan%E3%81%AE%E9%81%95%E3%81%84%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%AA%E3%82%93%E3%81%A0%E3%82%88/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2012-03-01T01:00:00+09:00"><meta property="article:modified_time" content="2012-03-01T01:00:00+09:00"><meta property="og:site_name" content="nobwak's Lair"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="clamav: clamscanとclamdscanの違いってなんなんだよ"><meta name=twitter:description content="clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュール"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"clamav: clamscanとclamdscanの違いってなんなんだよ","item":"https://nobwak.github.io/posts/2012-03-01-clamavclamscan%E3%81%A8clamdscan%E3%81%AE%E9%81%95%E3%81%84%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%AA%E3%82%93%E3%81%A0%E3%82%88/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"clamav: clamscanとclamdscanの違いってなんなんだよ","name":"clamav: clamscanとclamdscanの違いってなんなんだよ","description":"clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュール","keywords":[],"articleBody":"clamavはフリーのアンチウイルスソフトウェア 最近はOS Xとかでも有名ですな。 公式サイト [http://www.clamav.net/lang/en/](http://www.clamav.net/lang/en/) インストールはportsから。 概要 一部モジュールのみ以下にまとめます。  ・clamscan 単品で動くウイルススキャナ。 一回だけのスキャンに使用する。 遅い。 ・clamd ウイルススキャナデーモン 後述のclamdscanとセットで使う。 あるいはメールのスキャンなどに。 ・clamdscan clamdとセットで動くウイルススキャナ。 指定されたファイルのパスをclamdに教えると、clamdがスキャンしてくれる。 clamdは定義ファイルをメモリ展開しているのでclamscan（clam*d*scanじゃなく）よりもスキャンが断然速い。 ・freshclam 定義ファイルのダウンローダ。 オンデマンドで実行もできるし、常駐化させておいて定期的にダウンロードさせることもできる。 使い方: ウイルスデータベース更新 インストールすれば、すぐに使える。 まずは念のためウイルスデータベースを更新。freshclamを実行するだけ。  # freshclam ClamAV update process started at Wed Feb 29 14:22:04 2012 Reading CVD header (main.cvd): OK main.cvd is up to date (version: 54, sigs: 1044387, f-level: 60, builder: sven) Reading CVD header (daily.cvd): OK Downloading daily-14555.cdiff \u0026#91;100%] daily.cld updated (version: 14555, sigs: 108764, f-level: 63, builder: guitar) Reading CVD header (bytecode.cvd): OK bytecode.cvd is up to date (version: 167, sigs: 40, f-level: 63, builder: edwin) Database updated (1153191 signatures) from database.clamav.net Clamd successfully notified about the update. 使い方: スキャン: clamscan あとはclamscanにファイル名を引数で渡せばよい。  $ clamscan \u0026#60;file $ clamscan -r \u0026#60;dir そのほか、よく使用するオプションとしては、  -i: 感染したファイルのみ表示 --move \u0026#60;dirA : 感染したファイルを\u0026#60;dirAに移動 --copy \u0026#60;dirB : 感染したファイルを\u0026#60;dirBに移動 -d \u0026#91;\u0026#60;file|\u0026#60;dir] : デフォルトと異なる場所に置いたウイルスデータベースを指定。 -l \u0026#60;logfile : スキャンログを\u0026#60;logfileに書き出し。 -f \u0026#60;filelist : \u0026#60;filelistにリストされたファイルをスキャン clamscanとclamdscan 先述の通り、clamscanとclamdscanではスピードが違う。 実験をしてみるとその差は歴然。 というより、clamscanが遅すぎる。 定期的にスキャンするなら、絶対にclamdscanがよい。 注意点はあるが、それは後述。  $ clamscan ./messages ./lpd-errs ./messages: OK ./lpd-errs: OK ----------- SCAN SUMMARY ----------- （中略） Infected files: 0 Data scanned: 0.02 MB Data read: 0.01 MB (ratio 2.00:1) Time: 7.878 sec (0 m 7 s) $ clamdscan ./messages ./lpd-errs /var/log/./messages: OK /var/log/./lpd-errs: OK ----------- SCAN SUMMARY ----------- Infected files: 0 Time: 0.033 sec (0 m 0 s) 使い方:clamdscan 仕組みは以下の通りと理解している。 スキャンするときには、ファイルの場所をclamdscanに伝える。 clamdscanはdaemonとして常駐しているので、いちいちウイルスデータベースを読み込まなくてよい。 だから速い。 しかしNFSマウントしたファイルのスキャンなど、ファイルへのアクセス権限が特殊な場合に問題となるケースがあった。 clamdscan起動の準備をする。/etc/rc.confに以下を追加。 ついでにfreshclamもdaemonモードで起動するように。  #clamd clamav_clamd_enable=\u0026#34;YES\u0026#34; clamav_freshclam_enable=\u0026#34;YES\u0026#34; portsから入れたなら、clamd.conf、freshclam.confは特にデフォルトでよい。 起動させる。  # /usr/local/etc/rc.d/clamav-clamd start # /usr/local/etc/rc.d/clamav-freshclam start 以上。 以下は参考。 /usr/local/etc/freshclam.conf 影響しそうなところのみピックアップ ・ウイルスデータベース格納場所  # Path to the database directory. # WARNING: It must match clamd.conf\u0026#39;s directive! # Default: hardcoded (depends on installation options) DatabaseDirectory /var/db/clamav ・freshclamのログファイル場所  # Path to the log file (make sure it has proper permissions) # Default: disabled UpdateLogFile /var/log/clamav/freshclam.log ・定義ファイル更新を試みる頻度  # Number of database checks per day. # Default: 12 (every two hours) #Checks 24 ・プロキシ設定。これはありがたい。  # Proxy settings # Default: disabled #HTTPProxyServer myproxy.com #HTTPProxyPort 1234 #HTTPProxyUsername myusername #HTTPProxyPassword mypass ・データベース更新時にclamdに再読み込みさせる。  # Send the RELOAD command to clamd. # Default: no NotifyClamd /usr/local/etc/clamd.conf ・データベース更新が失敗したときに実行するコマンド 興味あるが今は保留  # Run command when database update process fails. # Default: disabled #OnErrorExecute command ・データベースが古い場合に実行するコマンド 興味あるが今は保留  # Run command when freshclam reports outdated version. # In the command string %v will be replaced by the new version number. # Default: disabled #OnOutdatedExecute command /usr/local/etc/clamd.conf 基本デフォルト。MaxScanSize、MaxFileSizeくらいか。  # Uncomment this option to enable logging. # LogFile must be writable for the user running daemon. # A full path is required. # Default: disabled LogFile /var/log/clamav/clamd.log # Maximum size of the log file. # Value of 0 disables the limit. # You may use \u0026#39;M\u0026#39; or \u0026#39;m\u0026#39; for megabytes (1M = 1m = 1048576 bytes) # and \u0026#39;K\u0026#39; or \u0026#39;k\u0026#39; for kilobytes (1K = 1k = 1024 bytes). To specify the size # in bytes just don\u0026#39;t use modifiers. # Default: 1M #LogFileMaxSize 2M # Specify the type of syslog messages - please refer to \u0026#39;man syslog\u0026#39; # for facility names. # Default: LOG_LOCAL6 #LogFacility LOG_MAIL # Path to the database directory. # Default: hardcoded (depends on installation options) DatabaseDirectory /var/db/clamav # Don\u0026#39;t scan files and directories matching regex # This directive can be used multiple times # Default: scan all #ExcludePath ^/proc/ #ExcludePath ^/sys/ # Maximum depth directories are scanned at. # Default: 15 #MaxDirectoryRecursion 20 # Follow directory symlinks. # Default: no #FollowDirectorySymlinks yes # Perform a database check. # Default: 600 (10 min) #SelfCheck 600 # Execute a command when virus is found. In the command string %v will # be replaced with the virus name. # Default: no #VirusEvent /usr/local/bin/send_sms 123456789 \u0026#34;VIRUS ALERT: %v\u0026#34; # Run as another user (clamd must be started by root for this option to work) # Default: don\u0026#39;t drop privileges User clamav # PE stands for Portable Executable - it\u0026#39;s an executable file format used # in all 32 and 64-bit versions of Windows operating systems. This option allows # ClamAV to perform a deeper analysis of executable files and it\u0026#39;s also # required for decompression of popular executable packers such as UPX, FSG, # and Petite. If you turn off this option, the original files will still be # scanned, but without additional processing. # Default: yes #ScanPE yes # Executable and Linking Format is a standard format for UN*X executables. # This option allows you to control the scanning of ELF files. # If you turn off this option, the original files will still be scanned, but # without additional processing. # Default: yes #ScanELF yes ## Documents ## # This option enables scanning of OLE2 files, such as Microsoft Office # documents and .msi files. # If you turn off this option, the original files will still be scanned, but # without additional processing. # Default: yes #ScanOLE2 yes # With this option enabled OLE2 files with VBA macros, which were not # detected by signatures will be marked as \u0026#34;Heuristics.OLE2.ContainsMacros\u0026#34;. # Default: no #OLE2BlockMacros no # This option enables scanning within PDF files. # If you turn off this option, the original files will still be scanned, but # without decoding and additional processing. # Default: yes #ScanPDF yes ## ## Archives ## # ClamAV can scan within archives and compressed files. # If you turn off this option, the original files will still be scanned, but # without unpacking and additional processing. # Default: yes #ScanArchive yes # Mark encrypted archives as viruses (Encrypted.Zip, Encrypted.RAR). # Default: no #ArchiveBlockEncrypted no # This option sets the maximum amount of data to be scanned for each input file. # Archives and other containers are recursively extracted and scanned up to this # value. # Value of 0 disables the limit # Note: disabling this limit or setting it too high may result in severe damage # to the system. # Default: 100M #MaxScanSize 150M # Files larger than this limit won\u0026#39;t be scanned. Affects the input file itself # as well as files contained inside it (when the input file is an archive, a # document or some other kind of container). # Value of 0 disables the limit. # Note: disabling this limit or setting it too high may result in severe damage # to the system. # Default: 25M #MaxFileSize 30M # Nested archives are scanned recursively, e.g. if a Zip archive contains a RAR # file, all files within it will also be scanned. This options specifies how # deeply the process should be continued. # Note: setting this limit too high may result in severe damage to the system. # Default: 16 #MaxRecursion 10 # Number of files to be scanned within an archive, a document, or any other # container file. # Value of 0 disables the limit. # Note: disabling this limit or setting it too high may result in severe damage # to the system. # Default: 10000 #MaxFiles 15000 ","wordCount":"2367","inLanguage":"en","datePublished":"2012-03-01T01:00:00+09:00","dateModified":"2012-03-01T01:00:00+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2012-03-01-clamavclamscan%E3%81%A8clamdscan%E3%81%AE%E9%81%95%E3%81%84%E3%81%A3%E3%81%A6%E3%81%AA%E3%82%93%E3%81%AA%E3%82%93%E3%81%A0%E3%82%88/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)"><img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></span></div><ul id=menu><li><a href=https://nobwak.github.io/posts/ title=posts><span>posts</span></a></li><li><a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/><span>search</span></a></li><li><a href=https://nobwak.github.io/categories/ title=categories><span>categories</span></a></li><li><a href=https://nobwak.github.io/tags/ title=tags><span>tags</span></a></li><li><a href=https://nobwak.github.io title="nobwak lair"><span>nobwak lair</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div><h1 class=post-title>clamav: clamscanとclamdscanの違いってなんなんだよ</h1><div class=post-meta><span title="2012-03-01 01:00:00 +0900 JST">March 1, 2012</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2012-03-01-clamavclamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88.md rel="noopener noreferrer" target=_blank>Suggest Changes</a></div></header><div class=post-content><pre><code>clamavはフリーのアンチウイルスソフトウェア
 
 
 
@@ -115,8 +25,7 @@ clamav: clamscanとclamdscanの違いってなんなんだよ
 
 
 一部モジュールのみ以下にまとめます。
-</code></pre>
-<pre><code>・clamscan
+</code></pre><pre><code>・clamscan
 
 
 
@@ -197,19 +106,18 @@ clamav: clamscanとclamdscanの違いってなんなんだよ
 
 
 まずは念のためウイルスデータベースを更新。freshclamを実行するだけ。
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># freshclam
-ClamAV update process started at Wed Feb 29 14:22:04 2012
-Reading CVD header (main.cvd): OK
-main.cvd is up to date (version: 54, sigs: 1044387, f-level: 60, builder: sven)
-Reading CVD header (daily.cvd): OK
-Downloading daily-14555.cdiff &amp;#91;100%]
-daily.cld updated (version: 14555, sigs: 108764, f-level: 63, builder: guitar)
-Reading CVD header (bytecode.cvd): OK
-bytecode.cvd is up to date (version: 167, sigs: 40, f-level: 63, builder: edwin)
-Database updated (1153191 signatures) from database.clamav.net
-Clamd successfully notified about the update.
-</code></pre></div><pre><code>使い方: スキャン: clamscan
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># freshclam
+</span></span><span style=display:flex><span>ClamAV update process started at Wed Feb 29 14:22:04 2012
+</span></span><span style=display:flex><span>Reading CVD header (main.cvd): OK
+</span></span><span style=display:flex><span>main.cvd is up to date (version: 54, sigs: 1044387, f-level: 60, builder: sven)
+</span></span><span style=display:flex><span>Reading CVD header (daily.cvd): OK
+</span></span><span style=display:flex><span>Downloading daily-14555.cdiff &amp;#91;100%]
+</span></span><span style=display:flex><span>daily.cld updated (version: 14555, sigs: 108764, f-level: 63, builder: guitar)
+</span></span><span style=display:flex><span>Reading CVD header (bytecode.cvd): OK
+</span></span><span style=display:flex><span>bytecode.cvd is up to date (version: 167, sigs: 40, f-level: 63, builder: edwin)
+</span></span><span style=display:flex><span>Database updated (1153191 signatures) from database.clamav.net
+</span></span><span style=display:flex><span>Clamd successfully notified about the update.
+</span></span></code></pre></div><pre><code>使い方: スキャン: clamscan
 
 
 
@@ -217,19 +125,16 @@ Clamd successfully notified about the update.
 
 
 あとはclamscanにファイル名を引数で渡せばよい。
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ clamscan &amp;<span style=color:#75715e>#60;file&gt;</span>
-</code></pre></div>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ clamscan -r &amp;<span style=color:#75715e>#60;dir&gt;</span>
-</code></pre></div><pre><code>そのほか、よく使用するオプションとしては、
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>-i: 感染したファイルのみ表示
---move &amp;#60;dirA&gt; : 感染したファイルを&amp;#60;dirA&gt;に移動
---copy &amp;#60;dirB&gt; : 感染したファイルを&amp;#60;dirB&gt;に移動
--d &amp;#91;&amp;#60;file&gt;|&amp;#60;dir&gt;] : デフォルトと異なる場所に置いたウイルスデータベースを指定。
--l &amp;#60;logfile&gt; : スキャンログを&amp;#60;logfile&gt;に書き出し。
--f &amp;#60;filelist&gt; : &amp;#60;filelist&gt;にリストされたファイルをスキャン
-</code></pre></div><pre><code>clamscanとclamdscan
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ clamscan &amp;<span style=color:#75715e>#60;file&gt;</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ clamscan -r &amp;<span style=color:#75715e>#60;dir&gt;</span>
+</span></span></code></pre></div><pre><code>そのほか、よく使用するオプションとしては、
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>-i: 感染したファイルのみ表示
+</span></span><span style=display:flex><span>--move &amp;#60;dirA&gt; : 感染したファイルを&amp;#60;dirA&gt;に移動
+</span></span><span style=display:flex><span>--copy &amp;#60;dirB&gt; : 感染したファイルを&amp;#60;dirB&gt;に移動
+</span></span><span style=display:flex><span>-d &amp;#91;&amp;#60;file&gt;|&amp;#60;dir&gt;] : デフォルトと異なる場所に置いたウイルスデータベースを指定。
+</span></span><span style=display:flex><span>-l &amp;#60;logfile&gt; : スキャンログを&amp;#60;logfile&gt;に書き出し。
+</span></span><span style=display:flex><span>-f &amp;#60;filelist&gt; : &amp;#60;filelist&gt;にリストされたファイルをスキャン
+</span></span></code></pre></div><pre><code>clamscanとclamdscan
 
 
 
@@ -253,23 +158,22 @@ Clamd successfully notified about the update.
 
 
 注意点はあるが、それは後述。
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ clamscan ./messages ./lpd-errs
-./messages: OK
-./lpd-errs: OK
------------ SCAN SUMMARY -----------
-（中略）
-Infected files: 0
-Data scanned: 0.02 MB
-Data read: 0.01 MB (ratio 2.00:1)
-Time: 7.878 sec (0 m 7 s)
-$ clamdscan ./messages ./lpd-errs
-/var/log/./messages: OK
-/var/log/./lpd-errs: OK
------------ SCAN SUMMARY -----------
-Infected files: 0
-Time: 0.033 sec (0 m 0 s)
-</code></pre></div><pre><code>使い方:clamdscan
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ clamscan ./messages ./lpd-errs
+</span></span><span style=display:flex><span>./messages: OK
+</span></span><span style=display:flex><span>./lpd-errs: OK
+</span></span><span style=display:flex><span>----------- SCAN SUMMARY -----------
+</span></span><span style=display:flex><span>（中略）
+</span></span><span style=display:flex><span>Infected files: 0
+</span></span><span style=display:flex><span>Data scanned: 0.02 MB
+</span></span><span style=display:flex><span>Data read: 0.01 MB (ratio 2.00:1)
+</span></span><span style=display:flex><span>Time: 7.878 sec (0 m 7 s)
+</span></span><span style=display:flex><span>$ clamdscan ./messages ./lpd-errs
+</span></span><span style=display:flex><span>/var/log/./messages: OK
+</span></span><span style=display:flex><span>/var/log/./lpd-errs: OK
+</span></span><span style=display:flex><span>----------- SCAN SUMMARY -----------
+</span></span><span style=display:flex><span>Infected files: 0
+</span></span><span style=display:flex><span>Time: 0.033 sec (0 m 0 s)
+</span></span></code></pre></div><pre><code>使い方:clamdscan
 
 
 
@@ -304,19 +208,17 @@ clamdscan起動の準備をする。/etc/rc.confに以下を追加。
 
 
 ついでにfreshclamもdaemonモードで起動するように。
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>#clamd
-clamav_clamd_enable=&amp;#34;YES&amp;#34;
-clamav_freshclam_enable=&amp;#34;YES&amp;#34;
-</code></pre></div><pre><code>portsから入れたなら、clamd.conf、freshclam.confは特にデフォルトでよい。
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>#clamd
+</span></span><span style=display:flex><span>clamav_clamd_enable=&amp;#34;YES&amp;#34;
+</span></span><span style=display:flex><span>clamav_freshclam_enable=&amp;#34;YES&amp;#34;
+</span></span></code></pre></div><pre><code>portsから入れたなら、clamd.conf、freshclam.confは特にデフォルトでよい。
 
 
 
 起動させる。
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># /usr/local/etc/rc.d/clamav-clamd start
-# /usr/local/etc/rc.d/clamav-freshclam start
-</code></pre></div><pre><code>以上。
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># /usr/local/etc/rc.d/clamav-clamd start
+</span></span><span style=display:flex><span># /usr/local/etc/rc.d/clamav-freshclam start
+</span></span></code></pre></div><pre><code>以上。
 
 
 
@@ -336,214 +238,164 @@ clamav_freshclam_enable=&amp;#34;YES&amp;#34;
 
 
 ・ウイルスデータベース格納場所
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Path to the database directory.
-# WARNING: It must match clamd.conf&amp;<span style=color:#75715e>#39;s directive!</span>
-# Default: hardcoded <span style=color:#f92672>(</span>depends on installation options<span style=color:#f92672>)</span>
-DatabaseDirectory /var/db/clamav
-</code></pre></div><pre><code>・freshclamのログファイル場所
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Path to the log file <span style=color:#f92672>(</span>make sure it has proper permissions<span style=color:#f92672>)</span>
-# Default: disabled
-UpdateLogFile /var/log/clamav/freshclam.log
-</code></pre></div><pre><code>・定義ファイル更新を試みる頻度
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Number of database checks per day.
-# Default: <span style=color:#ae81ff>12</span> <span style=color:#f92672>(</span>every two hours<span style=color:#f92672>)</span>
-#Checks <span style=color:#ae81ff>24</span>
-</code></pre></div><pre><code>・プロキシ設定。これはありがたい。
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Proxy settings
-# Default: disabled
-#HTTPProxyServer myproxy.com
-#HTTPProxyPort <span style=color:#ae81ff>1234</span>
-#HTTPProxyUsername myusername
-#HTTPProxyPassword mypass
-</code></pre></div><pre><code>・データベース更新時にclamdに再読み込みさせる。
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Send the RELOAD command to clamd.
-# Default: no
-NotifyClamd /usr/local/etc/clamd.conf
-</code></pre></div><pre><code>・データベース更新が失敗したときに実行するコマンド
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># Path to the database directory.
+</span></span><span style=display:flex><span># WARNING: It must match clamd.conf&amp;<span style=color:#75715e>#39;s directive!</span>
+</span></span><span style=display:flex><span># Default: hardcoded <span style=color:#f92672>(</span>depends on installation options<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>DatabaseDirectory /var/db/clamav
+</span></span></code></pre></div><pre><code>・freshclamのログファイル場所
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># Path to the log file <span style=color:#f92672>(</span>make sure it has proper permissions<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span># Default: disabled
+</span></span><span style=display:flex><span>UpdateLogFile /var/log/clamav/freshclam.log
+</span></span></code></pre></div><pre><code>・定義ファイル更新を試みる頻度
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># Number of database checks per day.
+</span></span><span style=display:flex><span># Default: <span style=color:#ae81ff>12</span> <span style=color:#f92672>(</span>every two hours<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>#Checks <span style=color:#ae81ff>24</span>
+</span></span></code></pre></div><pre><code>・プロキシ設定。これはありがたい。
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># Proxy settings
+</span></span><span style=display:flex><span># Default: disabled
+</span></span><span style=display:flex><span>#HTTPProxyServer myproxy.com
+</span></span><span style=display:flex><span>#HTTPProxyPort <span style=color:#ae81ff>1234</span>
+</span></span><span style=display:flex><span>#HTTPProxyUsername myusername
+</span></span><span style=display:flex><span>#HTTPProxyPassword mypass
+</span></span></code></pre></div><pre><code>・データベース更新時にclamdに再読み込みさせる。
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># Send the RELOAD command to clamd.
+</span></span><span style=display:flex><span># Default: no
+</span></span><span style=display:flex><span>NotifyClamd /usr/local/etc/clamd.conf
+</span></span></code></pre></div><pre><code>・データベース更新が失敗したときに実行するコマンド
 
 
 
 　興味あるが今は保留
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Run command when database update process fails.
-# Default: disabled
-#OnErrorExecute command
-</code></pre></div><pre><code>・データベースが古い場合に実行するコマンド
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># Run command when database update process fails.
+</span></span><span style=display:flex><span># Default: disabled
+</span></span><span style=display:flex><span>#OnErrorExecute command
+</span></span></code></pre></div><pre><code>・データベースが古い場合に実行するコマンド
 
 
 
 　興味あるが今は保留
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Run command when freshclam reports outdated version.
-# In the command string %v will be replaced by the new version number.
-# Default: disabled
-#OnOutdatedExecute command
-</code></pre></div><pre><code>/usr/local/etc/clamd.conf
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># Run command when freshclam reports outdated version.
+</span></span><span style=display:flex><span># In the command string %v will be replaced by the new version number.
+</span></span><span style=display:flex><span># Default: disabled
+</span></span><span style=display:flex><span>#OnOutdatedExecute command
+</span></span></code></pre></div><pre><code>/usr/local/etc/clamd.conf
 
 
 
 基本デフォルト。MaxScanSize、MaxFileSizeくらいか。
-</code></pre>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Uncomment this option to enable logging.
-# LogFile must be writable <span style=color:#66d9ef>for</span> the user running daemon.
-# A full path is required.
-# Default: disabled
-LogFile /var/log/clamav/clamd.log
-# Maximum size of the log file.
-# Value of <span style=color:#ae81ff>0</span> disables the limit.
-# You may use &amp;<span style=color:#75715e>#39;M&amp;#39; or &amp;#39;m&amp;#39; for megabytes (1M = 1m = 1048576 bytes)</span>
-# and &amp;<span style=color:#75715e>#39;K&amp;#39; or &amp;#39;k&amp;#39; for kilobytes (1K = 1k = 1024 bytes). To specify the size</span>
-# in bytes just don&amp;<span style=color:#75715e>#39;t use modifiers.</span>
-# Default: 1M
-#LogFileMaxSize 2M
-# Specify the type of syslog messages - please refer to &amp;<span style=color:#75715e>#39;man syslog&amp;#39;</span>
-# <span style=color:#66d9ef>for</span> facility names.
-# Default: LOG_LOCAL6
-#LogFacility LOG_MAIL
-# Path to the database directory.
-# Default: hardcoded <span style=color:#f92672>(</span>depends on installation options<span style=color:#f92672>)</span>
-DatabaseDirectory /var/db/clamav
-# Don&amp;<span style=color:#75715e>#39;t scan files and directories matching regex</span>
-# This directive can be used multiple times
-# Default: scan all
-#ExcludePath ^/proc/
-#ExcludePath ^/sys/
-# Maximum depth directories are scanned at.
-# Default: <span style=color:#ae81ff>15</span>
-#MaxDirectoryRecursion <span style=color:#ae81ff>20</span>
-# Follow directory symlinks.
-# Default: no
-#FollowDirectorySymlinks yes
-# Perform a database check.
-# Default: <span style=color:#ae81ff>600</span> <span style=color:#f92672>(</span><span style=color:#ae81ff>10</span> min<span style=color:#f92672>)</span>
-#SelfCheck <span style=color:#ae81ff>600</span>
-# Execute a command when virus is found. In the command string %v will
-# be replaced with the virus name.
-# Default: no
-#VirusEvent /usr/local/bin/send_sms <span style=color:#ae81ff>123456789</span> &amp;<span style=color:#75715e>#34;VIRUS ALERT: %v&amp;#34;</span>
-# Run as another user <span style=color:#f92672>(</span>clamd must be started by root <span style=color:#66d9ef>for</span> this option to work<span style=color:#f92672>)</span>
-# Default: don&amp;<span style=color:#75715e>#39;t drop privileges</span>
-User clamav
-# PE stands <span style=color:#66d9ef>for</span> Portable Executable - it&amp;<span style=color:#75715e>#39;s an executable file format used</span>
-# in all <span style=color:#ae81ff>32</span> and 64-bit versions of Windows operating systems. This option allows
-# ClamAV to perform a deeper analysis of executable files and it&amp;<span style=color:#75715e>#39;s also</span>
-# required <span style=color:#66d9ef>for</span> decompression of popular executable packers such as UPX, FSG,
-# and Petite. If you turn off this option, the original files will still be
-# scanned, but without additional processing.
-# Default: yes
-#ScanPE yes
-# Executable and Linking Format is a standard format <span style=color:#66d9ef>for</span> UN*X executables.
-# This option allows you to control the scanning of ELF files.
-# If you turn off this option, the original files will still be scanned, but
-# without additional processing.
-# Default: yes
-#ScanELF yes
-#<span style=color:#75715e># Documents</span>
-#<span style=color:#75715e>#</span>
-# This option enables scanning of OLE2 files, such as Microsoft Office
-# documents and .msi files.
-# If you turn off this option, the original files will still be scanned, but
-# without additional processing.
-# Default: yes
-#ScanOLE2 yes
-# With this option enabled OLE2 files with VBA macros, which were not
-# detected by signatures will be marked as &amp;<span style=color:#75715e>#34;Heuristics.OLE2.ContainsMacros&amp;#34;.</span>
-# Default: no
-#OLE2BlockMacros no
-# This option enables scanning within PDF files.
-# If you turn off this option, the original files will still be scanned, but
-# without decoding and additional processing.
-# Default: yes
-#ScanPDF yes
-#<span style=color:#75715e>#</span>
-#<span style=color:#75715e># Archives</span>
-#<span style=color:#75715e>#</span>
-# ClamAV can scan within archives and compressed files.
-# If you turn off this option, the original files will still be scanned, but
-# without unpacking and additional processing.
-# Default: yes
-#ScanArchive yes
-# Mark encrypted archives as viruses <span style=color:#f92672>(</span>Encrypted.Zip, Encrypted.RAR<span style=color:#f92672>)</span>.
-# Default: no
-#ArchiveBlockEncrypted no
-# This option sets the maximum amount of data to be scanned <span style=color:#66d9ef>for</span> each input file.
-# Archives and other containers are recursively extracted and scanned up to this
-# value.
-# Value of <span style=color:#ae81ff>0</span> disables the limit
-# Note: disabling this limit or setting it too high may result in severe damage
-# to the system.
-# Default: 100M
-#MaxScanSize 150M
-# Files larger than this limit won&amp;<span style=color:#75715e>#39;t be scanned. Affects the input file itself</span>
-# as well as files contained inside it <span style=color:#f92672>(</span>when the input file is an archive, a
-# document or some other kind of container<span style=color:#f92672>)</span>.
-# Value of <span style=color:#ae81ff>0</span> disables the limit.
-# Note: disabling this limit or setting it too high may result in severe damage
-# to the system.
-# Default: 25M
-#MaxFileSize 30M
-# Nested archives are scanned recursively, e.g. <span style=color:#66d9ef>if</span> a Zip archive contains a RAR
-# file, all files within it will also be scanned. This options specifies how
-# deeply the process should be continued.
-# Note: setting this limit too high may result in severe damage to the system.
-# Default: <span style=color:#ae81ff>16</span>
-#MaxRecursion <span style=color:#ae81ff>10</span>
-# Number of files to be scanned within an archive, a document, or any other
-# container file.
-# Value of <span style=color:#ae81ff>0</span> disables the limit.
-# Note: disabling this limit or setting it too high may result in severe damage
-# to the system.
-# Default: <span style=color:#ae81ff>10000</span>
-#MaxFiles <span style=color:#ae81ff>15000</span>
-</code></pre></div>
-</div>
-<footer class=post-footer>
-<nav class=paginav>
-<a class=prev href=https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/>
-<span class=title>« Prev Page</span>
-<br>
-<span>popサーバ、dovecot2のインストール</span>
-</a>
-<a class=next href=https://nobwak.github.io/posts/2010-05-17-%E8%A4%87%E6%95%B0%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEpdf%E3%82%92jpegpng%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/>
-<span class=title>Next Page »</span>
-<br>
-<span>複数ページのpdfをjpeg,pngに変換するには。</span>
-</a>
-</nav>
-<div class=share-buttons>
-<a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on twitter" href="https://twitter.com/intent/tweet/?text=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f&hashtags="><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f&title=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88&summary=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f&title=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on whatsapp" href="https://api.whatsapp.com/send?text=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on telegram" href="https://telegram.me/share/url?text=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
-</a>
-</div>
-</footer>
-</article>
-</main>
-<footer class=footer>
-<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
-<span>
-Powered by
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># Uncomment this option to enable logging.
+</span></span><span style=display:flex><span># LogFile must be writable <span style=color:#66d9ef>for</span> the user running daemon.
+</span></span><span style=display:flex><span># A full path is required.
+</span></span><span style=display:flex><span># Default: disabled
+</span></span><span style=display:flex><span>LogFile /var/log/clamav/clamd.log
+</span></span><span style=display:flex><span># Maximum size of the log file.
+</span></span><span style=display:flex><span># Value of <span style=color:#ae81ff>0</span> disables the limit.
+</span></span><span style=display:flex><span># You may use &amp;<span style=color:#75715e>#39;M&amp;#39; or &amp;#39;m&amp;#39; for megabytes (1M = 1m = 1048576 bytes)</span>
+</span></span><span style=display:flex><span># and &amp;<span style=color:#75715e>#39;K&amp;#39; or &amp;#39;k&amp;#39; for kilobytes (1K = 1k = 1024 bytes). To specify the size</span>
+</span></span><span style=display:flex><span># in bytes just don&amp;<span style=color:#75715e>#39;t use modifiers.</span>
+</span></span><span style=display:flex><span># Default: 1M
+</span></span><span style=display:flex><span>#LogFileMaxSize 2M
+</span></span><span style=display:flex><span># Specify the type of syslog messages - please refer to &amp;<span style=color:#75715e>#39;man syslog&amp;#39;</span>
+</span></span><span style=display:flex><span># <span style=color:#66d9ef>for</span> facility names.
+</span></span><span style=display:flex><span># Default: LOG_LOCAL6
+</span></span><span style=display:flex><span>#LogFacility LOG_MAIL
+</span></span><span style=display:flex><span># Path to the database directory.
+</span></span><span style=display:flex><span># Default: hardcoded <span style=color:#f92672>(</span>depends on installation options<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>DatabaseDirectory /var/db/clamav
+</span></span><span style=display:flex><span># Don&amp;<span style=color:#75715e>#39;t scan files and directories matching regex</span>
+</span></span><span style=display:flex><span># This directive can be used multiple times
+</span></span><span style=display:flex><span># Default: scan all
+</span></span><span style=display:flex><span>#ExcludePath ^/proc/
+</span></span><span style=display:flex><span>#ExcludePath ^/sys/
+</span></span><span style=display:flex><span># Maximum depth directories are scanned at.
+</span></span><span style=display:flex><span># Default: <span style=color:#ae81ff>15</span>
+</span></span><span style=display:flex><span>#MaxDirectoryRecursion <span style=color:#ae81ff>20</span>
+</span></span><span style=display:flex><span># Follow directory symlinks.
+</span></span><span style=display:flex><span># Default: no
+</span></span><span style=display:flex><span>#FollowDirectorySymlinks yes
+</span></span><span style=display:flex><span># Perform a database check.
+</span></span><span style=display:flex><span># Default: <span style=color:#ae81ff>600</span> <span style=color:#f92672>(</span><span style=color:#ae81ff>10</span> min<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>#SelfCheck <span style=color:#ae81ff>600</span>
+</span></span><span style=display:flex><span># Execute a command when virus is found. In the command string %v will
+</span></span><span style=display:flex><span># be replaced with the virus name.
+</span></span><span style=display:flex><span># Default: no
+</span></span><span style=display:flex><span>#VirusEvent /usr/local/bin/send_sms <span style=color:#ae81ff>123456789</span> &amp;<span style=color:#75715e>#34;VIRUS ALERT: %v&amp;#34;</span>
+</span></span><span style=display:flex><span># Run as another user <span style=color:#f92672>(</span>clamd must be started by root <span style=color:#66d9ef>for</span> this option to work<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span># Default: don&amp;<span style=color:#75715e>#39;t drop privileges</span>
+</span></span><span style=display:flex><span>User clamav
+</span></span><span style=display:flex><span># PE stands <span style=color:#66d9ef>for</span> Portable Executable - it&amp;<span style=color:#75715e>#39;s an executable file format used</span>
+</span></span><span style=display:flex><span># in all <span style=color:#ae81ff>32</span> and 64-bit versions of Windows operating systems. This option allows
+</span></span><span style=display:flex><span># ClamAV to perform a deeper analysis of executable files and it&amp;<span style=color:#75715e>#39;s also</span>
+</span></span><span style=display:flex><span># required <span style=color:#66d9ef>for</span> decompression of popular executable packers such as UPX, FSG,
+</span></span><span style=display:flex><span># and Petite. If you turn off this option, the original files will still be
+</span></span><span style=display:flex><span># scanned, but without additional processing.
+</span></span><span style=display:flex><span># Default: yes
+</span></span><span style=display:flex><span>#ScanPE yes
+</span></span><span style=display:flex><span># Executable and Linking Format is a standard format <span style=color:#66d9ef>for</span> UN*X executables.
+</span></span><span style=display:flex><span># This option allows you to control the scanning of ELF files.
+</span></span><span style=display:flex><span># If you turn off this option, the original files will still be scanned, but
+</span></span><span style=display:flex><span># without additional processing.
+</span></span><span style=display:flex><span># Default: yes
+</span></span><span style=display:flex><span>#ScanELF yes
+</span></span><span style=display:flex><span>#<span style=color:#75715e># Documents</span>
+</span></span><span style=display:flex><span>#<span style=color:#75715e>#</span>
+</span></span><span style=display:flex><span># This option enables scanning of OLE2 files, such as Microsoft Office
+</span></span><span style=display:flex><span># documents and .msi files.
+</span></span><span style=display:flex><span># If you turn off this option, the original files will still be scanned, but
+</span></span><span style=display:flex><span># without additional processing.
+</span></span><span style=display:flex><span># Default: yes
+</span></span><span style=display:flex><span>#ScanOLE2 yes
+</span></span><span style=display:flex><span># With this option enabled OLE2 files with VBA macros, which were not
+</span></span><span style=display:flex><span># detected by signatures will be marked as &amp;<span style=color:#75715e>#34;Heuristics.OLE2.ContainsMacros&amp;#34;.</span>
+</span></span><span style=display:flex><span># Default: no
+</span></span><span style=display:flex><span>#OLE2BlockMacros no
+</span></span><span style=display:flex><span># This option enables scanning within PDF files.
+</span></span><span style=display:flex><span># If you turn off this option, the original files will still be scanned, but
+</span></span><span style=display:flex><span># without decoding and additional processing.
+</span></span><span style=display:flex><span># Default: yes
+</span></span><span style=display:flex><span>#ScanPDF yes
+</span></span><span style=display:flex><span>#<span style=color:#75715e>#</span>
+</span></span><span style=display:flex><span>#<span style=color:#75715e># Archives</span>
+</span></span><span style=display:flex><span>#<span style=color:#75715e>#</span>
+</span></span><span style=display:flex><span># ClamAV can scan within archives and compressed files.
+</span></span><span style=display:flex><span># If you turn off this option, the original files will still be scanned, but
+</span></span><span style=display:flex><span># without unpacking and additional processing.
+</span></span><span style=display:flex><span># Default: yes
+</span></span><span style=display:flex><span>#ScanArchive yes
+</span></span><span style=display:flex><span># Mark encrypted archives as viruses <span style=color:#f92672>(</span>Encrypted.Zip, Encrypted.RAR<span style=color:#f92672>)</span>.
+</span></span><span style=display:flex><span># Default: no
+</span></span><span style=display:flex><span>#ArchiveBlockEncrypted no
+</span></span><span style=display:flex><span># This option sets the maximum amount of data to be scanned <span style=color:#66d9ef>for</span> each input file.
+</span></span><span style=display:flex><span># Archives and other containers are recursively extracted and scanned up to this
+</span></span><span style=display:flex><span># value.
+</span></span><span style=display:flex><span># Value of <span style=color:#ae81ff>0</span> disables the limit
+</span></span><span style=display:flex><span># Note: disabling this limit or setting it too high may result in severe damage
+</span></span><span style=display:flex><span># to the system.
+</span></span><span style=display:flex><span># Default: 100M
+</span></span><span style=display:flex><span>#MaxScanSize 150M
+</span></span><span style=display:flex><span># Files larger than this limit won&amp;<span style=color:#75715e>#39;t be scanned. Affects the input file itself</span>
+</span></span><span style=display:flex><span># as well as files contained inside it <span style=color:#f92672>(</span>when the input file is an archive, a
+</span></span><span style=display:flex><span># document or some other kind of container<span style=color:#f92672>)</span>.
+</span></span><span style=display:flex><span># Value of <span style=color:#ae81ff>0</span> disables the limit.
+</span></span><span style=display:flex><span># Note: disabling this limit or setting it too high may result in severe damage
+</span></span><span style=display:flex><span># to the system.
+</span></span><span style=display:flex><span># Default: 25M
+</span></span><span style=display:flex><span>#MaxFileSize 30M
+</span></span><span style=display:flex><span># Nested archives are scanned recursively, e.g. <span style=color:#66d9ef>if</span> a Zip archive contains a RAR
+</span></span><span style=display:flex><span># file, all files within it will also be scanned. This options specifies how
+</span></span><span style=display:flex><span># deeply the process should be continued.
+</span></span><span style=display:flex><span># Note: setting this limit too high may result in severe damage to the system.
+</span></span><span style=display:flex><span># Default: <span style=color:#ae81ff>16</span>
+</span></span><span style=display:flex><span>#MaxRecursion <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span># Number of files to be scanned within an archive, a document, or any other
+</span></span><span style=display:flex><span># container file.
+</span></span><span style=display:flex><span># Value of <span style=color:#ae81ff>0</span> disables the limit.
+</span></span><span style=display:flex><span># Note: disabling this limit or setting it too high may result in severe damage
+</span></span><span style=display:flex><span># to the system.
+</span></span><span style=display:flex><span># Default: <span style=color:#ae81ff>10000</span>
+</span></span><span style=display:flex><span>#MaxFiles <span style=color:#ae81ff>15000</span>
+</span></span></code></pre></div></div><footer class=post-footer><nav class=paginav><a class=prev href=https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/><span class=title>« Prev Page</span><br><span>popサーバ、dovecot2のインストール</span></a>
+<a class=next href=https://nobwak.github.io/posts/2010-05-17-%E8%A4%87%E6%95%B0%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEpdf%E3%82%92jpegpng%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/><span class=title>Next Page »</span><br><span>複数ページのpdfをjpeg,pngに変換するには。</span></a></nav><div class=share-buttons><a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on twitter" href="https://twitter.com/intent/tweet/?text=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f&hashtags="><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f&title=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88&summary=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f&title=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on whatsapp" href="https://api.whatsapp.com/send?text=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share clamav: clamscanとclamdscanの違いってなんなんだよ on telegram" href="https://telegram.me/share/url?text=clamav%3a%20clamscan%e3%81%a8clamdscan%e3%81%ae%e9%81%95%e3%81%84%e3%81%a3%e3%81%a6%e3%81%aa%e3%82%93%e3%81%aa%e3%82%93%e3%81%a0%e3%82%88&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2012-03-01-clamavclamscan%25E3%2581%25A8clamdscan%25E3%2581%25AE%25E9%2581%2595%25E3%2581%2584%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25AA%25E3%2582%2593%25E3%2581%25A0%25E3%2582%2588%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a></div></footer></article></main><footer class=footer><span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
-</span>
-</footer>
-<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
-</a>
-<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
-<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
-<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
-</body>
-</html>
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(t){t.preventDefault();var e=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView({behavior:"smooth"}),e==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${e}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>

@@ -1,325 +1,85 @@
-<!doctype html><html lang=en dir=auto>
-<head><meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
-<meta name=robots content="index, follow">
-<title>ezjailのflavoursを使ってみよう その1 | nobwak's Lair</title>
-<meta name=keywords content>
-<meta name=description content="[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親">
-<meta name=author content="nobwak">
-<link rel=canonical href=https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/>
-<meta name=google-site-verification content="XYZabc">
-<meta name=yandex-verification content="XYZabc">
-<meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
-<link rel=preload href=/apple-touch-icon.png as=image>
-<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<meta name=theme-color content="#2e2e33">
-<meta name=msapplication-TileColor content="#2e2e33">
-<meta name=generator content="Hugo 0.91.2">
-<noscript>
-<style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="ezjailのflavoursを使ってみよう その1">
-<meta property="og:description" content="[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2013-10-08T22:43:13+09:00">
-<meta property="article:modified_time" content="2013-10-08T22:43:13+09:00"><meta property="og:site_name" content="nobwak's Lair">
-<meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
-<meta name=twitter:title content="ezjailのflavoursを使ってみよう その1">
-<meta name=twitter:description content="[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"ezjailのflavoursを使ってみよう その1","item":"https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ezjailのflavoursを使ってみよう その1","name":"ezjailのflavoursを使ってみよう その1","description":"[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親","keywords":[],"articleBody":"[FreeBSD] ezjailを試そう\nezjailで作るjailの基本設定を変えよう\nからの続き\n以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。\n「Jailホスト」はjail環境で動くホストを表す。子。\nezjailのflavoursとは。 新しいJailは、真っ新（まっさら）のFreeBSDで作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。\nflavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。\nたとえば、rc.conf, make.conf, periodic.confやsudoersなどである。\n以下より意訳。\nhttp://erdgeist.org/arts/software/ezjail/#Flavours\n「flavours」の場所 特に指定をしなければ、ezjail-admin installで/usr/jails/flavoursに格納される。\n初期状態では、サンプルとして/usr/jails/flavours/exampleが用意されている。\nこれを参考に自分用のflavoursを作ればよい。\n「flavours」の中身 exampleの中をのぞくと、/usr/jails/flavours/exampleを起点に、以下のファイルがある。\n./usr/local/etc/sudoers ./etc/make.conf ./etc/periodic.conf ./etc/rc.conf ./etc/rc.d/ezjail.flavour.example ./etcや./usr/local/etcに必要なファイルを入れておけばよいというわけ。\nところでezjail.flavour.exampleだけは特殊。\n「ezjail.flavour.example」とは jailホストが初めて起動する際に実行されるスクリプト。\nここに初期設定で必要なこと、たとえばユーザ・グループの追加やら、パッケージの追加やら、つらつら書いておけばよい。\n（中身を見ればわかるがezjail.flavour.example自体を消す処理も入っている）\njailホストの仕様検討 実際にflavousの作成に入る前に。\n同じHW上で複数のサービスを行うため、jailホストを稼働させるまえに何点か考えておかないといけないことがある。\n仕様検討というのは仰々しいが、あとあと効いてくるので真面目にやる。\nとりあえず以下を決めておけばよいかな、と。\n ホストで動かしたいサービス Jailホストで動かしたいサービス Jailホストに追加するユーザ/グループ Jailホストで使用するソフトウェア  一番注意すべきことは、ポートのListenである。\nホストとJailホストには別々のIPアドレスを付与するものの、サーバソフトウェアが個々のIPアドレスを意識するとは限らない。\nだからして「動かしたいサービス」はJailホストだけでなく、ホストも含めて考えることが必要だし、それぞれで動かすサーバソフトウェアには、ListenするIPアドレスを明示する必要がある。\n以下のように設定した。\n ホストで動かしたいサービス\n→sshdのみ。 Jailホストで動かしたいサービス\n→apache, sshd Jailホストに追加するユーザ/グループ\n→vanilla:vanilla Jailホストで使用するソフトウェア\n→apache22, sudo, bash, portaudit, portmaster, tmux  このうち、最初の件を除いた残りの三つは、すべてflavoursで設定する。\nではひとつずつ。\nホストで動かしたいサービス sshdだけで良いとした。\nではホストで動いているサービスはなんだろうか。sockstat -l4でリストできる。\n$ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sendmail 1002 3 tcp4 127.0.0.1:25 *:* root sshd 992 4 tcp4 *:22 *:* root syslogd 904 7 udp4 *:514 *:* sendmailが動いている。これは不要。\nsshdは動いてても構わないが、Local Addressが*:22になっている。\nこれはIPアドレスを意識せず、ポート22に届いたものはすべて自分宛と認識するということ。Jailホストに来た接続もこちらに繋がってしまう。これはまずい。\nsyslogdも*:514で動いている。これも何らかの対応が必要。\nホストのサービスの調整（sshd） sshdはsshd_configで以下の行を追加し、ホストのIPアドレスでのみListenするように。\nListenAddress ＜ホストのIPアドレス＞ sshdを再起動するとsockstat -l4の表示が変わる。\n$ sudo service sshd restart Stopping sshd. Starting sshd. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 1845 3 tcp4 192.168.154.128:22 *:* root sendmail 1002 3 tcp4 127.0.0.1:25 *:* root syslogd 904 7 udp4 *:514 *:* ホストのサービスの調整（sendmail） sendmailの停止はこちらを参照。\n再起動、あるいはservice sendmail stopでよい。\n$ sudo service sendmail stop Stopping sendmail. Stopping sendmail_clientmqueue. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 1845 3 tcp4 192.168.154.128:22 *:* root syslogd 904 7 udp4 *:514 *:* $ ホストのサービスの調整（syslogd） syslogdは、デフォルトだと\"-s\"オプションで動いているはず。\n“-s\"は、「リモートマシンからのログを受け取らない」というもの。\nこれで不自由してないのなら、\"-ss\"にしてポートすら開けないようにしてもいい。\n“-ss\"にしないのなら、念のため”-b\"オプションでホストのIPアドレスを明示しておくとよい。\nSYSLOGD(8) FreeBSD System Manager's Manual SYSLOGD(8) NAME syslogd -- log systems messages -s Operate in secure mode. Do not log messages from remote machines. If specified twice, no network socket will be opened at all, which also disables logging to remote machines. -b :service Bind to a specific address and/or port. The address can be spec- ified as a hostname, and the port as a service name. If an IPv6 address is specified, it should be enclosed with `[' and `]'. The default service is `syslog'. /etc/rc.confに以下を追記する場合\nsyslogd_flags=\"-ss\" $ sudo service syslogd restart Stopping syslogd. Starting syslogd. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 992 3 tcp4 192.168.154.128:22 *:* $ 以下を追記した場合\nsyslogd_flags=\"-b 192.168.154.128\" $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root syslogd 1540 6 udp4 192.168.154.128:514 *:* root sshd 992 3 tcp4 192.168.154.128:22 *:* ホストのサービスの調整（inetd.conf） もしホストでinetd.confを動かしているのなら、-aオプションでホストのIPアドレスを与えること。\nINETD(8) FreeBSD System Manager's Manual INETD(8) NAME inetd -- internet ``super-server'' -a Specify one specific IP address to bind to. Alternatively, a hostname can be specified, in which case the IPv4 or IPv6 address which corresponds to that hostname is used. Usually a hostname is specified when inetd is run inside a jail(8), in which case the hostname corresponds to that of the jail(8) environment. inetdのデフォルトオプションは”-wW -C 60″なので、以下のようにして/etc/rc.confに追加\ninetd_flags=\"-wW -C 60 -a ＜ホストのIPアドレス＞\" サンプルrc.conf # kill sendmail sendmail_enable=\"NO\" # Run the sendmail inbound daemon (YES/NO). sendmail_submit_enable=\"NO\" # Start a localhost-only MTA for mail submission sendmail_outbound_enable=\"NO\" # Dequeue stuck mail (YES/NO). sendmail_msp_queue_enable=\"NO\" # Dequeue stuck clientmqueue mail (YES/NO). # prohibit syslog to open a socket syslogd_flags=\"-ss\" # make syslog listen on specific ip address # syslogd_flags=\"-b x.x.x.x\" # make inetd listen on specific ip address # inetd_flags=\"-wW -C 60 -a x.x.x.x\" 意外に長くなったのでここまで。\n続きは以下。\nezjailのflavoursを使ってみよう その2\n","wordCount":"2598","inLanguage":"en","datePublished":"2013-10-08T22:43:13+09:00","dateModified":"2013-10-08T22:43:13+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
-</head>
-<body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
-<header class=header>
-<nav class=nav>
-<div class=logo>
-<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
-<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-</button>
-</span>
-</div>
-<ul id=menu>
-<li>
-<a href=https://nobwak.github.io/posts/ title=posts>
-<span>posts</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
-<span>search</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/categories/ title=categories>
-<span>categories</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/tags/ title=tags>
-<span>tags</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io title="nobwak lair">
-<span>nobwak lair</span>
-</a>
-</li>
-</ul>
-</nav>
-</header>
-<main class=main>
-<article class=post-single>
-<header class=post-header>
-<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
-<h1 class=post-title>
-ezjailのflavoursを使ってみよう その1
-</h1>
-<div class=post-meta><span title="2013-10-08 22:43:13 +0900 JST">October 8, 2013</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2013-10-08-ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86_%e3%81%9d%e3%81%ae1.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
-</div>
-</header> <div class=toc>
-<details open>
-<summary accesskey=c title="(Alt + C)">
-<span class=details>Table of Contents</span>
-</summary>
-<div class=inner><ul>
-<li>
-<a href=#ezjail%e3%81%aeflavours%e3%81%a8%e3%81%af aria-label=ezjailのflavoursとは。>ezjailのflavoursとは。</a></li>
-<li>
-<a href=#flavours%e3%81%ae%e5%a0%b4%e6%89%80 aria-label=「flavours」の場所>「flavours」の場所</a></li>
-<li>
-<a href=#flavours%e3%81%ae%e4%b8%ad%e8%ba%ab aria-label=「flavours」の中身>「flavours」の中身</a></li>
-<li>
-<a href=#ezjailflavourexample%e3%81%a8%e3%81%af aria-label=「ezjail.flavour.example」とは>「ezjail.flavour.example」とは</a></li>
-<li>
-<a href=#jail%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e4%bb%95%e6%a7%98%e6%a4%9c%e8%a8%8e aria-label=jailホストの仕様検討>jailホストの仕様検討</a></li>
-<li>
-<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%a7%e5%8b%95%e3%81%8b%e3%81%97%e3%81%9f%e3%81%84%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9 aria-label=ホストで動かしたいサービス>ホストで動かしたいサービス</a></li>
-<li>
-<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4sshd aria-label=ホストのサービスの調整（sshd）>ホストのサービスの調整（sshd）</a></li>
-<li>
-<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4sendmail aria-label=ホストのサービスの調整（sendmail）>ホストのサービスの調整（sendmail）</a></li>
-<li>
-<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4syslogd aria-label=ホストのサービスの調整（syslogd）>ホストのサービスの調整（syslogd）</a></li>
-<li>
-<a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4inetdconf aria-label=ホストのサービスの調整（inetd.conf）>ホストのサービスの調整（inetd.conf）</a></li>
-<li>
-<a href=#%e3%82%b5%e3%83%b3%e3%83%97%e3%83%abrcconf aria-label=サンプルrc.conf>サンプルrc.conf</a>
-</li>
-</ul>
-</div>
-</details>
-</div>
-<div class=post-content><p><a href="../../../?p=2229">[FreeBSD] ezjailを試そう</a><br>
-<a href="../../../?p=2248">ezjailで作るjailの基本設定を変えよう</a><br>
-からの続き</p>
-<p>以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。<br>
-「Jailホスト」はjail環境で動くホストを表す。子。</p>
-<h2 id=ezjailのflavoursとは>ezjailのflavoursとは。<a hidden class=anchor aria-hidden=true href=#ezjailのflavoursとは>#</a></h2>
-<p>新しいJailは、真っ新（まっさら）のFreeBSDで作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。<br>
-flavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。<br>
-たとえば、rc.conf, make.conf, periodic.confやsudoersなどである。</p>
-<p>以下より意訳。<br>
-<a href=http://erdgeist.org/arts/software/ezjail/#Flavours>http://erdgeist.org/arts/software/ezjail/#Flavours</a></p>
-<h2 id=flavoursの場所>「flavours」の場所<a hidden class=anchor aria-hidden=true href=#flavoursの場所>#</a></h2>
-<p>特に指定をしなければ、ezjail-admin installで/usr/jails/flavoursに格納される。<br>
-初期状態では、サンプルとして/usr/jails/flavours/exampleが用意されている。<br>
-これを参考に自分用のflavoursを作ればよい。</p>
-<h2 id=flavoursの中身>「flavours」の中身<a hidden class=anchor aria-hidden=true href=#flavoursの中身>#</a></h2>
-<p>exampleの中をのぞくと、/usr/jails/flavours/exampleを起点に、以下のファイルがある。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>./usr/local/etc/sudoers
-./etc/make.conf
-./etc/periodic.conf
-./etc/rc.conf
-./etc/rc.d/ezjail.flavour.example
-</code></pre></div><p>./etcや./usr/local/etcに必要なファイルを入れておけばよいというわけ。<br>
-ところでezjail.flavour.exampleだけは特殊。</p>
-<h2 id=ezjailflavourexampleとは>「ezjail.flavour.example」とは<a hidden class=anchor aria-hidden=true href=#ezjailflavourexampleとは>#</a></h2>
-<p>jailホストが初めて起動する際に実行されるスクリプト。<br>
-ここに初期設定で必要なこと、たとえばユーザ・グループの追加やら、パッケージの追加やら、つらつら書いておけばよい。<br>
-（中身を見ればわかるがezjail.flavour.example自体を消す処理も入っている）</p>
-<h2 id=jailホストの仕様検討>jailホストの仕様検討<a hidden class=anchor aria-hidden=true href=#jailホストの仕様検討>#</a></h2>
-<p>実際にflavousの作成に入る前に。<br>
-同じHW上で複数のサービスを行うため、jailホストを稼働させるまえに何点か考えておかないといけないことがある。<br>
-仕様検討というのは仰々しいが、あとあと効いてくるので真面目にやる。<br>
-とりあえず以下を決めておけばよいかな、と。</p>
-<ol>
-<li>ホストで動かしたいサービス</li>
-<li>Jailホストで動かしたいサービス</li>
-<li>Jailホストに追加するユーザ/グループ</li>
-<li>Jailホストで使用するソフトウェア</li>
-</ol>
-<p>一番注意すべきことは、ポートのListenである。<br>
-ホストとJailホストには別々のIPアドレスを付与するものの、サーバソフトウェアが個々のIPアドレスを意識するとは限らない。<br>
-だからして「動かしたいサービス」はJailホストだけでなく、ホストも含めて考えることが必要だし、それぞれで動かすサーバソフトウェアには、ListenするIPアドレスを明示する必要がある。</p>
-<p>以下のように設定した。</p>
-<ol>
-<li>ホストで動かしたいサービス<br>
-→sshdのみ。</li>
-<li>Jailホストで動かしたいサービス<br>
-→apache, sshd</li>
-<li>Jailホストに追加するユーザ/グループ<br>
-→vanilla:vanilla</li>
-<li>Jailホストで使用するソフトウェア<br>
-→apache22, sudo, bash, portaudit, portmaster, tmux</li>
-</ol>
-<p>このうち、最初の件を除いた残りの三つは、すべてflavoursで設定する。<br>
-ではひとつずつ。</p>
-<h2 id=ホストで動かしたいサービス>ホストで動かしたいサービス<a hidden class=anchor aria-hidden=true href=#ホストで動かしたいサービス>#</a></h2>
-<p>sshdだけで良いとした。<br>
-ではホストで動いているサービスはなんだろうか。sockstat -l4でリストできる。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sockstat -l4
-USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
-root sendmail 1002 3 tcp4 127.0.0.1:25 *:*
-root sshd 992 4 tcp4 *:22 *:*
-root syslogd 904 7 udp4 *:514 *:*
-</code></pre></div><p>sendmailが動いている。これは不要。<br>
-sshdは動いてても構わないが、Local Addressが*:22になっている。<br>
-これはIPアドレスを意識せず、ポート22に届いたものはすべて自分宛と認識するということ。Jailホストに来た接続もこちらに繋がってしまう。これはまずい。<br>
-syslogdも*:514で動いている。これも何らかの対応が必要。</p>
-<h2 id=ホストのサービスの調整sshd>ホストのサービスの調整（sshd）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整sshd>#</a></h2>
-<p>sshdはsshd_configで以下の行を追加し、ホストのIPアドレスでのみListenするように。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>ListenAddress ＜ホストのIPアドレス＞
-</code></pre></div><p>sshdを再起動するとsockstat -l4の表示が変わる。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo service sshd restart
-Stopping sshd.
-Starting sshd.
-$ sockstat -l4
-USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
-root sshd 1845 3 tcp4 192.168.154.128:22 *:*
-root sendmail 1002 3 tcp4 127.0.0.1:25 *:*
-root syslogd 904 7 udp4 *:514 *:*
-</code></pre></div><h2 id=ホストのサービスの調整sendmail>ホストのサービスの調整（sendmail）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整sendmail>#</a></h2>
-<p>sendmailの停止は<a href="../../../?p=1823">こちら</a>を参照。<br>
-再起動、あるいはservice sendmail stopでよい。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo service sendmail stop
-Stopping sendmail.
-Stopping sendmail_clientmqueue.
-$ sockstat -l4
-USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
-root sshd 1845 3 tcp4 192.168.154.128:22 *:*
-root syslogd 904 7 udp4 *:514 *:*
-$
-</code></pre></div><h2 id=ホストのサービスの調整syslogd>ホストのサービスの調整（syslogd）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整syslogd>#</a></h2>
-<p>syslogdは、デフォルトだと"-s"オプションで動いているはず。<br>
-&ldquo;-s"は、「リモートマシンからのログを受け取らない」というもの。<br>
-これで不自由してないのなら、"-ss"にしてポートすら開けないようにしてもいい。<br>
-&ldquo;-ss"にしないのなら、念のため&rdquo;-b"オプションでホストのIPアドレスを明示しておくとよい。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>SYSLOGD(8) FreeBSD System Manager&#39;s Manual SYSLOGD(8)
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>NAME
-syslogd -- log systems messages
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>-s Operate in secure mode. Do not log messages from remote
-machines. If specified twice, no network socket will be opened
-at all, which also disables logging to remote machines.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>-b :service
-Bind to a specific address and/or port. The address can be spec-
-ified as a hostname, and the port as a service name. If an IPv6
-address is specified, it should be enclosed with `[&#39; and `]&#39;.
-The default service is `syslog&#39;.
-</code></pre></div><p>/etc/rc.confに以下を追記する場合</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>syslogd_flags=&#34;-ss&#34;
-</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo service syslogd restart
-Stopping syslogd.
-Starting syslogd.
-$ sockstat -l4
-USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
-root sshd 992 3 tcp4 192.168.154.128:22 *:*
-$
-</code></pre></div><p>以下を追記した場合</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>syslogd_flags=&#34;-b 192.168.154.128&#34;
-</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sockstat -l4
-USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
-root syslogd 1540 6 udp4 192.168.154.128:514 *:*
-root sshd 992 3 tcp4 192.168.154.128:22 *:*
-</code></pre></div><h2 id=ホストのサービスの調整inetdconf>ホストのサービスの調整（inetd.conf）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整inetdconf>#</a></h2>
-<p>もしホストでinetd.confを動かしているのなら、-aオプションでホストのIPアドレスを与えること。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>INETD(8) FreeBSD System Manager&#39;s Manual INETD(8)
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>NAME
-inetd -- internet ``super-server&#39;&#39;
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>-a Specify one specific IP address to bind to. Alternatively, a
-hostname can be specified, in which case the IPv4 or IPv6 address
-which corresponds to that hostname is used. Usually a hostname
-is specified when inetd is run inside a jail(8), in which case
-the hostname corresponds to that of the jail(8) environment.
-</code></pre></div><p>inetdのデフォルトオプションは&rdquo;-wW -C 60″なので、以下のようにして/etc/rc.confに追加</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>inetd_flags=&#34;-wW -C 60 -a ＜ホストのIPアドレス＞&#34;
-</code></pre></div><h2 id=サンプルrcconf>サンプルrc.conf<a hidden class=anchor aria-hidden=true href=#サンプルrcconf>#</a></h2>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># kill sendmail
-sendmail_enable=&#34;NO&#34;    # Run the sendmail inbound daemon (YES/NO).
-sendmail_submit_enable=&#34;NO&#34;     # Start a localhost-only MTA for mail submission
-sendmail_outbound_enable=&#34;NO&#34;   # Dequeue stuck mail (YES/NO).
-sendmail_msp_queue_enable=&#34;NO&#34;  # Dequeue stuck clientmqueue mail (YES/NO).
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span># prohibit syslog to open a socket
-syslogd_flags=&#34;-ss&#34;
-# make syslog listen on specific ip address
-# syslogd_flags<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;-b x.x.x.x&#34;</span>
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span># make inetd listen on specific ip address
-# inetd_flags<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;-wW -C 60 -a x.x.x.x&#34;</span>
-</code></pre></div><p>意外に長くなったのでここまで。<br>
-続きは以下。</p>
-<p><a href="../../../?p=2254">ezjailのflavoursを使ってみよう その2</a></p>
-</div>
-<footer class=post-footer>
-<nav class=paginav>
-<a class=prev href=https://nobwak.github.io/posts/2013-10-10-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE2/>
-<span class=title>« Prev Page</span>
-<br>
-<span>ezjailのflavoursを使ってみよう その2</span>
-</a>
-<a class=next href=https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/>
-<span class=title>Next Page »</span>
-<br>
-<span>ezjailで作るjailの基本設定を変えよう</span>
-</a>
-</nav>
-<div class=share-buttons>
-<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on twitter" href="https://twitter.com/intent/tweet/?text=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f&hashtags="><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f&title=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1&summary=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f&title=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on whatsapp" href="https://api.whatsapp.com/send?text=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on telegram" href="https://telegram.me/share/url?text=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
-</a>
-</div>
-</footer>
-</article>
-</main>
-<footer class=footer>
-<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
-<span>
-Powered by
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>ezjailのflavoursを使ってみよう その1 | nobwak's Lair</title><meta name=keywords content><meta name=description content="[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親"><meta name=author content="nobwak"><link rel=canonical href=https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style><link rel=preload href=/apple-touch-icon.png as=image><script defer crossorigin=anonymous src=/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><meta name=generator content="Hugo 0.96.0"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="ezjailのflavoursを使ってみよう その1"><meta property="og:description" content="[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親"><meta property="og:type" content="article"><meta property="og:url" content="https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2013-10-08T22:43:13+09:00"><meta property="article:modified_time" content="2013-10-08T22:43:13+09:00"><meta property="og:site_name" content="nobwak's Lair"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="ezjailのflavoursを使ってみよう その1"><meta name=twitter:description content="[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"ezjailのflavoursを使ってみよう その1","item":"https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ezjailのflavoursを使ってみよう その1","name":"ezjailのflavoursを使ってみよう その1","description":"[FreeBSD] ezjailを試そう ezjailで作るjailの基本設定を変えよう からの続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親","keywords":[],"articleBody":"[FreeBSD] ezjailを試そう\nezjailで作るjailの基本設定を変えよう\nからの続き\n以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。\n「Jailホスト」はjail環境で動くホストを表す。子。\nezjailのflavoursとは。 新しいJailは、真っ新（まっさら）のFreeBSDで作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。\nflavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。\nたとえば、rc.conf, make.conf, periodic.confやsudoersなどである。\n以下より意訳。\nhttp://erdgeist.org/arts/software/ezjail/#Flavours\n「flavours」の場所 特に指定をしなければ、ezjail-admin installで/usr/jails/flavoursに格納される。\n初期状態では、サンプルとして/usr/jails/flavours/exampleが用意されている。\nこれを参考に自分用のflavoursを作ればよい。\n「flavours」の中身 exampleの中をのぞくと、/usr/jails/flavours/exampleを起点に、以下のファイルがある。\n./usr/local/etc/sudoers ./etc/make.conf ./etc/periodic.conf ./etc/rc.conf ./etc/rc.d/ezjail.flavour.example ./etcや./usr/local/etcに必要なファイルを入れておけばよいというわけ。\nところでezjail.flavour.exampleだけは特殊。\n「ezjail.flavour.example」とは jailホストが初めて起動する際に実行されるスクリプト。\nここに初期設定で必要なこと、たとえばユーザ・グループの追加やら、パッケージの追加やら、つらつら書いておけばよい。\n（中身を見ればわかるがezjail.flavour.example自体を消す処理も入っている）\njailホストの仕様検討 実際にflavousの作成に入る前に。\n同じHW上で複数のサービスを行うため、jailホストを稼働させるまえに何点か考えておかないといけないことがある。\n仕様検討というのは仰々しいが、あとあと効いてくるので真面目にやる。\nとりあえず以下を決めておけばよいかな、と。\n ホストで動かしたいサービス Jailホストで動かしたいサービス Jailホストに追加するユーザ/グループ Jailホストで使用するソフトウェア  一番注意すべきことは、ポートのListenである。\nホストとJailホストには別々のIPアドレスを付与するものの、サーバソフトウェアが個々のIPアドレスを意識するとは限らない。\nだからして「動かしたいサービス」はJailホストだけでなく、ホストも含めて考えることが必要だし、それぞれで動かすサーバソフトウェアには、ListenするIPアドレスを明示する必要がある。\n以下のように設定した。\n ホストで動かしたいサービス\n→sshdのみ。 Jailホストで動かしたいサービス\n→apache, sshd Jailホストに追加するユーザ/グループ\n→vanilla:vanilla Jailホストで使用するソフトウェア\n→apache22, sudo, bash, portaudit, portmaster, tmux  このうち、最初の件を除いた残りの三つは、すべてflavoursで設定する。\nではひとつずつ。\nホストで動かしたいサービス sshdだけで良いとした。\nではホストで動いているサービスはなんだろうか。sockstat -l4でリストできる。\n$ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sendmail 1002 3 tcp4 127.0.0.1:25 *:* root sshd 992 4 tcp4 *:22 *:* root syslogd 904 7 udp4 *:514 *:* sendmailが動いている。これは不要。\nsshdは動いてても構わないが、Local Addressが*:22になっている。\nこれはIPアドレスを意識せず、ポート22に届いたものはすべて自分宛と認識するということ。Jailホストに来た接続もこちらに繋がってしまう。これはまずい。\nsyslogdも*:514で動いている。これも何らかの対応が必要。\nホストのサービスの調整（sshd） sshdはsshd_configで以下の行を追加し、ホストのIPアドレスでのみListenするように。\nListenAddress ＜ホストのIPアドレス＞ sshdを再起動するとsockstat -l4の表示が変わる。\n$ sudo service sshd restart Stopping sshd. Starting sshd. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 1845 3 tcp4 192.168.154.128:22 *:* root sendmail 1002 3 tcp4 127.0.0.1:25 *:* root syslogd 904 7 udp4 *:514 *:* ホストのサービスの調整（sendmail） sendmailの停止はこちらを参照。\n再起動、あるいはservice sendmail stopでよい。\n$ sudo service sendmail stop Stopping sendmail. Stopping sendmail_clientmqueue. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 1845 3 tcp4 192.168.154.128:22 *:* root syslogd 904 7 udp4 *:514 *:* $ ホストのサービスの調整（syslogd） syslogdは、デフォルトだと\"-s\"オプションで動いているはず。\n“-s\"は、「リモートマシンからのログを受け取らない」というもの。\nこれで不自由してないのなら、\"-ss\"にしてポートすら開けないようにしてもいい。\n“-ss\"にしないのなら、念のため”-b\"オプションでホストのIPアドレスを明示しておくとよい。\nSYSLOGD(8) FreeBSD System Manager's Manual SYSLOGD(8) NAME syslogd -- log systems messages -s Operate in secure mode. Do not log messages from remote machines. If specified twice, no network socket will be opened at all, which also disables logging to remote machines. -b :service Bind to a specific address and/or port. The address can be spec- ified as a hostname, and the port as a service name. If an IPv6 address is specified, it should be enclosed with `[' and `]'. The default service is `syslog'. /etc/rc.confに以下を追記する場合\nsyslogd_flags=\"-ss\" $ sudo service syslogd restart Stopping syslogd. Starting syslogd. $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root sshd 992 3 tcp4 192.168.154.128:22 *:* $ 以下を追記した場合\nsyslogd_flags=\"-b 192.168.154.128\" $ sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS root syslogd 1540 6 udp4 192.168.154.128:514 *:* root sshd 992 3 tcp4 192.168.154.128:22 *:* ホストのサービスの調整（inetd.conf） もしホストでinetd.confを動かしているのなら、-aオプションでホストのIPアドレスを与えること。\nINETD(8) FreeBSD System Manager's Manual INETD(8) NAME inetd -- internet ``super-server'' -a Specify one specific IP address to bind to. Alternatively, a hostname can be specified, in which case the IPv4 or IPv6 address which corresponds to that hostname is used. Usually a hostname is specified when inetd is run inside a jail(8), in which case the hostname corresponds to that of the jail(8) environment. inetdのデフォルトオプションは”-wW -C 60″なので、以下のようにして/etc/rc.confに追加\ninetd_flags=\"-wW -C 60 -a ＜ホストのIPアドレス＞\" サンプルrc.conf # kill sendmail sendmail_enable=\"NO\" # Run the sendmail inbound daemon (YES/NO). sendmail_submit_enable=\"NO\" # Start a localhost-only MTA for mail submission sendmail_outbound_enable=\"NO\" # Dequeue stuck mail (YES/NO). sendmail_msp_queue_enable=\"NO\" # Dequeue stuck clientmqueue mail (YES/NO). # prohibit syslog to open a socket syslogd_flags=\"-ss\" # make syslog listen on specific ip address # syslogd_flags=\"-b x.x.x.x\" # make inetd listen on specific ip address # inetd_flags=\"-wW -C 60 -a x.x.x.x\" 意外に長くなったのでここまで。\n続きは以下。\nezjailのflavoursを使ってみよう その2\n","wordCount":"2598","inLanguage":"en","datePublished":"2013-10-08T22:43:13+09:00","dateModified":"2013-10-08T22:43:13+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2013-10-08-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE1/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)"><img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></span></div><ul id=menu><li><a href=https://nobwak.github.io/posts/ title=posts><span>posts</span></a></li><li><a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/><span>search</span></a></li><li><a href=https://nobwak.github.io/categories/ title=categories><span>categories</span></a></li><li><a href=https://nobwak.github.io/tags/ title=tags><span>tags</span></a></li><li><a href=https://nobwak.github.io title="nobwak lair"><span>nobwak lair</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div><h1 class=post-title>ezjailのflavoursを使ってみよう その1</h1><div class=post-meta><span title="2013-10-08 22:43:13 +0900 JST">October 8, 2013</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2013-10-08-ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86_%e3%81%9d%e3%81%ae1.md rel="noopener noreferrer" target=_blank>Suggest Changes</a></div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#ezjail%e3%81%aeflavours%e3%81%a8%e3%81%af aria-label=ezjailのflavoursとは。>ezjailのflavoursとは。</a></li><li><a href=#flavours%e3%81%ae%e5%a0%b4%e6%89%80 aria-label=「flavours」の場所>「flavours」の場所</a></li><li><a href=#flavours%e3%81%ae%e4%b8%ad%e8%ba%ab aria-label=「flavours」の中身>「flavours」の中身</a></li><li><a href=#ezjailflavourexample%e3%81%a8%e3%81%af aria-label=「ezjail.flavour.example」とは>「ezjail.flavour.example」とは</a></li><li><a href=#jail%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e4%bb%95%e6%a7%98%e6%a4%9c%e8%a8%8e aria-label=jailホストの仕様検討>jailホストの仕様検討</a></li><li><a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%a7%e5%8b%95%e3%81%8b%e3%81%97%e3%81%9f%e3%81%84%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9 aria-label=ホストで動かしたいサービス>ホストで動かしたいサービス</a></li><li><a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4sshd aria-label=ホストのサービスの調整（sshd）>ホストのサービスの調整（sshd）</a></li><li><a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4sendmail aria-label=ホストのサービスの調整（sendmail）>ホストのサービスの調整（sendmail）</a></li><li><a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4syslogd aria-label=ホストのサービスの調整（syslogd）>ホストのサービスの調整（syslogd）</a></li><li><a href=#%e3%83%9b%e3%82%b9%e3%83%88%e3%81%ae%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ae%e8%aa%bf%e6%95%b4inetdconf aria-label=ホストのサービスの調整（inetd.conf）>ホストのサービスの調整（inetd.conf）</a></li><li><a href=#%e3%82%b5%e3%83%b3%e3%83%97%e3%83%abrcconf aria-label=サンプルrc.conf>サンプルrc.conf</a></li></ul></div></details></div><div class=post-content><p><a href="../../../?p=2229">[FreeBSD] ezjailを試そう</a><br><a href="../../../?p=2248">ezjailで作るjailの基本設定を変えよう</a><br>からの続き</p><p>以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。<br>「Jailホスト」はjail環境で動くホストを表す。子。</p><h2 id=ezjailのflavoursとは>ezjailのflavoursとは。<a hidden class=anchor aria-hidden=true href=#ezjailのflavoursとは>#</a></h2><p>新しいJailは、真っ新（まっさら）のFreeBSDで作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。<br>flavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。<br>たとえば、rc.conf, make.conf, periodic.confやsudoersなどである。</p><p>以下より意訳。<br><a href=http://erdgeist.org/arts/software/ezjail/#Flavours>http://erdgeist.org/arts/software/ezjail/#Flavours</a></p><h2 id=flavoursの場所>「flavours」の場所<a hidden class=anchor aria-hidden=true href=#flavoursの場所>#</a></h2><p>特に指定をしなければ、ezjail-admin installで/usr/jails/flavoursに格納される。<br>初期状態では、サンプルとして/usr/jails/flavours/exampleが用意されている。<br>これを参考に自分用のflavoursを作ればよい。</p><h2 id=flavoursの中身>「flavours」の中身<a hidden class=anchor aria-hidden=true href=#flavoursの中身>#</a></h2><p>exampleの中をのぞくと、/usr/jails/flavours/exampleを起点に、以下のファイルがある。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>./usr/local/etc/sudoers
+</span></span><span style=display:flex><span>./etc/make.conf
+</span></span><span style=display:flex><span>./etc/periodic.conf
+</span></span><span style=display:flex><span>./etc/rc.conf
+</span></span><span style=display:flex><span>./etc/rc.d/ezjail.flavour.example
+</span></span></code></pre></div><p>./etcや./usr/local/etcに必要なファイルを入れておけばよいというわけ。<br>ところでezjail.flavour.exampleだけは特殊。</p><h2 id=ezjailflavourexampleとは>「ezjail.flavour.example」とは<a hidden class=anchor aria-hidden=true href=#ezjailflavourexampleとは>#</a></h2><p>jailホストが初めて起動する際に実行されるスクリプト。<br>ここに初期設定で必要なこと、たとえばユーザ・グループの追加やら、パッケージの追加やら、つらつら書いておけばよい。<br>（中身を見ればわかるがezjail.flavour.example自体を消す処理も入っている）</p><h2 id=jailホストの仕様検討>jailホストの仕様検討<a hidden class=anchor aria-hidden=true href=#jailホストの仕様検討>#</a></h2><p>実際にflavousの作成に入る前に。<br>同じHW上で複数のサービスを行うため、jailホストを稼働させるまえに何点か考えておかないといけないことがある。<br>仕様検討というのは仰々しいが、あとあと効いてくるので真面目にやる。<br>とりあえず以下を決めておけばよいかな、と。</p><ol><li>ホストで動かしたいサービス</li><li>Jailホストで動かしたいサービス</li><li>Jailホストに追加するユーザ/グループ</li><li>Jailホストで使用するソフトウェア</li></ol><p>一番注意すべきことは、ポートのListenである。<br>ホストとJailホストには別々のIPアドレスを付与するものの、サーバソフトウェアが個々のIPアドレスを意識するとは限らない。<br>だからして「動かしたいサービス」はJailホストだけでなく、ホストも含めて考えることが必要だし、それぞれで動かすサーバソフトウェアには、ListenするIPアドレスを明示する必要がある。</p><p>以下のように設定した。</p><ol><li>ホストで動かしたいサービス<br>→sshdのみ。</li><li>Jailホストで動かしたいサービス<br>→apache, sshd</li><li>Jailホストに追加するユーザ/グループ<br>→vanilla:vanilla</li><li>Jailホストで使用するソフトウェア<br>→apache22, sudo, bash, portaudit, portmaster, tmux</li></ol><p>このうち、最初の件を除いた残りの三つは、すべてflavoursで設定する。<br>ではひとつずつ。</p><h2 id=ホストで動かしたいサービス>ホストで動かしたいサービス<a hidden class=anchor aria-hidden=true href=#ホストで動かしたいサービス>#</a></h2><p>sshdだけで良いとした。<br>ではホストで動いているサービスはなんだろうか。sockstat -l4でリストできる。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sockstat -l4
+</span></span><span style=display:flex><span>USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+</span></span><span style=display:flex><span>root sendmail 1002 3 tcp4 127.0.0.1:25 *:*
+</span></span><span style=display:flex><span>root sshd 992 4 tcp4 *:22 *:*
+</span></span><span style=display:flex><span>root syslogd 904 7 udp4 *:514 *:*
+</span></span></code></pre></div><p>sendmailが動いている。これは不要。<br>sshdは動いてても構わないが、Local Addressが*:22になっている。<br>これはIPアドレスを意識せず、ポート22に届いたものはすべて自分宛と認識するということ。Jailホストに来た接続もこちらに繋がってしまう。これはまずい。<br>syslogdも*:514で動いている。これも何らかの対応が必要。</p><h2 id=ホストのサービスの調整sshd>ホストのサービスの調整（sshd）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整sshd>#</a></h2><p>sshdはsshd_configで以下の行を追加し、ホストのIPアドレスでのみListenするように。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>ListenAddress ＜ホストのIPアドレス＞
+</span></span></code></pre></div><p>sshdを再起動するとsockstat -l4の表示が変わる。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo service sshd restart
+</span></span><span style=display:flex><span>Stopping sshd.
+</span></span><span style=display:flex><span>Starting sshd.
+</span></span><span style=display:flex><span>$ sockstat -l4
+</span></span><span style=display:flex><span>USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+</span></span><span style=display:flex><span>root sshd 1845 3 tcp4 192.168.154.128:22 *:*
+</span></span><span style=display:flex><span>root sendmail 1002 3 tcp4 127.0.0.1:25 *:*
+</span></span><span style=display:flex><span>root syslogd 904 7 udp4 *:514 *:*
+</span></span></code></pre></div><h2 id=ホストのサービスの調整sendmail>ホストのサービスの調整（sendmail）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整sendmail>#</a></h2><p>sendmailの停止は<a href="../../../?p=1823">こちら</a>を参照。<br>再起動、あるいはservice sendmail stopでよい。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo service sendmail stop
+</span></span><span style=display:flex><span>Stopping sendmail.
+</span></span><span style=display:flex><span>Stopping sendmail_clientmqueue.
+</span></span><span style=display:flex><span>$ sockstat -l4
+</span></span><span style=display:flex><span>USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+</span></span><span style=display:flex><span>root sshd 1845 3 tcp4 192.168.154.128:22 *:*
+</span></span><span style=display:flex><span>root syslogd 904 7 udp4 *:514 *:*
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div><h2 id=ホストのサービスの調整syslogd>ホストのサービスの調整（syslogd）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整syslogd>#</a></h2><p>syslogdは、デフォルトだと"-s"オプションで動いているはず。<br>&ldquo;-s"は、「リモートマシンからのログを受け取らない」というもの。<br>これで不自由してないのなら、"-ss"にしてポートすら開けないようにしてもいい。<br>&ldquo;-ss"にしないのなら、念のため&rdquo;-b"オプションでホストのIPアドレスを明示しておくとよい。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>SYSLOGD(8) FreeBSD System Manager&#39;s Manual SYSLOGD(8)
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>NAME
+</span></span><span style=display:flex><span>syslogd -- log systems messages
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>-s Operate in secure mode. Do not log messages from remote
+</span></span><span style=display:flex><span>machines. If specified twice, no network socket will be opened
+</span></span><span style=display:flex><span>at all, which also disables logging to remote machines.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>-b :service
+</span></span><span style=display:flex><span>Bind to a specific address and/or port. The address can be spec-
+</span></span><span style=display:flex><span>ified as a hostname, and the port as a service name. If an IPv6
+</span></span><span style=display:flex><span>address is specified, it should be enclosed with `[&#39; and `]&#39;.
+</span></span><span style=display:flex><span>The default service is `syslog&#39;.
+</span></span></code></pre></div><p>/etc/rc.confに以下を追記する場合</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>syslogd_flags=&#34;-ss&#34;
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo service syslogd restart
+</span></span><span style=display:flex><span>Stopping syslogd.
+</span></span><span style=display:flex><span>Starting syslogd.
+</span></span><span style=display:flex><span>$ sockstat -l4
+</span></span><span style=display:flex><span>USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+</span></span><span style=display:flex><span>root sshd 992 3 tcp4 192.168.154.128:22 *:*
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div><p>以下を追記した場合</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>syslogd_flags=&#34;-b 192.168.154.128&#34;
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sockstat -l4
+</span></span><span style=display:flex><span>USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+</span></span><span style=display:flex><span>root syslogd 1540 6 udp4 192.168.154.128:514 *:*
+</span></span><span style=display:flex><span>root sshd 992 3 tcp4 192.168.154.128:22 *:*
+</span></span></code></pre></div><h2 id=ホストのサービスの調整inetdconf>ホストのサービスの調整（inetd.conf）<a hidden class=anchor aria-hidden=true href=#ホストのサービスの調整inetdconf>#</a></h2><p>もしホストでinetd.confを動かしているのなら、-aオプションでホストのIPアドレスを与えること。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>INETD(8) FreeBSD System Manager&#39;s Manual INETD(8)
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>NAME
+</span></span><span style=display:flex><span>inetd -- internet ``super-server&#39;&#39;
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>-a Specify one specific IP address to bind to. Alternatively, a
+</span></span><span style=display:flex><span>hostname can be specified, in which case the IPv4 or IPv6 address
+</span></span><span style=display:flex><span>which corresponds to that hostname is used. Usually a hostname
+</span></span><span style=display:flex><span>is specified when inetd is run inside a jail(8), in which case
+</span></span><span style=display:flex><span>the hostname corresponds to that of the jail(8) environment.
+</span></span></code></pre></div><p>inetdのデフォルトオプションは&rdquo;-wW -C 60″なので、以下のようにして/etc/rc.confに追加</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>inetd_flags=&#34;-wW -C 60 -a ＜ホストのIPアドレス＞&#34;
+</span></span></code></pre></div><h2 id=サンプルrcconf>サンプルrc.conf<a hidden class=anchor aria-hidden=true href=#サンプルrcconf>#</a></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># kill sendmail
+</span></span><span style=display:flex><span>sendmail_enable=&#34;NO&#34;    # Run the sendmail inbound daemon (YES/NO).
+</span></span><span style=display:flex><span>sendmail_submit_enable=&#34;NO&#34;     # Start a localhost-only MTA for mail submission
+</span></span><span style=display:flex><span>sendmail_outbound_enable=&#34;NO&#34;   # Dequeue stuck mail (YES/NO).
+</span></span><span style=display:flex><span>sendmail_msp_queue_enable=&#34;NO&#34;  # Dequeue stuck clientmqueue mail (YES/NO).
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span># prohibit syslog to open a socket
+</span></span><span style=display:flex><span>syslogd_flags=&#34;-ss&#34;
+</span></span><span style=display:flex><span># make syslog listen on specific ip address
+</span></span><span style=display:flex><span># syslogd_flags<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;-b x.x.x.x&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span># make inetd listen on specific ip address
+</span></span><span style=display:flex><span># inetd_flags<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;-wW -C 60 -a x.x.x.x&#34;</span>
+</span></span></code></pre></div><p>意外に長くなったのでここまで。<br>続きは以下。</p><p><a href="../../../?p=2254">ezjailのflavoursを使ってみよう その2</a></p></div><footer class=post-footer><nav class=paginav><a class=prev href=https://nobwak.github.io/posts/2013-10-10-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE2/><span class=title>« Prev Page</span><br><span>ezjailのflavoursを使ってみよう その2</span></a>
+<a class=next href=https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/><span class=title>Next Page »</span><br><span>ezjailで作るjailの基本設定を変えよう</span></a></nav><div class=share-buttons><a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on twitter" href="https://twitter.com/intent/tweet/?text=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f&hashtags="><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f&title=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1&summary=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f&title=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on whatsapp" href="https://api.whatsapp.com/send?text=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ezjailのflavoursを使ってみよう その1 on telegram" href="https://telegram.me/share/url?text=ezjail%e3%81%aeflavours%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%81%bf%e3%82%88%e3%81%86%20%e3%81%9d%e3%81%ae1&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2013-10-08-ezjail%25E3%2581%25AEflavours%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2582%2588%25E3%2581%2586_%25E3%2581%259D%25E3%2581%25AE1%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a></div></footer></article></main><footer class=footer><span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
-</span>
-</footer>
-<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
-</a>
-<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
-<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
-<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
-</body>
-</html>
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(t){t.preventDefault();var e=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView({behavior:"smooth"}),e==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${e}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>

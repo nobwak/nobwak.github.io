@@ -1,153 +1,6 @@
-<!doctype html><html lang=en dir=auto>
-<head><meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
-<meta name=robots content="index, follow">
-<title>2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） | nobwak's Lair</title>
-<meta name=keywords content="Security,FreeBSD,age">
-<meta name=description content="はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな">
-<meta name=author content="Me">
-<link rel=canonical href=https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/>
-<meta name=google-site-verification content="XYZabc">
-<meta name=yandex-verification content="XYZabc">
-<meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
-<link rel=preload href=/apple-touch-icon.png as=image>
-<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<meta name=theme-color content="#2e2e33">
-<meta name=msapplication-TileColor content="#2e2e33">
-<meta name=generator content="Hugo 0.91.2">
-<noscript>
-<style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）">
-<meta property="og:description" content="はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2020-03-07T11:36:54+09:00">
-<meta property="article:modified_time" content="2020-03-07T11:36:54+09:00"><meta property="og:site_name" content="nobwak's Lair">
-<meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
-<meta name=twitter:title content="2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）">
-<meta name=twitter:description content="はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）","item":"https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）","name":"2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）","description":"はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな","keywords":["Security","FreeBSD","age"],"articleBody":"はじめに : PGPはオワコン ファイルをどう暗号化するか。\nそもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。\n内容を覗かれないようにする目的を考えてみると、データが盗まれたときのため、安全でない経路を通して特定の人にデータを渡すため、である。\nこのうち、後者の「安全なデータ授受」についてだが、今時いろんな方法はあるものの、そもそも仕事場がモダンな通信手段を許可しておらず、メールだけ、あるいは会社製のファイル授受糞システムくらいしかない。\n仕方なくパスワード付きzipをメールで送ることになるんだけど、これはいわば共通鍵方式でありリスクはある。\n「パスワードは後のメールで送ります」なんてね。\nほんとに秘密のファイルを送るなら、公開鍵暗号を使いたい。\nそうすると候補に挙がるのはPGPであるが、PGPは2020年時点でかれこれ30歳(1991年生まれ)でいろいろと古く、セキュリティ強度に不安があるうえに、使い方の理解が非常に難しく、そもそも鍵が長すぎるんだよ。\n試しに「まあ安全」と言われるレベルの2048bitのPGP鍵を作ったらこんな感じである。\n本来なら（略）とかするが、この場合PGP鍵の長さを示すのが目的なのでそのまま示す。\nぜひマウスホイールを狂ったようにカリカリしてスクロールしてほしい。\nクレイジーである。\n-----BEGIN PGP PUBLIC KEY BLOCK----- Version: Keybase OpenPGP v1.0.0 Comment: https://keybase.io/crypto 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 6ceBrKxYJQvD =DVAW -----END PGP PUBLIC KEY BLOCK----- こんなもん日常使いできるか。\n世の中の皆さんもそう思っているようで、PGPのオワコンについてはPGP(Wikipedia)英語に怒涛の記載がある。\nWe’re calling it: PGP is dead (WIRED)は文字通りの記事。\nPGPは捨ててage（アゲ）を使う。（他に道がないならば） そんなわけでageである。\nageとは、「簡易でモダンで安全な暗号化ツール」だそうである。(https://github.com/FiloSottile/age)\nActually Good Encryptionの略。\n読み方は「アゲ」。エイジではない。\nPGPに比べれば、鍵は短いし、パイプで繋げられるし、簡単だしで確かにいい。\n特に鍵の短さは特筆すべきものがある。\nPGP鍵は話にならないが、sshの鍵と比べても短い。\nsshの鍵は以下の通り。\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkldIB4qJ2iLN7OChd4DnTNlyYdbnYFVQh+nAC5EscgyQJ9cYjXXk+iKz0Ot7fb5+UYZsKzGwe6bri15ts+gl1rX7AlE1QORxUZUAM5bx4VXK3MDKIz6WHpjCRsYHD6gFiw0MTTQCPfrznLMFryfM6njhEqtetCUCJeCOrJtUPYJGKw4GJ7l3hlBfPxgwViVaGT55X3FcuwaAHPR54lS/MahMfF7FuhZDxrJj+azaISNup8w19QedWm7O26f0IyxzR6MJG+5KWxSn8DtI5a3RJ5s0CCEAgZiXmZG3Rlegbq7Vgmd9cjiM5mPjUrC0voJq4UOSydi92OGpAvIVpD7UL 一方、ageの鍵は以下の通りで、短いねえ。\nage1rvvg4xt2f9rvkc0dthy5au7kg42jec355ayd24lmath0euzetsfs8czjff ageはWindows, Mac, Linux, FreeBSDで使える。\nただ、現時点では単なるコマンドなんで、一般人とのファイル授受にはまだ使えないねえ。\nでは以下、インストールと使い方\nインストール githubの通り。\nWindows, Mac, Linux向けにはバイナリもある。\nFreeBSDならpkg install security/ageで。\nFreeBSDでのageインストール（不要な人は飛ばせ） とはいってもpkgでインストールするだけ。\n取得サイズは1MiB。けっこう大きいね。\n$ sudo pkg install security/age パスワード: Updating FreeBSD repository catalogue... FreeBSD repository is up to date. All repositories are up to date. The following 1 package(s) will be affected (of 0 checked): New packages to be INSTALLED: age: 1.0.0 Number of packages to be installed: 1 The process will require 6 MiB more space. 1 MiB to be downloaded. Proceed with this action? [y/N]: y [1/1] Fetching age-1.0.0.txz: 100% 1 MiB 1.3MB/s 00:01 Checking integrity... done (0 conflicting) [1/1] Installing age-1.0.0... [1/1] Extracting age-1.0.0: 100% $ $ pkg info age # infoは以下の通り。 age-1.0.0 Name : age Version : 1.0.0 Installed on : Sat Mar 7 10:37:01 2020 JST Origin : security/age Architecture : FreeBSD:12:amd64 Prefix : /usr/local Categories : security Licenses : BSD3CLAUSE Maintainer : dmgk@FreeBSD.org WWW : https://github.com/FiloSottile/age Comment : Simple, modern and secure file encryption tool Annotations : FreeBSD_version: 1200086 repo_type : binary repository : FreeBSD Flat size : 5.87MiB Description : age is a simple, modern and secure encryption tool with small explicit keys, no config options, and UNIX-style composability. WWW: https://github.com/FiloSottile/age $ pkg list age # インストールされたファイル一覧。manは無い。 /usr/local/bin/age /usr/local/bin/age-keygen /usr/local/share/licenses/age-1.0.0/BSD3CLAUSE /usr/local/share/licenses/age-1.0.0/LICENSE /usr/local/share/licenses/age-1.0.0/catalog.mk $ 使い方(まずは-hを確認) 実行ファイルはageとage-keygenである。\n文字通りage-keygenは鍵を作る。\nageが実際の暗号化、復号を受け持つ。\n前節で少し書いたけど、manはないので-hを付けて使い方を表示させること。\n以下が実行結果であるが、-hを与えたときのage-keygenの素っ気なさとageの熱量の差を感じていただきたい。\n$ age-keygen --help # -hでも--helpでも同じ。 Usage of age-keygen: -o FILE output to FILE (default stdout) $ $ age --help Usage: age -r RECIPIENT [-a] [-o OUTPUT] [INPUT] age --decrypt [-i KEY] [-o OUTPUT] [INPUT] Options: -o OUTPUT Write the result to the file at path OUTPUT. -a, --armor Encrypt to a PEM encoded format. -p, --passphrase Encrypt with a passphrase. -r, --recipient RECIPIENT Encrypt to the specified RECIPIENT. Can be repeated. -d, --decrypt Decrypt the input to the output. -i, --identity KEY Use the private key file at path KEY. Can be repeated. INPUT defaults to standard input, and OUTPUT defaults to standard output. RECIPIENT can be an age public key, as generated by age-keygen, (\"age1...\") or an SSH public key (\"ssh-ed25519 AAAA...\", \"ssh-rsa AAAA...\"). KEY is a path to a file with age secret keys, one per line (ignoring \"#\" prefixed comments and empty lines), or to an SSH key file. Multiple keys can be provided, and any unused ones will be ignored. Example: $ age-keygen -o key.txt Public key: age1ql3z7hjy54pw3hyww5ayyfgxzqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p $ tar cvz ~/data | age -r age1ql3z7hjy54pw3hyww5ayffg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p  data.tar.gz.age $ age -d -i key.txt -o data.tar.gz data.tar.gz.age $ ご覧の通り、age-keygenで鍵を作り、その鍵を使ってageで暗号化・復号するのが基本だが、ageは単なるコマンドなんで、パイプで繋げられるのがポイント。\n実行例 鍵を作る 鍵を作るのはage-keygen。\nなお、ageでは、ssh鍵も使えるが、それは後ほど。\nともかく、-oに続いて書き出すファイルを指定すれば鍵が書き込まれる。\n$ age-keygen -o ~/.config/age/keys.txt Public key: age1rvvg4xtywl4ceeaqj5auhkg4qjec315ayd24lmath0euzetsfs8czjff $ 鍵を作ると問答無用で公開鍵を表示してくれる。\n公開鍵は暗号化するときに使う鍵ですな。\n復号するときに使う秘密鍵については、鍵を書き込んだファイルを表示してみると;\n$ cat ~/.config/age/keys.txt # created: 2020-03-07T10:49:42+09:00 # public key: age1rvvg4xtywl0cxeaqj5auhkg4qjec355ayd24lmath0euzetsfs8czjff AGE-SECRET-KEY-1G9NKY3MA92270K8FWXXXXQQ7ZHPLS3VDTASUGQ9AWG6AD8ZT4SLUM3PM $ ご覧の通りAGE-SECRET-KEYから続くものが秘密鍵ですな。\nなお、鍵の書き込まれたファイルのパーミッションは600で、他人からは見られないようになっている。\n秘密鍵だからね。このファイルの管理は厳重に。言わずもがな。\n暗号化 基本的な使い方はcatやらしたファイルをパイプで繋ぐ。\n以下の例ではplane.txtの内容をageに渡す。\n-rで公開鍵を指定。\nそのままだと標準出力に暗号化データが吐き出されるので、-oで出力先ファイルを指定。\n以下の例だとplane.ageに。\n$ cat ./plane.txt ほげほげ $ file ./plane.txt ./plane.txt: UTF-8 Unicode text # UTF-8のプレインテキスト $ $ cat ./plane.txt |age -o plane.age -r age1rvvg4xtywl0ceeaqj5auhkg4qjec355ayd24lmrth0euzetsfs8czjff $ file ./plane.age ./plane.age: data # 出来上がりはバイナリデータの模様 $ $ du -h ./plane* # やっぱりサイズは増えるよね 4.5K ./plane.age 512B ./plane.txt 復号 復号する場合には、--decryptあるいは-dをオプションに与える。\n鍵は--identityあるいは-iで指定する。\n結果は標準出力に吐き出されるので、必要に応じてファイルにリダイレクトする。\n$ age -i ~/.config/age/keys.txt --decrypt ./plane.age ほげほげ $ $ age -i ~/.config/age/keys.txt --decrypt ./plane.age  plane.decrypt.txt $ cat plane.decrypt.txt ほげほげ $ 暗号化のバリエーション 公開鍵入力のテクニック いかなageといえど、いちいち公開鍵をコピペするの面倒なので、以下のようにする。\n$ cat ./rcpt.txt age12d2x0gquwpuywl0ceeaqjsXXXXXxvp9j8ae6l04xfh5d85n44qaj8e4r $ cat ./plane.txt |age -r `cat rcpt.txt` -o plane.age 複数の宛先へ 暗号化のとき、公開鍵は複数、設定することができる。\nこの場合、いずれの秘密鍵でも復号できる。\n以下の例では、できたファイルはage1AAA, age1BBBの秘密鍵の持ち主それぞれで復号できる\n$ cat ./plane.txt |age -r age1AAA.... -r age1BBB... -o plane.age $ tarなどのアーカイバと組み合わせる ディレクトリをtar, gzで固めたものを暗号化\nzfsのスナップショットと組み合わせるのもいいね。\n$ ls -R ./dir a.txt b.txt tar cvzf - ./dir |age -r age12d.... -o dir.tgz.age a ./dir a ./dir/a.txt a ./dir/b.txt $ sshの鍵 sshの公開鍵も使える。\n$ cat plane.txt ほげほげ $ cat ~/.ssh/id_rsa.pub # ssh公開鍵 ssh-rsa AAAA（略） $ cat plane.txt|age -o plane.age -r \"`cat ~/.ssh/id_rsa.pub`\" # ダブルクオーテーションで括らないといけないことに注意 $ $ age -d -i ~/.ssh/id_rsa ./plane.age Enter passphrase for \"/home/nobwak/.ssh/id_rsa\": # ssh鍵のパスフレーズ入力 ほげほげ $ パスフレーズ -pを与えるとパスフレーズが使える。\n$ cat plane.txt ほげほげ $ age -p ./plane.txt  plane.age Enter passphrase: # パスフレーズを入れる $ $ age -d ./plane.age # 復号のときは-dオプション不要 Enter passphrase: ほげほげ $ ","wordCount":"2955","inLanguage":"en","datePublished":"2020-03-07T11:36:54+09:00","dateModified":"2020-03-07T11:36:54+09:00","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
-</head>
-<body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
-<header class=header>
-<nav class=nav>
-<div class=logo>
-<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
-<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-</button>
-</span>
-</div>
-<ul id=menu>
-<li>
-<a href=https://nobwak.github.io/posts/ title=posts>
-<span>posts</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
-<span>search</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/categories/ title=categories>
-<span>categories</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/tags/ title=tags>
-<span>tags</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io title="nobwak lair">
-<span>nobwak lair</span>
-</a>
-</li>
-</ul>
-</nav>
-</header>
-<main class=main>
-<article class=post-single>
-<header class=post-header>
-<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
-<h1 class=post-title>
-2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）
-</h1>
-<div class=post-meta><span title="2020-03-07 11:36:54 +0900 JST">March 7, 2020</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
-</div>
-</header> <div class=toc>
-<details open>
-<summary accesskey=c title="(Alt + C)">
-<span class=details>Table of Contents</span>
-</summary>
-<div class=inner><ul>
-<li>
-<a href=#%e3%81%af%e3%81%98%e3%82%81%e3%81%ab--pgp%e3%81%af%e3%82%aa%e3%83%af%e3%82%b3%e3%83%b3 aria-label="はじめに : PGPはオワコン">はじめに : PGPはオワコン</a></li>
-<li>
-<a href=#pgp%e3%81%af%e6%8d%a8%e3%81%a6%e3%81%a6age%e3%82%a2%e3%82%b2%e3%82%92%e4%bd%bf%e3%81%86%e4%bb%96%e3%81%ab%e9%81%93%e3%81%8c%e3%81%aa%e3%81%84%e3%81%aa%e3%82%89%e3%81%b0 aria-label=PGPは捨ててage（アゲ）を使う。（他に道がないならば）>PGPは捨ててage（アゲ）を使う。（他に道がないならば）</a></li>
-<li>
-<a href=#%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=インストール>インストール</a></li>
-<li>
-<a href=#freebsd%e3%81%a7%e3%81%aeage%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e4%b8%8d%e8%a6%81%e3%81%aa%e4%ba%ba%e3%81%af%e9%a3%9b%e3%81%b0%e3%81%9b aria-label=FreeBSDでのageインストール（不要な人は飛ばせ）>FreeBSDでのageインストール（不要な人は飛ばせ）</a></li>
-<li>
-<a href=#%e4%bd%bf%e3%81%84%e6%96%b9%e3%81%be%e3%81%9a%e3%81%af-h%e3%82%92%e7%a2%ba%e8%aa%8d aria-label=使い方(まずは-hを確認)>使い方(まずは-hを確認)</a></li>
-<li>
-<a href=#%e5%ae%9f%e8%a1%8c%e4%be%8b aria-label=実行例>実行例</a><ul>
-<li>
-<a href=#%e9%8d%b5%e3%82%92%e4%bd%9c%e3%82%8b aria-label=鍵を作る>鍵を作る</a></li>
-<li>
-<a href=#%e6%9a%97%e5%8f%b7%e5%8c%96 aria-label=暗号化>暗号化</a></li>
-<li>
-<a href=#%e5%be%a9%e5%8f%b7 aria-label=復号>復号</a></li>
-<li>
-<a href=#%e6%9a%97%e5%8f%b7%e5%8c%96%e3%81%ae%e3%83%90%e3%83%aa%e3%82%a8%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3 aria-label=暗号化のバリエーション>暗号化のバリエーション</a><ul>
-<li>
-<a href=#%e5%85%ac%e9%96%8b%e9%8d%b5%e5%85%a5%e5%8a%9b%e3%81%ae%e3%83%86%e3%82%af%e3%83%8b%e3%83%83%e3%82%af aria-label=公開鍵入力のテクニック>公開鍵入力のテクニック</a></li>
-<li>
-<a href=#%e8%a4%87%e6%95%b0%e3%81%ae%e5%ae%9b%e5%85%88%e3%81%b8 aria-label=複数の宛先へ>複数の宛先へ</a></li>
-<li>
-<a href=#tar%e3%81%aa%e3%81%a9%e3%81%ae%e3%82%a2%e3%83%bc%e3%82%ab%e3%82%a4%e3%83%90%e3%81%a8%e7%b5%84%e3%81%bf%e5%90%88%e3%82%8f%e3%81%9b%e3%82%8b aria-label=tarなどのアーカイバと組み合わせる>tarなどのアーカイバと組み合わせる</a></li>
-<li>
-<a href=#ssh%e3%81%ae%e9%8d%b5 aria-label=sshの鍵>sshの鍵</a></li>
-<li>
-<a href=#%e3%83%91%e3%82%b9%e3%83%95%e3%83%ac%e3%83%bc%e3%82%ba aria-label=パスフレーズ>パスフレーズ</a>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</details>
-</div>
-<div class=post-content><h2 id=はじめに--pgpはオワコン>はじめに : PGPはオワコン<a hidden class=anchor aria-hidden=true href=#はじめに--pgpはオワコン>#</a></h2>
-<p>ファイルをどう暗号化するか。</p>
-<p>そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。<br>
-内容を覗かれないようにする目的を考えてみると、データが盗まれたときのため、安全でない経路を通して特定の人にデータを渡すため、である。</p>
-<p>このうち、後者の「安全なデータ授受」についてだが、今時いろんな方法はあるものの、そもそも仕事場がモダンな通信手段を許可しておらず、メールだけ、あるいは会社製のファイル授受糞システムくらいしかない。</p>
-<p>仕方なくパスワード付きzipをメールで送ることになるんだけど、これはいわば共通鍵方式でありリスクはある。<br>
-「パスワードは後のメールで送ります」なんてね。<br>
-ほんとに秘密のファイルを送るなら、公開鍵暗号を使いたい。</p>
-<p>そうすると候補に挙がるのはPGPであるが、PGPは2020年時点でかれこれ30歳(1991年生まれ)でいろいろと古く、セキュリティ強度に不安があるうえに、使い方の理解が非常に難しく、そもそも鍵が長すぎるんだよ。</p>
-<p>試しに「まあ安全」と言われるレベルの2048bitのPGP鍵を作ったらこんな感じである。<br>
-本来なら（略）とかするが、この場合PGP鍵の長さを示すのが目的なのでそのまま示す。<br>
-ぜひマウスホイールを狂ったようにカリカリしてスクロールしてほしい。<br>
-クレイジーである。</p>
-<pre tabindex=0><code class=language-pgp data-lang=pgp>-----BEGIN PGP PUBLIC KEY BLOCK-----
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） | nobwak's Lair</title><meta name=keywords content="Security,FreeBSD,age"><meta name=description content="はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな"><meta name=author content="Me"><link rel=canonical href=https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style><link rel=preload href=/apple-touch-icon.png as=image><script defer crossorigin=anonymous src=/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><meta name=generator content="Hugo 0.96.0"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）"><meta property="og:description" content="はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな"><meta property="og:type" content="article"><meta property="og:url" content="https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2020-03-07T11:36:54+09:00"><meta property="article:modified_time" content="2020-03-07T11:36:54+09:00"><meta property="og:site_name" content="nobwak's Lair"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）"><meta name=twitter:description content="はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）","item":"https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）","name":"2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）","description":"はじめに : PGPはオワコン ファイルをどう暗号化するか。 そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。 内容を覗かれな","keywords":["Security","FreeBSD","age"],"articleBody":"はじめに : PGPはオワコン ファイルをどう暗号化するか。\nそもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。\n内容を覗かれないようにする目的を考えてみると、データが盗まれたときのため、安全でない経路を通して特定の人にデータを渡すため、である。\nこのうち、後者の「安全なデータ授受」についてだが、今時いろんな方法はあるものの、そもそも仕事場がモダンな通信手段を許可しておらず、メールだけ、あるいは会社製のファイル授受糞システムくらいしかない。\n仕方なくパスワード付きzipをメールで送ることになるんだけど、これはいわば共通鍵方式でありリスクはある。\n「パスワードは後のメールで送ります」なんてね。\nほんとに秘密のファイルを送るなら、公開鍵暗号を使いたい。\nそうすると候補に挙がるのはPGPであるが、PGPは2020年時点でかれこれ30歳(1991年生まれ)でいろいろと古く、セキュリティ強度に不安があるうえに、使い方の理解が非常に難しく、そもそも鍵が長すぎるんだよ。\n試しに「まあ安全」と言われるレベルの2048bitのPGP鍵を作ったらこんな感じである。\n本来なら（略）とかするが、この場合PGP鍵の長さを示すのが目的なのでそのまま示す。\nぜひマウスホイールを狂ったようにカリカリしてスクロールしてほしい。\nクレイジーである。\n-----BEGIN PGP PUBLIC KEY BLOCK----- Version: Keybase OpenPGP v1.0.0 Comment: https://keybase.io/crypto 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 6ceBrKxYJQvD =DVAW -----END PGP PUBLIC KEY BLOCK----- こんなもん日常使いできるか。\n世の中の皆さんもそう思っているようで、PGPのオワコンについてはPGP(Wikipedia)英語に怒涛の記載がある。\nWe’re calling it: PGP is dead (WIRED)は文字通りの記事。\nPGPは捨ててage（アゲ）を使う。（他に道がないならば） そんなわけでageである。\nageとは、「簡易でモダンで安全な暗号化ツール」だそうである。(https://github.com/FiloSottile/age)\nActually Good Encryptionの略。\n読み方は「アゲ」。エイジではない。\nPGPに比べれば、鍵は短いし、パイプで繋げられるし、簡単だしで確かにいい。\n特に鍵の短さは特筆すべきものがある。\nPGP鍵は話にならないが、sshの鍵と比べても短い。\nsshの鍵は以下の通り。\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkldIB4qJ2iLN7OChd4DnTNlyYdbnYFVQh+nAC5EscgyQJ9cYjXXk+iKz0Ot7fb5+UYZsKzGwe6bri15ts+gl1rX7AlE1QORxUZUAM5bx4VXK3MDKIz6WHpjCRsYHD6gFiw0MTTQCPfrznLMFryfM6njhEqtetCUCJeCOrJtUPYJGKw4GJ7l3hlBfPxgwViVaGT55X3FcuwaAHPR54lS/MahMfF7FuhZDxrJj+azaISNup8w19QedWm7O26f0IyxzR6MJG+5KWxSn8DtI5a3RJ5s0CCEAgZiXmZG3Rlegbq7Vgmd9cjiM5mPjUrC0voJq4UOSydi92OGpAvIVpD7UL 一方、ageの鍵は以下の通りで、短いねえ。\nage1rvvg4xt2f9rvkc0dthy5au7kg42jec355ayd24lmath0euzetsfs8czjff ageはWindows, Mac, Linux, FreeBSDで使える。\nただ、現時点では単なるコマンドなんで、一般人とのファイル授受にはまだ使えないねえ。\nでは以下、インストールと使い方\nインストール githubの通り。\nWindows, Mac, Linux向けにはバイナリもある。\nFreeBSDならpkg install security/ageで。\nFreeBSDでのageインストール（不要な人は飛ばせ） とはいってもpkgでインストールするだけ。\n取得サイズは1MiB。けっこう大きいね。\n$ sudo pkg install security/age パスワード: Updating FreeBSD repository catalogue... FreeBSD repository is up to date. All repositories are up to date. The following 1 package(s) will be affected (of 0 checked): New packages to be INSTALLED:  age: 1.0.0 Number of packages to be installed: 1 The process will require 6 MiB more space. 1 MiB to be downloaded. Proceed with this action? [y/N]: y [1/1] Fetching age-1.0.0.txz: 100% 1 MiB 1.3MB/s 00:01 Checking integrity... done (0 conflicting) [1/1] Installing age-1.0.0... [1/1] Extracting age-1.0.0: 100% $ $ pkg info age # infoは以下の通り。 age-1.0.0 Name : age Version : 1.0.0 Installed on : Sat Mar 7 10:37:01 2020 JST Origin : security/age Architecture : FreeBSD:12:amd64 Prefix : /usr/local Categories : security Licenses : BSD3CLAUSE Maintainer : dmgk@FreeBSD.org WWW : https://github.com/FiloSottile/age Comment : Simple, modern and secure file encryption tool Annotations :  FreeBSD_version: 1200086  repo_type : binary  repository : FreeBSD Flat size : 5.87MiB Description : age is a simple, modern and secure encryption tool with small explicit keys, no config options, and UNIX-style composability. WWW: https://github.com/FiloSottile/age $ pkg list age # インストールされたファイル一覧。manは無い。 /usr/local/bin/age /usr/local/bin/age-keygen /usr/local/share/licenses/age-1.0.0/BSD3CLAUSE /usr/local/share/licenses/age-1.0.0/LICENSE /usr/local/share/licenses/age-1.0.0/catalog.mk $ 使い方(まずは-hを確認) 実行ファイルはageとage-keygenである。\n文字通りage-keygenは鍵を作る。\nageが実際の暗号化、復号を受け持つ。\n前節で少し書いたけど、manはないので-hを付けて使い方を表示させること。\n以下が実行結果であるが、-hを与えたときのage-keygenの素っ気なさとageの熱量の差を感じていただきたい。\n$ age-keygen --help # -hでも--helpでも同じ。 Usage of age-keygen:  -o FILE  output to FILE (default stdout) $ $ age --help Usage:  age -r RECIPIENT [-a] [-o OUTPUT] [INPUT]  age --decrypt [-i KEY] [-o OUTPUT] [INPUT] Options:  -o OUTPUT Write the result to the file at path OUTPUT.  -a, --armor Encrypt to a PEM encoded format.  -p, --passphrase Encrypt with a passphrase.  -r, --recipient RECIPIENT Encrypt to the specified RECIPIENT. Can be repeated.  -d, --decrypt Decrypt the input to the output.  -i, --identity KEY Use the private key file at path KEY. Can be repeated. INPUT defaults to standard input, and OUTPUT defaults to standard output. RECIPIENT can be an age public key, as generated by age-keygen, (\"age1...\") or an SSH public key (\"ssh-ed25519 AAAA...\", \"ssh-rsa AAAA...\"). KEY is a path to a file with age secret keys, one per line (ignoring \"#\" prefixed comments and empty lines), or to an SSH key file. Multiple keys can be provided, and any unused ones will be ignored. Example:  $ age-keygen -o key.txt  Public key: age1ql3z7hjy54pw3hyww5ayyfgxzqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p  $ tar cvz ~/data | age -r age1ql3z7hjy54pw3hyww5ayffg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p  data.tar.gz.age  $ age -d -i key.txt -o data.tar.gz data.tar.gz.age $ ご覧の通り、age-keygenで鍵を作り、その鍵を使ってageで暗号化・復号するのが基本だが、ageは単なるコマンドなんで、パイプで繋げられるのがポイント。\n実行例 鍵を作る 鍵を作るのはage-keygen。\nなお、ageでは、ssh鍵も使えるが、それは後ほど。\nともかく、-oに続いて書き出すファイルを指定すれば鍵が書き込まれる。\n$ age-keygen -o ~/.config/age/keys.txt Public key: age1rvvg4xtywl4ceeaqj5auhkg4qjec315ayd24lmath0euzetsfs8czjff $ 鍵を作ると問答無用で公開鍵を表示してくれる。\n公開鍵は暗号化するときに使う鍵ですな。\n復号するときに使う秘密鍵については、鍵を書き込んだファイルを表示してみると;\n$ cat ~/.config/age/keys.txt # created: 2020-03-07T10:49:42+09:00 # public key: age1rvvg4xtywl0cxeaqj5auhkg4qjec355ayd24lmath0euzetsfs8czjff AGE-SECRET-KEY-1G9NKY3MA92270K8FWXXXXQQ7ZHPLS3VDTASUGQ9AWG6AD8ZT4SLUM3PM $ ご覧の通りAGE-SECRET-KEYから続くものが秘密鍵ですな。\nなお、鍵の書き込まれたファイルのパーミッションは600で、他人からは見られないようになっている。\n秘密鍵だからね。このファイルの管理は厳重に。言わずもがな。\n暗号化 基本的な使い方はcatやらしたファイルをパイプで繋ぐ。\n以下の例ではplane.txtの内容をageに渡す。\n-rで公開鍵を指定。\nそのままだと標準出力に暗号化データが吐き出されるので、-oで出力先ファイルを指定。\n以下の例だとplane.ageに。\n$ cat ./plane.txt ほげほげ $ file ./plane.txt ./plane.txt: UTF-8 Unicode text # UTF-8のプレインテキスト $ $ cat ./plane.txt |age -o plane.age -r age1rvvg4xtywl0ceeaqj5auhkg4qjec355ayd24lmrth0euzetsfs8czjff $ file ./plane.age ./plane.age: data # 出来上がりはバイナリデータの模様 $ $ du -h ./plane* # やっぱりサイズは増えるよね 4.5K ./plane.age 512B ./plane.txt 復号 復号する場合には、--decryptあるいは-dをオプションに与える。\n鍵は--identityあるいは-iで指定する。\n結果は標準出力に吐き出されるので、必要に応じてファイルにリダイレクトする。\n$ age -i ~/.config/age/keys.txt --decrypt ./plane.age ほげほげ $ $ age -i ~/.config/age/keys.txt --decrypt ./plane.age  plane.decrypt.txt $ cat plane.decrypt.txt ほげほげ $ 暗号化のバリエーション 公開鍵入力のテクニック いかなageといえど、いちいち公開鍵をコピペするの面倒なので、以下のようにする。\n$ cat ./rcpt.txt age12d2x0gquwpuywl0ceeaqjsXXXXXxvp9j8ae6l04xfh5d85n44qaj8e4r $ cat ./plane.txt |age -r `cat rcpt.txt` -o plane.age 複数の宛先へ 暗号化のとき、公開鍵は複数、設定することができる。\nこの場合、いずれの秘密鍵でも復号できる。\n以下の例では、できたファイルはage1AAA, age1BBBの秘密鍵の持ち主それぞれで復号できる\n$ cat ./plane.txt |age -r age1AAA.... -r age1BBB... -o plane.age $ tarなどのアーカイバと組み合わせる ディレクトリをtar, gzで固めたものを暗号化\nzfsのスナップショットと組み合わせるのもいいね。\n$ ls -R ./dir a.txt b.txt  tar cvzf - ./dir |age -r age12d.... -o dir.tgz.age a ./dir a ./dir/a.txt a ./dir/b.txt $ sshの鍵 sshの公開鍵も使える。\n$ cat plane.txt ほげほげ $ cat ~/.ssh/id_rsa.pub # ssh公開鍵 ssh-rsa AAAA（略） $ cat plane.txt|age -o plane.age -r \"`cat ~/.ssh/id_rsa.pub`\" # ダブルクオーテーションで括らないといけないことに注意 $ $ age -d -i ~/.ssh/id_rsa ./plane.age Enter passphrase for \"/home/nobwak/.ssh/id_rsa\": # ssh鍵のパスフレーズ入力 ほげほげ $ パスフレーズ -pを与えるとパスフレーズが使える。\n$ cat plane.txt ほげほげ $ age -p ./plane.txt  plane.age Enter passphrase: # パスフレーズを入れる $ $ age -d ./plane.age # 復号のときは-dオプション不要 Enter passphrase: ほげほげ $ ","wordCount":"2955","inLanguage":"en","datePublished":"2020-03-07T11:36:54+09:00","dateModified":"2020-03-07T11:36:54+09:00","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2020-03-07-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E7%B0%A1%E5%8D%98%E9%89%84%E5%A3%81%E6%9A%97%E5%8F%B7%E5%BE%A9%E5%8F%B7%E3%83%84%E3%83%BC%E3%83%ABage%E3%82%A2%E3%82%B2/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)"><img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></span></div><ul id=menu><li><a href=https://nobwak.github.io/posts/ title=posts><span>posts</span></a></li><li><a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/><span>search</span></a></li><li><a href=https://nobwak.github.io/categories/ title=categories><span>categories</span></a></li><li><a href=https://nobwak.github.io/tags/ title=tags><span>tags</span></a></li><li><a href=https://nobwak.github.io title="nobwak lair"><span>nobwak lair</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div><h1 class=post-title>2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ）</h1><div class=post-meta><span title="2020-03-07 11:36:54 +0900 JST">March 7, 2020</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89.md rel="noopener noreferrer" target=_blank>Suggest Changes</a></div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e3%81%af%e3%81%98%e3%82%81%e3%81%ab--pgp%e3%81%af%e3%82%aa%e3%83%af%e3%82%b3%e3%83%b3 aria-label="はじめに : PGPはオワコン">はじめに : PGPはオワコン</a></li><li><a href=#pgp%e3%81%af%e6%8d%a8%e3%81%a6%e3%81%a6age%e3%82%a2%e3%82%b2%e3%82%92%e4%bd%bf%e3%81%86%e4%bb%96%e3%81%ab%e9%81%93%e3%81%8c%e3%81%aa%e3%81%84%e3%81%aa%e3%82%89%e3%81%b0 aria-label=PGPは捨ててage（アゲ）を使う。（他に道がないならば）>PGPは捨ててage（アゲ）を使う。（他に道がないならば）</a></li><li><a href=#%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=インストール>インストール</a></li><li><a href=#freebsd%e3%81%a7%e3%81%aeage%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e4%b8%8d%e8%a6%81%e3%81%aa%e4%ba%ba%e3%81%af%e9%a3%9b%e3%81%b0%e3%81%9b aria-label=FreeBSDでのageインストール（不要な人は飛ばせ）>FreeBSDでのageインストール（不要な人は飛ばせ）</a></li><li><a href=#%e4%bd%bf%e3%81%84%e6%96%b9%e3%81%be%e3%81%9a%e3%81%af-h%e3%82%92%e7%a2%ba%e8%aa%8d aria-label=使い方(まずは-hを確認)>使い方(まずは-hを確認)</a></li><li><a href=#%e5%ae%9f%e8%a1%8c%e4%be%8b aria-label=実行例>実行例</a><ul><li><a href=#%e9%8d%b5%e3%82%92%e4%bd%9c%e3%82%8b aria-label=鍵を作る>鍵を作る</a></li><li><a href=#%e6%9a%97%e5%8f%b7%e5%8c%96 aria-label=暗号化>暗号化</a></li><li><a href=#%e5%be%a9%e5%8f%b7 aria-label=復号>復号</a></li><li><a href=#%e6%9a%97%e5%8f%b7%e5%8c%96%e3%81%ae%e3%83%90%e3%83%aa%e3%82%a8%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3 aria-label=暗号化のバリエーション>暗号化のバリエーション</a><ul><li><a href=#%e5%85%ac%e9%96%8b%e9%8d%b5%e5%85%a5%e5%8a%9b%e3%81%ae%e3%83%86%e3%82%af%e3%83%8b%e3%83%83%e3%82%af aria-label=公開鍵入力のテクニック>公開鍵入力のテクニック</a></li><li><a href=#%e8%a4%87%e6%95%b0%e3%81%ae%e5%ae%9b%e5%85%88%e3%81%b8 aria-label=複数の宛先へ>複数の宛先へ</a></li><li><a href=#tar%e3%81%aa%e3%81%a9%e3%81%ae%e3%82%a2%e3%83%bc%e3%82%ab%e3%82%a4%e3%83%90%e3%81%a8%e7%b5%84%e3%81%bf%e5%90%88%e3%82%8f%e3%81%9b%e3%82%8b aria-label=tarなどのアーカイバと組み合わせる>tarなどのアーカイバと組み合わせる</a></li><li><a href=#ssh%e3%81%ae%e9%8d%b5 aria-label=sshの鍵>sshの鍵</a></li><li><a href=#%e3%83%91%e3%82%b9%e3%83%95%e3%83%ac%e3%83%bc%e3%82%ba aria-label=パスフレーズ>パスフレーズ</a></li></ul></li></ul></li></ul></div></details></div><div class=post-content><h2 id=はじめに--pgpはオワコン>はじめに : PGPはオワコン<a hidden class=anchor aria-hidden=true href=#はじめに--pgpはオワコン>#</a></h2><p>ファイルをどう暗号化するか。</p><p>そもそも、暗号化は意図しない他人に内容を覗かれないするためのものである。<br>内容を覗かれないようにする目的を考えてみると、データが盗まれたときのため、安全でない経路を通して特定の人にデータを渡すため、である。</p><p>このうち、後者の「安全なデータ授受」についてだが、今時いろんな方法はあるものの、そもそも仕事場がモダンな通信手段を許可しておらず、メールだけ、あるいは会社製のファイル授受糞システムくらいしかない。</p><p>仕方なくパスワード付きzipをメールで送ることになるんだけど、これはいわば共通鍵方式でありリスクはある。<br>「パスワードは後のメールで送ります」なんてね。<br>ほんとに秘密のファイルを送るなら、公開鍵暗号を使いたい。</p><p>そうすると候補に挙がるのはPGPであるが、PGPは2020年時点でかれこれ30歳(1991年生まれ)でいろいろと古く、セキュリティ強度に不安があるうえに、使い方の理解が非常に難しく、そもそも鍵が長すぎるんだよ。</p><p>試しに「まあ安全」と言われるレベルの2048bitのPGP鍵を作ったらこんな感じである。<br>本来なら（略）とかするが、この場合PGP鍵の長さを示すのが目的なのでそのまま示す。<br>ぜひマウスホイールを狂ったようにカリカリしてスクロールしてほしい。<br>クレイジーである。</p><pre tabindex=0><code class=language-pgp data-lang=pgp>-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: Keybase OpenPGP v1.0.0
 Comment: https://keybase.io/crypto
 
@@ -202,267 +55,154 @@ CMJcniqFMjOGnQwruTrYGwIzV9vjvhVQ0qIzlXtwbsiLvzGQWe/QY9jLdxT0Ru5a
 6ceBrKxYJQvD
 =DVAW
 -----END PGP PUBLIC KEY BLOCK-----
-</code></pre><p>こんなもん日常使いできるか。<br>
-世の中の皆さんもそう思っているようで、PGPのオワコンについては<a href=https://en.wikipedia.org/wiki/Pretty_Good_Privacy#Current_situation>PGP(Wikipedia)英語</a>に怒涛の記載がある。<br>
-<a href=https://www.wired.co.uk/article/efail-pgp-vulnerability-outlook-thunderbird-smime>We&rsquo;re calling it: PGP is dead (WIRED)</a>は文字通りの記事。</p>
-<h2 id=pgpは捨ててageアゲを使う他に道がないならば>PGPは捨ててage（アゲ）を使う。（他に道がないならば）<a hidden class=anchor aria-hidden=true href=#pgpは捨ててageアゲを使う他に道がないならば>#</a></h2>
-<p>そんなわけで<code>age</code>である。<br>
-<code>age</code>とは、「簡易でモダンで安全な暗号化ツール」だそうである。(<a href=https://github.com/FiloSottile/age>https://github.com/FiloSottile/age</a>)<br>
-Actually Good Encryptionの略。<br>
-読み方は「<a href=https://docs.google.com/document/d/11yHom20CrsuX8KQJXBBw04s80Unjv8zCg_A7sPAX_9Y/preview>アゲ</a>」。エイジではない。</p>
-<p>PGPに比べれば、鍵は短いし、パイプで繋げられるし、簡単だしで確かにいい。<br>
-特に鍵の短さは特筆すべきものがある。<br>
-PGP鍵は話にならないが、sshの鍵と比べても短い。<br>
-sshの鍵は以下の通り。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkldIB4qJ2iLN7OChd4DnTNlyYdbnYFVQh+nAC5EscgyQJ9cYjXXk+iKz0Ot7fb5+UYZsKzGwe6bri15ts+gl1rX7AlE1QORxUZUAM5bx4VXK3MDKIz6WHpjCRsYHD6gFiw0MTTQCPfrznLMFryfM6njhEqtetCUCJeCOrJtUPYJGKw4GJ7l3hlBfPxgwViVaGT55X3FcuwaAHPR54lS/MahMfF7FuhZDxrJj+azaISNup8w19QedWm7O26f0IyxzR6MJG+5KWxSn8DtI5a3RJ5s0CCEAgZiXmZG3Rlegbq7Vgmd9cjiM5mPjUrC0voJq4UOSydi92OGpAvIVpD7UL
-</code></pre></div><p>一方、ageの鍵は以下の通りで、短いねえ。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>age1rvvg4xt2f9rvkc0dthy5au7kg42jec355ayd24lmath0euzetsfs8czjff
-</code></pre></div><p>ageはWindows, Mac, Linux, FreeBSDで使える。<br>
-ただ、現時点では単なるコマンドなんで、一般人とのファイル授受にはまだ使えないねえ。</p>
-<p>では以下、インストールと使い方</p>
-<h2 id=インストール>インストール<a hidden class=anchor aria-hidden=true href=#インストール>#</a></h2>
-<p><a href=https://github.com/FiloSottile/age>github</a>の通り。<br>
-Windows, Mac, Linux向けには<a href=https://github.com/FiloSottile/age/releases>バイナリ</a>もある。</p>
-<p>FreeBSDなら<code>pkg install security/age</code>で。</p>
-<h2 id=freebsdでのageインストール不要な人は飛ばせ>FreeBSDでのageインストール（不要な人は飛ばせ）<a hidden class=anchor aria-hidden=true href=#freebsdでのageインストール不要な人は飛ばせ>#</a></h2>
-<p>とはいってもpkgでインストールするだけ。<br>
-取得サイズは1MiB。けっこう大きいね。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo pkg install security/age
-パスワード:
-Updating FreeBSD repository catalogue...
-FreeBSD repository is up to date.
-All repositories are up to date.
-The following 1 package(s) will be affected (of 0 checked):
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>New packages to be INSTALLED:
-        age: 1.0.0
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Number of packages to be installed: 1
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>The process will require 6 MiB more space.
-1 MiB to be downloaded.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Proceed with this action? [y/N]: y
-[1/1] Fetching age-1.0.0.txz: 100%    1 MiB   1.3MB/s    00:01
-Checking integrity... done (0 conflicting)
-[1/1] Installing age-1.0.0...
-[1/1] Extracting age-1.0.0: 100%
-$
-$ pkg info age  <span style=color:#75715e># infoは以下の通り。</span>
-age-1.0.0
-Name           : age
-Version        : 1.0.0
-Installed on   : Sat Mar  7 10:37:01 2020 JST
-Origin         : security/age
-Architecture   : FreeBSD:12:amd64
-Prefix         : /usr/local
-Categories     : security
-Licenses       : BSD3CLAUSE
-Maintainer     : dmgk@FreeBSD.org
-WWW            : https://github.com/FiloSottile/age
-Comment        : Simple, modern and secure file encryption tool
-Annotations    :
-        FreeBSD_version: 1200086
-        repo_type      : binary
-        repository     : FreeBSD
-Flat size      : 5.87MiB
-Description    :
-age is a simple, modern and secure encryption tool with small explicit keys, no
-config options, and UNIX-style composability.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>WWW: https://github.com/FiloSottile/age
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>$ pkg list age  <span style=color:#75715e># インストールされたファイル一覧。manは無い。</span>
-/usr/local/bin/age
-/usr/local/bin/age-keygen
-/usr/local/share/licenses/age-1.0.0/BSD3CLAUSE
-/usr/local/share/licenses/age-1.0.0/LICENSE
-/usr/local/share/licenses/age-1.0.0/catalog.mk
-$
-</code></pre></div><h2 id=使い方まずは-hを確認>使い方(まずは-hを確認)<a hidden class=anchor aria-hidden=true href=#使い方まずは-hを確認>#</a></h2>
-<p>実行ファイルは<code>age</code>と<code>age-keygen</code>である。<br>
-文字通り<code>age-keygen</code>は鍵を作る。<br>
-<code>age</code>が実際の暗号化、復号を受け持つ。</p>
-<p>前節で少し書いたけど、<code>man</code>はないので<code>-h</code>を付けて使い方を表示させること。</p>
-<p>以下が実行結果であるが、<code>-h</code>を与えたときの<code>age-keygen</code>の素っ気なさと<code>age</code>の熱量の差を感じていただきたい。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ age-keygen --help  <span style=color:#75715e># -hでも--helpでも同じ。</span>
-Usage of age-keygen:
-  -o FILE
-        output to FILE (default stdout)
-$
-$ age --help
-Usage:
-    age -r RECIPIENT [-a] [-o OUTPUT] [INPUT]
-    age --decrypt [-i KEY] [-o OUTPUT] [INPUT]
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Options:
-    -o OUTPUT                   Write the result to the file at path OUTPUT.
-    -a, --armor                 Encrypt to a PEM encoded format.
-    -p, --passphrase            Encrypt with a passphrase.
-    -r, --recipient RECIPIENT   Encrypt to the specified RECIPIENT. Can be repeated.
-    -d, --decrypt               Decrypt the input to the output.
-    -i, --identity KEY          Use the private key file at path KEY. Can be repeated.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>INPUT defaults to standard input, and OUTPUT defaults to standard output.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>RECIPIENT can be an age public key, as generated by age-keygen, (&#34;age1...&#34;)
-or an SSH public key (&#34;ssh-ed25519 AAAA...&#34;, &#34;ssh-rsa AAAA...&#34;).
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>KEY is a path to a file with age secret keys, one per line
-(ignoring &#34;#&#34; prefixed comments and empty lines), or to an SSH key file.
-Multiple keys can be provided, and any unused ones will be ignored.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Example:
-    $ age-keygen -o key.txt
-    Public key: age1ql3z7hjy54pw3hyww5ayyfgxzqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p
-    $ tar cvz ~/data | age -r age1ql3z7hjy54pw3hyww5ayffg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p &gt; data.tar.gz.age
-    $ age -d -i key.txt -o data.tar.gz data.tar.gz.age
-$
-</code></pre></div><p>ご覧の通り、<code>age-keygen</code>で鍵を作り、その鍵を使って<code>age</code>で暗号化・復号するのが基本だが、<code>age</code>は単なるコマンドなんで、パイプで繋げられるのがポイント。</p>
-<h2 id=実行例>実行例<a hidden class=anchor aria-hidden=true href=#実行例>#</a></h2>
-<h3 id=鍵を作る>鍵を作る<a hidden class=anchor aria-hidden=true href=#鍵を作る>#</a></h3>
-<p>鍵を作るのは<code>age-keygen</code>。<br>
-なお、ageでは、ssh鍵も使えるが、それは後ほど。<br>
-ともかく、<code>-o</code>に続いて書き出すファイルを指定すれば鍵が書き込まれる。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ age-keygen -o ~/.config/age/keys.txt
-Public key: age1rvvg4xtywl4ceeaqj5auhkg4qjec315ayd24lmath0euzetsfs8czjff
-$
-</code></pre></div><p>鍵を作ると問答無用で公開鍵を表示してくれる。<br>
-公開鍵は暗号化するときに使う鍵ですな。<br>
-復号するときに使う秘密鍵については、鍵を書き込んだファイルを表示してみると;</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cat ~/.config/age/keys.txt
-# created: 2020-03-07T10:49:42+09:00
-# public key: age1rvvg4xtywl0cxeaqj5auhkg4qjec355ayd24lmath0euzetsfs8czjff
-AGE-SECRET-KEY-1G9NKY3MA92270K8FWXXXXQQ7ZHPLS3VDTASUGQ9AWG6AD8ZT4SLUM3PM
-$
-</code></pre></div><p>ご覧の通り<code>AGE-SECRET-KEY</code>から続くものが秘密鍵ですな。<br>
-なお、鍵の書き込まれたファイルのパーミッションは600で、他人からは見られないようになっている。<br>
-秘密鍵だからね。このファイルの管理は厳重に。言わずもがな。</p>
-<h3 id=暗号化>暗号化<a hidden class=anchor aria-hidden=true href=#暗号化>#</a></h3>
-<p>基本的な使い方は<code>cat</code>やらしたファイルをパイプで繋ぐ。<br>
-以下の例では<code>plane.txt</code>の内容を<code>age</code>に渡す。<br>
-<code>-r</code>で公開鍵を指定。<br>
-そのままだと標準出力に暗号化データが吐き出されるので、<code>-o</code>で出力先ファイルを指定。<br>
-以下の例だと<code>plane.age</code>に。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cat ./plane.txt
-ほげほげ
-$ file ./plane.txt
-./plane.txt: UTF-8 Unicode text  # UTF-8のプレインテキスト
-$
-$ cat ./plane.txt |age -o plane.age -r age1rvvg4xtywl0ceeaqj5auhkg4qjec355ayd24lmrth0euzetsfs8czjff
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>$ file ./plane.age
-./plane.age: data  # 出来上がりはバイナリデータの模様
-$
-$ du -h ./plane*  <span style=color:#75715e># やっぱりサイズは増えるよね</span>
-4.5K    ./plane.age
-512B    ./plane.txt
-</code></pre></div><h3 id=復号>復号<a hidden class=anchor aria-hidden=true href=#復号>#</a></h3>
-<p>復号する場合には、<code>--decrypt</code>あるいは<code>-d</code>をオプションに与える。<br>
-鍵は<code>--identity</code>あるいは<code>-i</code>で指定する。<br>
-結果は標準出力に吐き出されるので、必要に応じてファイルにリダイレクトする。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ age -i ~/.config/age/keys.txt --decrypt ./plane.age
-ほげほげ
-$
-$ age -i ~/.config/age/keys.txt --decrypt ./plane.age &gt; plane.decrypt.txt
-$ cat plane.decrypt.txt
-ほげほげ
-$
-</code></pre></div><h3 id=暗号化のバリエーション>暗号化のバリエーション<a hidden class=anchor aria-hidden=true href=#暗号化のバリエーション>#</a></h3>
-<h4 id=公開鍵入力のテクニック>公開鍵入力のテクニック<a hidden class=anchor aria-hidden=true href=#公開鍵入力のテクニック>#</a></h4>
-<p>いかなageといえど、いちいち公開鍵をコピペするの面倒なので、以下のようにする。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cat ./rcpt.txt
-age12d2x0gquwpuywl0ceeaqjsXXXXXxvp9j8ae6l04xfh5d85n44qaj8e4r
-$ cat ./plane.txt |age -r <span style=color:#e6db74>`</span>cat rcpt.txt<span style=color:#e6db74>`</span>  -o plane.age
-</code></pre></div><h4 id=複数の宛先へ>複数の宛先へ<a hidden class=anchor aria-hidden=true href=#複数の宛先へ>#</a></h4>
-<p>暗号化のとき、公開鍵は複数、設定することができる。<br>
-この場合、いずれの秘密鍵でも復号できる。<br>
-以下の例では、できたファイルはage1AAA, age1BBBの秘密鍵の持ち主それぞれで復号できる</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cat ./plane.txt |age -r age1AAA.... -r age1BBB...  -o plane.age
-$
-</code></pre></div><h4 id=tarなどのアーカイバと組み合わせる>tarなどのアーカイバと組み合わせる<a hidden class=anchor aria-hidden=true href=#tarなどのアーカイバと組み合わせる>#</a></h4>
-<p>ディレクトリをtar, gzで固めたものを暗号化<br>
-zfsのスナップショットと組み合わせるのもいいね。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ ls -R ./dir
-a.txt   b.txt
- tar cvzf - ./dir |age -r age12d.... -o dir.tgz.age
-a ./dir
-a ./dir/a.txt
-a ./dir/b.txt
-$
-</code></pre></div><h4 id=sshの鍵>sshの鍵<a hidden class=anchor aria-hidden=true href=#sshの鍵>#</a></h4>
-<p>sshの公開鍵も使える。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cat plane.txt
-ほげほげ
-$ cat ~/.ssh/id_rsa.pub  <span style=color:#75715e># ssh公開鍵</span>
-ssh-rsa AAAA（略）
-$ cat plane.txt|age -o plane.age -r <span style=color:#e6db74>&#34;`cat ~/.ssh/id_rsa.pub`&#34;</span>  <span style=color:#75715e># ダブルクオーテーションで括らないといけないことに注意</span>
-$
-$ age -d -i ~/.ssh/id_rsa ./plane.age
-Enter passphrase for &#34;/home/nobwak/.ssh/id_rsa&#34;:  # ssh鍵のパスフレーズ入力
-ほげほげ
-$
-</code></pre></div><h4 id=パスフレーズ>パスフレーズ<a hidden class=anchor aria-hidden=true href=#パスフレーズ>#</a></h4>
-<p><code>-p</code>を与えるとパスフレーズが使える。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ cat plane.txt
-ほげほげ
-$ age -p ./plane.txt &gt; plane.age
-Enter passphrase:  # パスフレーズを入れる
-$
-$ age -d ./plane.age  <span style=color:#75715e># 復号のときは-dオプション不要</span>
-Enter passphrase:
-ほげほげ
-$
-
-</code></pre></div>
-</div>
-<footer class=post-footer>
-<ul class=post-tags>
-<li><a href=https://nobwak.github.io/tags/security/>security</a></li>
-<li><a href=https://nobwak.github.io/tags/freebsd/>FreeBSD</a></li>
-<li><a href=https://nobwak.github.io/tags/age/>age</a></li>
-</ul>
-<nav class=paginav>
-<a class=prev href=https://nobwak.github.io/posts/2020-03-10-visualcodestudio%E3%81%A7virtualenv%E3%82%92%E4%BD%BF%E3%81%86/>
-<span class=title>« Prev Page</span>
-<br>
-<span>2020-03-10-VisualCodeStudioでvirtualenvを使う</span>
-</a>
-<a class=next href=https://nobwak.github.io/posts/2020-03-01-%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%81%A7%E4%BD%BF%E3%81%88%E3%82%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E6%83%85%E5%A0%B1%E8%A1%A8%E7%A4%BA%E3%83%84%E3%83%BC%E3%83%ABneofetch/>
-<span class=title>Next Page »</span>
-<br>
-<span>2020-03-01-ターミナルで使えるシステム情報表示ツールneofetch</span>
-</a>
-</nav>
-<div class=share-buttons>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on twitter" href="https://twitter.com/intent/tweet/?text=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f&hashtags=Security%2cFreeBSD%2cage"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f&title=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89&summary=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f&title=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on whatsapp" href="https://api.whatsapp.com/send?text=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on telegram" href="https://telegram.me/share/url?text=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
-</a>
-</div>
-</footer>
-</article>
-</main>
-<footer class=footer>
-<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
-<span>
-Powered by
+</code></pre><p>こんなもん日常使いできるか。<br>世の中の皆さんもそう思っているようで、PGPのオワコンについては<a href=https://en.wikipedia.org/wiki/Pretty_Good_Privacy#Current_situation>PGP(Wikipedia)英語</a>に怒涛の記載がある。<br><a href=https://www.wired.co.uk/article/efail-pgp-vulnerability-outlook-thunderbird-smime>We&rsquo;re calling it: PGP is dead (WIRED)</a>は文字通りの記事。</p><h2 id=pgpは捨ててageアゲを使う他に道がないならば>PGPは捨ててage（アゲ）を使う。（他に道がないならば）<a hidden class=anchor aria-hidden=true href=#pgpは捨ててageアゲを使う他に道がないならば>#</a></h2><p>そんなわけで<code>age</code>である。<br><code>age</code>とは、「簡易でモダンで安全な暗号化ツール」だそうである。(<a href=https://github.com/FiloSottile/age>https://github.com/FiloSottile/age</a>)<br>Actually Good Encryptionの略。<br>読み方は「<a href=https://docs.google.com/document/d/11yHom20CrsuX8KQJXBBw04s80Unjv8zCg_A7sPAX_9Y/preview>アゲ</a>」。エイジではない。</p><p>PGPに比べれば、鍵は短いし、パイプで繋げられるし、簡単だしで確かにいい。<br>特に鍵の短さは特筆すべきものがある。<br>PGP鍵は話にならないが、sshの鍵と比べても短い。<br>sshの鍵は以下の通り。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkldIB4qJ2iLN7OChd4DnTNlyYdbnYFVQh+nAC5EscgyQJ9cYjXXk+iKz0Ot7fb5+UYZsKzGwe6bri15ts+gl1rX7AlE1QORxUZUAM5bx4VXK3MDKIz6WHpjCRsYHD6gFiw0MTTQCPfrznLMFryfM6njhEqtetCUCJeCOrJtUPYJGKw4GJ7l3hlBfPxgwViVaGT55X3FcuwaAHPR54lS/MahMfF7FuhZDxrJj+azaISNup8w19QedWm7O26f0IyxzR6MJG+5KWxSn8DtI5a3RJ5s0CCEAgZiXmZG3Rlegbq7Vgmd9cjiM5mPjUrC0voJq4UOSydi92OGpAvIVpD7UL
+</span></span></code></pre></div><p>一方、ageの鍵は以下の通りで、短いねえ。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>age1rvvg4xt2f9rvkc0dthy5au7kg42jec355ayd24lmath0euzetsfs8czjff
+</span></span></code></pre></div><p>ageはWindows, Mac, Linux, FreeBSDで使える。<br>ただ、現時点では単なるコマンドなんで、一般人とのファイル授受にはまだ使えないねえ。</p><p>では以下、インストールと使い方</p><h2 id=インストール>インストール<a hidden class=anchor aria-hidden=true href=#インストール>#</a></h2><p><a href=https://github.com/FiloSottile/age>github</a>の通り。<br>Windows, Mac, Linux向けには<a href=https://github.com/FiloSottile/age/releases>バイナリ</a>もある。</p><p>FreeBSDなら<code>pkg install security/age</code>で。</p><h2 id=freebsdでのageインストール不要な人は飛ばせ>FreeBSDでのageインストール（不要な人は飛ばせ）<a hidden class=anchor aria-hidden=true href=#freebsdでのageインストール不要な人は飛ばせ>#</a></h2><p>とはいってもpkgでインストールするだけ。<br>取得サイズは1MiB。けっこう大きいね。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo pkg install security/age
+</span></span><span style=display:flex><span>パスワード:
+</span></span><span style=display:flex><span>Updating FreeBSD repository catalogue...
+</span></span><span style=display:flex><span>FreeBSD repository is up to date.
+</span></span><span style=display:flex><span>All repositories are up to date.
+</span></span><span style=display:flex><span>The following 1 package(s) will be affected (of 0 checked):
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>New packages to be INSTALLED:
+</span></span><span style=display:flex><span>        age: 1.0.0
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Number of packages to be installed: 1
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>The process will require 6 MiB more space.
+</span></span><span style=display:flex><span>1 MiB to be downloaded.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Proceed with this action? [y/N]: y
+</span></span><span style=display:flex><span>[1/1] Fetching age-1.0.0.txz: 100%    1 MiB   1.3MB/s    00:01
+</span></span><span style=display:flex><span>Checking integrity... done (0 conflicting)
+</span></span><span style=display:flex><span>[1/1] Installing age-1.0.0...
+</span></span><span style=display:flex><span>[1/1] Extracting age-1.0.0: 100%
+</span></span><span style=display:flex><span>$
+</span></span><span style=display:flex><span>$ pkg info age  <span style=color:#75715e># infoは以下の通り。</span>
+</span></span><span style=display:flex><span>age-1.0.0
+</span></span><span style=display:flex><span>Name           : age
+</span></span><span style=display:flex><span>Version        : 1.0.0
+</span></span><span style=display:flex><span>Installed on   : Sat Mar  7 10:37:01 2020 JST
+</span></span><span style=display:flex><span>Origin         : security/age
+</span></span><span style=display:flex><span>Architecture   : FreeBSD:12:amd64
+</span></span><span style=display:flex><span>Prefix         : /usr/local
+</span></span><span style=display:flex><span>Categories     : security
+</span></span><span style=display:flex><span>Licenses       : BSD3CLAUSE
+</span></span><span style=display:flex><span>Maintainer     : dmgk@FreeBSD.org
+</span></span><span style=display:flex><span>WWW            : https://github.com/FiloSottile/age
+</span></span><span style=display:flex><span>Comment        : Simple, modern and secure file encryption tool
+</span></span><span style=display:flex><span>Annotations    :
+</span></span><span style=display:flex><span>        FreeBSD_version: 1200086
+</span></span><span style=display:flex><span>        repo_type      : binary
+</span></span><span style=display:flex><span>        repository     : FreeBSD
+</span></span><span style=display:flex><span>Flat size      : 5.87MiB
+</span></span><span style=display:flex><span>Description    :
+</span></span><span style=display:flex><span>age is a simple, modern and secure encryption tool with small explicit keys, no
+</span></span><span style=display:flex><span>config options, and UNIX-style composability.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>WWW: https://github.com/FiloSottile/age
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>$ pkg list age  <span style=color:#75715e># インストールされたファイル一覧。manは無い。</span>
+</span></span><span style=display:flex><span>/usr/local/bin/age
+</span></span><span style=display:flex><span>/usr/local/bin/age-keygen
+</span></span><span style=display:flex><span>/usr/local/share/licenses/age-1.0.0/BSD3CLAUSE
+</span></span><span style=display:flex><span>/usr/local/share/licenses/age-1.0.0/LICENSE
+</span></span><span style=display:flex><span>/usr/local/share/licenses/age-1.0.0/catalog.mk
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div><h2 id=使い方まずは-hを確認>使い方(まずは-hを確認)<a hidden class=anchor aria-hidden=true href=#使い方まずは-hを確認>#</a></h2><p>実行ファイルは<code>age</code>と<code>age-keygen</code>である。<br>文字通り<code>age-keygen</code>は鍵を作る。<br><code>age</code>が実際の暗号化、復号を受け持つ。</p><p>前節で少し書いたけど、<code>man</code>はないので<code>-h</code>を付けて使い方を表示させること。</p><p>以下が実行結果であるが、<code>-h</code>を与えたときの<code>age-keygen</code>の素っ気なさと<code>age</code>の熱量の差を感じていただきたい。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ age-keygen --help  <span style=color:#75715e># -hでも--helpでも同じ。</span>
+</span></span><span style=display:flex><span>Usage of age-keygen:
+</span></span><span style=display:flex><span>  -o FILE
+</span></span><span style=display:flex><span>        output to FILE (default stdout)
+</span></span><span style=display:flex><span>$
+</span></span><span style=display:flex><span>$ age --help
+</span></span><span style=display:flex><span>Usage:
+</span></span><span style=display:flex><span>    age -r RECIPIENT [-a] [-o OUTPUT] [INPUT]
+</span></span><span style=display:flex><span>    age --decrypt [-i KEY] [-o OUTPUT] [INPUT]
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Options:
+</span></span><span style=display:flex><span>    -o OUTPUT                   Write the result to the file at path OUTPUT.
+</span></span><span style=display:flex><span>    -a, --armor                 Encrypt to a PEM encoded format.
+</span></span><span style=display:flex><span>    -p, --passphrase            Encrypt with a passphrase.
+</span></span><span style=display:flex><span>    -r, --recipient RECIPIENT   Encrypt to the specified RECIPIENT. Can be repeated.
+</span></span><span style=display:flex><span>    -d, --decrypt               Decrypt the input to the output.
+</span></span><span style=display:flex><span>    -i, --identity KEY          Use the private key file at path KEY. Can be repeated.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>INPUT defaults to standard input, and OUTPUT defaults to standard output.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>RECIPIENT can be an age public key, as generated by age-keygen, (&#34;age1...&#34;)
+</span></span><span style=display:flex><span>or an SSH public key (&#34;ssh-ed25519 AAAA...&#34;, &#34;ssh-rsa AAAA...&#34;).
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>KEY is a path to a file with age secret keys, one per line
+</span></span><span style=display:flex><span>(ignoring &#34;#&#34; prefixed comments and empty lines), or to an SSH key file.
+</span></span><span style=display:flex><span>Multiple keys can be provided, and any unused ones will be ignored.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Example:
+</span></span><span style=display:flex><span>    $ age-keygen -o key.txt
+</span></span><span style=display:flex><span>    Public key: age1ql3z7hjy54pw3hyww5ayyfgxzqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p
+</span></span><span style=display:flex><span>    $ tar cvz ~/data | age -r age1ql3z7hjy54pw3hyww5ayffg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p &gt; data.tar.gz.age
+</span></span><span style=display:flex><span>    $ age -d -i key.txt -o data.tar.gz data.tar.gz.age
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div><p>ご覧の通り、<code>age-keygen</code>で鍵を作り、その鍵を使って<code>age</code>で暗号化・復号するのが基本だが、<code>age</code>は単なるコマンドなんで、パイプで繋げられるのがポイント。</p><h2 id=実行例>実行例<a hidden class=anchor aria-hidden=true href=#実行例>#</a></h2><h3 id=鍵を作る>鍵を作る<a hidden class=anchor aria-hidden=true href=#鍵を作る>#</a></h3><p>鍵を作るのは<code>age-keygen</code>。<br>なお、ageでは、ssh鍵も使えるが、それは後ほど。<br>ともかく、<code>-o</code>に続いて書き出すファイルを指定すれば鍵が書き込まれる。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ age-keygen -o ~/.config/age/keys.txt
+</span></span><span style=display:flex><span>Public key: age1rvvg4xtywl4ceeaqj5auhkg4qjec315ayd24lmath0euzetsfs8czjff
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div><p>鍵を作ると問答無用で公開鍵を表示してくれる。<br>公開鍵は暗号化するときに使う鍵ですな。<br>復号するときに使う秘密鍵については、鍵を書き込んだファイルを表示してみると;</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ cat ~/.config/age/keys.txt
+</span></span><span style=display:flex><span># created: 2020-03-07T10:49:42+09:00
+</span></span><span style=display:flex><span># public key: age1rvvg4xtywl0cxeaqj5auhkg4qjec355ayd24lmath0euzetsfs8czjff
+</span></span><span style=display:flex><span>AGE-SECRET-KEY-1G9NKY3MA92270K8FWXXXXQQ7ZHPLS3VDTASUGQ9AWG6AD8ZT4SLUM3PM
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div><p>ご覧の通り<code>AGE-SECRET-KEY</code>から続くものが秘密鍵ですな。<br>なお、鍵の書き込まれたファイルのパーミッションは600で、他人からは見られないようになっている。<br>秘密鍵だからね。このファイルの管理は厳重に。言わずもがな。</p><h3 id=暗号化>暗号化<a hidden class=anchor aria-hidden=true href=#暗号化>#</a></h3><p>基本的な使い方は<code>cat</code>やらしたファイルをパイプで繋ぐ。<br>以下の例では<code>plane.txt</code>の内容を<code>age</code>に渡す。<br><code>-r</code>で公開鍵を指定。<br>そのままだと標準出力に暗号化データが吐き出されるので、<code>-o</code>で出力先ファイルを指定。<br>以下の例だと<code>plane.age</code>に。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ cat ./plane.txt
+</span></span><span style=display:flex><span>ほげほげ
+</span></span><span style=display:flex><span>$ file ./plane.txt
+</span></span><span style=display:flex><span>./plane.txt: UTF-8 Unicode text  # UTF-8のプレインテキスト
+</span></span><span style=display:flex><span>$
+</span></span><span style=display:flex><span>$ cat ./plane.txt |age -o plane.age -r age1rvvg4xtywl0ceeaqj5auhkg4qjec355ayd24lmrth0euzetsfs8czjff
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>$ file ./plane.age
+</span></span><span style=display:flex><span>./plane.age: data  # 出来上がりはバイナリデータの模様
+</span></span><span style=display:flex><span>$
+</span></span><span style=display:flex><span>$ du -h ./plane*  <span style=color:#75715e># やっぱりサイズは増えるよね</span>
+</span></span><span style=display:flex><span>4.5K    ./plane.age
+</span></span><span style=display:flex><span>512B    ./plane.txt
+</span></span></code></pre></div><h3 id=復号>復号<a hidden class=anchor aria-hidden=true href=#復号>#</a></h3><p>復号する場合には、<code>--decrypt</code>あるいは<code>-d</code>をオプションに与える。<br>鍵は<code>--identity</code>あるいは<code>-i</code>で指定する。<br>結果は標準出力に吐き出されるので、必要に応じてファイルにリダイレクトする。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ age -i ~/.config/age/keys.txt --decrypt ./plane.age
+</span></span><span style=display:flex><span>ほげほげ
+</span></span><span style=display:flex><span>$
+</span></span><span style=display:flex><span>$ age -i ~/.config/age/keys.txt --decrypt ./plane.age &gt; plane.decrypt.txt
+</span></span><span style=display:flex><span>$ cat plane.decrypt.txt
+</span></span><span style=display:flex><span>ほげほげ
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div><h3 id=暗号化のバリエーション>暗号化のバリエーション<a hidden class=anchor aria-hidden=true href=#暗号化のバリエーション>#</a></h3><h4 id=公開鍵入力のテクニック>公開鍵入力のテクニック<a hidden class=anchor aria-hidden=true href=#公開鍵入力のテクニック>#</a></h4><p>いかなageといえど、いちいち公開鍵をコピペするの面倒なので、以下のようにする。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ cat ./rcpt.txt
+</span></span><span style=display:flex><span>age12d2x0gquwpuywl0ceeaqjsXXXXXxvp9j8ae6l04xfh5d85n44qaj8e4r
+</span></span><span style=display:flex><span>$ cat ./plane.txt |age -r <span style=color:#e6db74>`</span>cat rcpt.txt<span style=color:#e6db74>`</span>  -o plane.age
+</span></span></code></pre></div><h4 id=複数の宛先へ>複数の宛先へ<a hidden class=anchor aria-hidden=true href=#複数の宛先へ>#</a></h4><p>暗号化のとき、公開鍵は複数、設定することができる。<br>この場合、いずれの秘密鍵でも復号できる。<br>以下の例では、できたファイルはage1AAA, age1BBBの秘密鍵の持ち主それぞれで復号できる</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ cat ./plane.txt |age -r age1AAA.... -r age1BBB...  -o plane.age
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div><h4 id=tarなどのアーカイバと組み合わせる>tarなどのアーカイバと組み合わせる<a hidden class=anchor aria-hidden=true href=#tarなどのアーカイバと組み合わせる>#</a></h4><p>ディレクトリをtar, gzで固めたものを暗号化<br>zfsのスナップショットと組み合わせるのもいいね。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ ls -R ./dir
+</span></span><span style=display:flex><span>a.txt   b.txt
+</span></span><span style=display:flex><span> tar cvzf - ./dir |age -r age12d.... -o dir.tgz.age
+</span></span><span style=display:flex><span>a ./dir
+</span></span><span style=display:flex><span>a ./dir/a.txt
+</span></span><span style=display:flex><span>a ./dir/b.txt
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div><h4 id=sshの鍵>sshの鍵<a hidden class=anchor aria-hidden=true href=#sshの鍵>#</a></h4><p>sshの公開鍵も使える。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ cat plane.txt
+</span></span><span style=display:flex><span>ほげほげ
+</span></span><span style=display:flex><span>$ cat ~/.ssh/id_rsa.pub  <span style=color:#75715e># ssh公開鍵</span>
+</span></span><span style=display:flex><span>ssh-rsa AAAA（略）
+</span></span><span style=display:flex><span>$ cat plane.txt|age -o plane.age -r <span style=color:#e6db74>&#34;`cat ~/.ssh/id_rsa.pub`&#34;</span>  <span style=color:#75715e># ダブルクオーテーションで括らないといけないことに注意</span>
+</span></span><span style=display:flex><span>$
+</span></span><span style=display:flex><span>$ age -d -i ~/.ssh/id_rsa ./plane.age
+</span></span><span style=display:flex><span>Enter passphrase for &#34;/home/nobwak/.ssh/id_rsa&#34;:  # ssh鍵のパスフレーズ入力
+</span></span><span style=display:flex><span>ほげほげ
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div><h4 id=パスフレーズ>パスフレーズ<a hidden class=anchor aria-hidden=true href=#パスフレーズ>#</a></h4><p><code>-p</code>を与えるとパスフレーズが使える。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ cat plane.txt
+</span></span><span style=display:flex><span>ほげほげ
+</span></span><span style=display:flex><span>$ age -p ./plane.txt &gt; plane.age
+</span></span><span style=display:flex><span>Enter passphrase:  # パスフレーズを入れる
+</span></span><span style=display:flex><span>$
+</span></span><span style=display:flex><span>$ age -d ./plane.age  <span style=color:#75715e># 復号のときは-dオプション不要</span>
+</span></span><span style=display:flex><span>Enter passphrase:
+</span></span><span style=display:flex><span>ほげほげ
+</span></span><span style=display:flex><span>$
+</span></span></code></pre></div></div><footer class=post-footer><ul class=post-tags><li><a href=https://nobwak.github.io/tags/security/>security</a></li><li><a href=https://nobwak.github.io/tags/freebsd/>FreeBSD</a></li><li><a href=https://nobwak.github.io/tags/age/>age</a></li></ul><nav class=paginav><a class=prev href=https://nobwak.github.io/posts/2020-03-10-visualcodestudio%E3%81%A7virtualenv%E3%82%92%E4%BD%BF%E3%81%86/><span class=title>« Prev Page</span><br><span>2020-03-10-VisualCodeStudioでvirtualenvを使う</span></a>
+<a class=next href=https://nobwak.github.io/posts/2020-03-01-%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%81%A7%E4%BD%BF%E3%81%88%E3%82%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E6%83%85%E5%A0%B1%E8%A1%A8%E7%A4%BA%E3%83%84%E3%83%BC%E3%83%ABneofetch/><span class=title>Next Page »</span><br><span>2020-03-01-ターミナルで使えるシステム情報表示ツールneofetch</span></a></nav><div class=share-buttons><a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on twitter" href="https://twitter.com/intent/tweet/?text=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f&hashtags=Security%2cFreeBSD%2cage"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f&title=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89&summary=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f&title=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on whatsapp" href="https://api.whatsapp.com/send?text=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share 2020-03-07-シンプル簡単鉄壁暗号復号ツールage（アゲ） on telegram" href="https://telegram.me/share/url?text=2020-03-07-%e3%82%b7%e3%83%b3%e3%83%97%e3%83%ab%e7%b0%a1%e5%8d%98%e9%89%84%e5%a3%81%e6%9a%97%e5%8f%b7%e5%be%a9%e5%8f%b7%e3%83%84%e3%83%bc%e3%83%abage%ef%bc%88%e3%82%a2%e3%82%b2%ef%bc%89&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2020-03-07-%25E3%2582%25B7%25E3%2583%25B3%25E3%2583%2597%25E3%2583%25AB%25E7%25B0%25A1%25E5%258D%2598%25E9%2589%2584%25E5%25A3%2581%25E6%259A%2597%25E5%258F%25B7%25E5%25BE%25A9%25E5%258F%25B7%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABage%25E3%2582%25A2%25E3%2582%25B2%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a></div></footer></article></main><footer class=footer><span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
-</span>
-</footer>
-<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
-</a>
-<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
-<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
-<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
-</body>
-</html>
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(t){t.preventDefault();var e=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView({behavior:"smooth"}),e==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${e}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>

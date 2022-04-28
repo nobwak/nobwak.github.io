@@ -1,399 +1,122 @@
-<!doctype html><html lang=en dir=auto>
-<head><meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
-<meta name=robots content="index, follow">
-<title>Pythonベースのプロジェクト管理ツール、tracのインストール | nobwak's Lair</title>
-<meta name=keywords content="FreeBSD,python">
-<meta name=description content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール">
-<meta name=author content="nobwak">
-<link rel=canonical href=https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/>
-<meta name=google-site-verification content="XYZabc">
-<meta name=yandex-verification content="XYZabc">
-<meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
-<link rel=preload href=/apple-touch-icon.png as=image>
-<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<meta name=theme-color content="#2e2e33">
-<meta name=msapplication-TileColor content="#2e2e33">
-<meta name=generator content="Hugo 0.91.2">
-<noscript>
-<style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Pythonベースのプロジェクト管理ツール、tracのインストール">
-<meta property="og:description" content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2014-05-20T23:24:19+09:00">
-<meta property="article:modified_time" content="2014-05-20T23:24:19+09:00"><meta property="og:site_name" content="nobwak's Lair">
-<meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
-<meta name=twitter:title content="Pythonベースのプロジェクト管理ツール、tracのインストール">
-<meta name=twitter:description content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"Pythonベースのプロジェクト管理ツール、tracのインストール","item":"https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Pythonベースのプロジェクト管理ツール、tracのインストール","name":"Pythonベースのプロジェクト管理ツール、tracのインストール","description":"Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール","keywords":["FreeBSD","python"],"articleBody":"Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。\nプロジェうと管理ツールとしては、redmineもインストールしたのだが、それと比較したい。\nだからひとまずインストールするだけ。\nFreeBSD 10.0-RELEASEにtrac-1.0.1。\n全体のながれ  tracのインストール 環境作成 環境のテスト 認証用パスワードファイルの作成 起動設定 複数プロジェクト設定  インストール tracはpkgにもあるので、特に障害もなくインストール完了。\n/usr/local/lib/python2.7/site-packages/tracにドバっとファイルが作られる。\n古い（といってもそこまで古くないが）ブログによると、日本語環境で使うためにいろいろと苦労が必要なようだが、現時点においてはpkg install trac一発で完了。\n依存関係はこんな感じ。\n$ sudo pkg info -d trac trac-1.0.1_2: silvercity-0.9.7 py27-pygments-1.6_2 py27-Genshi-0.7_1 py27-docutils-0.11 python27-2.7.6_4 python2-2_2 py27-subversion-1.8.8_2 py27-setuptools27-2.0.1 py27-pytz-2014.1.1,1 py27-Babel-1.3_1 py27-sqlite3-2.7.6_3 データベースはご覧の通りsqliteが使われる。もちろんMySQLなど他のソフトウェアも使える。\nwebサーバも不要。こちらもapacheなど他のソフトウェアを使える。\n設定 大したことはない。\nまず環境を作る。\nディレクトリを決めておいて、そこでtracコマンドを実行し、初期化する。\n例えば/usr/local/wwwの下に、tracというディレクトリを作る。\nそこでtrac initenvと叩く。\n注意点は、ディレクトリの文字コード。ASCIIじゃないとダメ。\nまた、作成したあとには、ユーザ、グループ権限を変えること。\nwww:wwwで動かすならそのようにchownしておく。\n以下は実行例。\nデータベースにsqliteを使うならリターンキーを連打するだけでよい。\n（プロジェクト名はMy Projectになるけど。）\nexample01 /usr/local/www trac-admin /usr/local/www/trac initenv Creating a new Trac environment at /usr/local/www/trac Trac will first ask a few questions about your environment in order to initialize and prepare the project database.  Please enter the name of your project. This name will be used in page titles and descriptions. Project Name [My Project]  Please specify the connection string for the database to use. By default, a local SQLite database is created in the environment directory. It is also possible to use an already existing PostgreSQL database (check the Trac documentation for the exact connection string syntax). Database connection string [sqlite:db/trac.db] Creating and Initializing Project Installing default wiki pages CamelCase imported from （略） Project environment for 'My Project' created. You may now configure the environment by editing the file: /usr/local/www/trac/conf/trac.ini If you'd like to take this new project environment for a test drive, try running the Trac standalone web server `tracd`: tracd --port 8000 /usr/local/www/trac Then point your browser to http://localhost:8000/trac. There you can also browse the documentation for your installed version of Trac, including information on further setup (such as deploying Trac to a real web server). The latest documentation can also always be found on the project website: http://trac.edgewall.org/ Congratulations! example01 /usr/local/www  詳細な設定はtrac.iniでできるよ、とメッセージがあるが、そんなのは後回しにして、まずは起動確認。\n試運転 初期設定完了時のメッセージにある通り、tracdとしてwebサーバを起動することができる。\n-portにポート番号、それにディレクトリを引数に与える。\nexample01 /usr/local/www tracd --port 8000 /usr/local/www/trac/ Server starting in PID 2351. Serving on 0.0.0.0:8000 view at http://127.0.0.1:8000/ Using HTTP/1.1 protocol version 192.168.100.106 - - [17/May/2014 00:35:57] \"GET / HTTP/1.1\" 200 - 192.168.100.106 - - [17/May/2014 00:35:58] \"GET /favicon.ico HTTP/1.1\" 404 - 192.168.100.106 - - [17/May/2014 00:35:58] \"GET /favicon.ico HTTP/1.1\" 404 - 192.168.100.106 - - [17/May/2014 00:36:00] \"GET /trac HTTP/1.1\" 200 - 192.168.100.106 - - [17/May/2014 00:36:00] \"GET /trac/chrome/common/css/wiki.css HTTP/1.1\" 200 - 1 この状態で、ブラウザから接続して、以下のような表示があれば成功。\nさっき作ったMy Projectが見えていますね。\nただ、この状態では何もできない。\nメニューのログインをクリックしても、ページがない旨のエラーが表示されるはず。\nまずは認証の準備をする必要がある。\nターミナルに戻ってCtrl+Cで抜けよう。\n認証用のパスワードファイル作成 認証の準備すなわちパスワードファイルの作成である。\nパスワードファイルだから、平文で書かれていてはまずい。\nではどうやって作るか。\napacheをインストールしていれば、htpasswdを使う。\napacheがなければ。\nインストールドキュメントに書いてあるスクリプトを使う。\nhttp://emelfm2.net/wiki/TracStandalone\nちょっと横道に逸れるが。\nいずれにしても、このさきtracにユーザを追加する場合には、ここで作成したパスワードファイルへの登録で行う。\nこれを面倒と感じるかどうか。\nさておき、以下を適当な名前で、たとえばtrac-digest.pyとして保存する。\nfrom optparse import OptionParser # The md5 module is deprecated in Python 2.5 try: from hashlib import md5 except ImportError: from md5 import md5 realm = 'trac' # build the options usage = \"usage: %prog [options]\" parser = OptionParser(usage=usage) parser.add_option(\"-u\", \"--username\",action=\"store\", dest=\"username\", type = \"string\", help=\"the username for whom to generate a password\") parser.add_option(\"-p\", \"--password\",action=\"store\", dest=\"password\", type = \"string\", help=\"the password to use\") parser.add_option(\"-r\", \"--realm\",action=\"store\", dest=\"realm\", type = \"string\", help=\"the realm in which to create the digest\") (options, args) = parser.parse_args() # check options if (options.username is None) or (options.password is None): parser.error(\"You must supply both the username and password\") if (options.realm is not None): realm = options.realm # Generate the string to enter into the htdigest file kd = lambda x: md5(':'.join(x)).hexdigest() print ':'.join((options.username, realm, kd([options.username, realm, options.password]))) 使い方は以下の通りで、python trac-digest.pyに続けて、-u ＜ユーザネーム＞ -p ＜パスワード＞とし、その出力をファイルに向ける。\nexample01 /usr/local/www  python trac-digest.py -u username -p password  /tmp/digest.txt つまりユーザusernameを、passwordというパスワードで作成している。\n生成されたファイルの中身は以下の通り。\n2カラムめはrealm。\nusername:trac:a053da77aad45fc9d4a506ef6fd 本格起動 今度はtracdにオプションを特盛で与える。\n-authで先ほどのパスワードファイルを与える。\nその際には、プロジェクトのベースディレクトリ、パスワードファイル、realmを指定する。\nベースディレクトリとは、もし環境を作ったディレクトリが/usr/local/www/tracならtracになる。\nこのベースディレクトリは、のちにwebサーバを動かしたとき、http://＜サーバアドレス＞/＜ベースディレクトリ＞というように使われる。\n最終的に-authは、本記事の例でいえば、-auth=trac,/tmp/digest.txt,tracとなる。\nさらに、-pで待ち受けポート、-user, -groupでtracdを動かす権限を、-dでdaemoniseを指定する。\n以下のようになる。\n# tracd --auth=trac,/tmp/digest.txt,trac -p 8000 --user=www --group=www /usr/local/www/trac/ -d 試運転の時とは違い、すぐにプロンプトが戻ってくる。\n試しにsockstatを見てみると、以下の通り。\n# sockstat -l4 USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS www python2.7 6517 3 tcp4 192.168.100.240:8000 *:* 認証の確認 さきほどはクリックしてもページのなかった「ログイン」が、今度はIDとパスワードを訊いてくるようになっているはず。\nこれでチケットの発行ができる。\n管理者権限の作成 しかしユーザusernameは一般ユーザである。\n彼に管理者権限を与えるには、以下のようにtracコマンドで操作を行う。\nexample01 /usr/local/www trac-admin /usr/local/www/trac permission add username TRAC_ADMIN example01 /usr/local/www  このあと、ユーザusernameには管理者メニューが現れる。\nなお、管理者であれば、他ユーザの権限も操作できる。\nしたがって、管理者権限を与えるのは最初の一人だけ、にすることもできる。\n注意点としては、各ユーザの権限はさきほど作成したパスワードファイルでは管理されていない、ということ。\n繰り返すが、ユーザの登録はパスワードファイルへの登録で、（少なくとも初回の）権限変更は上記コマンドで、という仕組みをどう感じるか。\nまあちょっと面倒くさいかもしれませんな。\nシステム起動時設定（シングル環境モード） 以上でtracをとりあえず起動する設定は済んだ。\nあとはシステム起動時にtracが起動するよう、/etc/rc.confに設定を加える。\n/usr/local/etc/rc.d/trac内のコメントに沿ってrc.confに追加する。\n以下は例。## trac\ntracd_enable=\"YES\" tracd_listen=\"192.168.100.240\" tracd_port=\"8000\" tracd_envdir=\"/usr/local/www/\" tracd_env=\"trac\" tracd_args=\"--user=www --group=www --auth=trac,/tmp/digest.txt,trac\" tracd_envdirとtracd_envに注意。\nこういう書き方をしてtracに接続するといきなりMy Projectに移動する。\nプロジェクトが一つであれば何の問題もないが、複数プロジェクトを抱えたい場合には困る。\n複数プロジェクトの運営 複数プロジェクトを登録したいのであれば、必要なぶんだけディレクトリを作り、そこでtrac-admin initenvすればよい。\n例えば/usr/local/www/tracsなんてディレクトリを作り、projecttemp, projectaltというディレクトリをさらに作る。\nそれぞれにinit-envで環境を作る。\nこのとき、/etc/rc.confはこのようにする。\ntracd_envに/usr/local/www/tracsを指定し、tracd_envはコメントアウト。\n-authで指定するベースディレクトリにアスタリスクを与えれば、パスワードファイルを複数のプロジェクトで共有できる。\n## trac tracd_enable=\"YES\" tracd_listen=\"192.168.100.240\" tracd_port=\"8000\" tracd_envdir=\"/usr/local/www/tracs\" #tracd_env=\"\" tracd_args=\"--user=www --group=www --auth=*,/tmp/digest.txt,trac\" こんな感じ。\n以上\n","wordCount":"3217","inLanguage":"en","datePublished":"2014-05-20T23:24:19+09:00","dateModified":"2014-05-20T23:24:19+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
-</head>
-<body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
-<header class=header>
-<nav class=nav>
-<div class=logo>
-<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
-<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-</button>
-</span>
-</div>
-<ul id=menu>
-<li>
-<a href=https://nobwak.github.io/posts/ title=posts>
-<span>posts</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
-<span>search</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/categories/ title=categories>
-<span>categories</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/tags/ title=tags>
-<span>tags</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io title="nobwak lair">
-<span>nobwak lair</span>
-</a>
-</li>
-</ul>
-</nav>
-</header>
-<main class=main>
-<article class=post-single>
-<header class=post-header>
-<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
-<h1 class=post-title>
-Pythonベースのプロジェクト管理ツール、tracのインストール
-</h1>
-<div class=post-meta><span title="2014-05-20 23:24:19 +0900 JST">May 20, 2014</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2014-05-20-Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
-</div>
-</header> <div class=toc>
-<details open>
-<summary accesskey=c title="(Alt + C)">
-<span class=details>Table of Contents</span>
-</summary>
-<div class=inner><ul>
-<li>
-<a href=#%e5%85%a8%e4%bd%93%e3%81%ae%e3%81%aa%e3%81%8c%e3%82%8c aria-label=全体のながれ>全体のながれ</a></li>
-<li>
-<a href=#%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=インストール>インストール</a></li>
-<li>
-<a href=#%e8%a8%ad%e5%ae%9a aria-label=設定>設定</a></li>
-<li>
-<a href=#%e8%a9%a6%e9%81%8b%e8%bb%a2 aria-label=試運転>試運転</a></li>
-<li>
-<a href=#%e8%aa%8d%e8%a8%bc%e7%94%a8%e3%81%ae%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e4%bd%9c%e6%88%90 aria-label=認証用のパスワードファイル作成>認証用のパスワードファイル作成</a></li>
-<li>
-<a href=#%e6%9c%ac%e6%a0%bc%e8%b5%b7%e5%8b%95 aria-label=本格起動>本格起動</a></li>
-<li>
-<a href=#%e8%aa%8d%e8%a8%bc%e3%81%ae%e7%a2%ba%e8%aa%8d aria-label=認証の確認>認証の確認</a></li>
-<li>
-<a href=#%e7%ae%a1%e7%90%86%e8%80%85%e6%a8%a9%e9%99%90%e3%81%ae%e4%bd%9c%e6%88%90 aria-label=管理者権限の作成>管理者権限の作成</a></li>
-<li>
-<a href=#%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%e8%b5%b7%e5%8b%95%e6%99%82%e8%a8%ad%e5%ae%9a%e3%82%b7%e3%83%b3%e3%82%b0%e3%83%ab%e7%92%b0%e5%a2%83%e3%83%a2%e3%83%bc%e3%83%89 aria-label=システム起動時設定（シングル環境モード）>システム起動時設定（シングル環境モード）</a></li>
-<li>
-<a href=#%e8%a4%87%e6%95%b0%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%81%ae%e9%81%8b%e5%96%b6 aria-label=複数プロジェクトの運営>複数プロジェクトの運営</a>
-</li>
-</ul>
-</div>
-</details>
-</div>
-<div class=post-content><p>Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。<br>
-プロジェうと管理ツールとしては、redmineもインストールしたのだが、それと比較したい。<br>
-だからひとまずインストールするだけ。<br>
-FreeBSD 10.0-RELEASEにtrac-1.0.1。</p>
-<h2 id=全体のながれ>全体のながれ<a hidden class=anchor aria-hidden=true href=#全体のながれ>#</a></h2>
-<ol>
-<li>tracのインストール</li>
-<li>環境作成</li>
-<li>環境のテスト</li>
-<li>認証用パスワードファイルの作成</li>
-<li>起動設定</li>
-<li>複数プロジェクト設定</li>
-</ol>
-<h2 id=インストール>インストール<a hidden class=anchor aria-hidden=true href=#インストール>#</a></h2>
-<p>tracはpkgにもあるので、特に障害もなくインストール完了。<br>
-/usr/local/lib/python2.7/site-packages/tracにドバっとファイルが作られる。</p>
-<p>古い（といってもそこまで古くないが）ブログによると、日本語環境で使うためにいろいろと苦労が必要なようだが、現時点においてはpkg install trac一発で完了。<br>
-依存関係はこんな感じ。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo pkg info -d trac
-trac-1.0.1_2:
-        silvercity-0.9.7
-        py27-pygments-1.6_2
-        py27-Genshi-0.7_1
-        py27-docutils-0.11
-        python27-2.7.6_4
-        python2-2_2
-        py27-subversion-1.8.8_2
-        py27-setuptools27-2.0.1
-        py27-pytz-2014.1.1,1
-        py27-Babel-1.3_1
-        py27-sqlite3-2.7.6_3
-</code></pre></div><p>データベースはご覧の通りsqliteが使われる。もちろんMySQLなど他のソフトウェアも使える。<br>
-webサーバも不要。こちらもapacheなど他のソフトウェアを使える。</p>
-<h2 id=設定>設定<a hidden class=anchor aria-hidden=true href=#設定>#</a></h2>
-<p>大したことはない。<br>
-まず環境を作る。<br>
-ディレクトリを決めておいて、そこでtracコマンドを実行し、初期化する。<br>
-例えば/usr/local/wwwの下に、tracというディレクトリを作る。<br>
-そこでtrac initenvと叩く。<br>
-注意点は、ディレクトリの文字コード。ASCIIじゃないとダメ。<br>
-また、作成したあとには、ユーザ、グループ権限を変えること。<br>
-www:wwwで動かすならそのようにchownしておく。</p>
-<p>以下は実行例。<br>
-データベースにsqliteを使うならリターンキーを連打するだけでよい。<br>
-（プロジェクト名はMy Projectになるけど。）</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>example01 /usr/local/www &gt;trac-admin /usr/local/www/trac initenv
-Creating a new Trac environment at /usr/local/www/trac
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Trac will first ask a few questions about your environment
-in order to initialize and prepare the project database.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span> Please enter the name of your project.
- This name will be used in page titles and descriptions.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Project Name [My Project]&gt;
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span> Please specify the connection string for the database to use.
- By default, a local SQLite database is created in the environment
- directory. It is also possible to use an already existing
- PostgreSQL database (check the Trac documentation for the exact
- connection string syntax).
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Database connection string [sqlite:db/trac.db]&gt;
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Creating and Initializing Project
- Installing default wiki pages
-  CamelCase imported from 
-（略）
-Project environment for &#39;My Project&#39; created.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>You may now configure the environment by editing the file:
-  /usr/local/www/trac/conf/trac.ini
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>If you&#39;d like to take this new project environment for a test drive,
-try running the Trac standalone web server `tracd`:
-  tracd --port 8000 /usr/local/www/trac
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Then point your browser to http://localhost:8000/trac.
-There you can also browse the documentation for your installed
-version of Trac, including information on further setup (such as
-deploying Trac to a real web server).
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>The latest documentation can also always be found on the project
-website:
-  http://trac.edgewall.org/
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Congratulations!
-example01 /usr/local/www &gt;
-</code></pre></div><p>詳細な設定はtrac.iniでできるよ、とメッセージがあるが、そんなのは後回しにして、まずは起動確認。</p>
-<h2 id=試運転>試運転<a hidden class=anchor aria-hidden=true href=#試運転>#</a></h2>
-<p>初期設定完了時のメッセージにある通り、tracdとしてwebサーバを起動することができる。<br>
--portにポート番号、それにディレクトリを引数に与える。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>example01 /usr/local/www &gt;tracd --port 8000 /usr/local/www/trac/
- Server starting in PID 2351.
- Serving on 0.0.0.0:8000 view at http://127.0.0.1:8000/
- Using HTTP/1.1 protocol version
- 192.168.100.106 - - [17/May/2014 00:35:57] &#34;GET / HTTP/1.1&#34; 200 -
- 192.168.100.106 - - [17/May/2014 00:35:58] &#34;GET /favicon.ico HTTP/1.1&#34; 404 -
- 192.168.100.106 - - [17/May/2014 00:35:58] &#34;GET /favicon.ico HTTP/1.1&#34; 404 -
- 192.168.100.106 - - [17/May/2014 00:36:00] &#34;GET /trac HTTP/1.1&#34; 200 -
- 192.168.100.106 - - [17/May/2014 00:36:00] &#34;GET /trac/chrome/common/css/wiki.css HTTP/1.1&#34; 200 - 1
-</code></pre></div><p>この状態で、ブラウザから接続して、以下のような表示があれば成功。<br>
-さっき作ったMy Projectが見えていますね。<br>
-<img loading=lazy src=/wp-content/uploads/2014/05/tractestboot01.png alt=img>
-<br>
-ただ、この状態では何もできない。<br>
-<img loading=lazy src=/wp-content/uploads/2014/05/tractestboot02.png alt=img>
-<br>
-メニューのログインをクリックしても、ページがない旨のエラーが表示されるはず。<br>
-まずは認証の準備をする必要がある。<br>
-ターミナルに戻ってCtrl+Cで抜けよう。</p>
-<h2 id=認証用のパスワードファイル作成>認証用のパスワードファイル作成<a hidden class=anchor aria-hidden=true href=#認証用のパスワードファイル作成>#</a></h2>
-<p>認証の準備すなわちパスワードファイルの作成である。<br>
-パスワードファイルだから、平文で書かれていてはまずい。<br>
-ではどうやって作るか。<br>
-apacheをインストールしていれば、htpasswdを使う。<br>
-apacheがなければ。<br>
-インストールドキュメントに書いてあるスクリプトを使う。<br>
-<a href=http://emelfm2.net/wiki/TracStandalone>http://emelfm2.net/wiki/TracStandalone</a></p>
-<p>ちょっと横道に逸れるが。<br>
-いずれにしても、このさきtracにユーザを追加する場合には、ここで作成したパスワードファイルへの登録で行う。<br>
-これを面倒と感じるかどうか。</p>
-<p>さておき、以下を適当な名前で、たとえばtrac-digest.pyとして保存する。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>from optparse import OptionParser
-# The md5 module is deprecated in Python 2.5
-try:
-    from hashlib import md5
-except ImportError:
-    from md5 import md5
-realm = &#39;trac&#39;
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span># build the options
-usage = &#34;usage: %prog [options]&#34;
-parser = OptionParser(usage=usage)
-parser.add_option(&#34;-u&#34;, &#34;--username&#34;,action=&#34;store&#34;, dest=&#34;username&#34;, type = &#34;string&#34;,
-                  help=&#34;the username for whom to generate a password&#34;)
-parser.add_option(&#34;-p&#34;, &#34;--password&#34;,action=&#34;store&#34;, dest=&#34;password&#34;, type = &#34;string&#34;,
-                  help=&#34;the password to use&#34;)
-parser.add_option(&#34;-r&#34;, &#34;--realm&#34;,action=&#34;store&#34;, dest=&#34;realm&#34;, type = &#34;string&#34;,
-                  help=&#34;the realm in which to create the digest&#34;)
-(options, args) = parser.parse_args()
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span># check options
-if (options.username is None) or (options.password is None):
-   parser.error(&#34;You must supply both the username and password&#34;)
-if (options.realm is not None):
-   realm = options.realm
-   
-# Generate the string to enter into the htdigest file
-kd = lambda x: md5(&#39;:&#39;.join(x)).hexdigest()
-print &#39;:&#39;.join((options.username, realm, kd([options.username, realm, options.password])))
-</code></pre></div><p>使い方は以下の通りで、python trac-digest.pyに続けて、-u ＜ユーザネーム＞ -p ＜パスワード＞とし、その出力をファイルに向ける。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>example01 /usr/local/www &gt; python trac-digest.py -u username -p password &gt;&gt; /tmp/digest.txt
-</code></pre></div><p>つまりユーザusernameを、passwordというパスワードで作成している。</p>
-<p>生成されたファイルの中身は以下の通り。<br>
-2カラムめはrealm。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>username:trac:a053da77aad45fc9d4a506ef6fd
-</code></pre></div><h2 id=本格起動>本格起動<a hidden class=anchor aria-hidden=true href=#本格起動>#</a></h2>
-<p>今度はtracdにオプションを特盛で与える。<br>
--authで先ほどのパスワードファイルを与える。<br>
-その際には、プロジェクトのベースディレクトリ、パスワードファイル、realmを指定する。<br>
-ベースディレクトリとは、もし環境を作ったディレクトリが/usr/local/www/tracならtracになる。<br>
-このベースディレクトリは、のちにwebサーバを動かしたとき、http://＜サーバアドレス＞/＜ベースディレクトリ＞というように使われる。</p>
-<p>最終的に-authは、本記事の例でいえば、-auth=trac,/tmp/digest.txt,tracとなる。</p>
-<p>さらに、-pで待ち受けポート、-user, -groupでtracdを動かす権限を、-dでdaemoniseを指定する。<br>
-以下のようになる。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># tracd --auth<span style=color:#f92672>=</span>trac,/tmp/digest.txt,trac -p <span style=color:#ae81ff>8000</span> --user<span style=color:#f92672>=</span>www --group<span style=color:#f92672>=</span>www /usr/local/www/trac/ -d
-</code></pre></div><p>試運転の時とは違い、すぐにプロンプトが戻ってくる。<br>
-試しにsockstatを見てみると、以下の通り。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># sockstat -l4
- USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
- www python2.7 6517 3 tcp4 192.168.100.240:8000 *:*
-</code></pre></div><h2 id=認証の確認>認証の確認<a hidden class=anchor aria-hidden=true href=#認証の確認>#</a></h2>
-<p>さきほどはクリックしてもページのなかった「ログイン」が、今度はIDとパスワードを訊いてくるようになっているはず。<br>
-<img loading=lazy src=/wp-content/uploads/2014/05/tractestboot03.png alt=img>
-<br>
-<img loading=lazy src=/wp-content/uploads/2014/05/tractestboot04.png alt=img>
-<br>
-これでチケットの発行ができる。</p>
-<h2 id=管理者権限の作成>管理者権限の作成<a hidden class=anchor aria-hidden=true href=#管理者権限の作成>#</a></h2>
-<p>しかしユーザusernameは一般ユーザである。<br>
-彼に管理者権限を与えるには、以下のようにtracコマンドで操作を行う。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>example01 /usr/local/www &gt;trac-admin /usr/local/www/trac permission add username TRAC_ADMIN
-example01 /usr/local/www &gt;
-</code></pre></div><p>このあと、ユーザusernameには管理者メニューが現れる。<br>
-<img loading=lazy src=/wp-content/uploads/2014/05/tractestboot05.png alt=img>
-</p>
-<p>なお、管理者であれば、他ユーザの権限も操作できる。<br>
-<img loading=lazy src=/wp-content/uploads/2014/05/tractestboot06.png alt=img>
-<br>
-したがって、管理者権限を与えるのは最初の一人だけ、にすることもできる。</p>
-<p>注意点としては、各ユーザの権限はさきほど作成したパスワードファイルでは管理されていない、ということ。</p>
-<p>繰り返すが、ユーザの登録はパスワードファイルへの登録で、（少なくとも初回の）権限変更は上記コマンドで、という仕組みをどう感じるか。<br>
-まあちょっと面倒くさいかもしれませんな。</p>
-<h2 id=システム起動時設定シングル環境モード>システム起動時設定（シングル環境モード）<a hidden class=anchor aria-hidden=true href=#システム起動時設定シングル環境モード>#</a></h2>
-<p>以上でtracをとりあえず起動する設定は済んだ。<br>
-あとはシステム起動時にtracが起動するよう、/etc/rc.confに設定を加える。<br>
-/usr/local/etc/rc.d/trac内のコメントに沿ってrc.confに追加する。<br>
-以下は例。## trac</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>tracd_enable=&#34;YES&#34;
-tracd_listen=&#34;192.168.100.240&#34;
-tracd_port=&#34;8000&#34;
-tracd_envdir=&#34;/usr/local/www/&#34;
-tracd_env=&#34;trac&#34;
-tracd_args=&#34;--user=www --group=www --auth=trac,/tmp/digest.txt,trac&#34;
-</code></pre></div><p>tracd_envdirとtracd_envに注意。<br>
-こういう書き方をしてtracに接続するといきなりMy Projectに移動する。<br>
-プロジェクトが一つであれば何の問題もないが、複数プロジェクトを抱えたい場合には困る。</p>
-<h2 id=複数プロジェクトの運営>複数プロジェクトの運営<a hidden class=anchor aria-hidden=true href=#複数プロジェクトの運営>#</a></h2>
-<p>複数プロジェクトを登録したいのであれば、必要なぶんだけディレクトリを作り、そこでtrac-admin initenvすればよい。<br>
-例えば/usr/local/www/tracsなんてディレクトリを作り、projecttemp, projectaltというディレクトリをさらに作る。<br>
-それぞれにinit-envで環境を作る。<br>
-このとき、/etc/rc.confはこのようにする。<br>
-tracd_envに/usr/local/www/tracsを指定し、tracd_envはコメントアウト。<br>
--authで指定するベースディレクトリにアスタリスクを与えれば、パスワードファイルを複数のプロジェクトで共有できる。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>#<span style=color:#75715e># trac</span>
-tracd_enable=&#34;YES&#34;
-tracd_listen=&#34;192.168.100.240&#34;
-tracd_port=&#34;8000&#34;
-tracd_envdir=&#34;/usr/local/www/tracs&#34;
-#tracd_env<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>
-tracd_args=&#34;--user=www --group=www --auth=*,/tmp/digest.txt,trac&#34;
-</code></pre></div><p>こんな感じ。<br>
-<img loading=lazy src=/wp-content/uploads/2014/05/tractestboot07.png alt=img>
-<img loading=lazy src=/wp-content/uploads/2014/05/tractestboot08.png alt=img>
-</p>
-<p>以上</p>
-</div>
-<footer class=post-footer>
-<ul class=post-tags>
-<li><a href=https://nobwak.github.io/tags/freebsd/>FreeBSD</a></li>
-<li><a href=https://nobwak.github.io/tags/python/>python</a></li>
-</ul>
-<nav class=paginav>
-<a class=prev href=https://nobwak.github.io/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/>
-<span class=title>« Prev Page</span>
-<br>
-<span>ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</span>
-</a>
-<a class=next href=https://nobwak.github.io/posts/2014-05-11-freebsd%E3%81%ABredmine%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%8F%96%E3%82%8A%E3%81%82%E3%81%88%E3%81%9A%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92%E3%82%8B%E3%81%A8%E3%81%93%E3%81%BE%E3%81%A7/>
-<span class=title>Next Page »</span>
-<br>
-<span>FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）</span>
-</a>
-</nav>
-<div class=share-buttons>
-<a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on twitter" href="https://twitter.com/intent/tweet/?text=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f&hashtags=FreeBSD%2cpython"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f&title=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab&summary=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f&title=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on whatsapp" href="https://api.whatsapp.com/send?text=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on telegram" href="https://telegram.me/share/url?text=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
-</a>
-</div>
-</footer>
-</article>
-</main>
-<footer class=footer>
-<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
-<span>
-Powered by
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Pythonベースのプロジェクト管理ツール、tracのインストール | nobwak's Lair</title><meta name=keywords content="FreeBSD,python"><meta name=description content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール"><meta name=author content="nobwak"><link rel=canonical href=https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style><link rel=preload href=/apple-touch-icon.png as=image><script defer crossorigin=anonymous src=/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><meta name=generator content="Hugo 0.96.0"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="Pythonベースのプロジェクト管理ツール、tracのインストール"><meta property="og:description" content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール"><meta property="og:type" content="article"><meta property="og:url" content="https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2014-05-20T23:24:19+09:00"><meta property="article:modified_time" content="2014-05-20T23:24:19+09:00"><meta property="og:site_name" content="nobwak's Lair"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="Pythonベースのプロジェクト管理ツール、tracのインストール"><meta name=twitter:description content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"Pythonベースのプロジェクト管理ツール、tracのインストール","item":"https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Pythonベースのプロジェクト管理ツール、tracのインストール","name":"Pythonベースのプロジェクト管理ツール、tracのインストール","description":"Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール","keywords":["FreeBSD","python"],"articleBody":"Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。\nプロジェうと管理ツールとしては、redmineもインストールしたのだが、それと比較したい。\nだからひとまずインストールするだけ。\nFreeBSD 10.0-RELEASEにtrac-1.0.1。\n全体のながれ  tracのインストール 環境作成 環境のテスト 認証用パスワードファイルの作成 起動設定 複数プロジェクト設定  インストール tracはpkgにもあるので、特に障害もなくインストール完了。\n/usr/local/lib/python2.7/site-packages/tracにドバっとファイルが作られる。\n古い（といってもそこまで古くないが）ブログによると、日本語環境で使うためにいろいろと苦労が必要なようだが、現時点においてはpkg install trac一発で完了。\n依存関係はこんな感じ。\n$ sudo pkg info -d trac trac-1.0.1_2:  silvercity-0.9.7  py27-pygments-1.6_2  py27-Genshi-0.7_1  py27-docutils-0.11  python27-2.7.6_4  python2-2_2  py27-subversion-1.8.8_2  py27-setuptools27-2.0.1  py27-pytz-2014.1.1,1  py27-Babel-1.3_1  py27-sqlite3-2.7.6_3 データベースはご覧の通りsqliteが使われる。もちろんMySQLなど他のソフトウェアも使える。\nwebサーバも不要。こちらもapacheなど他のソフトウェアを使える。\n設定 大したことはない。\nまず環境を作る。\nディレクトリを決めておいて、そこでtracコマンドを実行し、初期化する。\n例えば/usr/local/wwwの下に、tracというディレクトリを作る。\nそこでtrac initenvと叩く。\n注意点は、ディレクトリの文字コード。ASCIIじゃないとダメ。\nまた、作成したあとには、ユーザ、グループ権限を変えること。\nwww:wwwで動かすならそのようにchownしておく。\n以下は実行例。\nデータベースにsqliteを使うならリターンキーを連打するだけでよい。\n（プロジェクト名はMy Projectになるけど。）\nexample01 /usr/local/www trac-admin /usr/local/www/trac initenv Creating a new Trac environment at /usr/local/www/trac Trac will first ask a few questions about your environment in order to initialize and prepare the project database.  Please enter the name of your project.  This name will be used in page titles and descriptions. Project Name [My Project]  Please specify the connection string for the database to use.  By default, a local SQLite database is created in the environment  directory. It is also possible to use an already existing  PostgreSQL database (check the Trac documentation for the exact  connection string syntax). Database connection string [sqlite:db/trac.db] Creating and Initializing Project  Installing default wiki pages  CamelCase imported from （略） Project environment for 'My Project' created. You may now configure the environment by editing the file:  /usr/local/www/trac/conf/trac.ini If you'd like to take this new project environment for a test drive, try running the Trac standalone web server `tracd`:  tracd --port 8000 /usr/local/www/trac Then point your browser to http://localhost:8000/trac. There you can also browse the documentation for your installed version of Trac, including information on further setup (such as deploying Trac to a real web server). The latest documentation can also always be found on the project website:  http://trac.edgewall.org/ Congratulations! example01 /usr/local/www  詳細な設定はtrac.iniでできるよ、とメッセージがあるが、そんなのは後回しにして、まずは起動確認。\n試運転 初期設定完了時のメッセージにある通り、tracdとしてwebサーバを起動することができる。\n-portにポート番号、それにディレクトリを引数に与える。\nexample01 /usr/local/www tracd --port 8000 /usr/local/www/trac/  Server starting in PID 2351.  Serving on 0.0.0.0:8000 view at http://127.0.0.1:8000/  Using HTTP/1.1 protocol version  192.168.100.106 - - [17/May/2014 00:35:57] \"GET / HTTP/1.1\" 200 -  192.168.100.106 - - [17/May/2014 00:35:58] \"GET /favicon.ico HTTP/1.1\" 404 -  192.168.100.106 - - [17/May/2014 00:35:58] \"GET /favicon.ico HTTP/1.1\" 404 -  192.168.100.106 - - [17/May/2014 00:36:00] \"GET /trac HTTP/1.1\" 200 -  192.168.100.106 - - [17/May/2014 00:36:00] \"GET /trac/chrome/common/css/wiki.css HTTP/1.1\" 200 - 1 この状態で、ブラウザから接続して、以下のような表示があれば成功。\nさっき作ったMy Projectが見えていますね。\nただ、この状態では何もできない。\nメニューのログインをクリックしても、ページがない旨のエラーが表示されるはず。\nまずは認証の準備をする必要がある。\nターミナルに戻ってCtrl+Cで抜けよう。\n認証用のパスワードファイル作成 認証の準備すなわちパスワードファイルの作成である。\nパスワードファイルだから、平文で書かれていてはまずい。\nではどうやって作るか。\napacheをインストールしていれば、htpasswdを使う。\napacheがなければ。\nインストールドキュメントに書いてあるスクリプトを使う。\nhttp://emelfm2.net/wiki/TracStandalone\nちょっと横道に逸れるが。\nいずれにしても、このさきtracにユーザを追加する場合には、ここで作成したパスワードファイルへの登録で行う。\nこれを面倒と感じるかどうか。\nさておき、以下を適当な名前で、たとえばtrac-digest.pyとして保存する。\nfrom optparse import OptionParser # The md5 module is deprecated in Python 2.5 try:  from hashlib import md5 except ImportError:  from md5 import md5 realm = 'trac' # build the options usage = \"usage: %prog [options]\" parser = OptionParser(usage=usage) parser.add_option(\"-u\", \"--username\",action=\"store\", dest=\"username\", type = \"string\",  help=\"the username for whom to generate a password\") parser.add_option(\"-p\", \"--password\",action=\"store\", dest=\"password\", type = \"string\",  help=\"the password to use\") parser.add_option(\"-r\", \"--realm\",action=\"store\", dest=\"realm\", type = \"string\",  help=\"the realm in which to create the digest\") (options, args) = parser.parse_args() # check options if (options.username is None) or (options.password is None):  parser.error(\"You must supply both the username and password\") if (options.realm is not None):  realm = options.realm  # Generate the string to enter into the htdigest file kd = lambda x: md5(':'.join(x)).hexdigest() print ':'.join((options.username, realm, kd([options.username, realm, options.password]))) 使い方は以下の通りで、python trac-digest.pyに続けて、-u ＜ユーザネーム＞ -p ＜パスワード＞とし、その出力をファイルに向ける。\nexample01 /usr/local/www  python trac-digest.py -u username -p password  /tmp/digest.txt つまりユーザusernameを、passwordというパスワードで作成している。\n生成されたファイルの中身は以下の通り。\n2カラムめはrealm。\nusername:trac:a053da77aad45fc9d4a506ef6fd 本格起動 今度はtracdにオプションを特盛で与える。\n-authで先ほどのパスワードファイルを与える。\nその際には、プロジェクトのベースディレクトリ、パスワードファイル、realmを指定する。\nベースディレクトリとは、もし環境を作ったディレクトリが/usr/local/www/tracならtracになる。\nこのベースディレクトリは、のちにwebサーバを動かしたとき、http://＜サーバアドレス＞/＜ベースディレクトリ＞というように使われる。\n最終的に-authは、本記事の例でいえば、-auth=trac,/tmp/digest.txt,tracとなる。\nさらに、-pで待ち受けポート、-user, -groupでtracdを動かす権限を、-dでdaemoniseを指定する。\n以下のようになる。\n# tracd --auth=trac,/tmp/digest.txt,trac -p 8000 --user=www --group=www /usr/local/www/trac/ -d 試運転の時とは違い、すぐにプロンプトが戻ってくる。\n試しにsockstatを見てみると、以下の通り。\n# sockstat -l4  USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS  www python2.7 6517 3 tcp4 192.168.100.240:8000 *:* 認証の確認 さきほどはクリックしてもページのなかった「ログイン」が、今度はIDとパスワードを訊いてくるようになっているはず。\nこれでチケットの発行ができる。\n管理者権限の作成 しかしユーザusernameは一般ユーザである。\n彼に管理者権限を与えるには、以下のようにtracコマンドで操作を行う。\nexample01 /usr/local/www trac-admin /usr/local/www/trac permission add username TRAC_ADMIN example01 /usr/local/www  このあと、ユーザusernameには管理者メニューが現れる。\nなお、管理者であれば、他ユーザの権限も操作できる。\nしたがって、管理者権限を与えるのは最初の一人だけ、にすることもできる。\n注意点としては、各ユーザの権限はさきほど作成したパスワードファイルでは管理されていない、ということ。\n繰り返すが、ユーザの登録はパスワードファイルへの登録で、（少なくとも初回の）権限変更は上記コマンドで、という仕組みをどう感じるか。\nまあちょっと面倒くさいかもしれませんな。\nシステム起動時設定（シングル環境モード） 以上でtracをとりあえず起動する設定は済んだ。\nあとはシステム起動時にtracが起動するよう、/etc/rc.confに設定を加える。\n/usr/local/etc/rc.d/trac内のコメントに沿ってrc.confに追加する。\n以下は例。## trac\ntracd_enable=\"YES\" tracd_listen=\"192.168.100.240\" tracd_port=\"8000\" tracd_envdir=\"/usr/local/www/\" tracd_env=\"trac\" tracd_args=\"--user=www --group=www --auth=trac,/tmp/digest.txt,trac\" tracd_envdirとtracd_envに注意。\nこういう書き方をしてtracに接続するといきなりMy Projectに移動する。\nプロジェクトが一つであれば何の問題もないが、複数プロジェクトを抱えたい場合には困る。\n複数プロジェクトの運営 複数プロジェクトを登録したいのであれば、必要なぶんだけディレクトリを作り、そこでtrac-admin initenvすればよい。\n例えば/usr/local/www/tracsなんてディレクトリを作り、projecttemp, projectaltというディレクトリをさらに作る。\nそれぞれにinit-envで環境を作る。\nこのとき、/etc/rc.confはこのようにする。\ntracd_envに/usr/local/www/tracsを指定し、tracd_envはコメントアウト。\n-authで指定するベースディレクトリにアスタリスクを与えれば、パスワードファイルを複数のプロジェクトで共有できる。\n## trac tracd_enable=\"YES\" tracd_listen=\"192.168.100.240\" tracd_port=\"8000\" tracd_envdir=\"/usr/local/www/tracs\" #tracd_env=\"\" tracd_args=\"--user=www --group=www --auth=*,/tmp/digest.txt,trac\" こんな感じ。\n以上\n","wordCount":"3217","inLanguage":"en","datePublished":"2014-05-20T23:24:19+09:00","dateModified":"2014-05-20T23:24:19+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)"><img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></span></div><ul id=menu><li><a href=https://nobwak.github.io/posts/ title=posts><span>posts</span></a></li><li><a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/><span>search</span></a></li><li><a href=https://nobwak.github.io/categories/ title=categories><span>categories</span></a></li><li><a href=https://nobwak.github.io/tags/ title=tags><span>tags</span></a></li><li><a href=https://nobwak.github.io title="nobwak lair"><span>nobwak lair</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div><h1 class=post-title>Pythonベースのプロジェクト管理ツール、tracのインストール</h1><div class=post-meta><span title="2014-05-20 23:24:19 +0900 JST">May 20, 2014</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2014-05-20-Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab.md rel="noopener noreferrer" target=_blank>Suggest Changes</a></div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e5%85%a8%e4%bd%93%e3%81%ae%e3%81%aa%e3%81%8c%e3%82%8c aria-label=全体のながれ>全体のながれ</a></li><li><a href=#%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=インストール>インストール</a></li><li><a href=#%e8%a8%ad%e5%ae%9a aria-label=設定>設定</a></li><li><a href=#%e8%a9%a6%e9%81%8b%e8%bb%a2 aria-label=試運転>試運転</a></li><li><a href=#%e8%aa%8d%e8%a8%bc%e7%94%a8%e3%81%ae%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e4%bd%9c%e6%88%90 aria-label=認証用のパスワードファイル作成>認証用のパスワードファイル作成</a></li><li><a href=#%e6%9c%ac%e6%a0%bc%e8%b5%b7%e5%8b%95 aria-label=本格起動>本格起動</a></li><li><a href=#%e8%aa%8d%e8%a8%bc%e3%81%ae%e7%a2%ba%e8%aa%8d aria-label=認証の確認>認証の確認</a></li><li><a href=#%e7%ae%a1%e7%90%86%e8%80%85%e6%a8%a9%e9%99%90%e3%81%ae%e4%bd%9c%e6%88%90 aria-label=管理者権限の作成>管理者権限の作成</a></li><li><a href=#%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%e8%b5%b7%e5%8b%95%e6%99%82%e8%a8%ad%e5%ae%9a%e3%82%b7%e3%83%b3%e3%82%b0%e3%83%ab%e7%92%b0%e5%a2%83%e3%83%a2%e3%83%bc%e3%83%89 aria-label=システム起動時設定（シングル環境モード）>システム起動時設定（シングル環境モード）</a></li><li><a href=#%e8%a4%87%e6%95%b0%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%81%ae%e9%81%8b%e5%96%b6 aria-label=複数プロジェクトの運営>複数プロジェクトの運営</a></li></ul></div></details></div><div class=post-content><p>Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。<br>プロジェうと管理ツールとしては、redmineもインストールしたのだが、それと比較したい。<br>だからひとまずインストールするだけ。<br>FreeBSD 10.0-RELEASEにtrac-1.0.1。</p><h2 id=全体のながれ>全体のながれ<a hidden class=anchor aria-hidden=true href=#全体のながれ>#</a></h2><ol><li>tracのインストール</li><li>環境作成</li><li>環境のテスト</li><li>認証用パスワードファイルの作成</li><li>起動設定</li><li>複数プロジェクト設定</li></ol><h2 id=インストール>インストール<a hidden class=anchor aria-hidden=true href=#インストール>#</a></h2><p>tracはpkgにもあるので、特に障害もなくインストール完了。<br>/usr/local/lib/python2.7/site-packages/tracにドバっとファイルが作られる。</p><p>古い（といってもそこまで古くないが）ブログによると、日本語環境で使うためにいろいろと苦労が必要なようだが、現時点においてはpkg install trac一発で完了。<br>依存関係はこんな感じ。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo pkg info -d trac
+</span></span><span style=display:flex><span>trac-1.0.1_2:
+</span></span><span style=display:flex><span>        silvercity-0.9.7
+</span></span><span style=display:flex><span>        py27-pygments-1.6_2
+</span></span><span style=display:flex><span>        py27-Genshi-0.7_1
+</span></span><span style=display:flex><span>        py27-docutils-0.11
+</span></span><span style=display:flex><span>        python27-2.7.6_4
+</span></span><span style=display:flex><span>        python2-2_2
+</span></span><span style=display:flex><span>        py27-subversion-1.8.8_2
+</span></span><span style=display:flex><span>        py27-setuptools27-2.0.1
+</span></span><span style=display:flex><span>        py27-pytz-2014.1.1,1
+</span></span><span style=display:flex><span>        py27-Babel-1.3_1
+</span></span><span style=display:flex><span>        py27-sqlite3-2.7.6_3
+</span></span></code></pre></div><p>データベースはご覧の通りsqliteが使われる。もちろんMySQLなど他のソフトウェアも使える。<br>webサーバも不要。こちらもapacheなど他のソフトウェアを使える。</p><h2 id=設定>設定<a hidden class=anchor aria-hidden=true href=#設定>#</a></h2><p>大したことはない。<br>まず環境を作る。<br>ディレクトリを決めておいて、そこでtracコマンドを実行し、初期化する。<br>例えば/usr/local/wwwの下に、tracというディレクトリを作る。<br>そこでtrac initenvと叩く。<br>注意点は、ディレクトリの文字コード。ASCIIじゃないとダメ。<br>また、作成したあとには、ユーザ、グループ権限を変えること。<br>www:wwwで動かすならそのようにchownしておく。</p><p>以下は実行例。<br>データベースにsqliteを使うならリターンキーを連打するだけでよい。<br>（プロジェクト名はMy Projectになるけど。）</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>example01 /usr/local/www &gt;trac-admin /usr/local/www/trac initenv
+</span></span><span style=display:flex><span>Creating a new Trac environment at /usr/local/www/trac
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Trac will first ask a few questions about your environment
+</span></span><span style=display:flex><span>in order to initialize and prepare the project database.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span> Please enter the name of your project.
+</span></span><span style=display:flex><span> This name will be used in page titles and descriptions.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Project Name [My Project]&gt;
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span> Please specify the connection string for the database to use.
+</span></span><span style=display:flex><span> By default, a local SQLite database is created in the environment
+</span></span><span style=display:flex><span> directory. It is also possible to use an already existing
+</span></span><span style=display:flex><span> PostgreSQL database (check the Trac documentation for the exact
+</span></span><span style=display:flex><span> connection string syntax).
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Database connection string [sqlite:db/trac.db]&gt;
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Creating and Initializing Project
+</span></span><span style=display:flex><span> Installing default wiki pages
+</span></span><span style=display:flex><span>  CamelCase imported from 
+</span></span><span style=display:flex><span>（略）
+</span></span><span style=display:flex><span>Project environment for &#39;My Project&#39; created.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>You may now configure the environment by editing the file:
+</span></span><span style=display:flex><span>  /usr/local/www/trac/conf/trac.ini
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>If you&#39;d like to take this new project environment for a test drive,
+</span></span><span style=display:flex><span>try running the Trac standalone web server `tracd`:
+</span></span><span style=display:flex><span>  tracd --port 8000 /usr/local/www/trac
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Then point your browser to http://localhost:8000/trac.
+</span></span><span style=display:flex><span>There you can also browse the documentation for your installed
+</span></span><span style=display:flex><span>version of Trac, including information on further setup (such as
+</span></span><span style=display:flex><span>deploying Trac to a real web server).
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>The latest documentation can also always be found on the project
+</span></span><span style=display:flex><span>website:
+</span></span><span style=display:flex><span>  http://trac.edgewall.org/
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Congratulations!
+</span></span><span style=display:flex><span>example01 /usr/local/www &gt;
+</span></span></code></pre></div><p>詳細な設定はtrac.iniでできるよ、とメッセージがあるが、そんなのは後回しにして、まずは起動確認。</p><h2 id=試運転>試運転<a hidden class=anchor aria-hidden=true href=#試運転>#</a></h2><p>初期設定完了時のメッセージにある通り、tracdとしてwebサーバを起動することができる。<br>-portにポート番号、それにディレクトリを引数に与える。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>example01 /usr/local/www &gt;tracd --port 8000 /usr/local/www/trac/
+</span></span><span style=display:flex><span> Server starting in PID 2351.
+</span></span><span style=display:flex><span> Serving on 0.0.0.0:8000 view at http://127.0.0.1:8000/
+</span></span><span style=display:flex><span> Using HTTP/1.1 protocol version
+</span></span><span style=display:flex><span> 192.168.100.106 - - [17/May/2014 00:35:57] &#34;GET / HTTP/1.1&#34; 200 -
+</span></span><span style=display:flex><span> 192.168.100.106 - - [17/May/2014 00:35:58] &#34;GET /favicon.ico HTTP/1.1&#34; 404 -
+</span></span><span style=display:flex><span> 192.168.100.106 - - [17/May/2014 00:35:58] &#34;GET /favicon.ico HTTP/1.1&#34; 404 -
+</span></span><span style=display:flex><span> 192.168.100.106 - - [17/May/2014 00:36:00] &#34;GET /trac HTTP/1.1&#34; 200 -
+</span></span><span style=display:flex><span> 192.168.100.106 - - [17/May/2014 00:36:00] &#34;GET /trac/chrome/common/css/wiki.css HTTP/1.1&#34; 200 - 1
+</span></span></code></pre></div><p>この状態で、ブラウザから接続して、以下のような表示があれば成功。<br>さっき作ったMy Projectが見えていますね。<br><img loading=lazy src=/wp-content/uploads/2014/05/tractestboot01.png alt=img><br>ただ、この状態では何もできない。<br><img loading=lazy src=/wp-content/uploads/2014/05/tractestboot02.png alt=img><br>メニューのログインをクリックしても、ページがない旨のエラーが表示されるはず。<br>まずは認証の準備をする必要がある。<br>ターミナルに戻ってCtrl+Cで抜けよう。</p><h2 id=認証用のパスワードファイル作成>認証用のパスワードファイル作成<a hidden class=anchor aria-hidden=true href=#認証用のパスワードファイル作成>#</a></h2><p>認証の準備すなわちパスワードファイルの作成である。<br>パスワードファイルだから、平文で書かれていてはまずい。<br>ではどうやって作るか。<br>apacheをインストールしていれば、htpasswdを使う。<br>apacheがなければ。<br>インストールドキュメントに書いてあるスクリプトを使う。<br><a href=http://emelfm2.net/wiki/TracStandalone>http://emelfm2.net/wiki/TracStandalone</a></p><p>ちょっと横道に逸れるが。<br>いずれにしても、このさきtracにユーザを追加する場合には、ここで作成したパスワードファイルへの登録で行う。<br>これを面倒と感じるかどうか。</p><p>さておき、以下を適当な名前で、たとえばtrac-digest.pyとして保存する。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>from optparse import OptionParser
+</span></span><span style=display:flex><span># The md5 module is deprecated in Python 2.5
+</span></span><span style=display:flex><span>try:
+</span></span><span style=display:flex><span>    from hashlib import md5
+</span></span><span style=display:flex><span>except ImportError:
+</span></span><span style=display:flex><span>    from md5 import md5
+</span></span><span style=display:flex><span>realm = &#39;trac&#39;
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span># build the options
+</span></span><span style=display:flex><span>usage = &#34;usage: %prog [options]&#34;
+</span></span><span style=display:flex><span>parser = OptionParser(usage=usage)
+</span></span><span style=display:flex><span>parser.add_option(&#34;-u&#34;, &#34;--username&#34;,action=&#34;store&#34;, dest=&#34;username&#34;, type = &#34;string&#34;,
+</span></span><span style=display:flex><span>                  help=&#34;the username for whom to generate a password&#34;)
+</span></span><span style=display:flex><span>parser.add_option(&#34;-p&#34;, &#34;--password&#34;,action=&#34;store&#34;, dest=&#34;password&#34;, type = &#34;string&#34;,
+</span></span><span style=display:flex><span>                  help=&#34;the password to use&#34;)
+</span></span><span style=display:flex><span>parser.add_option(&#34;-r&#34;, &#34;--realm&#34;,action=&#34;store&#34;, dest=&#34;realm&#34;, type = &#34;string&#34;,
+</span></span><span style=display:flex><span>                  help=&#34;the realm in which to create the digest&#34;)
+</span></span><span style=display:flex><span>(options, args) = parser.parse_args()
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span># check options
+</span></span><span style=display:flex><span>if (options.username is None) or (options.password is None):
+</span></span><span style=display:flex><span>   parser.error(&#34;You must supply both the username and password&#34;)
+</span></span><span style=display:flex><span>if (options.realm is not None):
+</span></span><span style=display:flex><span>   realm = options.realm
+</span></span><span style=display:flex><span>   
+</span></span><span style=display:flex><span># Generate the string to enter into the htdigest file
+</span></span><span style=display:flex><span>kd = lambda x: md5(&#39;:&#39;.join(x)).hexdigest()
+</span></span><span style=display:flex><span>print &#39;:&#39;.join((options.username, realm, kd([options.username, realm, options.password])))
+</span></span></code></pre></div><p>使い方は以下の通りで、python trac-digest.pyに続けて、-u ＜ユーザネーム＞ -p ＜パスワード＞とし、その出力をファイルに向ける。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>example01 /usr/local/www &gt; python trac-digest.py -u username -p password &gt;&gt; /tmp/digest.txt
+</span></span></code></pre></div><p>つまりユーザusernameを、passwordというパスワードで作成している。</p><p>生成されたファイルの中身は以下の通り。<br>2カラムめはrealm。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>username:trac:a053da77aad45fc9d4a506ef6fd
+</span></span></code></pre></div><h2 id=本格起動>本格起動<a hidden class=anchor aria-hidden=true href=#本格起動>#</a></h2><p>今度はtracdにオプションを特盛で与える。<br>-authで先ほどのパスワードファイルを与える。<br>その際には、プロジェクトのベースディレクトリ、パスワードファイル、realmを指定する。<br>ベースディレクトリとは、もし環境を作ったディレクトリが/usr/local/www/tracならtracになる。<br>このベースディレクトリは、のちにwebサーバを動かしたとき、http://＜サーバアドレス＞/＜ベースディレクトリ＞というように使われる。</p><p>最終的に-authは、本記事の例でいえば、-auth=trac,/tmp/digest.txt,tracとなる。</p><p>さらに、-pで待ち受けポート、-user, -groupでtracdを動かす権限を、-dでdaemoniseを指定する。<br>以下のようになる。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># tracd --auth<span style=color:#f92672>=</span>trac,/tmp/digest.txt,trac -p <span style=color:#ae81ff>8000</span> --user<span style=color:#f92672>=</span>www --group<span style=color:#f92672>=</span>www /usr/local/www/trac/ -d
+</span></span></code></pre></div><p>試運転の時とは違い、すぐにプロンプトが戻ってくる。<br>試しにsockstatを見てみると、以下の通り。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># sockstat -l4
+</span></span><span style=display:flex><span> USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+</span></span><span style=display:flex><span> www python2.7 6517 3 tcp4 192.168.100.240:8000 *:*
+</span></span></code></pre></div><h2 id=認証の確認>認証の確認<a hidden class=anchor aria-hidden=true href=#認証の確認>#</a></h2><p>さきほどはクリックしてもページのなかった「ログイン」が、今度はIDとパスワードを訊いてくるようになっているはず。<br><img loading=lazy src=/wp-content/uploads/2014/05/tractestboot03.png alt=img><br><img loading=lazy src=/wp-content/uploads/2014/05/tractestboot04.png alt=img><br>これでチケットの発行ができる。</p><h2 id=管理者権限の作成>管理者権限の作成<a hidden class=anchor aria-hidden=true href=#管理者権限の作成>#</a></h2><p>しかしユーザusernameは一般ユーザである。<br>彼に管理者権限を与えるには、以下のようにtracコマンドで操作を行う。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>example01 /usr/local/www &gt;trac-admin /usr/local/www/trac permission add username TRAC_ADMIN
+</span></span><span style=display:flex><span>example01 /usr/local/www &gt;
+</span></span></code></pre></div><p>このあと、ユーザusernameには管理者メニューが現れる。<br><img loading=lazy src=/wp-content/uploads/2014/05/tractestboot05.png alt=img></p><p>なお、管理者であれば、他ユーザの権限も操作できる。<br><img loading=lazy src=/wp-content/uploads/2014/05/tractestboot06.png alt=img><br>したがって、管理者権限を与えるのは最初の一人だけ、にすることもできる。</p><p>注意点としては、各ユーザの権限はさきほど作成したパスワードファイルでは管理されていない、ということ。</p><p>繰り返すが、ユーザの登録はパスワードファイルへの登録で、（少なくとも初回の）権限変更は上記コマンドで、という仕組みをどう感じるか。<br>まあちょっと面倒くさいかもしれませんな。</p><h2 id=システム起動時設定シングル環境モード>システム起動時設定（シングル環境モード）<a hidden class=anchor aria-hidden=true href=#システム起動時設定シングル環境モード>#</a></h2><p>以上でtracをとりあえず起動する設定は済んだ。<br>あとはシステム起動時にtracが起動するよう、/etc/rc.confに設定を加える。<br>/usr/local/etc/rc.d/trac内のコメントに沿ってrc.confに追加する。<br>以下は例。## trac</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>tracd_enable=&#34;YES&#34;
+</span></span><span style=display:flex><span>tracd_listen=&#34;192.168.100.240&#34;
+</span></span><span style=display:flex><span>tracd_port=&#34;8000&#34;
+</span></span><span style=display:flex><span>tracd_envdir=&#34;/usr/local/www/&#34;
+</span></span><span style=display:flex><span>tracd_env=&#34;trac&#34;
+</span></span><span style=display:flex><span>tracd_args=&#34;--user=www --group=www --auth=trac,/tmp/digest.txt,trac&#34;
+</span></span></code></pre></div><p>tracd_envdirとtracd_envに注意。<br>こういう書き方をしてtracに接続するといきなりMy Projectに移動する。<br>プロジェクトが一つであれば何の問題もないが、複数プロジェクトを抱えたい場合には困る。</p><h2 id=複数プロジェクトの運営>複数プロジェクトの運営<a hidden class=anchor aria-hidden=true href=#複数プロジェクトの運営>#</a></h2><p>複数プロジェクトを登録したいのであれば、必要なぶんだけディレクトリを作り、そこでtrac-admin initenvすればよい。<br>例えば/usr/local/www/tracsなんてディレクトリを作り、projecttemp, projectaltというディレクトリをさらに作る。<br>それぞれにinit-envで環境を作る。<br>このとき、/etc/rc.confはこのようにする。<br>tracd_envに/usr/local/www/tracsを指定し、tracd_envはコメントアウト。<br>-authで指定するベースディレクトリにアスタリスクを与えれば、パスワードファイルを複数のプロジェクトで共有できる。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>#<span style=color:#75715e># trac</span>
+</span></span><span style=display:flex><span>tracd_enable=&#34;YES&#34;
+</span></span><span style=display:flex><span>tracd_listen=&#34;192.168.100.240&#34;
+</span></span><span style=display:flex><span>tracd_port=&#34;8000&#34;
+</span></span><span style=display:flex><span>tracd_envdir=&#34;/usr/local/www/tracs&#34;
+</span></span><span style=display:flex><span>#tracd_env<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>tracd_args=&#34;--user=www --group=www --auth=*,/tmp/digest.txt,trac&#34;
+</span></span></code></pre></div><p>こんな感じ。<br><img loading=lazy src=/wp-content/uploads/2014/05/tractestboot07.png alt=img>
+<img loading=lazy src=/wp-content/uploads/2014/05/tractestboot08.png alt=img></p><p>以上</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://nobwak.github.io/tags/freebsd/>FreeBSD</a></li><li><a href=https://nobwak.github.io/tags/python/>python</a></li></ul><nav class=paginav><a class=prev href=https://nobwak.github.io/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/><span class=title>« Prev Page</span><br><span>ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</span></a>
+<a class=next href=https://nobwak.github.io/posts/2014-05-11-freebsd%E3%81%ABredmine%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%8F%96%E3%82%8A%E3%81%82%E3%81%88%E3%81%9A%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92%E3%82%8B%E3%81%A8%E3%81%93%E3%81%BE%E3%81%A7/><span class=title>Next Page »</span><br><span>FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）</span></a></nav><div class=share-buttons><a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on twitter" href="https://twitter.com/intent/tweet/?text=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f&hashtags=FreeBSD%2cpython"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f&title=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab&summary=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f&title=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on whatsapp" href="https://api.whatsapp.com/send?text=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share Pythonベースのプロジェクト管理ツール、tracのインストール on telegram" href="https://telegram.me/share/url?text=Python%e3%83%99%e3%83%bc%e3%82%b9%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e7%ae%a1%e7%90%86%e3%83%84%e3%83%bc%e3%83%ab%e3%80%81trac%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2014-05-20-python%25E3%2583%2599%25E3%2583%25BC%25E3%2582%25B9%25E3%2581%25AE%25E3%2583%2597%25E3%2583%25AD%25E3%2582%25B8%25E3%2582%25A7%25E3%2582%25AF%25E3%2583%2588%25E7%25AE%25A1%25E7%2590%2586%25E3%2583%2584%25E3%2583%25BC%25E3%2583%25ABtrac%25E3%2581%25AE%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a></div></footer></article></main><footer class=footer><span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
-</span>
-</footer>
-<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
-</a>
-<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
-<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
-<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
-</body>
-</html>
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(t){t.preventDefault();var e=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView({behavior:"smooth"}),e==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${e}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>

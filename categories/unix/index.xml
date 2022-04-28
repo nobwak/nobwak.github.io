@@ -72,8 +72,8 @@
       <guid>https://nobwak.github.io/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/</guid>
       <description>&lt;p&gt;ssh経由bashでコマンド実行するときの環境変数を有効にするには。&lt;/p&gt;
 &lt;p&gt;以下のようにして、リモートホストでコマンドを実行する場合、リモートでの環境変数が有効にならない事がある。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;$ ssh user@remotehost /path/command
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。&lt;br&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ ssh user@remotehost /path/command
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。&lt;br&gt;
 おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。&lt;br&gt;
 以下にまとめる。&lt;/p&gt;
 &lt;p&gt;なお、複数ホストを用意するのが面倒なので、本記事で実例を示す場合には接続先をlocalhostしている。&lt;/p&gt;</description>

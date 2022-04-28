@@ -1,391 +1,141 @@
-<!doctype html><html lang=en dir=auto>
-<head><meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
-<meta name=robots content="index, follow">
-<title>2021-12-13-FreeBSDの無線LAN設定 | nobwak's Lair</title>
-<meta name=keywords content="FreeBSD,Network,WiFi">
-<meta name=description content="FreeBSDの無線LANクライアントを設定する FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳">
-<meta name=author content="Me">
-<link rel=canonical href=https://nobwak.github.io/posts/2021-12-13-freebsd%E3%81%AE%E7%84%A1%E7%B7%9Alan%E8%A8%AD%E5%AE%9A/>
-<meta name=google-site-verification content="XYZabc">
-<meta name=yandex-verification content="XYZabc">
-<meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
-<link rel=preload href=/apple-touch-icon.png as=image>
-<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<meta name=theme-color content="#2e2e33">
-<meta name=msapplication-TileColor content="#2e2e33">
-<meta name=generator content="Hugo 0.91.2">
-<noscript>
-<style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="2021-12-13-FreeBSDの無線LAN設定">
-<meta property="og:description" content="FreeBSDの無線LANクライアントを設定する FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://nobwak.github.io/posts/2021-12-13-freebsd%E3%81%AE%E7%84%A1%E7%B7%9Alan%E8%A8%AD%E5%AE%9A/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2021-12-13T14:34:40+09:00">
-<meta property="article:modified_time" content="2021-12-13T14:34:40+09:00"><meta property="og:site_name" content="nobwak's Lair">
-<meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
-<meta name=twitter:title content="2021-12-13-FreeBSDの無線LAN設定">
-<meta name=twitter:description content="FreeBSDの無線LANクライアントを設定する FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"2021-12-13-FreeBSDの無線LAN設定","item":"https://nobwak.github.io/posts/2021-12-13-freebsd%E3%81%AE%E7%84%A1%E7%B7%9Alan%E8%A8%AD%E5%AE%9A/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"2021-12-13-FreeBSDの無線LAN設定","name":"2021-12-13-FreeBSDの無線LAN設定","description":"FreeBSDの無線LANクライアントを設定する FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳","keywords":["FreeBSD","Network","WiFi"],"articleBody":"FreeBSDの無線LANクライアントを設定する FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳に行かず、いろいろと設定ファイルを準備する必要がある。\nFreeBSD Handbookを読みながら進めば問題ないが、備忘のために残す。\n要件 無線LANクライアントとして使うということはDHCPでIPアドレスを取得するので、その前提で。\nFreeBSD Handbook ここ。\n以下、Handbookに沿って進める。\n無線LANインタフェースの特定 sysctlで特定。\nご覧の通りiwm0である。\n良かった。ここで出てこないと自分でカーネルモジュールをインストールする必要がある。\n$ sysctl net.wlan.devices net.wlan.devices: iwm0 kldstatを実行すれば、確かにif_iwm.koが読み込まれている。\n$ kldstat Id Refs Address Size Name 1 69 0xffffffff80200000 1f11f28 kernel 2 1 0xffffffff82112000 67feb0 zfs.ko 3 1 0xffffffff82792000 ae38 cryptodev.ko 4 1 0xffffffff830f9000 3378 acpi_wmi.ko 5 1 0xffffffff830fd000 3250 ichsmb.ko 6 1 0xffffffff83101000 2180 smbus.ko 7 1 0xffffffff83104000 17310 if_iwm.ko 8 1 0xffffffff8311c000 2110 pchtherm.ko 9 1 0xffffffff8311f000 1bc6e8 iwm8265fw.ko 10 1 0xffffffff832dc000 158458 i915kms.ko 11 1 0xffffffff83435000 7f548 drm.ko 12 2 0xffffffff834b5000 cbc8 linuxkpi_gplv2.ko 13 2 0xffffffff834c2000 2328 lindebugfs.ko 14 1 0xffffffff834c5000 2340 uhid.ko 15 1 0xffffffff834c8000 4350 ums.ko 16 1 0xffffffff834cd000 3380 usbhid.ko 17 1 0xffffffff834d1000 31f8 hidbus.ko 無線LANインタフェースの有効化 インタフェース事前確認 次に無線LANインタフェースを有効化する。\nOSに認識はされているが、有効にはなっていないから。\n実際にifconfigすればわかる。\n以下の通り無線LANインタフェースが見えていない。\n$ ifconfig em0: flags=8863 metric 0 mtu 1500 options=481249b ether inet 10.0.0.11 netmask 0xffffff00 broadcast 10.0.0.255 media: Ethernet autoselect (1000baseT ) status: active nd6 options=29 lo0: flags=8049 metric 0 mtu 16384 options=680003 inet6 ::1 prefixlen 128 inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2 inet 127.0.0.1 netmask 0xff000000 groups: lo nd6 options=21 無線LANインタフェースの設定（基礎） 有効化には/etc/rc.confを変更する。\n以下の通り記述する。\n# Wireless LAN wlans_iwm0=\"wlan0\" # 扱いやすいようwlan0と名前をつける ifconfig_wlan0=\"WPA SYNCDHCP\" # WPAで暗号化。SYNCDHCPは後述 create_args_wlan0=\"country JP regdomain ETSI\" # 国の設定。後述 SYNCDHCPを設定すると、起動時にIPアドレス取得が完了するまで待つ。\nDHCPだけだと待たない。\n国の設定は/etc/regdomain.xmlから読み取る。\nHandbookに沿って上記の通り設定しておけばOK。\nそうしたらいったん再起動。\n起動時にwpa_supplicant.confが無いと怒られ、DHCPでIPアドレスが取得できないと怒られるが無視。\n無線LANインタフェースの確認（基礎） あらためてifconfigする。\n確かにwlan0が表示されていますね（不要なインタフェースは省略）。\n$ ifconfig wlan0: flags=8802 metric 0 mtu 1500 ether xxxxxxx groups: wlan ssid \"\" channel 1 (2412 MHz 11b) regdomain ETSI country JP authmode OPEN privacy OFF txpower 30 bmiss 10 scanvalid 60 wme bintval 0 parent interface: iwm0 media: IEEE 802.11 Wireless Ethernet autoselect (autoselect) status: no carrier nd6 options=29 とりあえずiwm0改めwlan0をupさせてみる。\nwlan0のステータスにUPが追加されていることに注目。\n$ sudo ifconfig wlan0 up $ ifconfig wlan0 wlan0: flags=8843 metric 0 mtu 1500 ether xxxxxx groups: wlan ssid \"\" channel 1 (2412 MHz 11g) regdomain ETSI country JP authmode OPEN privacy OFF txpower 30 bmiss 10 scanvalid 60 protmode CTS wme bintval 0 parent interface: iwm0 media: IEEE 802.11 Wireless Ethernet autoselect (autoselect) status: no carrier nd6 options=29 続いてscanすると見えている無線LANが表示される。\nもしここで狙いのAPが見えないのなら、それは隠しAPだと言うこと。後述。\n$ sudo ifconfig wlan0 scan SSID/MESH ID BSSID CHAN RATE S:N INT CAPS xxxxxx 0x:xx:xx:xx:xx:xx 1 54M -69:-96 102 EPS BSSLOAD HTCAP RSN WME （略） ここまで来て初めて無線LANアクセスポイント接続の設定をする。\nwpa_supplicant.confの設定(基礎) 無線LAN設定のキモである/etc/wpa_supplicant.confの設定に取り掛かる。\nexampleは/usr/share/examples/etc/wpa_supplicant.confにある。\nこれを/etc下にコピーして修正する。\nのだが、このファイルはとんでもなく巨大である。\nそのままではさすがに全体像を掴めないので、# EAP fast re-authenticationセクションまでを残し、それより下は削除する。\n後述するが、このファイルには無線LANアクセスポイントのパスワードを記載する。\n所有はroot、パーミッションは400にしておくこと。\nまず冒頭までで以下のようにする。\nctrl_interface=/var/run/wpa_supplicant # デフォルト eapol_version=2 # 1でよい。2にして動くなら2で。 ap_scan=1 # FreeBSDにおいては1だけ。 fast_reauth=1 # デフォルト wpa_supplicant.confの設定(本番) パスワードの難読化 で、問題はここから先である。\nSSIDとパスワードを平分で記述するである。\nこれはさすがに気持ち悪い。\nそこで/usr/sbin/wpa_passphraseを使う。\nこのツールは、SSIDとパスワード（パスフレーズ）から256bitのpskを生成してくれるものである。\n要するに難読化っぽいことをするわけ。\nmanすればわかるとおり、wpa_passphrase SSID パスワードと続けて引数を与えればよい。\n便利なのは、そのままwpa_supplicant.confに貼り付けられる書式で出力してくれる点である。\n以下は実施例。\n$ wpa_passphrase SSIDexample SSIDpassword network={ ssid=\"SSIDexample\" #psk=\"SSIDpassword\" psk=6d7b3e5128969e9dd66ffa26d8ba503ff4b43f021f114a5f5bc9dadb8488ee1f } wpa_supplicant.confへの書き込み そうしたら、パスワードが平分で記載されている行を削除したうえで、wpa_supplicant.confに貼り付ければよい。\nただし注意点があり、APがステルスの場合にはscan_ssid=1を追加しておくこと。\n要するにさっきscanした結果、狙いのAPが表示されていなければ、それは隠しAPということ。\n以下の通り。\nctrl_interface=/var/run/wpa_supplicant # デフォルト eapol_version=2 # 1でよい。2にして動くなら2で。 ap_scan=1 # FreeBSDにおいては1だけ。 fast_reauth=1 # デフォルト network={ scan_ssid=1 ssid=\"SSIDexample\" psk=6d7b3e5128969e9dd66ffa26d8ba503ff4b43f021f114a5f5bc9dadb8488ee1f } DHCP clientとしての設定 さて。\n本気はDHCPクライアントとして動作させる。\nそのためには、デフォルトルータについてもDHCPで払い出してもらう必要がある。\nそれには/etc/dhclient.confに以下の記載をしておく必要がある。\n# $FreeBSD$ # # This file is required by the ISC DHCP client. # See ``man 5 dhclient.conf'' for details. # # In most cases an empty file is sufficient for most people as the # defaults are usually fine. # interface \"wlan0\" { request routers; } これをしておくとデフォルトルートを設定してくれる。\n※以下は後述の無線LANを起動したあとの話。\n$ netstat -rn Routing tables Internet: Destination Gateway Flags Netif Expire default 192.168.10.1 UGS wlan0 127.0.0.1 link#2 UH lo0 192.168.10.0/24 link#3 U wlan0 192.168.10.3 link#3 UHS lo0 また、resolv.confについても同様。\n※以下は後述の無線LANを起動したあとの話。\n# Generated by resolvconf nameserver 192.168.10.1 無線LANインタフェースの起動 service netif restartとすればよい。\n$ sudo service netif restart Created wlan(4) interfaces: wlan0. Starting wpa_supplicant. Starting dhclient. wlan0: no link ..... got link DHCPREQUEST on wlan0 to 255.255.255.255 port 67 DHCPNAK from 192.168.10.1 DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 4 DHCPOFFER from 192.168.10.1 DHCPREQUEST on wlan0 to 255.255.255.255 port 67 DHCPACK from 192.168.10.1 bound to 192.168.10.3 -- renewal in 43200 seconds. Starting Network: lo0 em0 wlan0. (略) wlan0: flags=8843 metric 0 mtu 1500 ether xxxxxx inet 192.168.10.3 netmask 0xffffff00 broadcast 192.168.10.255 groups: wlan ssid xxxxxx channel 4 (2427 MHz 11g) bssid xxxxxx regdomain ETSI country JP authmode WPA2/802.11i privacy ON deftxkey UNDEF AES-CCM 3:128-bit txpower 30 bmiss 10 scanvalid 60 protmode CTS wme roaming MANUAL parent interface: iwm0 media: IEEE 802.11 Wireless Ethernet OFDM/36Mbps mode 11g status: associated nd6 options=29 以上\n","wordCount":"2573","inLanguage":"en","datePublished":"2021-12-13T14:34:40+09:00","dateModified":"2021-12-13T14:34:40+09:00","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2021-12-13-freebsd%E3%81%AE%E7%84%A1%E7%B7%9Alan%E8%A8%AD%E5%AE%9A/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
-</head>
-<body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
-<header class=header>
-<nav class=nav>
-<div class=logo>
-<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
-<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-</button>
-</span>
-</div>
-<ul id=menu>
-<li>
-<a href=https://nobwak.github.io/posts/ title=posts>
-<span>posts</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
-<span>search</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/categories/ title=categories>
-<span>categories</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/tags/ title=tags>
-<span>tags</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io title="nobwak lair">
-<span>nobwak lair</span>
-</a>
-</li>
-</ul>
-</nav>
-</header>
-<main class=main>
-<article class=post-single>
-<header class=post-header>
-<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
-<h1 class=post-title>
-2021-12-13-FreeBSDの無線LAN設定
-</h1>
-<div class=post-meta><span title="2021-12-13 14:34:40 +0900 JST">December 13, 2021</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
-</div>
-</header> <div class=toc>
-<details open>
-<summary accesskey=c title="(Alt + C)">
-<span class=details>Table of Contents</span>
-</summary>
-<div class=inner><ul>
-<li>
-<a href=#freebsd%e3%81%ae%e7%84%a1%e7%b7%9alan%e3%82%af%e3%83%a9%e3%82%a4%e3%82%a2%e3%83%b3%e3%83%88%e3%82%92%e8%a8%ad%e5%ae%9a%e3%81%99%e3%82%8b aria-label=FreeBSDの無線LANクライアントを設定する>FreeBSDの無線LANクライアントを設定する</a></li>
-<li>
-<a href=#%e8%a6%81%e4%bb%b6 aria-label=要件>要件</a></li>
-<li>
-<a href=#freebsd-handbook aria-label="FreeBSD Handbook">FreeBSD Handbook</a></li>
-<li>
-<a href=#%e7%84%a1%e7%b7%9alan%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e3%81%ae%e7%89%b9%e5%ae%9a aria-label=無線LANインタフェースの特定>無線LANインタフェースの特定</a></li>
-<li>
-<a href=#%e7%84%a1%e7%b7%9alan%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e3%81%ae%e6%9c%89%e5%8a%b9%e5%8c%96 aria-label=無線LANインタフェースの有効化>無線LANインタフェースの有効化</a><ul>
-<li>
-<a href=#%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e4%ba%8b%e5%89%8d%e7%a2%ba%e8%aa%8d aria-label=インタフェース事前確認>インタフェース事前確認</a></li></ul>
-</li>
-<li>
-<a href=#%e7%84%a1%e7%b7%9alan%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e3%81%ae%e8%a8%ad%e5%ae%9a%e5%9f%ba%e7%a4%8e aria-label=無線LANインタフェースの設定（基礎）>無線LANインタフェースの設定（基礎）</a></li>
-<li>
-<a href=#%e7%84%a1%e7%b7%9alan%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e3%81%ae%e7%a2%ba%e8%aa%8d%e5%9f%ba%e7%a4%8e aria-label=無線LANインタフェースの確認（基礎）>無線LANインタフェースの確認（基礎）</a></li>
-<li>
-<a href=#wpa_supplicantconf%e3%81%ae%e8%a8%ad%e5%ae%9a%e5%9f%ba%e7%a4%8e aria-label=wpa_supplicant.confの設定(基礎)>wpa_supplicant.confの設定(基礎)</a></li>
-<li>
-<a href=#wpa_supplicantconf%e3%81%ae%e8%a8%ad%e5%ae%9a%e6%9c%ac%e7%95%aa aria-label=wpa_supplicant.confの設定(本番)>wpa_supplicant.confの設定(本番)</a><ul>
-<li>
-<a href=#%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%81%ae%e9%9b%a3%e8%aa%ad%e5%8c%96 aria-label=パスワードの難読化>パスワードの難読化</a></li>
-<li>
-<a href=#wpa_supplicantconf%e3%81%b8%e3%81%ae%e6%9b%b8%e3%81%8d%e8%be%bc%e3%81%bf aria-label=wpa_supplicant.confへの書き込み>wpa_supplicant.confへの書き込み</a></li></ul>
-</li>
-<li>
-<a href=#dhcp-client%e3%81%a8%e3%81%97%e3%81%a6%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label="DHCP clientとしての設定">DHCP clientとしての設定</a></li>
-<li>
-<a href=#%e7%84%a1%e7%b7%9alan%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e3%81%ae%e8%b5%b7%e5%8b%95 aria-label=無線LANインタフェースの起動>無線LANインタフェースの起動</a>
-</li>
-</ul>
-</div>
-</details>
-</div>
-<div class=post-content><h2 id=freebsdの無線lanクライアントを設定する>FreeBSDの無線LANクライアントを設定する<a hidden class=anchor aria-hidden=true href=#freebsdの無線lanクライアントを設定する>#</a></h2>
-<p>FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳に行かず、いろいろと設定ファイルを準備する必要がある。<br>
-FreeBSD Handbookを読みながら進めば問題ないが、備忘のために残す。</p>
-<h2 id=要件>要件<a hidden class=anchor aria-hidden=true href=#要件>#</a></h2>
-<p>無線LANクライアントとして使うということはDHCPでIPアドレスを取得するので、その前提で。</p>
-<h2 id=freebsd-handbook>FreeBSD Handbook<a hidden class=anchor aria-hidden=true href=#freebsd-handbook>#</a></h2>
-<p>ここ。<br>
-以下、Handbookに沿って進める。</p>
-<h2 id=無線lanインタフェースの特定>無線LANインタフェースの特定<a hidden class=anchor aria-hidden=true href=#無線lanインタフェースの特定>#</a></h2>
-<p><code>sysctl</code>で特定。<br>
-ご覧の通り<code>iwm0</code>である。<br>
-良かった。ここで出てこないと自分でカーネルモジュールをインストールする必要がある。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sysctl net.wlan.devices
-net.wlan.devices: iwm0
-</code></pre></div><p><code>kldstat</code>を実行すれば、確かにif_iwm.koが読み込まれている。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ kldstat
-Id Refs Address                Size Name
- 1   69 0xffffffff80200000  1f11f28 kernel
- 2    1 0xffffffff82112000   67feb0 zfs.ko
- 3    1 0xffffffff82792000     ae38 cryptodev.ko
- 4    1 0xffffffff830f9000     3378 acpi_wmi.ko
- 5    1 0xffffffff830fd000     3250 ichsmb.ko
- 6    1 0xffffffff83101000     2180 smbus.ko
- 7    1 0xffffffff83104000    17310 if_iwm.ko
- 8    1 0xffffffff8311c000     2110 pchtherm.ko
- 9    1 0xffffffff8311f000   1bc6e8 iwm8265fw.ko
-10    1 0xffffffff832dc000   158458 i915kms.ko
-11    1 0xffffffff83435000    7f548 drm.ko
-12    2 0xffffffff834b5000     cbc8 linuxkpi_gplv2.ko
-13    2 0xffffffff834c2000     2328 lindebugfs.ko
-14    1 0xffffffff834c5000     2340 uhid.ko
-15    1 0xffffffff834c8000     4350 ums.ko
-16    1 0xffffffff834cd000     3380 usbhid.ko
-17    1 0xffffffff834d1000     31f8 hidbus.ko
-</code></pre></div><h2 id=無線lanインタフェースの有効化>無線LANインタフェースの有効化<a hidden class=anchor aria-hidden=true href=#無線lanインタフェースの有効化>#</a></h2>
-<h3 id=インタフェース事前確認>インタフェース事前確認<a hidden class=anchor aria-hidden=true href=#インタフェース事前確認>#</a></h3>
-<p>次に無線LANインタフェースを有効化する。<br>
-OSに認識はされているが、有効にはなっていないから。<br>
-実際に<code>ifconfig</code>すればわかる。<br>
-以下の通り無線LANインタフェースが見えていない。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ ifconfig
-em0: flags=8863&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
-        options=481249b&lt;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,LRO,WOL_MAGIC,VLAN_HWFILTER,NOMAP&gt;
-        ether
-        inet 10.0.0.11 netmask 0xffffff00 broadcast 10.0.0.255
-        media: Ethernet autoselect (1000baseT &lt;full-duplex&gt;)
-        status: active
-        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
-lo0: flags=8049&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; metric 0 mtu 16384
-        options=680003&lt;RXCSUM,TXCSUM,LINKSTATE,RXCSUM_IPV6,TXCSUM_IPV6&gt;
-        inet6 ::1 prefixlen 128
-        inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2
-        inet 127.0.0.1 netmask 0xff000000
-        groups: lo
-        nd6 options=21&lt;PERFORMNUD,AUTO_LINKLOCAL&gt;
-</code></pre></div><h2 id=無線lanインタフェースの設定基礎>無線LANインタフェースの設定（基礎）<a hidden class=anchor aria-hidden=true href=#無線lanインタフェースの設定基礎>#</a></h2>
-<p>有効化には<code>/etc/rc.conf</code>を変更する。<br>
-以下の通り記述する。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Wireless LAN
-wlans_iwm0=&#34;wlan0&#34;  # 扱いやすいようwlan0と名前をつける
-ifconfig_wlan0=&#34;WPA SYNCDHCP&#34;  # WPAで暗号化。SYNCDHCPは後述
-create_args_wlan0=&#34;country JP regdomain ETSI&#34;  # 国の設定。後述
-</code></pre></div><p><code>SYNCDHCP</code>を設定すると、起動時にIPアドレス取得が完了するまで待つ。<br>
-<code>DHCP</code>だけだと待たない。</p>
-<p>国の設定は<code>/etc/regdomain.xml</code>から読み取る。<br>
-Handbookに沿って上記の通り設定しておけばOK。<br>
-そうしたらいったん再起動。</p>
-<p>起動時に<code>wpa_supplicant.conf</code>が無いと怒られ、DHCPでIPアドレスが取得できないと怒られるが無視。</p>
-<h2 id=無線lanインタフェースの確認基礎>無線LANインタフェースの確認（基礎）<a hidden class=anchor aria-hidden=true href=#無線lanインタフェースの確認基礎>#</a></h2>
-<p>あらためて<code>ifconfig</code>する。<br>
-確かにwlan0が表示されていますね（不要なインタフェースは省略）。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ ifconfig
-wlan0: flags=8802&lt;BROADCAST,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
-        ether xxxxxxx
-        groups: wlan
-        ssid &#34;&#34; channel 1 (2412 MHz 11b)
-        regdomain ETSI country JP authmode OPEN privacy OFF txpower 30
-        bmiss 10 scanvalid 60 wme bintval 0
-        parent interface: iwm0
-        media: IEEE 802.11 Wireless Ethernet autoselect (autoselect)
-        status: no carrier
-        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
-</code></pre></div><p>とりあえず<code>iwm0</code>改め<code>wlan0</code>をupさせてみる。<br>
-<code>wlan0</code>のステータスに<code>UP</code>が追加されていることに注目。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo ifconfig wlan0 up
-$ ifconfig wlan0
-wlan0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
-        ether xxxxxx
-        groups: wlan
-        ssid &#34;&#34; channel 1 (2412 MHz 11g)
-        regdomain ETSI country JP authmode OPEN privacy OFF txpower 30
-        bmiss 10 scanvalid 60 protmode CTS wme bintval 0
-        parent interface: iwm0
-        media: IEEE 802.11 Wireless Ethernet autoselect (autoselect)
-        status: no carrier
-        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
-<span style=color:#960050;background-color:#1e0010>
-</span></code></pre></div><p>続いて<code>scan</code>すると見えている無線LANが表示される。<br>
-もしここで狙いのAPが見えないのなら、それは隠しAPだと言うこと。後述。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo ifconfig wlan0 scan
-SSID/MESH ID                      BSSID              CHAN RATE    S:N     INT CAPS
-xxxxxx                        0x:xx:xx:xx:xx:xx    1   54M  -69:-96   102 EPS  BSSLOAD HTCAP RSN WME
-（略）
-</code></pre></div><p>ここまで来て初めて無線LANアクセスポイント接続の設定をする。</p>
-<h2 id=wpa_supplicantconfの設定基礎>wpa_supplicant.confの設定(基礎)<a hidden class=anchor aria-hidden=true href=#wpa_supplicantconfの設定基礎>#</a></h2>
-<p>無線LAN設定のキモである<code>/etc/wpa_supplicant.conf</code>の設定に取り掛かる。<br>
-exampleは<code>/usr/share/examples/etc/wpa_supplicant.conf</code>にある。<br>
-これを<code>/etc</code>下にコピーして修正する。<br>
-のだが、このファイルはとんでもなく巨大である。<br>
-そのままではさすがに全体像を掴めないので、<code># EAP fast re-authentication</code>セクションまでを残し、それより下は削除する。</p>
-<p>後述するが、このファイルには無線LANアクセスポイントのパスワードを記載する。<br>
-所有はroot、パーミッションは400にしておくこと。</p>
-<p>まず冒頭までで以下のようにする。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>ctrl_interface=/var/run/wpa_supplicant # デフォルト
-eapol_version=2  # 1でよい。2にして動くなら2で。
-ap_scan=1  # FreeBSDにおいては1だけ。
-fast_reauth=1  # デフォルト
-</code></pre></div><h2 id=wpa_supplicantconfの設定本番>wpa_supplicant.confの設定(本番)<a hidden class=anchor aria-hidden=true href=#wpa_supplicantconfの設定本番>#</a></h2>
-<h3 id=パスワードの難読化>パスワードの難読化<a hidden class=anchor aria-hidden=true href=#パスワードの難読化>#</a></h3>
-<p>で、問題はここから先である。<br>
-SSIDとパスワードを平分で記述するである。<br>
-これはさすがに気持ち悪い。<br>
-そこで<code>/usr/sbin/wpa_passphrase</code>を使う。<br>
-このツールは、SSIDとパスワード（パスフレーズ）から256bitのpskを生成してくれるものである。<br>
-要するに難読化っぽいことをするわけ。<br>
-<code>man</code>すればわかるとおり、<code>wpa_passphrase SSID パスワード</code>と続けて引数を与えればよい。<br>
-便利なのは、そのまま<code>wpa_supplicant.conf</code>に貼り付けられる書式で出力してくれる点である。<br>
-以下は実施例。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ wpa_passphrase SSIDexample SSIDpassword
-network={
-      ssid=&#34;SSIDexample&#34;
-      #psk=&#34;SSIDpassword&#34;
-      psk=6d7b3e5128969e9dd66ffa26d8ba503ff4b43f021f114a5f5bc9dadb8488ee1f
-}
-</code></pre></div><h3 id=wpa_supplicantconfへの書き込み>wpa_supplicant.confへの書き込み<a hidden class=anchor aria-hidden=true href=#wpa_supplicantconfへの書き込み>#</a></h3>
-<p>そうしたら、パスワードが平分で記載されている行を削除したうえで、<code>wpa_supplicant.conf</code>に貼り付ければよい。<br>
-ただし注意点があり、APがステルスの場合には<code>scan_ssid=1</code>を追加しておくこと。<br>
-要するにさっきscanした結果、狙いのAPが表示されていなければ、それは隠しAPということ。</p>
-<p>以下の通り。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>ctrl_interface=/var/run/wpa_supplicant # デフォルト
-eapol_version=2  # 1でよい。2にして動くなら2で。
-ap_scan=1  # FreeBSDにおいては1だけ。
-fast_reauth=1  # デフォルト
-network={
-      scan_ssid=1
-      ssid=&#34;SSIDexample&#34;
-      psk=6d7b3e5128969e9dd66ffa26d8ba503ff4b43f021f114a5f5bc9dadb8488ee1f
-}
-</code></pre></div><h2 id=dhcp-clientとしての設定>DHCP clientとしての設定<a hidden class=anchor aria-hidden=true href=#dhcp-clientとしての設定>#</a></h2>
-<p>さて。<br>
-本気はDHCPクライアントとして動作させる。<br>
-そのためには、デフォルトルータについてもDHCPで払い出してもらう必要がある。<br>
-それには<code>/etc/dhclient.conf</code>に以下の記載をしておく必要がある。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># $FreeBSD$
-#
-<span style=color:#75715e>#       This file is required by the ISC DHCP client.</span>
-#       See <span style=color:#e6db74>``</span>man <span style=color:#ae81ff>5</span> dhclient.conf<span style=color:#e6db74>&#39;&#39;</span> <span style=color:#66d9ef>for</span> details.
-#
-<span style=color:#75715e>#       In most cases an empty file is sufficient for most people as the</span>
-#       defaults are usually fine.
-#
-interface <span style=color:#e6db74>&#34;wlan0&#34;</span> <span style=color:#f92672>{</span>
-        request routers;
-}
-</code></pre></div><p>これをしておくとデフォルトルートを設定してくれる。<br>
-※以下は後述の無線LANを起動したあとの話。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ netstat -rn
-Routing tables
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Internet:
-Destination        Gateway            Flags     Netif Expire
-default            192.168.10.1       UGS       wlan0
-127.0.0.1          link#2             UH          lo0
-192.168.10.0/24    link#3             U         wlan0
-192.168.10.3       link#3             UHS         lo0
-</code></pre></div><p>また、<code>resolv.conf</code>についても同様。<br>
-※以下は後述の無線LANを起動したあとの話。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console># Generated by resolvconf
-nameserver 192.168.10.1
-</code></pre></div><h2 id=無線lanインタフェースの起動>無線LANインタフェースの起動<a hidden class=anchor aria-hidden=true href=#無線lanインタフェースの起動>#</a></h2>
-<p><code>service netif restart</code>とすればよい。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo service netif restart
-Created wlan(4) interfaces: wlan0.
-Starting wpa_supplicant.
-Starting dhclient.
-wlan0: no link ..... got link
-DHCPREQUEST on wlan0 to 255.255.255.255 port 67
-DHCPNAK from 192.168.10.1
-DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 4
-DHCPOFFER from 192.168.10.1
-DHCPREQUEST on wlan0 to 255.255.255.255 port 67
-DHCPACK from 192.168.10.1
-bound to 192.168.10.3 -- renewal in 43200 seconds.
-Starting Network: lo0 em0 wlan0.
-(略)
-wlan0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
-        ether xxxxxx
-        inet 192.168.10.3 netmask 0xffffff00 broadcast 192.168.10.255
-        groups: wlan
-        ssid xxxxxx channel 4 (2427 MHz 11g) bssid xxxxxx
-        regdomain ETSI country JP authmode WPA2/802.11i privacy ON
-        deftxkey UNDEF AES-CCM 3:128-bit txpower 30 bmiss 10 scanvalid 60
-        protmode CTS wme roaming MANUAL
-        parent interface: iwm0
-        media: IEEE 802.11 Wireless Ethernet OFDM/36Mbps mode 11g
-        status: associated
-        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
-</code></pre></div><p>以上</p>
-</div>
-<footer class=post-footer>
-<ul class=post-tags>
-<li><a href=https://nobwak.github.io/tags/freebsd/>FreeBSD</a></li>
-<li><a href=https://nobwak.github.io/tags/network/>Network</a></li>
-<li><a href=https://nobwak.github.io/tags/wifi/>WiFi</a></li>
-</ul>
-<nav class=paginav>
-<a class=prev href=https://nobwak.github.io/posts/2021-12-24-visualstudiocode%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD/>
-<span class=title>« Prev Page</span>
-<br>
-<span>2021-12-24-VisualStudioCode拡張機能</span>
-</a>
-<a class=next href=https://nobwak.github.io/posts/2021-12-12-freebsd%E3%82%92%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AB/>
-<span class=title>Next Page »</span>
-<br>
-<span>2021-12-12-FreeBSDをルーターに</span>
-</a>
-</nav>
-<div class=share-buttons>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on twitter" href="https://twitter.com/intent/tweet/?text=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f&hashtags=FreeBSD%2cNetwork%2cWiFi"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f&title=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a&summary=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f&title=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on whatsapp" href="https://api.whatsapp.com/send?text=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on telegram" href="https://telegram.me/share/url?text=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
-</a>
-</div>
-</footer>
-</article>
-</main>
-<footer class=footer>
-<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
-<span>
-Powered by
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>2021-12-13-FreeBSDの無線LAN設定 | nobwak's Lair</title><meta name=keywords content="FreeBSD,Network,WiFi"><meta name=description content="FreeBSDの無線LANクライアントを設定する FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳"><meta name=author content="Me"><link rel=canonical href=https://nobwak.github.io/posts/2021-12-13-freebsd%E3%81%AE%E7%84%A1%E7%B7%9Alan%E8%A8%AD%E5%AE%9A/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style><link rel=preload href=/apple-touch-icon.png as=image><script defer crossorigin=anonymous src=/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><meta name=generator content="Hugo 0.96.0"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="2021-12-13-FreeBSDの無線LAN設定"><meta property="og:description" content="FreeBSDの無線LANクライアントを設定する FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳"><meta property="og:type" content="article"><meta property="og:url" content="https://nobwak.github.io/posts/2021-12-13-freebsd%E3%81%AE%E7%84%A1%E7%B7%9Alan%E8%A8%AD%E5%AE%9A/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-12-13T14:34:40+09:00"><meta property="article:modified_time" content="2021-12-13T14:34:40+09:00"><meta property="og:site_name" content="nobwak's Lair"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="2021-12-13-FreeBSDの無線LAN設定"><meta name=twitter:description content="FreeBSDの無線LANクライアントを設定する FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"2021-12-13-FreeBSDの無線LAN設定","item":"https://nobwak.github.io/posts/2021-12-13-freebsd%E3%81%AE%E7%84%A1%E7%B7%9Alan%E8%A8%AD%E5%AE%9A/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"2021-12-13-FreeBSDの無線LAN設定","name":"2021-12-13-FreeBSDの無線LAN設定","description":"FreeBSDの無線LANクライアントを設定する FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳","keywords":["FreeBSD","Network","WiFi"],"articleBody":"FreeBSDの無線LANクライアントを設定する FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳に行かず、いろいろと設定ファイルを準備する必要がある。\nFreeBSD Handbookを読みながら進めば問題ないが、備忘のために残す。\n要件 無線LANクライアントとして使うということはDHCPでIPアドレスを取得するので、その前提で。\nFreeBSD Handbook ここ。\n以下、Handbookに沿って進める。\n無線LANインタフェースの特定 sysctlで特定。\nご覧の通りiwm0である。\n良かった。ここで出てこないと自分でカーネルモジュールをインストールする必要がある。\n$ sysctl net.wlan.devices net.wlan.devices: iwm0 kldstatを実行すれば、確かにif_iwm.koが読み込まれている。\n$ kldstat Id Refs Address Size Name  1 69 0xffffffff80200000 1f11f28 kernel  2 1 0xffffffff82112000 67feb0 zfs.ko  3 1 0xffffffff82792000 ae38 cryptodev.ko  4 1 0xffffffff830f9000 3378 acpi_wmi.ko  5 1 0xffffffff830fd000 3250 ichsmb.ko  6 1 0xffffffff83101000 2180 smbus.ko  7 1 0xffffffff83104000 17310 if_iwm.ko  8 1 0xffffffff8311c000 2110 pchtherm.ko  9 1 0xffffffff8311f000 1bc6e8 iwm8265fw.ko 10 1 0xffffffff832dc000 158458 i915kms.ko 11 1 0xffffffff83435000 7f548 drm.ko 12 2 0xffffffff834b5000 cbc8 linuxkpi_gplv2.ko 13 2 0xffffffff834c2000 2328 lindebugfs.ko 14 1 0xffffffff834c5000 2340 uhid.ko 15 1 0xffffffff834c8000 4350 ums.ko 16 1 0xffffffff834cd000 3380 usbhid.ko 17 1 0xffffffff834d1000 31f8 hidbus.ko 無線LANインタフェースの有効化 インタフェース事前確認 次に無線LANインタフェースを有効化する。\nOSに認識はされているが、有効にはなっていないから。\n実際にifconfigすればわかる。\n以下の通り無線LANインタフェースが見えていない。\n$ ifconfig em0: flags=8863 metric 0 mtu 1500  options=481249b  ether  inet 10.0.0.11 netmask 0xffffff00 broadcast 10.0.0.255  media: Ethernet autoselect (1000baseT )  status: active  nd6 options=29 lo0: flags=8049 metric 0 mtu 16384  options=680003  inet6 ::1 prefixlen 128  inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2  inet 127.0.0.1 netmask 0xff000000  groups: lo  nd6 options=21 無線LANインタフェースの設定（基礎） 有効化には/etc/rc.confを変更する。\n以下の通り記述する。\n# Wireless LAN wlans_iwm0=\"wlan0\" # 扱いやすいようwlan0と名前をつける ifconfig_wlan0=\"WPA SYNCDHCP\" # WPAで暗号化。SYNCDHCPは後述 create_args_wlan0=\"country JP regdomain ETSI\" # 国の設定。後述 SYNCDHCPを設定すると、起動時にIPアドレス取得が完了するまで待つ。\nDHCPだけだと待たない。\n国の設定は/etc/regdomain.xmlから読み取る。\nHandbookに沿って上記の通り設定しておけばOK。\nそうしたらいったん再起動。\n起動時にwpa_supplicant.confが無いと怒られ、DHCPでIPアドレスが取得できないと怒られるが無視。\n無線LANインタフェースの確認（基礎） あらためてifconfigする。\n確かにwlan0が表示されていますね（不要なインタフェースは省略）。\n$ ifconfig wlan0: flags=8802 metric 0 mtu 1500  ether xxxxxxx  groups: wlan  ssid \"\" channel 1 (2412 MHz 11b)  regdomain ETSI country JP authmode OPEN privacy OFF txpower 30  bmiss 10 scanvalid 60 wme bintval 0  parent interface: iwm0  media: IEEE 802.11 Wireless Ethernet autoselect (autoselect)  status: no carrier  nd6 options=29 とりあえずiwm0改めwlan0をupさせてみる。\nwlan0のステータスにUPが追加されていることに注目。\n$ sudo ifconfig wlan0 up $ ifconfig wlan0 wlan0: flags=8843 metric 0 mtu 1500  ether xxxxxx  groups: wlan  ssid \"\" channel 1 (2412 MHz 11g)  regdomain ETSI country JP authmode OPEN privacy OFF txpower 30  bmiss 10 scanvalid 60 protmode CTS wme bintval 0  parent interface: iwm0  media: IEEE 802.11 Wireless Ethernet autoselect (autoselect)  status: no carrier  nd6 options=29 続いてscanすると見えている無線LANが表示される。\nもしここで狙いのAPが見えないのなら、それは隠しAPだと言うこと。後述。\n$ sudo ifconfig wlan0 scan SSID/MESH ID BSSID CHAN RATE S:N INT CAPS xxxxxx 0x:xx:xx:xx:xx:xx 1 54M -69:-96 102 EPS BSSLOAD HTCAP RSN WME （略） ここまで来て初めて無線LANアクセスポイント接続の設定をする。\nwpa_supplicant.confの設定(基礎) 無線LAN設定のキモである/etc/wpa_supplicant.confの設定に取り掛かる。\nexampleは/usr/share/examples/etc/wpa_supplicant.confにある。\nこれを/etc下にコピーして修正する。\nのだが、このファイルはとんでもなく巨大である。\nそのままではさすがに全体像を掴めないので、# EAP fast re-authenticationセクションまでを残し、それより下は削除する。\n後述するが、このファイルには無線LANアクセスポイントのパスワードを記載する。\n所有はroot、パーミッションは400にしておくこと。\nまず冒頭までで以下のようにする。\nctrl_interface=/var/run/wpa_supplicant # デフォルト eapol_version=2 # 1でよい。2にして動くなら2で。 ap_scan=1 # FreeBSDにおいては1だけ。 fast_reauth=1 # デフォルト wpa_supplicant.confの設定(本番) パスワードの難読化 で、問題はここから先である。\nSSIDとパスワードを平分で記述するである。\nこれはさすがに気持ち悪い。\nそこで/usr/sbin/wpa_passphraseを使う。\nこのツールは、SSIDとパスワード（パスフレーズ）から256bitのpskを生成してくれるものである。\n要するに難読化っぽいことをするわけ。\nmanすればわかるとおり、wpa_passphrase SSID パスワードと続けて引数を与えればよい。\n便利なのは、そのままwpa_supplicant.confに貼り付けられる書式で出力してくれる点である。\n以下は実施例。\n$ wpa_passphrase SSIDexample SSIDpassword network={  ssid=\"SSIDexample\"  #psk=\"SSIDpassword\"  psk=6d7b3e5128969e9dd66ffa26d8ba503ff4b43f021f114a5f5bc9dadb8488ee1f } wpa_supplicant.confへの書き込み そうしたら、パスワードが平分で記載されている行を削除したうえで、wpa_supplicant.confに貼り付ければよい。\nただし注意点があり、APがステルスの場合にはscan_ssid=1を追加しておくこと。\n要するにさっきscanした結果、狙いのAPが表示されていなければ、それは隠しAPということ。\n以下の通り。\nctrl_interface=/var/run/wpa_supplicant # デフォルト eapol_version=2 # 1でよい。2にして動くなら2で。 ap_scan=1 # FreeBSDにおいては1だけ。 fast_reauth=1 # デフォルト network={  scan_ssid=1  ssid=\"SSIDexample\"  psk=6d7b3e5128969e9dd66ffa26d8ba503ff4b43f021f114a5f5bc9dadb8488ee1f } DHCP clientとしての設定 さて。\n本気はDHCPクライアントとして動作させる。\nそのためには、デフォルトルータについてもDHCPで払い出してもらう必要がある。\nそれには/etc/dhclient.confに以下の記載をしておく必要がある。\n# $FreeBSD$ # # This file is required by the ISC DHCP client. # See ``man 5 dhclient.conf'' for details. # # In most cases an empty file is sufficient for most people as the # defaults are usually fine. # interface \"wlan0\" {  request routers; } これをしておくとデフォルトルートを設定してくれる。\n※以下は後述の無線LANを起動したあとの話。\n$ netstat -rn Routing tables Internet: Destination Gateway Flags Netif Expire default 192.168.10.1 UGS wlan0 127.0.0.1 link#2 UH lo0 192.168.10.0/24 link#3 U wlan0 192.168.10.3 link#3 UHS lo0 また、resolv.confについても同様。\n※以下は後述の無線LANを起動したあとの話。\n# Generated by resolvconf nameserver 192.168.10.1 無線LANインタフェースの起動 service netif restartとすればよい。\n$ sudo service netif restart Created wlan(4) interfaces: wlan0. Starting wpa_supplicant. Starting dhclient. wlan0: no link ..... got link DHCPREQUEST on wlan0 to 255.255.255.255 port 67 DHCPNAK from 192.168.10.1 DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 4 DHCPOFFER from 192.168.10.1 DHCPREQUEST on wlan0 to 255.255.255.255 port 67 DHCPACK from 192.168.10.1 bound to 192.168.10.3 -- renewal in 43200 seconds. Starting Network: lo0 em0 wlan0. (略) wlan0: flags=8843 metric 0 mtu 1500  ether xxxxxx  inet 192.168.10.3 netmask 0xffffff00 broadcast 192.168.10.255  groups: wlan  ssid xxxxxx channel 4 (2427 MHz 11g) bssid xxxxxx  regdomain ETSI country JP authmode WPA2/802.11i privacy ON  deftxkey UNDEF AES-CCM 3:128-bit txpower 30 bmiss 10 scanvalid 60  protmode CTS wme roaming MANUAL  parent interface: iwm0  media: IEEE 802.11 Wireless Ethernet OFDM/36Mbps mode 11g  status: associated  nd6 options=29 以上\n","wordCount":"2573","inLanguage":"en","datePublished":"2021-12-13T14:34:40+09:00","dateModified":"2021-12-13T14:34:40+09:00","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2021-12-13-freebsd%E3%81%AE%E7%84%A1%E7%B7%9Alan%E8%A8%AD%E5%AE%9A/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)"><img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></span></div><ul id=menu><li><a href=https://nobwak.github.io/posts/ title=posts><span>posts</span></a></li><li><a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/><span>search</span></a></li><li><a href=https://nobwak.github.io/categories/ title=categories><span>categories</span></a></li><li><a href=https://nobwak.github.io/tags/ title=tags><span>tags</span></a></li><li><a href=https://nobwak.github.io title="nobwak lair"><span>nobwak lair</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div><h1 class=post-title>2021-12-13-FreeBSDの無線LAN設定</h1><div class=post-meta><span title="2021-12-13 14:34:40 +0900 JST">December 13, 2021</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a.md rel="noopener noreferrer" target=_blank>Suggest Changes</a></div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#freebsd%e3%81%ae%e7%84%a1%e7%b7%9alan%e3%82%af%e3%83%a9%e3%82%a4%e3%82%a2%e3%83%b3%e3%83%88%e3%82%92%e8%a8%ad%e5%ae%9a%e3%81%99%e3%82%8b aria-label=FreeBSDの無線LANクライアントを設定する>FreeBSDの無線LANクライアントを設定する</a></li><li><a href=#%e8%a6%81%e4%bb%b6 aria-label=要件>要件</a></li><li><a href=#freebsd-handbook aria-label="FreeBSD Handbook">FreeBSD Handbook</a></li><li><a href=#%e7%84%a1%e7%b7%9alan%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e3%81%ae%e7%89%b9%e5%ae%9a aria-label=無線LANインタフェースの特定>無線LANインタフェースの特定</a></li><li><a href=#%e7%84%a1%e7%b7%9alan%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e3%81%ae%e6%9c%89%e5%8a%b9%e5%8c%96 aria-label=無線LANインタフェースの有効化>無線LANインタフェースの有効化</a><ul><li><a href=#%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e4%ba%8b%e5%89%8d%e7%a2%ba%e8%aa%8d aria-label=インタフェース事前確認>インタフェース事前確認</a></li></ul></li><li><a href=#%e7%84%a1%e7%b7%9alan%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e3%81%ae%e8%a8%ad%e5%ae%9a%e5%9f%ba%e7%a4%8e aria-label=無線LANインタフェースの設定（基礎）>無線LANインタフェースの設定（基礎）</a></li><li><a href=#%e7%84%a1%e7%b7%9alan%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e3%81%ae%e7%a2%ba%e8%aa%8d%e5%9f%ba%e7%a4%8e aria-label=無線LANインタフェースの確認（基礎）>無線LANインタフェースの確認（基礎）</a></li><li><a href=#wpa_supplicantconf%e3%81%ae%e8%a8%ad%e5%ae%9a%e5%9f%ba%e7%a4%8e aria-label=wpa_supplicant.confの設定(基礎)>wpa_supplicant.confの設定(基礎)</a></li><li><a href=#wpa_supplicantconf%e3%81%ae%e8%a8%ad%e5%ae%9a%e6%9c%ac%e7%95%aa aria-label=wpa_supplicant.confの設定(本番)>wpa_supplicant.confの設定(本番)</a><ul><li><a href=#%e3%83%91%e3%82%b9%e3%83%af%e3%83%bc%e3%83%89%e3%81%ae%e9%9b%a3%e8%aa%ad%e5%8c%96 aria-label=パスワードの難読化>パスワードの難読化</a></li><li><a href=#wpa_supplicantconf%e3%81%b8%e3%81%ae%e6%9b%b8%e3%81%8d%e8%be%bc%e3%81%bf aria-label=wpa_supplicant.confへの書き込み>wpa_supplicant.confへの書き込み</a></li></ul></li><li><a href=#dhcp-client%e3%81%a8%e3%81%97%e3%81%a6%e3%81%ae%e8%a8%ad%e5%ae%9a aria-label="DHCP clientとしての設定">DHCP clientとしての設定</a></li><li><a href=#%e7%84%a1%e7%b7%9alan%e3%82%a4%e3%83%b3%e3%82%bf%e3%83%95%e3%82%a7%e3%83%bc%e3%82%b9%e3%81%ae%e8%b5%b7%e5%8b%95 aria-label=無線LANインタフェースの起動>無線LANインタフェースの起動</a></li></ul></div></details></div><div class=post-content><h2 id=freebsdの無線lanクライアントを設定する>FreeBSDの無線LANクライアントを設定する<a hidden class=anchor aria-hidden=true href=#freebsdの無線lanクライアントを設定する>#</a></h2><p>FreeBSDを無線LANクライアントとして設定する場合、有線と異なり一発で設定OKという訳に行かず、いろいろと設定ファイルを準備する必要がある。<br>FreeBSD Handbookを読みながら進めば問題ないが、備忘のために残す。</p><h2 id=要件>要件<a hidden class=anchor aria-hidden=true href=#要件>#</a></h2><p>無線LANクライアントとして使うということはDHCPでIPアドレスを取得するので、その前提で。</p><h2 id=freebsd-handbook>FreeBSD Handbook<a hidden class=anchor aria-hidden=true href=#freebsd-handbook>#</a></h2><p>ここ。<br>以下、Handbookに沿って進める。</p><h2 id=無線lanインタフェースの特定>無線LANインタフェースの特定<a hidden class=anchor aria-hidden=true href=#無線lanインタフェースの特定>#</a></h2><p><code>sysctl</code>で特定。<br>ご覧の通り<code>iwm0</code>である。<br>良かった。ここで出てこないと自分でカーネルモジュールをインストールする必要がある。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sysctl net.wlan.devices
+</span></span><span style=display:flex><span>net.wlan.devices: iwm0
+</span></span></code></pre></div><p><code>kldstat</code>を実行すれば、確かにif_iwm.koが読み込まれている。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ kldstat
+</span></span><span style=display:flex><span>Id Refs Address                Size Name
+</span></span><span style=display:flex><span> 1   69 0xffffffff80200000  1f11f28 kernel
+</span></span><span style=display:flex><span> 2    1 0xffffffff82112000   67feb0 zfs.ko
+</span></span><span style=display:flex><span> 3    1 0xffffffff82792000     ae38 cryptodev.ko
+</span></span><span style=display:flex><span> 4    1 0xffffffff830f9000     3378 acpi_wmi.ko
+</span></span><span style=display:flex><span> 5    1 0xffffffff830fd000     3250 ichsmb.ko
+</span></span><span style=display:flex><span> 6    1 0xffffffff83101000     2180 smbus.ko
+</span></span><span style=display:flex><span> 7    1 0xffffffff83104000    17310 if_iwm.ko
+</span></span><span style=display:flex><span> 8    1 0xffffffff8311c000     2110 pchtherm.ko
+</span></span><span style=display:flex><span> 9    1 0xffffffff8311f000   1bc6e8 iwm8265fw.ko
+</span></span><span style=display:flex><span>10    1 0xffffffff832dc000   158458 i915kms.ko
+</span></span><span style=display:flex><span>11    1 0xffffffff83435000    7f548 drm.ko
+</span></span><span style=display:flex><span>12    2 0xffffffff834b5000     cbc8 linuxkpi_gplv2.ko
+</span></span><span style=display:flex><span>13    2 0xffffffff834c2000     2328 lindebugfs.ko
+</span></span><span style=display:flex><span>14    1 0xffffffff834c5000     2340 uhid.ko
+</span></span><span style=display:flex><span>15    1 0xffffffff834c8000     4350 ums.ko
+</span></span><span style=display:flex><span>16    1 0xffffffff834cd000     3380 usbhid.ko
+</span></span><span style=display:flex><span>17    1 0xffffffff834d1000     31f8 hidbus.ko
+</span></span></code></pre></div><h2 id=無線lanインタフェースの有効化>無線LANインタフェースの有効化<a hidden class=anchor aria-hidden=true href=#無線lanインタフェースの有効化>#</a></h2><h3 id=インタフェース事前確認>インタフェース事前確認<a hidden class=anchor aria-hidden=true href=#インタフェース事前確認>#</a></h3><p>次に無線LANインタフェースを有効化する。<br>OSに認識はされているが、有効にはなっていないから。<br>実際に<code>ifconfig</code>すればわかる。<br>以下の通り無線LANインタフェースが見えていない。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ ifconfig
+</span></span><span style=display:flex><span>em0: flags=8863&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
+</span></span><span style=display:flex><span>        options=481249b&lt;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,LRO,WOL_MAGIC,VLAN_HWFILTER,NOMAP&gt;
+</span></span><span style=display:flex><span>        ether
+</span></span><span style=display:flex><span>        inet 10.0.0.11 netmask 0xffffff00 broadcast 10.0.0.255
+</span></span><span style=display:flex><span>        media: Ethernet autoselect (1000baseT &lt;full-duplex&gt;)
+</span></span><span style=display:flex><span>        status: active
+</span></span><span style=display:flex><span>        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
+</span></span><span style=display:flex><span>lo0: flags=8049&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; metric 0 mtu 16384
+</span></span><span style=display:flex><span>        options=680003&lt;RXCSUM,TXCSUM,LINKSTATE,RXCSUM_IPV6,TXCSUM_IPV6&gt;
+</span></span><span style=display:flex><span>        inet6 ::1 prefixlen 128
+</span></span><span style=display:flex><span>        inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2
+</span></span><span style=display:flex><span>        inet 127.0.0.1 netmask 0xff000000
+</span></span><span style=display:flex><span>        groups: lo
+</span></span><span style=display:flex><span>        nd6 options=21&lt;PERFORMNUD,AUTO_LINKLOCAL&gt;
+</span></span></code></pre></div><h2 id=無線lanインタフェースの設定基礎>無線LANインタフェースの設定（基礎）<a hidden class=anchor aria-hidden=true href=#無線lanインタフェースの設定基礎>#</a></h2><p>有効化には<code>/etc/rc.conf</code>を変更する。<br>以下の通り記述する。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># Wireless LAN
+</span></span><span style=display:flex><span>wlans_iwm0=&#34;wlan0&#34;  # 扱いやすいようwlan0と名前をつける
+</span></span><span style=display:flex><span>ifconfig_wlan0=&#34;WPA SYNCDHCP&#34;  # WPAで暗号化。SYNCDHCPは後述
+</span></span><span style=display:flex><span>create_args_wlan0=&#34;country JP regdomain ETSI&#34;  # 国の設定。後述
+</span></span></code></pre></div><p><code>SYNCDHCP</code>を設定すると、起動時にIPアドレス取得が完了するまで待つ。<br><code>DHCP</code>だけだと待たない。</p><p>国の設定は<code>/etc/regdomain.xml</code>から読み取る。<br>Handbookに沿って上記の通り設定しておけばOK。<br>そうしたらいったん再起動。</p><p>起動時に<code>wpa_supplicant.conf</code>が無いと怒られ、DHCPでIPアドレスが取得できないと怒られるが無視。</p><h2 id=無線lanインタフェースの確認基礎>無線LANインタフェースの確認（基礎）<a hidden class=anchor aria-hidden=true href=#無線lanインタフェースの確認基礎>#</a></h2><p>あらためて<code>ifconfig</code>する。<br>確かにwlan0が表示されていますね（不要なインタフェースは省略）。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ ifconfig
+</span></span><span style=display:flex><span>wlan0: flags=8802&lt;BROADCAST,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
+</span></span><span style=display:flex><span>        ether xxxxxxx
+</span></span><span style=display:flex><span>        groups: wlan
+</span></span><span style=display:flex><span>        ssid &#34;&#34; channel 1 (2412 MHz 11b)
+</span></span><span style=display:flex><span>        regdomain ETSI country JP authmode OPEN privacy OFF txpower 30
+</span></span><span style=display:flex><span>        bmiss 10 scanvalid 60 wme bintval 0
+</span></span><span style=display:flex><span>        parent interface: iwm0
+</span></span><span style=display:flex><span>        media: IEEE 802.11 Wireless Ethernet autoselect (autoselect)
+</span></span><span style=display:flex><span>        status: no carrier
+</span></span><span style=display:flex><span>        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
+</span></span></code></pre></div><p>とりあえず<code>iwm0</code>改め<code>wlan0</code>をupさせてみる。<br><code>wlan0</code>のステータスに<code>UP</code>が追加されていることに注目。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo ifconfig wlan0 up
+</span></span><span style=display:flex><span>$ ifconfig wlan0
+</span></span><span style=display:flex><span>wlan0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
+</span></span><span style=display:flex><span>        ether xxxxxx
+</span></span><span style=display:flex><span>        groups: wlan
+</span></span><span style=display:flex><span>        ssid &#34;&#34; channel 1 (2412 MHz 11g)
+</span></span><span style=display:flex><span>        regdomain ETSI country JP authmode OPEN privacy OFF txpower 30
+</span></span><span style=display:flex><span>        bmiss 10 scanvalid 60 protmode CTS wme bintval 0
+</span></span><span style=display:flex><span>        parent interface: iwm0
+</span></span><span style=display:flex><span>        media: IEEE 802.11 Wireless Ethernet autoselect (autoselect)
+</span></span><span style=display:flex><span>        status: no carrier
+</span></span><span style=display:flex><span>        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
+</span></span></code></pre></div><p>続いて<code>scan</code>すると見えている無線LANが表示される。<br>もしここで狙いのAPが見えないのなら、それは隠しAPだと言うこと。後述。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo ifconfig wlan0 scan
+</span></span><span style=display:flex><span>SSID/MESH ID                      BSSID              CHAN RATE    S:N     INT CAPS
+</span></span><span style=display:flex><span>xxxxxx                        0x:xx:xx:xx:xx:xx    1   54M  -69:-96   102 EPS  BSSLOAD HTCAP RSN WME
+</span></span><span style=display:flex><span>（略）
+</span></span></code></pre></div><p>ここまで来て初めて無線LANアクセスポイント接続の設定をする。</p><h2 id=wpa_supplicantconfの設定基礎>wpa_supplicant.confの設定(基礎)<a hidden class=anchor aria-hidden=true href=#wpa_supplicantconfの設定基礎>#</a></h2><p>無線LAN設定のキモである<code>/etc/wpa_supplicant.conf</code>の設定に取り掛かる。<br>exampleは<code>/usr/share/examples/etc/wpa_supplicant.conf</code>にある。<br>これを<code>/etc</code>下にコピーして修正する。<br>のだが、このファイルはとんでもなく巨大である。<br>そのままではさすがに全体像を掴めないので、<code># EAP fast re-authentication</code>セクションまでを残し、それより下は削除する。</p><p>後述するが、このファイルには無線LANアクセスポイントのパスワードを記載する。<br>所有はroot、パーミッションは400にしておくこと。</p><p>まず冒頭までで以下のようにする。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>ctrl_interface=/var/run/wpa_supplicant # デフォルト
+</span></span><span style=display:flex><span>eapol_version=2  # 1でよい。2にして動くなら2で。
+</span></span><span style=display:flex><span>ap_scan=1  # FreeBSDにおいては1だけ。
+</span></span><span style=display:flex><span>fast_reauth=1  # デフォルト
+</span></span></code></pre></div><h2 id=wpa_supplicantconfの設定本番>wpa_supplicant.confの設定(本番)<a hidden class=anchor aria-hidden=true href=#wpa_supplicantconfの設定本番>#</a></h2><h3 id=パスワードの難読化>パスワードの難読化<a hidden class=anchor aria-hidden=true href=#パスワードの難読化>#</a></h3><p>で、問題はここから先である。<br>SSIDとパスワードを平分で記述するである。<br>これはさすがに気持ち悪い。<br>そこで<code>/usr/sbin/wpa_passphrase</code>を使う。<br>このツールは、SSIDとパスワード（パスフレーズ）から256bitのpskを生成してくれるものである。<br>要するに難読化っぽいことをするわけ。<br><code>man</code>すればわかるとおり、<code>wpa_passphrase SSID パスワード</code>と続けて引数を与えればよい。<br>便利なのは、そのまま<code>wpa_supplicant.conf</code>に貼り付けられる書式で出力してくれる点である。<br>以下は実施例。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ wpa_passphrase SSIDexample SSIDpassword
+</span></span><span style=display:flex><span>network={
+</span></span><span style=display:flex><span>      ssid=&#34;SSIDexample&#34;
+</span></span><span style=display:flex><span>      #psk=&#34;SSIDpassword&#34;
+</span></span><span style=display:flex><span>      psk=6d7b3e5128969e9dd66ffa26d8ba503ff4b43f021f114a5f5bc9dadb8488ee1f
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=wpa_supplicantconfへの書き込み>wpa_supplicant.confへの書き込み<a hidden class=anchor aria-hidden=true href=#wpa_supplicantconfへの書き込み>#</a></h3><p>そうしたら、パスワードが平分で記載されている行を削除したうえで、<code>wpa_supplicant.conf</code>に貼り付ければよい。<br>ただし注意点があり、APがステルスの場合には<code>scan_ssid=1</code>を追加しておくこと。<br>要するにさっきscanした結果、狙いのAPが表示されていなければ、それは隠しAPということ。</p><p>以下の通り。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>ctrl_interface=/var/run/wpa_supplicant # デフォルト
+</span></span><span style=display:flex><span>eapol_version=2  # 1でよい。2にして動くなら2で。
+</span></span><span style=display:flex><span>ap_scan=1  # FreeBSDにおいては1だけ。
+</span></span><span style=display:flex><span>fast_reauth=1  # デフォルト
+</span></span><span style=display:flex><span>network={
+</span></span><span style=display:flex><span>      scan_ssid=1
+</span></span><span style=display:flex><span>      ssid=&#34;SSIDexample&#34;
+</span></span><span style=display:flex><span>      psk=6d7b3e5128969e9dd66ffa26d8ba503ff4b43f021f114a5f5bc9dadb8488ee1f
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=dhcp-clientとしての設定>DHCP clientとしての設定<a hidden class=anchor aria-hidden=true href=#dhcp-clientとしての設定>#</a></h2><p>さて。<br>本気はDHCPクライアントとして動作させる。<br>そのためには、デフォルトルータについてもDHCPで払い出してもらう必要がある。<br>それには<code>/etc/dhclient.conf</code>に以下の記載をしておく必要がある。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># $FreeBSD$
+</span></span><span style=display:flex><span>#
+</span></span><span style=display:flex><span><span style=color:#75715e>#       This file is required by the ISC DHCP client.</span>
+</span></span><span style=display:flex><span>#       See <span style=color:#e6db74>``</span>man <span style=color:#ae81ff>5</span> dhclient.conf<span style=color:#e6db74>&#39;&#39;</span> <span style=color:#66d9ef>for</span> details.
+</span></span><span style=display:flex><span>#
+</span></span><span style=display:flex><span><span style=color:#75715e>#       In most cases an empty file is sufficient for most people as the</span>
+</span></span><span style=display:flex><span>#       defaults are usually fine.
+</span></span><span style=display:flex><span>#
+</span></span><span style=display:flex><span>interface <span style=color:#e6db74>&#34;wlan0&#34;</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>        request routers;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>これをしておくとデフォルトルートを設定してくれる。<br>※以下は後述の無線LANを起動したあとの話。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ netstat -rn
+</span></span><span style=display:flex><span>Routing tables
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Internet:
+</span></span><span style=display:flex><span>Destination        Gateway            Flags     Netif Expire
+</span></span><span style=display:flex><span>default            192.168.10.1       UGS       wlan0
+</span></span><span style=display:flex><span>127.0.0.1          link#2             UH          lo0
+</span></span><span style=display:flex><span>192.168.10.0/24    link#3             U         wlan0
+</span></span><span style=display:flex><span>192.168.10.3       link#3             UHS         lo0
+</span></span></code></pre></div><p>また、<code>resolv.conf</code>についても同様。<br>※以下は後述の無線LANを起動したあとの話。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span># Generated by resolvconf
+</span></span><span style=display:flex><span>nameserver 192.168.10.1
+</span></span></code></pre></div><h2 id=無線lanインタフェースの起動>無線LANインタフェースの起動<a hidden class=anchor aria-hidden=true href=#無線lanインタフェースの起動>#</a></h2><p><code>service netif restart</code>とすればよい。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo service netif restart
+</span></span><span style=display:flex><span>Created wlan(4) interfaces: wlan0.
+</span></span><span style=display:flex><span>Starting wpa_supplicant.
+</span></span><span style=display:flex><span>Starting dhclient.
+</span></span><span style=display:flex><span>wlan0: no link ..... got link
+</span></span><span style=display:flex><span>DHCPREQUEST on wlan0 to 255.255.255.255 port 67
+</span></span><span style=display:flex><span>DHCPNAK from 192.168.10.1
+</span></span><span style=display:flex><span>DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 4
+</span></span><span style=display:flex><span>DHCPOFFER from 192.168.10.1
+</span></span><span style=display:flex><span>DHCPREQUEST on wlan0 to 255.255.255.255 port 67
+</span></span><span style=display:flex><span>DHCPACK from 192.168.10.1
+</span></span><span style=display:flex><span>bound to 192.168.10.3 -- renewal in 43200 seconds.
+</span></span><span style=display:flex><span>Starting Network: lo0 em0 wlan0.
+</span></span><span style=display:flex><span>(略)
+</span></span><span style=display:flex><span>wlan0: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
+</span></span><span style=display:flex><span>        ether xxxxxx
+</span></span><span style=display:flex><span>        inet 192.168.10.3 netmask 0xffffff00 broadcast 192.168.10.255
+</span></span><span style=display:flex><span>        groups: wlan
+</span></span><span style=display:flex><span>        ssid xxxxxx channel 4 (2427 MHz 11g) bssid xxxxxx
+</span></span><span style=display:flex><span>        regdomain ETSI country JP authmode WPA2/802.11i privacy ON
+</span></span><span style=display:flex><span>        deftxkey UNDEF AES-CCM 3:128-bit txpower 30 bmiss 10 scanvalid 60
+</span></span><span style=display:flex><span>        protmode CTS wme roaming MANUAL
+</span></span><span style=display:flex><span>        parent interface: iwm0
+</span></span><span style=display:flex><span>        media: IEEE 802.11 Wireless Ethernet OFDM/36Mbps mode 11g
+</span></span><span style=display:flex><span>        status: associated
+</span></span><span style=display:flex><span>        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
+</span></span></code></pre></div><p>以上</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://nobwak.github.io/tags/freebsd/>FreeBSD</a></li><li><a href=https://nobwak.github.io/tags/network/>Network</a></li><li><a href=https://nobwak.github.io/tags/wifi/>WiFi</a></li></ul><nav class=paginav><a class=prev href=https://nobwak.github.io/posts/2021-12-24-visualstudiocode%E6%8B%A1%E5%BC%B5%E6%A9%9F%E8%83%BD/><span class=title>« Prev Page</span><br><span>2021-12-24-VisualStudioCode拡張機能</span></a>
+<a class=next href=https://nobwak.github.io/posts/2021-12-12-freebsd%E3%82%92%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%E3%81%AB/><span class=title>Next Page »</span><br><span>2021-12-12-FreeBSDをルーターに</span></a></nav><div class=share-buttons><a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on twitter" href="https://twitter.com/intent/tweet/?text=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f&hashtags=FreeBSD%2cNetwork%2cWiFi"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f&title=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a&summary=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f&title=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on whatsapp" href="https://api.whatsapp.com/send?text=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share 2021-12-13-FreeBSDの無線LAN設定 on telegram" href="https://telegram.me/share/url?text=2021-12-13-FreeBSD%e3%81%ae%e7%84%a1%e7%b7%9aLAN%e8%a8%ad%e5%ae%9a&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2021-12-13-freebsd%25E3%2581%25AE%25E7%2584%25A1%25E7%25B7%259Alan%25E8%25A8%25AD%25E5%25AE%259A%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a></div></footer></article></main><footer class=footer><span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
-</span>
-</footer>
-<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
-</a>
-<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
-<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
-<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
-</body>
-</html>
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(t){t.preventDefault();var e=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView({behavior:"smooth"}),e==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${e}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>

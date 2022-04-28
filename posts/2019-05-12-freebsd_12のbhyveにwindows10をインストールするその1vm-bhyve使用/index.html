@@ -1,406 +1,177 @@
-<!doctype html><html lang=en dir=auto>
-<head><meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
-<meta name=robots content="index, follow">
-<title>FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） | nobwak's Lair</title>
-<meta name=keywords content>
-<meta name=description content="bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。 FreeBSDにはjailがある。 jailのいいところは、カーネルを共有">
-<meta name=author content="nobwak">
-<link rel=canonical href=https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE1vm-bhyve%E4%BD%BF%E7%94%A8/>
-<meta name=google-site-verification content="XYZabc">
-<meta name=yandex-verification content="XYZabc">
-<meta name=msvalidate.01 content="XYZabc">
-<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
-<link rel=preload href=/apple-touch-icon.png as=image>
-<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E>
-<meta name=theme-color content="#2e2e33">
-<meta name=msapplication-TileColor content="#2e2e33">
-<meta name=generator content="Hugo 0.91.2">
-<noscript>
-<style>#theme-toggle,.top-link{display:none}</style>
-<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）">
-<meta property="og:description" content="bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。 FreeBSDにはjailがある。 jailのいいところは、カーネルを共有">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE1vm-bhyve%E4%BD%BF%E7%94%A8/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2019-05-12T17:17:30+09:00">
-<meta property="article:modified_time" content="2019-05-12T17:17:30+09:00"><meta property="og:site_name" content="nobwak's Lair">
-<meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
-<meta name=twitter:title content="FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）">
-<meta name=twitter:description content="bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。 FreeBSDにはjailがある。 jailのいいところは、カーネルを共有">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）","item":"https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE1vm-bhyve%E4%BD%BF%E7%94%A8/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）","name":"FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）","description":"bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。 FreeBSDにはjailがある。 jailのいいところは、カーネルを共有","keywords":[],"articleBody":"bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。\nFreeBSDにはjailがある。\njailのいいところは、カーネルを共有しつつユーザランドだけ分けることで、オーバーヘッドを抑えられるところ。\n悪いところはOSに制限が発生するところ。要するにLinuxやWindows、FreeBSDでも他のバージョンを動かせないところ。\n仮想化は何かの目的、たとえばアプリケーションを動かすためのもので、いまどきOS依存のアプリケーションは少ない。\nとはいうものの、FreeBSDは年々、本体はともかく裾野のリソースが先細りで、ports/packageがなくなったり、あったとしても情報は少なくて、まるっとLinuxごと動かしたいなと感じることがある。\nもちろんWindowsについては当然FreeBSDでは動かないアプリなんて山ほどある。\nそういった点では、用途に合わせて最適なOS（とアプリケーション）を使い慣れたFreeBSD上で動かせるのはかなりのメリット。\nというのも、バックアップが簡単にできるからである。\nZFS上にイメージを作れば、スナップショットにロールバックはお手の物である。\n壊し放題である。\nESXiなどのType 1ハイパーバイザでは、これができない。できるかもしれないけど知らない。\nWindowsを物理PC上で使っていて、壊れたとする。バックアップがあったとしても、復旧が面倒。\nLinuxについてはバックアップからの復旧は比較的簡単だが、俺様なんか滅多にLinuxを使わなくて操作をすぐ忘れるという点でやはり復旧が面倒。\n以上のような背景があったところに、このたび宅鯖をハードウェア仮想化対応のCPUに変えたので、遅まきながらbhyveを導入する。\n以下ではWindows10をインストールする。\nまずはvm-bhyveを bhyveの導入には、まず公式のFreeBSD handbookを参照するが、いろいろと面倒くさそうである。\nhttps://www.freebsd.org/doc/handbook/virtualization-host-bhyve.html\n遅れて導入すると、いろいろと環境が整っているものである。\nbhyveの場合には、vm-bhyveというツールがあればこのへんは一挙解決。\nvirtualboxを使ったことがあれば、それをイメージしながら進めると理解しやすい。\nただ後述するが、Windowsのイメージそのものにはzfsボリュームを使えない。（ZFS上にイメージを置くことはできる）\nhttps://github.com/churchers/vm-bhyve\nhttps://github.com/churchers/vm-bhyve/wiki/Running-Windows\n大きな流れ  vm-bhyveのインストール 初期設定 初期設定（ネットワーク） 仮想マシンインストール準備（インストーラ = ISO） 仮想マシンインストール準備（仮想マシン設定）【次回】 仮想マシンインストール【次回】  vm-bhyveのインストール pkgでインストールできる。\nvm-bhyveのほか、仮想OS用のfirmwareもインストールしておく。\n$ sudo pkg install vm-bhyve FreeBSD repository update completed. 31790 packages processed. All repositories are up to date. The following 1 package(s) will be affected (of 0 checked): New packages to be INSTALLED: vm-bhyve: 1.2.3 Number of packages to be installed: 1 55 KiB to be downloaded. [ex01] [1/1] Fetching vm-bhyve-1.2.3.txz: 100% 55 KiB 56.3kB/s 00:01 Checking integrity... done (0 conflicting) [ex01] [1/1] Installing vm-bhyve-1.2.3... [ex01] [1/1] Extracting vm-bhyve-1.2.3: 100% Message from vm-bhyve-1.2.3: To enable vm-bhyve, please add the following lines to rc.conf, depending on whether you are using ZFS storage or not. Please note that the directory or dataset specified should already exist.  vm_enable=\"YES\" vm_dir=\"zfs:pool/dataset\" OR  vm_enable=\"YES\" vm_dir=\"/directory/path\" Then run 'vm init'. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Please note, if upgrading from version 1.1, it is advised to shutdown guests and restart the host in order to re-create all virtual switches using new identifiers. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! どんなファイルがインストールされたかは、pkg listで確認できる。\nコマンドとしては/usr/local/sbin/vmを使う。\n実行にはroot権限が必要。\nservice -lで表示されるサービス名もvm。\n$ pkg list vm-bhyve /usr/local/etc/rc.d/vm /usr/local/lib/vm-bhyve/vm-cmd /usr/local/lib/vm-bhyve/vm-config /usr/local/lib/vm-bhyve/vm-core /usr/local/lib/vm-bhyve/vm-datastore /usr/local/lib/vm-bhyve/vm-guest /usr/local/lib/vm-bhyve/vm-info /usr/local/lib/vm-bhyve/vm-migration /usr/local/lib/vm-bhyve/vm-rctl /usr/local/lib/vm-bhyve/vm-run /usr/local/lib/vm-bhyve/vm-switch /usr/local/lib/vm-bhyve/vm-switch-manual /usr/local/lib/vm-bhyve/vm-switch-standard /usr/local/lib/vm-bhyve/vm-switch-vale /usr/local/lib/vm-bhyve/vm-switch-vxlan /usr/local/lib/vm-bhyve/vm-util /usr/local/lib/vm-bhyve/vm-zfs /usr/local/man/man8/vm.8.gz /usr/local/sbin/vm /usr/local/share/examples/vm-bhyve/alpine.conf /usr/local/share/examples/vm-bhyve/arch.conf /usr/local/share/examples/vm-bhyve/centos6.conf /usr/local/share/examples/vm-bhyve/centos7.conf /usr/local/share/examples/vm-bhyve/config.sample /usr/local/share/examples/vm-bhyve/coreos.conf /usr/local/share/examples/vm-bhyve/debian.conf /usr/local/share/examples/vm-bhyve/default.conf /usr/local/share/examples/vm-bhyve/dragonfly.conf /usr/local/share/examples/vm-bhyve/freebsd-zvol.conf /usr/local/share/examples/vm-bhyve/freepbx.conf /usr/local/share/examples/vm-bhyve/netbsd.conf /usr/local/share/examples/vm-bhyve/openbsd.conf /usr/local/share/examples/vm-bhyve/resflash.conf /usr/local/share/examples/vm-bhyve/ubuntu.conf /usr/local/share/examples/vm-bhyve/windows.conf /usr/local/share/licenses/vm-bhyve-1.2.3/BSD2CLAUSE /usr/local/share/licenses/vm-bhyve-1.2.3/LICENSE /usr/local/share/licenses/vm-bhyve-1.2.3/catalog.mk $ sudo pkg install bhyve-firmware Updating FreeBSD repository catalogue... FreeBSD repository is up to date. All repositories are up to date. The following 3 package(s) will be affected (of 0 checked): New packages to be INSTALLED: bhyve-firmware: 1.0_1 uefi-edk2-bhyve-csm: 0.2_1,1 uefi-edk2-bhyve: 0.2_1,1 Number of packages to be installed: 3 The process will require 4 MiB more space. 1 MiB to be downloaded. [ex01] [1/3] Fetching bhyve-firmware-1.0_1.txz: 100% 496 B 0.5kB/s 00:01 [ex01] [2/3] Fetching uefi-edk2-bhyve-csm-0.2_1,1.txz: 2% 16 KiB 16.4kB/s [ex01] [2/3] Fetching uefi-edk2-bhyve-csm-0.2_1,1.txz: 100% 760 KiB 778.7kB/s 00:01 [ex01] [3/3] Fetching uefi-edk2-bhyve-0.2_1,1.txz: 59% 440 KiB 450.6kB/s 00[ex01] [3/3] Fetching uefi-edk2-bhyve-0.2_1,1.txz: 100% 740 KiB 757.6kB/s 00:01 Checking integrity... done (0 conflicting) [ex01] [1/3] Installing uefi-edk2-bhyve-csm-0.2_1,1... [ex01] [1/3] Extracting uefi-edk2-bhyve-csm-0.2_1,1: 100% [ex01] [2/3] Installing uefi-edk2-bhyve-0.2_1,1... [ex01] [2/3] Extracting uefi-edk2-bhyve-0.2_1,1: 100% [ex01] [3/3] Installing bhyve-firmware-1.0_1... 仮想マシン他置き場を作る もちろんZFSで作るよな。\nここで作った置き場には、仮想マシンのほか、ISOイメージ、テンプレート、すべての仮想マシンに共通の設定ファイルが置かれる。\nルート直下に/vmを作った。\nなお本記事で\"$vm_dir\"と記載をする場合にはこの仮想マシン置き場を指す。\n$ sudo zfs create zroot/vm $ sudo mkdir /vm $ sudo zfs set mountpoint=/vm zroot/vm $ zfs list NAME USED AVAIL REFER MOUNTPOINT zroot 6.73G 216G 88K /zroot （略） zroot/vm 88K 216G 88K /zroot/vm vm-bhyveの初期設定 まず/etc/rc.confへの書き込み。\nホスト起動時にvm-bhyveも起動するように。\nまた、先に作った仮想マシン置き場をvm-bhyveに知らせるために。\n$ sudo sysrc vm_enable=\"YES\" vm_enable: - YES $ sudo sysrc vm_dir=\"zfs:zroot/vm\" vm_dir: - zfs:zroot/vm 次にvm init。仮想マシン置き場にいろいろとファイル/ディレクトリが作られるとともに、必要なカーネルモジュールがロードされる。\nvm initはホストが起動する都度、実行される必要がある。\nこの場合、vm initはカーネルモジュールのロードと、ネットワーク設定(tap）を行う。\n/etc/rc.confにvm_enableをしてあれば、気にする必要なない。\n$ sudo vm init $ $ ls -la /vm total 35 drwxr-xr-x 6 root wheel 6 May 4 20:34 . drwxr-xr-x 20 root wheel 26 May 6 15:03 .. drwxr-xr-x 2 root wheel 4 May 3 18:40 .config drwxr-xr-x 2 root wheel 5 May 4 22:48 .iso drwxr-xr-x 2 root wheel 18 May 3 18:46 .templates $ kldstat Id Refs Address Size Name 1 28 0xffffffff80200000 243cd00 kernel 2 1 0xffffffff8263e000 3a9a10 zfs.ko 3 2 0xffffffff829e8000 a4f0 opensolaris.ko 4 1 0xffffffff82c21000 2678 intpm.ko 5 1 0xffffffff82c24000 b10 smbus.ko 6 1 0xffffffff82c25000 537460 vmm.ko 7 1 0xffffffff8315d000 b30 nmdm.ko 8 1 0xffffffff8315e000 6fb3 if_bridge.ko 9 1 0xffffffff83165000 4410 bridgestp.ko 10 1 0xffffffff8316a000 2e77 if_tap.ko 仮想マシン置き場に、OSごとのテンプレートファイルもコピーする。\n/usr/local/share/examples/vm-bhyve/にあるやつね。（さきほどpkg infoでも出てきた）\n$ sudo cp /usr/local/share/examples/vm-bhyve/* /vm/.templates/ $ ls /vm/.templates/ alpine.conf config.sample dragonfly.conf openbsd.conf arch.conf coreos.conf freebsd-zvol.conf resflash.conf centos6.conf debian.conf freepbx.conf ubuntu.conf centos7.conf default.conf netbsd.conf windows.conf 以上で初期設定終わり。\nつぎは初期設定（ネットワーク）\n初期設定（ネットワーク） 仮想マシン用ネットワークの結線を行う。\nまず、仮想マシンの繋がる仮想スイッチを作り、仮想スイッチとホストマシンのネットワークインタフェースを繋ぐ。\n外界  ホストのインタフェース  仮想スイッチ\nというネットワークを作る。\n先々、仮想マシンを作ると\n外界  ホストのインタフェース  仮想スイッチ  仮想マシン\nというネットワークになる。\n仕組み的なことをいうと、仮想スイッチはbridgeで、仮想マシンのインタフェースはtapになる。\n以下の例では、publicという名前の仮想スイッチ（オプションなしでのcreateなのでbridgeインタフェース）を作成している。\n名前は、vm-bhyveのテンプレートで仮想スイッチを\"public\"にしているからで、気に入らなければ別の名前でもよい。\n# その場合は$vm_dir/.templatesにあるファイルを書き換えておくとよい。\naddで仮想スイッチに物理インタフェースを追加。\n物理インタフェースは、もちろんのことホストマシンのインタフェースに合わせること。 また、これも当たり前だけど、追加するインタフェースはインターネットに向いている方にしような。\n試しにやってみたら、wlan0でも行けたわ。\n$ sudo vm switch create public $ sudo vm switch add public re0 $ ifconfig re0: flags=8943 metric 0 mtu 1500 options=8209b ether 6c:4b:90:a6:13:23 inet 192.168.1.7 netmask 0xffffff00 broadcast 192.168.1.255 media: Ethernet autoselect (1000baseT ) status: active nd6 options=29 lo0: flags=8049 metric 0 mtu 16384 options=680003 inet6 ::1 prefixlen 128 inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2 inet 127.0.0.1 netmask 0xff000000 groups: lo nd6 options=21 vm-public: flags=8843 metric 0 mtu 1500 ether 26:ad:45:ea:0c:c3 id 00:00:00:00:00:00 priority 32768 hellotime 2 fwddelay 15 maxage 20 holdcnt 6 proto rstp maxaddr 2000 timeout 1200 root id 00:00:00:00:00:00 priority 32768 ifcost 0 port 0 member: re0 flags=143 ifmaxaddr 0 port 1 priority 128 path cost 20000 groups: bridge vm-switch viid-4c918@ nd6 options=1 これで以下のようなネットワーク構成になった。\n外界  ホストのインタフェース（re0）  仮想スイッチ（vm-public）\nこれですべての初期設定が完了。\n","wordCount":"3015","inLanguage":"en","datePublished":"2019-05-12T17:17:30+09:00","dateModified":"2019-05-12T17:17:30+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE1vm-bhyve%E4%BD%BF%E7%94%A8/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
-</head>
-<body id=top>
-<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
-<header class=header>
-<nav class=nav>
-<div class=logo>
-<a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)">
-<img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
-<span class=logo-switches>
-<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-</button>
-</span>
-</div>
-<ul id=menu>
-<li>
-<a href=https://nobwak.github.io/posts/ title=posts>
-<span>posts</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/>
-<span>search</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/categories/ title=categories>
-<span>categories</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io/tags/ title=tags>
-<span>tags</span>
-</a>
-</li>
-<li>
-<a href=https://nobwak.github.io title="nobwak lair">
-<span>nobwak lair</span>
-</a>
-</li>
-</ul>
-</nav>
-</header>
-<main class=main>
-<article class=post-single>
-<header class=post-header>
-<div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div>
-<h1 class=post-title>
-FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）
-</h1>
-<div class=post-meta><span title="2019-05-12 17:17:30 +0900 JST">May 12, 2019</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2019-05-12-FreeBSD_12%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
-</div>
-</header> <div class=toc>
-<details open>
-<summary accesskey=c title="(Alt + C)">
-<span class=details>Table of Contents</span>
-</summary>
-<div class=inner><ul>
-<li>
-<a href=#%e3%81%be%e3%81%9a%e3%81%afvm-bhyve%e3%82%92 aria-label=まずはvm-bhyveを>まずはvm-bhyveを</a></li>
-<li>
-<a href=#%e5%a4%a7%e3%81%8d%e3%81%aa%e6%b5%81%e3%82%8c aria-label=大きな流れ>大きな流れ</a></li>
-<li>
-<a href=#vm-bhyve%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=vm-bhyveのインストール>vm-bhyveのインストール</a></li>
-<li>
-<a href=#%e4%bb%ae%e6%83%b3%e3%83%9e%e3%82%b7%e3%83%b3%e4%bb%96%e7%bd%ae%e3%81%8d%e5%a0%b4%e3%82%92%e4%bd%9c%e3%82%8b aria-label=仮想マシン他置き場を作る>仮想マシン他置き場を作る</a></li>
-<li>
-<a href=#vm-bhyve%e3%81%ae%e5%88%9d%e6%9c%9f%e8%a8%ad%e5%ae%9a aria-label=vm-bhyveの初期設定>vm-bhyveの初期設定</a></li>
-<li>
-<a href=#%e5%88%9d%e6%9c%9f%e8%a8%ad%e5%ae%9a%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af aria-label=初期設定（ネットワーク）>初期設定（ネットワーク）</a>
-</li>
-</ul>
-</div>
-</details>
-</div>
-<div class=post-content><p>bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。</p>
-<p>FreeBSDにはjailがある。<br>
-jailのいいところは、カーネルを共有しつつユーザランドだけ分けることで、オーバーヘッドを抑えられるところ。<br>
-悪いところはOSに制限が発生するところ。要するにLinuxやWindows、FreeBSDでも他のバージョンを動かせないところ。</p>
-<p>仮想化は何かの目的、たとえばアプリケーションを動かすためのもので、いまどきOS依存のアプリケーションは少ない。<br>
-とはいうものの、FreeBSDは年々、本体はともかく裾野のリソースが先細りで、ports/packageがなくなったり、あったとしても情報は少なくて、まるっとLinuxごと動かしたいなと感じることがある。<br>
-もちろんWindowsについては当然FreeBSDでは動かないアプリなんて山ほどある。</p>
-<p>そういった点では、用途に合わせて最適なOS（とアプリケーション）を使い慣れたFreeBSD上で動かせるのはかなりのメリット。<br>
-というのも、バックアップが簡単にできるからである。<br>
-ZFS上にイメージを作れば、スナップショットにロールバックはお手の物である。<br>
-壊し放題である。<br>
-ESXiなどのType 1ハイパーバイザでは、これができない。できるかもしれないけど知らない。</p>
-<p>Windowsを物理PC上で使っていて、壊れたとする。バックアップがあったとしても、復旧が面倒。<br>
-Linuxについてはバックアップからの復旧は比較的簡単だが、俺様なんか滅多にLinuxを使わなくて操作をすぐ忘れるという点でやはり復旧が面倒。</p>
-<p>以上のような背景があったところに、このたび宅鯖をハードウェア仮想化対応のCPUに変えたので、遅まきながらbhyveを導入する。<br>
-以下ではWindows10をインストールする。</p>
-<h2 id=まずはvm-bhyveを>まずはvm-bhyveを<a hidden class=anchor aria-hidden=true href=#まずはvm-bhyveを>#</a></h2>
-<p>bhyveの導入には、まず公式のFreeBSD handbookを参照するが、いろいろと面倒くさそうである。<br>
-<a href=https://www.freebsd.org/doc/handbook/virtualization-host-bhyve.html>https://www.freebsd.org/doc/handbook/virtualization-host-bhyve.html</a></p>
-<p>遅れて導入すると、いろいろと環境が整っているものである。<br>
-bhyveの場合には、vm-bhyveというツールがあればこのへんは一挙解決。<br>
-virtualboxを使ったことがあれば、それをイメージしながら進めると理解しやすい。</p>
-<p>ただ後述するが、Windowsのイメージそのものにはzfsボリュームを使えない。（ZFS上にイメージを置くことはできる）<br>
-<a href=https://github.com/churchers/vm-bhyve>https://github.com/churchers/vm-bhyve</a><br>
-<a href=https://github.com/churchers/vm-bhyve/wiki/Running-Windows>https://github.com/churchers/vm-bhyve/wiki/Running-Windows</a></p>
-<h2 id=大きな流れ>大きな流れ<a hidden class=anchor aria-hidden=true href=#大きな流れ>#</a></h2>
-<ol>
-<li>vm-bhyveのインストール</li>
-<li>初期設定</li>
-<li>初期設定（ネットワーク）</li>
-<li>仮想マシンインストール準備（インストーラ = ISO）</li>
-<li>仮想マシンインストール準備（仮想マシン設定）【次回】</li>
-<li>仮想マシンインストール【次回】</li>
-</ol>
-<h2 id=vm-bhyveのインストール>vm-bhyveのインストール<a hidden class=anchor aria-hidden=true href=#vm-bhyveのインストール>#</a></h2>
-<p>pkgでインストールできる。<br>
-vm-bhyveのほか、仮想OS用のfirmwareもインストールしておく。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo pkg install vm-bhyve
-FreeBSD repository update completed. 31790 packages processed.
-All repositories are up to date.
-The following 1 package(s) will be affected (of 0 checked):
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>New packages to be INSTALLED:
-        vm-bhyve: 1.2.3
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Number of packages to be installed: 1
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>55 KiB to be downloaded.
-[ex01] [1/1] Fetching vm-bhyve-1.2.3.txz: 100%   55 KiB  56.3kB/s    00:01
-Checking integrity... done (0 conflicting)
-[ex01] [1/1] Installing vm-bhyve-1.2.3...
-[ex01] [1/1] Extracting vm-bhyve-1.2.3: 100%
-Message from vm-bhyve-1.2.3:
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>To enable vm-bhyve, please add the following lines to rc.conf,
-depending on whether you are using ZFS storage or not. Please note
-that the directory or dataset specified should already exist.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>    vm_enable=&#34;YES&#34;
-    vm_dir=&#34;zfs:pool/dataset&#34;
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>OR
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>    vm_enable=&#34;YES&#34;
-    vm_dir=&#34;/directory/path&#34;
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Then run &#39;vm init&#39;.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Please note, if upgrading from version 1.1, it is advised to shutdown guests
-and restart the host in order to re-create all virtual switches using new identifiers.
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-</code></pre></div><p>どんなファイルがインストールされたかは、pkg listで確認できる。<br>
-コマンドとしては/usr/local/sbin/vmを使う。<br>
-実行にはroot権限が必要。<br>
-service -lで表示されるサービス名もvm。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ pkg list vm-bhyve
-/usr/local/etc/rc.d/vm
-/usr/local/lib/vm-bhyve/vm-cmd
-/usr/local/lib/vm-bhyve/vm-config
-/usr/local/lib/vm-bhyve/vm-core
-/usr/local/lib/vm-bhyve/vm-datastore
-/usr/local/lib/vm-bhyve/vm-guest
-/usr/local/lib/vm-bhyve/vm-info
-/usr/local/lib/vm-bhyve/vm-migration
-/usr/local/lib/vm-bhyve/vm-rctl
-/usr/local/lib/vm-bhyve/vm-run
-/usr/local/lib/vm-bhyve/vm-switch
-/usr/local/lib/vm-bhyve/vm-switch-manual
-/usr/local/lib/vm-bhyve/vm-switch-standard
-/usr/local/lib/vm-bhyve/vm-switch-vale
-/usr/local/lib/vm-bhyve/vm-switch-vxlan
-/usr/local/lib/vm-bhyve/vm-util
-/usr/local/lib/vm-bhyve/vm-zfs
-/usr/local/man/man8/vm.8.gz
-/usr/local/sbin/vm
-/usr/local/share/examples/vm-bhyve/alpine.conf
-/usr/local/share/examples/vm-bhyve/arch.conf
-/usr/local/share/examples/vm-bhyve/centos6.conf
-/usr/local/share/examples/vm-bhyve/centos7.conf
-/usr/local/share/examples/vm-bhyve/config.sample
-/usr/local/share/examples/vm-bhyve/coreos.conf
-/usr/local/share/examples/vm-bhyve/debian.conf
-/usr/local/share/examples/vm-bhyve/default.conf
-/usr/local/share/examples/vm-bhyve/dragonfly.conf
-/usr/local/share/examples/vm-bhyve/freebsd-zvol.conf
-/usr/local/share/examples/vm-bhyve/freepbx.conf
-/usr/local/share/examples/vm-bhyve/netbsd.conf
-/usr/local/share/examples/vm-bhyve/openbsd.conf
-/usr/local/share/examples/vm-bhyve/resflash.conf
-/usr/local/share/examples/vm-bhyve/ubuntu.conf
-/usr/local/share/examples/vm-bhyve/windows.conf
-/usr/local/share/licenses/vm-bhyve-1.2.3/BSD2CLAUSE
-/usr/local/share/licenses/vm-bhyve-1.2.3/LICENSE
-/usr/local/share/licenses/vm-bhyve-1.2.3/catalog.mk
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>$ sudo pkg install bhyve-firmware
-Updating FreeBSD repository catalogue...
-FreeBSD repository is up to date.
-All repositories are up to date.
-The following 3 package(s) will be affected (of 0 checked):
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>New packages to be INSTALLED:
-        bhyve-firmware: 1.0_1
-        uefi-edk2-bhyve-csm: 0.2_1,1
-        uefi-edk2-bhyve: 0.2_1,1
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>Number of packages to be installed: 3
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>The process will require 4 MiB more space.
-1 MiB to be downloaded.
-[ex01] [1/3] Fetching bhyve-firmware-1.0_1.txz: 100%    496 B   0.5kB/s    00:01
-[ex01] [2/3] Fetching uefi-edk2-bhyve-csm-0.2_1,1.txz:   2%   16 KiB  16.4kB/s  [ex01] [2/3] Fetching uefi-edk2-bhyve-csm-0.2_1,1.txz: 100%  760 KiB 778.7kB/s    00:01
-[ex01] [3/3] Fetching uefi-edk2-bhyve-0.2_1,1.txz:  59%  440 KiB 450.6kB/s    00[ex01] [3/3] Fetching uefi-edk2-bhyve-0.2_1,1.txz: 100%  740 KiB 757.6kB/s    00:01
-Checking integrity... done (0 conflicting)
-[ex01] [1/3] Installing uefi-edk2-bhyve-csm-0.2_1,1...
-[ex01] [1/3] Extracting uefi-edk2-bhyve-csm-0.2_1,1: 100%
-[ex01] [2/3] Installing uefi-edk2-bhyve-0.2_1,1...
-[ex01] [2/3] Extracting uefi-edk2-bhyve-0.2_1,1: 100%
-[ex01] [3/3] Installing bhyve-firmware-1.0_1...
-</code></pre></div><h2 id=仮想マシン他置き場を作る>仮想マシン他置き場を作る<a hidden class=anchor aria-hidden=true href=#仮想マシン他置き場を作る>#</a></h2>
-<p>もちろんZFSで作るよな。<br>
-ここで作った置き場には、仮想マシンのほか、ISOイメージ、テンプレート、すべての仮想マシンに共通の設定ファイルが置かれる。<br>
-ルート直下に/vmを作った。<br>
-なお本記事で"$vm_dir"と記載をする場合にはこの仮想マシン置き場を指す。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo zfs create zroot/vm
-$ sudo mkdir /vm
-$ sudo zfs set mountpoint<span style=color:#f92672>=</span>/vm zroot/vm
-$ zfs list
-NAME                 USED  AVAIL  REFER  MOUNTPOINT
-zroot               6.73G   216G    88K  /zroot
-（略）
-zroot/vm              88K   216G    88K  /zroot/vm
-</code></pre></div><h2 id=vm-bhyveの初期設定>vm-bhyveの初期設定<a hidden class=anchor aria-hidden=true href=#vm-bhyveの初期設定>#</a></h2>
-<p>まず/etc/rc.confへの書き込み。<br>
-ホスト起動時にvm-bhyveも起動するように。<br>
-また、先に作った仮想マシン置き場をvm-bhyveに知らせるために。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo sysrc vm_enable<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;YES&#34;</span>
-vm_enable:  -&gt; YES
-$ sudo sysrc vm_dir<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;zfs:zroot/vm&#34;</span>
-vm_dir:  -&gt; zfs:zroot/vm
-</code></pre></div><p>次にvm init。仮想マシン置き場にいろいろとファイル/ディレクトリが作られるとともに、必要なカーネルモジュールがロードされる。<br>
-vm initはホストが起動する都度、実行される必要がある。<br>
-この場合、vm initはカーネルモジュールのロードと、ネットワーク設定(tap）を行う。<br>
-/etc/rc.confにvm_enableをしてあれば、気にする必要なない。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo vm init
-$
-
-$ ls -la /vm
-total 35
-drwxr-xr-x   6 root  wheel   6 May  4 20:34 .
-drwxr-xr-x  20 root  wheel  26 May  6 15:03 ..
-drwxr-xr-x   2 root  wheel   4 May  3 18:40 .config
-drwxr-xr-x   2 root  wheel   5 May  4 22:48 .iso
-drwxr-xr-x   2 root  wheel  18 May  3 18:46 .templates
-<span style=color:#960050;background-color:#1e0010>
-</span><span style=color:#960050;background-color:#1e0010></span>$ kldstat
-Id Refs Address                Size Name
- 1   28 0xffffffff80200000  243cd00 kernel
- 2    1 0xffffffff8263e000   3a9a10 zfs.ko
- 3    2 0xffffffff829e8000     a4f0 opensolaris.ko
- 4    1 0xffffffff82c21000     2678 intpm.ko
- 5    1 0xffffffff82c24000      b10 smbus.ko
- 6    1 0xffffffff82c25000   537460 vmm.ko
- 7    1 0xffffffff8315d000      b30 nmdm.ko
- 8    1 0xffffffff8315e000     6fb3 if_bridge.ko
- 9    1 0xffffffff83165000     4410 bridgestp.ko
-10    1 0xffffffff8316a000     2e77 if_tap.ko
-</code></pre></div><p>仮想マシン置き場に、OSごとのテンプレートファイルもコピーする。<br>
-/usr/local/share/examples/vm-bhyve/にあるやつね。（さきほどpkg infoでも出てきた）</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo cp /usr/local/share/examples/vm-bhyve/* /vm/.templates/
-$ ls /vm/.templates/
-alpine.conf             config.sample           dragonfly.conf          openbsd.conf
-arch.conf               coreos.conf             freebsd-zvol.conf       resflash.conf
-centos6.conf            debian.conf             freepbx.conf            ubuntu.conf
-centos7.conf            default.conf            netbsd.conf             windows.conf
-</code></pre></div><p>以上で初期設定終わり。<br>
-つぎは初期設定（ネットワーク）</p>
-<h2 id=初期設定ネットワーク>初期設定（ネットワーク）<a hidden class=anchor aria-hidden=true href=#初期設定ネットワーク>#</a></h2>
-<p>仮想マシン用ネットワークの結線を行う。<br>
-まず、仮想マシンの繋がる仮想スイッチを作り、仮想スイッチとホストマシンのネットワークインタフェースを繋ぐ。</p>
-<p><code>外界 &lt;--> ホストのインタフェース &lt;--> 仮想スイッチ</code><br>
-というネットワークを作る。</p>
-<p>先々、仮想マシンを作ると<br>
-<code>外界 &lt;--> ホストのインタフェース &lt;--> 仮想スイッチ &lt;--> 仮想マシン</code><br>
-というネットワークになる。<br>
-仕組み的なことをいうと、仮想スイッチはbridgeで、仮想マシンのインタフェースはtapになる。</p>
-<p>以下の例では、publicという名前の仮想スイッチ（オプションなしでのcreateなのでbridgeインタフェース）を作成している。<br>
-名前は、vm-bhyveのテンプレートで仮想スイッチを"public"にしているからで、気に入らなければ別の名前でもよい。<br>
-# その場合は$vm_dir/.templatesにあるファイルを書き換えておくとよい。<br>
-addで仮想スイッチに物理インタフェースを追加。<br>
-物理インタフェースは、もちろんのことホストマシンのインタフェースに合わせること。
-また、これも当たり前だけど、追加するインタフェースはインターネットに向いている方にしような。<br>
-試しにやってみたら、<code>wlan0</code>でも行けたわ。</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console>$ sudo vm switch create public
-$ sudo vm switch add public re0
-$ ifconfig
-re0: flags=8943&lt;UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
-        options=8209b&lt;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,WOL_MAGIC,LINKSTATE&gt;
-        ether 6c:4b:90:a6:13:23
-        inet 192.168.1.7 netmask 0xffffff00 broadcast 192.168.1.255
-        media: Ethernet autoselect (1000baseT )
-        status: active
-        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
-lo0: flags=8049&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; metric 0 mtu 16384
-        options=680003&lt;RXCSUM,TXCSUM,LINKSTATE,RXCSUM_IPV6,TXCSUM_IPV6&gt;
-        inet6 ::1 prefixlen 128
-        inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2
-        inet 127.0.0.1 netmask 0xff000000
-        groups: lo
-        nd6 options=21&lt;PERFORMNUD,AUTO_LINKLOCAL&gt;
-vm-public: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
-        ether 26:ad:45:ea:0c:c3
-        id 00:00:00:00:00:00 priority 32768 hellotime 2 fwddelay 15
-        maxage 20 holdcnt 6 proto rstp maxaddr 2000 timeout 1200
-        root id 00:00:00:00:00:00 priority 32768 ifcost 0 port 0
-        member: re0 flags=143&lt;LEARNING,DISCOVER,AUTOEDGE,AUTOPTP&gt;
-                ifmaxaddr 0 port 1 priority 128 path cost 20000
-        groups: bridge vm-switch viid-4c918@
-        nd6 options=1
-</code></pre></div><p>これで以下のようなネットワーク構成になった。<br>
-<code>外界 &lt;--> ホストのインタフェース（re0） &lt;--> 仮想スイッチ（vm-public）</code></p>
-<p>これですべての初期設定が完了。</p>
-</div>
-<footer class=post-footer>
-<nav class=paginav>
-<a class=prev href=https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE2vm-bhyve%E4%BD%BF%E7%94%A8/>
-<span class=title>« Prev Page</span>
-<br>
-<span>FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）</span>
-</a>
-<a class=next href=https://nobwak.github.io/posts/2019-01-05-%E3%83%A1%E3%83%A2visual_studio_code_+_python%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/>
-<span class=title>Next Page »</span>
-<br>
-<span>【メモ】Visual Studio Code + Pythonのセットアップ</span>
-</a>
-</nav>
-<div class=share-buttons>
-<a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on twitter" href="https://twitter.com/intent/tweet/?text=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f&hashtags="><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f&title=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89&summary=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f&title=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on whatsapp" href="https://api.whatsapp.com/send?text=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
-</a>
-<a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on telegram" href="https://telegram.me/share/url?text=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
-</a>
-</div>
-</footer>
-</article>
-</main>
-<footer class=footer>
-<span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
-<span>
-Powered by
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） | nobwak's Lair</title><meta name=keywords content><meta name=description content="bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。 FreeBSDにはjailがある。 jailのいいところは、カーネルを共有"><meta name=author content="nobwak"><link rel=canonical href=https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE1vm-bhyve%E4%BD%BF%E7%94%A8/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style><link rel=preload href=/apple-touch-icon.png as=image><script defer crossorigin=anonymous src=/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=16x16 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=32x32 href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=apple-touch-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><link rel=mask-icon href=https://nobwak.github.io/%3Clink%20/%20abs%20url%3E><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><meta name=generator content="Hugo 0.96.0"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）"><meta property="og:description" content="bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。 FreeBSDにはjailがある。 jailのいいところは、カーネルを共有"><meta property="og:type" content="article"><meta property="og:url" content="https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE1vm-bhyve%E4%BD%BF%E7%94%A8/"><meta property="og:image" content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-05-12T17:17:30+09:00"><meta property="article:modified_time" content="2019-05-12T17:17:30+09:00"><meta property="og:site_name" content="nobwak's Lair"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）"><meta name=twitter:description content="bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。 FreeBSDにはjailがある。 jailのいいところは、カーネルを共有"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://nobwak.github.io/posts/"},{"@type":"ListItem","position":3,"name":"FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）","item":"https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE1vm-bhyve%E4%BD%BF%E7%94%A8/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）","name":"FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）","description":"bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。 FreeBSDにはjailがある。 jailのいいところは、カーネルを共有","keywords":[],"articleBody":"bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。\nFreeBSDにはjailがある。\njailのいいところは、カーネルを共有しつつユーザランドだけ分けることで、オーバーヘッドを抑えられるところ。\n悪いところはOSに制限が発生するところ。要するにLinuxやWindows、FreeBSDでも他のバージョンを動かせないところ。\n仮想化は何かの目的、たとえばアプリケーションを動かすためのもので、いまどきOS依存のアプリケーションは少ない。\nとはいうものの、FreeBSDは年々、本体はともかく裾野のリソースが先細りで、ports/packageがなくなったり、あったとしても情報は少なくて、まるっとLinuxごと動かしたいなと感じることがある。\nもちろんWindowsについては当然FreeBSDでは動かないアプリなんて山ほどある。\nそういった点では、用途に合わせて最適なOS（とアプリケーション）を使い慣れたFreeBSD上で動かせるのはかなりのメリット。\nというのも、バックアップが簡単にできるからである。\nZFS上にイメージを作れば、スナップショットにロールバックはお手の物である。\n壊し放題である。\nESXiなどのType 1ハイパーバイザでは、これができない。できるかもしれないけど知らない。\nWindowsを物理PC上で使っていて、壊れたとする。バックアップがあったとしても、復旧が面倒。\nLinuxについてはバックアップからの復旧は比較的簡単だが、俺様なんか滅多にLinuxを使わなくて操作をすぐ忘れるという点でやはり復旧が面倒。\n以上のような背景があったところに、このたび宅鯖をハードウェア仮想化対応のCPUに変えたので、遅まきながらbhyveを導入する。\n以下ではWindows10をインストールする。\nまずはvm-bhyveを bhyveの導入には、まず公式のFreeBSD handbookを参照するが、いろいろと面倒くさそうである。\nhttps://www.freebsd.org/doc/handbook/virtualization-host-bhyve.html\n遅れて導入すると、いろいろと環境が整っているものである。\nbhyveの場合には、vm-bhyveというツールがあればこのへんは一挙解決。\nvirtualboxを使ったことがあれば、それをイメージしながら進めると理解しやすい。\nただ後述するが、Windowsのイメージそのものにはzfsボリュームを使えない。（ZFS上にイメージを置くことはできる）\nhttps://github.com/churchers/vm-bhyve\nhttps://github.com/churchers/vm-bhyve/wiki/Running-Windows\n大きな流れ  vm-bhyveのインストール 初期設定 初期設定（ネットワーク） 仮想マシンインストール準備（インストーラ = ISO） 仮想マシンインストール準備（仮想マシン設定）【次回】 仮想マシンインストール【次回】  vm-bhyveのインストール pkgでインストールできる。\nvm-bhyveのほか、仮想OS用のfirmwareもインストールしておく。\n$ sudo pkg install vm-bhyve FreeBSD repository update completed. 31790 packages processed. All repositories are up to date. The following 1 package(s) will be affected (of 0 checked): New packages to be INSTALLED:  vm-bhyve: 1.2.3 Number of packages to be installed: 1 55 KiB to be downloaded. [ex01] [1/1] Fetching vm-bhyve-1.2.3.txz: 100% 55 KiB 56.3kB/s 00:01 Checking integrity... done (0 conflicting) [ex01] [1/1] Installing vm-bhyve-1.2.3... [ex01] [1/1] Extracting vm-bhyve-1.2.3: 100% Message from vm-bhyve-1.2.3: To enable vm-bhyve, please add the following lines to rc.conf, depending on whether you are using ZFS storage or not. Please note that the directory or dataset specified should already exist.  vm_enable=\"YES\"  vm_dir=\"zfs:pool/dataset\" OR  vm_enable=\"YES\"  vm_dir=\"/directory/path\" Then run 'vm init'. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Please note, if upgrading from version 1.1, it is advised to shutdown guests and restart the host in order to re-create all virtual switches using new identifiers. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! どんなファイルがインストールされたかは、pkg listで確認できる。\nコマンドとしては/usr/local/sbin/vmを使う。\n実行にはroot権限が必要。\nservice -lで表示されるサービス名もvm。\n$ pkg list vm-bhyve /usr/local/etc/rc.d/vm /usr/local/lib/vm-bhyve/vm-cmd /usr/local/lib/vm-bhyve/vm-config /usr/local/lib/vm-bhyve/vm-core /usr/local/lib/vm-bhyve/vm-datastore /usr/local/lib/vm-bhyve/vm-guest /usr/local/lib/vm-bhyve/vm-info /usr/local/lib/vm-bhyve/vm-migration /usr/local/lib/vm-bhyve/vm-rctl /usr/local/lib/vm-bhyve/vm-run /usr/local/lib/vm-bhyve/vm-switch /usr/local/lib/vm-bhyve/vm-switch-manual /usr/local/lib/vm-bhyve/vm-switch-standard /usr/local/lib/vm-bhyve/vm-switch-vale /usr/local/lib/vm-bhyve/vm-switch-vxlan /usr/local/lib/vm-bhyve/vm-util /usr/local/lib/vm-bhyve/vm-zfs /usr/local/man/man8/vm.8.gz /usr/local/sbin/vm /usr/local/share/examples/vm-bhyve/alpine.conf /usr/local/share/examples/vm-bhyve/arch.conf /usr/local/share/examples/vm-bhyve/centos6.conf /usr/local/share/examples/vm-bhyve/centos7.conf /usr/local/share/examples/vm-bhyve/config.sample /usr/local/share/examples/vm-bhyve/coreos.conf /usr/local/share/examples/vm-bhyve/debian.conf /usr/local/share/examples/vm-bhyve/default.conf /usr/local/share/examples/vm-bhyve/dragonfly.conf /usr/local/share/examples/vm-bhyve/freebsd-zvol.conf /usr/local/share/examples/vm-bhyve/freepbx.conf /usr/local/share/examples/vm-bhyve/netbsd.conf /usr/local/share/examples/vm-bhyve/openbsd.conf /usr/local/share/examples/vm-bhyve/resflash.conf /usr/local/share/examples/vm-bhyve/ubuntu.conf /usr/local/share/examples/vm-bhyve/windows.conf /usr/local/share/licenses/vm-bhyve-1.2.3/BSD2CLAUSE /usr/local/share/licenses/vm-bhyve-1.2.3/LICENSE /usr/local/share/licenses/vm-bhyve-1.2.3/catalog.mk $ sudo pkg install bhyve-firmware Updating FreeBSD repository catalogue... FreeBSD repository is up to date. All repositories are up to date. The following 3 package(s) will be affected (of 0 checked): New packages to be INSTALLED:  bhyve-firmware: 1.0_1  uefi-edk2-bhyve-csm: 0.2_1,1  uefi-edk2-bhyve: 0.2_1,1 Number of packages to be installed: 3 The process will require 4 MiB more space. 1 MiB to be downloaded. [ex01] [1/3] Fetching bhyve-firmware-1.0_1.txz: 100% 496 B 0.5kB/s 00:01 [ex01] [2/3] Fetching uefi-edk2-bhyve-csm-0.2_1,1.txz: 2% 16 KiB 16.4kB/s [ex01] [2/3] Fetching uefi-edk2-bhyve-csm-0.2_1,1.txz: 100% 760 KiB 778.7kB/s 00:01 [ex01] [3/3] Fetching uefi-edk2-bhyve-0.2_1,1.txz: 59% 440 KiB 450.6kB/s 00[ex01] [3/3] Fetching uefi-edk2-bhyve-0.2_1,1.txz: 100% 740 KiB 757.6kB/s 00:01 Checking integrity... done (0 conflicting) [ex01] [1/3] Installing uefi-edk2-bhyve-csm-0.2_1,1... [ex01] [1/3] Extracting uefi-edk2-bhyve-csm-0.2_1,1: 100% [ex01] [2/3] Installing uefi-edk2-bhyve-0.2_1,1... [ex01] [2/3] Extracting uefi-edk2-bhyve-0.2_1,1: 100% [ex01] [3/3] Installing bhyve-firmware-1.0_1... 仮想マシン他置き場を作る もちろんZFSで作るよな。\nここで作った置き場には、仮想マシンのほか、ISOイメージ、テンプレート、すべての仮想マシンに共通の設定ファイルが置かれる。\nルート直下に/vmを作った。\nなお本記事で\"$vm_dir\"と記載をする場合にはこの仮想マシン置き場を指す。\n$ sudo zfs create zroot/vm $ sudo mkdir /vm $ sudo zfs set mountpoint=/vm zroot/vm $ zfs list NAME USED AVAIL REFER MOUNTPOINT zroot 6.73G 216G 88K /zroot （略） zroot/vm 88K 216G 88K /zroot/vm vm-bhyveの初期設定 まず/etc/rc.confへの書き込み。\nホスト起動時にvm-bhyveも起動するように。\nまた、先に作った仮想マシン置き場をvm-bhyveに知らせるために。\n$ sudo sysrc vm_enable=\"YES\" vm_enable: - YES $ sudo sysrc vm_dir=\"zfs:zroot/vm\" vm_dir: - zfs:zroot/vm 次にvm init。仮想マシン置き場にいろいろとファイル/ディレクトリが作られるとともに、必要なカーネルモジュールがロードされる。\nvm initはホストが起動する都度、実行される必要がある。\nこの場合、vm initはカーネルモジュールのロードと、ネットワーク設定(tap）を行う。\n/etc/rc.confにvm_enableをしてあれば、気にする必要なない。\n$ sudo vm init $  $ ls -la /vm total 35 drwxr-xr-x 6 root wheel 6 May 4 20:34 . drwxr-xr-x 20 root wheel 26 May 6 15:03 .. drwxr-xr-x 2 root wheel 4 May 3 18:40 .config drwxr-xr-x 2 root wheel 5 May 4 22:48 .iso drwxr-xr-x 2 root wheel 18 May 3 18:46 .templates $ kldstat Id Refs Address Size Name  1 28 0xffffffff80200000 243cd00 kernel  2 1 0xffffffff8263e000 3a9a10 zfs.ko  3 2 0xffffffff829e8000 a4f0 opensolaris.ko  4 1 0xffffffff82c21000 2678 intpm.ko  5 1 0xffffffff82c24000 b10 smbus.ko  6 1 0xffffffff82c25000 537460 vmm.ko  7 1 0xffffffff8315d000 b30 nmdm.ko  8 1 0xffffffff8315e000 6fb3 if_bridge.ko  9 1 0xffffffff83165000 4410 bridgestp.ko 10 1 0xffffffff8316a000 2e77 if_tap.ko 仮想マシン置き場に、OSごとのテンプレートファイルもコピーする。\n/usr/local/share/examples/vm-bhyve/にあるやつね。（さきほどpkg infoでも出てきた）\n$ sudo cp /usr/local/share/examples/vm-bhyve/* /vm/.templates/ $ ls /vm/.templates/ alpine.conf config.sample dragonfly.conf openbsd.conf arch.conf coreos.conf freebsd-zvol.conf resflash.conf centos6.conf debian.conf freepbx.conf ubuntu.conf centos7.conf default.conf netbsd.conf windows.conf 以上で初期設定終わり。\nつぎは初期設定（ネットワーク）\n初期設定（ネットワーク） 仮想マシン用ネットワークの結線を行う。\nまず、仮想マシンの繋がる仮想スイッチを作り、仮想スイッチとホストマシンのネットワークインタフェースを繋ぐ。\n外界  ホストのインタフェース  仮想スイッチ\nというネットワークを作る。\n先々、仮想マシンを作ると\n外界  ホストのインタフェース  仮想スイッチ  仮想マシン\nというネットワークになる。\n仕組み的なことをいうと、仮想スイッチはbridgeで、仮想マシンのインタフェースはtapになる。\n以下の例では、publicという名前の仮想スイッチ（オプションなしでのcreateなのでbridgeインタフェース）を作成している。\n名前は、vm-bhyveのテンプレートで仮想スイッチを\"public\"にしているからで、気に入らなければ別の名前でもよい。\n# その場合は$vm_dir/.templatesにあるファイルを書き換えておくとよい。\naddで仮想スイッチに物理インタフェースを追加。\n物理インタフェースは、もちろんのことホストマシンのインタフェースに合わせること。 また、これも当たり前だけど、追加するインタフェースはインターネットに向いている方にしような。\n試しにやってみたら、wlan0でも行けたわ。\n$ sudo vm switch create public $ sudo vm switch add public re0 $ ifconfig re0: flags=8943 metric 0 mtu 1500  options=8209b  ether 6c:4b:90:a6:13:23  inet 192.168.1.7 netmask 0xffffff00 broadcast 192.168.1.255  media: Ethernet autoselect (1000baseT )  status: active  nd6 options=29 lo0: flags=8049 metric 0 mtu 16384  options=680003  inet6 ::1 prefixlen 128  inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2  inet 127.0.0.1 netmask 0xff000000  groups: lo  nd6 options=21 vm-public: flags=8843 metric 0 mtu 1500  ether 26:ad:45:ea:0c:c3  id 00:00:00:00:00:00 priority 32768 hellotime 2 fwddelay 15  maxage 20 holdcnt 6 proto rstp maxaddr 2000 timeout 1200  root id 00:00:00:00:00:00 priority 32768 ifcost 0 port 0  member: re0 flags=143  ifmaxaddr 0 port 1 priority 128 path cost 20000  groups: bridge vm-switch viid-4c918@  nd6 options=1 これで以下のようなネットワーク構成になった。\n外界  ホストのインタフェース（re0）  仮想スイッチ（vm-public）\nこれですべての初期設定が完了。\n","wordCount":"3015","inLanguage":"en","datePublished":"2019-05-12T17:17:30+09:00","dateModified":"2019-05-12T17:17:30+09:00","author":{"@type":"Person","name":"nobwak"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE1vm-bhyve%E4%BD%BF%E7%94%A8/"},"publisher":{"@type":"Organization","name":"nobwak's Lair","logo":{"@type":"ImageObject","url":"https://nobwak.github.io/%3Clink%20/%20abs%20url%3E"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://nobwak.github.io accesskey=h title="Home (Alt + H)"><img src=https://nobwak.github.io/apple-touch-icon.png alt=logo aria-label=logo height=35>Home</a>
+<span class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></span></div><ul id=menu><li><a href=https://nobwak.github.io/posts/ title=posts><span>posts</span></a></li><li><a href=https://nobwak.github.io/search/ title="search (Alt + /)" accesskey=/><span>search</span></a></li><li><a href=https://nobwak.github.io/categories/ title=categories><span>categories</span></a></li><li><a href=https://nobwak.github.io/tags/ title=tags><span>tags</span></a></li><li><a href=https://nobwak.github.io title="nobwak lair"><span>nobwak lair</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://nobwak.github.io>Home</a>&nbsp;»&nbsp;<a href=https://nobwak.github.io/posts/>Posts</a></div><h1 class=post-title>FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用）</h1><div class=post-meta><span title="2019-05-12 17:17:30 +0900 JST">May 12, 2019</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;nobwak&nbsp;|&nbsp;<a href=https://nobwak.github.io/content/posts/2019-05-12-FreeBSD_12%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89.md rel="noopener noreferrer" target=_blank>Suggest Changes</a></div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e3%81%be%e3%81%9a%e3%81%afvm-bhyve%e3%82%92 aria-label=まずはvm-bhyveを>まずはvm-bhyveを</a></li><li><a href=#%e5%a4%a7%e3%81%8d%e3%81%aa%e6%b5%81%e3%82%8c aria-label=大きな流れ>大きな流れ</a></li><li><a href=#vm-bhyve%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab aria-label=vm-bhyveのインストール>vm-bhyveのインストール</a></li><li><a href=#%e4%bb%ae%e6%83%b3%e3%83%9e%e3%82%b7%e3%83%b3%e4%bb%96%e7%bd%ae%e3%81%8d%e5%a0%b4%e3%82%92%e4%bd%9c%e3%82%8b aria-label=仮想マシン他置き場を作る>仮想マシン他置き場を作る</a></li><li><a href=#vm-bhyve%e3%81%ae%e5%88%9d%e6%9c%9f%e8%a8%ad%e5%ae%9a aria-label=vm-bhyveの初期設定>vm-bhyveの初期設定</a></li><li><a href=#%e5%88%9d%e6%9c%9f%e8%a8%ad%e5%ae%9a%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af aria-label=初期設定（ネットワーク）>初期設定（ネットワーク）</a></li></ul></div></details></div><div class=post-content><p>bhyveはFreeBSDで動く、つまりType 2のハイパーバイザ。</p><p>FreeBSDにはjailがある。<br>jailのいいところは、カーネルを共有しつつユーザランドだけ分けることで、オーバーヘッドを抑えられるところ。<br>悪いところはOSに制限が発生するところ。要するにLinuxやWindows、FreeBSDでも他のバージョンを動かせないところ。</p><p>仮想化は何かの目的、たとえばアプリケーションを動かすためのもので、いまどきOS依存のアプリケーションは少ない。<br>とはいうものの、FreeBSDは年々、本体はともかく裾野のリソースが先細りで、ports/packageがなくなったり、あったとしても情報は少なくて、まるっとLinuxごと動かしたいなと感じることがある。<br>もちろんWindowsについては当然FreeBSDでは動かないアプリなんて山ほどある。</p><p>そういった点では、用途に合わせて最適なOS（とアプリケーション）を使い慣れたFreeBSD上で動かせるのはかなりのメリット。<br>というのも、バックアップが簡単にできるからである。<br>ZFS上にイメージを作れば、スナップショットにロールバックはお手の物である。<br>壊し放題である。<br>ESXiなどのType 1ハイパーバイザでは、これができない。できるかもしれないけど知らない。</p><p>Windowsを物理PC上で使っていて、壊れたとする。バックアップがあったとしても、復旧が面倒。<br>Linuxについてはバックアップからの復旧は比較的簡単だが、俺様なんか滅多にLinuxを使わなくて操作をすぐ忘れるという点でやはり復旧が面倒。</p><p>以上のような背景があったところに、このたび宅鯖をハードウェア仮想化対応のCPUに変えたので、遅まきながらbhyveを導入する。<br>以下ではWindows10をインストールする。</p><h2 id=まずはvm-bhyveを>まずはvm-bhyveを<a hidden class=anchor aria-hidden=true href=#まずはvm-bhyveを>#</a></h2><p>bhyveの導入には、まず公式のFreeBSD handbookを参照するが、いろいろと面倒くさそうである。<br><a href=https://www.freebsd.org/doc/handbook/virtualization-host-bhyve.html>https://www.freebsd.org/doc/handbook/virtualization-host-bhyve.html</a></p><p>遅れて導入すると、いろいろと環境が整っているものである。<br>bhyveの場合には、vm-bhyveというツールがあればこのへんは一挙解決。<br>virtualboxを使ったことがあれば、それをイメージしながら進めると理解しやすい。</p><p>ただ後述するが、Windowsのイメージそのものにはzfsボリュームを使えない。（ZFS上にイメージを置くことはできる）<br><a href=https://github.com/churchers/vm-bhyve>https://github.com/churchers/vm-bhyve</a><br><a href=https://github.com/churchers/vm-bhyve/wiki/Running-Windows>https://github.com/churchers/vm-bhyve/wiki/Running-Windows</a></p><h2 id=大きな流れ>大きな流れ<a hidden class=anchor aria-hidden=true href=#大きな流れ>#</a></h2><ol><li>vm-bhyveのインストール</li><li>初期設定</li><li>初期設定（ネットワーク）</li><li>仮想マシンインストール準備（インストーラ = ISO）</li><li>仮想マシンインストール準備（仮想マシン設定）【次回】</li><li>仮想マシンインストール【次回】</li></ol><h2 id=vm-bhyveのインストール>vm-bhyveのインストール<a hidden class=anchor aria-hidden=true href=#vm-bhyveのインストール>#</a></h2><p>pkgでインストールできる。<br>vm-bhyveのほか、仮想OS用のfirmwareもインストールしておく。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo pkg install vm-bhyve
+</span></span><span style=display:flex><span>FreeBSD repository update completed. 31790 packages processed.
+</span></span><span style=display:flex><span>All repositories are up to date.
+</span></span><span style=display:flex><span>The following 1 package(s) will be affected (of 0 checked):
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>New packages to be INSTALLED:
+</span></span><span style=display:flex><span>        vm-bhyve: 1.2.3
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Number of packages to be installed: 1
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>55 KiB to be downloaded.
+</span></span><span style=display:flex><span>[ex01] [1/1] Fetching vm-bhyve-1.2.3.txz: 100%   55 KiB  56.3kB/s    00:01
+</span></span><span style=display:flex><span>Checking integrity... done (0 conflicting)
+</span></span><span style=display:flex><span>[ex01] [1/1] Installing vm-bhyve-1.2.3...
+</span></span><span style=display:flex><span>[ex01] [1/1] Extracting vm-bhyve-1.2.3: 100%
+</span></span><span style=display:flex><span>Message from vm-bhyve-1.2.3:
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>To enable vm-bhyve, please add the following lines to rc.conf,
+</span></span><span style=display:flex><span>depending on whether you are using ZFS storage or not. Please note
+</span></span><span style=display:flex><span>that the directory or dataset specified should already exist.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>    vm_enable=&#34;YES&#34;
+</span></span><span style=display:flex><span>    vm_dir=&#34;zfs:pool/dataset&#34;
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>OR
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>    vm_enable=&#34;YES&#34;
+</span></span><span style=display:flex><span>    vm_dir=&#34;/directory/path&#34;
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Then run &#39;vm init&#39;.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Please note, if upgrading from version 1.1, it is advised to shutdown guests
+</span></span><span style=display:flex><span>and restart the host in order to re-create all virtual switches using new identifiers.
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</span></span></code></pre></div><p>どんなファイルがインストールされたかは、pkg listで確認できる。<br>コマンドとしては/usr/local/sbin/vmを使う。<br>実行にはroot権限が必要。<br>service -lで表示されるサービス名もvm。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ pkg list vm-bhyve
+</span></span><span style=display:flex><span>/usr/local/etc/rc.d/vm
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-cmd
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-config
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-core
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-datastore
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-guest
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-info
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-migration
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-rctl
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-run
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-switch
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-switch-manual
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-switch-standard
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-switch-vale
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-switch-vxlan
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-util
+</span></span><span style=display:flex><span>/usr/local/lib/vm-bhyve/vm-zfs
+</span></span><span style=display:flex><span>/usr/local/man/man8/vm.8.gz
+</span></span><span style=display:flex><span>/usr/local/sbin/vm
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/alpine.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/arch.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/centos6.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/centos7.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/config.sample
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/coreos.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/debian.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/default.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/dragonfly.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/freebsd-zvol.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/freepbx.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/netbsd.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/openbsd.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/resflash.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/ubuntu.conf
+</span></span><span style=display:flex><span>/usr/local/share/examples/vm-bhyve/windows.conf
+</span></span><span style=display:flex><span>/usr/local/share/licenses/vm-bhyve-1.2.3/BSD2CLAUSE
+</span></span><span style=display:flex><span>/usr/local/share/licenses/vm-bhyve-1.2.3/LICENSE
+</span></span><span style=display:flex><span>/usr/local/share/licenses/vm-bhyve-1.2.3/catalog.mk
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>$ sudo pkg install bhyve-firmware
+</span></span><span style=display:flex><span>Updating FreeBSD repository catalogue...
+</span></span><span style=display:flex><span>FreeBSD repository is up to date.
+</span></span><span style=display:flex><span>All repositories are up to date.
+</span></span><span style=display:flex><span>The following 3 package(s) will be affected (of 0 checked):
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>New packages to be INSTALLED:
+</span></span><span style=display:flex><span>        bhyve-firmware: 1.0_1
+</span></span><span style=display:flex><span>        uefi-edk2-bhyve-csm: 0.2_1,1
+</span></span><span style=display:flex><span>        uefi-edk2-bhyve: 0.2_1,1
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>Number of packages to be installed: 3
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>The process will require 4 MiB more space.
+</span></span><span style=display:flex><span>1 MiB to be downloaded.
+</span></span><span style=display:flex><span>[ex01] [1/3] Fetching bhyve-firmware-1.0_1.txz: 100%    496 B   0.5kB/s    00:01
+</span></span><span style=display:flex><span>[ex01] [2/3] Fetching uefi-edk2-bhyve-csm-0.2_1,1.txz:   2%   16 KiB  16.4kB/s  [ex01] [2/3] Fetching uefi-edk2-bhyve-csm-0.2_1,1.txz: 100%  760 KiB 778.7kB/s    00:01
+</span></span><span style=display:flex><span>[ex01] [3/3] Fetching uefi-edk2-bhyve-0.2_1,1.txz:  59%  440 KiB 450.6kB/s    00[ex01] [3/3] Fetching uefi-edk2-bhyve-0.2_1,1.txz: 100%  740 KiB 757.6kB/s    00:01
+</span></span><span style=display:flex><span>Checking integrity... done (0 conflicting)
+</span></span><span style=display:flex><span>[ex01] [1/3] Installing uefi-edk2-bhyve-csm-0.2_1,1...
+</span></span><span style=display:flex><span>[ex01] [1/3] Extracting uefi-edk2-bhyve-csm-0.2_1,1: 100%
+</span></span><span style=display:flex><span>[ex01] [2/3] Installing uefi-edk2-bhyve-0.2_1,1...
+</span></span><span style=display:flex><span>[ex01] [2/3] Extracting uefi-edk2-bhyve-0.2_1,1: 100%
+</span></span><span style=display:flex><span>[ex01] [3/3] Installing bhyve-firmware-1.0_1...
+</span></span></code></pre></div><h2 id=仮想マシン他置き場を作る>仮想マシン他置き場を作る<a hidden class=anchor aria-hidden=true href=#仮想マシン他置き場を作る>#</a></h2><p>もちろんZFSで作るよな。<br>ここで作った置き場には、仮想マシンのほか、ISOイメージ、テンプレート、すべての仮想マシンに共通の設定ファイルが置かれる。<br>ルート直下に/vmを作った。<br>なお本記事で"$vm_dir"と記載をする場合にはこの仮想マシン置き場を指す。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo zfs create zroot/vm
+</span></span><span style=display:flex><span>$ sudo mkdir /vm
+</span></span><span style=display:flex><span>$ sudo zfs set mountpoint<span style=color:#f92672>=</span>/vm zroot/vm
+</span></span><span style=display:flex><span>$ zfs list
+</span></span><span style=display:flex><span>NAME                 USED  AVAIL  REFER  MOUNTPOINT
+</span></span><span style=display:flex><span>zroot               6.73G   216G    88K  /zroot
+</span></span><span style=display:flex><span>（略）
+</span></span><span style=display:flex><span>zroot/vm              88K   216G    88K  /zroot/vm
+</span></span></code></pre></div><h2 id=vm-bhyveの初期設定>vm-bhyveの初期設定<a hidden class=anchor aria-hidden=true href=#vm-bhyveの初期設定>#</a></h2><p>まず/etc/rc.confへの書き込み。<br>ホスト起動時にvm-bhyveも起動するように。<br>また、先に作った仮想マシン置き場をvm-bhyveに知らせるために。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo sysrc vm_enable<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;YES&#34;</span>
+</span></span><span style=display:flex><span>vm_enable:  -&gt; YES
+</span></span><span style=display:flex><span>$ sudo sysrc vm_dir<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;zfs:zroot/vm&#34;</span>
+</span></span><span style=display:flex><span>vm_dir:  -&gt; zfs:zroot/vm
+</span></span></code></pre></div><p>次にvm init。仮想マシン置き場にいろいろとファイル/ディレクトリが作られるとともに、必要なカーネルモジュールがロードされる。<br>vm initはホストが起動する都度、実行される必要がある。<br>この場合、vm initはカーネルモジュールのロードと、ネットワーク設定(tap）を行う。<br>/etc/rc.confにvm_enableをしてあれば、気にする必要なない。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo vm init
+</span></span><span style=display:flex><span>$
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ ls -la /vm
+</span></span><span style=display:flex><span>total 35
+</span></span><span style=display:flex><span>drwxr-xr-x   6 root  wheel   6 May  4 20:34 .
+</span></span><span style=display:flex><span>drwxr-xr-x  20 root  wheel  26 May  6 15:03 ..
+</span></span><span style=display:flex><span>drwxr-xr-x   2 root  wheel   4 May  3 18:40 .config
+</span></span><span style=display:flex><span>drwxr-xr-x   2 root  wheel   5 May  4 22:48 .iso
+</span></span><span style=display:flex><span>drwxr-xr-x   2 root  wheel  18 May  3 18:46 .templates
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>
+</span></span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010></span>$ kldstat
+</span></span><span style=display:flex><span>Id Refs Address                Size Name
+</span></span><span style=display:flex><span> 1   28 0xffffffff80200000  243cd00 kernel
+</span></span><span style=display:flex><span> 2    1 0xffffffff8263e000   3a9a10 zfs.ko
+</span></span><span style=display:flex><span> 3    2 0xffffffff829e8000     a4f0 opensolaris.ko
+</span></span><span style=display:flex><span> 4    1 0xffffffff82c21000     2678 intpm.ko
+</span></span><span style=display:flex><span> 5    1 0xffffffff82c24000      b10 smbus.ko
+</span></span><span style=display:flex><span> 6    1 0xffffffff82c25000   537460 vmm.ko
+</span></span><span style=display:flex><span> 7    1 0xffffffff8315d000      b30 nmdm.ko
+</span></span><span style=display:flex><span> 8    1 0xffffffff8315e000     6fb3 if_bridge.ko
+</span></span><span style=display:flex><span> 9    1 0xffffffff83165000     4410 bridgestp.ko
+</span></span><span style=display:flex><span>10    1 0xffffffff8316a000     2e77 if_tap.ko
+</span></span></code></pre></div><p>仮想マシン置き場に、OSごとのテンプレートファイルもコピーする。<br>/usr/local/share/examples/vm-bhyve/にあるやつね。（さきほどpkg infoでも出てきた）</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo cp /usr/local/share/examples/vm-bhyve/* /vm/.templates/
+</span></span><span style=display:flex><span>$ ls /vm/.templates/
+</span></span><span style=display:flex><span>alpine.conf             config.sample           dragonfly.conf          openbsd.conf
+</span></span><span style=display:flex><span>arch.conf               coreos.conf             freebsd-zvol.conf       resflash.conf
+</span></span><span style=display:flex><span>centos6.conf            debian.conf             freepbx.conf            ubuntu.conf
+</span></span><span style=display:flex><span>centos7.conf            default.conf            netbsd.conf             windows.conf
+</span></span></code></pre></div><p>以上で初期設定終わり。<br>つぎは初期設定（ネットワーク）</p><h2 id=初期設定ネットワーク>初期設定（ネットワーク）<a hidden class=anchor aria-hidden=true href=#初期設定ネットワーク>#</a></h2><p>仮想マシン用ネットワークの結線を行う。<br>まず、仮想マシンの繋がる仮想スイッチを作り、仮想スイッチとホストマシンのネットワークインタフェースを繋ぐ。</p><p><code>外界 &lt;--> ホストのインタフェース &lt;--> 仮想スイッチ</code><br>というネットワークを作る。</p><p>先々、仮想マシンを作ると<br><code>外界 &lt;--> ホストのインタフェース &lt;--> 仮想スイッチ &lt;--> 仮想マシン</code><br>というネットワークになる。<br>仕組み的なことをいうと、仮想スイッチはbridgeで、仮想マシンのインタフェースはtapになる。</p><p>以下の例では、publicという名前の仮想スイッチ（オプションなしでのcreateなのでbridgeインタフェース）を作成している。<br>名前は、vm-bhyveのテンプレートで仮想スイッチを"public"にしているからで、気に入らなければ別の名前でもよい。<br># その場合は$vm_dir/.templatesにあるファイルを書き換えておくとよい。<br>addで仮想スイッチに物理インタフェースを追加。<br>物理インタフェースは、もちろんのことホストマシンのインタフェースに合わせること。
+また、これも当たり前だけど、追加するインタフェースはインターネットに向いている方にしような。<br>試しにやってみたら、<code>wlan0</code>でも行けたわ。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-console data-lang=console><span style=display:flex><span>$ sudo vm switch create public
+</span></span><span style=display:flex><span>$ sudo vm switch add public re0
+</span></span><span style=display:flex><span>$ ifconfig
+</span></span><span style=display:flex><span>re0: flags=8943&lt;UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
+</span></span><span style=display:flex><span>        options=8209b&lt;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,WOL_MAGIC,LINKSTATE&gt;
+</span></span><span style=display:flex><span>        ether 6c:4b:90:a6:13:23
+</span></span><span style=display:flex><span>        inet 192.168.1.7 netmask 0xffffff00 broadcast 192.168.1.255
+</span></span><span style=display:flex><span>        media: Ethernet autoselect (1000baseT )
+</span></span><span style=display:flex><span>        status: active
+</span></span><span style=display:flex><span>        nd6 options=29&lt;PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL&gt;
+</span></span><span style=display:flex><span>lo0: flags=8049&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; metric 0 mtu 16384
+</span></span><span style=display:flex><span>        options=680003&lt;RXCSUM,TXCSUM,LINKSTATE,RXCSUM_IPV6,TXCSUM_IPV6&gt;
+</span></span><span style=display:flex><span>        inet6 ::1 prefixlen 128
+</span></span><span style=display:flex><span>        inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2
+</span></span><span style=display:flex><span>        inet 127.0.0.1 netmask 0xff000000
+</span></span><span style=display:flex><span>        groups: lo
+</span></span><span style=display:flex><span>        nd6 options=21&lt;PERFORMNUD,AUTO_LINKLOCAL&gt;
+</span></span><span style=display:flex><span>vm-public: flags=8843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&gt; metric 0 mtu 1500
+</span></span><span style=display:flex><span>        ether 26:ad:45:ea:0c:c3
+</span></span><span style=display:flex><span>        id 00:00:00:00:00:00 priority 32768 hellotime 2 fwddelay 15
+</span></span><span style=display:flex><span>        maxage 20 holdcnt 6 proto rstp maxaddr 2000 timeout 1200
+</span></span><span style=display:flex><span>        root id 00:00:00:00:00:00 priority 32768 ifcost 0 port 0
+</span></span><span style=display:flex><span>        member: re0 flags=143&lt;LEARNING,DISCOVER,AUTOEDGE,AUTOPTP&gt;
+</span></span><span style=display:flex><span>                ifmaxaddr 0 port 1 priority 128 path cost 20000
+</span></span><span style=display:flex><span>        groups: bridge vm-switch viid-4c918@
+</span></span><span style=display:flex><span>        nd6 options=1
+</span></span></code></pre></div><p>これで以下のようなネットワーク構成になった。<br><code>外界 &lt;--> ホストのインタフェース（re0） &lt;--> 仮想スイッチ（vm-public）</code></p><p>これですべての初期設定が完了。</p></div><footer class=post-footer><nav class=paginav><a class=prev href=https://nobwak.github.io/posts/2019-05-12-freebsd_12%E3%81%AEbhyve%E3%81%ABwindows10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E3%81%9D%E3%81%AE2vm-bhyve%E4%BD%BF%E7%94%A8/><span class=title>« Prev Page</span><br><span>FreeBSD 12のbhyveにWindows10をインストールする：その2（vm-bhyve使用）</span></a>
+<a class=next href=https://nobwak.github.io/posts/2019-01-05-%E3%83%A1%E3%83%A2visual_studio_code_+_python%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/><span class=title>Next Page »</span><br><span>【メモ】Visual Studio Code + Pythonのセットアップ</span></a></nav><div class=share-buttons><a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on twitter" href="https://twitter.com/intent/tweet/?text=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f&hashtags="><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f&title=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89&summary=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89&source=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f&title=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on whatsapp" href="https://api.whatsapp.com/send?text=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89%20-%20https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share FreeBSD 12のbhyveにWindows10をインストールする：その1（vm-bhyve使用） on telegram" href="https://telegram.me/share/url?text=FreeBSD%2012%e3%81%aebhyve%e3%81%abWindows10%e3%82%92%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab%e3%81%99%e3%82%8b%ef%bc%9a%e3%81%9d%e3%81%ae1%ef%bc%88vm-bhyve%e4%bd%bf%e7%94%a8%ef%bc%89&url=https%3a%2f%2fnobwak.github.io%2fposts%2f2019-05-12-freebsd_12%25E3%2581%25AEbhyve%25E3%2581%25ABwindows10%25E3%2582%2592%25E3%2582%25A4%25E3%2583%25B3%25E3%2582%25B9%25E3%2583%2588%25E3%2583%25BC%25E3%2583%25AB%25E3%2581%2599%25E3%2582%258B%25E3%2581%259D%25E3%2581%25AE1vm-bhyve%25E4%25BD%25BF%25E7%2594%25A8%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a></div></footer></article></main><footer class=footer><span>&copy; 2022 <a href=https://nobwak.github.io>nobwak's Lair</a></span>
+<span>Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
-</span>
-</footer>
-<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
-</a>
-<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
-<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
-<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
-</body>
-</html>
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(t){t.preventDefault();var e=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(e)}']`).scrollIntoView({behavior:"smooth"}),e==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${e}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
