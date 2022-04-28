@@ -9,7 +9,25 @@
       <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 28 Dec 2021 13:18:50 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 31 Jan 2022 19:28:11 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2022-01-31-git_tagのつかいかた</title>
+      <link>https://nobwak.github.io/posts/2022/2022-01-31-git_tag%E3%81%AE%E3%81%A4%E3%81%8B%E3%81%84%E3%81%8B%E3%81%9F/</link>
+      <pubDate>Mon, 31 Jan 2022 19:28:11 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2022/2022-01-31-git_tag%E3%81%AE%E3%81%A4%E3%81%8B%E3%81%84%E3%81%8B%E3%81%9F/</guid>
+      <description>git tag git tagの使い方は、日曜プログラマだとたまにしか使わないので備忘メモ。 一覧を表示する git tagとするだけでよい。 表示順はアルファベット順。</description>
+    </item>
+    
+    <item>
+      <title>2022-01-21-HUGOのテーマをPaperModに</title>
+      <link>https://nobwak.github.io/posts/2022/2022-01-21-hugo%E3%81%AE%E3%83%86%E3%83%BC%E3%83%9E%E3%82%92papermod%E3%81%AB/</link>
+      <pubDate>Fri, 21 Jan 2022 18:40:42 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2022/2022-01-21-hugo%E3%81%AE%E3%83%86%E3%83%BC%E3%83%9E%E3%82%92papermod%E3%81%AB/</guid>
+      <description>HUGOのテーマをPaperModに HUGOのテーマをPaperModに変えた。 Anankeよりいろいろと機能が揃っているので、導入までは大</description>
+    </item>
+    
     <item>
       <title>2021-12-24-Python_SQLite3関連メモ</title>
       <link>https://nobwak.github.io/posts/2021-12-24-python_sqlite3%E9%96%A2%E9%80%A3%E3%83%A1%E3%83%A2/</link>
