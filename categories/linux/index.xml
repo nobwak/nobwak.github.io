@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/linux/</link>
+    <description>Recent content in Linux on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Wed, 21 Mar 2018 20:13:48 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）</title>
+      <link>https://nobwak.github.io/posts/2018-03-21-linux%E3%81%AB%E6%B3%A8%E6%96%87%E3%81%AE%E5%A4%9A%E3%81%84%E6%96%99%E7%90%86%E5%BA%97%E3%82%92%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9D%E3%81%86open_jtalk/</link>
+      <pubDate>Wed, 21 Mar 2018 20:13:48 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2018-03-21-linux%E3%81%AB%E6%B3%A8%E6%96%87%E3%81%AE%E5%A4%9A%E3%81%84%E6%96%99%E7%90%86%E5%BA%97%E3%82%92%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9D%E3%81%86open_jtalk/</guid>
+      <description>Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。 Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト</description>
+    </item>
+    
+    <item>
+      <title>Linuxで音声の出力先をUSBスピーカーにする</title>
+      <link>https://nobwak.github.io/posts/2018-03-21-linux%E3%81%A7%E9%9F%B3%E5%A3%B0%E3%81%AE%E5%87%BA%E5%8A%9B%E5%85%88%E3%82%92usb%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%E3%81%AB%E3%81%99%E3%82%8B/</link>
+      <pubDate>Wed, 21 Mar 2018 15:20:02 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2018-03-21-linux%E3%81%A7%E9%9F%B3%E5%A3%B0%E3%81%AE%E5%87%BA%E5%8A%9B%E5%85%88%E3%82%92usb%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%E3%81%AB%E3%81%99%E3%82%8B/</guid>
+      <description>Nano Pi Neo2にスピーカーを繋いだのだが、ノイズが入ってたまらない。 そこでUSBスピーカーから音を出すようにしてみる。 USBスピーカーはこれ。</description>
+    </item>
+    
+    <item>
+      <title>[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</title>
+      <link>https://nobwak.github.io/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/</link>
+      <pubDate>Sun, 23 Feb 2014 13:13:06 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/</guid>
+      <description>cal/ncalにはイースター（復活祭）を表示するオプションがある。 私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に</description>
+    </item>
+    
+    <item>
+      <title>zfs snapshotの差分send/recvについて</title>
+      <link>https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Tue, 28 Jan 2014 22:33:29 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>zfs snapshotの差分send/recvについて zfsのバックアップは、snapshotを撮っておいて、自ホストの別zpool、あるいは他</description>
+    </item>
+    
+    <item>
+      <title>Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</title>
+      <link>https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/</link>
+      <pubDate>Sun, 26 Jan 2014 20:19:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/</guid>
+      <description>昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に</description>
+    </item>
+    
+    <item>
+      <title>Hadoopフレンドリーなデータとは</title>
+      <link>https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/</link>
+      <pubDate>Thu, 23 Jan 2014 20:16:09 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/</guid>
+      <description>ログは1行1イベントに 何を言っとるんだお前はという感じであるが、つまりこういう事である。 通常、ログは1行が1イベントである。 たとえばapac</description>
+    </item>
+    
+    <item>
+      <title>hadoopのsafemodeとfsck</title>
+      <link>https://nobwak.github.io/posts/2014-01-19-hadoop%E3%81%AEsafemode%E3%81%A8fsck/</link>
+      <pubDate>Sun, 19 Jan 2014 20:02:43 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-19-hadoop%E3%81%AEsafemode%E3%81%A8fsck/</guid>
+      <description>Hadoopのnamenode兼datanodeが電源瞬断のせいで壊れてしもうた。 勉強用のHadoopなのでダメージはないのだが、せっかくな</description>
+    </item>
+    
+    <item>
+      <title>[メモ] grepでコメント行、空行以外の行を表示させるには</title>
+      <link>https://nobwak.github.io/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 16 Jan 2014 22:01:54 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>いつも忘れるのでメモ。 あるファイルから、コメント行と空行を除いて表示させるには。 コメント行なら&amp;rdquo;^ *#&amp;ldquo;がマッチ。 空</description>
+    </item>
+    
+    <item>
+      <title>Pythonアプリに引数を渡そう</title>
+      <link>https://nobwak.github.io/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/</link>
+      <pubDate>Fri, 10 Jan 2014 20:27:22 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/</guid>
+      <description>PythonでWindowsアプリケーションを作ったとする。 たとえばファイルを引数に取り、整形するものだとする。 せっかくWindowsアプリ</description>
+    </item>
+    
+    <item>
+      <title>[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</title>
+      <link>https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/</link>
+      <pubDate>Sun, 05 Jan 2014 21:53:46 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/</guid>
+      <description>過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。 したのだが、よく分からないことがいくつかあった</description>
+    </item>
+    
+    <item>
+      <title>Graphvizでカックいいグラフを描こう</title>
+      <link>https://nobwak.github.io/posts/2013-12-17-graphviz%E3%81%A7%E3%82%AB%E3%83%83%E3%82%AF%E3%81%84%E3%81%84%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E6%8F%8F%E3%81%93%E3%81%86/</link>
+      <pubDate>Tue, 17 Dec 2013 20:57:50 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-12-17-graphviz%E3%81%A7%E3%82%AB%E3%83%83%E3%82%AF%E3%81%84%E3%81%84%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E6%8F%8F%E3%81%93%E3%81%86/</guid>
+      <description>Graphvizとは、AT&amp;amp;T研究所の作ったグラフ描画ソフトである。 ここでのグラフとは棒グラフのグラフではなく、ソーシャルグラフとか</description>
+    </item>
+    
+    <item>
+      <title>Hadoopのインプット指定にワイルドカードが使える件について</title>
+      <link>https://nobwak.github.io/posts/2013-11-27-hadoop%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%97%E3%83%83%E3%83%88%E6%8C%87%E5%AE%9A%E3%81%AB%E3%83%AF%E3%82%A4%E3%83%AB%E3%83%89%E3%82%AB%E3%83%BC%E3%83%89%E3%81%8C%E4%BD%BF%E3%81%88%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Wed, 27 Nov 2013 22:32:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-11-27-hadoop%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%97%E3%83%83%E3%83%88%E6%8C%87%E5%AE%9A%E3%81%AB%E3%83%AF%E3%82%A4%E3%83%AB%E3%83%89%E3%82%AB%E3%83%BC%E3%83%89%E3%81%8C%E4%BD%BF%E3%81%88%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>Hadoopへのインプットはふつう、ディレクトリかファイルの指定で行う。 しかし以下のような場合にどうするか。 複数のディレクトリの下にあるファ</description>
+    </item>
+    
+    <item>
+      <title>セキュリティ監査ツールLynis</title>
+      <link>https://nobwak.github.io/posts/2013-11-11-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%9B%A3%E6%9F%BB%E3%83%84%E3%83%BC%E3%83%ABlynis/</link>
+      <pubDate>Mon, 11 Nov 2013 20:08:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-11-11-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%9B%A3%E6%9F%BB%E3%83%84%E3%83%BC%E3%83%ABlynis/</guid>
+      <description>Lynisとは Linux向けのセキュリティ監査ツール。 http://www.rootkit.nl/projects/lynis.html Linux向けではあるが、Linux以外でも使える。 FreeBSD, Solarisに加えてなんとO</description>
+    </item>
+    
+    <item>
+      <title>vimでまさかのタブ表示</title>
+      <link>https://nobwak.github.io/posts/2013-11-04-vim%E3%81%A7%E3%81%BE%E3%81%95%E3%81%8B%E3%81%AE%E3%82%BF%E3%83%96%E8%A1%A8%E7%A4%BA/</link>
+      <pubDate>Mon, 04 Nov 2013 20:03:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-11-04-vim%E3%81%A7%E3%81%BE%E3%81%95%E3%81%8B%E3%81%AE%E3%82%BF%E3%83%96%E8%A1%A8%E7%A4%BA/</guid>
+      <description>結論 vim -pで複数ファイルをタブ表示できる。 .profileにaliasを書いとけ。 以上。 -pオプション vimのmanを眺めていたらこんな記載</description>
+    </item>
+    
+    <item>
+      <title>お手軽ミラーユーティリティcpdup</title>
+      <link>https://nobwak.github.io/posts/2013-10-28-%E3%81%8A%E6%89%8B%E8%BB%BD%E3%83%9F%E3%83%A9%E3%83%BC%E3%83%A6%E3%83%BC%E3%83%86%E3%82%A3%E3%83%AA%E3%83%86%E3%82%A3cpdup/</link>
+      <pubDate>Mon, 28 Oct 2013 22:00:10 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-28-%E3%81%8A%E6%89%8B%E8%BB%BD%E3%83%9F%E3%83%A9%E3%83%BC%E3%83%A6%E3%83%BC%E3%83%86%E3%82%A3%E3%83%AA%E3%83%86%E3%82%A3cpdup/</guid>
+      <description>rsyncの悩み ディレクトリの同期とくればrsyncが定番でありオンリーワンと言えよう。 ただこのrsync、久しぶりに使うとコマンド書式を忘</description>
+    </item>
+    
+    <item>
+      <title>らくらく構築、CalDAVサーバBaikal</title>
+      <link>https://nobwak.github.io/posts/2013-10-25-%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E6%A7%8B%E7%AF%89caldav%E3%82%B5%E3%83%BC%E3%83%90baikal/</link>
+      <pubDate>Fri, 25 Oct 2013 20:10:06 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-25-%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E6%A7%8B%E7%AF%89caldav%E3%82%B5%E3%83%BC%E3%83%90baikal/</guid>
+      <description>カレンダーサーバのBaikalを試してみたので記す。 ここでのカレンダーサーバとは、Googleカレンダーのようなものですな。 「だったらそんな</description>
+    </item>
+    
+    <item>
+      <title>nginxとlighttpdで悩んでlighttpd &#43; php5 &#43; fastcgiのインストールと設定へ</title>
+      <link>https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_&#43;_php5_&#43;_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/</link>
+      <pubDate>Wed, 23 Oct 2013 20:09:54 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_&#43;_php5_&#43;_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/</guid>
+      <description>apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま</description>
+    </item>
+    
+    <item>
+      <title>自前サーバのSSHログインにgoogleの2段階認証が使えて秋の夜長に感動した(追記あり)。</title>
+      <link>https://nobwak.github.io/posts/2013-09-30-%E8%87%AA%E5%89%8D%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AEssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%ABgoogle%E3%81%AE2%E6%AE%B5%E9%9A%8E%E8%AA%8D%E8%A8%BC%E3%81%8C%E4%BD%BF%E3%81%88%E3%81%A6%E7%A7%8B%E3%81%AE%E5%A4%9C%E9%95%B7%E3%81%AB%E6%84%9F%E5%8B%95%E3%81%97%E3%81%9F%E8%BF%BD%E8%A8%98%E3%81%82%E3%82%8A/</link>
+      <pubDate>Mon, 30 Sep 2013 23:39:39 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-09-30-%E8%87%AA%E5%89%8D%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AEssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%ABgoogle%E3%81%AE2%E6%AE%B5%E9%9A%8E%E8%AA%8D%E8%A8%BC%E3%81%8C%E4%BD%BF%E3%81%88%E3%81%A6%E7%A7%8B%E3%81%AE%E5%A4%9C%E9%95%B7%E3%81%AB%E6%84%9F%E5%8B%95%E3%81%97%E3%81%9F%E8%BF%BD%E8%A8%98%E3%81%82%E3%82%8A/</guid>
+      <description>タイトルそのままである。 たぶんGoogle様あたりが始めたのだと思うけど、何かの認証の際にスマートフォンをトークンキーとして使う仕組みはとて</description>
+    </item>
+    
+    <item>
+      <title>sha512でハッシュされたsaltつきパスワードを生成するには</title>
+      <link>https://nobwak.github.io/posts/2013-09-07-sha512%E3%81%A7%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E3%81%95%E3%82%8C%E3%81%9Fsalt%E3%81%A4%E3%81%8D%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%82%92%E7%94%9F%E6%88%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Sat, 07 Sep 2013 21:34:46 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-09-07-sha512%E3%81%A7%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E3%81%95%E3%82%8C%E3%81%9Fsalt%E3%81%A4%E3%81%8D%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%82%92%E7%94%9F%E6%88%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>バッチファイルにパスワードを書くときの悩み ユーザの追加や、属性の変更をバッチファイルで処理したいことがある。 しかしこういった作業には、しばし</description>
+    </item>
+    
+    <item>
+      <title>リビジョン管理rcsのすすめ（xxx.conf.20130829とかはもう止めよう）</title>
+      <link>https://nobwak.github.io/posts/2013-08-29-%E3%83%AA%E3%83%93%E3%82%B8%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86rcs%E3%81%AE%E3%81%99%E3%81%99%E3%82%81xxx.conf.20130829%E3%81%A8%E3%81%8B%E3%81%AF%E3%82%82%E3%81%86%E6%AD%A2%E3%82%81%E3%82%88%E3%81%86/</link>
+      <pubDate>Thu, 29 Aug 2013 22:32:03 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-08-29-%E3%83%AA%E3%83%93%E3%82%B8%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86rcs%E3%81%AE%E3%81%99%E3%81%99%E3%82%81xxx.conf.20130829%E3%81%A8%E3%81%8B%E3%81%AF%E3%82%82%E3%81%86%E6%AD%A2%E3%82%81%E3%82%88%E3%81%86/</guid>
+      <description>一人だけで管理しているサーバの設定ファイルを更新するとき、皆さんはどのように管理しているだろうか。 私は以下のようにしていた。 例えば、http</description>
+    </item>
+    
+    <item>
+      <title>ssmtpでUnable to locate smtp.gmail.comが表示される。</title>
+      <link>https://nobwak.github.io/posts/2013-08-20-ssmtp%E3%81%A7unable_to_locate_smtp.gmail.com%E3%81%8C%E8%A1%A8%E7%A4%BA%E3%81%95%E3%82%8C%E3%82%8B/</link>
+      <pubDate>Tue, 20 Aug 2013 21:09:40 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-08-20-ssmtp%E3%81%A7unable_to_locate_smtp.gmail.com%E3%81%8C%E8%A1%A8%E7%A4%BA%E3%81%95%E3%82%8C%E3%82%8B/</guid>
+      <description>ここで書いたように、自宅サーバーのroot宛メールをすべてgmailに転送しているのだが、ある日気が付くと、以下のようなメッセージがログに表</description>
+    </item>
+    
+    <item>
+      <title>仮想マシンイメージの変換について</title>
+      <link>https://nobwak.github.io/posts/2013-08-04-%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%A4%89%E6%8F%9B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Sun, 04 Aug 2013 19:13:14 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-08-04-%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%A4%89%E6%8F%9B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>VMWare PlayerのイメージをESXi用に変換するには VMWareが提供しているコンバータを使う。 以下、まとめ。 なお、動機としては、「手元のVM</description>
+    </item>
+    
+    <item>
+      <title>[Hadoop] Hadoop Streaming / mapperとreducerにPythonを使ってみる。</title>
+      <link>https://nobwak.github.io/posts/2013-07-29-hadoop_hadoop_streaming___mapper%E3%81%A8reducer%E3%81%ABpython%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B/</link>
+      <pubDate>Mon, 29 Jul 2013 23:30:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-07-29-hadoop_hadoop_streaming___mapper%E3%81%A8reducer%E3%81%ABpython%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B/</guid>
+      <description>HadoopはJavaで作られている。 だからHadoopに何か操作をさせたい場合には、通常、Javaで記述する必要がある。 しかしHadoop</description>
+    </item>
+    
+    <item>
+      <title>コード、エラー、設定ファイル共有サイトのすすめ</title>
+      <link>https://nobwak.github.io/posts/2013-07-28-%E3%82%B3%E3%83%BC%E3%83%89%E3%82%A8%E3%83%A9%E3%83%BC%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/</link>
+      <pubDate>Sun, 28 Jul 2013 23:00:32 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-07-28-%E3%82%B3%E3%83%BC%E3%83%89%E3%82%A8%E3%83%A9%E3%83%BC%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/</guid>
+      <description>sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ</description>
+    </item>
+    
+    <item>
+      <title>[Hadoop]擬似分散モードで実験</title>
+      <link>https://nobwak.github.io/posts/2013-07-28-hadoop%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3%E3%83%A2%E3%83%BC%E3%83%89%E3%81%A7%E5%AE%9F%E9%A8%93/</link>
+      <pubDate>Sun, 28 Jul 2013 09:56:23 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-07-28-hadoop%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3%E3%83%A2%E3%83%BC%E3%83%89%E3%81%A7%E5%AE%9F%E9%A8%93/</guid>
+      <description>擬似分散モードで実験してみる。 Hadoopには、単語を数えるデモが付いてくるのでこれを使う。 カウント対象テキストの準備 以下のようなファイルを</description>
+    </item>
+    
+    <item>
+      <title>[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定</title>
+      <link>https://nobwak.github.io/posts/2013-07-28-hadoophadoop_%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3psuedo-distributed%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E8%A8%AD%E5%AE%9A/</link>
+      <pubDate>Sun, 28 Jul 2013 00:23:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-07-28-hadoophadoop_%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3psuedo-distributed%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E8%A8%AD%E5%AE%9A/</guid>
+      <description>Standaloneモードでは、複数のホストを使った処理は行わない。デーモンも動かさない。 しかしHadoopは分散処理をしてナンボである。 分</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD][Linux] ssh経由でコマンド実行すると環境変数を読まないでござる</title>
+      <link>https://nobwak.github.io/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/</link>
+      <pubDate>Thu, 25 Jul 2013 23:21:35 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/</guid>
+      <description>&lt;p&gt;ssh経由bashでコマンド実行するときの環境変数を有効にするには。&lt;/p&gt;
+
+&lt;p&gt;以下のようにして、リモートホストでコマンドを実行する場合、リモートでの環境変数が有効にならない事がある。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-console&#34;&gt;$ ssh user@remotehost /path/command
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。&lt;br /&gt;
+おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。&lt;br /&gt;
+以下にまとめる。&lt;/p&gt;
+
+&lt;p&gt;なお、複数ホストを用意するのが面倒なので、本記事で実例を示す場合には接続先をlocalhostしている。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD][Linux] DHCPサーバ(isc-dhcpd)でリースしているIPアドレスの数を監視するには</title>
+      <link>https://nobwak.github.io/posts/2013-06-17-freebsdlinux_dhcp%E3%82%B5%E3%83%BC%E3%83%90isc-dhcpd%E3%81%A7%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bip%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%AE%E6%95%B0%E3%82%92%E7%9B%A3%E8%A6%96%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Mon, 17 Jun 2013 23:10:32 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-06-17-freebsdlinux_dhcp%E3%82%B5%E3%83%BC%E3%83%90isc-dhcpd%E3%81%A7%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bip%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%AE%E6%95%B0%E3%82%92%E7%9B%A3%E8%A6%96%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>DHCPサーバのIPアドレス数を監視したい。 具体的には、リースしているIPアドレス数と、空いているIPアドレス数のそれぞれである。 基になるデ</description>
+    </item>
+    
+    <item>
+      <title>ZFS scrubを過信してはいけません。</title>
+      <link>https://nobwak.github.io/posts/2012-12-18-zfs_scrub%E3%82%92%E9%81%8E%E4%BF%A1%E3%81%97%E3%81%A6%E3%81%AF%E3%81%84%E3%81%91%E3%81%BE%E3%81%9B%E3%82%93/</link>
+      <pubDate>Tue, 18 Dec 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-12-18-zfs_scrub%E3%82%92%E9%81%8E%E4%BF%A1%E3%81%97%E3%81%A6%E3%81%AF%E3%81%84%E3%81%91%E3%81%BE%E3%81%9B%E3%82%93/</guid>
+      <description>ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと</description>
+    </item>
+    
+    <item>
+      <title>ZFSの重複ファイル節約機能dedupがすげえ（ただしメモリ大尽に限る）</title>
+      <link>https://nobwak.github.io/posts/2012-03-18-zfs%E3%81%AE%E9%87%8D%E8%A4%87%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AF%80%E7%B4%84%E6%A9%9F%E8%83%BDdedup%E3%81%8C%E3%81%99%E3%81%92%E3%81%88%E3%81%9F%E3%81%A0%E3%81%97%E3%83%A1%E3%83%A2%E3%83%AA%E5%A4%A7%E5%B0%BD%E3%81%AB%E9%99%90%E3%82%8B/</link>
+      <pubDate>Sun, 18 Mar 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-03-18-zfs%E3%81%AE%E9%87%8D%E8%A4%87%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AF%80%E7%B4%84%E6%A9%9F%E8%83%BDdedup%E3%81%8C%E3%81%99%E3%81%92%E3%81%88%E3%81%9F%E3%81%A0%E3%81%97%E3%83%A1%E3%83%A2%E3%83%AA%E5%A4%A7%E5%B0%BD%E3%81%AB%E9%99%90%E3%82%8B/</guid>
+      <description>最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 Dedupとは ZFSにはdedupという機能があ</description>
+    </item>
+    
+    <item>
+      <title>trは一文字ごとに判断する件について</title>
+      <link>https://nobwak.github.io/posts/2012-03-16-tr%E3%81%AF%E4%B8%80%E6%96%87%E5%AD%97%E3%81%94%E3%81%A8%E3%81%AB%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Fri, 16 Mar 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-03-16-tr%E3%81%AF%E4%B8%80%E6%96%87%E5%AD%97%E3%81%94%E3%81%A8%E3%81%AB%E5%88%A4%E6%96%AD%E3%81%99%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>$ cat sample.txt &amp;amp;#60;a&amp;gt;&amp;amp;#60;b&amp;gt; 上記のテキストに対して以下のtrを実行するとどうなるか。 tr &amp;amp;#34;ab&amp;amp;#34; &amp;amp;#34;cd&amp;amp;#34; 試してみる。 $ tr &amp;amp;#34;ab&amp;amp;#34; &amp;amp;#34;cd&amp;amp;#34; &amp;amp;#60; ./sample.txt &amp;amp;#60;c&amp;gt;&amp;amp;#60;d&amp;gt; げえっ。 つまり、trは1文字ずつ判断する。 a</description>
+    </item>
+    
+    <item>
+      <title>MovableType</title>
+      <link>https://nobwak.github.io/posts/2012-03-03-movabletype/</link>
+      <pubDate>Sat, 03 Mar 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-03-03-movabletype/</guid>
+      <description>おなごもすなるMovableTypeを。 まず注意。 Xの入っていないサーバにインストールするときには、あらかじめImageMagick-nox</description>
+    </item>
+    
+    <item>
+      <title>複数ページのpdfをjpeg,pngに変換するには。</title>
+      <link>https://nobwak.github.io/posts/2010-05-17-%E8%A4%87%E6%95%B0%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEpdf%E3%82%92jpegpng%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Mon, 17 May 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-05-17-%E8%A4%87%E6%95%B0%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEpdf%E3%82%92jpegpng%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>ImageMagickのconvertを使う。 Ubuntuには最初から入ってた。 FreeBSDの場合はports, packageでgraph</description>
+    </item>
+    
+    <item>
+      <title>改行コード</title>
+      <link>https://nobwak.github.io/posts/2010-04-01-%E6%94%B9%E8%A1%8C%E3%82%B3%E3%83%BC%E3%83%89/</link>
+      <pubDate>Thu, 01 Apr 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-04-01-%E6%94%B9%E8%A1%8C%E3%82%B3%E3%83%BC%E3%83%89/</guid>
+      <description>Redhat Linuxのvi上で、改行コードをキーにして置換しようとおもったのだが。 もともとの改行は\nとし、差し替える改行は^Mじゃないとダメくさい</description>
+    </item>
+    
+    <item>
+      <title>ネットワークのリンク速度を変えるには。</title>
+      <link>https://nobwak.github.io/posts/2010-03-25-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E9%80%9F%E5%BA%A6%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 25 Mar 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-03-25-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E9%80%9F%E5%BA%A6%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>Linuxでネットワークデバイスが意図しないリンク速度になったときの対処方法。 といっても、下記のサイトどおりに操作するだけ。 「ETHTOOL</description>
+    </item>
+    
+    <item>
+      <title>DVDイメージファイルをマウントしたらファイル名が8文字に縮まった件について</title>
+      <link>https://nobwak.github.io/posts/2009-12-12-dvd%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%83%9E%E3%82%A6%E3%83%B3%E3%83%88%E3%81%97%E3%81%9F%E3%82%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%8C8%E6%96%87%E5%AD%97%E3%81%AB%E7%B8%AE%E3%81%BE%E3%81%A3%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Sat, 12 Dec 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-12-12-dvd%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%83%9E%E3%82%A6%E3%83%B3%E3%83%88%E3%81%97%E3%81%9F%E3%82%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%8C8%E6%96%87%E5%AD%97%E3%81%AB%E7%B8%AE%E3%81%BE%E3%81%A3%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>リップしたDVDのイメージをRedhat Linuxでmount -o loopにてマウントしたところ、なぜかファイル名が8文字しか表示されなくて難</description>
+    </item>
+    
+    <item>
+      <title>特定の文字をファイルから取り除くには</title>
+      <link>https://nobwak.github.io/posts/2009-11-16-%E7%89%B9%E5%AE%9A%E3%81%AE%E6%96%87%E5%AD%97%E3%82%92%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8B%E3%82%89%E5%8F%96%E3%82%8A%E9%99%A4%E3%81%8F%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Mon, 16 Nov 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-11-16-%E7%89%B9%E5%AE%9A%E3%81%AE%E6%96%87%E5%AD%97%E3%82%92%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8B%E3%82%89%E5%8F%96%E3%82%8A%E9%99%A4%E3%81%8F%E3%81%AB%E3%81%AF/</guid>
+      <description>sedの使い方なんてすぐ忘れるからメモ。 例) あるファイルから改行を取り除く $ tr -d &amp;amp;#39;&amp;amp;#92;n&amp;amp;#39; &amp;amp;#60; inputfile</description>
+    </item>
+    
+    <item>
+      <title>roundcubeを入れた</title>
+      <link>https://nobwak.github.io/posts/2009-04-20-roundcube%E3%82%92%E5%85%A5%E3%82%8C%E3%81%9F/</link>
+      <pubDate>Mon, 20 Apr 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-04-20-roundcube%E3%82%92%E5%85%A5%E3%82%8C%E3%81%9F/</guid>
+      <description>webベースのIMAPクライアントであるroundcube（&amp;lt;a href=&amp;quot;http://roundcube.net/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;本家&amp;lt</description>
+    </item>
+    
+    <item>
+      <title>Redhat 4から5へのアップグレード</title>
+      <link>https://nobwak.github.io/posts/2009-03-05-redhat_4%E3%81%8B%E3%82%895%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</link>
+      <pubDate>Thu, 05 Mar 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-03-05-redhat_4%E3%81%8B%E3%82%895%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</guid>
+      <description>DVDで普通に起動しただけではアップグレードの選択肢が出てこなかった。 ググった結果、DVD起動時にlinux upgradeanyとして指定す</description>
+    </item>
+    
+    <item>
+      <title>sshログインしたユーザのディレクトリを制限するには。</title>
+      <link>https://nobwak.github.io/posts/2009-02-15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Sun, 15 Feb 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-02-15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>要するにchroot。 リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使</description>
+    </item>
+    
+    <item>
+      <title>yumのproxy設定</title>
+      <link>https://nobwak.github.io/posts/2008-12-20-yum%E3%81%AEproxy%E8%A8%AD%E5%AE%9A/</link>
+      <pubDate>Sat, 20 Dec 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-12-20-yum%E3%81%AEproxy%E8%A8%AD%E5%AE%9A/</guid>
+      <description>CentOSをインストールした。 DISCイメージが何枚かあってよくわからない。雑誌付録のDVDを借りた。 特に問題なくインストールは完了したが</description>
+    </item>
+    
+    <item>
+      <title>vsftpdでchrootの設定を行うには。</title>
+      <link>https://nobwak.github.io/posts/2008-12-19-vsftpd%E3%81%A7chroot%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A1%8C%E3%81%86%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Fri, 19 Dec 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-12-19-vsftpd%E3%81%A7chroot%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A1%8C%E3%81%86%E3%81%AB%E3%81%AF/</guid>
+      <description>ローカルユーザの場合と、anonymousユーザの場合で対応が異なる。 anonymousユーザ向けには、anon_rootでchroot先の</description>
+    </item>
+    
+    <item>
+      <title>vsftpdのホワイトリスト/ブラックリストの設定</title>
+      <link>https://nobwak.github.io/posts/2008-12-17-vsftpd%E3%81%AE%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%AA%E3%82%B9%E3%83%88_%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E8%A8%AD%E5%AE%9A/</link>
+      <pubDate>Wed, 17 Dec 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-12-17-vsftpd%E3%81%AE%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%AA%E3%82%B9%E3%83%88_%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E8%A8%AD%E5%AE%9A/</guid>
+      <description>仕事でvsftpdを入れたのでメモ。 ホワイトリスト/ブラックリストの設定 userlist_fileで指定するファイル（以降、userlist</description>
+    </item>
+    
+    <item>
+      <title>gripでrip &amp;amp; エンコード</title>
+      <link>https://nobwak.github.io/posts/2008-12-06-grip%E3%81%A7rip_amp_%E3%82%A8%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89/</link>
+      <pubDate>Sat, 06 Dec 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-12-06-grip%E3%81%A7rip_amp_%E3%82%A8%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89/</guid>
+      <description>CDのrippingとmp3エンコードを一緒にやってくれるツールとして&amp;lt;a href=&amp;quot;http://nostatic.org/grip/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>2つのjpeg画像が同じかどうか確かめるには</title>
+      <link>https://nobwak.github.io/posts/2008-11-23-2%E3%81%A4%E3%81%AEjpeg%E7%94%BB%E5%83%8F%E3%81%8C%E5%90%8C%E3%81%98%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E7%A2%BA%E3%81%8B%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Sun, 23 Nov 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-11-23-2%E3%81%A4%E3%81%AEjpeg%E7%94%BB%E5%83%8F%E3%81%8C%E5%90%8C%E3%81%98%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B%E7%A2%BA%E3%81%8B%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>ネタ元はfreebsd-questions@freebsd.org ハッシュを比較するというのはアウト。 というのは、jpegファイルにはExi</description>
+    </item>
+    
+    <item>
+      <title>Thinkpad X30でUbuntu 8.04がフリーズしまくる件について</title>
+      <link>https://nobwak.github.io/posts/2008-11-14-thinkpad_x30%E3%81%A7ubuntu_8.04%E3%81%8C%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%97%E3%81%BE%E3%81%8F%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Fri, 14 Nov 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-11-14-thinkpad_x30%E3%81%A7ubuntu_8.04%E3%81%8C%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%97%E3%81%BE%E3%81%8F%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>Windows2000をインストールしていたThinkpad X30のHDDがクラッシュしたので、古いHDDに換装してUbuntuのインストー</description>
+    </item>
+    
+    <item>
+      <title>Ubuntuアップデート時のGRUB設定初期化を防ぐ方法</title>
+      <link>https://nobwak.github.io/posts/2008-10-18-ubuntu%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E6%99%82%E3%81%AEgrub%E8%A8%AD%E5%AE%9A%E5%88%9D%E6%9C%9F%E5%8C%96%E3%82%92%E9%98%B2%E3%81%90%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Sat, 18 Oct 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-10-18-ubuntu%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E6%99%82%E3%81%AEgrub%E8%A8%AD%E5%AE%9A%E5%88%9D%E6%9C%9F%E5%8C%96%E3%82%92%E9%98%B2%E3%81%90%E6%96%B9%E6%B3%95/</guid>
+      <description>FreeBSD-mlからの抜き書き。 Ubuntuでは、大きなアップデートの都度GRUBの設定がデフォルトに戻されるが、これを防止する方法。 /</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | mt-daapd</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="mt-daapd" />
+<meta property="og:description" content="UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2007-03-03-mt-daapd/" />
+<meta property="article:published_time" content="2007-03-03T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2007-03-03T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="mt-daapd">
+<meta itemprop="description" content="UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッ">
+
+
+<meta itemprop="datePublished" content="2007-03-03T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2007-03-03T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1062">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mt-daapd"/>
+<meta name="twitter:description" content="UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">mt-daapd</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-03-03T01:00:00&#43;09:00">March 3, 2007</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。
+
+
+
+詳細はググれば大量に出てくるのでポイントだけ。
+
+
+
+mt-daapdは、パッケージからインストールすると、というかそもそもUTF-8にしか対応しておらず、Shift-JISで投入されたID3タグが化けるので、偉い人が作ったパッチを使用しつつソースからインストール。
+
+
+
+&lt;a href=&quot;http://sourceforge.net/projects/mt-daapd&quot; target=&quot;_blank&quot;&gt;http://sourceforge.net/projects/mt-daapd&lt;/a&gt;
+
+
+
+ここからソースをダウンロード。
+
+
+
+&lt;a href=&quot;http://www.kzsoft.to/~kazu/mt-daapd/&quot; target=&quot;_blank&quot;&gt;http://www.kzsoft.to/~kazu/mt-daapd/&lt;/a&gt;
+
+
+
+ここからパッチをダウンロード。
+
+
+
+ソースを展開し、ディレクトリに降りたら、patchコマンドへ-p1オプションに続けてパッチのファイル名を与える。
+
+
+
+あとは$ ./configure, $ make, # make installで終了。
+
+
+
+デフォルトのインストール先である/usr/localから変更したいとき、その他オプションを変更したいときは、./congiure -helpを参考に。
+
+
+
+つかgccがあるのに、configureに「実行バイナリを作成することが出来ません」などと言われて頭を抱えたが、build-essentialというパッケージを入れて解決。
+
+
+
+なお、id3tag, gdbmのヘッダも要求されたので、libgdbm-dev、libid3tag0-devも入れた。
+
+
+
+何か足らなきゃ./configureが怒るので、そのメッセージを参考に。
+
+
+
+デフォルト設定では/usr/local/sbinにmt-daapdがインストールされる。
+
+
+
+また、設定ファイルは/etc/mt-daapd.conf。
+
+
+
+変更したのはweb_root, admin_pw, mp3_dir, servernameぐらい。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  $ grep ^[^\ #] /etc/mt-daapd.conf
+
+
+
+  web_root /usr/local/share/mt-daapd/admin-root
+
+
+
+  port 3689
+
+
+
+  admin_pw foobar
+
+
+
+  db_dir /var/cache/mt-daapd
+
+
+
+  mp3_dir /export/daapdir
+
+
+
+  servername foo
+
+
+
+  runas nobody
+
+
+
+  playlist /etc/mt-daapd.playlist
+
+
+
+  extensions .mp3,.m4a,.m4p
+
+
+
+  $
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>mp3_dirで指定したディレクトリにmp3を入れたらmt-daapdを起動。
+
+
+
+あとはクライアント側のiTunesがサーバを勝手に見つけてくれる。
+
+
+
+なお、設定ファイル上のrescan_intervalを有効にしておけば、ここで指定した秒数ごとにmp3_dirをチェックし、曲リストを更新してくれる。
+
+
+
+逆に、有効にしていない場合には、mt-daapdを再起動するか、ポート3689にhttpで繋いで表示される管理画面からrescanしなければ更新されない。
+
+
+
+せっかくなので、上記で指定したディレクトリをsambaで公開して、mp3の追加もやりやすくしておく。mp3プレーヤーでもアクセス出来るし。
+
+
+
+これで使用してみたところ、iTunes上ではタグも化けてないようだが、不安なら&lt;a href=&quot;http://easytag.sourceforge.net/&quot; target=&quot;_blank&quot;&gt;easytag&lt;/a&gt;などでUTF-8に変更してもいいのかも。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

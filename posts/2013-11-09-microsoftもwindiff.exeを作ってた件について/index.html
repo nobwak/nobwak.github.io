@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | MicrosoftもWindiff.exeを作ってた件について</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="MicrosoftもWindiff.exeを作ってた件について" />
+<meta property="og:description" content="Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。 実際のところ、私もDF.exeなどを使っている。 ただ改めて調べ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-11-09-microsoft%E3%82%82windiff.exe%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%9F%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" />
+<meta property="article:published_time" content="2013-11-09T21:07:30&#43;09:00"/>
+<meta property="article:modified_time" content="2013-11-09T21:07:30&#43;09:00"/>
+
+<meta itemprop="name" content="MicrosoftもWindiff.exeを作ってた件について">
+<meta itemprop="description" content="Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。 実際のところ、私もDF.exeなどを使っている。 ただ改めて調べ">
+
+
+<meta itemprop="datePublished" content="2013-11-09T21:07:30&#43;09:00" />
+<meta itemprop="dateModified" content="2013-11-09T21:07:30&#43;09:00" />
+<meta itemprop="wordCount" content="1277">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MicrosoftもWindiff.exeを作ってた件について"/>
+<meta name="twitter:description" content="Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。 実際のところ、私もDF.exeなどを使っている。 ただ改めて調べ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">MicrosoftもWindiff.exeを作ってた件について</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-11-09T21:07:30&#43;09:00">November 9, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Windowsでファイルのdiffを取りたければ、けっこうな数の選択肢がある。<br />
+実際のところ、私も<a href="http://www.vector.co.jp/soft/win95/util/se113286.html" target="_blank">DF.exe</a>などを使っている。<br />
+ただ改めて調べてみたところ、Windows向けにMicrosoft自らdiffツール作ってたらしい。<br />
+その名もWindiff.exe。（Vectorあたりにあるツールと名前かぶってるような）<br />
+使ってみたので顛末を示す。</p>
+
+<p>とはいえ。<br />
+結論としては、Microsoft製に価値を見出さないならサードパーティのdiffツールの方がいいかな。</p>
+
+<p>Windiff.exeにはxp用と7用がある・・・ようだ。</p>
+
+<h2 id="span-style-text-decoration-underline-xp用windiff-exe-span"><span style="text-decoration: underline;">xp用Windiff.exe</span></h2>
+
+<p>xp用Windiff.exeは、microsoft.comに以下の記載が。</p>
+
+<p>Windiff.exe ユーティリティの使用方法<br />
+<a href="http://support.microsoft.com/kb/159214/ja" target="_blank"><a href="http://support.microsoft.com/kb/159214/ja">http://support.microsoft.com/kb/159214/ja</a></a></p>
+
+<blockquote>
+<p>Windiff.exe は、Microsoft Windows 2000 以降のオリジナルの CD-ROM の Support\Tools フォルダーに収められています。サポート ツールをインストールするには、Support\Tools フォルダーの Setup.exe を実行します。Windiff.exe は、Support.cab ファイルにも収められています。Support.cab は、各 Service Pack に含まれています。</p>
+</blockquote>
+
+<p>ただ、上記のページをWindows 7で開くと、「この技術情報は、お客様がご利用の Windows とは異なるバージョン向けの情報です」とのこと。</p>
+
+<h2 id="span-style-text-decoration-underline-windows-7向けのwindiff-exe-span"><span style="text-decoration: underline;">Windows 7向けのWindiff.exe</span></h2>
+
+<p>technetで以下を発見。2003用のものを流用すればよさそう。</p>
+
+<p>Windiff for Windows 7<br />
+<a href="http://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7" target="_blank"><a href="http://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7">http://social.technet.microsoft.com/Forums/exchange/en-US/0d51abcd-3b76-495b-84a4-45e188f6d9f6/windiff-for-windows-7</a></a></p>
+
+<h2 id="span-style-text-decoration-underline-windows-7-32bit-でのインストールのしかた-span"><span style="text-decoration: underline;">Windows 7（32bit）でのインストールのしかた</span></h2>
+
+<p>※おそらくMicrosoftは公式には認めない方法です。<br />
+自己責任でどうぞ。</p>
+
+<p>さっそく以下のページからWindowsServer2003-KB892777-SupportTools-x86-ENU.exe をダウンロード。</p>
+
+<p>Windows Server 2003 Service Pack 1 32-bit Support Tools<br />
+<a href="http://www.microsoft.com/en-us/download/details.aspx?id=7911" target="_blank"><a href="http://www.microsoft.com/en-us/download/details.aspx?id=7911">http://www.microsoft.com/en-us/download/details.aspx?id=7911</a></a></p>
+
+<p>コマンドラインから実行する。<br />
+オプションを二つ指定する。<br />
+/Cで「展開のみインストールせず」、 /Tで展開先をフルパスで指定する。</p>
+
+<pre><code class="language-console">C:\download&gt;WindowsServer2003-KB892777-SupportTools-x86-ENU.exe /C /T:c:\download\supporttool
+</code></pre>
+
+<p>以上の例だとc:\download\supporttoolに内容物が展開される。<br />
+そのうちのsupport.cabをダブルクリックすると、中にwindiff.exeがあるのでそれを取り出す。<br />
+あとはパスの通ったところに置くとか、ランチャーに登録すればよい。</p>
+
+<h2 id="span-style-text-decoration-underline-初期設定-span"><span style="text-decoration: underline;">初期設定</span></h2>
+
+<p>そのままだと日本語を表示できないので、Edit → Set Font でフォントを変える。<br />
+メイリオとかにしとけ。</p>
+
+<h2 id="span-style-text-decoration-underline-使い方-span"><span style="text-decoration: underline;">使い方</span></h2>
+
+<p>個別ファイルの差分を調べる場合には、File → Compare Files でファイルを二つ選んでOKをクリック。<br />
+ディレクトリごと差分を調べる場合には、File → Compare Directoriesで出てきた画面に二つのディレクトリパスを貼りつけてOKをクリックする。</p>
+
+<p>調べたファイルが一覧で表示される。<br />
+差分のあるファイルが赤く表示されるので、選択してExpandでファイルの中身を見られる。<br />
+Outlineでファイル一覧に戻る。</p>
+
+<p>F7, F8で差分のある個所を順番に選んで行ける。<br />
+Pictureは左端に差分箇所を表してくれる。</p>
+
+<h2 id="span-style-text-decoration-underline-制限-span"><span style="text-decoration: underline;">制限</span></h2>
+
+<p>シフトJISのファイルは読めるけど、UTF-8の日本語は読めないようだ。</p>
+
+<h2 id="span-style-text-decoration-underline-感想-span"><span style="text-decoration: underline;">感想</span></h2>
+
+<p>使ってみたら分かるけど、ちょっと使いにくいかな…。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

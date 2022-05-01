@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ActivePythonでPythonパッケージを扱うにはPyPM</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ActivePythonでPythonパッケージを扱うにはPyPM" />
+<meta property="og:description" content="PyPMはActivePythonのPythonパッケージマネージメントシステムである。 パッケージの提供はActiveState。 ただ、すべ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-12-01-activepython%E3%81%A7python%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AFpypm/" />
+<meta property="article:published_time" content="2013-12-01T22:56:46&#43;09:00"/>
+<meta property="article:modified_time" content="2013-12-01T22:56:46&#43;09:00"/>
+
+<meta itemprop="name" content="ActivePythonでPythonパッケージを扱うにはPyPM">
+<meta itemprop="description" content="PyPMはActivePythonのPythonパッケージマネージメントシステムである。 パッケージの提供はActiveState。 ただ、すべ">
+
+
+<meta itemprop="datePublished" content="2013-12-01T22:56:46&#43;09:00" />
+<meta itemprop="dateModified" content="2013-12-01T22:56:46&#43;09:00" />
+<meta itemprop="wordCount" content="880">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ActivePythonでPythonパッケージを扱うにはPyPM"/>
+<meta name="twitter:description" content="PyPMはActivePythonのPythonパッケージマネージメントシステムである。 パッケージの提供はActiveState。 ただ、すべ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ActivePythonでPythonパッケージを扱うにはPyPM</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-12-01T22:56:46&#43;09:00">December 1, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>PyPMはActivePythonのPythonパッケージマネージメントシステムである。<br />
+パッケージの提供は<a href="http://www.activestate.com/" target="_blank">ActiveState</a>。</p>
+
+<p>ただ、すべてのパッケージが揃っているわけではなく、ものによってはコンパイルに失敗し、結果としてPyPMでは入手できないものもある。</p>
+
+<p>たとえば2013/11/14現在、pygraphvizは入手できない。<br />
+<a href="http://code.activestate.com/pypm/pygraphviz/" target="_blank"><a href="http://code.activestate.com/pypm/pygraphviz/">http://code.activestate.com/pypm/pygraphviz/</a></a></p>
+
+<blockquote>
+<p>pygraphviz is unavailable in PyPM, because there aren&rsquo;t any builds for it in the package repositories.</p>
+</blockquote>
+
+<p>前後したが、PyPMで揃えられるパッケージは以下のサイトで確認できる。<br />
+<a href="http://code.activestate.com/pypm/" target="_blank"><a href="http://code.activestate.com/pypm/">http://code.activestate.com/pypm/</a></a><br />
+また、PyPMにもパッケージ検索機能が備わっている。</p>
+
+<h2 id="span-style-text-decoration-underline-pypmの起動-span"><span style="text-decoration: underline;">PyPMの起動</span></h2>
+
+<p>ActivePythonをインストールすると、Python Package Manager(PyPM)というプログラムがスタートメニューにできているはず。<br />
+これがPyPM。<br />
+<a href="../../../wp-content/uploads/2013/11/startmenu.png"><img class="alignnone size-thumbnail wp-image-2394" alt="startmenu" src="../../../wp-content/uploads/2013/11/startmenu-150x150.png" width="150" height="150" /></a></p>
+
+<p>プログラムとは言っても、実体はcmd.exeに引数を与えて実行するショートカットである。</p>
+
+<pre><code class="language-console">C:\Windows\System32\cmd.exe /k title PyPM &amp; pypm
+</code></pre>
+
+<p>実行すると、コマンドプロンプトが開く。<br />
+<a href="../../../wp-content/uploads/2013/11/pypm.png"><img class="alignnone size-thumbnail wp-image-2393" alt="pypm" src="../../../wp-content/uploads/2013/11/pypm-150x150.png" width="150" height="150" /></a></p>
+
+<h2 id="span-style-text-decoration-underline-pypmの使い方-span"><span style="text-decoration: underline;">PyPMの使い方</span></h2>
+
+<p>以下を参照</p>
+
+<p><a href="http://docs.activestate.com/activepython/3.3/pypm.html" target="_blank"><a href="http://docs.activestate.com/activepython/3.3/pypm.html">http://docs.activestate.com/activepython/3.3/pypm.html</a></a></p>
+
+<pre><code class="language-console">検索:
+　pypm search ＜パッケージ＞
+インストール:
+　pypm install ＜パッケージ＞
+削除:
+　pypm uninstall ＜パッケージ＞
+更新:
+　pypm upgrade
+一覧:
+　pypm list
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-実行例-span"><span style="text-decoration: underline;">実行例</span></h2>
+
+<p>matplotlibを検索、インストールしてみる。</p>
+
+<p>検索</p>
+
+<pre><code class="language-console">C:\Windows\system32&gt;pypm search matplotlib
+ boomslang    A thin layer over matplotlib that simplifies creation of common p
+ brewer2mpl   Connect colorbrewer2.org color maps to Python and matplotlib
+ descartes    Use geometric objects as matplotlib paths and patches
+ ezplot       Remote Procedure interface to Matplotlib
+ matplotlib   Python plotting package
+ pygmyplot    Matplotlib wrapper plotting library
+ pywcsgrid2   pywcsgrid2 is a python module to be used with matplotlib for disp
+ root2matplot Tools to plot ROOT histograms using matplotlib
+ sphinxreport SphinxReport : a report generator in python based on Sphinx and m
+ webplotlib   A package for creating server-side charts/graphs using matplotlib
+ wxmplot      high level wxPython Components for 2D plotting and image display
+</code></pre>
+
+<p>インストール</p>
+
+<pre><code class="language-console">C:\Windows\system32&gt;pypm install matplotlib
+The following packages will be installed into &quot;%APPDATA%\Python&quot; (2.7):
+ as.mklruntime-1.3 numpy-1.7.1 matplotlib-1.1.1
+Get: [pypm-free.activestate.com] as.mklruntime 1.3
+downloading: [===========&gt;        ]  59% 19.0MB/32.1MB (1m18s; 55s left)
+</code></pre>
+
+<p>インストール済みのパッケージ一覧</p>
+
+<pre><code class="language-console">C:\Windows\system32&gt;pypm list
+as.mklruntime 1.3   Intel MKL runtime files (Windows only)
+matplotlib    1.1.1 Python plotting package
+networkx      1.8.1 Python package for creating and manipulating graphs and net
+numpy         1.7.1 NumPy: array processing for numbers, strings, records, and
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-プロキシの設定-span"><span style="text-decoration: underline;">プロキシの設定</span></h2>
+
+<p>もしインターネット接続がproxy越しの場合には、環境変数の設定が必要だ。<br />
+以下に記載のあるとおり。<br />
+<a href="http://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls" target="_blank"><a href="http://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls">http://docs.activestate.com/activepython/3.3/pypm.html#proxies-and-firewalls</a></a></p>
+
+<p>PyPMを実行したあと、以下のように設定してから進めればよい。</p>
+
+<pre><code class="language-console">C:\Windows\system32&gt;set http_proxy=http://proxysomewhere.com:8080/
+</code></pre>
+
+<p>なお、activestateのサイト通りだとうまくいかなくて、経験的な結果として:</p>
+
+<ul>
+<li>　ダブルクオーテーションで囲ったらダメ。</li>
+<li>　（おそらく）URLの最後はスラッシュで終わらないとダメ。</li>
+</ul>
+
+<p>使用例</p>
+
+<pre><code class="language-console">C:\Windows\system32&gt;set http_proxy=http://proxysomewhere.com:8080/
+
+C:\Windows\system32&gt;pypm install networkx
+Get: [pypm-be.activestate.com] :repository-index:
+Get: [pypm-free.activestate.com] :repository-index:
+downloading: [=======&gt;            ]  39% 2.5MB/6.4MB (10s; 17s left)
+</code></pre>
+
+<p>以上</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

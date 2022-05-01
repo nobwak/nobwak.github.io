@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hadoop on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/hadoop/</link>
+    <description>Recent content in Hadoop on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Wed, 16 Jul 2014 23:29:13 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/hadoop/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[メモ] FreeBSD10にhadoopインストール</title>
+      <link>https://nobwak.github.io/posts/2014-07-16-%E3%83%A1%E3%83%A2_freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Wed, 16 Jul 2014 23:29:13 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-07-16-%E3%83%A1%E3%83%A2_freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。 2014/7/4時点でのpkgにはhadoop-1.2.</description>
+    </item>
+    
+    <item>
+      <title>Hadoopフレンドリーなデータとは</title>
+      <link>https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/</link>
+      <pubDate>Thu, 23 Jan 2014 20:16:09 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/</guid>
+      <description>ログは1行1イベントに 何を言っとるんだお前はという感じであるが、つまりこういう事である。 通常、ログは1行が1イベントである。 たとえばapac</description>
+    </item>
+    
+    <item>
+      <title>hadoopのsafemodeとfsck</title>
+      <link>https://nobwak.github.io/posts/2014-01-19-hadoop%E3%81%AEsafemode%E3%81%A8fsck/</link>
+      <pubDate>Sun, 19 Jan 2014 20:02:43 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-19-hadoop%E3%81%AEsafemode%E3%81%A8fsck/</guid>
+      <description>Hadoopのnamenode兼datanodeが電源瞬断のせいで壊れてしもうた。 勉強用のHadoopなのでダメージはないのだが、せっかくな</description>
+    </item>
+    
+  </channel>
+</rss>

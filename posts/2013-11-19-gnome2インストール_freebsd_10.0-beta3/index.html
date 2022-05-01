@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Gnome2インストール FreeBSD 10.0-BETA3</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Gnome2インストール FreeBSD 10.0-BETA3" />
+<meta property="og:description" content="久しぶりにFreeBSDにGNOME2をインストールしたのでメモ。 前回のまとめはこちら。 FreeBSD 10.0-BETA3, pkgngでGnome2まで設定。 入れたマシンは" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-11-19-gnome2%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB_freebsd_10.0-beta3/" />
+<meta property="article:published_time" content="2013-11-19T22:37:57&#43;09:00"/>
+<meta property="article:modified_time" content="2013-11-19T22:37:57&#43;09:00"/>
+
+<meta itemprop="name" content="Gnome2インストール FreeBSD 10.0-BETA3">
+<meta itemprop="description" content="久しぶりにFreeBSDにGNOME2をインストールしたのでメモ。 前回のまとめはこちら。 FreeBSD 10.0-BETA3, pkgngでGnome2まで設定。 入れたマシンは">
+
+
+<meta itemprop="datePublished" content="2013-11-19T22:37:57&#43;09:00" />
+<meta itemprop="dateModified" content="2013-11-19T22:37:57&#43;09:00" />
+<meta itemprop="wordCount" content="1434">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Gnome2インストール FreeBSD 10.0-BETA3"/>
+<meta name="twitter:description" content="久しぶりにFreeBSDにGNOME2をインストールしたのでメモ。 前回のまとめはこちら。 FreeBSD 10.0-BETA3, pkgngでGnome2まで設定。 入れたマシンは"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Gnome2インストール FreeBSD 10.0-BETA3</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-11-19T22:37:57&#43;09:00">November 19, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>久しぶりにFreeBSDにGNOME2をインストールしたのでメモ。<br />
+前回のまとめは<a href="../../../?p=1804" target="_blank">こちら</a>。</p>
+
+<p>FreeBSD 10.0-BETA3, pkgngでGnome2まで設定。<br />
+入れたマシンはDELL Vostro 1500。GPUはNvdia 8600M GTである。<br />
+bash, sudoくらいは入っている。</p>
+
+<h2 id="span-style-text-decoration-underline-xorgのインストール-span"><span style="text-decoration: underline;">Xorgのインストール</span></h2>
+
+<p>pkg installにxorgを指定するだけ。</p>
+
+<pre><code class="language-console">$ sudo pkg install xorg
+Updating repository catalogue
+The following 182 packages will be installed:
+&lt;snip&gt;
+Installing xorg: 7.7
+The installation will require 156 MB more space
+49 MB to be downloaded
+Proceed with installing packages [y/N]: y
+xwud-1.0.4.txz                      100%   14KB  14.3KB/s  14.3KB/s   00:00
+&lt;snip&gt;
+</code></pre>
+
+<p>hald, dbusを、rc.confに設定してから起動。<br />
+以下の例で使っているsysrcについては<a href="../../../?p=2364" target="_blank">こちら</a>。</p>
+
+<pre><code class="language-console">$ sudo sysrc hald_enable=&quot;YES&quot;
+hald_enable:  -&gt; YES
+$ sudo sysrc dbus_enable=&quot;YES&quot;
+dbus_enable:  -&gt; YES
+</code></pre>
+
+<p>起動</p>
+
+<pre><code class="language-console">$ sudo service hald start
+Starting hald.
+$ sudo service dbus start
+Starting dbus.
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-xorgの設定の前に-nvidiaのドライバをインストール-span"><span style="text-decoration: underline;">Xorgの設定の前に、nvidiaのドライバをインストール</span></h2>
+
+<p>pkg searchでnvidia driverを確認。<br />
+319と304がある。</p>
+
+<pre><code class="language-console">$ pkg search nvidia
+nvidia-driver-319.32
+nvidia-driver-304-304.88_1
+nvidia-settings-310.14
+nvidia-texture-tools-2.0.8.1_3
+nvidia-xconfig-310.14
+</code></pre>
+
+<p><a href="http://www.nvidia.co.jp/Download/index.aspx?lang=jp" target="_blank">ここ</a>でドライバのバージョンを確認して319と304のどちらかを選ぶ。<br />
+8600M GT,FreeBSD x64だと319。</p>
+
+<p>driverのほかにsetting, xconfigもセットでインストールする。<br />
+なお、ドライバはカーネルモジュールとして提供される。<br />
+インストール後にロードすることを忘れずに。</p>
+
+<pre><code class="language-console">$ sudo pkg install nvidia-driver-319.32 nvidia-settings-310.14 nvidia-xconfig-310.14
+Updating repository catalogue
+The following 21 packages will be installed:
+
+Installing linux_base-f10: 10_7
+&lt;snip&gt;
+Installing nvidia-settings: 310.14
+
+The installation will require 381 MB more space
+62 MB to be downloaded
+Proceed with installing packages [y/N]: y
+&lt;snip&gt;
+</code></pre>
+
+<p>kldloadでドライバをロード、kldstatで確認。</p>
+
+<pre><code class="language-console">$ sudo kldload nvidia
+$ kldstat
+Id Refs Address            Size     Name
+1   19 0xffffffff80200000 15ef860  kernel
+2    1 0xffffffff817f0000 23ab28   zfs.ko
+3    2 0xffffffff81a2b000 6630     opensolaris.ko
+4    1 0xffffffff81c12000 860970   nvidia.ko
+5    1 0xffffffff82473000 43274    linux.ko
+</code></pre>
+
+<p>もちろん、ドライバがシステムブート時に読み込まれるよう、/boot/loader.confに書き込んでおく。</p>
+
+<pre><code class="language-console">/boot/loader.conf
+nvidia_load=&quot;YES&quot;
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-xorgの設定-span"><span style="text-decoration: underline;">Xorgの設定。</span></h2>
+
+<p>rootでXorg -configure。</p>
+
+<pre><code class="language-console"># Xorg -configure
+</code></pre>
+
+<p>同じディレクトリにxorg.conf.newというファイルが出来るはず。<br />
+デフォルトだとNvidiaのドライバにnvが選ばれてしまうので、nvidiaに書き換える。<br />
+以下の部分。</p>
+
+<pre><code class="language-console">Identifier  &quot;Card0&quot;
+Driver      &quot;nv&quot;
+BoardName   &quot;G86M [GeForce 8400M GS]&quot;
+</code></pre>
+
+<p>以下のように。</p>
+
+<pre><code class="language-console">Identifier  &quot;Card0&quot;
+Driver      &quot;nvidia&quot;
+BoardName   &quot;8600M GT&quot;
+</code></pre>
+
+<p>以下のようにしてテスト。</p>
+
+<pre><code class="language-console"># Xorg -config xorg.conf.new -retro
+</code></pre>
+
+<p>細かい市松模様にXのマウスカーソルが出ていれば成功。</p>
+
+<p>Ctrl+Alt+F1を押し、Ctrl+Cで戻る。<br />
+このときコンソールに(EE)が出ていないかチェック。<br />
+(EE)が出ているとすると、haldやdbusが立ち上がってないとか、かな。</p>
+
+<p>xorg.conf.newを/usr/local/etc/X11/xorg.confにコピー。</p>
+
+<pre><code class="language-console"># cp xorg.conf.new /usr/local/etc/X11/xorg.conf
+</code></pre>
+
+<p>ではGNOME。</p>
+
+<h2 id="span-style-text-decoration-underline-gnome-span"><span style="text-decoration: underline;">GNOME</span></h2>
+
+<p>installでgnome2を指定するだけ。</p>
+
+<pre><code class="language-console">$ sudo pkg install gnome2
+Updating repository catalogue
+The following 385 packages will be installed:
+
+Installing xcb-util-renderutil: 0.3.8
+&lt;snip&gt;
+Installing gnome2: 2.32.1_5
+
+The installation will require 2 GB more space
+
+368 MB to be downloaded
+
+Proceed with installing packages [y/N]: y
+&lt;snip&gt;
+[384/385] Installing gnome-applets-2.32.1.1_4... done
+[385/385] Installing gnome2-2.32.1_5... done
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-フォント-インプットメソッドのインストール-span"><span style="text-decoration: underline;">フォント、インプットメソッドのインストール</span></h2>
+
+<p>ja-uim-anthy, uim-gnomeを。</p>
+
+<pre><code class="language-console">$ sudo pkg install ja-uim-anthy uim-gnome
+</code></pre>
+
+<p>フォントは、ja-fontで検索して好きなものを。</p>
+
+<pre><code class="language-console">$ pkg search ja-font
+ja-font-ipa-00303_1
+ja-font-ipa-uigothic-00203
+ja-font-ipaex-00201_2
+ja-font-jisx0213-20040425_3
+ja-font-kochi-20030809_2
+ja-font-migmix-1.0.20130617
+ja-font-migu-1.0.20130617
+ja-font-mona-ipa-1.0.8_2
+ja-font-motoya-al-0.0.20100921_1
+ja-font-mplus-2.2.4.055_2
+ja-font-mplus-ipa-1.0.20060520.p1_2
+ja-font-sazanami-20040629_2
+ja-font-shinonome-0.9.11.p1
+ja-font-std-0.0.20130501
+ja-font-takao-003.02.01_1
+ja-font-ume-0.0.456
+ja-font-vlgothic-20130607
+</code></pre>
+
+<p>以下を選んだ。</p>
+
+<pre><code class="language-console">$ sudo pkg install ja-font-ipa ja-font-migu ja-font-motoya-al ja-font-
+mplus ja-font-vlgothic ja-font-takao
+</code></pre>
+
+<p>インストールは以上。</p>
+
+<h2 id="span-style-text-decoration-underline-gnome2向けにいくつかファイルを修正-span"><span style="text-decoration: underline;">GNOME2向けにいくつかファイルを修正</span></h2>
+
+<p>ほとんどは一行追加。</p>
+
+<p>/boot/loader.conf</p>
+
+<pre><code class="language-console">kern.maxfiles=&quot;25000&quot;
+</code></pre>
+
+<p>/etc/fstab</p>
+
+<pre><code class="language-console">proc           /proc       procfs  rw  0   0
+</code></pre>
+
+<p>/etc/sysctl.conf</p>
+
+<pre><code class="language-console">vfs.usermount=1
+</code></pre>
+
+<p>/etc/devfs.conf</p>
+
+<pre><code class="language-console">perm    devstat 0444
+</code></pre>
+
+<p>/usr/local/etc/PolicyKit/PolicyKit.confは以下のように修正。</p>
+
+<pre><code class="language-console">
+&lt;config version=&quot;0.1&quot;&gt;
+&lt;match action=&quot;org.freedesktop.hal.storage.mount-removable&quot;&gt;
+&lt;return result=&quot;yes&quot;/&gt;
+&lt;/match&gt;
+&lt;match action=&quot;org.freedesktop.hal.storage.mount-fixed&quot;&gt;
+&lt;return result=&quot;yes&quot;/&gt;
+&lt;/match&gt;
+&lt;match user=&quot;root&quot;&gt;
+&lt;return result=&quot;yes&quot;/&gt;
+&lt;/match&gt;
+&lt;define_admin_auth group=&quot;wheel&quot;/&gt;
+&lt;/config&gt;
+</code></pre>
+
+<p>以上で一通り終わり。</p>
+
+<h2 id="span-style-text-decoration-underline-gnome起動の設定-span"><span style="text-decoration: underline;">GNOME起動の設定</span></h2>
+
+<p>gnome_enable, gdm_enableを/etc/rc.confに追加</p>
+
+<pre><code class="language-console">$ sudo sysrc gnome_enable=&quot;YES&quot;
+gnome_enable:  -&gt; YES
+$ sudo sysrc gdm_enable=&quot;YES&quot;
+gdm_enable:  -&gt; YES
+</code></pre>
+
+<p>gdmが嫌なら、gdm_enableはNOにしておいて、以下を設定。<br />
+この場合はログインしてstartxで起動。</p>
+
+<pre><code class="language-console">$ echo '/usr/local/bin/gnome-session' &gt; ~/.xinitrc
+
+$ echo '#!/bin/sh' &gt; ~/.xsession
+$ echo '/usr/local/bin/gnome-session' &gt;&gt; ~/.xsession
+$ chmod +x ~/.xsession
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-文字コード設定-span"><span style="text-decoration: underline;">文字コード設定</span></h2>
+
+<p>bashの場合。</p>
+
+<pre><code class="language-console">$ echo 'LANG=&quot;ja_JP.UTF-8&quot;; export LANG' &gt;&gt; ~/.profile
+</code></pre>
+
+<p>以上。<br />
+あとは再起動で。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

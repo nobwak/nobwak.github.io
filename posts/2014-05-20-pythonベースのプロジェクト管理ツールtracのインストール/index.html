@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Pythonベースのプロジェクト管理ツール、tracのインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Pythonベースのプロジェクト管理ツール、tracのインストール" />
+<meta property="og:description" content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2014-05-20T23:24:19&#43;09:00"/>
+<meta property="article:modified_time" content="2014-05-20T23:24:19&#43;09:00"/>
+
+<meta itemprop="name" content="Pythonベースのプロジェクト管理ツール、tracのインストール">
+<meta itemprop="description" content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール">
+
+
+<meta itemprop="datePublished" content="2014-05-20T23:24:19&#43;09:00" />
+<meta itemprop="dateModified" content="2014-05-20T23:24:19&#43;09:00" />
+<meta itemprop="wordCount" content="3217">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,python," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pythonベースのプロジェクト管理ツール、tracのインストール"/>
+<meta name="twitter:description" content="Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。 プロジェうと管理ツールとしては、redmineもインストール"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Pythonベースのプロジェクト管理ツール、tracのインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-05-20T23:24:19&#43;09:00">May 20, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Pythonベースのプロジェクト管理ツールtracをインストールした経緯を示す。<br />
+プロジェうと管理ツールとしては、redmineもインストールしたのだが、それと比較したい。<br />
+だからひとまずインストールするだけ。<br />
+FreeBSD 10.0-RELEASEにtrac-1.0.1。</p>
+
+<h2 id="全体のながれ">全体のながれ</h2>
+
+<ol>
+<li>tracのインストール</li>
+<li>環境作成</li>
+<li>環境のテスト</li>
+<li>認証用パスワードファイルの作成</li>
+<li>起動設定</li>
+<li>複数プロジェクト設定</li>
+</ol>
+
+<h2 id="インストール">インストール</h2>
+
+<p>tracはpkgにもあるので、特に障害もなくインストール完了。<br />
+/usr/local/lib/python2.7/site-packages/tracにドバっとファイルが作られる。</p>
+
+<p>古い（といってもそこまで古くないが）ブログによると、日本語環境で使うためにいろいろと苦労が必要なようだが、現時点においてはpkg install trac一発で完了。<br />
+依存関係はこんな感じ。</p>
+
+<pre><code class="language-console">$ sudo pkg info -d trac
+trac-1.0.1_2:
+        silvercity-0.9.7
+        py27-pygments-1.6_2
+        py27-Genshi-0.7_1
+        py27-docutils-0.11
+        python27-2.7.6_4
+        python2-2_2
+        py27-subversion-1.8.8_2
+        py27-setuptools27-2.0.1
+        py27-pytz-2014.1.1,1
+        py27-Babel-1.3_1
+        py27-sqlite3-2.7.6_3
+</code></pre>
+
+<p>データベースはご覧の通りsqliteが使われる。もちろんMySQLなど他のソフトウェアも使える。<br />
+webサーバも不要。こちらもapacheなど他のソフトウェアを使える。</p>
+
+<h2 id="設定">設定</h2>
+
+<p>大したことはない。<br />
+まず環境を作る。<br />
+ディレクトリを決めておいて、そこでtracコマンドを実行し、初期化する。<br />
+例えば/usr/local/wwwの下に、tracというディレクトリを作る。<br />
+そこでtrac initenvと叩く。<br />
+注意点は、ディレクトリの文字コード。ASCIIじゃないとダメ。<br />
+また、作成したあとには、ユーザ、グループ権限を変えること。<br />
+www:wwwで動かすならそのようにchownしておく。</p>
+
+<p>以下は実行例。<br />
+データベースにsqliteを使うならリターンキーを連打するだけでよい。<br />
+（プロジェクト名はMy Projectになるけど。）</p>
+
+<pre><code class="language-console">example01 /usr/local/www &gt;trac-admin /usr/local/www/trac initenv
+Creating a new Trac environment at /usr/local/www/trac
+
+Trac will first ask a few questions about your environment
+in order to initialize and prepare the project database.
+
+ Please enter the name of your project.
+ This name will be used in page titles and descriptions.
+
+Project Name [My Project]&gt;
+
+ Please specify the connection string for the database to use.
+ By default, a local SQLite database is created in the environment
+ directory. It is also possible to use an already existing
+ PostgreSQL database (check the Trac documentation for the exact
+ connection string syntax).
+
+Database connection string [sqlite:db/trac.db]&gt;
+
+Creating and Initializing Project
+ Installing default wiki pages
+  CamelCase imported from 
+（略）
+Project environment for 'My Project' created.
+
+You may now configure the environment by editing the file:
+  /usr/local/www/trac/conf/trac.ini
+
+If you'd like to take this new project environment for a test drive,
+try running the Trac standalone web server `tracd`:
+  tracd --port 8000 /usr/local/www/trac
+
+Then point your browser to http://localhost:8000/trac.
+There you can also browse the documentation for your installed
+version of Trac, including information on further setup (such as
+deploying Trac to a real web server).
+
+The latest documentation can also always be found on the project
+website:
+  http://trac.edgewall.org/
+
+Congratulations!
+example01 /usr/local/www &gt;
+</code></pre>
+
+<p>詳細な設定はtrac.iniでできるよ、とメッセージがあるが、そんなのは後回しにして、まずは起動確認。</p>
+
+<h2 id="試運転">試運転</h2>
+
+<p>初期設定完了時のメッセージにある通り、tracdとしてwebサーバを起動することができる。<br />
+-portにポート番号、それにディレクトリを引数に与える。</p>
+
+<pre><code class="language-console">example01 /usr/local/www &gt;tracd --port 8000 /usr/local/www/trac/
+ Server starting in PID 2351.
+ Serving on 0.0.0.0:8000 view at http://127.0.0.1:8000/
+ Using HTTP/1.1 protocol version
+ 192.168.100.106 - - [17/May/2014 00:35:57] &quot;GET / HTTP/1.1&quot; 200 -
+ 192.168.100.106 - - [17/May/2014 00:35:58] &quot;GET /favicon.ico HTTP/1.1&quot; 404 -
+ 192.168.100.106 - - [17/May/2014 00:35:58] &quot;GET /favicon.ico HTTP/1.1&quot; 404 -
+ 192.168.100.106 - - [17/May/2014 00:36:00] &quot;GET /trac HTTP/1.1&quot; 200 -
+ 192.168.100.106 - - [17/May/2014 00:36:00] &quot;GET /trac/chrome/common/css/wiki.css HTTP/1.1&quot; 200 - 1
+</code></pre>
+
+<p>この状態で、ブラウザから接続して、以下のような表示があれば成功。<br />
+さっき作ったMy Projectが見えていますね。<br />
+<a href="../../../wp-content/uploads/2014/05/tractestboot01.png"><img class="alignnone size-thumbnail wp-image-2717" src="../../../wp-content/uploads/2014/05/tractestboot01-150x150.png" alt="tractestboot01" width="150" height="150" /></a><br />
+ただ、この状態では何もできない。<br />
+<a href="../../../wp-content/uploads/2014/05/tractestboot02.png"><img class="alignnone size-thumbnail wp-image-2718" src="../../../wp-content/uploads/2014/05/tractestboot02-150x150.png" alt="tractestboot02" width="150" height="150" /></a><br />
+メニューのログインをクリックしても、ページがない旨のエラーが表示されるはず。<br />
+まずは認証の準備をする必要がある。<br />
+ターミナルに戻ってCtrl+Cで抜けよう。</p>
+
+<h2 id="認証用のパスワードファイル作成">認証用のパスワードファイル作成</h2>
+
+<p>認証の準備すなわちパスワードファイルの作成である。<br />
+パスワードファイルだから、平文で書かれていてはまずい。<br />
+ではどうやって作るか。<br />
+apacheをインストールしていれば、htpasswdを使う。<br />
+apacheがなければ。<br />
+インストールドキュメントに書いてあるスクリプトを使う。<br />
+<a href="http://emelfm2.net/wiki/TracStandalone" target="_blank"><a href="http://emelfm2.net/wiki/TracStandalone">http://emelfm2.net/wiki/TracStandalone</a></a></p>
+
+<p>ちょっと横道に逸れるが。<br />
+いずれにしても、このさきtracにユーザを追加する場合には、ここで作成したパスワードファイルへの登録で行う。<br />
+これを面倒と感じるかどうか。</p>
+
+<p>さておき、以下を適当な名前で、たとえばtrac-digest.pyとして保存する。</p>
+
+<pre><code class="language-console">from optparse import OptionParser
+# The md5 module is deprecated in Python 2.5
+try:
+    from hashlib import md5
+except ImportError:
+    from md5 import md5
+realm = 'trac'
+
+# build the options
+usage = &quot;usage: %prog [options]&quot;
+parser = OptionParser(usage=usage)
+parser.add_option(&quot;-u&quot;, &quot;--username&quot;,action=&quot;store&quot;, dest=&quot;username&quot;, type = &quot;string&quot;,
+                  help=&quot;the username for whom to generate a password&quot;)
+parser.add_option(&quot;-p&quot;, &quot;--password&quot;,action=&quot;store&quot;, dest=&quot;password&quot;, type = &quot;string&quot;,
+                  help=&quot;the password to use&quot;)
+parser.add_option(&quot;-r&quot;, &quot;--realm&quot;,action=&quot;store&quot;, dest=&quot;realm&quot;, type = &quot;string&quot;,
+                  help=&quot;the realm in which to create the digest&quot;)
+(options, args) = parser.parse_args()
+
+# check options
+if (options.username is None) or (options.password is None):
+   parser.error(&quot;You must supply both the username and password&quot;)
+if (options.realm is not None):
+   realm = options.realm
+   
+# Generate the string to enter into the htdigest file
+kd = lambda x: md5(':'.join(x)).hexdigest()
+print ':'.join((options.username, realm, kd([options.username, realm, options.password])))
+</code></pre>
+
+<p>使い方は以下の通りで、python trac-digest.pyに続けて、-u ＜ユーザネーム＞ -p ＜パスワード＞とし、その出力をファイルに向ける。</p>
+
+<pre><code class="language-console">example01 /usr/local/www &gt; python trac-digest.py -u username -p password &gt;&gt; /tmp/digest.txt
+</code></pre>
+
+<p>つまりユーザusernameを、passwordというパスワードで作成している。</p>
+
+<p>生成されたファイルの中身は以下の通り。<br />
+2カラムめはrealm。</p>
+
+<pre><code class="language-console">username:trac:a053da77aad45fc9d4a506ef6fd
+</code></pre>
+
+<h2 id="本格起動">本格起動</h2>
+
+<p>今度はtracdにオプションを特盛で与える。<br />
+-authで先ほどのパスワードファイルを与える。<br />
+その際には、プロジェクトのベースディレクトリ、パスワードファイル、realmを指定する。<br />
+ベースディレクトリとは、もし環境を作ったディレクトリが/usr/local/www/tracならtracになる。<br />
+このベースディレクトリは、のちにwebサーバを動かしたとき、http://＜サーバアドレス＞/＜ベースディレクトリ＞というように使われる。</p>
+
+<p>最終的に-authは、本記事の例でいえば、-auth=trac,/tmp/digest.txt,tracとなる。</p>
+
+<p>さらに、-pで待ち受けポート、-user, -groupでtracdを動かす権限を、-dでdaemoniseを指定する。<br />
+以下のようになる。</p>
+
+<pre><code class="language-console"># tracd --auth=trac,/tmp/digest.txt,trac -p 8000 --user=www --group=www /usr/local/www/trac/ -d
+</code></pre>
+
+<p>試運転の時とは違い、すぐにプロンプトが戻ってくる。<br />
+試しにsockstatを見てみると、以下の通り。</p>
+
+<pre><code class="language-console"># sockstat -l4
+ USER COMMAND PID FD PROTO LOCAL ADDRESS FOREIGN ADDRESS
+ www python2.7 6517 3 tcp4 192.168.100.240:8000 *:*
+</code></pre>
+
+<h2 id="認証の確認">認証の確認</h2>
+
+<p>さきほどはクリックしてもページのなかった「ログイン」が、今度はIDとパスワードを訊いてくるようになっているはず。<br />
+<a href="../../../wp-content/uploads/2014/05/tractestboot03.png"><img class="alignnone size-thumbnail wp-image-2719" src="../../../wp-content/uploads/2014/05/tractestboot03-150x150.png" alt="tractestboot03" width="150" height="150" /></a><br />
+<a href="../../../wp-content/uploads/2014/05/tractestboot04.png"><img class="alignnone size-thumbnail wp-image-2720" src="../../../wp-content/uploads/2014/05/tractestboot04-150x150.png" alt="tractestboot04" width="150" height="150" /></a><br />
+これでチケットの発行ができる。</p>
+
+<h2 id="管理者権限の作成">管理者権限の作成</h2>
+
+<p>しかしユーザusernameは一般ユーザである。<br />
+彼に管理者権限を与えるには、以下のようにtracコマンドで操作を行う。</p>
+
+<pre><code class="language-console">example01 /usr/local/www &gt;trac-admin /usr/local/www/trac permission add username TRAC_ADMIN
+example01 /usr/local/www &gt;
+</code></pre>
+
+<p>このあと、ユーザusernameには管理者メニューが現れる。<br />
+<a href="../../../wp-content/uploads/2014/05/tractestboot05.png"><img class="alignnone size-thumbnail wp-image-2721" src="../../../wp-content/uploads/2014/05/tractestboot05-150x150.png" alt="tractestboot05" width="150" height="150" /></a></p>
+
+<p>なお、管理者であれば、他ユーザの権限も操作できる。<br />
+<a href="../../../wp-content/uploads/2014/05/tractestboot06.png"><img class="alignnone size-thumbnail wp-image-2722" src="../../../wp-content/uploads/2014/05/tractestboot06-150x150.png" alt="tractestboot06" width="150" height="150" /></a><br />
+したがって、管理者権限を与えるのは最初の一人だけ、にすることもできる。</p>
+
+<p>注意点としては、各ユーザの権限はさきほど作成したパスワードファイルでは管理されていない、ということ。</p>
+
+<p>繰り返すが、ユーザの登録はパスワードファイルへの登録で、（少なくとも初回の）権限変更は上記コマンドで、という仕組みをどう感じるか。<br />
+まあちょっと面倒くさいかもしれませんな。</p>
+
+<h2 id="システム起動時設定-シングル環境モード">システム起動時設定（シングル環境モード）</h2>
+
+<p>以上でtracをとりあえず起動する設定は済んだ。<br />
+あとはシステム起動時にtracが起動するよう、/etc/rc.confに設定を加える。<br />
+/usr/local/etc/rc.d/trac内のコメントに沿ってrc.confに追加する。<br />
+以下は例。## trac</p>
+
+<pre><code class="language-console">tracd_enable=&quot;YES&quot;
+tracd_listen=&quot;192.168.100.240&quot;
+tracd_port=&quot;8000&quot;
+tracd_envdir=&quot;/usr/local/www/&quot;
+tracd_env=&quot;trac&quot;
+tracd_args=&quot;--user=www --group=www --auth=trac,/tmp/digest.txt,trac&quot;
+</code></pre>
+
+<p>tracd_envdirとtracd_envに注意。<br />
+こういう書き方をしてtracに接続するといきなりMy Projectに移動する。<br />
+プロジェクトが一つであれば何の問題もないが、複数プロジェクトを抱えたい場合には困る。</p>
+
+<h2 id="複数プロジェクトの運営">複数プロジェクトの運営</h2>
+
+<p>複数プロジェクトを登録したいのであれば、必要なぶんだけディレクトリを作り、そこでtrac-admin initenvすればよい。<br />
+例えば/usr/local/www/tracsなんてディレクトリを作り、projecttemp, projectaltというディレクトリをさらに作る。<br />
+それぞれにinit-envで環境を作る。<br />
+このとき、/etc/rc.confはこのようにする。<br />
+tracd_envに/usr/local/www/tracsを指定し、tracd_envはコメントアウト。<br />
+-authで指定するベースディレクトリにアスタリスクを与えれば、パスワードファイルを複数のプロジェクトで共有できる。</p>
+
+<pre><code class="language-console">## trac
+tracd_enable=&quot;YES&quot;
+tracd_listen=&quot;192.168.100.240&quot;
+tracd_port=&quot;8000&quot;
+tracd_envdir=&quot;/usr/local/www/tracs&quot;
+#tracd_env=&quot;&quot;
+tracd_args=&quot;--user=www --group=www --auth=*,/tmp/digest.txt,trac&quot;
+</code></pre>
+
+<p>こんな感じ。<br />
+<a href="../../../wp-content/uploads/2014/05/tractestboot07.png"><img class="alignnone size-thumbnail wp-image-2723" src="../../../wp-content/uploads/2014/05/tractestboot07-150x150.png" alt="tractestboot07" width="150" height="150" /><br />
+</a> <a href="../../../wp-content/uploads/2014/05/tractestboot08.png"><img class="alignnone size-thumbnail wp-image-2724" src="../../../wp-content/uploads/2014/05/tractestboot08-150x150.png" alt="tractestboot08" width="150" height="150" /></a></p>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-11-freebsd%E3%81%ABredmine%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%8F%96%E3%82%8A%E3%81%82%E3%81%88%E3%81%9A%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92%E3%82%8B%E3%81%A8%E3%81%93%E3%81%BE%E3%81%A7/">FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-09-pyinstaller%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9Fwindows%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84version_resource_file%E3%81%AE%E4%BD%9C%E3%82%8A%E3%81%8B%E3%81%9F/">PyInstallerで作ったWindowsアプリでバージョンを表示させたい（Version Resource Fileの作りかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-05-windows%E3%81%ABpyinstaller%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Windowsにpyinstallerをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-01-python2_hex%E6%96%87%E5%AD%97%E5%88%97%E3%81%A8bin%E6%96%87%E5%AD%97%E5%88%97%E3%81%A7%E3%82%B3%E3%83%B3%E3%83%90%E3%83%BC%E3%83%88/">[Python2] Hex文字列とBin文字列でコンバート</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-30-python2_string%E3%82%92%E9%80%86%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python2] stringを逆に表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/">Poudriereのjailにセキュリティアップデートを適用</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-29-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0samba-virusfilter%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。samba-virusfilter編</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-27-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0scannedonly%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。scannedonly編。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-25-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFsamba%E3%81%AEvfs%E3%81%A7%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3/">Sambaの汚物（ウイルス）は消毒だ。あるいはsambaのvfsでウイルススキャン</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-18-monitorix%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%97%E3%82%88%E3%81%86/">Monitorixをカスタマイズしよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/">ママも安心。軽量手軽な監視ツールMonitorix</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Coreos on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/coreos/</link>
+    <description>Recent content in Coreos on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Mon, 15 Feb 2016 22:20:43 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/coreos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[coreos]CoreOSインストール時に使ったcloud-configはどこに行ったの？</title>
+      <link>https://nobwak.github.io/posts/2016-02-15-coreoscoreos%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%AB%E4%BD%BF%E3%81%A3%E3%81%9Fcloud-config%E3%81%AF%E3%81%A9%E3%81%93%E3%81%AB%E8%A1%8C%E3%81%A3%E3%81%9F%E3%81%AE/</link>
+      <pubDate>Mon, 15 Feb 2016 22:20:43 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-02-15-coreoscoreos%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%99%82%E3%81%AB%E4%BD%BF%E3%81%A3%E3%81%9Fcloud-config%E3%81%AF%E3%81%A9%E3%81%93%E3%81%AB%E8%A1%8C%E3%81%A3%E3%81%9F%E3%81%AE/</guid>
+      <description>自分でCoreOSをインストールするときには、初期設定を書き込んだcloud-configを読み込ませる。 ファイル一つでOSの設定を全部、賄</description>
+    </item>
+    
+    <item>
+      <title>[docker]dockerのimageを更新し、不要なimageを削除する</title>
+      <link>https://nobwak.github.io/posts/2016-01-16-dockerdocker%E3%81%AEimage%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%97%E4%B8%8D%E8%A6%81%E3%81%AAimage%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B/</link>
+      <pubDate>Sat, 16 Jan 2016 22:28:39 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-01-16-dockerdocker%E3%81%AEimage%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%97%E4%B8%8D%E8%A6%81%E3%81%AAimage%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B/</guid>
+      <description>docker pullしてimageを更新し、結果として山ほどできるnoneなimageを削除するのが面倒くさいのでシェルスクリプトにした。 upimage.sh #!/bin/sh docker images | grep</description>
+    </item>
+    
+  </channel>
+</rss>

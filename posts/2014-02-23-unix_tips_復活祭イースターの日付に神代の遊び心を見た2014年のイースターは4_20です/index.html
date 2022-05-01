@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）" />
+<meta property="og:description" content="cal/ncalにはイースター（復活祭）を表示するオプションがある。 私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/" />
+<meta property="article:published_time" content="2014-02-23T13:13:06&#43;09:00"/>
+<meta property="article:modified_time" content="2014-02-23T13:13:06&#43;09:00"/>
+
+<meta itemprop="name" content="[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）">
+<meta itemprop="description" content="cal/ncalにはイースター（復活祭）を表示するオプションがある。 私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に">
+
+
+<meta itemprop="datePublished" content="2014-02-23T13:13:06&#43;09:00" />
+<meta itemprop="dateModified" content="2014-02-23T13:13:06&#43;09:00" />
+<meta itemprop="wordCount" content="861">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,linux,OS X," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）"/>
+<meta name="twitter:description" content="cal/ncalにはイースター（復活祭）を表示するオプションがある。 私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-02-23T13:13:06&#43;09:00">February 23, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>cal/ncalにはイースター（復活祭）を表示するオプションがある。<br />
+私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に入っていることに感銘したので記録する。</p>
+
+<h2 id="span-style-text-decoration-underline-結論-span"><span style="text-decoration: underline;">結論</span></h2>
+
+<pre><code class="language-console">ncal -e　（西方教会向け）
+ncal -o　（東方教会向け）
+</code></pre>
+
+<ul>
+<li>Linux(GNU cal)ならcal -e/cal -oでOK。</li>
+</ul>
+
+<h2 id="span-style-text-decoration-underline-calコマンド-span"><span style="text-decoration: underline;">calコマンド</span></h2>
+
+<p>UNIXにはcalコマンドという、カレンダーを表示するコマンドがある。<br />
+手許のMacにもきちんと入っていて（MacなのでFreeBSD由来です）、実行してみると以下のように表示される。</p>
+
+<pre><code class="language-console">$ cal
+
+2月 2014
+日 月 火 水 木 金 土
+1
+2 3 4 5 6 7 8
+9 10 11 12 13 14 15
+16 17 18 19 20 21 22
+23 24 25 26 27 28
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-復活祭とは-span"><span style="text-decoration: underline;">復活祭とは</span></h2>
+
+<p>wikiがこちら。<br />
+<a href="http://ja.wikipedia.org/wiki/復活祭" target="_blank"><a href="http://ja.wikipedia.org/wiki/復活祭">http://ja.wikipedia.org/wiki/復活祭</a></a></p>
+
+<p>「復活祭は基本的に「春分の日の後の最初の満月の次の日曜日」に祝われるため、年によって日付が変わる移動祝日である。」ということなので、コンピュータに計算させるニーズは、それなりにあるというわけですな。</p>
+
+<h2 id="span-style-text-decoration-underline-コマンド実行例-span"><span style="text-decoration: underline;">コマンド実行例</span></h2>
+
+<p>OS XやFreeBSDで復活祭の日付を表示させるには、calコマンドではできず、ncalコマンドを使う必要がある。<br />
+GNU calなら問題なし、つまり大半のLinuxでも問題なし。<br />
+ncalコマンドは、calコマンドにさらにレイアウトやオプションを追加したもの。</p>
+
+<p>-e、つまりeaster、で復活祭の日付を表示する。<br />
+-o、つまりOrthodox(正教)での復活祭の日付を表示する。</p>
+
+<pre><code class="language-console">$ ncal -e
+4月 20 2014
+
+$ ncal -o
+4月 20 2014
+</code></pre>
+
+<p>東方、西方、同じようですな。</p>
+
+<h2 id="span-style-text-decoration-underline-おわりに-span"><span style="text-decoration: underline;">おわりに</span></h2>
+
+<p>マニュアルを見ると、calコマンドはAT&amp;T UNIXのVersion 5で現れたとのこと。<br />
+1975年ごろ。<br />
+まさに神代である。</p>
+
+<p>そして、そんな時代でターミナル上にカレンダーを豪快に表示させるという、ロックなコマンドが生まれてるんである。<br />
+「真面目にやれよ」とか怒られなかったんですかね。<br />
+そしていつごろか、そこに復活祭のような移動祝祭日を計算するオプションが入ってくる。<br />
+のびのびしているというか、融通無碍というか。<br />
+気持ちよくて、駄文を記した次第でございます。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/linux" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">linux</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/os-x" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">OS X</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDへのMATEインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-15-ical%E3%81%ABgoogle%E3%81%AE%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">iCalにGoogleのカレンダーを表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/">EasyBotterをFreeBSDで動かす</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

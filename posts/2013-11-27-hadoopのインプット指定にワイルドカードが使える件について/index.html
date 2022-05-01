@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Hadoopのインプット指定にワイルドカードが使える件について</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Hadoopのインプット指定にワイルドカードが使える件について" />
+<meta property="og:description" content="Hadoopへのインプットはふつう、ディレクトリかファイルの指定で行う。 しかし以下のような場合にどうするか。 複数のディレクトリの下にあるファ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-11-27-hadoop%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%97%E3%83%83%E3%83%88%E6%8C%87%E5%AE%9A%E3%81%AB%E3%83%AF%E3%82%A4%E3%83%AB%E3%83%89%E3%82%AB%E3%83%BC%E3%83%89%E3%81%8C%E4%BD%BF%E3%81%88%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" />
+<meta property="article:published_time" content="2013-11-27T22:32:18&#43;09:00"/>
+<meta property="article:modified_time" content="2013-11-27T22:32:18&#43;09:00"/>
+
+<meta itemprop="name" content="Hadoopのインプット指定にワイルドカードが使える件について">
+<meta itemprop="description" content="Hadoopへのインプットはふつう、ディレクトリかファイルの指定で行う。 しかし以下のような場合にどうするか。 複数のディレクトリの下にあるファ">
+
+
+<meta itemprop="datePublished" content="2013-11-27T22:32:18&#43;09:00" />
+<meta itemprop="dateModified" content="2013-11-27T22:32:18&#43;09:00" />
+<meta itemprop="wordCount" content="475">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hadoopのインプット指定にワイルドカードが使える件について"/>
+<meta name="twitter:description" content="Hadoopへのインプットはふつう、ディレクトリかファイルの指定で行う。 しかし以下のような場合にどうするか。 複数のディレクトリの下にあるファ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Hadoopのインプット指定にワイルドカードが使える件について</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-11-27T22:32:18&#43;09:00">November 27, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Hadoopへのインプットはふつう、ディレクトリかファイルの指定で行う。</p>
+
+<p>しかし以下のような場合にどうするか。</p>
+
+<ul>
+<li>複数のディレクトリの下にあるファイルをhadoopに処理させたいとき。</li>
+<li>特定拡張子のファイルのみをhadoopに処理させたいとき。</li>
+</ul>
+
+<p>実はワイルドカードが使えるので、それで解決。<br />
+以下、hadoop-1.0.0で確認。</p>
+
+<h2 id="span-style-text-decoration-underline-ケース1-複数ディレクトリの下に処理対象ファイルがある場合-span"><span style="text-decoration: underline;">ケース1:複数ディレクトリの下に処理対象ファイルがある場合。</span></h2>
+
+<pre><code class="language-console">top-+-dir1-file1
+    |     -file2
+    |     -file3
+    |
+    +-dir2-file4
+          -file5
+          -file6
+</code></pre>
+
+<p>以上のような状態でhadoopへのinputにtopを指定すると、hadoopはdir1をファイルとして処理しようとし、失敗する。<br />
+たとえばこのように。</p>
+
+<pre><code class="language-console">13/11/13 22:26:03 ERROR security.UserGroupInformation: PriviledgedActionException as:hadoop cause:java.io.IOException: Not a file: hdfs://namenode/user/hadoop/top/dir1
+13/11/13 22:26:03 ERROR streaming.StreamJob: Error Launching job : Not a file:
+hdfs://namenode/user/hadoop/top/dir1
+Streaming Job Failed!
+</code></pre>
+
+<p>このような場合には、top/*と指定してあげればよい。<br />
+たとえばこのように。</p>
+
+<pre><code class="language-console">$ hadoop jar ${HADOOP_PREFIX}/contrib/streaming/hadoop-streaming-1.0.0.jar \
+-D mapred.reduce.tasks=0 \
+-input top/*  \
+-output sampleoutput \
+-mapper /home/hadoop/map.py \
+-file /home/hadoop/map.py
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-ケース2-特定のファイルのみ処理したい場合-span"><span style="text-decoration: underline;">ケース2:特定のファイルのみ処理したい場合</span></h2>
+
+<p>たとえば以下のdir3で.txtのみを処理したい場合。</p>
+
+<pre><code class="language-console">-dir3-file1.txt
+     -file2.bin
+     -file3.txt
+</code></pre>
+
+<p>-input dir3/*.txtとすればよい。</p>
+
+<h2 id="span-style-text-decoration-underline-ケース3-ケース1-2の複合ケース-span"><span style="text-decoration: underline;">ケース3:ケース1/2の複合ケース</span></h2>
+
+<pre><code class="language-console">top-+-dir4-file1.txt
+    |     -file2.bin
+    |     -file3.txt
+    |
+    +-dir5-file4.txt
+          -file5.bin
+          -file6.txt
+</code></pre>
+
+<p>合わせ技でtop/*/*.txtと指定すればよい。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

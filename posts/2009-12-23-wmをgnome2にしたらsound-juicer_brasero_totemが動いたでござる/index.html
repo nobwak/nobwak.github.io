@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。" />
+<meta property="og:description" content="納得いかないが、とりあえずメモだけしとく。 sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2009-12-23-wm%E3%82%92gnome2%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89sound-juicer_brasero_totem%E3%81%8C%E5%8B%95%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/" />
+<meta property="article:published_time" content="2009-12-23T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2009-12-23T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。">
+<meta itemprop="description" content="納得いかないが、とりあえずメモだけしとく。 sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev">
+
+
+<meta itemprop="datePublished" content="2009-12-23T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2009-12-23T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1047">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。"/>
+<meta name="twitter:description" content="納得いかないが、とりあえずメモだけしとく。 sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">WMをGNOME2にしたらsound-juicer, brasero, totemが動いたでござる。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-12-23T01:00:00&#43;09:00">December 23, 2009</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>納得いかないが、とりあえずメモだけしとく。
+
+
+
+sound-juicer, braseo, totem（以下、面倒なのでsound-juicer）はCDへ/dev/acdではなく/dev/cd（SCSI）経由でアクセスするので、いろいろと設定を変える必要がある。
+
+
+
+◎/etc/fstabを修正する。
+
+
+
+/etc/fstabを修正して、/dev/acd0をコメントアウト、さらにprocを作っておく。
+</code></pre>
+
+<pre><code class="language-console">$ cat /etc/fstab
+# Device		Mountpoint	FStype	Options		Dump	Pass#
+/dev/ad0s1b		none		swap	sw		0	0
+/dev/ad0s1a		/		ufs	rw		1	1
+/dev/ad0s1f		/home		ufs	rw		2	2
+/dev/ad0s1e		/usr		ufs	rw		2	2
+/dev/ad0s1d		/var		ufs	rw		2	2
+#/dev/acd0		/cdrom		cd9660	ro,noauto	0	0
+proc			/proc		procfs	rw		0	0
+$ sudo mount /proc
+$ mount
+/dev/ad0s1a on / (ufs, local)
+devfs on /dev (devfs, local, multilabel)
+/dev/ad0s1f on /home (ufs, local, soft-updates)
+/dev/ad0s1e on /usr (ufs, local)
+/dev/ad0s1d on /var (ufs, local)
+procfs on /proc (procfs, local)
+</code></pre>
+
+<pre><code>◎atapicamをロードするよう、/boot/loader.confを修正する。
+
+
+
+&lt;a href=&quot;http://www.freebsd.org/gnome/docs/faq2.html#q15&quot; target=&quot;_blank&quot;&gt;FreeBSD公式サイト&lt;/a&gt;を見るとKernelにdevice atapicamを入れろとか書いてあるが、そんなことしたらGENERICカーネルが使えずfreebsd-updateに影響するので、カーネルモジュールをロードすることにした。
+</code></pre>
+
+<pre><code class="language-console">$ grep atapicam /boot/loader.conf
+atapicam_load=&amp;#34;YES&amp;#34;
+</code></pre>
+
+<pre><code>loader.confが正しく設定されているか、いったんリブートして確認するのがよいが、どうせ後でdevfs.confを修正した時にリブートするのでその時に確認するとして、ここではsudo kldload atapicamする。
+
+
+
+kldstatしてatapicamがロードされているか見る。
+
+
+
+さらにcamcontrolでデバイスが認識されていることも確認すること。
+</code></pre>
+
+<pre><code class="language-console">$ kldstat
+Id Refs Address    Size     Name
+1   19 0xc0400000 b6dfe0   kernel
+2    1 0xc0f6e000 7224     snd_ich.ko
+3    2 0xc0f76000 567c0    sound.ko
+4    1 0xc0fcd000 4ffc     atapicam.ko
+5    1 0xc4774000 2000     blank_saver.ko
+6    1 0xc48da000 9000     i915.ko
+7    1 0xc48e3000 14000    drm.ko
+$ camcontrol devlist
+&amp;#60;HL-DT-ST RW/DVD GCC-4160N 0013&gt;   at scbus1 target 0 lun 0 (cd0,pass0)
+</code></pre>
+
+<pre><code>◎camcontrol devlistで表示されたデバイス名に合わせて/etc/devfs.confを修正する。
+
+
+
+そのままだと一般ユーザはアクセス出来ないので。
+
+
+
+上記の結果を見ると、/dev/cd0が狙いのCD（DVD）ROMドライブなので、devfs.confでパーミッションを変える。
+
+
+
+&lt;a href=&quot;http://www.freebsd.org/gnome/docs/faq2.html#q15&quot; target=&quot;_blank&quot;&gt;FreeBSD GNOME FAQ&lt;/a&gt;にあるとおり、0666にするのもよいが、ここではoperatorグループに自ユーザを加え、root:operatorに0660にした。
+
+
+
+その他にxpt0, pass0も同様に。
+</code></pre>
+
+<pre><code class="language-console">$ tail /etc/devfs.conf
+#####
+own	cd0	root:operator
+perm	cd0	0666
+own	acd0	root:operator
+perm	acd0	0666
+own	xpt0	root:operator
+perm	xpt0	0666
+own	pass0		root:operator
+perm	pass0		0666
+own	msdosfs		root:operator
+perm	msdosfs		0666
+$ grep operator /etc/group
+operator:*:5:root,ore
+＜リブート＞
+$ ls -la /dev/cd0 /dev/xpt0 /dev/pass0
+crw-rw----  1 root  operator    0,  92 12 21 23:52 /dev/cd0
+crw-rw----  1 root  operator    0,  91 12 21 23:52 /dev/pass0
+crw-rw----  1 root  operator    0,  90 12 21 23:52 /dev/xpt0
+</code></pre>
+
+<pre><code>GNOMEだったらこれで行けた。XFCE4だったらダメ。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

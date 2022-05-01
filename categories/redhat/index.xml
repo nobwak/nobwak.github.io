@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redhat on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/redhat/</link>
+    <description>Recent content in Redhat on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Thu, 05 Mar 2009 01:00:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/redhat/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Redhat 4から5へのアップグレード</title>
+      <link>https://nobwak.github.io/posts/2009-03-05-redhat_4%E3%81%8B%E3%82%895%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</link>
+      <pubDate>Thu, 05 Mar 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-03-05-redhat_4%E3%81%8B%E3%82%895%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</guid>
+      <description>DVDで普通に起動しただけではアップグレードの選択肢が出てこなかった。 ググった結果、DVD起動時にlinux upgradeanyとして指定す</description>
+    </item>
+    
+  </channel>
+</rss>

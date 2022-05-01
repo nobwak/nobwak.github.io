@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら" />
+<meta property="og:description" content="「a,b,&quot;cde,fg&quot;,e」 こんなCSVをPHPで扱おうとすると、結構面倒くさい。 &lt;a href=&quot;http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html&quot; target=&quot;_b" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2007-04-25-php5.2.1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89/" />
+<meta property="article:published_time" content="2007-04-25T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2007-04-25T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら">
+<meta itemprop="description" content="「a,b,&quot;cde,fg&quot;,e」 こんなCSVをPHPで扱おうとすると、結構面倒くさい。 &lt;a href=&quot;http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html&quot; target=&quot;_b">
+
+
+<meta itemprop="datePublished" content="2007-04-25T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2007-04-25T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="241">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら"/>
+<meta name="twitter:description" content="「a,b,&quot;cde,fg&quot;,e」 こんなCSVをPHPで扱おうとすると、結構面倒くさい。 &lt;a href=&quot;http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html&quot; target=&quot;_b"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-04-25T01:00:00&#43;09:00">April 25, 2007</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>「a,b,&quot;cde,fg&quot;,e」
+
+
+
+こんなCSVをPHPで扱おうとすると、結構面倒くさい。
+
+
+
+&lt;a href=&quot;http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html&quot; target=&quot;_blank&quot;&gt;ここ&lt;/a&gt;の人と同じように結構悩んだ。
+
+
+
+結論だけ書く。
+
+
+
+&lt;a href=&quot;http://php.benscom.com/manual/ja/function.strtok.php&quot; target=&quot;_blank&quot;&gt;http://php.benscom.com/manual/ja/function.strtok.php&lt;/a&gt;
+
+
+
+ここにサンプルがあったので、これを改変してこんな感じで。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  test.php
+
+
+
+
+
+
+  ＜?php
+
+
+
+  $fh=fopen(&quot;test.csv&quot;,'r');
+
+
+
+  while(!feof($fh)){
+
+
+
+  　　　　$buffer = fgets($fh,4096);
+
+
+
+  　　　　$buffer = chop($buffer);
+
+
+
+  　　　　$values = tokenizeQuoted($buffer,&quot;,&quot;);
+
+
+
+  　　　　print_r($values);
+
+
+
+
+
+
+  }
+
+
+
+  fclose($fh);
+
+
+
+
+
+
+  //split a string into an array of space-delimited tokens, taking double-quoted strings into account
+
+
+
+  function tokenizeQuoted($string,$delimitar)
+
+
+
+  {
+
+
+
+  　　for($tokens=array(), $nextToken=strtok($string, $delimitar); $nextToken!==false; $nextToken=strtok($delimitar))
+
+
+
+  　　{
+
+
+
+  　　　　if($nextToken{0}=='&quot;-)
+
+
+
+  　　　　　　$nextToken = $nextToken{strlen($nextToken)-1}=='&quot;- ?
+
+
+
+  　　　　　　substr($nextToken, 1, -1) : substr($nextToken, 1) . $delimitar . strtok(-&quot;-);
+
+
+
+  　　　　$tokens[] = $nextToken;
+
+
+
+  　　}
+
+
+
+  　　return $tokens;
+
+
+
+  }
+
+
+
+  ?&gt;
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>サンプル
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  nobody@localhost$ cat test.csv
+
+
+
+  a,b,&quot;cde,fg&quot;,e
+
+
+
+  nobody@localhost$ php ./test.php
+
+
+
+  Array
+
+
+
+  (
+
+
+
+  　　[0] =&gt; a
+
+
+
+  　　[1] =&gt; b
+
+
+
+  　　[2] =&gt; cde,fg
+
+
+
+  　　[3] =&gt; e
+
+
+
+  )
+
+
+
+  nobody@localhost$
+</code></pre>
+
+<p></blockquote></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [メモ][FreeBSD] owncloud &#43; nginx &#43; php-fpm &#43; MySQLのインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[メモ][FreeBSD] owncloud &#43; nginx &#43; php-fpm &#43; MySQLのインストール" />
+<meta property="og:description" content="owncloudは自家製dropboxのようなもの。 以下、メモ。 owncloudの構成 owncloudはphpで作られている。 そしてインタフ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2015-10-05-%E3%83%A1%E3%83%A2freebsd_owncloud_&#43;_nginx_&#43;_php-fpm_&#43;_mysql%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2015-10-05T22:56:00&#43;09:00"/>
+<meta property="article:modified_time" content="2015-10-05T22:56:00&#43;09:00"/>
+
+<meta itemprop="name" content="[メモ][FreeBSD] owncloud &#43; nginx &#43; php-fpm &#43; MySQLのインストール">
+<meta itemprop="description" content="owncloudは自家製dropboxのようなもの。 以下、メモ。 owncloudの構成 owncloudはphpで作られている。 そしてインタフ">
+
+
+<meta itemprop="datePublished" content="2015-10-05T22:56:00&#43;09:00" />
+<meta itemprop="dateModified" content="2015-10-05T22:56:00&#43;09:00" />
+<meta itemprop="wordCount" content="2050">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[メモ][FreeBSD] owncloud &#43; nginx &#43; php-fpm &#43; MySQLのインストール"/>
+<meta name="twitter:description" content="owncloudは自家製dropboxのようなもの。 以下、メモ。 owncloudの構成 owncloudはphpで作られている。 そしてインタフ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[メモ][FreeBSD] owncloud &#43; nginx &#43; php-fpm &#43; MySQLのインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2015-10-05T22:56:00&#43;09:00">October 5, 2015</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>owncloudは自家製dropboxのようなもの。<br />
+以下、メモ。</p>
+
+<h2 id="owncloudの構成">owncloudの構成</h2>
+
+<p>owncloudはphpで作られている。<br />
+そしてインタフェースはhttps。<br />
+したがって、動作にはowncloudのほかに、php, webサーバが必要。<br />
+さらにバックエンド用のデータベースソフトウェアも必要である。</p>
+
+<h2 id="packageのowncloud">packageのowncloud</h2>
+
+<p>owncloudはバックエンドのDBにMySQL, SQLiteなどが選べる。<br />
+個人用ならSQLiteでも大丈夫そうだが、packageに用意されているowncloudはMySQLが有効、SQLiteが無効になっている。<br />
+SQLite版owncloudが欲しければportsからコンパイルする必要がある。<br />
+これまた面倒なのでpackageのものを使った。<br />
+packageからowncloudをインストールすると、phpは勝手に入るが、webサーバ、MySQLは別にインストールする必要がある。<br />
+ここではwebサーバにnginxを選んだ。<br />
+ではMySQLは。</p>
+
+<h2 id="mysqlのバージョン選定">MySQLのバージョン選定</h2>
+
+<p>いや、MySQLはMySQLに決まっているんだが、実はpackageを探すと、5.1, 5.5, 5.6の三つがあるのだ。</p>
+
+<pre><code class="language-console">$ pkg search &quot;^mysql.*server&quot;
+mysql51-server-5.1.73_2
+mysql55-server-5.5.43
+mysql56-server-5.6.24
+</code></pre>
+
+<p>果たしてどれを選べばよいのであろうか。</p>
+
+<blockquote class="wp-embedded-content" data-secret="f7Q79EiJMd">
+  
+    <a href="https://www.liquidweb.com/kb/mysql-5-1-vs-5-5-vs-5-6-performance-comparison/">MySQL 5.1 vs. 5.5 vs. 5.6 Performance Comparison</a>
+  
+</blockquote>
+
+<p>以上のURL他を見たところ、最新の5.6で良さそうなのでmysql56-server-5.6.24をインストールしておいた。</p>
+
+<h2 id="owncloudのインストール">owncloudのインストール</h2>
+
+<p>packageで入れるだけ。<br />
+いっしょにnginx, mysql5.6も入れる。</p>
+
+<pre><code class="language-console"># pkg install owncloud nginx mysql56-server
+</code></pre>
+
+<h2 id="mysqlの設定">MySQLの設定</h2>
+
+<p>owncloudのデータベースを受け持つMySQLの設定<br />
+システム起動時にMySQLも自動的に起動するように設定。</p>
+
+<pre><code class="language-console"># sysrc mysql_enable=YES
+mysql_enable:  -&gt; YES
+</code></pre>
+
+<p>すぐ起動</p>
+
+<pre><code class="language-console"># service mysql-server start
+Starting mysql.
+</code></pre>
+
+<p>mysql_secure_installationでセキュリティを高めておくと同時にスーパーユーザのパスワードも設定。</p>
+
+<pre><code class="language-console"># mysql_secure_installation
+</code></pre>
+
+<p>データベースの作成<br />
+USERはユーザ名に、CHANGE_THIS_PASSWORDはパスワードに書き換えること。</p>
+
+<pre><code class="language-console"># mysql -p -e &quot;create user 'USER'@'localhost' identified by 'CHANGE_THIS_PASSWORD';&quot;
+# mysql -p -e &quot;create database if not exists owncloud;&quot;
+# mysql -p -e &quot;grant all on owncloud.* to 'USER'@'localhost' identified by 'CHANGE_THIS_PASSWORD';&quot;
+# mysql -p -e &quot;flush privileges;&quot;
+</code></pre>
+
+<h2 id="phpの設定">phpの設定</h2>
+
+<p>owncloudはphpで書かれている。そのphpの設定。<br />
+とはいえ、特別、何かすることはない。</p>
+
+<p>/usr/local/etcにあるphp.ini-production を、php.ini としてコピー</p>
+
+<p>次に/usr/local/etc/php/extensions.ini に以下の記載があることを確認する（デフォルトで記載があるはず）</p>
+
+<pre><code class="language-console">extension=pdo.so
+extension=mysql.so
+</code></pre>
+
+<h2 id="php-fpmの設定">php-fpmの設定</h2>
+
+<p>そのままでは静的コンテンツしか扱わないnginxが、phpを実行できるようにするための設定。<br />
+php-fpmがデーモンとして動作し、nginxからの要求に応じてphpを実行して結果を返す。<br />
+したがってphp-fpmとnginxがどう通信するかを規定したり、システム起動時にphp-fpmが自動的に起動するような指定が必要。</p>
+
+<p>まずはphp-fpmの設定。<br />
+/usr/local/etc/php-fpm.confに以下があればよい。<br />
+それ以外はむしろ冗長だし、見にくくなるので削ってしまってよい。</p>
+
+<pre><code class="language-console">[global]
+pid = run/php-fpm.pid
+error_log = log/php-fpm.log
+
+[owncloud]
+listen=/var/run/php-fpm.socket
+listen.owner=www
+listen.group=www
+listen.mode=0666
+listen.backlog=-1
+listen.allowed_clients=127.0.0.1
+user=www
+group=www
+pm=dynamic
+pm.max_children=4
+pm.start_servers=1
+pm.min_spare_servers = 1
+pm.max_spare_servers = 2
+pm.max_requests = 500
+env[HOSTNAME] = $HOSTNAME
+env[PATH] = /usr/local/bin:/usr/bin:/bin
+env[TMP] = /tmp
+env[TMPDIR] = /tmp
+env[TEMP] = /tmp
+</code></pre>
+
+<p>システム起動時のphp-fpm起動設定<br />
+/etc/rc.conf内ではphp-fpmではなくphp_fpmとなることに注意（ハイフンではなくアンダースコア）</p>
+
+<pre><code class="language-console">sysrc php_fpm_enable=YES
+php_fpm_enable: -&gt; YES
+</code></pre>
+
+<h2 id="nginxの設定-の前に-sslの準備">nginxの設定…の前に、SSLの準備</h2>
+
+<p>SSLのためにはサーバの鍵が必要。<br />
+手前味噌だが、<a href="../../../2015/09/sh-%e3%82%aa%e3%83%ac%e3%82%aa%e3%83%ac%e8%a8%bc%e6%98%8e%e6%9b%b8%e4%bd%9c%e6%88%90%e3%82%b7%e3%82%a7%e3%83%ab%e3%82%b9%e3%82%af%e3%83%aa%e3%83%97%e3%83%88/" target="_blank">ここ</a>にあるスクリプトを使ってくれい。</p>
+
+<p>秘密鍵、証明書、DHパラメータ、三つのファイルを作成して、/usr/local/etc/sslあたりに入れる。</p>
+
+<h2 id="nginxの設定">nginxの設定</h2>
+
+<p>以下、二つのサイトを参考にしつつ作成。</p>
+
+<p><a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-1.8.0&amp;openssl=1.0.1l&amp;hsts=yes&amp;profile=intermediate">https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-1.8.0&amp;openssl=1.0.1l&amp;hsts=yes&amp;profile=intermediate</a><br />
+<a href="https://doc.owncloud.org/server/7.0/admin_manual/installation/nginx_configuration.html">https://doc.owncloud.org/server/7.0/admin_manual/installation/nginx_configuration.html</a></p>
+
+<p>出来たのが以下。</p>
+
+<pre><code class="language-console">#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] &quot;$request&quot; '
+    #                  '$status $body_bytes_sent &quot;$http_referer&quot; '
+    #                  '&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        return 301 https://$server_name$request_uri;
+    }
+
+    upstream php-handler {
+        #server 127.0.0.1:9000;
+        #server unix:/var/run/php5-fpm.sock;
+        server unix:/var/run/php-fpm.socket;
+    }
+
+    server {
+        listen       443 ssl;
+        server_name  localhost;
+        #
+        # Generated with;
+        # https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-
+1.8.0&amp;openssl=1.0.1l&amp;hsts=yes&amp;profile=intermediate
+        #
+
+        # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
+        ssl_certificate /usr/local/etc/ssl/server.crt;
+        ssl_certificate_key /usr/local/etc/ssl/server.key;
+        ssl_session_timeout 1d;
+        ssl_session_cache shared:SSL:50m;
+
+        # Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
+        ssl_dhparam /usr/local/etc/ssl/dhparam.pem;
+
+        # intermediate configuration. tweak to your needs.
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RS
+A-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES
+128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-
+AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECD
+HE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-D
+SS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-RSA-
+DES-CBC3-SHA:ECDHE-ECDSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256
+:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!D
+ES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA
+';
+        ssl_prefer_server_ciphers on;
+
+        # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
+        add_header Strict-Transport-Security max-age=15768000;
+
+        # OCSP Stapling ---
+        # fetch OCSP records from URL in ssl_certificate and cache them
+        ssl_stapling on;
+        ssl_stapling_verify on;
+
+        ## verify chain of trust of OCSP response using Root CA and Intermediate certs
+        ssl_trusted_certificate /usr/local/etc/ssl/cert.pem;
+
+        # end of generated
+
+
+        #
+        # copyed from https://doc.owncloud.org/server/7.0/admin_manual/installation/ngi
+nx_configuration.html
+        #
+
+        # Path to the root of your installation
+        root /usr/local/www/owncloud/;
+        # set max upload size
+        client_max_body_size 10G;
+        fastcgi_buffers 64 4K;
+
+        # Disable gzip to avoid the removal of the ETag header
+        gzip off;
+
+        # Uncomment if your server is build with the ngx_pagespeed module
+        # This module is currently not supported.
+        #pagespeed off;
+
+        rewrite ^/caldav(.*)$ /remote.php/caldav$1 redirect;
+        rewrite ^/carddav(.*)$ /remote.php/carddav$1 redirect;
+        rewrite ^/webdav(.*)$ /remote.php/webdav$1 redirect;
+
+        index index.php;
+        error_page 403 /core/templates/403.php;
+        error_page 404 /core/templates/404.php;
+
+        location = /robots.txt {
+                allow all;
+                log_not_found off;
+                access_log off;
+        }
+
+        location ~ ^/(?:\.htaccess|data|config|db_structure\.xml|README){
+                deny all;
+        }
+
+        location / {
+                # The following 2 rules are only needed with webfinger
+                rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+                rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json
+ last;
+
+                rewrite ^/.well-known/carddav /remote.php/carddav/ redirect;
+                rewrite ^/.well-known/caldav /remote.php/caldav/ redirect;
+
+                rewrite ^(/core/doc/[^\/]+/)$ $1/index.html;
+
+                try_files $uri $uri/ /index.php;
+        }
+
+        location ~ \.php(?:$|/) {
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param PATH_INFO $fastcgi_path_info;
+                fastcgi_param HTTPS on;
+                fastcgi_pass php-handler;
+        }
+
+        # Optional: set long EXPIRES header on static assets
+        location ~* \.(?:jpg|jpeg|gif|bmp|ico|png|css|js|swf)$ {
+                expires 30d;
+                # Optional: Don't log access to assets
+                access_log off;
+        }
+    }
+</code></pre>
+
+<h2 id="nginxの起動設定とサービススタート">nginxの起動設定とサービススタート</h2>
+
+<pre><code class="language-console"># sysrc nginx_enable=YES
+nginx_enable: -&gt; YES
+</code></pre>
+
+<p>nginx, php-fpmを起動し、https://＜サーバアドレス＞にブラウザで繋げばOK</p>
+
+<pre><code class="language-console"># service php-fpm start
+# service nginx start
+</code></pre>
+
+<p>その他参考</p>
+
+<p><a href="https://doc.owncloud.org/server/7.0/admin_manual/configuration/database_configuration.html">https://doc.owncloud.org/server/7.0/admin_manual/configuration/database_configuration.html</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Xorg on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/xorg/</link>
+    <description>Recent content in Xorg on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Thu, 30 Jan 2014 19:31:10 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/xorg/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>FreeBSDへのMATEインストール</title>
+      <link>https://nobwak.github.io/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Thu, 30 Jan 2014 19:31:10 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>FreeBSDにMATEをpkgngでインストールしたので経緯を示す。 「メイト」って読んでたけどマテ茶のマテなのね。 私がFreeBSDをイン</description>
+    </item>
+    
+    <item>
+      <title>Xorg7.4のキーボード設定をkwsk その２</title>
+      <link>https://nobwak.github.io/posts/2009-03-18-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE%EF%BC%92/</link>
+      <pubDate>Wed, 18 Mar 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-03-18-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE%EF%BC%92/</guid>
+      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090316/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Xorg7.4のキーボード設定をkwsk その1&amp;lt;/a&amp;gt;の続き。 で話</description>
+    </item>
+    
+    <item>
+      <title>Xorg7.4のキーボード設定をkwsk その1</title>
+      <link>https://nobwak.github.io/posts/2009-03-16-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE1/</link>
+      <pubDate>Mon, 16 Mar 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-03-16-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE1/</guid>
+      <description>HALのキーボード設定ファイルの書き方が分からない。 ググれば設定ファイルは山ほど出てくるが、どう書くかを説明したサイトはなかなか引っかからな</description>
+    </item>
+    
+  </channel>
+</rss>

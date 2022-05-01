@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSD-currentユーザはpanicmailをいますぐインストールしろ</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSD-currentユーザはpanicmailをいますぐインストールしろ" />
+<meta property="og:description" content="FreeBSDダイモン（守護霊）の一人であらせられるコリン・パーシバル（Colin Percival）神がpanicmailをインストールせい" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-01-02-freebsd-current%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AFpanicmail%E3%82%92%E3%81%84%E3%81%BE%E3%81%99%E3%81%90%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/" />
+<meta property="article:published_time" content="2014-01-02T22:15:22&#43;09:00"/>
+<meta property="article:modified_time" content="2014-01-02T22:15:22&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSD-currentユーザはpanicmailをいますぐインストールしろ">
+<meta itemprop="description" content="FreeBSDダイモン（守護霊）の一人であらせられるコリン・パーシバル（Colin Percival）神がpanicmailをインストールせい">
+
+
+<meta itemprop="datePublished" content="2014-01-02T22:15:22&#43;09:00" />
+<meta itemprop="dateModified" content="2014-01-02T22:15:22&#43;09:00" />
+<meta itemprop="wordCount" content="883">
+
+
+
+<meta itemprop="keywords" content="FreeBSD," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSD-currentユーザはpanicmailをいますぐインストールしろ"/>
+<meta name="twitter:description" content="FreeBSDダイモン（守護霊）の一人であらせられるコリン・パーシバル（Colin Percival）神がpanicmailをインストールせい"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSD-currentユーザはpanicmailをいますぐインストールしろ</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-01-02T22:15:22&#43;09:00">January 2, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>FreeBSDダイモン（守護霊）の一人であらせられるコリン・パーシバル（Colin Percival）神が<a href="http://lists.freebsd.org/pipermail/freebsd-current/2013-November/046175.html" target="_blank">panicmailをインストールせい</a>、と仰せになったので入れた。</p>
+
+<h2 id="span-style-text-decoration-underline-panicmailとは-span"><span style="text-decoration: underline;">panicmailとは</span></h2>
+
+<p>panicmailとは、FreeBSDがkernel panicを起こしたとき、panic reportをFreeBSDの開発者に送るツールのこと。<br />
+もちろん、panic reportにはセンシティブな情報は含まれないうえに、暗号化された状態で送られる。<br />
+開発者は、受け取ったレポートをもとに開発を進める。</p>
+
+<h2 id="span-style-text-decoration-underline-kernel-panic-だと-span"><span style="text-decoration: underline;">kernel panic&hellip;だと？</span></h2>
+
+<p>そもそも安定しているOSなのでpanicなんて滅多にしない。<br />
+するのはcurrentくらい。<br />
+currentでなければ最初のOSインストールのときくらいではないだろうか。<br />
+それだけにコリン神のアナウンスもcurrentメーリングリストである。<br />
+だからインストールするのはcurrentユーザだけでいいんじゃないですかね。<br />
+RELEASEユーザならまあ保険程度に。</p>
+
+<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
+
+<p>panicmailはsysutils/panicmailから入れられる。<br />
+以下はpkgngでのインストール例。</p>
+
+<pre><code class="language-console">$ sudo pkg search panicmail
+panicmail-1.0
+$ sudo pkg install panicmail
+Updating repository catalogue
+The following 2 packages will be installed:
+
+Installing pkesh: 1.0 [FreeBSD]
+Installing panicmail: 1.0 [FreeBSD]
+
+The installation will require 12 KB more space
+
+10 KB to be downloaded
+
+Proceed with installing packages [y/N]: y
+pkesh-1.0.txz 100% 4720 4.6KB/s 4.6KB/s 00:00
+panicmail-1.0.txz 100% 5408 5.3KB/s 5.3KB/s 00:00
+Checking integrity... done
+[1/2] Installing pkesh-1.0... done
+[2/2] Installing panicmail-1.0... done
+To enable sending of panic reports, add
+dumpdev=&quot;AUTO&quot;
+panicmail_enable=&quot;YES&quot;
+to your /etc/rc.conf.
+
+By default panic reports will be sent to root with instructions to forward
+them if they do not contain any sensitive information. To automatically
+submit panic reports directly, add
+panicmail_autosubmit=&quot;YES&quot;
+to your /etc/rc.conf in addition.
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-設定-span"><span style="text-decoration: underline;">設定</span></h2>
+
+<p>panicmailを送るには以下が必要。</p>
+
+<ol>
+<li>dumpdevが有効であること</li>
+<li>panicmail_enableがrc.confで設定されていること</li>
+</ol>
+
+<p>この状態でkernel panicが起こると、レポートはいったん当該システムのrootに送られる。<br />
+レビューをして問題なければFreeBSD開発者にメールを送る。<br />
+そのレビューをすっ飛ばしたいなら、panicmail_autosubmitをrc.confで設定すればよい。<br />
+以下、/etc/rc.conf設定例。</p>
+
+<pre><code class="language-console">#
+# enable kernel panic reports
+#
+# see:
+# Automated submission of kernel panic reports: sysutils/panicmail
+# http://lists.freebsd.org/pipermail/freebsd-current/2013-November/046175.html
+panicmail_enable=&quot;YES&quot;
+panicmail_autosubmit=&quot;YES&quot;
+</code></pre>
+
+<p>テストをしてみるべきなんだろうけど、やってません。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/">[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSD(FreeNAS)にPlex Media Serverをインストール</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Hadoopフレンドリーなデータとは</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Hadoopフレンドリーなデータとは" />
+<meta property="og:description" content="ログは1行1イベントに 何を言っとるんだお前はという感じであるが、つまりこういう事である。 通常、ログは1行が1イベントである。 たとえばapac" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/" />
+<meta property="article:published_time" content="2014-01-23T20:16:09&#43;09:00"/>
+<meta property="article:modified_time" content="2014-01-23T20:16:09&#43;09:00"/>
+
+<meta itemprop="name" content="Hadoopフレンドリーなデータとは">
+<meta itemprop="description" content="ログは1行1イベントに 何を言っとるんだお前はという感じであるが、つまりこういう事である。 通常、ログは1行が1イベントである。 たとえばapac">
+
+
+<meta itemprop="datePublished" content="2014-01-23T20:16:09&#43;09:00" />
+<meta itemprop="dateModified" content="2014-01-23T20:16:09&#43;09:00" />
+<meta itemprop="wordCount" content="1010">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,hadoop,jail,linux,python," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hadoopフレンドリーなデータとは"/>
+<meta name="twitter:description" content="ログは1行1イベントに 何を言っとるんだお前はという感じであるが、つまりこういう事である。 通常、ログは1行が1イベントである。 たとえばapac"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Hadoopフレンドリーなデータとは</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-01-23T20:16:09&#43;09:00">January 23, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h2 id="span-style-text-decoration-underline-ログは1行1イベントに-span"><span style="text-decoration: underline;">ログは1行1イベントに</span></h2>
+
+<p>何を言っとるんだお前はという感じであるが、つまりこういう事である。</p>
+
+<p>通常、ログは1行が1イベントである。<br />
+たとえばapacheのログやらなにやら、みんなそうである。<br />
+少なくともUNIX系のシステムであれば、これは常識である。<br />
+しかし、この世の中、UNIX系の常識が通用しないログだって山ほどあるのである。</p>
+
+<h2 id="span-style-text-decoration-underline-1イベントが複数行にわたるログがなぜいけないか-span"><span style="text-decoration: underline;">1イベントが複数行にわたるログがなぜいけないか。</span></h2>
+
+<p>たとえば以下の様な擬似ログを考えてみよう。</p>
+
+<p>まったく関係のない話だが、以下のデータは手元にあるLIFEのノートから適当にでっち上げた。<br />
+冒頭にタイムスタンプがあり、イベントの内容が記される、典型的なログである。</p>
+
+<pre><code class="language-console">2013/12/16 17:55:05.6582 N28 [499016804864] Noble note section B6 5m/m
+</code></pre>
+
+<p><span style="line-height: 1.5em;">しかしこれが、以下のように複数行にわたって記録（あるいは表示）される、こういうログを相手にすることだってあるのだ。</span></p>
+
+<pre><code class="language-console">2013/12/16 17:55:05.6582 N28
+4990 1680
+4864
+Noble note section
+B6 5m/m
+</code></pre>
+
+<p><span style="line-height: 1.5em;">これは主に可読性を意識したせいであろうが、こういったログをHadoopで扱うのは難しい。<br /> </span></p>
+
+<h2 id="span-style-text-decoration-underline-span-style-line-height-1-5em-hadoopのデータの扱い方-span-span"><span style="text-decoration: underline;"><span style="line-height: 1.5em;">Hadoopのデータの扱い方</span></span></h2>
+
+<p><span style="line-height: 1.5em;">というのも、Hadoopは分散処理のためにログを分割するからだ（デフォルトでは64MBごと）。</span></p>
+
+<p>しかもその分割は、単純にサイズのみで判断され、文脈は考慮されない。<br />
+上のログで言えば、Nobleの手前で切られてしまってログとして意味がなくなってしまうことだってある。</p>
+
+<p>これを避けるには、Hadoopにファイルそのものではなくて、ファイルリストを与える手があるけれども、それではHadoopの長所を活かせない。<br />
+ファイルリストは綺麗に分割されるけど、ファイルの大きさはまちまちだから。</p>
+
+<h2 id="span-style-text-decoration-underline-ログの整形-span"><span style="text-decoration: underline;">ログの整形</span></h2>
+
+<p>というわけで、こういったログを扱う前に、下準備として1行1イベントにまとめてしまおう。</p>
+
+<p>まとめ自体もHadoopで処理してしまえば楽である。<br />
+Hadoopの象本Appendix Cに良い例があるのでこれを使う。<br />
+ここでfiles.txtは処理するログファイルをリストしたものとする。<br />
+また、concat.shは1行1イベントにまとめるスクリプトとする。</p>
+
+<pre><code class="language-console">$ hadoop jar $HADOOP_INSTALL/contrib/streaming/hadoop-*-streaming.jar \
+-D mapred.reduce.tasks=0 \
+-D mapred.map.tasks.speculative.execution=false \
+-D mapred.task.timeout=12000000 \
+-input files.txt \
+-inputformat org.apache.hadoop.mapred.lib.NLineInputFormat \
+-output output \
+-mapper concat.sh \
+-file concat.sh
+</code></pre>
+
+<p>reduceは必要ないのでmapred.reduce.tasks=0。<br />
+重複して書き込んでほしくないのでmapred.map.tasks.speculative.execution=false。<br />
+タイムアウトは長めに。<br />
+mapが一回に処理するファイルはひとつにしたいので、-inputformat org.apache.hadoop.mapred.lib.NLineInputFormat 。</p>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/hadoop" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">hadoop</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/jail" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">jail</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/linux" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">linux</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-19-hadoop%E3%81%AEsafemode%E3%81%A8fsck/">hadoopのsafemodeとfsck</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/">EasyBotterをFreeBSDで動かす</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-02-freebsd-current%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AFpanicmail%E3%82%92%E3%81%84%E3%81%BE%E3%81%99%E3%81%90%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">FreeBSD-currentユーザはpanicmailをいますぐインストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/">[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSD(FreeNAS)にPlex Media Serverをインストール</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

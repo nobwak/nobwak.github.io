@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ZFS scrubを過信してはいけません。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ZFS scrubを過信してはいけません。" />
+<meta property="og:description" content="ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2012-12-18-zfs_scrub%E3%82%92%E9%81%8E%E4%BF%A1%E3%81%97%E3%81%A6%E3%81%AF%E3%81%84%E3%81%91%E3%81%BE%E3%81%9B%E3%82%93/" />
+<meta property="article:published_time" content="2012-12-18T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2012-12-18T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="ZFS scrubを過信してはいけません。">
+<meta itemprop="description" content="ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと">
+
+
+<meta itemprop="datePublished" content="2012-12-18T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2012-12-18T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="2107">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ZFS scrubを過信してはいけません。"/>
+<meta name="twitter:description" content="ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ZFS scrubを過信してはいけません。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2012-12-18T01:00:00&#43;09:00">December 18, 2012</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、
+
+
+
+　「scrubって定期的にやるといいらしいよ」
+
+
+
+　「なんかね、fsckみたいなこと、やってくれるらしいよ」
+
+
+
+などという話を聞いた。
+
+
+
+全くそんなことやってないので、慌てて調べてみた。
+
+
+
+結論として、やっといた方がいいけど、なんか「fsckみたいな」と表現するのはおかしいよな、との理解に至った次第。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;ZFSのおさらい&lt;/span&gt;
+
+
+
+ZFSのキモのひとつは、セルフヒーリングにある。
+
+
+
+格納されているデータに対して、強力なチェックサムを持っていて、不整合があっても勝手に修復する。
+
+
+
+勝手に、というのはどういうことかというと、不整合を見つけ「次第」、つまりアクセスしたファイルに不整合があったらその場で修復してしまう、というところ。
+
+
+
+だから、&lt;a href=&quot;http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html&quot; target=&quot;_blank&quot;&gt;http://docs.oracle.com/cd/E19253-01/819-6260/gbbxi/index.html&lt;/a&gt;　のとおり
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  データの不一致が ZFS 構成内のディスク上で発生するとすれば、それはハードウェア障害が発生した場合か、ZFS ソフトウェアにバグが存在する場合だけ
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>なので、ZFSソフトウェアバグはさておき、論理的なデータ不一致の発生リスクについてはとくに手だて不要というわけだ。
+
+
+
+ハードウェア障害ならもうそこは物理的なディスクの冗長でなんとかせい、ということになる。
+
+
+
+言い換えると、ZFS上のファイルにアクセスできない場合には、もうこれは尋常ではない障害が起こっているということであり、あなたはヘビーな状況下にいるということである。(その場合はこちら。)
+
+
+
+&lt;a href=&quot;http://docs.oracle.com/cd/E19253-01/819-6260/gbctt/index.html&quot; target=&quot;_blank&quot;&gt;http://docs.oracle.com/cd/E19253-01/819-6260/gbctt/index.html&lt;/a&gt;
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;じゃあscrubってなによ&lt;/span&gt;
+
+
+
+そういった仕組みを踏まえてscrubというツール。
+
+
+
+これは、上述の「不整合があったら修復する」というのを全データに対して行うだけ。
+
+
+
+…ということは。
+
+
+
+scrubをすれば全データのチェックはする。するけれども、そもそもscrubしてようがしてまいが、そんなことはお構いなしに、個々のファイルにアクセスしたらそのときに不整合チェックはされる。
+
+
+
+カブってるじゃないか。
+
+
+
+むしろscrub頻繁にやったらディスクに無用な負荷かけないか?
+
+
+
+となるとscrubのメリットは何か。
+
+
+
+
+
+
+&lt;a href=&quot;http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html&quot; target=&quot;_blank&quot;&gt;http://docs.oracle.com/cd/E19253-01/819-6260/gbbyd/index.html&lt;/a&gt;
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  ZFS では、すべての不一致を定期的にチェックする機構が用意されています。この 機能は「スクラブ」と呼ばれ、メモリーやほかのシステム内で、ハードウェアまたはソフトウェア障害が発生する前にエラーを検出および回避する手段として一 般的に使用されます。
+
+
+
+  定期的にスクラブを実行すると、システム上のすべてのディスクへの継続的な入出力が保証されます。
+
+
+
+  スクラブを行なっているときまたは必要なファイルにアクセスしているときにエラーが発生した場合には、そのエラーが内部でログに記録されるので、そのプールで認識されているすべてのエラーの概要をすぐに確認できます。
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>とのこと。
+
+
+
+「scrubすれば不整合があっても修復される」というのは、まあ間違ってはいないけど、むしろscrubの主目的はそこよりも、障害の予兆をつかむことにあると理解している。
+
+
+
+たとえば。
+
+
+
+scrubの定期的な実行をしないとする。
+
+
+
+するとデータ不整合チェックは、個々のファイルアクセス契機で行われる。
+
+
+
+不整合があればその都度、解消されるだろうし、解消されない場合には、ヘビーな状況だとして障害復旧を行うだろう。
+
+
+
+しかし、滅多にアクセスしないファイルで致命的な、おそらく物理的な障害が発生し、影響が徐々に広がっていくような場合、このスタイルでは検知が遅れる可能性がある。
+
+
+
+それを防ぐには、定期的にscrubで全ファイルをチェックし、「そのプールで認識されているすべてのエラーの概要」も定期的にチェックすればよい。
+
+
+
+結果、「ハードウェアまたはソフトウェア障害が発生する前にエラーを検出および回避」できる可能性が高くなる、と。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;scrubの使い方&lt;/span&gt;
+
+
+
+というわけで使ってみた。まあコマンド例はいくらでもあるから淡々と。
+</code></pre>
+
+<pre><code class="language-console">$ zpool list
+NAME    SIZE  ALLOC   FREE    CAP  DEDUP  HEALTH  ALTROOT
+vault  2.27T  1.30T   990G    57%  1.00x  ONLINE  -
+</code></pre>
+
+<pre><code>このpoolに対して実行。
+</code></pre>
+
+<pre><code class="language-console">$ sudo zpool scrub vault
+$ 　
+</code></pre>
+
+<pre><code>（すぐプロンプトが返ってくる）
+</code></pre>
+
+<pre><code class="language-console">$ sudo zpool status -v
+pool: vault
+state: ONLINE
+scan: scrub in progress since Tue Dec 18 22:53:46 2012
+154M scanned out of 1.30T at 5.70M/s, 66h19m to go
+0 repaired, 0.01% done
+config:
+NAME        STATE     READ WRITE CKSUM
+vault       ONLINE       0     0     0
+ada1      ONLINE       0     0     0
+errors: No known data errors
+</code></pre>
+
+<pre><code>えっ66時間かかるの?
+
+
+
+（いまだに冗長化してないのが恥ずかしい。今回scrub調べてほんとに危ないのでディスク買わねばと思った）
+</code></pre>
+
+<pre><code class="language-console">$ sudo zpool status -v
+パスワード:
+pool: vault
+state: ONLINE
+scan: scrub in progress since Tue Dec 18 22:53:46 2012
+239G scanned out of 1.30T at 81.4M/s, 3h48m to go
+0 repaired, 17.95% done
+config:
+NAME        STATE     READ WRITE CKSUM
+vault       ONLINE       0     0     0
+ada1      ONLINE       0     0     0
+errors: No known data errors
+</code></pre>
+
+<pre><code>OKOK。
+
+
+
+なお、エラーが発生すれば、このstatusのほかに、syslogに表示されるし、たとえばFreeBSDならroot宛のメールにZFS poolsの状態も記載される。こんな感じに;
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  Checking status of zfs pools:
+
+
+
+  all pools are healthy
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>vaultに対するログにもきっちりと（こういうとこZFSって素敵だ）
+</code></pre>
+
+<pre><code class="language-console">$ sudo zpool history vault
+History for &amp;#39;vault&amp;#39;:
+2012-03-05.22:41:40 zpool create vault ada1
+2012-03-05.22:54:14 zfs create vault/chamber
+2012-03-05.22:56:44 zfs set mountpoint=/chamber vault/chamber
+2012-03-18.00:37:52 zfs create vault/test
+2012-03-18.00:43:27 zfs set dedup=on vault/test
+2012-03-18.00:46:48 zfs destroy vault/test
+2012-12-18.22:53:55 zpool scrub vault
+</code></pre>
+
+<pre><code>なお、scrubの停止は-sコマンドで。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | PythonでWindowsアプリケーションを作ってみよう</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="PythonでWindowsアプリケーションを作ってみよう" />
+<meta property="og:description" content="Pythonには、pythonスクリプトを手軽にWindowsアプリケーション化できるツールが揃っている。 有名なのはPy2exeとPyIns" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/" />
+<meta property="article:published_time" content="2013-12-27T23:05:42&#43;09:00"/>
+<meta property="article:modified_time" content="2013-12-27T23:05:42&#43;09:00"/>
+
+<meta itemprop="name" content="PythonでWindowsアプリケーションを作ってみよう">
+<meta itemprop="description" content="Pythonには、pythonスクリプトを手軽にWindowsアプリケーション化できるツールが揃っている。 有名なのはPy2exeとPyIns">
+
+
+<meta itemprop="datePublished" content="2013-12-27T23:05:42&#43;09:00" />
+<meta itemprop="dateModified" content="2013-12-27T23:05:42&#43;09:00" />
+<meta itemprop="wordCount" content="1812">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,python,Windows," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PythonでWindowsアプリケーションを作ってみよう"/>
+<meta name="twitter:description" content="Pythonには、pythonスクリプトを手軽にWindowsアプリケーション化できるツールが揃っている。 有名なのはPy2exeとPyIns"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">PythonでWindowsアプリケーションを作ってみよう</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-12-27T23:05:42&#43;09:00">December 27, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Pythonには、pythonスクリプトを手軽にWindowsアプリケーション化できるツールが揃っている。<br />
+有名なのはPy2exeとPyInstallerである。<br />
+違いをまとめたうえで、PyInstallerでのWindowsアプリ化をまとめる。</p>
+
+<h2 id="span-style-text-decoration-underline-py2exeとpyinstallerの違い-span"><span style="text-decoration: underline;">Py2exeとPyInstallerの違い</span></h2>
+
+<p>サイト<br />
+<a href="http://www.pyinstaller.org/" target="_blank"><a href="http://www.pyinstaller.org/">http://www.pyinstaller.org/</a></a><br />
+<a href="http://www.py2exe.org/" target="_blank"><a href="http://www.py2exe.org/">http://www.py2exe.org/</a></a></p>
+
+<ul>
+<li>インストールの容易さ<br />
+→PyInstallerが有利</li>
+<li>対応Pythonバージョン<br />
+→Py2exe: 2.4～3.1<br />
+→PyInstaller: 2.4～2.7</li>
+<li>単独exeファイル作成の容易さ<br />
+→PyInstallerがやや有利</li>
+<li>「manifest」ファイル埋め込みの容易さ<br />
+→Py2exeが有利</li>
+</ul>
+
+<p>手軽さの点でPyInstallerを選んだ。</p>
+
+<h2 id="pyinstallerの制限-日本語パスはダメ">PyInstallerの制限（日本語パスはダメ）</h2>
+
+<p>※2014/5/29追記<br />
+PyInstallerで生成したアプリには制限がある。<br />
+そのアプリを、日本語、要するにNon-ASCII文字列の含まれるパスに置くと起動に失敗する。<br />
+Python2なせいだと思うが、じゃあPython3で作ったらどうよ?と考えるも、そもそもPyInstallerはPython3に対応してないし…。<br />
+運用回避するしかないです。<br />
+作ったアプリを人に配って初めて気づいたよ。</p>
+
+<h2 id="span-style-text-decoration-underline-pyinstallerのインストール-span"><span style="text-decoration: underline;">PyInstallerのインストール</span></h2>
+
+<p><a title="pyinstallerのインストール" href="../../../2014/05/pyinstaller%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab/" target="_blank">pyinstallerのインストール</a>を参照。<br />
+<del>ダウンロードして展開するだけ。</del><br />
+ <del>インストールっぽいことは不要。</del><br />
+追加でUPXがあれば準備するとよい。後述。</p>
+
+<p><a href="http://www.pyinstaller.org/" target="_blank"><a href="http://www.pyinstaller.org/">http://www.pyinstaller.org/</a></a> からダウンロード。<br />
+2013/12/6現在、最新版は2.1。</p>
+
+<h2 id="span-style-text-decoration-underline-upxのインストール-span"><span style="text-decoration: underline;">UPXのインストール</span></h2>
+
+<p>UPXとは、実行ファイルを、実行できる形式のまま圧縮してくれるツールである。<br />
+メリットはストレージの占有スペースを少なく出来ること。デメリットは実行時の展開処理。<br />
+UPXは実行時の展開処理がすごく速いうえにメモリ消費量も少ないとのこと。<br />
+大規模なプログラムだったら使ってもよいかな。</p>
+
+<p><a href="http://upx.sourceforge.net/" target="_blank"><a href="http://upx.sourceforge.net/‎">http://upx.sourceforge.net/‎</a></a><br />
+<a href="http://ja.wikipedia.org/wiki/UPX" target="_blank"><a href="http://ja.wikipedia.org/wiki/UPX">http://ja.wikipedia.org/wiki/UPX</a></a></p>
+
+<pre><code class="language-console">UPX is a portable, extendable, high-performance executable packer for several 
+different executable formats. It achieves an excellent compression ratio and 
+offers *very* fast decompression. Your executables suffer no memory overhead 
+or other drawbacks for most of the formats supported, because of in-place 
+decompression.
+</code></pre>
+
+<p>インストールはごく簡単。<br />
+公式サイトからアーカイブをダウンロード。<br />
+Win32/i386版。<br />
+展開したらupx.exeが出てくるので、それをパスの通ったところに置くだけ。<br />
+Pythonのインストールされているディレクトリ（例: C:\Python27）の下に置くのがよいでしょう。<br />
+あるいは別ディレクトリに置いてそこにパスを通す。</p>
+
+<h2 id="span-style-text-decoration-underline-pyinstallerの使い方-span"><span style="text-decoration: underline;">PyInstallerの使い方</span></h2>
+
+<p>python pyinstaller.py targetscript.py とするだけである。</p>
+
+<p>以下、詳細。<br />
+サンプルpythonスクリプトを一つ用意。<br />
+コマンドプロンプトを開いて展開したPyInstallerのディレクトリに移る。<br />
+cdで移るのが面倒なら、SHIFT+右クリックで開く。<br />
+<a href="../../../wp-content/uploads/2013/12/pyicmdprmpt.png"><img class="alignnone size-thumbnail wp-image-2478" src="../../../wp-content/uploads/2013/12/pyicmdprmpt-150x150.png" alt="pyicmdprmpt" width="150" height="150" /></a></p>
+
+<p>pythonにパスが通っていることを確認。</p>
+
+<pre><code class="language-console">C:\download\python\PyInstaller-2.1&gt;python -V
+Python 2.7.2
+
+C:\download\python\PyInstaller-2.1&gt;
+</code></pre>
+
+<p>対象スクリプトをpyinstallerのディレクトリに置くか、パスを取得する。<br />
+パスの取得は、対象ファイルをSHIFT+右クリックで出来る。</p>
+
+<p><a href="../../../wp-content/uploads/2013/12/pyipthcp.png"><img class="alignnone size-thumbnail wp-image-2479" src="../../../wp-content/uploads/2013/12/pyipthcp-150x150.png" alt="pyipthcp" width="150" height="150" /></a></p>
+
+<pre><code class="language-console">C:\download\python\PyInstaller-2.1&gt;python pyinstaller.py &quot;C:\download\python\reducer.py&quot;
+1215 INFO: wrote C:\download\python\PyInstaller-2.1\reducer\reducer.spec
+1559 INFO: Testing for ability to set icons, version resources...
+1901 INFO: ... resource update available
+2413 INFO: UPX is available.
+（中略）
+7048 INFO: Extending PYTHONPATH with C:\download\python
+7049 INFO: checking Analysis
+7050 INFO: building Analysis because out00-Analysis.toc non existent
+7050 INFO: running Analysis out00-Analysis.toc
+7054 INFO: Adding Microsoft.VC90.CRT to dependent assemblies of final executable
+（中略）
+21276 INFO: Executing - upx --lzma -q C:\Users\xxxxxx\AppData\Roaming\pyinstall
+er\bincache01_py27\_socket.pyd
+
+C:\download\python\PyInstaller-2.1&gt;
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-windowsプログラムのできあがり-span"><span style="text-decoration: underline;">Windowsプログラムのできあがり</span></h2>
+
+<p>PyInstallerのフォルダに、スクリプト名でフォルダが出来ているはず。<br />
+<a href="../../../wp-content/uploads/2013/12/pyiblddn.png"><img class="alignnone size-thumbnail wp-image-2481" src="../../../wp-content/uploads/2013/12/pyiblddn-150x150.png" alt="pyiblddn" width="150" height="150" /></a></p>
+
+<p>その下に、さらにbuildとdistという、二つのフォルダがある。<br />
+他人にプログラムを配る場合には、distフォルダの下にある方を配ること。<br />
+実行に必要なDLL（pythonのDLL, MSVCRのDLL）もセットになっているので。</p>
+
+<p><a href="../../../wp-content/uploads/2013/12/pyidist.png"><img class="alignnone size-thumbnail wp-image-2482" src="../../../wp-content/uploads/2013/12/pyidist-150x150.png" alt="pyidist" width="150" height="150" /></a></p>
+
+<h2 id="span-style-text-decoration-underline-その他のオプション説明-span"><span style="text-decoration: underline;">その他のオプション説明</span></h2>
+
+<p>以下参照。<br />
+<a href="http://pythonhosted.org/PyInstaller/" target="_blank"><a href="http://pythonhosted.org/PyInstaller/">http://pythonhosted.org/PyInstaller/</a></a></p>
+
+<p>以下にピックアップ。</p>
+
+<p>-w, -windowed<br />
+実行時にコマンドプロンプトを開かないようになる。<br />
+GUIプログラムのときに便利。</p>
+
+<p>-F, -onefile<br />
+プログラムを一つにまとめてくれる。<br />
+なかなか魅力的なオプションだが、プログラム実行時にけっこう時間がかかってしまう。<br />
+（試してみると分かるが、イライラするレベル）<br />
+おすすめしない。</p>
+
+<p>-i ＜アイコンファイル＞, -icon=＜アイコンファイル＞<br />
+プログラムのアイコンを設定できる。アイコンは拡張子.icoのファイル。</p>
+
+<p>-y<br />
+-clean<br />
+-yは既存の実行ファイルを問答無用で上書きする。<br />
+修正しては何回も実行ファイルを作るときには便利。<br />
+-cleanはログファイルや作業ファイルを消してから実行ファイル作成を始める。</p>
+
+<p>-noupx<br />
+UPXを使いたくないときに指定。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/windows" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Windows</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/">[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSD(FreeNAS)にPlex Media Serverをインストール</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

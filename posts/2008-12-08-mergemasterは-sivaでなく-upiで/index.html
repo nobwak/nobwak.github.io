@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | mergemasterは-sivaでなく-UPiで。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="mergemasterは-sivaでなく-UPiで。" />
+<meta property="og:description" content="mergemasterについて、FreeBSD-questionsに面白い投稿（&lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&quot; target=&quot;_blank&quot" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2008-12-08-mergemaster%E3%81%AF-siva%E3%81%A7%E3%81%AA%E3%81%8F-upi%E3%81%A7/" />
+<meta property="article:published_time" content="2008-12-08T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2008-12-08T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="mergemasterは-sivaでなく-UPiで。">
+<meta itemprop="description" content="mergemasterについて、FreeBSD-questionsに面白い投稿（&lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&quot; target=&quot;_blank&quot">
+
+
+<meta itemprop="datePublished" content="2008-12-08T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2008-12-08T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1229">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mergemasterは-sivaでなく-UPiで。"/>
+<meta name="twitter:description" content="mergemasterについて、FreeBSD-questionsに面白い投稿（&lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&quot; target=&quot;_blank&quot"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">mergemasterは-sivaでなく-UPiで。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2008-12-08T01:00:00&#43;09:00">December 8, 2008</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>mergemasterについて、FreeBSD-questionsに面白い投稿（&lt;a href=&quot;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&quot; target=&quot;_blank&quot;&gt;http://lists.freebsd.org/pipermail/freebsd-questions/2008-September/182096.html&lt;/a&gt;）があった。
+
+
+
+もし結論を早く知りたい人がいれば、結末から読んでください。
+
+
+
+
+
+
+&lt;span style=&quot;font-style:italic;&quot;&gt;2009/2/16 追記。本記事も陳腐化したので、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090216/p1&quot; target=&quot;_blank&quot;&gt;mergemasterをさらにさらにさらに早く&lt;/a&gt;をどうぞ。&lt;/span&gt;
+
+
+
+mergemasterにはかなり前に自動アップデート機能が追加されていたらしく…。
+
+
+
+具体的には、mergemasaterに-Uオプションを与えて実行する。
+
+
+
+これは、ユーザ変更がされていないファイルであれば自動的にアップデートするというもの。
+
+
+
+便利は便利なのだが、その性質上、ユーザ変更の有無を比較するための原本が必要になる。
+
+
+
+その原本が/var/db/mergemaster.mtree。
+
+
+
+今までに何度かmergemasterを実行していれば上記ファイルはあるはずだが、ない場合には「ソースをアップデートする前に」mergemasterを一回カラ打ちする必要がある。
+
+
+
+
+
+
+実行例
+</code></pre>
+
+<pre><code class="language-console">$ mergemaster
+*** Unable to find mtree database. Skipping auto-upgrade.
+*** Creating the temporary root environment in /var/tmp/temproot
+*** /var/tmp/temproot ready for use
+*** Creating and populating directory structure in /var/tmp/temproot
+mtree -eU  -f /usr/src/etc/mtree/BSD.root.dist -p /var/tmp/temproot/
+(略)
+</code></pre>
+
+<pre><code>こうしておけば、次からmergemaster -Uとやるだけで、かなりのファイルを自動アップデートしてくれて楽になるはず。
+
+
+
+しかし、自動アップデートはやはり怖いので、入れ替え前のファイルはどこかに保存しておきたい。だから-Pオプションも追加。バックアップは/var/tmp/mergemaster/preserved-files-`date +%y%m%d-%H%M%S`に作られる。
+
+
+
+さらに、アップグレードにより新規に追加されたファイルは問答無用でインストールしていいはずなので、-iオプションも追加。
+
+
+
+つまりmergemaster -UPi
+
+
+
+ところで、mergemasterの設定ファイルであるmergemaster.rcは/usr/share/examples配下にない。何でないのだろう、と思っていたのだが、なんとmergemasterのマニュアル内にあった。最後まで読んでなかったよ…。
+
+
+
+
+
+
+というわけで、以下のファイルを/etc/mergemaster.rcとして保存しておけばオプション要らず。
+
+
+
+/etc/mergemaster.rc
+</code></pre>
+
+<pre><code class="language-console">AUTO_INSTALL=yes
+AUTO_UPGRADE=yes
+PRESERVE_FILES=yes
+PRESERVE_FILES_DIR=/var/tmp/mergemaster/preserved-files-`date +%y%m%d-%H%M%S`
+IGNORE_MOTD=yes
+VERBOSE=yes
+</code></pre>
+
+<pre><code>AUTO_UPGRADEが-Uオプションに対応するが、現時点（7.1-BETA2）ではマニュアルに記載されていない。
+
+
+
+4行目以降はmergemasterのマニュアルを参考に書いた。
+
+
+
+PRESERVE_FILES_DIRはバックアップファイルを置くディレクトリ書式の指定。
+
+
+
+IGNORE_MOTDはmotdを無視する設定。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

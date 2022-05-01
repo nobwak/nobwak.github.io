@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ZFSの重複ファイル節約機能dedupがすげえ（ただしメモリ大尽に限る）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ZFSの重複ファイル節約機能dedupがすげえ（ただしメモリ大尽に限る）" />
+<meta property="og:description" content="最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 Dedupとは ZFSにはdedupという機能があ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2012-03-18-zfs%E3%81%AE%E9%87%8D%E8%A4%87%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AF%80%E7%B4%84%E6%A9%9F%E8%83%BDdedup%E3%81%8C%E3%81%99%E3%81%92%E3%81%88%E3%81%9F%E3%81%A0%E3%81%97%E3%83%A1%E3%83%A2%E3%83%AA%E5%A4%A7%E5%B0%BD%E3%81%AB%E9%99%90%E3%82%8B/" />
+<meta property="article:published_time" content="2012-03-18T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2012-03-18T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="ZFSの重複ファイル節約機能dedupがすげえ（ただしメモリ大尽に限る）">
+<meta itemprop="description" content="最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 Dedupとは ZFSにはdedupという機能があ">
+
+
+<meta itemprop="datePublished" content="2012-03-18T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2012-03-18T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1805">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ZFSの重複ファイル節約機能dedupがすげえ（ただしメモリ大尽に限る）"/>
+<meta name="twitter:description" content="最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 Dedupとは ZFSにはdedupという機能があ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ZFSの重複ファイル節約機能dedupがすげえ（ただしメモリ大尽に限る）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2012-03-18T01:00:00&#43;09:00">March 18, 2012</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。
+</code></pre>
+
+<p><h2>
+    <span style="text-decoration: underline;"><span class="deco">Dedupとは</span></span>
+  </h2></p>
+
+<pre><code>ZFSにはdedupという機能がある。
+
+
+
+その機能を有効にすると、例えばここに1GBのファイルが一つあるとして、それをコピーしても、場所が同じpool内である限り、1GBのディスクしか消費しない。
+
+
+
+
+
+
+
+
+何それただのハードリンクと思うのは早い。
+
+
+
+
+
+
+
+
+仮に同一のファイルA, Bがあるとする。いずれも1GB。
+
+
+
+ハードリンクすればディスク消費量は1GBだ。
+
+
+
+さてここで、ファイルBの一部、1bitだけを変えたいとする。
+
+
+
+もはやハードリンクはできず、別個のファイルとして扱うことになる。
+
+
+
+したがってディスク消費は2GB。
+
+
+
+
+
+
+
+
+ではdedupだとどうなるか。
+
+
+
+1bit違う1GBのファイル二つがあっても、なんと1GBと128KBだけしかディスクを消費しないという驚きの仕組み。
+
+
+
+
+
+
+
+
+どういうことかというと、dedupはファイルが同じかどうかをブロックごとに判断するということ。
+
+
+
+先の例でいえば、異なる1bitを含むブロック分だけを追加で確保し、それ以外はファイルAと同じものを使う。
+
+
+
+なお、ZFSでブロックサイズは512B～128KB。
+
+
+
+つまり大目に見積もっても1GBと128KBだけの消費でよいわけ。
+</code></pre>
+
+<p><h2>
+    <span style="text-decoration: underline;"><span class="deco">種明かし:テーブルと大量のメモリ</span></span>
+  </h2></p>
+
+<pre><code>なぜそんなことができるのか。
+
+
+
+ZFSはプール上にあるデータのすべてのブロックのハッシュをメモリ上に持っている。
+
+
+
+あるファイルをディスクに書き込む前に、ファイルをブロックに分解しハッシュテーブルと照合、書き込み要否を判断するという仕組み。
+
+
+
+
+
+
+
+
+問題はメモリ上に置くテーブルのサイズだ。
+
+
+
+dedupを有効に使うには、テーブルを置けるほど十分なメモリが必要になる。
+
+
+
+しかし、のちほど見積もりをするが、数TBのディスクを考えるとメモリで賄うのは少々厳しい。
+
+
+
+当然、メモリをこればっかりに使うわけにもいかないのだし。
+
+
+
+もちろん、テーブルをハードディスクに置くことはできるが、ファイルを書き込むたびにディスク上のハッシュテーブルを参照することになる。
+
+
+
+つまりすっごく遅くなる。
+
+
+
+よろしい。ならばSSDだ。
+
+
+
+とはいえ、Dedupの目的がディスクの容量節約ならば、安いHDDケチってメモリ、SSD無理して買うのも本末転倒という話になってくる。
+
+
+
+月並みだけど、よく考えた方がいいよね。
+</code></pre>
+
+<p><h2>
+    <span style="text-decoration: underline;"><span class="deco">Dedupの見積もり。</span></span>
+  </h2></p>
+
+<pre><code>では仮に2TBのデータが詰まったZFSでDedupしたら、どれくらいのメモリが必要か。
+
+
+
+ハッシュテーブルは1ブロックにつき320Bytes。
+
+
+
+zfsのブロックサイズは512Bから128KBで可変。
+
+
+
+ざっくり64KBとみなす。
+
+
+
+では計算。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  2TB=1024 * 1024 * 1024 * 2 = 2147,483,648KB。
+
+
+
+  2TB/64KB=33,554,432 blocks
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>2TBは33,554,432 blocks。
+
+
+
+1blockあたり320Bytesなので、かければテーブルに必要なサイズが出る。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  33,554,432 blocks * 320 Bytes = 10,737,418,240 = 10GBytes
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>はい解散。
+
+
+
+と言いたくなるレベルですな。
+
+
+
+念のため記載するが、上記は2TBのデータを使っているときのdedupテーブルの試算。
+
+
+
+2TBのプールに100bytes程度のファイル一つ置いただけなら、ハッシュテーブルは320Bytes程度。
+</code></pre>
+
+<p><h2>
+    <span style="text-decoration: underline;"><span class="deco">Dedupの活きる道</span></span>
+  </h2></p>
+
+<pre><code>そもそも2TB全部にDedupするのが間違いであった。
+
+
+
+Dedupを活かしたいなら、扱うファイルで決めるのも手。
+
+
+
+ざっくり言えばオフィスドキュメント、仮想マシンイメージなど、重複が見込まれるファイルを多く保管するディレクトリに対してのみDedupするとよいでしょう。
+
+
+
+一方で動画などはあまり有効ではないでしょう。
+
+
+
+なお、プールでDedupするとどれくらい得か、というのは調べることができる。
+
+
+
+zdbにプール名を与えてやればいい。
+
+
+
+一番下に重複具合が表示される。以下の例では1.06。あまり意味はないってことですな。
+
+
+
+ちなみに、あるプールに同一のファイルを3つだけ置くとここが3.00になる。
+</code></pre>
+
+<pre><code class="language-console">$ sudo zdb -S vault
+パスワード:
+Simulated DDT histogram:
+bucket              allocated                       referenced
+______   ______________________________   ______________________________
+refcnt   blocks   LSIZE   PSIZE   DSIZE   blocks   LSIZE   PSIZE   DSIZE
+------   ------   -----   -----   -----   ------   -----   -----   -----
+1    8.22M   1.02T   1.02T   1.02T    8.22M   1.02T   1.02T   1.02T
+2     406K   50.6G   50.6G   50.6G     815K    102G    102G    102G
+4      185   17.1M   17.1M   17.1M      835   73.6M   73.6M   73.6M
+8      146   14.2M   14.2M   14.2M    1.75K    182M    182M    182M
+16       17   8.50K   8.50K   8.50K      407    204K    204K    204K
+32      150   16.7M   16.7M   16.7M    5.43K    600M    600M    600M
+64        9    132K    132K    132K      820   9.49M   9.49M   9.49M
+128        6      3K      3K      3K    1.02K    521K    521K    521K
+256        3    129K    129K    129K      884   40.5M   40.5M   40.5M
+64K        1    128K    128K    128K    73.4K   9.18G   9.18G   9.18G
+Total    8.62M   1.07T   1.07T   1.07T    9.10M   1.13T   1.13T   1.13T
+dedup = 1.06, compress = 1.00, copies = 1.00, dedup * compress / copies = 1.0
+</code></pre>
+
+<p><h2>
+    <span style="text-decoration: underline;"><span class="deco" style="font-weight: bold;">DedupのONのしかた</span></span>
+  </h2></p>
+
+<pre><code>まあzfs set dedup=ONとかすればいいんだけど、現状使う予定もないので詳しく調べてない。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [メモ][Vagrant] Ubuntuのboxを作る</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[メモ][Vagrant] Ubuntuのboxを作る" />
+<meta property="og:description" content="Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でU" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2015-09-18-%E3%83%A1%E3%83%A2vagrant_ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/" />
+<meta property="article:published_time" content="2015-09-18T23:07:12&#43;09:00"/>
+<meta property="article:modified_time" content="2015-09-18T23:07:12&#43;09:00"/>
+
+<meta itemprop="name" content="[メモ][Vagrant] Ubuntuのboxを作る">
+<meta itemprop="description" content="Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でU">
+
+
+<meta itemprop="datePublished" content="2015-09-18T23:07:12&#43;09:00" />
+<meta itemprop="dateModified" content="2015-09-18T23:07:12&#43;09:00" />
+<meta itemprop="wordCount" content="1299">
+
+
+
+<meta itemprop="keywords" content="linux,Vagrant,VM," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[メモ][Vagrant] Ubuntuのboxを作る"/>
+<meta name="twitter:description" content="Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でU"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[メモ][Vagrant] Ubuntuのboxを作る</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2015-09-18T23:07:12&#43;09:00">September 18, 2015</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。<br />
+torrentに流してくれればいいのに…。<br />
+しかたないので自分でUbuntuのboxを作る。</p>
+
+<p>参照ドキュメントは公式の以下のもの。<br />
+ <a href="https://docs.vagrantup.com/v2/boxes/base.html" target="_blank"><a href="https://docs.vagrantup.com/v2/boxes/base.html">https://docs.vagrantup.com/v2/boxes/base.html</a></a></p>
+
+<p>VirtualBox上でUbuntu14.04をインストール後、apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgradeまで済ませた前提。<br />
+providerはVirtualBox。<br />
+まずVirtualBox特有の注意点を先に。</p>
+
+<h2 id="virtualbox向けにboxを作るときの注意点">VirtualBox向けにBoxを作るときの注意点</h2>
+
+<p><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html" target="_blank"><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html">https://docs.vagrantup.com/v2/virtualbox/boxes.html</a></a></p>
+
+<ol>
+<li>ネットワークインタフェースはNATにしておくこと。</li>
+<li>MACアドレスをメモしておくこと。</li>
+<li>VirtualBox Guest Additionsをインストールしてあること。</li>
+</ol>
+
+<p>一つ目の理由は、VirtualBoxが決め打ちで接続してくるから。<br />
+二つ目の理由は、Vagrantfileのconfig.vm.base_macに書く必要があるから。<br />
+MACアドレスはVirtualBoxのGUIから確認できる。<br />
+三つめの条件を満たすには、あらかじめlinux kernel headersとbasic developer toolsをインストールしておく必要がある。<br />
+手順は後述。<br />
+ではさっそく。</p>
+
+<h2 id="不要なハードウェアの無効化">不要なハードウェアの無効化</h2>
+
+<p>USB, オーディオなどを無効化する。<br />
+特にUSBが有効になっていると、無用なバグを引いたりするので、無効化しておくことを強く勧める。</p>
+
+<h2 id="デフォルトユーザ-vagrant-の作成">デフォルトユーザ（vagrant）の作成</h2>
+
+<p>Vagrantの作業用アカウントを作る。<br />
+Vagrantはデフォルトでユーザ&rdquo;vagrant&rdquo;として仮想マシンにSSH接続する。<br />
+vagrantというユーザのいることが明らかだと、それはそれでセキュリティ上のリスクになるのだが、それはVagrantに慣れてから考える。</p>
+
+<p>vagratを追加し、パスワードもvagrantに。<br />
+パスワードを設定しておくのは、万が一、手動で仮想マシンに接続する必要が生まれたときのため。</p>
+
+<pre><code class="language-console"># useradd -m vagrant
+# passwd vagrant
+</code></pre>
+
+<p>SSH接続用に鍵を作成する。<br />
+鍵はインターネットからダウンロードする。そんな鍵なんて危ないように見えるが、これはあくまでも初回ブート用。Vagrantが自動的に書き換えてくれる。</p>
+
+<pre><code class="language-console"># mkdir -p /home/vagrant/.ssh
+# cd /home/vagrant/.ssh 
+# curl -k -L -o authorized_keys 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub'
+# chmod 700 /home/vagrant/.ssh
+# chmod 600 /home/vagrant/.ssh/authorized_keys
+# chown -R vagrant:vagrant /home/vagrant/
+</code></pre>
+
+<h2 id="ユーザvagrant向けsudo設定">ユーザvagrant向けsudo設定</h2>
+
+<p>ユーザvagrantがパスワードなしでsudoできるように。<br />
+visudoで以下の行を追加。</p>
+
+<pre><code class="language-console"># visudo
+vagrant ALL=(ALL)       NOPASSWD: ALL
+</code></pre>
+
+<p>さらにrequirettyという記述があればコメントアウト</p>
+
+<pre><code class="language-console"># requiretty # コメントアウトでttyなくsudoできる。
+</code></pre>
+
+<h2 id="rootのパスワードも変える">rootのパスワードも変える。</h2>
+
+<p>rootのパスワードも&rdquo;vagrant&rdquo;に。</p>
+
+<pre><code class="language-console"># passwd
+</code></pre>
+
+<h2 id="sshd設定">sshd設定</h2>
+
+<p>sshdがなければインストール。</p>
+
+<pre><code class="language-console"># apt-get install openssh-server
+</code></pre>
+
+<p>sshdの設定ファイルを書き換え</p>
+
+<pre><code class="language-console"># vi /etc/ssh/sshd_config
+</code></pre>
+
+<p>以下の行があることを確認。なければ書く。</p>
+
+<pre><code class="language-console">Port 22
+    PubKeyAuthentication yes
+    AuthorizedKeysFile %h/.ssh/authorized_keys
+    PermitEmptyPasswords no
+    UseDNS no
+</code></pre>
+
+<h2 id="virtualbox-guest-additionsのインストール">VirtualBox Guest Additionsのインストール</h2>
+
+<p>再掲だが以下のドキュメントに沿って。<br />
+ <a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html" target="_blank"><a href="https://docs.vagrantup.com/v2/virtualbox/boxes.html">https://docs.vagrantup.com/v2/virtualbox/boxes.html</a></a></p>
+
+<pre><code class="language-console"># apt-get install dkms
+# /etc/init.d/vboxadd setup
+# apt-get install -y build-essential linux-headers-server
+</code></pre>
+
+<p>その後、VirtualBox Guest Additionsのインストール<br />
+VitualBoxのGUIからCDを挿入し、以下を実行。</p>
+
+<pre><code class="language-console"># mount /dev/cdrom /media/cdrom
+# sh /media/cdrom/VBoxLinuxAdditions.run
+# umount /media/cdrom
+# apt-get clean
+</code></pre>
+
+<p>後は<a href="../../../2015/09/%e3%83%a1%e3%83%a2windows-virtualbox%e3%81%ae%e4%bb%ae%e6%83%b3%e3%83%9e%e3%82%b7%e3%83%b3%e3%81%8b%e3%82%89vagrant%e3%81%aebox%e3%82%92%e4%bd%9c%e3%82%8b/">こちら</a>の通り。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/linux" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">linux</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/vagrant" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Vagrant</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/vm" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">VM</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2015-09-17-%E3%83%A1%E3%83%A2windows_virtualbox%E3%81%AE%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%8B%E3%82%89vagrant%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/">[メモ][Windows] VirtualBoxの仮想マシンからvagrantのboxを作る</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-08-%E3%83%A1%E3%83%A2windows%E3%81%ABvagrant%E3%82%92%E5%85%A5%E3%82%8C%E3%81%A6%E3%81%BF%E3%81%9F/">[メモ]WindowsにVagrantを入れてみた</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/">rsyncのディレクトリ指定でエスケープの必要な文字を含めるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-23-%E3%83%A1%E3%83%A2_samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E4%B8%80%E8%A6%A7%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] sambaのパスワードファイルに登録されているユーザ一覧を表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/">[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

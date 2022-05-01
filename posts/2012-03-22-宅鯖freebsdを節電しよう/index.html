@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | 宅鯖FreeBSDを節電しよう</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="宅鯖FreeBSDを節電しよう" />
+<meta property="og:description" content="はいはいはいドーモそういうわけでですね、自宅鯖の節電をやっていきたいわけですけれども。 9.0-RELEASEのIntelで実施しましたので共" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2012-03-22-%E5%AE%85%E9%AF%96freebsd%E3%82%92%E7%AF%80%E9%9B%BB%E3%81%97%E3%82%88%E3%81%86/" />
+<meta property="article:published_time" content="2012-03-22T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2012-03-22T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="宅鯖FreeBSDを節電しよう">
+<meta itemprop="description" content="はいはいはいドーモそういうわけでですね、自宅鯖の節電をやっていきたいわけですけれども。 9.0-RELEASEのIntelで実施しましたので共">
+
+
+<meta itemprop="datePublished" content="2012-03-22T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2012-03-22T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1995">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="宅鯖FreeBSDを節電しよう"/>
+<meta name="twitter:description" content="はいはいはいドーモそういうわけでですね、自宅鯖の節電をやっていきたいわけですけれども。 9.0-RELEASEのIntelで実施しましたので共"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">宅鯖FreeBSDを節電しよう</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2012-03-22T01:00:00&#43;09:00">March 22, 2012</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>はいはいはいドーモそういうわけでですね、自宅鯖の節電をやっていきたいわけですけれども。
+
+
+
+9.0-RELEASEのIntelで実施しましたので共有。
+
+
+
+AMDでも9.xならなんとかできそう。
+
+
+
+しかし8.xかつAMD CPUの方は解散で。
+
+
+
+ただ、MLなどをつらつら見ていると、以下の設定を行っても効果がでないケースもあるようなので各自調整のこと。（例: C2よりC3の方がなぜかCPU温度が上がるとか）
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;やること。&lt;/span&gt;
+
+
+
+やることをさっさと書く。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;CPU throttlingを無効に。&lt;/span&gt;
+
+
+
+/boot/loader.confで指定。
+
+
+
+具体的にはp4tccを無効に。sysctlで調べて複数あればすべてつぶすこと。
+
+
+
+以下の例では二つ。
+</code></pre>
+
+<pre><code class="language-console">$ sysctl -a|grep &amp;#34;p4tcc&amp;#34;
+dev.p4tcc.0.%desc: CPU Frequency Thermal Control
+dev.p4tcc.0.%driver: p4tcc
+dev.p4tcc.0.%parent: cpu0
+dev.p4tcc.0.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1
+dev.p4tcc.1.%desc: CPU Frequency Thermal Control
+dev.p4tcc.1.%driver: p4tcc
+dev.p4tcc.1.%parent: cpu1
+dev.p4tcc.1.freq_settings: 10000/-1 8750/-1 7500/-1 6250/-1 5000/-1 3750/-1 2500/-1 1250/-1
+</code></pre>
+
+<pre><code>以下のように。
+</code></pre>
+
+<pre><code class="language-console">/boot/loader.conf:
+hint.p4tcc.0.disabled=1
+hint.acpi_throttle.0.disabled=1
+hint.p4tcc.1.disabled=1
+hint.acpi_throttle.1.disabled=1
+</code></pre>
+
+<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;C-states設定&lt;/span&gt;
+
+
+
+
+
+
+/etc/rc.confに設定を加え、C3まで落ちるようにする。
+
+
+
+RELEASE、CPUに応じて/boot/loader.confに追加の設定を加える。
+
+
+
+
+
+
+9.x, intelの場合
+</code></pre>
+
+<pre><code class="language-console">/etc/rc.conf:
+performance_cx_lowest=&amp;#34;C3&amp;#34;
+economy_cx_lowest=&amp;#34;C3&amp;#34;
+</code></pre>
+
+<pre><code>8.x, intelの場合
+</code></pre>
+
+<pre><code class="language-console">/etc/rc.conf:
+performance_cx_lowest=&amp;#34;C3&amp;#34;
+economy_cx_lowest=&amp;#34;C3&amp;#34;
+/boot/loader.conf:
+hint.apic.0.clock=0
+kern.hz=100
+hint.atrtc.0.clock=0
+</code></pre>
+
+<pre><code>9.x、AMDの場合
+</code></pre>
+
+<pre><code class="language-console">/etc/rc.conf:
+performance_cx_lowest=&amp;#34;C3&amp;#34;
+economy_cx_lowest=&amp;#34;C3&amp;#34;
+/boot/loader.conf:
+hint.apic.0.clock=0
+</code></pre>
+
+<pre><code>再起動。
+
+
+
+sysctlで確認
+
+
+
+p4tccが表示されない。
+</code></pre>
+
+<pre><code class="language-console">$ sysctl -a|grep p4tcc
+$
+</code></pre>
+
+<pre><code>C3が有効になっていて、再起動直後ということもあるけど、システムがほとんどC3ステートにいることが分かる。
+</code></pre>
+
+<pre><code class="language-console">$ sysctl -a|grep cx
+hw.acpi.cpu.cx_lowest: C3
+dev.cpu.0.cx_supported: C1/1 C2/1 C3/57
+dev.cpu.0.cx_lowest: C3
+dev.cpu.0.cx_usage: 0.00% 0.06% 99.93% last 432us
+dev.cpu.1.cx_supported: C1/1 C2/1 C3/57
+dev.cpu.1.cx_lowest: C3
+dev.cpu.1.cx_usage: 0.00% 0.10% 99.89% last 907us
+</code></pre>
+
+<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;上記設定の意味&lt;/span&gt;
+
+
+
+ではその意味などを。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;1: CPU throttlingの停止について&lt;/span&gt;
+
+
+
+powerdはCPUの周波数変更(CPU throttling)とEISTの組み合わせ。
+
+
+
+周波数変更は単純に周波数だけ変更する。
+
+
+
+EISTは周波数と電圧を変更する。
+
+
+
+前者の周波数変更は、どうも周波数を実際に「落とす」わけではなく、周波数はそのままに「動作をするのはクロック8回に1度な」というように単に動作タイミングを間引いているだけらしい。
+
+
+
+したがって、発熱を抑える効果はあっても（CPU Frequency Thermal Control）、電力消費を抑える効果は薄い。
+
+
+
+効果のない選択肢があっても無駄なだけなのでバッサリ切る。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;2: C-statesの設定&lt;/span&gt;
+
+
+
+C-statesは以下の通り。
+
+
+
+下に行けば行くほど節電できる。システムは低負荷時にあらかじめ設定されたC-states（C状態）まで動作を落とす。
+
+
+
+デフォルトはC1。C2, C3まで落とすようにするには/etc/rc.confで指定する。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  C1: CPUコアの一部のクロックを停止する。
+
+
+
+  C2: CPUコアのクロックを停止する。
+
+
+
+  C3: CPUの内部クロック停止、電圧を下げ、システムバスから切り離す。
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;2-1: AMDの制限&lt;/span&gt;
+
+
+
+AMDの場合、詳細なC StatesはOSに対して隠蔽される。代わりにC1Eというstateがある。
+
+
+
+OSからはマシンがC2にいようが、C3にいようが、C1Eとしてしか分からない。
+
+
+
+後述するようにC3ではタイマーに関しての考慮が必要になるのだが、OSから見えないのではどうにもできない。したがってAMDとRELEASEの組み合わせにより、具体的には8.xとAMD CPUではC1Eへの移行が抑止される。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;2-2: OS, RELEASEの組み合わせごとのC3の設定&lt;/span&gt;
+
+
+
+節電の観点ではC3が一番良いが、この状態だとAPICタイマーも機能しなくなる。
+
+
+
+APICタイマーが止まるとスケジューリングが出来ず、復帰もできなくなる。
+
+
+
+したがって、APIC以外のタイマーを使う必要がある。
+
+
+
+RELEASE、CPUにより回避策に違いが生まれる。
+
+
+
+
+
+
+8.x intelにおいては、APICを使うこと自体を止めれば別タイマ（i8254, RTC）を使ってくれる。
+
+
+
+ただ、C3からの復帰に時間がかかってしまうので（といってもusのレベル）、/boot/loader.confで調整を行う。
+
+
+
+
+
+
+9.x intelにおいては、eventtimersという適切なタイマを選んでくれる仕組みがあるので特に考慮不要。
+
+
+
+
+
+
+8.x amdにおいては、
+
+
+
+OSから分からないところでC3に遷移してAPICタイマを止められてはかなわないので、OSレベルでC1E機能が抑止される。
+
+
+
+つまりC-statesによる節電は無理。これが解散の理由。
+
+
+
+
+
+
+9.x amdにおいては、
+
+
+
+APICタイマが有効なときのみC1E機能が抑止される。
+
+
+
+だからAPICタイマを無効にすればOK。
+
+
+
+
+
+
+&lt;span style=&quot;font-weight:bold;&quot; class=&quot;deco&quot;&gt;参考&lt;/span&gt;
+
+
+
+CPU throttling
+
+
+
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Dynamic_frequency_scaling&quot; target=&quot;_blank&quot;&gt;http://en.wikipedia.org/wiki/Dynamic_frequency_scaling&lt;/a&gt;
+
+
+
+C-States
+
+
+
+&lt;a href=&quot;http://okwave.jp/qa/q4539201.html&quot; target=&quot;_blank&quot;&gt;http://okwave.jp/qa/q4539201.html&lt;/a&gt;
+
+
+
+EIST
+
+
+
+&lt;a href=&quot;http://ja.wikipedia.org/wiki/Intel_SpeedStep_%E3%83%86%E3%82%AF%E3%83%8E%E3%83%AD%E3%82%B8&quot; target=&quot;_blank&quot;&gt;http://ja.wikipedia.org/wiki/Intel_SpeedStep_%E3%83%86%E3%82%AF%E3%83%8E%E3%83%AD%E3%82%B8&lt;/a&gt;
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

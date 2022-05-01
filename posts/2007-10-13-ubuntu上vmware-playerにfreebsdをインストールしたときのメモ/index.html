@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ" />
+<meta property="og:description" content="VMware Playerの入手 &lt;a href=&quot;http://www.vmware.com/download/player/&quot; target=&quot;_blank&quot;&gt;http://www.vmware.com/download/player/&lt;/a&gt; tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeの" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2007-10-13-ubuntu%E4%B8%8Avmware-player%E3%81%ABfreebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2/" />
+<meta property="article:published_time" content="2007-10-13T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2007-10-13T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ">
+<meta itemprop="description" content="VMware Playerの入手 &lt;a href=&quot;http://www.vmware.com/download/player/&quot; target=&quot;_blank&quot;&gt;http://www.vmware.com/download/player/&lt;/a&gt; tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeの">
+
+
+<meta itemprop="datePublished" content="2007-10-13T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2007-10-13T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="735">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ"/>
+<meta name="twitter:description" content="VMware Playerの入手 &lt;a href=&quot;http://www.vmware.com/download/player/&quot; target=&quot;_blank&quot;&gt;http://www.vmware.com/download/player/&lt;/a&gt; tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeの"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-10-13T01:00:00&#43;09:00">October 13, 2007</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>VMware Playerの入手
+
+
+
+&lt;a href=&quot;http://www.vmware.com/download/player/&quot; target=&quot;_blank&quot;&gt;http://www.vmware.com/download/player/&lt;/a&gt;
+
+
+
+tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。
+
+
+
+NIC関連はBridgeのみ設定してあとはスルー
+
+
+
+
+
+
+vmware-playerではイメージが作れないのでqemuを利用。
+
+
+
+apt-get install qemuなどとしてインストール。
+
+
+
+
+
+
+下記のようにしてディスクイメージを作成。
+
+
+
+引数などはググれば山盛り出てくるんで省略。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  qemu-img create -f vmdk fbsd.vmdk 8G
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>同じディレクトリに上記ディスクイメージ用の設定ファイルを作成。
+
+
+
+拡張子を.vmxにして保存。
+
+
+
+vmware-playerを実行して設定ファイルを選ぶだけ。
+
+
+
+&lt;a href=&quot;http://sanbarrow.com/vmx.html&quot; target=&quot;_blank&quot;&gt;http://sanbarrow.com/vmx.html&lt;/a&gt; などを参考にして作った俺用の設定ファイルテンプレート。
+
+
+
+
+
+
+○template.vmx
+</code></pre>
+
+<pre><code class="language-console">###########################
+# vmxテンプレートファイル
+#  vmware-player 2.x用
+###########################
+#基本設定
+#
+config.version = &quot;8&quot;
+virtualHW.version = &quot;6&quot;
+###########################
+#ディスプレイネーム
+#
+# バーチャルマシーンの名前
+displayName = &quot;guestOS1&quot;
+###########################
+#guestOS識別子
+#
+#guestOS = &quot;winxppro&quot;
+guestOS = &quot;freebsd&quot;
+#guestOS = &quot;freebsd-64&quot;
+#guestOS = &quot;ubuntu&quot;
+#guestOS = &quot;other24xlinux&quot;
+#guestOS = &quot;other26xlinux&quot;
+#guestOS = &quot;dos&quot;
+#guestOS = &quot;win2000pro&quot;
+###########################
+#メモリ
+#
+memsize = &quot;256&quot;
+###########################
+#HDD
+#
+# vmdkファイル名は適宜書き換え
+ide0:0.present = &quot;TRUE&quot;
+#ide0:0.deviceType = &quot;disk&quot;
+ide0:0.filename = &quot;hdd_image.vmdk&quot;
+###########################
+#CD-ROM
+#
+ide1:0.present = &quot;true&quot;
+#起動時にCDを有効にするかどうか
+ide1:0.startConnected = &quot;TRUE&quot;
+#イメージを使用する場合
+ide1:0.deviceType = &quot;cdrom-image&quot;
+ide1:0.filename = &quot;myiso.iso&quot; #イメージ名は書き換える
+#リアルのCD-ROMドライブを使用する場合
+#　ドライブ名、デバイスファイル名は適宜書き換え
+#ide1:0.deviceType = &quot;atapi-cdrom &quot;
+##Windowsの場合。
+#ide1:0.filename = &quot;E:&quot;
+##UNIX系の場合
+#ide1:0.filename = &quot;/dev/hdc&quot;
+##########################
+#FD
+#
+floppy0.present = &quot;true&quot;
+#ノートPCなどFDのないマシンの場合には上記スイッチをfalseに
+#起動時にFDを有効にするかどうか
+#floppy0.startConnected = &quot;true&quot;
+#floppy0.autodetect = &quot;false&quot;
+##Windows
+#floppy0.fileName = &quot;A:&quot;
+##UNIX
+#floppy0.filename = &quot;/dev/fd0&quot;
+#リアルかイメージか
+#floppy0.fileType = &quot;device&quot;
+#floppy0.fileType = &quot;file&quot;
+#floppy0.fileName = &quot;start.flp&quot;
+#######################
+#NIC
+#
+ethernet0.present= &quot;true&quot;
+#起動時にNICを有効にするかどうか
+ethernet0.startConnected = &quot;true&quot;
+# Bridgeモード
+ethernet0.connectionType = &quot;bridged&quot;
+#NICカード
+# 動かない場合にはe1000をvlanceに変更
+ethernet0.virtualDev = &quot;e1000&quot;
+#ethernet0.virtualDev = &quot;vlance&quot;
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

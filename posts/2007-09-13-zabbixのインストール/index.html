@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ZABBIXのインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ZABBIXのインストール" />
+<meta property="og:description" content="&lt;a href=&quot;http://www.zabbix.com/index.php&quot; target=&quot;_blank&quot;&gt;ZABBIX&lt;/a&gt;とはフリーの統合監視ソフト。 Webインタフェー" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2007-09-13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2007-09-13T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2007-09-13T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="ZABBIXのインストール">
+<meta itemprop="description" content="&lt;a href=&quot;http://www.zabbix.com/index.php&quot; target=&quot;_blank&quot;&gt;ZABBIX&lt;/a&gt;とはフリーの統合監視ソフト。 Webインタフェー">
+
+
+<meta itemprop="datePublished" content="2007-09-13T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2007-09-13T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1142">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ZABBIXのインストール"/>
+<meta name="twitter:description" content="&lt;a href=&quot;http://www.zabbix.com/index.php&quot; target=&quot;_blank&quot;&gt;ZABBIX&lt;/a&gt;とはフリーの統合監視ソフト。 Webインタフェー"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ZABBIXのインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2007-09-13T01:00:00&#43;09:00">September 13, 2007</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>&lt;a href=&quot;http://www.zabbix.com/index.php&quot; target=&quot;_blank&quot;&gt;ZABBIX&lt;/a&gt;とはフリーの統合監視ソフト。
+
+
+
+Webインタフェースで楽に設定できて、綺麗な表示が得られるのが特徴。
+
+
+
+今回、Ubuntuの入ったマシンにZABBIXをインストールしようと思ったのだが、2007/9現在、ZABBIXは1.4.2が最新版であるのに対し、7.04(Feisty)で手に入るパッケージのバージョンは1.1。
+
+
+
+どうせなら新しいのを入れたい。
+
+
+
+&lt;a href=&quot;http://packages.ubuntu.com/cgi-bin/search_packages.pl?keywords=zabbix&amp;#038;searchon=names&amp;#038;subword=1&amp;#038;version=all&amp;#038;release=all&quot; target=&quot;_blank&quot;&gt;調べたところ&lt;/a&gt;7.10(Gutsy)であれば1.4.1のパッケージがあるようだ。
+
+
+
+
+
+
+もちろんソースからコンパイルしても良いのだが、自前インストールしたZABBIXがパッケージ管理しているソフトウェアに依存していると後々面倒なので、思い切って7.10にアップグレードした。
+
+
+
+で、インストール。
+
+
+
+バックエンドのデータベースにはMySQLを使用するので、下記二つのパッケージをインストールした。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  zabbix-frontend-php - software for monitoring of your servers - php frontend
+
+
+
+  zabbix-server-mysql - software for monitoring of your networks - server
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>インストールに伴う設定手順などは&lt;a href=&quot;http://www.thinkit.co.jp/free/article/0611/19/1/&quot; target=&quot;_blank&quot;&gt;ThinkIT 第1回：ZABBIXをインストール&lt;/a&gt;が参考になる。
+
+
+
+が、こういった記事は日が経つに従い、対象としているソフトの最新版との違いが発生してくるので、オフィシャルサイトやソフト自体に付属してくるドキュメントも確認しないと色々と問題が起こったりする。
+
+
+
+実際、上記の記事では誤記も多かったので、オフィシャルサイトのマニュアルと見比べつつ設定をした。
+
+
+
+特に大きな違いがあるのはWindowsにagentデーモンをサービスとして登録する方法。
+
+
+
+記事中では単に「install」を追加すると書いてあるが、オフィシャルマニュアルでは「-install」となっており、実際に後者でないと認識されない。
+
+
+
+v1.4ではzabbix_agentd.exe -c &quot;設定ファイル&quot; -installとする。
+
+
+
+ちなみにWindows上でzabbix_agentd.exeに-hオプションを与えて実行した出力は下記の通り。
+
+
+
+その他のオプションが表示される。
+</code></pre>
+
+<pre><code class="language-console">C:\Program Files\zabbix&gt;zabbix_agentd.exe -h
+ZABBIX Agent Win32 (service) v1.4.2 (20 August 2007)
+usage: zabbix_agentd.exe [-Vhp] [-idsx] [-c &amp;#60;file&gt;] [-t &amp;#60;metric&gt;]
+Options:
+-c --config &amp;#60;file&gt;  Specify configuration file
+-h --help           give this help
+-V --version        display version number
+-p --print          print supported metrics and exit
+-t --test &amp;#60;metric&gt;  test specified metric and exit
+Functions:
+-i --install        install ZABIX agent as service
+-d --uninstall      uninstall ZABIX agent from service
+-s --start          start ZABIX agent service
+-x --stop           stop ZABIX agent service
+C:\Program Files\zabbix&gt;
+</code></pre>
+
+<pre><code>その他にちょっとつまづいたのは、php.iniの修正。
+
+
+
+webインタフェースを初めて実行すると設定が始まり、場合によってphp.iniの修正を求められる。
+
+
+
+俺がphp.iniを変更したのは下記の2行
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  max_execution_time = 300　（30だったのを300に修正）
+
+
+
+  date.timezone = Asia/Tokyo　（追加）
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>php.iniを修正したらapacheの再起動を忘れずに。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

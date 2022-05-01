@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pkgng on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/pkgng/</link>
+    <description>Recent content in Pkgng on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Wed, 26 Aug 2015 21:00:18 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/pkgng/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[FreeBSD] pkg quarterlyとlatestレポジトリの共存</title>
+      <link>https://nobwak.github.io/posts/2015-08-26-freebsd_pkg_quarterly%E3%81%A8latest%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E5%85%B1%E5%AD%98/</link>
+      <pubDate>Wed, 26 Aug 2015 21:00:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-08-26-freebsd_pkg_quarterly%E3%81%A8latest%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E5%85%B1%E5%AD%98/</guid>
+      <description>ここでも触れたが、10.2-RELEASEから、pkgレポジトリのデフォルト参照先がlatestからquarterlyになった。 具体的には/</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] 10.2-RELEASEから適用されるpkg quarterlyてなんだ。</title>
+      <link>https://nobwak.github.io/posts/2015-08-05-freebsd_10.2-release%E3%81%8B%E3%82%89%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%82%8Bpkg_quarterly%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0/</link>
+      <pubDate>Wed, 05 Aug 2015 21:12:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-08-05-freebsd_10.2-release%E3%81%8B%E3%82%89%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%82%8Bpkg_quarterly%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0/</guid>
+      <description>10.2-RELEASEから、pkgのデフォルト参照先レポジトリが&amp;rdquo;quartely&amp;rdquo;のものになる。 ◎pkg.con</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD][pkgng][メモ] pkgを1.2から1.3に上げたらneed to re-create repo FreeBSD to upgrade schema version</title>
+      <link>https://nobwak.github.io/posts/2014-08-09-freebsdpkgng%E3%83%A1%E3%83%A2_pkg%E3%82%921.2%E3%81%8B%E3%82%891.3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need_to_re-create_repo_freebsd_to_upgrade_schema_version/</link>
+      <pubDate>Sat, 09 Aug 2014 21:13:29 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-08-09-freebsdpkgng%E3%83%A1%E3%83%A2_pkg%E3%82%921.2%E3%81%8B%E3%82%891.3%E3%81%AB%E4%B8%8A%E3%81%92%E3%81%9F%E3%82%89need_to_re-create_repo_freebsd_to_upgrade_schema_version/</guid>
+      <description>pkgを1.2から1.3.xに上げたら以下のようなメッセージが出てupgradeができない。 $ sudo pkg upgrade Updating repository catalogue FreeBSD repository is up-to-date All repositories are up-to-date pkg: Repo FreeBSD needs schema upgrade from 2006 to</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには</title>
+      <link>https://nobwak.github.io/posts/2014-06-23-freebsd_%E3%81%82%E3%82%8B%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AEpkg%E3%82%92%E3%81%94%E3%81%A3%E3%81%9D%E3%82%8A%E4%BB%96%E3%81%AE%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AB%E6%8C%81%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Mon, 23 Jun 2014 21:51:55 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-06-23-freebsd_%E3%81%82%E3%82%8B%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AEpkg%E3%82%92%E3%81%94%E3%81%A3%E3%81%9D%E3%82%8A%E4%BB%96%E3%81%AE%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AB%E6%8C%81%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F%E3%81%AB%E3%81%AF/</guid>
+      <description>インターネットに接続されていないなどの理由で、公式のpkgレポジトリからpkgをダウンロードできないマシンのpkgをどのように世話するか。 イ</description>
+    </item>
+    
+    <item>
+      <title>カスタムpkgをpoudriereで作ろう</title>
+      <link>https://nobwak.github.io/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/</link>
+      <pubDate>Tue, 25 Feb 2014 15:14:08 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/</guid>
+      <description>poudriereとは 中の人曰く: primarily designed to test package production on FreeBSD. However, most people will find it useful to bulk build ports for FreeBSD. 「package生成のテストを主眼にデザインされたツールである。</description>
+    </item>
+    
+    <item>
+      <title>poudriereでhomebrew（自前） pkgリポジトリを</title>
+      <link>https://nobwak.github.io/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/</link>
+      <pubDate>Sun, 16 Feb 2014 22:21:37 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/</guid>
+      <description>poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa</description>
+    </item>
+    
+    <item>
+      <title>pkgのデータが壊れたでござる。よろしい。消しておしまい。</title>
+      <link>https://nobwak.github.io/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/</link>
+      <pubDate>Sun, 09 Feb 2014 20:34:49 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/</guid>
+      <description>pkgngで色々と遊んでたりすると、ごくごく稀に以下のような表示が出ることがある。 pkg: sqlite: database disk image is malformed (pkgdb_repo.c:545) 要するにpkgのdatabaseが壊れたと</description>
+    </item>
+    
+    <item>
+      <title>[メモ] pkgngで更新のあるpackagesを一覧にするには</title>
+      <link>https://nobwak.github.io/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 06 Feb 2014 20:44:55 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>pkg updateとやったあと、更新のあったpackagesを一覧するには。 スマート: &amp;ldquo;pkg version -vRL=&amp;ldquo;とすればよい。 かっこよくない:</description>
+    </item>
+    
+    <item>
+      <title>pkgngが死んで詰んだときには</title>
+      <link>https://nobwak.github.io/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Tue, 04 Feb 2014 00:43:36 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/</guid>
+      <description>pkgコマンドが何らかの要因で壊れてしまい、pkgコマンド自体の再インストールすらできず詰んでしまったときの対処方法を示す。 お急ぎの方は「蘇</description>
+    </item>
+    
+    <item>
+      <title>[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</title>
+      <link>https://nobwak.github.io/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/</link>
+      <pubDate>Mon, 13 Jan 2014 04:25:48 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/</guid>
+      <description>メモ。 FreeBSD 10.0-RC5にしたら、おなじ10.0からのアップグレードであっても、pkg/portsの再インストールが必要。 というのもABIの</description>
+    </item>
+    
+    <item>
+      <title>pkgngでgnome2などの「一式」を削除するには。</title>
+      <link>https://nobwak.github.io/posts/2014-01-08-pkgng%E3%81%A7gnome2%E3%81%AA%E3%81%A9%E3%81%AE%E4%B8%80%E5%BC%8F%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Wed, 08 Jan 2014 00:52:41 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-08-pkgng%E3%81%A7gnome2%E3%81%AA%E3%81%A9%E3%81%AE%E4%B8%80%E5%BC%8F%E3%82%92%E5%89%8A%E9%99%A4%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>pkgngで、あるpkg、たとえばpkg Aをインストールすると、依存によりほかのpkgを大量に連れてくることがある。 それはそれで良いのだが、</description>
+    </item>
+    
+    <item>
+      <title>日常使いのpkgng:pkgを探してインストール</title>
+      <link>https://nobwak.github.io/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Mon, 23 Dec 2013 20:50:02 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>インストールしたいpkgがある場合、どのように探すか。 pkg searchに与えるオプションを変えながら探していく。 sageというpkgを探す場合</description>
+    </item>
+    
+    <item>
+      <title>[報告]pkg-1.2.3でproxy越しのレポジトリ接続が可能に</title>
+      <link>https://nobwak.github.io/posts/2013-12-19-%E5%A0%B1%E5%91%8Apkg-1.2.3%E3%81%A7proxy%E8%B6%8A%E3%81%97%E3%81%AE%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E6%8E%A5%E7%B6%9A%E3%81%8C%E5%8F%AF%E8%83%BD%E3%81%AB/</link>
+      <pubDate>Thu, 19 Dec 2013 23:13:44 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-12-19-%E5%A0%B1%E5%91%8Apkg-1.2.3%E3%81%A7proxy%E8%B6%8A%E3%81%97%E3%81%AE%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E6%8E%A5%E7%B6%9A%E3%81%8C%E5%8F%AF%E8%83%BD%E3%81%AB/</guid>
+      <description>pkgngのレポジトリがsrvレコードなせいで、proxy越しだったりするとpkgがダウンロードできない問題があった。 2013/12/19現</description>
+    </item>
+    
+    <item>
+      <title>pkgng 1.2へのアップデートに伴うあれこれ。</title>
+      <link>https://nobwak.github.io/posts/2013-12-02-pkgng_1.2%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%81%AB%E4%BC%B4%E3%81%86%E3%81%82%E3%82%8C%E3%81%93%E3%82%8C/</link>
+      <pubDate>Mon, 02 Dec 2013 21:16:22 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-12-02-pkgng_1.2%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%81%AB%E4%BC%B4%E3%81%86%E3%81%82%E3%82%8C%E3%81%93%E3%82%8C/</guid>
+      <description>pkgngを1.2にアップデートしたら、設定ファイルの扱いが変わって、ちょっとした修正が必要になった。 それをまとめる。 まとめ。 pkgngを更</description>
+    </item>
+    
+    <item>
+      <title>pkgngが復活したと言ったな。（proxy越しの奴にとって）あれは嘘だ。(SRVレコードの罠）</title>
+      <link>https://nobwak.github.io/posts/2013-11-06-pkgng%E3%81%8C%E5%BE%A9%E6%B4%BB%E3%81%97%E3%81%9F%E3%81%A8%E8%A8%80%E3%81%A3%E3%81%9F%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AE%E5%A5%B4%E3%81%AB%E3%81%A8%E3%81%A3%E3%81%A6%E3%81%82%E3%82%8C%E3%81%AF%E5%98%98%E3%81%A0srv%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E7%BD%A0/</link>
+      <pubDate>Wed, 06 Nov 2013 21:27:46 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-11-06-pkgng%E3%81%8C%E5%BE%A9%E6%B4%BB%E3%81%97%E3%81%9F%E3%81%A8%E8%A8%80%E3%81%A3%E3%81%9F%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AE%E5%A5%B4%E3%81%AB%E3%81%A8%E3%81%A3%E3%81%A6%E3%81%82%E3%82%8C%E3%81%AF%E5%98%98%E3%81%A0srv%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E7%BD%A0/</guid>
+      <description>pkgngの公式サイトがやっと復活した。 http://lists.freebsd.org/pipermail/freebsd-current/2013-October/046055.html したのだが、proxy越しだと動かない事があって、俺含む一部のユーザはとてもガッカリしている。 原因</description>
+    </item>
+    
+    <item>
+      <title>FreeBSD 10.0-BETA2にfreebsd-upgradeしたらpkgngが吹き飛んだ件について</title>
+      <link>https://nobwak.github.io/posts/2013-10-29-freebsd_10.0-beta2%E3%81%ABfreebsd-upgrade%E3%81%97%E3%81%9F%E3%82%89pkgng%E3%81%8C%E5%90%B9%E3%81%8D%E9%A3%9B%E3%82%93%E3%81%A0%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Tue, 29 Oct 2013 21:27:02 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-29-freebsd_10.0-beta2%E3%81%ABfreebsd-upgrade%E3%81%97%E3%81%9F%E3%82%89pkgng%E3%81%8C%E5%90%B9%E3%81%8D%E9%A3%9B%E3%82%93%E3%81%A0%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>FreeBSD 10.0は、ALPHAからBETA1まで怒涛のアップデートが続いたと思ったら、BETA2でいきなり足踏みがあった。 これは、freebsd-</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] pkg -j でjailの「外から」pkgng操作を。</title>
+      <link>https://nobwak.github.io/posts/2013-10-21-freebsd_pkg_-j_%E3%81%A7jail%E3%81%AE%E5%A4%96%E3%81%8B%E3%82%89pkgng%E6%93%8D%E4%BD%9C%E3%82%92/</link>
+      <pubDate>Mon, 21 Oct 2013 22:55:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-21-freebsd_pkg_-j_%E3%81%A7jail%E3%81%AE%E5%A4%96%E3%81%8B%E3%82%89pkgng%E6%93%8D%E4%BD%9C%E3%82%92/</guid>
+      <description>サマリ pkg -jを使うと、ホストからjail内のpkgを操作できる。 しかし、あらかじめjail内にpkgのインストールが必要。 pkg -j pkgのman</description>
+    </item>
+    
+    <item>
+      <title>FreeBSD 10.0-BETA1でportsやミラーサイトに頼らずpkgngを使うには（2013/10/15現在）</title>
+      <link>https://nobwak.github.io/posts/2013-10-16-freebsd_10.0-beta1%E3%81%A7ports%E3%82%84%E3%83%9F%E3%83%A9%E3%83%BC%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E9%A0%BC%E3%82%89%E3%81%9Apkgng%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF2013_10_15%E7%8F%BE%E5%9C%A8/</link>
+      <pubDate>Wed, 16 Oct 2013 00:17:28 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-16-freebsd_10.0-beta1%E3%81%A7ports%E3%82%84%E3%83%9F%E3%83%A9%E3%83%BC%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E9%A0%BC%E3%82%89%E3%81%9Apkgng%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF2013_10_15%E7%8F%BE%E5%9C%A8/</guid>
+      <description>FreeBSD 10.0もBETA1がリリースされた。 ウホッとばかり突撃して、pkg_*の無いのに仰け反り、それなのにpkgではインストールのしようが無い</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] PC-BSDがFreeBSD向けpkg repo作ってくれたけど動かないでござる(2013/4/27現在)</title>
+      <link>https://nobwak.github.io/posts/2013-04-26-freebsd_pc-bsd%E3%81%8Cfreebsd%E5%90%91%E3%81%91pkg_repo%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%9F%E3%81%91%E3%81%A9%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B2013_4_27%E7%8F%BE%E5%9C%A8/</link>
+      <pubDate>Fri, 26 Apr 2013 22:49:10 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-04-26-freebsd_pc-bsd%E3%81%8Cfreebsd%E5%90%91%E3%81%91pkg_repo%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%8F%E3%82%8C%E3%81%9F%E3%81%91%E3%81%A9%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B2013_4_27%E7%8F%BE%E5%9C%A8/</guid>
+      <description>（追記:2013/11/7） 公式のpkgngが公開されている。詳しくは以下を。 ../../../?p=2357 （追記ここまで） FreeBSDの新ソフトウェア管理ツールであ</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] オフラインマシンでのpkgng（日常使いのpkgng その2）</title>
+      <link>https://nobwak.github.io/posts/2013-03-20-freebsd_%E3%82%AA%E3%83%95%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%A7%E3%81%AEpkgng%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgng_%E3%81%9D%E3%81%AE2/</link>
+      <pubDate>Wed, 20 Mar 2013 21:56:31 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-03-20-freebsd_%E3%82%AA%E3%83%95%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%A7%E3%81%AEpkgng%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgng_%E3%81%9D%E3%81%AE2/</guid>
+      <description>pkgngをインターネット接続していないマシンでも使いたい。 そういう場合には、他のマシンでpkgを作って持っていくというのが一番簡単な方法。</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] 日常使いのpkgng その1</title>
+      <link>https://nobwak.github.io/posts/2013-03-15-freebsd_%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgng_%E3%81%9D%E3%81%AE1/</link>
+      <pubDate>Fri, 15 Mar 2013 23:40:13 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-03-15-freebsd_%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgng_%E3%81%9D%E3%81%AE1/</guid>
+      <description>pkgngをしばらく使ってみて感じるのは、情報を十分に与えてくれること。 適当に使っても、あれしろ、これしろ、と教えてくれるから戸惑いが少ない</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] pkgを使ったらUndefined symbol &#34;pkg_init&#34;と表示されて使えないでござる。</title>
+      <link>https://nobwak.github.io/posts/2013-03-12-freebsd_pkg%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%89undefined_symbol_#8220pkg_init%238221%E3%81%A8%E8%A1%A8%E7%A4%BA%E3%81%95%E3%82%8C%E3%81%A6%E4%BD%BF%E3%81%88%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/</link>
+      <pubDate>Tue, 12 Mar 2013 21:40:55 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-03-12-freebsd_pkg%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%82%89undefined_symbol_#8220pkg_init%238221%E3%81%A8%E8%A1%A8%E7%A4%BA%E3%81%95%E3%82%8C%E3%81%A6%E4%BD%BF%E3%81%88%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/</guid>
+      <description>pkgngが大変によくて、あちこちのFreeBSDサーバで使い始めた。 のだが、特定のマシンで以下のメッセージが表示され使えない。 Undefined symbol &amp;quot;pkg_init&amp;quot; 端的に</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] pkg_*システム捨てるのはいつ？今でしょ！（pkgngについて）</title>
+      <link>https://nobwak.github.io/posts/2013-03-01-freebsd_pkg_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E6%8D%A8%E3%81%A6%E3%82%8B%E3%81%AE%E3%81%AF%E3%81%84%E3%81%A4%E4%BB%8A%E3%81%A7%E3%81%97%E3%82%87pkgng%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Fri, 01 Mar 2013 21:40:11 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-03-01-freebsd_pkg_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E6%8D%A8%E3%81%A6%E3%82%8B%E3%81%AE%E3%81%AF%E3%81%84%E3%81%A4%E4%BB%8A%E3%81%A7%E3%81%97%E3%82%87pkgng%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>pkgngはpkg_*に変わるFreeBSDの簡単で手軽なバイナリパッケージ管理ツール。 FreeBSDでサードパーティのソフトウェアをインス</description>
+    </item>
+    
+  </channel>
+</rss>

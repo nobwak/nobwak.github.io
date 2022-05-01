@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zfs on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/zfs/</link>
+    <description>Recent content in Zfs on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Sat, 29 Dec 2018 13:44:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/zfs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[zfs] zfsnap2を使った日々のzfs snapshot（削除編）</title>
+      <link>https://nobwak.github.io/posts/2018-12-29-zfs_zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs_snapshot%E5%89%8A%E9%99%A4%E7%B7%A8/</link>
+      <pubDate>Sat, 29 Dec 2018 13:44:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2018-12-29-zfs_zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs_snapshot%E5%89%8A%E9%99%A4%E7%B7%A8/</guid>
+      <description>zfsnap2（以降、zfsnap）をperiodicで自動取得する方法はこちらで触れた。 同期時でも触れた通り、zfsnapには自動削除する</description>
+    </item>
+    
+    <item>
+      <title>[zfs]ディスク交換、zpool容量の拡張</title>
+      <link>https://nobwak.github.io/posts/2018-12-22-zfs%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E4%BA%A4%E6%8F%9Bzpool%E5%AE%B9%E9%87%8F%E3%81%AE%E6%8B%A1%E5%BC%B5/</link>
+      <pubDate>Sat, 22 Dec 2018 12:59:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2018-12-22-zfs%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E4%BA%A4%E6%8F%9Bzpool%E5%AE%B9%E9%87%8F%E3%81%AE%E6%8B%A1%E5%BC%B5/</guid>
+      <description>HDDがいっぱいになってきたので容量の大きい別のHDDに移した。 zfsなのでmirrorをしつつ入れ替えができる。 その時のメモ。 端的に言えば</description>
+    </item>
+    
+    <item>
+      <title>[zfs] zfsnap2を使った日々のzfs snapshot（取得編）</title>
+      <link>https://nobwak.github.io/posts/2018-12-02-zfs_zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs_snapshot%E5%8F%96%E5%BE%97%E7%B7%A8/</link>
+      <pubDate>Sun, 02 Dec 2018 17:54:52 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2018-12-02-zfs_zfsnap2%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E6%97%A5%E3%80%85%E3%81%AEzfs_snapshot%E5%8F%96%E5%BE%97%E7%B7%A8/</guid>
+      <description>zfsnap2（面倒くさいので以降zfsnap）のおかげで気軽にzfs snapshotできるようになった。 あとはこれをcronに仕込んで日々</description>
+    </item>
+    
+    <item>
+      <title>[zfs][zpool] らくらくスナップショットzfsnap2</title>
+      <link>https://nobwak.github.io/posts/2018-12-01-zfszpool_%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E3%82%B9%E3%83%8A%E3%83%83%E3%83%97%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88zfsnap2/</link>
+      <pubDate>Sat, 01 Dec 2018 15:53:49 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2018-12-01-zfszpool_%E3%82%89%E3%81%8F%E3%82%89%E3%81%8F%E3%82%B9%E3%83%8A%E3%83%83%E3%83%97%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88zfsnap2/</guid>
+      <description>zfsは本当に本当に便利で助かるのだが、それでも面倒なことはある。 私にとって面倒なのは、スナップショット作成とスナップショットの差分転送であ</description>
+    </item>
+    
+    <item>
+      <title>[ZFS][zpool]zpoolのHDDをスタンバイモードにして消費電力を減らそう</title>
+      <link>https://nobwak.github.io/posts/2018-11-18-zfszpoolzpool%E3%81%AEhdd%E3%82%92%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%90%E3%82%A4%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AB%E3%81%97%E3%81%A6%E6%B6%88%E8%B2%BB%E9%9B%BB%E5%8A%9B%E3%82%92%E6%B8%9B%E3%82%89%E3%81%9D%E3%81%86/</link>
+      <pubDate>Sun, 18 Nov 2018 18:36:33 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2018-11-18-zfszpoolzpool%E3%81%AEhdd%E3%82%92%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%90%E3%82%A4%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AB%E3%81%97%E3%81%A6%E6%B6%88%E8%B2%BB%E9%9B%BB%E5%8A%9B%E3%82%92%E6%B8%9B%E3%82%89%E3%81%9D%E3%81%86/</guid>
+      <description>我が家のNASサーバーはFreeBSDの入ったHP microserverである。 HP microserverにはHDDを4つ入れることができる。</description>
+    </item>
+    
+    <item>
+      <title>[zfs][zpool] zfsの別ディスクへの移行</title>
+      <link>https://nobwak.github.io/posts/2018-11-18-zfszpool_zfs%E3%81%AE%E5%88%A5%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/</link>
+      <pubDate>Sun, 18 Nov 2018 11:58:47 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2018-11-18-zfszpool_zfs%E3%81%AE%E5%88%A5%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/</guid>
+      <description>zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずsc</description>
+    </item>
+    
+    <item>
+      <title>zfs snapshotの差分send/recvについて</title>
+      <link>https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Tue, 28 Jan 2014 22:33:29 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>zfs snapshotの差分send/recvについて zfsのバックアップは、snapshotを撮っておいて、自ホストの別zpool、あるいは他</description>
+    </item>
+    
+    <item>
+      <title>[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</title>
+      <link>https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/</link>
+      <pubDate>Sun, 05 Jan 2014 21:53:46 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/</guid>
+      <description>過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。 したのだが、よく分からないことがいくつかあった</description>
+    </item>
+    
+    <item>
+      <title>[メモ]zpoolのupgrade</title>
+      <link>https://nobwak.github.io/posts/2013-12-13-%E3%83%A1%E3%83%A2zpool%E3%81%AEupgrade/</link>
+      <pubDate>Fri, 13 Dec 2013 22:08:35 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-12-13-%E3%83%A1%E3%83%A2zpool%E3%81%AEupgrade/</guid>
+      <description>zpoolのupgradeをしたのでメモ。 結論としては、zpoolのupgradeとは、単にversionを上げるだけ以外にもあるようだ。 legacy</description>
+    </item>
+    
+    <item>
+      <title>[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</title>
+      <link>https://nobwak.github.io/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/</link>
+      <pubDate>Tue, 10 Dec 2013 20:44:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/</guid>
+      <description>HDDを増設してZFSを作ったのでメモ。 一本のHDDにpool、zfsを作成し、圧縮、重複排除機能の有効化まで。 環境は（残念ながら10.0-</description>
+    </item>
+    
+    <item>
+      <title>FreeBSD 10インストーラからのzfs on rootを試してみたよー</title>
+      <link>https://nobwak.github.io/posts/2013-10-14-freebsd_10%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%A9%E3%81%8B%E3%82%89%E3%81%AEzfs_on_root%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%88%E3%83%BC/</link>
+      <pubDate>Mon, 14 Oct 2013 20:22:42 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-14-freebsd_10%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%A9%E3%81%8B%E3%82%89%E3%81%AEzfs_on_root%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%88%E3%83%BC/</guid>
+      <description>FreeBSD 10.0-RELEASEから、インストールの際にファイルシステムとしてZFSが選べるようになる。 システムの置かれるファイルシステムをZFS</description>
+    </item>
+    
+    <item>
+      <title>ZFS scrubを過信してはいけません。</title>
+      <link>https://nobwak.github.io/posts/2012-12-18-zfs_scrub%E3%82%92%E9%81%8E%E4%BF%A1%E3%81%97%E3%81%A6%E3%81%AF%E3%81%84%E3%81%91%E3%81%BE%E3%81%9B%E3%82%93/</link>
+      <pubDate>Tue, 18 Dec 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-12-18-zfs_scrub%E3%82%92%E9%81%8E%E4%BF%A1%E3%81%97%E3%81%A6%E3%81%AF%E3%81%84%E3%81%91%E3%81%BE%E3%81%9B%E3%82%93/</guid>
+      <description>ZFS運用を始めてはや数か月。なんの問題もなく使っておりますが、 「scrubって定期的にやるといいらしいよ」 「なんかね、fsckみたいなこと</description>
+    </item>
+    
+    <item>
+      <title>ZFSの重複ファイル節約機能dedupがすげえ（ただしメモリ大尽に限る）</title>
+      <link>https://nobwak.github.io/posts/2012-03-18-zfs%E3%81%AE%E9%87%8D%E8%A4%87%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AF%80%E7%B4%84%E6%A9%9F%E8%83%BDdedup%E3%81%8C%E3%81%99%E3%81%92%E3%81%88%E3%81%9F%E3%81%A0%E3%81%97%E3%83%A1%E3%83%A2%E3%83%AA%E5%A4%A7%E5%B0%BD%E3%81%AB%E9%99%90%E3%82%8B/</link>
+      <pubDate>Sun, 18 Mar 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-03-18-zfs%E3%81%AE%E9%87%8D%E8%A4%87%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AF%80%E7%B4%84%E6%A9%9F%E8%83%BDdedup%E3%81%8C%E3%81%99%E3%81%92%E3%81%88%E3%81%9F%E3%81%A0%E3%81%97%E3%83%A1%E3%83%A2%E3%83%AA%E5%A4%A7%E5%B0%BD%E3%81%AB%E9%99%90%E3%82%8B/</guid>
+      <description>最初にお断りするが、十分なメモリ、あるいはSSDをお持ちでない方は帰っていただいて結構です。 Dedupとは ZFSにはdedupという機能があ</description>
+    </item>
+    
+    <item>
+      <title>ZFS優しすぎ涙がでた。</title>
+      <link>https://nobwak.github.io/posts/2012-03-10-zfs%E5%84%AA%E3%81%97%E3%81%99%E3%81%8E%E6%B6%99%E3%81%8C%E3%81%A7%E3%81%9F/</link>
+      <pubDate>Sat, 10 Mar 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-03-10-zfs%E5%84%AA%E3%81%97%E3%81%99%E3%81%8E%E6%B6%99%E3%81%8C%E3%81%A7%E3%81%9F/</guid>
+      <description>前口上 試しにZFSを使ってみて（VMware Playerで気軽に試せるようになったとは、なんと便利な世の中か）本当に驚いた。 ディスク繋いでz</description>
+    </item>
+    
+  </channel>
+</rss>

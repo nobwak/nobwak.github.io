@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [Windows] 暗号化仮想ディスク管理ツールFreeOTFE</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[Windows] 暗号化仮想ディスク管理ツールFreeOTFE" />
+<meta property="og:description" content="ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。 暗号化ツールは、探してみると意外にたくさんある。 また、最近ではOS" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-08-08-windows_%E6%9A%97%E5%8F%B7%E5%8C%96%E4%BB%AE%E6%83%B3%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABfreeotfe/" />
+<meta property="article:published_time" content="2014-08-08T23:01:10&#43;09:00"/>
+<meta property="article:modified_time" content="2014-08-08T23:01:10&#43;09:00"/>
+
+<meta itemprop="name" content="[Windows] 暗号化仮想ディスク管理ツールFreeOTFE">
+<meta itemprop="description" content="ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。 暗号化ツールは、探してみると意外にたくさんある。 また、最近ではOS">
+
+
+<meta itemprop="datePublished" content="2014-08-08T23:01:10&#43;09:00" />
+<meta itemprop="dateModified" content="2014-08-08T23:01:10&#43;09:00" />
+<meta itemprop="wordCount" content="1314">
+
+
+
+<meta itemprop="keywords" content="security,Windows," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Windows] 暗号化仮想ディスク管理ツールFreeOTFE"/>
+<meta name="twitter:description" content="ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。 暗号化ツールは、探してみると意外にたくさんある。 また、最近ではOS"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[Windows] 暗号化仮想ディスク管理ツールFreeOTFE</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-08-08T23:01:10&#43;09:00">August 8, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>ファイルを暗号化した仮想ディスクとして扱えるFreeOTFEについて記す。</p>
+
+<p>暗号化ツールは、探してみると意外にたくさんある。<br />
+また、最近ではOSで暗号化をサポートするのもトレンドである。<br />
+そういったわけで、どんなものでも選り取り見取り、と思っておりました。<br />
+しかし。<br />
+ちょっと条件を付けると途端に選択肢が狭まってしまう。<br />
+具体的には、実ディスク全体を暗号化するのではなく、<br />
+①Windowsで、<br />
+②暗号化仮想ディスクを扱える、<br />
+②フリー（オープンソース）のツール<br />
+である。</p>
+
+<h2 id="span-style-text-decoration-underline-暗号化仮想ディスクのねらい-span"><span style="text-decoration: underline;">暗号化仮想ディスクのねらい</span></h2>
+
+<p>つまり、PC本体の実ディスクはそのままに、暗号化した仮想ディスクを扱いたいわけです。<br />
+なぜわざわざ仮想ディスクが必要なのか。<br />
+なぜファイル単位の暗号化ではダメなのかというと。</p>
+
+<p>端的に言って、復号した後にもう一回暗号化するのが面倒だから。</p>
+
+<p>暗号化したファイル、フォルダは、ずっとそのままという訳にはいかない。<br />
+とうぜん閲覧するなり実行したりしたいわけで、そのためには復号、すなわち暗号解除が必要だ。<br />
+しかしひとたび、無事に用事を済ませたら、当然のことながらもう一度暗号化して大事にしまっておかねばならない。</p>
+
+<p>ファイルあるいはフォルダ単位の暗号化ツールは、この「使った後にもう一度鍵をかけてしまう」という作業を考えられていないケースがほとんどだ。<br />
+これはおそらく、一回限りの暗号化を前提にしているためと思う。<br />
+たとえば、セキュリティに不安のある経路を通してファイルを送受するとか。</p>
+
+<p>頻繁に暗号化されたファイルにアクセスするようなケースでは、ユーザが意識しなくても、使用後に元通り暗号化されることが望ましい。<br />
+暗号化した仮想ディスクを扱える、というのはそういう使用用途にぴったりである。</p>
+
+<p>暗号化ファイルを復号するとディスクとしてマウントされる。<br />
+シャットダウンあるいは再起動でマウントが外れ、暗号化されたファイルに戻る。<br />
+ぴったり。</p>
+
+<p>ならディスクそのものを暗号化してしまえよWindowsにはBitLockerとかあるんだしさあ、というのはその通り。<br />
+その通りなんだが、実ディスクの設定を気軽に触れないケースもあるってことで。</p>
+
+<p><a href="../../../wp-content/uploads/2014/07/2014-07-25_21-55-13.png"><img class="alignnone size-thumbnail wp-image-2806" src="../../../wp-content/uploads/2014/07/2014-07-25_21-55-13-150x150.png" alt="2014-07-25_21-55-13" width="150" height="150" /></a></p>
+
+<h2 id="span-style-text-decoration-underline-freeotfe-span"><span style="text-decoration: underline;">FreeOTFE</span></h2>
+
+<p>さて上述の検討をもとに選定をする。<br />
+しかし暗号化ツールと言ってもかなりの数がある。<br />
+どうやって探したらいいのだ。</p>
+
+<p>こういうときに便利なのがWikipedia。<br />
+たいてい便利な比較表がある。<br />
+<a href="http://en.wikipedia.org/wiki/Comparison_of_disk_encryption_software" target="_blank">Comparison of disk encryption software</a></p>
+
+<p>ところが、条件を当てはめていくと急激に数が減る。<br />
+結論として、条件を十分に満足するソフトウェアはなかった。<br />
+次点でFreeOTFE。</p>
+
+<p>FreeOTFEは、フリーでWindowsで使えて仮想ディスクを扱える。<br />
+一見、問題なさそうに思えたのだが、なんと開発が止まっていた。<br />
+なんという…。</p>
+
+<p>したがって、不具合が見つかった場合の修正がなされないのは当然なことながら、64bit Windowsでは暗号化仮想ディスク用のドライバをインストールできず、今後も改善される予定はない。<br />
+もちろん、誰かが開発を引き継いでくれればその限りではないが、昨今はOSで暗号化に対応するのが一般的だし、開発が復活するのは望み薄ではないかなと思っている。</p>
+
+<p>長くなったので、FreeOTFEのインストール方法は別項で。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/security" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">security</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/windows" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Windows</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-07-02-windows_%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%E5%8F%96%E5%BE%97%E3%83%84%E3%83%BC%E3%83%ABscreenshoter%E3%81%AF%E3%83%96%E3%82%B5%E3%82%A4%E3%82%AF%E3%81%A0%E3%81%91%E3%81%A9%E6%A5%BD%E3%81%99%E3%81%8E%E3%82%8B/">[Windows] スクリーンショット取得ツールScreenshoterはブサイクだけど楽すぎる</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-20-%E3%83%A1%E3%83%A2windows_%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%A7ip%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B/">[メモ][Windows] コマンドラインでIPアドレスを変更する</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-08-%E3%83%A1%E3%83%A2windows%E3%81%ABvagrant%E3%82%92%E5%85%A5%E3%82%8C%E3%81%A6%E3%81%BF%E3%81%9F/">[メモ]WindowsにVagrantを入れてみた</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-09-pyinstaller%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9Fwindows%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84version_resource_file%E3%81%AE%E4%BD%9C%E3%82%8A%E3%81%8B%E3%81%9F/">PyInstallerで作ったWindowsアプリでバージョンを表示させたい（Version Resource Fileの作りかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-05-windows%E3%81%ABpyinstaller%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Windowsにpyinstallerをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-29-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0samba-virusfilter%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。samba-virusfilter編</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-27-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0scannedonly%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。scannedonly編。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-25-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFsamba%E3%81%AEvfs%E3%81%A7%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3/">Sambaの汚物（ウイルス）は消毒だ。あるいはsambaのvfsでウイルススキャン</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-23-%E3%83%A1%E3%83%A2_%E3%83%86%E3%82%B9%E3%83%88%E7%94%A8%E3%81%AE%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AFeicar%E3%81%A7/">[メモ] テスト用のウイルスはEICARで</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-13-microsoft_security_essentials%E3%82%92%E3%83%90%E3%83%83%E3%83%81%E3%81%A7%E4%BD%BF%E3%81%8A%E3%81%86/">Microsoft Security Essentialsをバッチで使おう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-06-%E3%83%A1%E3%83%A2_ms%E8%A3%BDoffice_2007%E4%BB%A5%E9%99%8D%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88%E3%83%93%E3%83%A5%E3%83%BC%E3%82%A2/">[メモ] MS製Office 2007以降ドキュメントビューア</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-27-windows%E3%81%AE%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E3%83%84%E3%83%BC%E3%83%AB/">Windowsのクリップボード操作系ツール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-02-windows%E3%81%A7curl%E3%82%92%E4%BD%BF%E3%81%8A%E3%81%86%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFmicrosoft_security_essential%E3%81%AE%E5%AE%9A%E7%BE%A9%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92curl%E3%81%A7%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89/">Windowsでcurlを使おう。あるいはMicrosoft Security Essentialの定義ファイルをcurlでダウンロード。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

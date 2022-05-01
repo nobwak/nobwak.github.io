@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | 認証の必要なPROXY越しのportsnap</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="認証の必要なPROXY越しのportsnap" />
+<meta property="og:description" content="認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2006-05-01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap/" />
+<meta property="article:published_time" content="2006-05-01T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2006-05-01T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="認証の必要なPROXY越しのportsnap">
+<meta itemprop="description" content="認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが">
+
+
+<meta itemprop="datePublished" content="2006-05-01T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2006-05-01T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="780">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="認証の必要なPROXY越しのportsnap"/>
+<meta name="twitter:description" content="認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">認証の必要なPROXY越しのportsnap</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-05-01T01:00:00&#43;09:00">May 1, 2006</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。
+
+
+
+最初はportsnapサーバの調子が悪いだけかと思っていたのだが、自宅からだと認証は必要ないものの100%成功する。これは明らかにおかしいと調べたところ、何とか解決した。
+
+
+
+
+
+
+先に結論:
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  　portsnapで認証要のPROXYを突破するときは、下記環境変数を設定すること。
+
+
+
+  　　HTTP_PROXY=&quot;http://URL:port/&quot;
+
+
+
+  　　HTTP_PROXY_AUTH=&quot;basic:*:username:pass&quot;
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>以下、顛末
+
+
+
+
+
+
+このFreeBSDマシンは認証の必要なPROXYの内側にあるわけだが、もともと俺はfetchおよびwget用に環境変数HTTP_PROXYを&quot;http://username:pass@URL:port/&quot;という書式で設定しており、fetchとwgetの動作に特に問題は無かった。
+
+
+
+が、portsnapだけが失敗するので今回調べてみた。
+
+
+
+portsnapはファイルの取得にfetch等を使用せず、独自のphttpgetというプログラムを使用している。
+
+
+
+詳しくは&lt;a href=&quot;http://www.daemonology.net/phttpget/&quot; target=&quot;_blank&quot;&gt;Pipelined HTTP GET utility&lt;/a&gt;を参照。
+
+
+
+ここを見ると、作者はphttpgetに自信を持っているようだが、使う側の率直な意見として、好きなのを使わせてくれてもと思う。
+
+
+
+phttpgetはportsnapとともにFreeBSDに取り込まれているので、ソースは下記の場所にある。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  /usr/src/usr/sbin/portsnap/phttpget/phttpget.c
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>中をのぞいて見ると、環境変数HTTP_PROXY内にユーザネーム、パスワードを入れる方法は受け付けない事が分かる。
+
+
+
+HTTP_PROXY_AUTHに書かないといけない。また、&quot;basic:*:username:pass&quot;という書式を想定しているようだ。こういった環境変数の一覧どっかにないものか。
+
+
+
+
+
+
+下記が該当部分
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  /usr/src/usr/sbin/portsnap/phttpget/phttpget.c
+
+
+
+  __FBSDID(&quot;$FreeBSD: /repoman/r/ncvs/src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.4.2.5 2006/03/09 17:08:41 ume Exp $&quot;);
+
+
+
+  &lt;snip&gt;
+
+
+
+  env_HTTP_PROXY_AUTH = getenv(&quot;HTTP_PROXY_AUTH&quot;);
+
+
+
+  if ((env_HTTP_PROXY != NULL) &amp;&amp;
+
+
+
+  (env_HTTP_PROXY_AUTH != NULL) &amp;&amp;
+
+
+
+  (strncasecmp(env_HTTP_PROXY_AUTH, &quot;basic:&quot; , 6) == 0)) {
+
+
+
+  /* Ignore authentication scheme */
+
+
+
+  (void) strsep(&amp;env_HTTP_PROXY_AUTH, &quot;:&quot;);
+
+
+
+  /* Ignore realm */
+
+
+
+  (void) strsep(&amp;env_HTTP_PROXY_AUTH, &quot;:&quot;);
+
+
+
+  /* Obtain username and password */
+
+
+
+  proxy_auth_user = strsep(&amp;env_HTTP_PROXY_AUTH, &quot;:&quot;);
+
+
+
+  proxy_auth_pass = env_HTTP_PROXY_AUTH;
+
+
+
+  }
+</code></pre>
+
+<p></blockquote></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

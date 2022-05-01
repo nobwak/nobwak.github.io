@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Monitorixをカスタマイズしよう</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Monitorixをカスタマイズしよう" />
+<meta property="og:description" content="ママも安心。軽量手軽な監視ツールMonitorix の続き 素の状態でもだいたいのところを監視してくれるMonitorixであるが、それでも設定" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-03-18-monitorix%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%97%E3%82%88%E3%81%86/" />
+<meta property="article:published_time" content="2014-03-18T20:02:55&#43;09:00"/>
+<meta property="article:modified_time" content="2014-03-18T20:02:55&#43;09:00"/>
+
+<meta itemprop="name" content="Monitorixをカスタマイズしよう">
+<meta itemprop="description" content="ママも安心。軽量手軽な監視ツールMonitorix の続き 素の状態でもだいたいのところを監視してくれるMonitorixであるが、それでも設定">
+
+
+<meta itemprop="datePublished" content="2014-03-18T20:02:55&#43;09:00" />
+<meta itemprop="dateModified" content="2014-03-18T20:02:55&#43;09:00" />
+<meta itemprop="wordCount" content="2276">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,monitoring," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Monitorixをカスタマイズしよう"/>
+<meta name="twitter:description" content="ママも安心。軽量手軽な監視ツールMonitorix の続き 素の状態でもだいたいのところを監視してくれるMonitorixであるが、それでも設定"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Monitorixをカスタマイズしよう</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-03-18T20:02:55&#43;09:00">March 18, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p><a href="../../../2014/03/%e8%bb%bd%e9%87%8f%e6%89%8b%e8%bb%bd%e3%81%aa%e7%9b%a3%e8%a6%96%e3%83%84%e3%83%bc%e3%83%abmonitorix/" title="ママも安心。軽量手軽な監視ツールMonitorix">ママも安心。軽量手軽な監視ツールMonitorix </a>の続き</p>
+
+<p>素の状態でもだいたいのところを監視してくれるMonitorixであるが、それでも設定変更したほうがいいところ、変更するとよいところがある。<br />
+変更例を示す。</p>
+
+<p><a href="../../../wp-content/uploads/2014/03/monitorixtheme.png"><img class="alignnone size-thumbnail wp-image-2663" alt="monitorixtheme" src="../../../wp-content/uploads/2014/03/monitorixtheme-150x150.png" width="150" height="150" /></a></p>
+
+<h2 id="span-style-text-decoration-underline-概要-span"><span style="text-decoration: underline;">概要</span></h2>
+
+<p>monitorixの設定ファイルは大きく三つに分かれる。<br />
+①全体的な設定をする箇所<br />
+②個々の監視内容をOn/Offするスイッチ箇所<br />
+③個々の監視内容の設定をする箇所<br />
+以下、それぞれについて扱うとともに、ログの設定も行う。</p>
+
+<h2 id="span-style-text-decoration-underline-①全体の設定-span"><span style="text-decoration: underline;">①全体の設定</span></h2>
+
+<p>設定ファイルの冒頭部分。<br />
+Monitorixの全体的な設定を行う箇所。</p>
+
+<pre><code class="language-console"># グラフの置かれるページのタイトル(ブラウザのバーに表示されるもの)
+title = copper, poudirere server
+# グラフの置かれるページで表示されるタイトル
+hostname = copper
+# テーマカラー。whiteもあるのだが…。記事末尾で触れる。
+theme_color = black
+# 更新頻度
+refresh_rate = 150
+# ネットワーク速度の表示をbpsにするか（デフォルトはBps）
+# yでいいのでは
+netstats_in_bps = y
+</code></pre>
+
+<p>そしてログファイルの場所を指定するエリアがある。<br />
+log_fileの行のみ性質が異なる、と理解している。<br />
+この行に関しては「monitorixのログの吐き出し箇所を指定する」という意味。<br />
+残りは、「Monitorixが見に行くログの場所」という意味になる。</p>
+
+<pre><code class="language-console"># Log files pathnames
+# monitorixが確認するログファイル
+# ----------------------------
+log_file        = /var/log/monitorix
+secure_log      = /var/log/auth.log
+（略）
+</code></pre>
+
+<p>以上に続いて、Monitorixで監視する項目の設定を行うエリアがある。</p>
+
+<h2 id="span-style-text-decoration-underline-②個々の監視内容をon-offするスイッチ箇所-span"><span style="text-decoration: underline;">②個々の監視内容をOn/Offするスイッチ箇所</span></h2>
+
+<p>Monitorixでは、出来合いの監視項目をON/OFFする、というスタイルを取る。<br />
+だからこそ手軽。<br />
+ここにない内容を監視したいなら、他の監視ツールに変えたほうがいいでしょう。</p>
+
+<pre><code class="language-console"># Graphs (de)activation
+# 有効にするグラフを指定する。yで有効、nで無効
+# グラフの詳細はman monitorix.confで確認のこと。
+#
+# 対応する③設定は、systemなら&quot;&lt;system&gt;&quot;というエリアに,
+# マニュアルは「sysmte.rrd」というエリアにある。
+#
+# -----------------------------------
+&lt;graph_enable&gt;
+        system          = y
+        kern            = y
+        proc            = y
+（略）
+</code></pre>
+
+<p>では、それぞれの監視項目の設定を。</p>
+
+<h2 id="span-style-text-decoration-underline-③個々の監視内容の設定をする箇所-span"><span style="text-decoration: underline;">③個々の監視内容の設定をする箇所</span></h2>
+
+<p>以下、監視項目をいくつかピックアップして触れる。</p>
+
+<p><span style="text-decoration: underline;">lmsense</span><br />
+Linuxのlmsensorsが入ってないとダメ。<br />
+つまりFreeBSDでは無理。</p>
+
+<p><span style="text-decoration: underline;">nvidia</span><br />
+Nvidiaグラフィックカードの温度を測定する。<br />
+オフィシャルドライバーが入っていれば大丈夫そうな記載だけどもFreeBSDだとどうやら無理。</p>
+
+<p><span style="text-decoration: underline;">disk</span><br />
+ディスクの温度などを測定する。<br />
+測定にはsmartmontools, hddtempのいずれかが必要。<br />
+FreeBSDの場合はsmartmontools。<br />
+sysutils/smartmontoolsからインストールできる。</p>
+
+<p>sudo smartctl -scanで表示されるディスクのうち、監視したいディスクを下記の0 =に続けて並べる。<br />
+区切りはカンマ</p>
+
+<p>例</p>
+
+<pre><code class="language-console">&lt;disk&gt;
+        &lt;list&gt;
+                0 = /dev/ada0, /dev/ada1
+        &lt;/list&gt;
+（略）
+</code></pre>
+
+<p><span style="text-decoration: underline;">fs</span><br />
+ファイルシステムの使用容量、I/Oなどを調べる。<br />
+カンマで並べる。<br />
+例</p>
+
+<pre><code class="language-console">&lt;fs&gt;
+        &lt;list&gt;
+                0 = /, swap, /usr/local
+        &lt;/list&gt;
+</code></pre>
+
+<p><span style="text-decoration: underline;">net</span><br />
+ネットワークインターフェースの入出力を調べる。<br />
+listでインタフェースを指定。<br />
+デフォルトだとeth0になってるから、FreeBSDでは変更必須。<br />
+記載例。</p>
+
+<pre><code class="language-console">&lt;net&gt;
+	list = bge0
+	&lt;desc&gt;
+		bge0 = GbE LAN, 0, 100000000
+	&lt;/desc&gt;
+	gateway = bge0
+&lt;/net&gt;
+</code></pre>
+
+<p>descには、listで指定した各インタフェースの詳細を記載する。<br />
+ここにはグラフの最大値も指定する必要がある。<br />
+この時に注意点がひとつ。<br />
+単位はbpsではなく、Bpsである、ということ。<br />
+ざっくり、100MbpsのNICであれば10000000を。<br />
+GbEのNICであれば、100000000を指定する。</p>
+
+<p>どういうことかと言えば、つまり下記の通り。<br />
+100Mbps = 最大でも10MBpsは超えない = 10,000,000 と指定。<br />
+1000Mbps = 最大でも100MBpsは超えない = 100,000,000と指定。</p>
+
+<p><span style="text-decoration: underline;">port</span><br />
+portの監視。<br />
+FreeBSDの場合、ipfwを動かしておく必要がある。<br />
+Linuxではiptabelsで。<br />
+listに監視したいポートを並べる。<br />
+descでポートの詳細を指定。<br />
+記載例。</p>
+
+<pre><code class="language-console">&lt;port&gt;
+	max = 9
+	rule = 24000
+	list = 21, 80, 22, 110, 139
+	&lt;desc&gt;
+		21	= FTP,     tcp, in, 0, 1000
+		80	= HTTP,    tcp, in, 0, 1000
+		22	= SSH,     tcp, in, 0, 1000
+		110	= POP3,    tcp, in, 0, 1000
+		139	= NETBIOS, tcp, in, 0, 1000
+	&lt;/desc&gt;
+（略）
+</code></pre>
+
+<p>descの22ではtcp, inと指定している。<br />
+これは「ポート22にtcp接続してくる/ポート22からtcpで出て行く通信を監視する」という意味。<br />
+outだと「ポート22へtcp接続し、ポート22からやってくるtcp接続を監視する」という意味。</p>
+
+<p>ruleはipfwを使う時だけ有効。<br />
+ipfwのルール2400番を使うよ、と指定している。</p>
+
+<p>ipfwのルールを見てみると（ポート22のところだけ抜粋）。</p>
+
+<pre><code class="language-console">24000 count tcp from me 22 to any
+24000 count tcp from any to me dst-port 22
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-br-ログのローテート設定-span"><span style="text-decoration: underline;"><br /> ログのローテート設定</span></h2>
+
+<p>/var/log/には以下のようにログが吐かれる。<br />
+このまま放っておくと、ログは一方的にたまるだけなので、newsyslogに設定しておく。</p>
+
+<pre><code class="language-console">-rw-r--r--  1 root  wheel  349949  2月 20 17:54 ./monitorix
+-rw-r--r--  1 www   www    165818  2月 20 17:17 ./monitorix-httpd
+</code></pre>
+
+<p>/etc/newsyslog.conf</p>
+
+<pre><code class="language-console"># for monitorix
+/var/log/monitorix                      600  7     100  *     JC
+/var/log/monitorix-httpd www:www        600  7     100  *     JC
+</code></pre>
+
+<p>newsyslogの再起動。</p>
+
+<pre><code class="language-console">$ sudo service newsyslog restart
+Creating and/or trimming log files.
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-テーマについて-span"><span style="text-decoration: underline;">テーマについて</span></h2>
+
+<p>デフォルトのテーマblackは、前世紀のwebみたいで、ちょっといただけない。<br />
+かと言って、もう一方の選択肢whiteもあんまりである。<br />
+試行錯誤の末、白基調で冒頭の様なテーマにしている。</p>
+
+<p>設定ファイルの下の方にある、whiteのところを書き換えた。<br />
+全体設定でthemeをwhiteにしておくこと。<br />
+参考までに。</p>
+
+<p><code>console
+&lt;white&gt;
+                canvas          = FFFFFF
+                back            = 101010
+                font            = C0C0C0
+                #mgrid          = 80C080
+                mgrid           = ecf0f1
+                #grid           = 808020
+                grid            = 808020
+                frame           = ecf0f1
+                arrow           = FFFFFF
+                shadea          = 404040
+                shadeb          = 404040
+                axis            = 101010
+                main_bg         = FEFEFE
+                main_fg         = e67e22
+                title_bg        = ecF0f1
+                title_fg        = 34495e
+                graph_bg        = bdc3c7
+                gap             = FFFFFF
+        &lt;/white&gt;</code></p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/monitoring" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">monitoring</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/">ママも安心。軽量手軽な監視ツールMonitorix</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-09-freebsd%E3%81%A7smartmontools%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDでsmartmontoolsのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-02-swap%E3%81%8C%E8%B6%B3%E3%82%89%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%A6%E3%82%AD%E3%83%AC%E3%81%9Ffreebsd%E3%81%AE%E6%80%96%E3%81%95%E3%81%AF%E7%95%B0%E5%B8%B8%E3%81%A8%E3%81%9D%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95/">swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/">[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDへのMATEインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

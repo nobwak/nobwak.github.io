@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homebrew on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/homebrew/</link>
+    <description>Recent content in Homebrew on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Fri, 30 May 2014 22:24:38 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/homebrew/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[メモ] MacのパッケージマネージャHomebrewのインストール</title>
+      <link>https://nobwak.github.io/posts/2014-05-30-%E3%83%A1%E3%83%A2_mac%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Fri, 30 May 2014 22:24:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-05-30-%E3%83%A1%E3%83%A2_mac%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。 Rubyで作られて</description>
+    </item>
+    
+  </channel>
+</rss>

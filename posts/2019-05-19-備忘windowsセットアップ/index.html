@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | 【備忘】Windowsセットアップ</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="【備忘】Windowsセットアップ" />
+<meta property="og:description" content="Windows再インストール時にすることをまとめる。 まず各種ソフトウェアをインストールしたのち、Windowsの設定を行う。 インストールする" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2019-05-19-%E5%82%99%E5%BF%98windows%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97/" />
+<meta property="article:published_time" content="2019-05-19T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-05-19T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="【備忘】Windowsセットアップ">
+<meta itemprop="description" content="Windows再インストール時にすることをまとめる。 まず各種ソフトウェアをインストールしたのち、Windowsの設定を行う。 インストールする">
+
+
+<meta itemprop="datePublished" content="2019-05-19T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-05-19T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2333">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="【備忘】Windowsセットアップ"/>
+<meta name="twitter:description" content="Windows再インストール時にすることをまとめる。 まず各種ソフトウェアをインストールしたのち、Windowsの設定を行う。 インストールする"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">【備忘】Windowsセットアップ</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2019-05-19T00:00:00Z">May 19, 2019</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Windows再インストール時にすることをまとめる。
+まず各種ソフトウェアをインストールしたのち、Windowsの設定を行う。</p>
+
+<h2 id="インストールするソフト">インストールするソフト</h2>
+
+<h3 id="方針">方針</h3>
+
+<ul>
+<li>レジストリを汚したくないので、なるべくportable版を選び、それらは特定のフォルダ、例えばc:\localなどに入れる。設定については後述</li>
+</ul>
+
+<h3 id="システム-ユーティリティ">システム、ユーティリティ</h3>
+
+<ul>
+<li>ランチャー
+
+<ul>
+<li>インストールしない。後述のWindows設定を参照。</li>
+</ul></li>
+<li>IME, FEP
+
+<ul>
+<li>Google IME <a href="https://www.google.co.jp/ime/">https://www.google.co.jp/ime/</a></li>
+</ul></li>
+<li>等幅フォント
+
+<ul>
+<li>VLGothic <a href="https://ja.osdn.net/projects/vlgothic/">https://ja.osdn.net/projects/vlgothic/</a></li>
+<li>コードを書くには必須。</li>
+<li>結局VLGothicが見やすいような</li>
+</ul></li>
+<li>クリップボード管理
+
+<ul>
+<li>clibor <a href="https://chigusa-web.com/clibor/feature/">https://chigusa-web.com/clibor/feature/</a></li>
+<li>クリップボード履歴等を管理。</li>
+</ul></li>
+<li>スクリーンショット
+
+<ul>
+<li>screenshoter <a href="https://www.inspire-soft.net/software/screenshoter">https://www.inspire-soft.net/software/screenshoter</a></li>
+<li>PrintScreenを押すと指定のフォルダに画像として保存してくれる</li>
+</ul></li>
+<li>PC内検索
+
+<ul>
+<li>everything <a href="https://www.voidtools.com/">https://www.voidtools.com/</a></li>
+<li>速いうえにインクリメンタルサーチしてくれるから好き</li>
+</ul></li>
+<li>ファイル名一括変更
+
+<ul>
+<li>LiName <a href="http://snca.net/">http://snca.net/</a></li>
+<li>窓の杜の記事 <a href="https://forest.watch.impress.co.jp/library/software/liname/">https://forest.watch.impress.co.jp/library/software/liname/</a></li>
+<li>複数ファイルのファイル名を、好みのエディタ上で操作できる。超便利。</li>
+</ul></li>
+<li>ハッシュ確認
+
+<ul>
+<li>wMD5sum <a href="http://kkkon.sakura.ne.jp/software/wMD5sum/index_x64.shtml">http://kkkon.sakura.ne.jp/software/wMD5sum/index_x64.shtml</a></li>
+<li>このくらいシンプルなほうが使いやすい</li>
+</ul></li>
+<li>差分確認
+
+<ul>
+<li>WinMerge <a href="http://winmerge.org/?lang=en">http://winmerge.org/?lang=en</a></li>
+</ul></li>
+<li>アーカイバ
+
+<ul>
+<li>7-zipかなあ。満足できるアーカイバがまだない。</li>
+</ul></li>
+<li>コピー
+
+<ul>
+<li>定番のFastCopy <a href="https://fastcopy.jp/">https://fastcopy.jp/</a></li>
+</ul></li>
+<li>仮想化
+
+<ul>
+<li>VirtualBox</li>
+<li>Oracleなのでいつ何があるかわからないよね。</li>
+<li>docker</li>
+<li>入れようかどうしようか</li>
+</ul></li>
+</ul>
+
+<h3 id="unixツール">UNIXツール</h3>
+
+<ul>
+<li>sed
+
+<ul>
+<li><a href="https://github.com/mbuilov/sed-windows">https://github.com/mbuilov/sed-windows</a></li>
+</ul></li>
+<li>grep
+
+<ul>
+<li><a href="http://dngrep.github.io/">http://dngrep.github.io/</a></li>
+</ul></li>
+</ul>
+
+<h3 id="ネットワーク系">ネットワーク系</h3>
+
+<ul>
+<li>ファイル転送
+
+<ul>
+<li>WinSCP</li>
+<li><a href="https://winscp.net/eng/downloads.php">https://winscp.net/eng/downloads.php</a></li>
+<li>もちろん、脆弱性のあるSCPは使わずにSFTPを使う</li>
+</ul></li>
+<li>ターミナル
+
+<ul>
+<li>rloginかPutty</li>
+<li>putty <a href="https://www.putty.org/">https://www.putty.org/</a></li>
+<li>rlogin <a href="http://nanno.dip.jp/softlib/man/rlogin/">http://nanno.dip.jp/softlib/man/rlogin/</a></li>
+</ul></li>
+<li>同期関連、つまりrsync相当
+
+<ul>
+<li>realsync</li>
+<li><a href="http://www.takenet.or.jp/~ryuuji/realsync/">http://www.takenet.or.jp/~ryuuji/realsync/</a></li>
+</ul></li>
+<li>VNC
+
+<ul>
+<li>TigerVNC</li>
+<li><a href="https://github.com/TigerVNC/tigervnc/releases">https://github.com/TigerVNC/tigervnc/releases</a></li>
+<li>Viewerだけならvncviewer64-X.X.X.exeでよい</li>
+<li>FreeBSDのbhyveで使うならこれ。</li>
+<li>UltraVNC</li>
+<li><a href="http://www.uvnc.com/home.html">http://www.uvnc.com/home.html</a></li>
+</ul></li>
+</ul>
+
+<h3 id="ブラウザと拡張機能">ブラウザと拡張機能</h3>
+
+<ul>
+<li>メモリ食いのChromeよりはFirefoxかなあ。
+
+<ul>
+<li>Firefox <a href="https://www.mozilla.org/ja/firefox/new/">https://www.mozilla.org/ja/firefox/new/</a></li>
+<li>Chrome <a href="https://www.google.com/intl/ja_ALL/chrome/">https://www.google.com/intl/ja_ALL/chrome/</a></li>
+<li>頻繁に更新があるのでPortable版にはせずインストール。</li>
+</ul></li>
+<li>拡張機能
+
+<ul>
+<li>パスワードマネジャー</li>
+<li>Lastpass
+
+<ul>
+<li>Firefox <a href="https://addons.mozilla.org/ja/firefox/addon/lastpass-password-manager/">https://addons.mozilla.org/ja/firefox/addon/lastpass-password-manager/</a></li>
+<li>Chrome <a href="https://chrome.google.com/webstore/detail/lastpass-free-password-ma/hdokiejnpimakedhajhdlcegeplioahd?hl=ja">https://chrome.google.com/webstore/detail/lastpass-free-password-ma/hdokiejnpimakedhajhdlcegeplioahd?hl=ja</a></li>
+</ul></li>
+<li>広告ブロック</li>
+<li>uBlockが好き
+
+<ul>
+<li>Firefox <a href="https://addons.mozilla.org/ja/firefox/addon/ublock-origin/">https://addons.mozilla.org/ja/firefox/addon/ublock-origin/</a></li>
+<li>Chrome <a href="https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=ja">https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=ja</a></li>
+</ul></li>
+<li>アマゾン価格トラッカー</li>
+<li>Keepa <a href="https://keepa.com/">https://keepa.com/</a></li>
+</ul></li>
+</ul>
+
+<h3 id="エディタ">エディタ</h3>
+
+<ul>
+<li>テキストエディタ
+
+<ul>
+<li>EmEditor <a href="https://jp.emeditor.com/text-editor-features/history/emeditor-free/">https://jp.emeditor.com/text-editor-features/history/emeditor-free/</a></li>
+<li>EmEditorが好き。Free版を使わせてもらってます。ポータブル版で。</li>
+<li>Free版にするには「[ツール] メニューの <a href="Ctrl+Q">クイック起動</a> を選択し、[ダウングレード] と入力して Enter を 2 回押してください。」</li>
+<li>どうもデフォルトだと文字コードがShift-JISになってることに注意</li>
+<li>フォントは等幅フォントに変更。</li>
+</ul></li>
+<li>コードエディタ
+
+<ul>
+<li>Visual Studio Code　<a href="https://code.visualstudio.com/downloadhttps://code.visualstudio.com/download">https://code.visualstudio.com/downloadhttps://code.visualstudio.com/download</a></li>
+<li>マークダウンエディタとしても使用
+
+<ul>
+<li>markdownlintを入れておく。</li>
+<li>マークダウンエディタとしてはTyporaも気になるがportable版がないのでなあ。。</li>
+</ul></li>
+<li>ポータブル版はzip版をダウンロードすればよい。File-&gt;Preference-&gt;Extensionsと進むか、Ctrl+Shift+X。Japaneseで検索してJapanese Language Pack for Visual Studio Codeをインストール</li>
+<li>「Ctrl+Shift+P を押してコマンド パレットを表示させ、&rdquo;config&rdquo; と入力し、利用できるコマンドのリストをフィルター処理してから Configure Language コマンドを選択します。」とあるが、configで検索したあとConfigure Display Languageを選択し、jaを選ぶ</li>
+<li>PyCharm</li>
+<li>Pythonをよく書くので&hellip;。</li>
+</ul></li>
+</ul>
+
+<h3 id="フォトレタッチ">フォトレタッチ</h3>
+
+<ul>
+<li>JTrim
+
+<ul>
+<li>JTrimが軽くてシンプルで好き</li>
+<li><a href="https://forest.watch.impress.co.jp/library/software/jtrim/">https://forest.watch.impress.co.jp/library/software/jtrim/</a></li>
+<li><a href="https://www.vector.co.jp/soft/win95/art/se108932.html">https://www.vector.co.jp/soft/win95/art/se108932.html</a></li>
+</ul></li>
+<li>Paint . Net
+
+<ul>
+<li>レイヤー操作が必要なときはpaint dot net</li>
+<li><a href="https://www.getpaint.net/">https://www.getpaint.net/</a></li>
+<li>一回はインストールが必要だが、設定を変えればポータブルバージョンに変更できる。</li>
+<li><a href="https://blog.getpaint.net/2017/07/21/portable-mode-in-paint-net-4-0-17/">https://blog.getpaint.net/2017/07/21/portable-mode-in-paint-net-4-0-17/</a></li>
+<li>PaintDotNet.exe.configの&lt;appSettings&gt;に以下の行を加える。あとはフォルダごとUSBメモリにコピーするなり、他のPCにコピーするなりしてもOK</li>
+</ul></li>
+</ul>
+
+<h3 id="その他">その他</h3>
+
+<ul>
+<li>年賀状ソフト
+
+<ul>
+<li>aprint（ポータブル版あり） <a href="http://hp.vector.co.jp/authors/VA018451/aprint.htm">http://hp.vector.co.jp/authors/VA018451/aprint.htm</a></li>
+</ul></li>
+</ul>
+
+<h2 id="windows設定">Windows設定</h2>
+
+<ul>
+<li>タスクバー
+
+<ul>
+<li>People関連をすべてOFF</li>
+</ul></li>
+<li>スタートメニュー
+
+<ul>
+<li>不要なものをOFFまたは右クリックでアンインストール</li>
+</ul></li>
+<li>設定で「色」を検索
+
+<ul>
+<li>既定のアプリモードを黒にするとダークモード。</li>
+</ul></li>
+
+<li><p>設定で「マルチタスク」を検索</p>
+
+<ul>
+<li>Windowsキー＋矢印キーで画面スナップするための設定</li>
+<li>「ウインドウを画面の横または隅にドラッグしたときに自動的に整列する」は オンのままにしておくこと</li>
+<li>「ウィンドウをスナップしたときに横に配置できるものを表示する」をオフ</li>
+<li>これをしないとスナップしたときに「隣にどのウインドウを表示しますか」と毎回、聞かれることになる。</li>
+<li>タイムライン</li>
+<li>オフ</li>
+</ul></li>
+
+<li><p>エクスプローラ</p>
+
+<ul>
+<li>拡張子の表示</li>
+<li>エクスプローラー画面でAlt→V→HF</li>
+<li>詳細表示、一覧表示はCtrl+Shift+5, Ctrl+Shift+6で切り替え</li>
+</ul></li>
+
+<li><p>右クリックの「送る」</p>
+
+<ul>
+<li>Win+Rで&rdquo;shell:sendto&rdquo;とタイプ</li>
+<li>開いたフォルダに、「右クリック→送る」で渡したいアプリのショートカットを登録する。EmEditorとか。</li>
+</ul></li>
+
+<li><p>Caps LockをCtrlキーに</p>
+
+<ul>
+<li>テキストファイルに以下を書き込み、拡張子.regで保存。ダブルクリックで実行、再起動でOK</li>
+<li><a href="http://capm-network.com/?tag=Windows7-CapsLock%E3%82%92Ctrl%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B">http://capm-network.com/?tag=Windows7-CapsLock%E3%82%92Ctrl%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B</a></li>
+</ul></li>
+</ul>
+
+<pre><code class="language-console">===================
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
+&quot;Scancode Map&quot;=hex:00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00
+===================
+</code></pre>
+
+<ul>
+<li>ランチャー（相当）の設定
+
+<ul>
+<li>pathを通すために環境変数を編集する</li>
+<li>c:\binを作り（どこでもよい）、環境変数Pathに追加する。</li>
+<li>設定→「環境変数の編集」で検索</li>
+<li>Pathを選択、編集→新規、c:\binを追加</li>
+<li>ここまでしたら、binフォルダにたとえばFirefoxのショートカットを置き、&rdquo;firefox&rdquo;とリネームする。</li>
+<li>この状態で、Win+R→firefoxとタイプ、Enterキーを押せばfirefoxを起動できる。</li>
+<li>ショートカットは実行ファイルだけでなく、フォルダのショートカットでも可。</li>
+<li>ダウンロードフォルダのショートカットをコピーし、&rdquo;dl&rdquo;とリネームしておくとか。</li>
+</ul></li>
+</ul>
+
+<p>最終更新: 2019-5-19</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

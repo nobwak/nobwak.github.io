@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）" />
+<meta property="og:description" content="Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。 Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2018-03-21-linux%E3%81%AB%E6%B3%A8%E6%96%87%E3%81%AE%E5%A4%9A%E3%81%84%E6%96%99%E7%90%86%E5%BA%97%E3%82%92%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9D%E3%81%86open_jtalk/" />
+<meta property="article:published_time" content="2018-03-21T20:13:48&#43;09:00"/>
+<meta property="article:modified_time" content="2018-03-21T20:13:48&#43;09:00"/>
+
+<meta itemprop="name" content="Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）">
+<meta itemprop="description" content="Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。 Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト">
+
+
+<meta itemprop="datePublished" content="2018-03-21T20:13:48&#43;09:00" />
+<meta itemprop="dateModified" content="2018-03-21T20:13:48&#43;09:00" />
+<meta itemprop="wordCount" content="1734">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）"/>
+<meta name="twitter:description" content="Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。 Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Linuxに注文の多い料理店をしゃべらそう（Open Jtalk）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-03-21T20:13:48&#43;09:00">March 21, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Nano Pi Neo2にOpen JTalkでしゃべらせたのでメモ。</p>
+
+<p>Open Jtalkは「入力された日本語テキストに基づいて自由な音声を生成するHMMテキスト音声合成システム」とのこと。<br />
+<a href="http://open-jtalk.sp.nitech.ac.jp/">http://open-jtalk.sp.nitech.ac.jp/</a></p>
+
+<p>open-jtalk、辞書をインストールする。<br />
+open-jtalkをインストールすれば辞書もついてくる。</p>
+
+<pre><code class="language-console">$ apt search open-jtalk  
+ソート中... 完了  
+全文検索... 完了  
+open-jtalk/artful 1.10-1 amd64  
+日本語音声合成システム
+
+open-jtalk-mecab-naist-jdic/artful,artful,now 1.10-1 all  
+NAIST Japanese Dictionary for Open JTalk
+
+$ sudo apt-get install open-jtalk  
+パッケージリストを読み込んでいます... 完了  
+依存関係ツリーを作成しています  
+状態情報を読み取っています... 完了  
+提案パッケージ:  
+hts-voice-nitech-jp-atr503-m001  
+以下のパッケージが新たにインストールされます:  
+open-jtalk　open-jtalk-mecab-naist-jdic  
+(略)
+</code></pre>
+
+<p>提案パッケージであるhts-voice-nitech-jp-atr503-m001も。<br />
+これは音声データ。男性の声。</p>
+
+<pre><code class="language-console">hts-voice-nitech-jp-atr503-m001 - Japanese male voice data for Open JTalk
+</code></pre>
+
+<p>open-jtalkのコマンドはopen_jtalk（間はアンダースコア）として、open_jtalkの辞書は/var/lib/mecab/dic/open-jtalk/naist-jdicに、音声データは/usr/share/hts-voice/にインストールされる。<br />
+「こんにちは」と書いたvoice.txtを作り、open_jtalkに食わす。</p>
+
+<pre><code class="language-console">$ cat ./voice.txt  
+こんにちは
+
+$ open_jtalk -m /usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice -x /var/lib/mecab/dic/open-jtalk/naist-jdic -ow test.wav ./voice.txt
+</code></pre>
+
+<p>喋ってくれるはず。<br />
+やはり女性の声のほうが良いので、名工大のMMDAgentを使う。<br />
+<a href="http://share.udialogue.org/meissen/login.htm">http://share.udialogue.org/meissen/login.htm</a><br />
+2018/3/21時点で1.7が最新<br />
+ダウンロードして展開し、/usr/share/hts-voice/に格納する。<br />
+使うのは中身の「mei」ディレクトリ配下のみ。<br />
+Meiさんは名工大キャラクターだそうな。</p>
+
+<pre><code class="language-console">$ wget https://sourceforge.net/projects/mmdagent/files/MMDAgent\_Example/MMDAgent\_Example-1.7/MMDAgent_Example-1.7.zip
+$
+$ unzip ./MMDAgent_Example-1.7.zip  
+$ sudo cp -R ./MMDAgent_Example-1.7/Voice/mei /usr/share/hts-voice/
+</code></pre>
+
+<p>声には以下の5種類がある。実際に発声させる際に選ぶ。<br />
+mei_angry.htsvoice mei_happy.htsvoice mei_sad.htsvoice<br />
+mei_bashful.htsvoice mei_normal.htsvoice</p>
+
+<p>以下のスクリプトを用意する。<br />
+どこかのサイトから持ってきたんですが、どのサイトからだったか忘れてしもうた…。<br />
+これをjtalk.pyとして保存する。1行目は環境に応じて変えること。<br />
+htsvoiceは上記の通り喜怒哀通常から選べる。<br />
+speedも選べる。<br />
+このあたりは試行錯誤。</p>
+
+<p>あとはこれをimportして使う。</p>
+
+<pre><code class="language-python">#!/usr/bin/python
+#coding: utf-8
+import subprocess
+from datetime import datetime
+
+def jtalk(t):
+    open_jtalk=['/usr/bin/open_jtalk']
+    mech=['-x','/var/lib/mecab/dic/open-jtalk/naist-jdic']
+    htsvoice=['-m','/usr/share/hts-voice/mei/mei_normal.htsvoice']
+    speed=['-r','1.0']
+    outwav=['-ow','/tmp/open_jtalk.wav']
+    cmd=open_jtalk+mech+htsvoice+speed+outwav
+    c = subprocess.Popen(cmd,stdin=subprocess.PIPE)
+    c.stdin.write(t.encode('utf-8'))
+    c.stdin.close()
+    c.wait()
+    aplay = ['aplay','-q','/tmp/open_jtalk.wav']
+    wr = subprocess.Popen(aplay)
+
+def say_datetime():
+    d = datetime.now()
+    text = '%s月%s日、%s時%s分%s秒' % (d.month, d.day, d.hour, d.minute, d.second)
+    jtalk(text)
+
+if __name__ == '__main__':
+    say_datetime()
+</code></pre>
+
+<p>先ほどのファイルをimportして、jtalk.jtalk(string)で、発話させたい文章を渡せばOK。</p>
+
+<pre><code class="language-python">#!/usr/bin/python
+#coding: utf-8
+import jtalk
+
+jtalk.jtalk('何か話してください')
+</code></pre>
+
+<p>さあテストである。<br />
+青空文庫「注文の多い料理店」を朗読させてみる。<br />
+「新字新仮名」版をダウンロード。<br />
+<a href="http://www.aozora.gr.jp/cards/000081/card43754.html">http://www.aozora.gr.jp/cards/000081/card43754.html</a></p>
+
+<p>そのままではOpen Jtalkに渡せないので、以下の変更を加える。</p>
+
+<ul>
+<li>文字コードをShift-JISからUTF-8へ</li>
+<li>ルビを削除（正規表現パターンは<code>&quot;《.*?》&quot;</code>）</li>
+<li>ルビの個所を示す区切り記号を削除（<code>&quot;｜&quot;</code>）</li>
+<li>構成を示す注釈を削る（正規表現パターンは<code>&quot;\［.*?\］&quot;</code>）</li>
+<li>改行コードをCR+LFをLFのみに。（\rを削る）</li>
+</ul>
+
+<p>できれば以下も。</p>
+
+<ul>
+<li>行頭字下げ、要するに行頭の全角スペースを削除（正規表現パターンは<code>&quot;^　&quot;</code>）</li>
+<li>セリフのカギかっこを削る。行頭のものだけでよい。（正規表現パターンは<code>&quot;^「&quot;</code>）</li>
+</ul>
+
+<p>以下までできれば完璧</p>
+
+<ul>
+<li>改行をいったん全て削り、句点のあとに改行コード（\n）を挿入</li>
+</ul>
+
+<p>neko.txtとでも保存し、以下のPythonスクリプトを実行。</p>
+
+<pre><code class="language-python">#!/usr/bin/python
+
+import jtalk
+
+for line in open('neko.txt','r'):
+    print(line)
+    jtalk.jtalk(line)
+</code></pre>
+
+<p>こんな感じ。
+<blockquote class="twitter-tweet" data-lang="ja">
+<p lang="ja" dir="ltr">Open JTalk、面白いので注文の多い料理店を朗読していただいた。 <a href="https://t.co/DknzkTiIHk">pic.twitter.com/DknzkTiIHk</a></p>&mdash; nobwak (@nobwak) <a href="https://twitter.com/nobwak/status/950304091338547200?ref_src=twsrc%5Etfw">2018年1月8日</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<p>試してみるとわかるが、漢字の読み方が変だったり（山猫軒を「やまねこのき」と読んだり）、読めない漢字があったりする。<br />
+そりゃまあ仕方ないよね。</p>
+
+<p>それはさておき。<br />
+十分なスペックがあるときに複数行の文章を読ませると、発話が終わっていないのに次の行の処理を始めてしまって困ることがある。<br />
+そういうときは発話の終了を待つよう、wait()を入れればよい。<br />
+関数jtalk()の最後に一行追加。</p>
+
+<pre><code class="language-python">def jtalk(t):
+    open_jtalk=['/usr/bin/open_jtalk']
+    mech=['-x','/var/lib/mecab/dic/open-jtalk/naist-jdic']
+    htsvoice=['-m','/usr/share/hts-voice/mei/mei_normal.htsvoice']
+    speed=['-r','1.0']
+    outwav=['-ow','/tmp/open_jtalk.wav']
+    cmd=open_jtalk+mech+htsvoice+speed+outwav
+    c = subprocess.Popen(cmd,stdin=subprocess.PIPE)
+    c.stdin.write(t.encode('utf-8'))
+    c.stdin.close()
+    c.wait()
+    aplay = ['aplay','-q','/tmp/open_jtalk.wav']
+    wr = subprocess.Popen(aplay)
+    wr.wait()
+</code></pre>
+
+<p>参考サイト</p>
+
+<p>Raspberry piで日本語音声合成(Open JTalk)を試してみる。
+<a href="https://qiita.com/lutecia16v/items/8d220885082e40ace252#%E5%A5%B3%E6%80%A7%E3%81%AE%E5%A3%B0%E3%81%AB%E5%A4%89%E3%81%88%E3%81%A6%E3%81%BF%E3%82%8B">https://qiita.com/lutecia16v/items/8d220885082e40ace252#%E5%A5%B3%E6%80%A7%E3%81%AE%E5%A3%B0%E3%81%AB%E5%A4%89%E3%81%88%E3%81%A6%E3%81%BF%E3%82%8B</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

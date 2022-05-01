@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ネットワーク越しのzfs send recvをmbufferでスピードアップしよう</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ネットワーク越しのzfs send recvをmbufferでスピードアップしよう" />
+<meta property="og:description" content="zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2019-06-01-%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B6%8A%E3%81%97%E3%81%AEzfs_send_recv/" />
+<meta property="article:published_time" content="2019-06-01T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-06-01T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="ネットワーク越しのzfs send recvをmbufferでスピードアップしよう">
+<meta itemprop="description" content="zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、">
+
+
+<meta itemprop="datePublished" content="2019-06-01T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-06-01T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3167">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ネットワーク越しのzfs send recvをmbufferでスピードアップしよう"/>
+<meta name="twitter:description" content="zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。 もちろん、同一ホストでもネットワーク越しでも同じ。 また、"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ネットワーク越しのzfs send recvをmbufferでスピードアップしよう</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2019-06-01T00:00:00Z">June 1, 2019</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>zfsのスナップショットはzfs send, zfs recvで、pool間をまたいでコピーができる。
+もちろん、同一ホストでもネットワーク越しでも同じ。</p>
+
+<p>また、send, recvで送受するデータの実体はストリームなので、sendとrecvをパイプラインで繋ぐ。<br />
+パイプラインで繋ぐということは、ストリームを操作、制御するコマンドをsend, recvの間に挟んでも構わないということになる。</p>
+
+<p>こういった特性を活かして、ネットワーク越しにzfsデータを送受するときには、間にバッファツールを挟む。</p>
+
+<p>バッファツールはその名の通りデータをバッファするツールで、今回のケースで言えば、受け側ホストか経路ネットワークの問題か、要するにデータを受け取れないときにはデータをためておき、受け取れるときには限界までデータを流し込む。<br />
+こうすることでzfs send recvの転送速度向上を期待できる。</p>
+
+<p>なお、「ネットワーク越し」という場合、その「ネットワーク」がプライベート網かインターネットなどの公衆網のどちらなのか、で要件が大きく変わる。<br />
+それについては後述の「データの流れとコマンド実行方法」を参照のこと。</p>
+
+<h2 id="バッファツールの定番mbuffer">バッファツールの定番mbuffer</h2>
+
+<p>バッファツールには定番mbufferを使う。</p>
+
+<ul>
+<li><a href="http://www.maier-komor.de/mbuffer.html">公式</a></li>
+<li><a href="https://www.freshports.org/misc/mbuffer">freshports</a>(FreeBSDの方)</li>
+</ul>
+
+<h2 id="pkgでインストール-freebsdの方">pkgでインストール(FreeBSDの方)</h2>
+
+<p>送受それぞれのホストでインストールしましょうね。</p>
+
+<pre><code class="language-bash">$ sudo pkg install mbuffer
+Password:
+Updating FreeBSD repository catalogue...
+Fetching meta.txz: 100%    944 B   0.9kB/s    00:01
+Fetching packagesite.txz: 100%    6 MiB   2.2MB/s    00:03
+Processing entries: 100%
+FreeBSD repository update completed. 31778 packages processed.
+All repositories are up to date.
+The following 2 package(s) will be affected (of 0 checked):
+
+New packages to be INSTALLED:
+        mbuffer: 20190127
+        mhash: 0.9.9.9_5
+
+Number of packages to be installed: 2
+
+177 KiB to be downloaded.
+
+Proceed with this action? [y/N]: y
+[1/2] Fetching mbuffer-20190127.txz: 100%   47 KiB  48.1kB/s    00:01
+[2/2] Fetching mhash-0.9.9.9_5.txz: 100%  130 KiB 132.8kB/s    00:01
+Checking integrity... done (0 conflicting)
+[1/2] Installing mhash-0.9.9.9_5...
+[1/2] Extracting mhash-0.9.9.9_5: 100%
+[2/2] Installing mbuffer-20190127...
+[2/2] Extracting mbuffer-20190127: 100%
+Message from mhash-0.9.9.9_5:
+
+===&gt;   NOTICE:
+
+The mhash port currently does not have a maintainer. As a result, it is
+more likely to have unresolved issues, not be up-to-date, or even be removed in
+the future. To volunteer to maintain this port, please create an issue at:
+
+https://bugs.freebsd.org/bugzilla
+
+More information about port maintainership is available at:
+
+https://www.freebsd.org/doc/en/articles/contributing/ports-contributing.html#maintain-port
+
+</code></pre>
+
+<p>FreeBSDの悲哀を感じるログです（メンテナがいない）。</p>
+
+<h2 id="mbufferのオプション">mbufferのオプション</h2>
+
+<p>よく使うのだけ</p>
+
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th>説明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>-i &lt;<em>filename</em>&gt;</td>
+<td>標準入力の代わりにファイルを指定。</td>
+</tr>
+
+<tr>
+<td>-o &lt;<em>filename</em>&gt;</td>
+<td>標準出力の代わりにファイルを指定。</td>
+</tr>
+
+<tr>
+<td>-I &lt;<em>port</em>&gt;</td>
+<td>標準入力の代わりにポートを指定。</td>
+</tr>
+
+<tr>
+<td>-O &lt;<em>host:port</em>&gt;</td>
+<td>標準出力の代わりにポートを指定。</td>
+</tr>
+
+<tr>
+<td>-s &lt;<em>size</em>&gt;</td>
+<td>データを扱う単位。バイト指定だがB,K,M,Gなどの単位指定可</td>
+</tr>
+
+<tr>
+<td>-m &lt;<em>size</em>&gt;</td>
+<td>バッファサイズ。バイト指定だがB,K,M,Gなどの単位指定可</td>
+</tr>
+
+<tr>
+<td>-4</td>
+<td>強制的にIPv4にする。IPv4の場合は必須。かつ前の方で指定すること</td>
+</tr>
+
+<tr>
+<td>-6</td>
+<td>強制的にIPv6にする</td>
+</tr>
+
+<tr>
+<td>-v &lt;<em>level</em>&gt;</td>
+<td>verboseレベル。0～6で指定</td>
+</tr>
+</tbody>
+</table>
+
+<p>-sには、zfsのrecordsizeを指定するとよい。デフォルトでは128k。zfs get recordsizeで分かる。<br />
+バッファサイズはお好きに。メモリを使います。1Gくらいかな。</p>
+
+<h2 id="データの流れとコマンド実行方法">データの流れとコマンド実行方法</h2>
+
+<p>さて、バッファツールを使うとしてデータはどう流すべきか。
+データの流れとコマンド実行方法について、要件の観点で示す。</p>
+
+<h3 id="データを流すのはどういう経路か">データを流すのはどういう経路か</h3>
+
+<p>ひとまずは以下が一番素直な構成である。</p>
+
+<pre><code class="language-console">zfs send --&gt; mbuffer --(network)--&gt; mbuffer --&gt; zfs recv
+</code></pre>
+
+<p>受け側の方でmbufferとzfs recvを実行して待ち受け状態にしておき、そのあとに送り側でzfs sendとmbufferを実行する、というもの。</p>
+
+<p>しかし上記の構成は、プライベート網だけに限るべき。</p>
+
+<p>というのも、mbufferはデータストリームをそのままネットワークにリダイレクトしているだけなので、データは丸見えだからである。<br />
+また、この構成の場合、受け側は特定のポートで口を開けて待っているだけで、受け取るデータが適正なものであるかについては一切、関知しない。それどころか認証すらしない。<br />
+来るもの拒まずのガバガバであるからして、非セキュアな網では使ってはいけない。</p>
+
+<p>経路が信用できないときは、sshを経由すること。認証もあるし、データも暗号化してくれるからね。</p>
+
+<p>この場合のデータの流れは以下の通り。</p>
+
+<pre><code class="language-console">zfs send --&gt; mbuffer --&gt; ssh --&gt; (network) --&gt; sshd --&gt; mbuffer --&gt; zfs recv
+</code></pre>
+
+<p>受け側のmbuffer, zfs recvは送り側からのsshによるリモート実行。
+ssh <em>リモートサーバ</em> <em>コマンド</em> ってやるやつな。</p>
+
+<h3 id="定期的に実行するか">定期的に実行するか</h3>
+
+<p>また別の観点で言えば、zfs send, recvを定期的に実行するかどうかである。</p>
+
+<p>定期的にバックアップデータをリモートのサーバに送るということなら、経由する網がセキュアであってもsshを使ったほうがよい。</p>
+
+<p>理由は、コマンドの実行が片方だけのホストで完結するからである。sshを使う場合、例えば送り側でzfs sendし、sshによるリモートコマンド実行で受け側のzfs recvもやってしまう。<br />
+つまりコマンド実行は送り側だけでよい。ということは、cronによる定期的な実行も楽にできる。</p>
+
+<p>しかしsshを使わない場合だと、受け側でmbuffer, zfs recvを実行したあとに送り側でzfs send, mbufferを実行する必要がある。これを自動でやるのは非常に面倒だ。</p>
+
+<p>したがって、定期的にバックアップをリモートへ送信するなら、やはりsshを使ったほうがよい。</p>
+
+<h3 id="じゃあsshでいいじゃないか">じゃあsshでいいじゃないか</h3>
+
+<p>そうなんだけど、sshの場合はちょっと設定が面倒である。<br />
+この先を読んでほしい。</p>
+
+<p>ともあれ、この記事ではプライベート網、一回限りのデータ送信として、sshを使わない方法を採る。</p>
+
+<h2 id="どのユーザで実行するか">どのユーザで実行するか。</h2>
+
+<p>zfsの操作は基本、rootしかできないので、送受それぞれのサーバでrootで実行すること。</p>
+
+<p>しかし、定期的にバックアップしたデータを流すのなら、さすがにrootにやらすのは危険だ。<br />
+くわえてパスワードなしで相手先ホストにログインできる設定をしておかないといけない。</p>
+
+<p>そういう場合には以下のようにして特定ユーザにzfs操作を許可しておき、そのユーザを使う。<br />
+(ユーザhousekeeperに、vault/chamberへのcreate, recv, mount, sendを許可)</p>
+
+<pre><code class="language-console"># zfs allow -u housekeeper create,receive,mount,send vault/chamber
+</code></pre>
+
+<p>もちろん鍵認証等、パスワードなしでコマンド実行できるようにしておく。</p>
+
+<h2 id="実行">実行</h2>
+
+<p>繰り返すが受け側-&gt;送り側の順で実行すること。</p>
+
+<h3 id="受け側">受け側</h3>
+
+<p>受け側で以下を実行。</p>
+
+<p>受け口の指定はポートだけでよい。</p>
+
+<p>なお。-4オプションを与えて強制的にIPv4にする。そうしないとmbufferはIPv6で延々と待ち続ける。また、-4は最初に指定しないと読んでくれない（末尾に付けたら無視される）<br />
+怪しいなと思ったらsockstat -l4, sockstat -l6として確認すること。<br />
+(えらい時間を無駄にした)</p>
+
+<pre><code class="language-console"># mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes
+
+</code></pre>
+
+<h3 id="送り側">送り側</h3>
+
+<p>送り側で以下を実行。<br />
+こちらではIPアドレス、ポートを指定する。送り側はボロサーバなのでメモリを確保できず500MBにした。</p>
+
+<pre><code class="language-console"># zfs send -R vault/itunes@monthly-2019-06-01_05.30.00--1y1d | mbuffer -O 192.168.1.7:8000 -s 128k -m 500m
+mbuffer: warning: allocating more than half of available memory
+in @ 28.0 MiB/s, out @ 28.0 MiB/s, 10.9 GiB total, buffer 100% full
+</code></pre>
+
+<p>送り側からデータが来ると受け側では以下の通り画面表示が変化する。</p>
+
+<pre><code class="language-console"># mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes
+in @ 28.4 MiB/s, out @ 28.4 MiB/s, 14.4 GiB total, buffer 100% fulll
+</code></pre>
+
+<h3 id="参考-ssh経由時のコマンド例">【参考】ssh経由時のコマンド例</h3>
+
+<p>参考までに。ただし未検証。<br />
+直接sshに流し込むので、mbufferに-O, -Iなどの出力先、入力元を指定するオプションは不要。</p>
+
+<pre><code class="language-console"># zfs send -R &lt;スナップショット&gt; | mbuffer -s 128k -m 1G | ssh &lt;ユーザ&gt;@&lt;リモートホスト&gt; 'mbuffer -s 128k -m 1G | zfs receive &lt;展開先ディレクトリ&gt;'
+</code></pre>
+
+<h3 id="脱線">脱線</h3>
+
+<p>USB3.0のUSB-HDDケース（<a href="https://www.kuroutoshikou.com/product/case/35hdd/gw3_5ax2-su3_rev2_0/">GW3.5AX2-SU3/REV2.0</a>）に書き込んだところ、112 MiB/sなんてスピードが出て興奮したのだが、ものの数分もするとOSを巻き込んで固まるという事象が発生。<br />
+やむなくUSB2.0の口に繋いでみると今度は問題なく動作し安心するがスピードは28 MiB/s。これはダメかもわからんね。</p>
+
+<h3 id="結果">結果</h3>
+
+<p>受け側</p>
+
+<pre><code class="language-console">$ mbuffer -4 -s 128k -m 1G -I 8000 | zfs recv vaults/itunes
+in @  0.0 kiB/s, out @  0.0 kiB/s, 1121 GiB total, buffer   0% fulll
+summary: 1121 GiByte in 11h 09min 48.8sec - average of 28.6 MiB/s
+</code></pre>
+
+<p>送り側</p>
+
+<pre><code class="language-console">$ zfs send -R vault/itunes@monthly-2019-06-01_05.30.00--1y1d | mbuffer -O 192.168.1.7:8000 -s 128k -m 500m
+mbuffer: warning: allocating more than half of available memory
+in @  0.0 kiB/s, out @ 28.6 MiB/s, 1121 GiB total, buffer   1% fulll
+summary: 1121 GiByte in 11h 08min 49.5sec - average of 28.6 MiB/s
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

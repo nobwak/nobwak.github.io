@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | EasyBotterをFreeBSDで動かす</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="EasyBotterをFreeBSDで動かす" />
+<meta property="og:description" content="EasyBotterとはTwitter Botツールで、pha氏の手になるもの。 phpで作られている。 設定は以下に沿うとして、このツールをFr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/" />
+<meta property="article:published_time" content="2014-01-13T20:19:01&#43;09:00"/>
+<meta property="article:modified_time" content="2014-01-13T20:19:01&#43;09:00"/>
+
+<meta itemprop="name" content="EasyBotterをFreeBSDで動かす">
+<meta itemprop="description" content="EasyBotterとはTwitter Botツールで、pha氏の手になるもの。 phpで作られている。 設定は以下に沿うとして、このツールをFr">
+
+
+<meta itemprop="datePublished" content="2014-01-13T20:19:01&#43;09:00" />
+<meta itemprop="dateModified" content="2014-01-13T20:19:01&#43;09:00" />
+<meta itemprop="wordCount" content="531">
+
+
+
+<meta itemprop="keywords" content="FreeBSD," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="EasyBotterをFreeBSDで動かす"/>
+<meta name="twitter:description" content="EasyBotterとはTwitter Botツールで、pha氏の手になるもの。 phpで作られている。 設定は以下に沿うとして、このツールをFr"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">EasyBotterをFreeBSDで動かす</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-01-13T20:19:01&#43;09:00">January 13, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>EasyBotterとはTwitter Botツールで、<a href="http://d.hatena.ne.jp/pha/" target="_blank">pha氏</a>の手になるもの。<br />
+phpで作られている。</p>
+
+<p>設定は以下に沿うとして、このツールをFreeBSDで動かすために必要な事を記す。<br />
+<a href="http://pha22.net/twitterbot/" target="_blank"><a href="http://pha22.net/twitterbot/">http://pha22.net/twitterbot/</a></a><br />
+<a href="http://www26.atwiki.jp/easybotter_wiki/pages/1.html" target="_blank"><a href="http://www26.atwiki.jp/easybotter_wiki/pages/1.html">http://www26.atwiki.jp/easybotter_wiki/pages/1.html</a></a></p>
+
+<p>FreeBSD 10.0-RC1, pkgngで実施。</p>
+
+<h2 id="span-style-text-decoration-underline-easybotterの展開-span"><span style="text-decoration: underline;">EasyBotterの展開</span></h2>
+
+<p>ダウンロードしたEasyBotterを展開する。<br />
+どこでもよい。</p>
+
+<pre><code class="language-console">$ ls
+EasyBotter.php          bot.php                 license.txt
+PEAR                    data.txt                log.dat
+RCS                     path.txt                 reply_pattern.php
+__MACOSX                index.html              setting.php
+</code></pre>
+
+<p>設定は冒頭のリンクに沿ってどうぞ。</p>
+
+<h2 id="span-style-text-decoration-underline-phpのインストール-span"><span style="text-decoration: underline;">phpのインストール</span></h2>
+
+<p>最低限必要なものは以下の三つ。2013/12/16現在。<br />
+php5-5.4.21                    PHP Scripting Language<br />
+php5-hash-5.4.21               The hash shared extension for php<br />
+php5-json-5.4.21               The json shared extension for php</p>
+
+<p>botの喋る内容はUTF-8で書くので、vimも入れておくとよいかも。</p>
+
+<h2 id="span-style-text-decoration-underline-テスト-span"><span style="text-decoration: underline;">テスト</span></h2>
+
+<p>bot.phpを実行する。<br />
+以下のようになれば成功。</p>
+
+<pre><code class="language-console">$ php ./bot.php
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; lang=&quot;ja&quot; xml:lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;content-language&quot; content=&quot;ja&quot; /&gt;
+&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+&lt;title&gt;EasyBotter&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;pre&gt;Twitterへの投稿に成功しました。
+&lt;br /&gt;@&lt;a href='http://twitter.com/samplebot' target='_blank'&gt;samplebot&lt;/a&gt;に投稿したメッセージ：....
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-cronに設定-span"><span style="text-decoration: underline;">cronに設定</span></h2>
+
+<p>以下のようなどうってことないシェルスクリプトを作って;</p>
+
+<pre><code class="language-console">#!/bin/sh
+
+cd /home/nobody/files/EasyBotter/
+/usr/local/bin/php ./bot.php
+</code></pre>
+
+<p>crontabに設定。</p>
+
+<pre><code class="language-console">$ crontab -l
+10 * * * * /home/nobody/bin/bot.sh
+</code></pre>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-02-freebsd-current%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AFpanicmail%E3%82%92%E3%81%84%E3%81%BE%E3%81%99%E3%81%90%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">FreeBSD-currentユーザはpanicmailをいますぐインストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/">[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSD(FreeNAS)にPlex Media Serverをインストール</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

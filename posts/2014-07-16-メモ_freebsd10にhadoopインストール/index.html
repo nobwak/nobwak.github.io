@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [メモ] FreeBSD10にhadoopインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[メモ] FreeBSD10にhadoopインストール" />
+<meta property="og:description" content="素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。 2014/7/4時点でのpkgにはhadoop-1.2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-07-16-%E3%83%A1%E3%83%A2_freebsd10%E3%81%ABhadoop%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2014-07-16T23:29:13&#43;09:00"/>
+<meta property="article:modified_time" content="2014-07-16T23:29:13&#43;09:00"/>
+
+<meta itemprop="name" content="[メモ] FreeBSD10にhadoopインストール">
+<meta itemprop="description" content="素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。 2014/7/4時点でのpkgにはhadoop-1.2.">
+
+
+<meta itemprop="datePublished" content="2014-07-16T23:29:13&#43;09:00" />
+<meta itemprop="dateModified" content="2014-07-16T23:29:13&#43;09:00" />
+<meta itemprop="wordCount" content="630">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,hadoop,pkgng," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[メモ] FreeBSD10にhadoopインストール"/>
+<meta name="twitter:description" content="素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。 2014/7/4時点でのpkgにはhadoop-1.2."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[メモ] FreeBSD10にhadoopインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-07-16T23:29:13&#43;09:00">July 16, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>素の状態のFreeBSD 10にpkgngでhadoopをインストールしたときのメモ。</p>
+
+<p>2014/7/4時点でのpkgにはhadoop-1.2.1が入ってる。</p>
+
+<h2 id="pkgのインストール">pkgのインストール</h2>
+
+<p>pkgの初回インストールに成功した試しがない。<br />
+pkgのpackageをダウンロードしてインストール。<br />
+具体的には、pkg-staticを取り出し、pkg-staticでpkgのpackageをインストール。</p>
+
+<pre><code class="language-console">$ fetch http://pkg0.isc.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz
+pkg.txz                                       100% of 2013 kB  552 kBps 00m03s
+$
+$  tar xvzf ./pkg.txz --include &quot;*pkg-static&quot; --strip-components 4
+x pkg-static
+$
+（rootになって）
+# ./bin/pkg-static add ./pkg.txz
+Installing pkg-1.2.7_3... done
+If you are upgrading from the old package format, first run:
+
+  # pkg2ng
+root@hdmock:/home/doe #
+</code></pre>
+
+<p>pkg update。</p>
+
+<pre><code class="language-console"># pkg update
+Updating repository catalogue
+digests.txz                         100% 1112KB 556.1KB/s 192.2KB/s   00:02
+packagesite.txz                     100% 5014KB 626.7KB/s 373.9KB/s   00:08
+Incremental update completed, 23278 packages processed:
+0 packages updated, 0 removed and 23278 added.
+#
+</code></pre>
+
+<p>シェルとか、sudoとか、必要なものがあればインストールする。</p>
+
+<h2 id="hadoopのインストール">hadoopのインストール</h2>
+
+<pre><code class="language-console">$ pkg search hadoop
+apache-hadoop-1.2.1_1
+$ sudo pkg install hadoop
+Updating repository catalogue
+pkg: No packages matching 'hadoop' available in the repositories
+[doe@hdmock ~]$ sudo pkg install apache-hadoop
+Updating repository catalogue
+The following 39 packages will be installed:
+(中略)
+[39/39] Installing apache-hadoop-1.2.1_1...===&gt; Creating users and/or groups.
+Creating group 'hadoop' with gid '955'.
+Creating user 'hadoop' with uid '955'.
+ done
+</code></pre>
+
+<h2 id="openjdkのための設定">OpenJDKのための設定</h2>
+
+<p>hadoopについてくるOpenJDKのためにfstabに設定を加える。<br />
+OpenJDKインストール時のメッセージに沿って進める。</p>
+
+<pre><code class="language-console">======================================================================
+
+This OpenJDK implementation requires fdescfs(5) mounted on /dev/fd and
+procfs(5) mounted on /proc.
+
+If you have not done it yet, please do the following:
+
+        mount -t fdescfs fdesc /dev/fd
+        mount -t procfs proc /proc
+
+To make it permanent, you need the following lines in /etc/fstab:
+
+        fdesc   /dev/fd         fdescfs         rw      0       0
+        proc    /proc           procfs          rw      0       0
+
+=====================================================================
+</code></pre>
+
+<p>fstabに以下に行を追加。区切りはtab。</p>
+
+<pre><code class="language-console">fdesc           /dev/fd         fdescfs rw      0       0
+proc            /proc           procfs  rw      0       0
+</code></pre>
+
+<p>mount。<br />
+mountと叩いてmountされていることを確認。</p>
+
+<pre><code class="language-console">$ sudo mount -a
+$ mount
+/dev/ada0p2 on / (ufs, local, journaled soft-updates)
+devfs on /dev (devfs, local, multilabel)
+fdescfs on /dev/fd (fdescfs)
+procfs on /proc (procfs, local)
+</code></pre>
+
+<p>以上。<br />
+続きは<a title="[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定" href="../../../2013/07/hadoop-%e6%93%ac%e4%bc%bc%e5%88%86%e6%95%a3%ef%bc%88psuedo-distributed%ef%bc%89%e3%83%a2%e3%83%bc%e3%83%89%e3%81%ae%e8%a8%ad%e5%ae%9a/" target="_blank">こちら</a>。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/hadoop" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">hadoop</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/pkgng" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">pkgng</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-06-23-freebsd_%E3%81%82%E3%82%8B%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AEpkg%E3%82%92%E3%81%94%E3%81%A3%E3%81%9D%E3%82%8A%E4%BB%96%E3%81%AE%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%AB%E6%8C%81%E3%81%A3%E3%81%A6%E3%81%84%E3%81%8F%E3%81%AB%E3%81%AF/">[FreeBSD] あるマシンのpkgをごっそり他のマシンに持っていくには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/">ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Pythonベースのプロジェクト管理ツール、tracのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-11-freebsd%E3%81%ABredmine%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%8F%96%E3%82%8A%E3%81%82%E3%81%88%E3%81%9A%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92%E3%82%8B%E3%81%A8%E3%81%93%E3%81%BE%E3%81%A7/">FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/">Poudriereのjailにセキュリティアップデートを適用</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-29-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0samba-virusfilter%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。samba-virusfilter編</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-27-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0scannedonly%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。scannedonly編。</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

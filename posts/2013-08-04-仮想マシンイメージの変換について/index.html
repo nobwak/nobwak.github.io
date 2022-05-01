@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | 仮想マシンイメージの変換について</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="仮想マシンイメージの変換について" />
+<meta property="og:description" content="VMWare PlayerのイメージをESXi用に変換するには VMWareが提供しているコンバータを使う。 以下、まとめ。 なお、動機としては、「手元のVM" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-08-04-%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%A4%89%E6%8F%9B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" />
+<meta property="article:published_time" content="2013-08-04T19:13:14&#43;09:00"/>
+<meta property="article:modified_time" content="2013-08-04T19:13:14&#43;09:00"/>
+
+<meta itemprop="name" content="仮想マシンイメージの変換について">
+<meta itemprop="description" content="VMWare PlayerのイメージをESXi用に変換するには VMWareが提供しているコンバータを使う。 以下、まとめ。 なお、動機としては、「手元のVM">
+
+
+<meta itemprop="datePublished" content="2013-08-04T19:13:14&#43;09:00" />
+<meta itemprop="dateModified" content="2013-08-04T19:13:14&#43;09:00" />
+<meta itemprop="wordCount" content="1199">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="仮想マシンイメージの変換について"/>
+<meta name="twitter:description" content="VMWare PlayerのイメージをESXi用に変換するには VMWareが提供しているコンバータを使う。 以下、まとめ。 なお、動機としては、「手元のVM"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">仮想マシンイメージの変換について</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-08-04T19:13:14&#43;09:00">August 4, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h2 id="span-style-text-decoration-underline-vmware-playerのイメージをesxi用に変換するには-span"><span style="text-decoration: underline;">VMWare PlayerのイメージをESXi用に変換するには</span></h2>
+
+<p>VMWareが提供しているコンバータを使う。<br />
+以下、まとめ。</p>
+
+<p>なお、動機としては、「手元のVMware Playerで手軽にいろいろ検証をして、出来上がったものをESXiに移す」ことが出来るようにしたい、というもの。<br />
+しかし最後に書くように、変換してもVMware Player上と同じようにESXi上でも動くとは限らない。<br />
+可能なら最初からESXi上で検証したほうがよいようだ。</p>
+
+<h2 id="span-style-text-decoration-underline-vmware-vcenter-converterとは-span"><span style="text-decoration: underline;">VMware vCenter Converterとは。</span></h2>
+
+<blockquote>
+<p>「VMware vCenter Converter は、物理マシンから仮想マシンへの変換のほか、仮想マシン フォーマット間の変換を自動化および簡素化します。 VMware vCenter Converter では、直感的なウィザード形式のインターフェイスを使用して、物理マシンを仮想マシンに変換できます。」</p>
+</blockquote>
+
+<p><a href="http://www.vmware.com/jp/products/datacenter-virtualization/converter/overview" target="_blank">vmware.com</a>を見ると、「物理マシンから仮想マシンへ変換」なんてすごい事が書いてある（2013/8/1現在）。</p>
+
+<p>さらにvmware.comから引く。</p>
+
+<blockquote>
+<p>VMware vCenter Converter は、さまざまなハードウェア上で実行でき、最も広く使用されている Microsoft Windows と Linux オペレーティング システムの各バージョンに対応します。 この堅牢なエンタープライズ クラスの移行ツールにより、次のことが可能になります。</p>
+
+<p>システム停止やダウンタイムなしで、ローカルおよびリモートの物理マシンを迅速かつ確実に仮想マシンに変換できます。<br />
+統合管理コンソールと直感的な変換ウィザードにより、複数の変換を同時に実行します。</p>
+
+<p>Microsoft Hyper-V、Microsoft Virtual PC、Microsoft Virtual Server など、サードパーティの仮想マシン フォーマットのほか、Symantec Backup Exec System Recovery や Norton Ghost など、物理マシンのバックアップ イメージを VMware の仮想マシンに変換します。</p>
+</blockquote>
+
+<h2 id="span-style-text-decoration-underline-入手-span"><span style="text-decoration: underline;">入手</span></h2>
+
+<p><a href="http://www.vmware.com/jp/products/converter">http://www.vmware.com/jp/products/converter</a></p>
+
+<h2 id="span-style-text-decoration-underline-手順-span"><span style="text-decoration: underline;">手順</span></h2>
+
+<p>ここでは5.0.0ビルド 470252を使用している。</p>
+
+<p>メニューから変換を選ぶ</p>
+
+<ol>
+<li>「ソースのタイプを選択」→「VMware Workstation またはその他の VMware 仮想マシン」を選ぶ</li>
+<li>仮想マシンファイルで変換したいvmxファイルを選ぶ。</li>
+<li>「ターゲットのタイプを選択」→「VMware Infrastructure 仮想マシン」</li>
+<li>VMware Infrastructure サーバの詳細で、ESXiマシンの詳細を入れる。</li>
+</ol>
+
+<p>ESXi上での名前を決めて、あとは適当に。<br />
+100MのEternetで2GBytes程度の仮想イメージを転送したところ、10分強かかった。</p>
+
+<p>また、ESXi上で起動するときもいくつか聞かれるが、それも適当に。</p>
+
+<h2 id="span-style-text-decoration-underline-愚痴-span"><span style="text-decoration: underline;">愚痴</span></h2>
+
+<p>本記事が、とてもやる気のない感じになっているのは、VMware Playerで問題のなかった仮想マシンが、ESXiに移したら途端に調子が悪くなったから。<br />
+具体的には、FreeBSD 9.1-RELEASE(amd64)をESXiに移したら、ira16から割り込みの嵐が発生してまともにパフォーマンスがでなかった。<br />
+新規で同じOSを入れたら事象発生せず（vmstat -iを見たら割り込みを発生させたデバイスがない）。<br />
+ぐぐっても解決策なし。<br />
+がっかり。</p>
+
+<p><a href="http://www.amazon.co.jp/gp/product/4798131784/ref=as_li_ss_il?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=4798131784&amp;linkCode=as2&amp;tag=harukiya00-22"><img class="rqrhtqxamlncctsoxykd cnkimdiwvdibdcryheio sqfyfvbblaeepwyuapzc" alt="" src="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=4798131784&Format=_SL110_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=harukiya00-22" border="0" /></a><img class="rqrhtqxamlncctsoxykd cnkimdiwvdibdcryheio sqfyfvbblaeepwyuapzc" style="border: none !important; margin: 0px !important;" alt="" src="http://ir-jp.amazon-adsystem.com/e/ir?t=harukiya00-22&l=as2&o=9&a=4798131784" width="1" height="1" border="0" /></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

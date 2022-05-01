@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ubuntu on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/ubuntu/</link>
+    <description>Recent content in Ubuntu on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Mon, 17 May 2010 01:00:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>複数ページのpdfをjpeg,pngに変換するには。</title>
+      <link>https://nobwak.github.io/posts/2010-05-17-%E8%A4%87%E6%95%B0%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEpdf%E3%82%92jpegpng%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Mon, 17 May 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-05-17-%E8%A4%87%E6%95%B0%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AEpdf%E3%82%92jpegpng%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>ImageMagickのconvertを使う。 Ubuntuには最初から入ってた。 FreeBSDの場合はports, packageでgraph</description>
+    </item>
+    
+    <item>
+      <title>HAL Removal</title>
+      <link>https://nobwak.github.io/posts/2010-03-30-hal_removal/</link>
+      <pubDate>Tue, 30 Mar 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-03-30-hal_removal/</guid>
+      <description>FreeBSDではXorg7.4への移行の際にHALがデフォルトでONになった。 このときにFreeBSD界では、マウスが動かねーとか何とか死</description>
+    </item>
+    
+    <item>
+      <title>xubuntuでctrlキーとCapsキーを変換するには。</title>
+      <link>https://nobwak.github.io/posts/2010-02-11-xubuntu%E3%81%A7ctrl%E3%82%AD%E3%83%BC%E3%81%A8caps%E3%82%AD%E3%83%BC%E3%82%92%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 11 Feb 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-02-11-xubuntu%E3%81%A7ctrl%E3%82%AD%E3%83%BC%E3%81%A8caps%E3%82%AD%E3%83%BC%E3%82%92%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>CtrlキーはAの隣じゃないと嫌なので設定。 以下のファイルを適当な名前で適当に保存。 俺の場合はhomeディレクトリに.swapcapsctl</description>
+    </item>
+    
+    <item>
+      <title>ThunarにWindows Networkをブラウズさせるには。</title>
+      <link>https://nobwak.github.io/posts/2010-02-10-thunar%E3%81%ABwindows_network%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Wed, 10 Feb 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-02-10-thunar%E3%81%ABwindows_network%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>Xubuntuは、Linuxの便利さを堪能できる割に軽いので素敵だ。 ThunarがWindows Networkを見にいけないのだけが残念だっ</description>
+    </item>
+    
+    <item>
+      <title>xubuntuの日本語化</title>
+      <link>https://nobwak.github.io/posts/2010-02-09-xubuntu%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%8C%96/</link>
+      <pubDate>Tue, 09 Feb 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-02-09-xubuntu%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%8C%96/</guid>
+      <description>以下のとおりにすればOK &amp;lt;a href=&amp;quot;http://www.ubuntulinux.jp/products/JA-Localized&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.ubuntulinux.jp/products/JA-Localized&amp;lt;/a&amp;gt; wget -q https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -O- | sudo apt-key add - wget -q https://www.ubuntulinux.jp/ubuntu-jp-ppa-keyring.gpg -O- | sudo apt-key add - sudo wget https://www.ubuntulinux.jp/sources.list.d/karmic.list -O /etc/apt/sources.list.d/ubuntu-ja.list sudo apt-get update sudo apt-get upgrade で、以下をすればOK デスクトップ環境を利用している場</description>
+    </item>
+    
+    <item>
+      <title>Thinkpad X30にXubuntu 9.10をインストールしたら画面がチラついたでござるの巻</title>
+      <link>https://nobwak.github.io/posts/2010-02-08-thinkpad_x30%E3%81%ABxubuntu_9.10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89%E7%94%BB%E9%9D%A2%E3%81%8C%E3%83%81%E3%83%A9%E3%81%A4%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%AE%E5%B7%BB/</link>
+      <pubDate>Mon, 08 Feb 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-02-08-thinkpad_x30%E3%81%ABxubuntu_9.10%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%82%89%E7%94%BB%E9%9D%A2%E3%81%8C%E3%83%81%E3%83%A9%E3%81%A4%E3%81%84%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%81%AE%E5%B7%BB/</guid>
+      <description>色気を出してThinkpad X30にXubuntuを入れてみたが画面がチラつきっぱなしで参った。 やっぱりIntel Driverは地雷だと思う</description>
+    </item>
+    
+    <item>
+      <title>gripでrip &amp;amp; エンコード</title>
+      <link>https://nobwak.github.io/posts/2008-12-06-grip%E3%81%A7rip_amp_%E3%82%A8%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89/</link>
+      <pubDate>Sat, 06 Dec 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-12-06-grip%E3%81%A7rip_amp_%E3%82%A8%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89/</guid>
+      <description>CDのrippingとmp3エンコードを一緒にやってくれるツールとして&amp;lt;a href=&amp;quot;http://nostatic.org/grip/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>Thinkpad X30でUbuntu 8.04がフリーズしまくる件について</title>
+      <link>https://nobwak.github.io/posts/2008-11-14-thinkpad_x30%E3%81%A7ubuntu_8.04%E3%81%8C%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%97%E3%81%BE%E3%81%8F%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Fri, 14 Nov 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-11-14-thinkpad_x30%E3%81%A7ubuntu_8.04%E3%81%8C%E3%83%95%E3%83%AA%E3%83%BC%E3%82%BA%E3%81%97%E3%81%BE%E3%81%8F%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>Windows2000をインストールしていたThinkpad X30のHDDがクラッシュしたので、古いHDDに換装してUbuntuのインストー</description>
+    </item>
+    
+  </channel>
+</rss>

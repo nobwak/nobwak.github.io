@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSDでNTFS上の日本語名ファイルを扱うには。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSDでNTFS上の日本語名ファイルを扱うには。" />
+<meta property="og:description" content="FreeBSDでは、先日の&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090112/p1&quot; target=&quot;_blank&quot;&gt;MSDOSFSの件と同じく&lt;/a&gt" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2009-01-25-freebsd%E3%81%A7ntfs%E4%B8%8A%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%90%8D%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2009-01-25T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2009-01-25T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSDでNTFS上の日本語名ファイルを扱うには。">
+<meta itemprop="description" content="FreeBSDでは、先日の&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090112/p1&quot; target=&quot;_blank&quot;&gt;MSDOSFSの件と同じく&lt;/a&gt">
+
+
+<meta itemprop="datePublished" content="2009-01-25T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2009-01-25T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1279">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSDでNTFS上の日本語名ファイルを扱うには。"/>
+<meta name="twitter:description" content="FreeBSDでは、先日の&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090112/p1&quot; target=&quot;_blank&quot;&gt;MSDOSFSの件と同じく&lt;/a&gt"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSDでNTFS上の日本語名ファイルを扱うには。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-01-25T01:00:00&#43;09:00">January 25, 2009</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>FreeBSDでは、先日の&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090112/p1&quot; target=&quot;_blank&quot;&gt;MSDOSFSの件と同じく&lt;/a&gt;、NTFS上の日本語ファイル名の扱いにも問題がある。
+
+
+
+こちらもEUC-JPでマウントすれば一応は問題が解消されるが、俺はFreeBSDの環境をUTF-8にしているので、もともとUTF-8のNTFSを、EUC-JPにして読み込むのは実に馬鹿馬鹿しい。
+
+
+
+そこで、MSDOSFSの件で発見した、&lt;a href=&quot;http://people.freebsd.org/~imura/kiconv/&quot; target=&quot;_blank&quot;&gt;http://people.freebsd.org/~imura/kiconv/&lt;/a&gt;で公開されているパッチを使用する。
+
+
+
+ただ、こういうのも何だが、文字コードを変換してマウントする場合、現時点では読み込みのみがサポートされ、書き込みは不可であることを考える&lt;span class=&quot;footnote&quot;&gt;*1&lt;/span&gt;と、一時的な用途であればLinuxを使った方がはるかに早い。例えば、死んでしまったWindowsのディスクからファイルを復旧したいといったケースには、LinuxのLiveCDを使うほうが手軽。
+
+
+
+また、カーネルとユーザランドへのパッチなので、ソースをアップデートする度にパッチを当てなおさなければならないのは、かなりのデメリット。継続的にNTFSをマウント（加えて読み取りのみ）する必要がある場合に限ったほうがいいと思う。
+
+
+
+
+
+
+さておき。まず、上記のサイトから、1.,2.のパッチと、3.のNTFS向けパッチをダウンロードする。
+
+
+
+/usr/src直下でpatchコマンドにこれらのパッチを食わせればよい。本番前に-Cオプションを付けて実行し、様子を見るのが吉。
+
+
+
+◎実行例
+</code></pre>
+
+<pre><code class="language-console"># pwd
+/usr/src
+# patch -C &amp;#60; ~/ntfs.patch/01.k.patch
+(略)
+# patch &amp;#60; ~/ntfs.patch/01.k.patch
+(略)
+</code></pre>
+
+<pre><code>次に、kernelの再構築と、libkiconvのmake install。
+
+
+
+上記のパッチは、kernelに対するものと、libkiconvに対するものの二つであるため。
+
+
+
+kernelは、特別なことはなにもせず、再インストールすればいいだけ。(/usr/src配下でmake buildkernel, make installkernel）
+
+
+
+libkiconvは/usr/src/lib/libkiconvでmake, make installする。
+
+
+
+◎実行例
+</code></pre>
+
+<pre><code class="language-console"># pwd
+/usr/src/lib/libkiconv
+# make clean
+rm -f kiconv.3.gz kiconv.3.cat.gz
+（略）
+# make
+cc -O2 -fno-strict-aliasing -pipe  -I/usr/src/lib/libkiconv/../../sys  -c /usr/src/lib/libkiconv/sysctl.c
+（略）
+# make install
+install -C -o root -g wheel -m 444   libkiconv.a /usr/lib
+（略）
+</code></pre>
+
+<pre><code>あとは再起動して新しいkernelを読み込ませ、mout_ntfsに-CUTF-8オプションを与えるだけ。
+
+
+
+◎実行例
+</code></pre>
+
+<pre><code class="language-console"># mount_ntfs -o ro -CUTF-8 /dev/da0s1 /mnt
+</code></pre>
+
+<pre><code>FreeBSD初心者スレにもちょうど同じ話題があったのでコピーしておく。シンクロニシティ・・。
+
+
+
+初心者もOK! FreeBSD質問スレッド その99
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  445 : 名無しさん＠お腹いっぱい。 : sage : 2009/01/13(火) 08:13:53
+
+
+
+  .UTF-8 で ntfs のこと:
+
+
+
+  &lt;a href=&quot;http://people.freebsd.org/~imura/kiconv/&quot; target=&quot;_blank&quot;&gt;http://people.freebsd.org/~imura/kiconv/&lt;/a&gt;
+
+
+
+  の、1. 2. と3.　の ntfs ぶん当てて kernel と libkiconv 作り直して、
+
+
+
+  % grep ntfs /etc/fstab
+
+
+
+  /dev/ad0s3 /diske ntfs ro,-CUTF-8 0 0
+
+
+
+  で、日本語 file name 読めた。
+
+
+
+  % uname -rp
+
+
+
+  7.1-RELEASE-p1 i386
+
+
+
+  へけけ
+</code></pre>
+
+<p></blockquote></p>
+
+<p><div class="footnote">
+  <p class="footnote">
+    *1：mount_ntfs(8)の-Cの項参照。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

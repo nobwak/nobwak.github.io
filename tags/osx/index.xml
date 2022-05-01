@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Osx on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/osx/</link>
+    <description>Recent content in Osx on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Wed, 09 Jul 2014 20:53:38 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/osx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[メモ] MacにPythonのmatplotlibをインストール</title>
+      <link>https://nobwak.github.io/posts/2014-07-09-%E3%83%A1%E3%83%A2_mac%E3%81%ABpython%E3%81%AEmatplotlib%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Wed, 09 Jul 2014 20:53:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-07-09-%E3%83%A1%E3%83%A2_mac%E3%81%ABpython%E3%81%AEmatplotlib%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>matplotlibには、gfortran、freetypeが必要で、こちらはbrewでインストールする。 あとはpipでnumpy, scip</description>
+    </item>
+    
+    <item>
+      <title>[メモ] MacにhomebrewでPythonをインストール（virtualenvまで）</title>
+      <link>https://nobwak.github.io/posts/2014-06-01-%E3%83%A1%E3%83%A2_mac%E3%81%ABhomebrew%E3%81%A7python%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%ABvirtualenv%E3%81%BE%E3%81%A7/</link>
+      <pubDate>Sun, 01 Jun 2014 06:06:42 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-06-01-%E3%83%A1%E3%83%A2_mac%E3%81%ABhomebrew%E3%81%A7python%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%ABvirtualenv%E3%81%BE%E3%81%A7/</guid>
+      <description>brewでpythonをインストールする 10.9.3にはPython 2.7.5が入っている。 brewでこれを新しいものに。 またvirtual</description>
+    </item>
+    
+    <item>
+      <title>[メモ] MacのパッケージマネージャHomebrewのインストール</title>
+      <link>https://nobwak.github.io/posts/2014-05-30-%E3%83%A1%E3%83%A2_mac%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Fri, 30 May 2014 22:24:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-05-30-%E3%83%A1%E3%83%A2_mac%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。 Rubyで作られて</description>
+    </item>
+    
+    <item>
+      <title>[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</title>
+      <link>https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/</link>
+      <pubDate>Sun, 05 Jan 2014 21:53:46 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/</guid>
+      <description>過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。 したのだが、よく分からないことがいくつかあった</description>
+    </item>
+    
+  </channel>
+</rss>

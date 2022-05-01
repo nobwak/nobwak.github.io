@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | mergemasterのオプションは-UPiFで。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="mergemasterのオプションは-UPiFで。" />
+<meta property="og:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2009-05-01-mergemaster%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AF-upif%E3%81%A7/" />
+<meta property="article:published_time" content="2009-05-01T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2009-05-01T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="mergemasterのオプションは-UPiFで。">
+<meta itemprop="description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&">
+
+
+<meta itemprop="datePublished" content="2009-05-01T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2009-05-01T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="682">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mergemasterのオプションは-UPiFで。"/>
+<meta name="twitter:description" content="&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">mergemasterのオプションは-UPiFで。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2009-05-01T01:00:00&#43;09:00">May 1, 2009</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>&lt;span style=&quot;font-style:italic;&quot;&gt;2009/5/19追記 mergemaster -Uにはバグがあるくさい。詳細は&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090519/p1&quot; target=&quot;_blank&quot;&gt;こちら&lt;/a&gt;。 
+
+
+  &lt;/span&gt;
+
+
+
+
+
+
+  いつごろからか、mergemasterに新しいオプションが増えた。
+
+
+&lt;blockquote&gt;
+
+    Using the [-F] option mergemaster will install the new file for you if they differ only by VCS strings.
+
+&lt;/blockquote&gt;
+
+
+  -Fオプションを使うと、VCS文字列だけが違って内容は変わらないファイルを自動的にインストールしてくれるとのこと。
+
+
+
+  ここでのVCS文字列というのは、ファイルに含まれるこんなの。
+</code></pre>
+
+<pre><code class="language-console"># $FreeBSD: src/etc/defaults/rc.conf,v 1.318.2.17 2009/03/24 02:56:50 dougb Exp$
+</code></pre>
+
+<pre><code>  以前は、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20090216/p1&quot; target=&quot;_blank&quot;&gt;mergemasterをさらにさらにさらに早く&lt;/a&gt;で書いていたようにmergemaster.rcでしか指定できなかったが、オプションでも指定できるようになったと。
+
+
+
+  だからmergemasterのオプションは今までの経緯も含めて-UPiFとするのが良いようだ。
+
+
+
+  なお、-Fに対応するmergemaster.rcでの指定は「FREEBSD_ID=」となる。
+
+
+
+  以下に俺のmergemaster.rcを示す。こうしておけばmergemasterと打つだけでOK。
+</code></pre>
+
+<pre><code class="language-console">AUTO_UPGRADE=yes
+AUTO_INSTALL=yes
+IGNORE_FILES=&amp;#39;/etc/motd&amp;#39;
+PRESERVE_FILES=yes
+VERBOSE=yes
+#DIFF_OPTIONS=&amp;#39;-I$FreeBSD:.*&amp;#91;$]&amp;#39;
+FREEBSD_ID=yes
+</code></pre>
+
+<pre><code>  手前味噌だけど参考。
+
+
+
+  &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20080304/p1&quot; target=&quot;_blank&quot;&gt;mergemasterを少しだけ楽に&lt;/a&gt;
+
+
+
+  &lt;a href=&quot;http://d.hatena.ne.jp/flageo/20081208/p1&quot; target=&quot;_blank&quot;&gt;mergemasterは-sivaでなく-UPiで。&lt;/a&gt;
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

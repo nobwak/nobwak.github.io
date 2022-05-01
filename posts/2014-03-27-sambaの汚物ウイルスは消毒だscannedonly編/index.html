@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Sambaの汚物（ウイルス）は消毒だ。scannedonly編。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Sambaの汚物（ウイルス）は消毒だ。scannedonly編。" />
+<meta property="og:description" content="sambaのvfs, scannedonly scannedonlyとは、sambaのvfs。 その名前の通り、スキャン済みのもののみ開いたりダウンロードできるように" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-03-27-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0scannedonly%E7%B7%A8/" />
+<meta property="article:published_time" content="2014-03-27T22:35:59&#43;09:00"/>
+<meta property="article:modified_time" content="2014-03-27T22:35:59&#43;09:00"/>
+
+<meta itemprop="name" content="Sambaの汚物（ウイルス）は消毒だ。scannedonly編。">
+<meta itemprop="description" content="sambaのvfs, scannedonly scannedonlyとは、sambaのvfs。 その名前の通り、スキャン済みのもののみ開いたりダウンロードできるように">
+
+
+<meta itemprop="datePublished" content="2014-03-27T22:35:59&#43;09:00" />
+<meta itemprop="dateModified" content="2014-03-27T22:35:59&#43;09:00" />
+<meta itemprop="wordCount" content="2938">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,security," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sambaの汚物（ウイルス）は消毒だ。scannedonly編。"/>
+<meta name="twitter:description" content="sambaのvfs, scannedonly scannedonlyとは、sambaのvfs。 その名前の通り、スキャン済みのもののみ開いたりダウンロードできるように"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Sambaの汚物（ウイルス）は消毒だ。scannedonly編。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-03-27T22:35:59&#43;09:00">March 27, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h2 id="sambaのvfs-scannedonly">sambaのvfs, scannedonly</h2>
+
+<p><a href="http://olivier.sessink.nl/scannedonly/" target="_blank">scannedonly</a>とは、sambaのvfs。<br />
+その名前の通り、スキャン済みのもののみ開いたりダウンロードできるようになる。</p>
+
+<h2 id="scannedonlyのインストール">scannedonlyのインストール</h2>
+
+<p><a href="http://olivier.sessink.nl/scannedonly/" target="_blank">scannedonly</a>のvfsは、実はSambaに含まれる。<br />
+あれ？じゃあすぐ使えるの？と思ったのだが、それは間違いで、実際にスキャンを行うdaemonを別にインストールする必要がある。<br />
+その代わりと言っては何だが、clamdを立ち上げる必要はない。<br />
+security/scannedonlyからインストールできる。<br />
+以下はインストール例。sysctl.confに一行追加しとけよ、と言われるのでその通りにしておく。</p>
+
+<pre><code class="language-console">$ sudo pkg install scannedonly
+Updating repository catalogue
+The following 1 packages will be installed:
+
+Installing scannedonly: 0.21
+
+The installation will require 61 KB more space
+
+24 KB to be downloaded
+
+Proceed with installing packages [y/N]: y
+scannedonly-0.21.txz 100% 24KB 24.3KB/s 24.3KB/s 00:00
+Checking integrity... done
+[1/1] Installing scannedonly-0.21... done
+**************************************************
+* WARNING! *
+* *
+* Make sure you've enough socket buffer size. *
+* Consider increasing kern.ipc.maxsockbuf adding *
+* at least the following sysctl setting to *
+* /etc/sysctl.conf: *
+* *
+* kern.ipc.maxsockbuf=589824 *
+* *
+**************************************************
+[vanilla@yaryka ~]$
+</code></pre>
+
+<h2 id="scannedonlyの設定の流れ">scannedonlyの設定の流れ</h2>
+
+<p>scannedonlyの設定には、前章のとおりにsysctl.confを修正することに加え、①vfsとしてのscannedonlyの設定、②daemonとしてのscannedonlyの設定が必要</p>
+
+<p>まず③のdaemonとしての設定から。</p>
+
+<h2 id="scannedonly-daemonの設定">scannedonly daemonの設定</h2>
+
+<p>/etc/rc.confで行う。<br />
+設定例は以下のとおり。</p>
+
+<pre><code class="language-console">scannedonly_clamav_enable=&quot;YES&quot;
+scannedonly_clamav_flags=&quot; --scanroot /usr/home/vanilla/share --big 20 -t 8 -m 20&quot;
+</code></pre>
+
+<p>おなじみの一行目はシステム起動時にdaemonも起動させる指定。<br />
+二行目でdaemonに与えるオプションを指定する。<br />
+上記の-scanrootは、スキャン対象のファイルが置かれるトップディレクトリを指定する。<br />
+daemonは、ここで指定されたディレクトリ外のファイルのウイルススキャンを要求されても無視する。</p>
+
+<p>その他のオプションには;</p>
+
+<pre><code class="language-console">-p --portnum: ポート番号。ネットワークソケット経由でスキャンするならこちら。
+-s path --socket=path : UNIX domainソケット。デフォルトは/var/run/scannedonlyd.sock
+-t 4 --maxthreads=4 : ウイルススキャンを行うスレッドの数。デフォルトは4。
+-b 10 --big=10 : 「大きいファイルだ」と認識するサイズをメガバイト単位で指定。後ほど触れる。
+-q 1000 --queuelen=1000 : スキャン待ちできる数。これを超えて要求されたウイルススキャンは無視される。
+-m 20 --time=20 : ここで指定された分ごとにステータスメッセージをログに吐く。
+</code></pre>
+
+<h2 id="scannedonlyのスレッドと-大きいファイル-について">scannedonlyのスレッドと「大きいファイル」について</h2>
+
+<p>scannedonlyはデフォルトでスキャン用に4スレッドを用意する。<br />
+複数のスキャン要求が来たとき、scannedonlyは「大きいファイル」を特定の1スレッドのみに割り当てる。残りのスレッドは「小さいファイル」をざくざくスキャンする。<br />
+こうすることでスキャンの待ち行列をスムーズに解消しようと試みる。<br />
+「大きいファイル」は前述の-bigで指定するサイズで決まる。<br />
+この値は、共有ファイルにどんなファイルがあるかを前提に変えたらよい。<br />
+デフォルトの10MBはちょっと小さいので、20MBにした。</p>
+
+<h2 id="scannedonly-vfsの設定">scannedonly vfsの設定</h2>
+
+<p>smb.confに書く。<br />
+shareごとに設定できる。<br />
+以下が設定例。<br />
+最後の行だけ特殊。後述。</p>
+
+<pre><code class="language-console">[share]
+(略)
+vfs objects = scannedonly # scannedonlyを有効に。
+scannedonly:domain_socket = True # domain socketを使うよ
+scannedonly:socketname = /var/run/scannedonlyd.sock # domain socketの指定
+scannedonly:hide_nonscanned_files = True # 未スキャンファイルを隠し、（下の行に続く）
+scannedonly:scanning_message = is being scanned for viruses # スキャン中である旨表示する。
+scannedonly:allow_nonscanned_files = True # Officeドキュメントを共有するならTrueに。後述。
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-起動-span"><span style="text-decoration: underline;">起動</span></h2>
+
+<p>scannedonly daemonを起動し、そのあとsambaを（再）起動。</p>
+
+<pre><code class="language-console">$ sudo service scannedonly start
+Starting scannedonly_clamav.
+$ sudo service samba restart
+Performing sanity check on Samba configuration: OK
+Stopping smbd.
+Stopping nmbd.
+Waiting for PIDS: 4847.
+Removing stale Samba tdb files: ....... done
+Starting nmbd.
+Starting smbd.
+$
+</code></pre>
+
+<p>このとき、/var/log/messagesには以下の表示があるはず。</p>
+
+<pre><code class="language-console">Mar 21 21:13:35 yaryka scannedonlyd_clamav[5741]: Starting with socket /var/run/scannedonlyd.sock and 8 threads
+Mar 21 21:13:47 yaryka scannedonlyd_clamav[5741]: Finished building databases. Ready for scanning with 8 threads
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-br-実験-未スキャンのファイルはどう表示されるか-span"><span style="text-decoration: underline;"><br /> 実験:未スキャンのファイルはどう表示されるか。</span></h2>
+
+<p>さっそく共有フォルダにファイルを放り込んでみよう。<br />
+小さいファイルだと変わらないようにみえるが、ちょっと大きいファイルになると、コピーが終わってからスキャンが終わるまで、以下のような表示になるはず。<br />
+<a href="../../../wp-content/uploads/2014/03/beingscanned.png"><img class="alignnone size-thumbnail wp-image-2652" alt="beingscanned" src="../../../wp-content/uploads/2014/03/beingscanned-150x150.png" width="150" height="150" /></a></p>
+
+<p>なお、hide_nonscanned_filesをFalseにした場合、コピーが終わった瞬間にファイルは表示される。<br />
+スキャンが終わってなくても表示される。<br />
+されるのだが、開こうとしたりコピーしようとすると、「アクセス権がない」旨のメッセージが表示されて蹴られる。<br />
+ユーザからしてみれば、ファイルが見えるのに開けないのはストレスでしかない。<br />
+hide_nonscanned_filesはTrueをお勧めする。<br />
+しかし。</p>
+
+<h2 id="span-style-text-decoration-underline-officeドキュメントを共有する場合-span"><span style="text-decoration: underline;">Officeドキュメントを共有する場合</span></h2>
+
+<p>scannedonlyの仕組みで困るのは、Officeドキュメント。<br />
+というのも、Officeはファイルを頻繁に開け閉めするから。<br />
+その都度、スキャンが走り、終わるまでファイルを開けなくなる。<br />
+要するに、使い物にならん。<br />
+そこで下記の行を追加して、未スキャンファイルも開けるようにするほかない。<br />
+うーん…。</p>
+
+<pre><code class="language-console">scannedonly:allow_nonscanned_files = True
+</code></pre>
+
+<p>まあ、仕方ないよね。</p>
+
+<h2 id="span-style-text-decoration-underline-バックヤードでは-span"><span style="text-decoration: underline;">バックヤードでは</span></h2>
+
+<p>さて。scannedonlyのバックヤードはどうなっているのだろうか。<br />
+実ディレクトリを見てみると、このようになっている。</p>
+
+<pre><code class="language-console">$ ls -la
+total 84360
+drwxrwxrwx  2 vanilla  clamav        512 Mar 21 01:17 .
+drwxr-xr-x  3 vanilla  vanilla       512 Mar  3 22:40 ..
+-rwxr--r--  1 vanilla  clamav          0 Mar 21 21:17 .scanned:Sophos Virus Removal Tool.exe
+-rwxr--r--  1 vanilla  clamav   86325064 Mar 17 23:35 Sophos Virus Removal Tool.exe
+$
+</code></pre>
+
+<p>ディレクトリに置かれたファイルと同じファイル名、ただしファイル名の先頭に「.scanned:」と付いたサイズ0バイトのファイルができる。<br />
+このファイルでスキャン済みかどうかを、scannedonlyは判断している。<br />
+ちなみに、オリジナルのファイルを消すと.scannedの方も消える。<br />
+.scannedだけが残るということはないからご安心めされよ。<br />
+もちろん、ファイルを更新した際には再スキャンが行われる。</p>
+
+<p>大きなファイルを共有フォルダにコピーしはじめ、そのあとに小さなファイルを共有フォルダに置くと、小さいファイルはすぐに表示される。<br />
+複数スレッドで処理していることと、大きいファイルは1スレッドでしか処理しないことからこのような動作になる。</p>
+
+<p>また、しばらくすると、/var/log/messagesにはログが増えているはず。</p>
+
+<pre><code class="language-console">Mar 21 21:33:47 yaryka scannedonlyd_clamav[5741]: Status: scanned 3 files and 0 large files in 20 minutes; min 0/max 4 requests on small queue, min 0/max 0 requests on large queue
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-br-実験-virusが見つかったらどうなる-span"><span style="text-decoration: underline;"><br /> 実験: virusが見つかったらどうなる？</span></h2>
+
+<p>試してみた。<br />
+testvirus.txtというファイルを突っ込んでみると、コピーが終わっても共有フォルダには表示がされない。<br />
+代わりに、同じファイル名、ただしファイル名先頭に「VIRUS_found_in_」、末尾に「.txt」と付いたサイズ0のファイルが作られ表示される。<br />
+<a href="../../../wp-content/uploads/2014/03/virusfoundscann.png"><img class="alignnone size-thumbnail wp-image-2653" alt="virusfoundscann" src="../../../wp-content/uploads/2014/03/virusfoundscann-150x150.png" width="150" height="150" /></a></p>
+
+<p>このとき、実ディレクトリはこのようになっている。<br />
+つまりオリジナルのファイルは「.virus:」と頭に付けられて、ユーザからは見えなくなっている。</p>
+
+<pre><code class="language-console">$ ls -la
+total 12
+drwxrwxrwx  2 vanilla  clamav   1024 Mar 21 01:44 .
+drwxr-xr-x  3 vanilla  vanilla   512 Mar  3 22:40 ..
+-rwxr--r--  1 vanilla  clamav     68 Mar 21 21:44 .virus:testvirus.txt
+-rwxr--r--  1 vanilla  clamav      0 Mar 21 21:44 VIRUS_found_in_testvirus.txt.txt
+$
+</code></pre>
+
+<p>さらにこのとき、/var/log/messagesには以下のように。<br />
+1,2行目がウイルス発見時のもの、3行目はstatus report時のものである。</p>
+
+<pre><code class="language-console">Mar 21 21:42:51 yaryka scannedonlyd_clamav[5741]: 0:0: WARNING: /usr/home/vanilla/share/testvirus.txt contains virus Eicar-Test-Signature!
+Mar 21 21:42:51 yaryka scannedonlyd_clamav[5741]: 0: moving /usr/home/vanilla/share/testvirus.txt to /usr/home/vanilla/share/.virus:testvirus.txt
+Mar 21 21:44:59 yaryka scannedonlyd_clamav[6836]: Warning: 1 files failed to scan in 1 minutes (error or virus found)
+</code></pre>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/security" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">security</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-03-25-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFsamba%E3%81%AEvfs%E3%81%A7%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3/">Sambaの汚物（ウイルス）は消毒だ。あるいはsambaのvfsでウイルススキャン</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-23-%E3%83%A1%E3%83%A2_%E3%83%86%E3%82%B9%E3%83%88%E7%94%A8%E3%81%AE%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AFeicar%E3%81%A7/">[メモ] テスト用のウイルスはEICARで</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-18-monitorix%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%97%E3%82%88%E3%81%86/">Monitorixをカスタマイズしよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-11-%E3%83%9E%E3%83%9E%E3%82%82%E5%AE%89%E5%BF%83%E8%BB%BD%E9%87%8F%E6%89%8B%E8%BB%BD%E3%81%AA%E7%9B%A3%E8%A6%96%E3%83%84%E3%83%BC%E3%83%ABmonitorix/">ママも安心。軽量手軽な監視ツールMonitorix</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-09-freebsd%E3%81%A7smartmontools%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDでsmartmontoolsのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-02-swap%E3%81%8C%E8%B6%B3%E3%82%89%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%A6%E3%82%AD%E3%83%AC%E3%81%9Ffreebsd%E3%81%AE%E6%80%96%E3%81%95%E3%81%AF%E7%95%B0%E5%B8%B8%E3%81%A8%E3%81%9D%E3%81%AE%E5%AF%BE%E5%87%A6%E6%B3%95/">swapが足らなくなってキレたFreeBSDの怖さは異常（と、その対処法）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-25-%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0pkg%E3%82%92poudriere%E3%81%A7%E4%BD%9C%E3%82%8D%E3%81%86/">カスタムpkgをpoudriereで作ろう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/">[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/">poudriereでhomebrew（自前） pkgリポジトリを</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDへのMATEインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

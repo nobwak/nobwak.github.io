@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Linuxで音声の出力先をUSBスピーカーにする</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Linuxで音声の出力先をUSBスピーカーにする" />
+<meta property="og:description" content="Nano Pi Neo2にスピーカーを繋いだのだが、ノイズが入ってたまらない。 そこでUSBスピーカーから音を出すようにしてみる。 USBスピーカーはこれ。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2018-03-21-linux%E3%81%A7%E9%9F%B3%E5%A3%B0%E3%81%AE%E5%87%BA%E5%8A%9B%E5%85%88%E3%82%92usb%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%E3%81%AB%E3%81%99%E3%82%8B/" />
+<meta property="article:published_time" content="2018-03-21T15:20:02&#43;09:00"/>
+<meta property="article:modified_time" content="2018-03-21T15:20:02&#43;09:00"/>
+
+<meta itemprop="name" content="Linuxで音声の出力先をUSBスピーカーにする">
+<meta itemprop="description" content="Nano Pi Neo2にスピーカーを繋いだのだが、ノイズが入ってたまらない。 そこでUSBスピーカーから音を出すようにしてみる。 USBスピーカーはこれ。">
+
+
+<meta itemprop="datePublished" content="2018-03-21T15:20:02&#43;09:00" />
+<meta itemprop="dateModified" content="2018-03-21T15:20:02&#43;09:00" />
+<meta itemprop="wordCount" content="1096">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linuxで音声の出力先をUSBスピーカーにする"/>
+<meta name="twitter:description" content="Nano Pi Neo2にスピーカーを繋いだのだが、ノイズが入ってたまらない。 そこでUSBスピーカーから音を出すようにしてみる。 USBスピーカーはこれ。"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Linuxで音声の出力先をUSBスピーカーにする</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-03-21T15:20:02&#43;09:00">March 21, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Nano Pi Neo2にスピーカーを繋いだのだが、ノイズが入ってたまらない。<br />
+そこでUSBスピーカーから音を出すようにしてみる。<br />
+USBスピーカーはこれ。USBケーブル一本でいいので重宝している。</p>
+
+<p>まずalsamixerで音量を確かめておく。<br />
+<a href="../../../wp-content/uploads/2018/03/alsamixer.png">alsamixer</a><br />
+次。<br />
+aplayコマンドを使って、音声出力のハードウェアデバイスのcardとdevice番号を調べる。<br />
+<code>-help</code>オプションで使い方を。</p>
+
+<pre><code class="language-console">$ aplay -help  
+Usage: aplay [OPTION]... [FILE]...
+
+-h, -help help  
+-version print current version  
+-l, -list-devices list all soundcards and digital audio devices  
+-L, -list-pcms list device names  
+（略）
+
+</code></pre>
+
+<p>-lオプションで一覧を得る。</p>
+
+<pre><code class="language-console">$ aplay -l  
+&lt;span class=&quot;gs&quot;&gt;*\*\\*\*&lt;/span&gt; List of PLAYBACK Hardware Devices &lt;span class=&quot;gs&quot;&gt;\*\***&lt;/span&gt;  
+card 0: Codec &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;H3 Audio Codec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;, device 0: CDC PCM Codec-0 &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;]  
+Subdevices: 1/1  
+Subdevice #0: subdevice #0  
+card 1: allwinnerhdmi &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;allwinner,hdmi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;, device 0: 1c22800.i2s-i2s-hifi i2s-hifi-0 &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;]  
+Subdevices: 1/1  
+Subdevice #0: subdevice #0  
+card 2: MicroII &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Audio Advantage MicroII&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;, device 0: USB Audio &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;USB Audio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  
+Subdevices: 1/1  
+Subdevice #0: subdevice #0  
+</code></pre>
+
+<p>USBスピーカーだから最後のものが該当。<br />
+MicroIIということがわかる。</p>
+
+<p>speaker-testコマンドでテストする。<br />
+-helpで確認するのが定石</p>
+
+<pre><code class="language-console">$ speaker-test -help
+
+speaker-test 1.1.0
+
+Usage: speaker-test [OPTION]...  
+-h,-help help  
+-D,-device playback device  
+-r,-rate stream rate in Hz  
+-c,-channels count of channels in stream  
+-f,-frequency sine wave frequency in Hz  
+-F,-format sample format  
+-b,-buffer ring buffer size in us  
+-p,-period period size in us  
+-P,-nperiods number of periods  
+-t,-test pink=use pink noise, sine=use sine wave, wav=WAV file  
+-l,-nloops specify number of loops to test, 0 = infinite  
+-s,-speaker single speaker test. Values 1=Left, 2=right, etc  
+-w,-wavfile Use the given WAV file as a test sound  
+-W,-wavdir Specify the directory containing WAV files  
+-m,-chmap Specify the channel map to override  
+-X,-force-frequency force frequencies outside the 30-8000hz range  
+-S,-scale Scale of generated test tones in percent (default=80)
+
+Recognized sample formats are: S8 S16\_LE S16\_BE FLOAT\_LE S32\_LE S32_BE  
+</code></pre>
+
+<p>-Dオプションで出力先を選ぶ。<br />
+出力先の指定はデバイスネームだからさっきのaplayコマンドで再チェック</p>
+
+<pre><code class="language-console">$ aplay -L|grep MicroII  
+sysdefault:CARD=MicroII  
+Audio Advantage MicroII, USB Audio  
+front:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+surround21:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+surround40:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+surround41:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+surround50:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+surround51:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+surround71:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+iec958:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+dmix:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+dsnoop:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+hw:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio  
+plughw:CARD=MicroII,DEV=0  
+Audio Advantage MicroII, USB Audio
+</code></pre>
+
+<p>ということで、hw:MicroIIで試す。</p>
+
+<pre><code class="language-console">$ speaker-test -Dhw:MicroII
+
+speaker-test 1.1.0
+
+Playback device is hw:MicroII  
+Stream parameters are 48000Hz, S16_LE, 1 channels  
+Using 16 octaves of pink noise  
+Channels count (1) not available for playbacks: Invalid argument  
+Setting of hwparams failed: Invalid argument
+</code></pre>
+
+<p>鳴らない。</p>
+
+<p>この辺を読み、hwではなくplughwにしてみる。<br />
+<a href="http://www.volkerschatz.com/noise/alsa.html">http://www.volkerschatz.com/noise/alsa.html</a></p>
+
+<pre><code class="language-console">$ speaker-test -Dplughw:MicroII
+
+speaker-test 1.1.0
+
+Playback device is plughw:MicroII  
+Stream parameters are 48000Hz, S16_LE, 1 channels  
+Using 16 octaves of pink noise  
+Rate set to 48000Hz (requested 48000Hz)  
+Buffer size range from 96 to 262144  
+Period size range from 48 to 131072  
+Using max buffer size 262144  
+Periods = 4  
+was set period_size = 65536  
+was set buffer_size = 262144  
+0 - Front Left  
+Time per period = 2.769702  
+0 - Front Left  
+^CTime per period = 2.426893  
+</code></pre>
+
+<p>鳴った。<br />
+チャンネル2つにしてみると</p>
+
+<pre><code class="language-console">$ speaker-test -c2 -Dplughw:MicroII
+
+speaker-test 1.1.0
+
+Playback device is plughw:MicroII  
+Stream parameters are 48000Hz, S16_LE, 2 channels  
+Using 16 octaves of pink noise  
+Rate set to 48000Hz (requested 48000Hz)  
+Buffer size range from 96 to 262144  
+Period size range from 48 to 131072  
+Using max buffer size 262144  
+Periods = 4  
+was set period_size = 65536  
+was set buffer_size = 262144  
+0 - Front Left  
+1 - Front Right  
+^CTime per period = 3.587277
+</code></pre>
+
+<p>左右で鳴る。<br />
+さらにaplayで試す。</p>
+
+<pre><code class="language-console">$ aplay /usr/share/sounds/alsa/Front_Center.wav -D plughw:MicroII  
+Playing WAVE -/usr/share/sounds/alsa/Front_Center.wav' : Signed 16 bit Little Endian, Rate 48000 Hz, Mono
+</code></pre>
+
+<p>よさそう。<br />
+これでmpg123などを使えば、mp3ファイルなども鳴らすことができる。<br />
+mpg123でデバイスを指定するには-aオプションで。</p>
+
+<pre><code class="language-console">mpg123 -q -a plughw:MicroII XXXX.mp3
+</code></pre>
+
+<p>ためしにデバイスにdefaultを指定すると文字通り標準設定のデバイスから出力を試みる。<br />
+USBスピーカーはならないはず。</p>
+
+<pre><code class="language-console">$ aplay /usr/share/sounds/alsa/Front_Center.wav -D default
+$
+</code></pre>
+
+<p>デフォルトの出力先を変えるには、以下の手順に沿えばよい。<br />
+<a href="https://www.alsa-project.org/main/index.php/Setting_the_default_device">https://www.alsa-project.org/main/index.php/Setting_the_default_device</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

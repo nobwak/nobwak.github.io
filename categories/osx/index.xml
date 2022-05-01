@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Osx on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/osx/</link>
+    <description>Recent content in Osx on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Mon, 29 Sep 2014 22:51:26 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/osx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[メモ] Windows, OS X(Mac)でフォルダ/ファイルのパスをクリップボードにコピーする</title>
+      <link>https://nobwak.github.io/posts/2014-09-29-%E3%83%A1%E3%83%A2_windows_os_xmac%E3%81%A7%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%91%E3%82%B9%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E3%81%AB%E3%82%B3%E3%83%94%E3%83%BC%E3%81%99%E3%82%8B/</link>
+      <pubDate>Mon, 29 Sep 2014 22:51:26 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-09-29-%E3%83%A1%E3%83%A2_windows_os_xmac%E3%81%A7%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%91%E3%82%B9%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%83%97%E3%83%9C%E3%83%BC%E3%83%89%E3%81%AB%E3%82%B3%E3%83%94%E3%83%BC%E3%81%99%E3%82%8B/</guid>
+      <description>たとえば仕事上、共有サーバにあるフォルダのパスを知らせたい、ということがある。 こういう時のために、フォルダのパスを簡単にクリップボードへコピ</description>
+    </item>
+    
+    <item>
+      <title>[メモ][OS X] Sublime textでShift-JISを扱うには</title>
+      <link>https://nobwak.github.io/posts/2014-09-28-%E3%83%A1%E3%83%A2os_x_sublime_text%E3%81%A7shift-jis%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Sun, 28 Sep 2014 15:49:40 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-09-28-%E3%83%A1%E3%83%A2os_x_sublime_text%E3%81%A7shift-jis%E3%82%92%E6%89%B1%E3%81%86%E3%81%AB%E3%81%AF/</guid>
+      <description>Sublime textはOS Xで使えるテキストエディタ。 Shift-JISが読めないが、Pluginで対応できる。 Pluginの名前はConvertTo</description>
+    </item>
+    
+    <item>
+      <title>[メモ] MacのパッケージマネージャHomebrewのインストール</title>
+      <link>https://nobwak.github.io/posts/2014-05-30-%E3%83%A1%E3%83%A2_mac%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Fri, 30 May 2014 22:24:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-05-30-%E3%83%A1%E3%83%A2_mac%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。 Rubyで作られて</description>
+    </item>
+    
+    <item>
+      <title>[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</title>
+      <link>https://nobwak.github.io/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/</link>
+      <pubDate>Sun, 23 Feb 2014 13:13:06 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/</guid>
+      <description>cal/ncalにはイースター（復活祭）を表示するオプションがある。 私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に</description>
+    </item>
+    
+    <item>
+      <title>zfs snapshotの差分send/recvについて</title>
+      <link>https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Tue, 28 Jan 2014 22:33:29 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>zfs snapshotの差分send/recvについて zfsのバックアップは、snapshotを撮っておいて、自ホストの別zpool、あるいは他</description>
+    </item>
+    
+    <item>
+      <title>[メモ] grepでコメント行、空行以外の行を表示させるには</title>
+      <link>https://nobwak.github.io/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 16 Jan 2014 22:01:54 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>いつも忘れるのでメモ。 あるファイルから、コメント行と空行を除いて表示させるには。 コメント行なら&amp;rdquo;^ *#&amp;ldquo;がマッチ。 空</description>
+    </item>
+    
+    <item>
+      <title>iCalにGoogleのカレンダーを表示するには</title>
+      <link>https://nobwak.github.io/posts/2014-01-15-ical%E3%81%ABgoogle%E3%81%AE%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Wed, 15 Jan 2014 21:54:27 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-15-ical%E3%81%ABgoogle%E3%81%AE%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>メモ。 iCalにGoogleカレンダーの内容を表示させる方法について 事前準備 googleの二段階認証を有効にしている場合には、googleの</description>
+    </item>
+    
+    <item>
+      <title>Pythonアプリに引数を渡そう</title>
+      <link>https://nobwak.github.io/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/</link>
+      <pubDate>Fri, 10 Jan 2014 20:27:22 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/</guid>
+      <description>PythonでWindowsアプリケーションを作ったとする。 たとえばファイルを引数に取り、整形するものだとする。 せっかくWindowsアプリ</description>
+    </item>
+    
+    <item>
+      <title>[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</title>
+      <link>https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/</link>
+      <pubDate>Sun, 05 Jan 2014 21:53:46 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/</guid>
+      <description>過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。 したのだが、よく分からないことがいくつかあった</description>
+    </item>
+    
+    <item>
+      <title>Graphvizでカックいいグラフを描こう</title>
+      <link>https://nobwak.github.io/posts/2013-12-17-graphviz%E3%81%A7%E3%82%AB%E3%83%83%E3%82%AF%E3%81%84%E3%81%84%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E6%8F%8F%E3%81%93%E3%81%86/</link>
+      <pubDate>Tue, 17 Dec 2013 20:57:50 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-12-17-graphviz%E3%81%A7%E3%82%AB%E3%83%83%E3%82%AF%E3%81%84%E3%81%84%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E6%8F%8F%E3%81%93%E3%81%86/</guid>
+      <description>Graphvizとは、AT&amp;amp;T研究所の作ったグラフ描画ソフトである。 ここでのグラフとは棒グラフのグラフではなく、ソーシャルグラフとか</description>
+    </item>
+    
+    <item>
+      <title>セキュリティ監査ツールLynis</title>
+      <link>https://nobwak.github.io/posts/2013-11-11-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%9B%A3%E6%9F%BB%E3%83%84%E3%83%BC%E3%83%ABlynis/</link>
+      <pubDate>Mon, 11 Nov 2013 20:08:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-11-11-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%9B%A3%E6%9F%BB%E3%83%84%E3%83%BC%E3%83%ABlynis/</guid>
+      <description>Lynisとは Linux向けのセキュリティ監査ツール。 http://www.rootkit.nl/projects/lynis.html Linux向けではあるが、Linux以外でも使える。 FreeBSD, Solarisに加えてなんとO</description>
+    </item>
+    
+    <item>
+      <title>vimでまさかのタブ表示</title>
+      <link>https://nobwak.github.io/posts/2013-11-04-vim%E3%81%A7%E3%81%BE%E3%81%95%E3%81%8B%E3%81%AE%E3%82%BF%E3%83%96%E8%A1%A8%E7%A4%BA/</link>
+      <pubDate>Mon, 04 Nov 2013 20:03:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-11-04-vim%E3%81%A7%E3%81%BE%E3%81%95%E3%81%8B%E3%81%AE%E3%82%BF%E3%83%96%E8%A1%A8%E7%A4%BA/</guid>
+      <description>結論 vim -pで複数ファイルをタブ表示できる。 .profileにaliasを書いとけ。 以上。 -pオプション vimのmanを眺めていたらこんな記載</description>
+    </item>
+    
+    <item>
+      <title>[OSX] メモ: MacPortsとHomebrew</title>
+      <link>https://nobwak.github.io/posts/2013-06-16-osx_%E3%83%A1%E3%83%A2macports%E3%81%A8homebrew/</link>
+      <pubDate>Sun, 16 Jun 2013 06:55:05 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-06-16-osx_%E3%83%A1%E3%83%A2macports%E3%81%A8homebrew/</guid>
+      <description>MacPortsとHomebrewの違いについてざっと調べた。 双方を比較するとおおよそ以下の事が言えるようだ。 MacPorts 対応ソフトウェア: 多 消費ディ</description>
+    </item>
+    
+    <item>
+      <title>FreeBSDにMacのファイル共有プロトコルAFPを喋らす。（追記あり）</title>
+      <link>https://nobwak.github.io/posts/2012-03-06-freebsd%E3%81%ABmac%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%ABafp%E3%82%92%E5%96%8B%E3%82%89%E3%81%99%E8%BF%BD%E8%A8%98%E3%81%82%E3%82%8A/</link>
+      <pubDate>Tue, 06 Mar 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-03-06-freebsd%E3%81%ABmac%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%ABafp%E3%82%92%E5%96%8B%E3%82%89%E3%81%99%E8%BF%BD%E8%A8%98%E3%81%82%E3%82%8A/</guid>
+      <description>AFP(Apple Filing Protocol)。 Macのファイル共有はOSXからSMB/CIFSになったと勝手に思いこんでたから驚いた。AppleTalkが今に生き</description>
+    </item>
+    
+  </channel>
+</rss>

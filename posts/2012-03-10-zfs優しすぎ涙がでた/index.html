@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ZFS優しすぎ涙がでた。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ZFS優しすぎ涙がでた。" />
+<meta property="og:description" content="前口上 試しにZFSを使ってみて（VMware Playerで気軽に試せるようになったとは、なんと便利な世の中か）本当に驚いた。 ディスク繋いでz" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2012-03-10-zfs%E5%84%AA%E3%81%97%E3%81%99%E3%81%8E%E6%B6%99%E3%81%8C%E3%81%A7%E3%81%9F/" />
+<meta property="article:published_time" content="2012-03-10T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2012-03-10T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="ZFS優しすぎ涙がでた。">
+<meta itemprop="description" content="前口上 試しにZFSを使ってみて（VMware Playerで気軽に試せるようになったとは、なんと便利な世の中か）本当に驚いた。 ディスク繋いでz">
+
+
+<meta itemprop="datePublished" content="2012-03-10T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2012-03-10T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="2784">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ZFS優しすぎ涙がでた。"/>
+<meta name="twitter:description" content="前口上 試しにZFSを使ってみて（VMware Playerで気軽に試せるようになったとは、なんと便利な世の中か）本当に驚いた。 ディスク繋いでz"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ZFS優しすぎ涙がでた。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2012-03-10T01:00:00&#43;09:00">March 10, 2012</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><h2>
+    <span style="text-decoration: underline;"><span class="deco">前口上</span></span>
+  </h2></p>
+
+<pre><code>試しにZFSを使ってみて（VMware Playerで気軽に試せるようになったとは、なんと便利な世の中か）本当に驚いた。
+
+
+
+ディスク繋いでzpoolコマンド一発ですぐ使える。パーティションに頭を悩ませる必要もない。RAIDだって楽勝。ディレクトリごとに圧縮することもできるし、気が変わったら、いつでも止めることもできる。スナップショットも早い。
+
+
+
+実は、何年か前にZFSについて調べたときはまだまだバギーな印象だったのと、ZFSを使えるようなパワフルマシンがなく保留にしてたんだけど、すごく損した気分。
+
+
+
+いままで幾たび、fdiskやnewfs失敗してひどい目にあったことか。電子の海に消えたデータを思う。
+
+
+
+
+
+
+
+
+そしてRAID。ソフトRAIDで言えばlvmも有名だが、俺にはもうコマンドが複雑すぎて覚えられない（lv...が論理ボリュームを、pv...が物理ボリュームを扱うんだって？）。
+
+
+
+これはすごく危険。
+
+
+
+だってソフトRAID含め、こういったディスクを扱うコマンドを使うのは、初期設定と、問題の発生したとき。
+
+
+
+俺みたいなオッチョコチョイが、問題が発生して焦っているときに、コマンドが複雑だと二次災害を引き起こすんだって。
+
+
+
+…正直に言うと実際に引き起こした。
+
+
+
+
+
+
+
+
+ZFSならとにかくzpool、zfsさえ覚えておけばいいのだ。
+</code></pre>
+
+<p><h2>
+    <span style="text-decoration: underline;"><span class="deco">ZFS</span></span>
+  </h2></p>
+
+<pre><code>宅鯖ではZFSを使いたいからFreeBSDを選んだ。
+
+
+
+そして、いろいろwebを渉猟するにi386でZFSは辛そうなのでamd64とし、下記の通りzpoolのバージョンもどーんと上がっているので, 9.0-RELEASEを入れた。メジャーバージョンの最初はちょっと不安ではあるけれど。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  ZFSのバージョン
+
+
+
+  8.2+ - zpool v15
+
+
+
+  9.0+ - zpool v28
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>あとは、特に難しいこともなく、2.5Tのディスク1本買ってきて、つないで、領域作って、こんな感じ。
+
+
+
+作業ログは後述。
+</code></pre>
+
+<pre><code class="language-console">$ sudo zpool status
+パスワード:
+pool: vault
+state: ONLINE
+scan: none requested
+config:
+NAME        STATE     READ WRITE CKSUM
+vault       ONLINE       0     0     0
+ada1      ONLINE       0     0     0
+errors: No known data errors
+$ zpool list
+NAME    SIZE  ALLOC   FREE    CAP  DEDUP  HEALTH  ALTROOT
+vault  2.27T  1007G  1.28T    43%  1.00x  ONLINE  -
+</code></pre>
+
+<pre><code>ディスク1本なので、RAIDも組まず、圧縮もせず（データがjpg写真とか自炊本、自炊DVD、CDとか圧縮の効かないものばかりだから）。
+
+
+
+あんなに煽っておいてアレだが、だってまだディスク高いし・・。
+</code></pre>
+
+<p><h2>
+    <span style="text-decoration: underline;"><span class="deco">チューニング</span></span>
+  </h2></p>
+
+<pre><code>ただまあ、ここを見てチューニングだけはしておいた。
+
+
+
+&lt;a href=&quot;http://wiki.freebsd.org/ZFSTuningGuide&quot; target=&quot;_blank&quot;&gt;http://wiki.freebsd.org/ZFSTuningGuide&lt;/a&gt;
+
+
+
+
+
+
+
+
+/boot/loader.confにおけるチューニング
+</code></pre>
+
+<pre><code class="language-console">vfs.zfs.prefetch_disable=&quot;1&quot;
+vfs.zfs.txg.timeout=&quot;5&quot;
+</code></pre>
+
+<pre><code>1行目
+
+
+
+ZFSのprefetchを無効にすると全体的にスピードが向上する。
+
+
+
+ただし読み書きが頻繁に発生する状態だとシステムが遅くなる傾向あり。
+
+
+
+なお、4GB以上のメモリが実装されているとデフォルトで0になるとのこと。
+
+
+
+2行目
+
+
+
+txgが何の意味か分からないけど（task queue?）、こうしておくとスループットが上がる上に、システムが極端に遅くなる問題が改善される。
+
+
+
+（In my case 50-100% CPU is used by ZFS with *no* disk activity during the pauses then a burst of rapid disk activity and then another pause. なんて言ってる）
+
+
+
+なお、これはZFS v28からはデフォルト。
+</code></pre>
+
+<p><h2>
+    <span style="text-decoration: underline;"><span class="deco">/etc/sysctl.confにおける設定</span></span>
+  </h2></p>
+
+<pre><code class="language-console">kern.maxvnodes=250000
+vfs.zfs.write_limit_override=131072
+</code></pre>
+
+<pre><code>1行目でvnodes数の上限をデフォルトの約200000（a little over 200,000）から増やす。
+
+
+
+2行目でTXG write limitの値を減らす。デフォルト値は知らん。
+
+
+
+4GBメモリなら256MB、と書いてあるので、2GBを積んでる俺は128MBにした。
+
+
+
+なお、ZFS v28より前ではvfs.zfs.txg.write_limit_overrideとのこと。
+</code></pre>
+
+<p><h2>
+    <span style="text-decoration: underline;"><span class="deco">そのほかの設定:periodic script</span></span>
+  </h2></p>
+
+<pre><code>/etc/periodic/daily/404.status-zfsにスクリプトがある。
+
+
+
+有効にすると、毎日zpoolの状態をしらべて、daily output, security outputでメールしてくれる。
+
+
+
+そうそう、&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20120305/p2&quot; target=&quot;_blank&quot;&gt;root宛のメールは転送設定&lt;/a&gt;しておくと便利。
+</code></pre>
+
+<pre><code class="language-console">$ sudo /etc/periodic/daily/404.status-zfs
+Checking status of zfs pools:
+all pools are healthy
+</code></pre>
+
+<pre><code>/etc/periodic.confに以下を追記しておけばOK
+</code></pre>
+
+<pre><code class="language-console">daily_status_zfs_enable=&quot;YES&quot;
+</code></pre>
+
+<pre><code>以下は作業ログ
+</code></pre>
+
+<p><h2>
+    <span style="text-decoration: underline;"><span class="deco">作業ログ</span></span>
+  </h2></p>
+
+<pre><code>ディスクをつないで起動、dmesgで確認
+</code></pre>
+
+<pre><code class="language-console">$ dmesg|grep ada
+ada0 at ahcich0 bus 0 scbus0 target 0 lun 0
+ada0: &lt;VB0250EAVER HPG7&gt; ATA-8 SATA 2.x device
+ada0: 300.000MB/s transfers (SATA 2.x, UDMA5, PIO 8192bytes)
+ada0: Command Queueing enabled
+ada0: 238475MB (488397168 512 byte sectors: 16H 63S/T 16383C)
+ada0: Previously was known as ad4
+ada1 at ahcich1 bus 0 scbus1 target 0 lun 0
+ada1: &lt;WDC WD25EZRX-00MMMB0 80.00A80&gt; ATA-8 SATA 3.x device
+ada1: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)
+ada1: Command Queueing enabled
+ada1: 2384658MB (4883781168 512 byte sectors: 16H 63S/T 16383C)
+ada1: Previously was known as ad6
+</code></pre>
+
+<pre><code>ada1が新しく繋いだディスク。
+
+
+
+ここにZFS用のpoolを作成する。
+</code></pre>
+
+<pre><code class="language-console">$ sudo zpool create vault ada1
+Password:
+$ mount
+/dev/ada0p2 on / (ufs, local, journaled soft-updates)
+devfs on /dev (devfs, local, multilabel)
+vault on /vault (zfs, local, nfsv4acls)
+$ df -h
+Filesystem     Size    Used   Avail Capacity  Mounted on
+/dev/ada0p2    228G     15G    194G     7%    /
+devfs          1.0k    1.0k      0B   100%    /dev
+vault          2.2T     31k    2.2T     0%    /vault
+</code></pre>
+
+<pre><code>無事完成。
+
+
+
+なんと勝手にマウントまでしてくれる。これですぐ使える。
+
+
+
+2.5Tなのに数秒程度で完了。
+
+
+
+ビクビクしながらfdiskしたりnewfsしたりする必要がない。電卓も要らない（そういう時代もあったのです）。
+
+
+
+衝撃的です。
+
+
+
+コマンドが簡単なうえに、早いというのは、重ねて言うけど障害復旧に極めて有利な点。
+
+
+
+大きなディスクをnewfsするときの、遅々として進まないカウンタを見てジリジリしたことのある人なら共感してくれるはず。
+
+
+
+
+
+
+
+
+なお、この状態では/etc/fstabに何も書き込まれていないので、再起動すればマウントは外れる。
+
+
+
+
+
+
+
+
+ではこのpoolからディレクトリを切り出す。
+
+
+
+itunes用と、通常の共有ディレクトリ用の二つを作る。
+</code></pre>
+
+<pre><code class="language-console">$ sudo zfs create vault/itunes
+$ sudo zfs create vault/chamber
+$ mount
+/dev/ada0p2 on / (ufs, local, journaled soft-updates)
+devfs on /dev (devfs, local, multilabel)
+vault on /vault (zfs, local, nfsv4acls)
+vault/itunes on /vault/itunes (zfs, local, nfsv4acls)
+vault/chamber on /vault/chamber (zfs, local, nfsv4acls)
+$ df -h
+Filesystem      Size    Used   Avail Capacity  Mounted on
+/dev/ada0p2     228G     15G    194G     7%    /
+devfs           1.0k    1.0k      0B   100%    /dev
+vault           2.2T     32k    2.2T     0%    /vault
+vault/itunes    2.2T     31k    2.2T     0%    /vault/itunes
+vault/chamber    2.2T     31k    2.2T     0%    /vault/chamber
+</code></pre>
+
+<pre><code>これらを/export配下に移動させる。
+
+
+
+これが既存の考えにはない動作。頭の中でファイルシステムに対する考え方がグニョっとなるのを俺は感じたよ。
+</code></pre>
+
+<pre><code class="language-console">$ sudo zfs set mountpoint=/export/itunes vault/itunes
+$ sudo zfs set mountpoint=/export/chamber vault/chamber
+$ mount
+/dev/ada0p2 on / (ufs, local, journaled soft-updates)
+devfs on /dev (devfs, local, multilabel)
+vault on /vault (zfs, local, nfsv4acls)
+vault/itunes on /export/itunes (zfs, local, nfsv4acls)
+vault/chamber on /export/chamber (zfs, local, nfsv4acls)
+</code></pre>
+
+<pre><code>そしたら/etc/fstabに書き込んでおしまい。
+
+
+
+昔はデバイス名を書き込んでいた場所にZFSのディスクプールを書くわけですな。
+</code></pre>
+
+<pre><code class="language-console">vault/itunes    /export/itunes         zfs     rw      0       0
+vault/chamber   /export/chamber                zfs     rw      0       0
+</code></pre>
+
+<pre><code>afpでファイルをコピーしているのだが、あまり負荷はかかっていない模様。
+
+
+
+ZFSはリソース食いと聞いてたのでコワゴワコピーしたんだけど、まあ100Mbpsのネットワーク越しですしな。
+</code></pre>
+
+<pre><code class="language-console">last pid:  1773;  load averages:  0.11,  0.21,  0.17    up 0+00:45:03  23:54:03
+42 processes:  1 running, 41 sleeping
+CPU:  0.2% user,  0.0% nice, 15.0% system,  0.4% interrupt, 84.4% idle
+Mem: 46M Active, 189M Inact, 1426M Wired, 64M Cache, 200M Buf, 119M Free
+Swap: 907M Total, 556K Used, 906M Free
+PID USERNAME     THR PRI NICE   SIZE    RES STATE   C   TIME   WCPU COMMAND
+1697 root           1  31    0 55860K  4288K select  1   3:55 16.36% afpd
+</code></pre>
+
+<pre><code>そのほか
+
+
+
+重大な作業をするときは必ず-nオプションを付けること。
+
+
+
+ドライランと呼ばれるもので、実際の作業はせずに結果をシミュレートできる。
+
+
+
+
+
+
+
+
+ストレージプールを作業するときには明示的にexportすること。
+
+
+
+exportすれば、未書き込みのデータがすべて処理され、システムから削除される。
+
+
+
+そこで引数なしでimportを実行すると、import可能な、言い換えるとexport済みのプールが表示される。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

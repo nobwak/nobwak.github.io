@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/linux/</link>
+    <description>Recent content in Linux on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Fri, 25 Sep 2015 23:31:38 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[sh] オレオレ証明書作成シェルスクリプト</title>
+      <link>https://nobwak.github.io/posts/2015-09-25-sh_%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/</link>
+      <pubDate>Fri, 25 Sep 2015 23:31:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-09-25-sh_%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/</guid>
+      <description>すぐに作り方を忘れるので、シェルスクリプトを記録しておく。 変数OPENSSLにopensslをフルパスで与えること。 あとはchmod 755し</description>
+    </item>
+    
+    <item>
+      <title>[メモ][Vagrant] Ubuntuのboxを作る</title>
+      <link>https://nobwak.github.io/posts/2015-09-18-%E3%83%A1%E3%83%A2vagrant_ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <pubDate>Fri, 18 Sep 2015 23:07:12 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-09-18-%E3%83%A1%E3%83%A2vagrant_ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <description>Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でU</description>
+    </item>
+    
+    <item>
+      <title>rsyncのディレクトリ指定でエスケープの必要な文字を含めるには</title>
+      <link>https://nobwak.github.io/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 30 Oct 2014 22:52:56 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>先に結論:ダブルクオーテーションで括ればよい。 rsyncの対象ディレクトリでカッコ「()」など、エスケープの必要な文字の含まれているケースが</description>
+    </item>
+    
+    <item>
+      <title>[メモ] sambaのパスワードファイルに登録されているユーザ一覧を表示するには</title>
+      <link>https://nobwak.github.io/posts/2014-07-23-%E3%83%A1%E3%83%A2_samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E4%B8%80%E8%A6%A7%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Wed, 23 Jul 2014 19:42:59 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-07-23-%E3%83%A1%E3%83%A2_samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E4%B8%80%E8%A6%A7%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>smbpasswdにはそういった機能がない。 pdbedit -Lを使う。 pdbeditとは manによれば「SAM database（sambaユーザデータベ</description>
+    </item>
+    
+    <item>
+      <title>Pythonがあればwebサーバを動かせる件について</title>
+      <link>https://nobwak.github.io/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Mon, 24 Feb 2014 23:43:49 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>Pythonがあれば、webサーバソフトウェアを追加することなくwebサーバを立ち上げることができる。 たいへん便利なのでメモしておく。 書式 Python</description>
+    </item>
+    
+    <item>
+      <title>[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</title>
+      <link>https://nobwak.github.io/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/</link>
+      <pubDate>Sun, 23 Feb 2014 13:13:06 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/</guid>
+      <description>cal/ncalにはイースター（復活祭）を表示するオプションがある。 私はキリスト教徒ではないのですが、コマンドにこういったオプションが自然に</description>
+    </item>
+    
+    <item>
+      <title>zfs snapshotの差分send/recvについて</title>
+      <link>https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Tue, 28 Jan 2014 22:33:29 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>zfs snapshotの差分send/recvについて zfsのバックアップは、snapshotを撮っておいて、自ホストの別zpool、あるいは他</description>
+    </item>
+    
+    <item>
+      <title>Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</title>
+      <link>https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/</link>
+      <pubDate>Sun, 26 Jan 2014 20:19:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/</guid>
+      <description>昨年あたりからWindows XPのサポート終了にともない、Windows 7へクライアントOSを移す企業が多い。 私の仕事PCも過日、ついに7に</description>
+    </item>
+    
+    <item>
+      <title>Hadoopフレンドリーなデータとは</title>
+      <link>https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/</link>
+      <pubDate>Thu, 23 Jan 2014 20:16:09 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/</guid>
+      <description>ログは1行1イベントに 何を言っとるんだお前はという感じであるが、つまりこういう事である。 通常、ログは1行が1イベントである。 たとえばapac</description>
+    </item>
+    
+    <item>
+      <title>NginxでのFastCGI PHP設定</title>
+      <link>https://nobwak.github.io/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/</link>
+      <pubDate>Tue, 21 Jan 2014 22:12:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/</guid>
+      <description>タイトル通り、FreeBSDでnginx、FastCGIでPHPを動かす場合。 lighttpd + phpの場合はこちら。 必要なもの。 nginx spawn-fcgi php（fastCG</description>
+    </item>
+    
+    <item>
+      <title>[メモ] grepでコメント行、空行以外の行を表示させるには</title>
+      <link>https://nobwak.github.io/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 16 Jan 2014 22:01:54 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>いつも忘れるのでメモ。 あるファイルから、コメント行と空行を除いて表示させるには。 コメント行なら&amp;rdquo;^ *#&amp;ldquo;がマッチ。 空</description>
+    </item>
+    
+    <item>
+      <title>Pythonアプリに引数を渡そう</title>
+      <link>https://nobwak.github.io/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/</link>
+      <pubDate>Fri, 10 Jan 2014 20:27:22 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/</guid>
+      <description>PythonでWindowsアプリケーションを作ったとする。 たとえばファイルを引数に取り、整形するものだとする。 せっかくWindowsアプリ</description>
+    </item>
+    
+    <item>
+      <title>[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</title>
+      <link>https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/</link>
+      <pubDate>Sun, 05 Jan 2014 21:53:46 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/</guid>
+      <description>過日、zpool v28のアップグレードをして、いくつかのfeature flagsを有効にした。 したのだが、よく分からないことがいくつかあった</description>
+    </item>
+    
+  </channel>
+</rss>

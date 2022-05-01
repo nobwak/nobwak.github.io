@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD] sendmailをさらに黙らせるには</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD] sendmailをさらに黙らせるには" />
+<meta property="og:description" content="FreeBSD起動時のsendmailを止める方法はこの通り。 これで確かに止まる。 しかしFreeBSDにはcronでmailサーバの状況を調" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-08-01-freebsd_sendmail%E3%82%92%E3%81%95%E3%82%89%E3%81%AB%E9%BB%99%E3%82%89%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2013-08-01T22:18:39&#43;09:00"/>
+<meta property="article:modified_time" content="2013-08-01T22:18:39&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD] sendmailをさらに黙らせるには">
+<meta itemprop="description" content="FreeBSD起動時のsendmailを止める方法はこの通り。 これで確かに止まる。 しかしFreeBSDにはcronでmailサーバの状況を調">
+
+
+<meta itemprop="datePublished" content="2013-08-01T22:18:39&#43;09:00" />
+<meta itemprop="dateModified" content="2013-08-01T22:18:39&#43;09:00" />
+<meta itemprop="wordCount" content="206">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD] sendmailをさらに黙らせるには"/>
+<meta name="twitter:description" content="FreeBSD起動時のsendmailを止める方法はこの通り。 これで確かに止まる。 しかしFreeBSDにはcronでmailサーバの状況を調"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD] sendmailをさらに黙らせるには</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-08-01T22:18:39&#43;09:00">August 1, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSD起動時のsendmailを止める方法は<a href="../../../?p=1823" target="_blank">この通り</a>。<br />
+これで確かに止まる。<br />
+しかしFreeBSDにはcronでmailサーバの状況を調べるスクリプトが動いていて、明示的に指定しない限り毎日毎日mailqの情報とかを送り付けてくる。</p>
+
+<p>たとえばこんな感じ</p>
+
+<pre><code class="language-console">Mail in local queue:
+mailq: Mail queue is empty
+
+Mail in submit queue:
+mailq: Mail queue is empty
+
+Security check:
+    (output mailed separately)
+
+Checking for rejected mail hosts:
+</code></pre>
+
+<p>邪魔なのでこれを止める。<br />
+方法は簡単。/etc/periodic.confに以下を追加するだけ。</p>
+
+<pre><code class="language-console">daily_clean_hoststat_enable=&quot;NO&quot;
+daily_status_mail_rejects_enable=&quot;NO&quot;
+daily_status_include_submit_mailq=&quot;NO&quot;
+daily_submit_queuerun=&quot;NO&quot;
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

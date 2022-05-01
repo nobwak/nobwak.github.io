@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | poudriereでhomebrew（自前） pkgリポジトリを</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="poudriereでhomebrew（自前） pkgリポジトリを" />
+<meta property="og:description" content="poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-02-16-poudriere%E3%81%A7homebrew%E8%87%AA%E5%89%8D_pkg%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%82%92/" />
+<meta property="article:published_time" content="2014-02-16T22:21:37&#43;09:00"/>
+<meta property="article:modified_time" content="2014-02-16T22:21:37&#43;09:00"/>
+
+<meta itemprop="name" content="poudriereでhomebrew（自前） pkgリポジトリを">
+<meta itemprop="description" content="poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa">
+
+
+<meta itemprop="datePublished" content="2014-02-16T22:21:37&#43;09:00" />
+<meta itemprop="dateModified" content="2014-02-16T22:21:37&#43;09:00" />
+<meta itemprop="wordCount" content="3966">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,pkgng," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="poudriereでhomebrew（自前） pkgリポジトリを"/>
+<meta name="twitter:description" content="poudriereを使ったので経緯を記す。 poudriereは自前のpkgngレポジトリを作るツール。 自前のレポジトリを作るのは、自前のpa"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">poudriereでhomebrew（自前） pkgリポジトリを</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-02-16T22:21:37&#43;09:00">February 16, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>poudriereを使ったので経緯を記す。<br />
+poudriereは自前のpkgngレポジトリを作るツール。<br />
+自前のレポジトリを作るのは、自前のpackageを置きたいときや、オフラインマシンにpackageを提供したいとき、である。</p>
+
+<p>poudriereの構築は、以下二つのサイトに沿えばできる。<br />
+ただ、簡潔にまとめられているので、本記事では補足も併せてまとめる。<br />
+<a href="http://blog.etoilebsd.net/post/Home_made_pkgng_repo" target="_blank"><a href="http://blog.etoilebsd.net/post/Home_made_pkgng_repo">http://blog.etoilebsd.net/post/Home_made_pkgng_repo</a></a><br />
+<a href="http://w.vmeta.jp/tdiary/?date=20130205" target="_blank"><a href="http://w.vmeta.jp/tdiary/?date=20130205">http://w.vmeta.jp/tdiary/?date=20130205</a></a></p>
+
+<h2 id="span-style-text-decoration-underline-仕組み-span"><span style="text-decoration: underline;">仕組み</span></h2>
+
+<p>poudriereがどのようにしてpackageを作るかというと。<br />
+OS/アーキテクチャごとにjailを作り、そこでportsからpackagesを作る。<br />
+つまりホストのOS|アーキテクチャと違っていても大丈夫だが、ホストは最新にしておいた方がよい。</p>
+
+<p>packagesはあるディレクトリにまとめられる。<br />
+ディレクトリはそのままwebで公開できる形式になっている。<br />
+他のマシンから、pkgngでつなげば、自家製packagesを取得できる。</p>
+
+<p>作成するpackagesは自分で選ぶことができる。<br />
+また、オプションも選ぶことができる。<br />
+オプションはまた別途。</p>
+
+<h2 id="span-style-text-decoration-underline-必要なもの-span"><span style="text-decoration: underline;">必要なもの</span></h2>
+
+<p>zpoolを最低7GB用意しておくこと。</p>
+
+<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
+
+<p>ports-mgmt/poudriereからportsでもpkgでもよいのでインストール。</p>
+
+<h2 id="span-style-text-decoration-underline-設定ファイル-span"><span style="text-decoration: underline;">設定ファイル</span></h2>
+
+<p>まず設定ファイルを作る。<br />
+/usr/local/etc/poudriere.conf.sampleをもとに。</p>
+
+<p>/usr/local/etc/poudriere.conf</p>
+
+<pre><code class="language-console"># 作成しておいたzpoolの名前をここで指定
+ZPOOL=vault
+
+# 上記のzpoolから切り出したzfsを、
+# ここで示したディレクトリにマウントしておく。
+ZROOTFS=/poudriere
+
+# FreeBSDの部品の取得先。国内にしておこう。
+FREEBSD_HOST=ftp://ftp2.jp.freebsd.org
+
+# デフォルトのまま
+RESOLV_CONF=/etc/resolv.conf
+
+# デフォルトでいいでしょう。
+BASEFS=/usr/local/poudriere
+
+# デフォルトでいいでしょう。
+USE_PORTLINT=no
+
+# デフォルトでいいでしょう。
+USE_TMPFS=yes
+
+# デフォルトでいいでしょう。
+DISTFILES_CACHE=/usr/ports/distfiles
+
+# proxyの指定が必要であれば
+export HTTP_PROXY=&quot;http://proxy:8080/&quot;
+export FTP_PROXY=&quot;http://proxy:8080/&quot;
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-poudriere作業用zfsの準備-span"><span style="text-decoration: underline;">poudriere作業用zfsの準備</span></h2>
+
+<p>zpoolからzfsを切り出し、/poudriereにマウント。<br />
+poudriere.confを参照すると、最低でも7GBとある。</p>
+
+<p>zfsの操作はよろしければこちらをどうぞ。<br />
+<a href="../../../?p=1827" target="_blank">../../../?p=1827</a></p>
+
+<p>結果として以下のような環境。<br />
+20.0Gのzpoolをvaultとして作成している。</p>
+
+<pre><code class="language-console">$ zpool list
+NAME    SIZE  ALLOC   FREE    CAP  DEDUP  HEALTH  ALTROOT
+vault  19.9G   190K  19.9G     0%  1.00x  ONLINE  -
+$ zpool status
+  pool: vault
+ state: ONLINE
+  scan: none requested
+config:
+
+        NAME        STATE     READ WRITE CKSUM
+        vault       ONLINE       0     0     0
+          ada1      ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+
+<p>ここからpoudriereとして切り出し。</p>
+
+<pre><code class="language-console">$ zfs list
+NAME              USED  AVAIL  REFER  MOUNTPOINT
+vault            45.7M  19.5G    31K  /vault
+vault/poudriere  45.0M  19.5G  45.0M  /poudriere
+</code></pre>
+
+<p>それを/poudriereにマウント。</p>
+
+<pre><code class="language-console">$ mount
+/dev/ada0p2 on / (ufs, local, journaled soft-updates)
+devfs on /dev (devfs, local, multilabel)
+vault/poudriere on /poudriere (zfs, local, nfsv4acls)
+</code></pre>
+
+<p>再起動しても大丈夫なようにfstabに書き込み</p>
+
+<pre><code class="language-console">$ cat fstab
+# Device        Mountpoint      FStype  Options Dump    Pass#
+/dev/ada0p2     /               ufs     rw      1       1
+/dev/ada0p3     none            swap    sw      0       0
+vault/poudriere /poudriere      zfs     rw      0       0
+</code></pre>
+
+<p>以降、本格的な作業に。</p>
+
+<h2 id="span-style-text-decoration-underline-デフォルトのportstreeを作る-poudriere-ports-span"><span style="text-decoration: underline;">デフォルトのportstreeを作る。: poudriere ports</span></h2>
+
+<p>jailごとにportsディレクトリを持っていてはディスクがいくらあっても足らない。<br />
+そこでportsディレクトリは全jailsで共有する。<br />
+そのportsディレクトリ、portstreeを作る。</p>
+
+<p>poudriere ports -cで作成。<br />
+場所は/poudriere/ports/defaultに作られる。</p>
+
+<p>ちなみに、二回目からは-uで更新。<br />
+指定がなければportsnapが使われる。<br />
+svnとかが使いたければ-m svnなどと指定する。</p>
+
+<p>作成例</p>
+
+<pre><code class="language-console">$ sudo poudriere ports -c
+====&gt;&gt; Creating default fs... done
+====&gt;&gt; Extracting portstree &quot;default&quot;...
+Looking up portsnap.FreeBSD.org mirrors... none found.
+Fetching public key from portsnap.FreeBSD.org... done.
+Fetching snapshot tag from portsnap.FreeBSD.org... done.
+Fetching snapshot metadata... done.
+Fetching snapshot generated at Fri Nov  1 21:00:43 JST 2013:
+98c3a00130d24348ff5bcca8474e4c6cb777d838e8f5d2100% of   69 MB 3590 kBps 00m19s
+Extracting snapshot... done.
+Verifying snapshot integrity...
+（略）
+</code></pre>
+
+<p>二回目以降の例<br />
+すでにportsがある状態で-cを指定すると怒られる。</p>
+
+<pre><code class="language-console">$ sudo poudriere ports -c
+====&gt;&gt; Error: The ports tree default already exists
+
+$ sudo poudriere ports -u
+====&gt;&gt; Updating portstree &quot;default&quot;
+Looking up portsnap.FreeBSD.org mirrors... none found.
+Fetching snapshot tag from portsnap.FreeBSD.org... done.
+Fetching snapshot metadata... done.
+Updating from Fri Nov  1 21:27:07 JST 2013 to Fri Jan 17 22:08:55 JST 2014.
+Fetching 4 metadata patches... done.
+Applying metadata patches... done.
+Fetching 4 metadata files... done.
+Fetching 11146 patches.....10
+（略）
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-各システム向けのjailを作る-poudriere-jail-span"><span style="text-decoration: underline;">各システム向けのJailを作る: poudriere jail</span></h2>
+
+<p>いよいよ個別のjail。<br />
+pkgを提供したいシステムに合わせてjailを作る。</p>
+
+<p>jailを作るにはpoudriere jailを使う。<br />
+poudriere jailでオプション一覧が表示される。</p>
+
+<p>-jでjailname指定、-vでFreeBSDバージョン、-aでアーキテクチャ（i386かamd64）を指定。<br />
+-cで作成、-dで削除、-lで一覧、-sで開始、-kで停止、-uで更新。</p>
+
+<p>後で見返した時に分からなくなるので、jail名にはシステム関連の情報を入れておくとよい。<br />
+たとえば9.2-RELEASE i386向けなら92i386というように。</p>
+
+<p>実行例</p>
+
+<pre><code class="language-console">$ sudo poudriere jail -c -j 92i386 -v 9.2-RELEASE -a i386
+====&gt;&gt; Creating 92i386 fs... done
+====&gt;&gt; Fetching base.txz for FreeBSD 9.2-RELEASE i386
+/poudriere/jails/92i386/fromftp/base.txz      100% of   60 MB 6703 kBps 00m10s
+====&gt;&gt; Extracting base.txz... done
+====&gt;&gt; Fetching src.txz for FreeBSD 9.2-RELEASE i386
+/poudriere/jails/92i386/fromftp/src.txz       100% of   95 MB 6049 kBps 00m16s
+====&gt;&gt; Extracting src.txz... done
+====&gt;&gt; Fetching games.txz for FreeBSD 9.2-RELEASE i386
+/poudriere/jails/92i386/fromftp/games.txz     100% of  861 kB 4705 kBps 00m00s
+====&gt;&gt; Extracting games.txz... done
+====&gt;&gt; Cleaning up... done
+====&gt;&gt; Jail 92i386 9.2-RELEASE i386 is ready to be used
+</code></pre>
+
+<p>一覧の例</p>
+
+<pre><code class="language-console">$ sudo poudriere jail -l
+JAILNAME             VERSION              ARCH    METHOD
+92i386               9.2-RELEASE          i386    ftp
+</code></pre>
+
+<p>削除例</p>
+
+<pre><code class="language-console">$ sudo poudriere jail -d -j 92i386
+====&gt;&gt; Removing 92i386 jail... done
+$
+$ sudo poudriere jail -l
+JAILNAME             VERSION              ARCH    METHOD
+$
+</code></pre>
+
+<p>このときのmountの出力<br />
+えらいことに。</p>
+
+<pre><code class="language-console">$ mount
+/dev/ada0p2 on / (ufs, local, journaled soft-updates)
+devfs on /dev (devfs, local, multilabel)
+vault/poudriere on /poudriere (zfs, local, nfsv4acls)
+vault/poudriere/data on /usr/local/poudriere/data (zfs, local, nfsv4acls)
+vault/poudriere/ports on /poudriere/ports (zfs, local, nfsv4acls)
+vault/poudriere/ports/default on /usr/local/poudriere/ports/default (zfs, local, nfsv4acls)
+vault/poudriere/jails on /poudriere/jails (zfs, local, nfsv4acls)
+vault/poudriere/jails/92i386 on /usr/local/poudriere/jails/92i386 (zfs, local, nfsv4acls)
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-jailの作成が失敗するとき-span"><span style="text-decoration: underline;">jailの作成が失敗するとき</span></h2>
+
+<p>失敗しなかったらこの章は読み飛ばしてOK.<br />
+最初のCreatingで失敗するときは、以前に作った何かが邪魔しているはず。</p>
+
+<pre><code class="language-console">$ sudo poudriere jail -c -j 92i386 -v 9.2-RELEASE -a i386
+====&gt;&gt; Creating 92i386 fs... done
+mkdir: /poudriere/jails/92i386: No such file or directory
+====&gt;&gt; Fetching base.txz for FreeBSD 9.2-RELEASE i386
+fetch: /poudriere/jails/92i386/fromftp/base.txz: open(): No such file or directory
+fetch: /poudriere/jails/92i386/fromftp/base.txz: open(): No such file or directory
+====&gt;&gt; Error: Failed to fetch from ftp://ftp2.jp.freebsd.org/pub/FreeBSD/releases/i386/i386/9.2-RELEASE/base.txz
+====&gt;&gt; Error while creating jail, cleaning up.
+====&gt;&gt; Removing 92i386 jail... done
+</code></pre>
+
+<p>zfs listすると同じ名前の残骸がある。</p>
+
+<pre><code class="language-console">$ zfs list
+NAME                            USED  AVAIL  REFER  MOUNTPOINT
+vault                          2.06G  17.5G    31K  /vault
+vault/poudriere                2.06G  17.5G   561M  /poudriere
+vault/poudriere/data             32K  17.5G    32K  /usr/local/poudriere/data
+vault/poudriere/jails          1000M  17.5G    32K  /poudriere/jails
+vault/poudriere/jails/92i386   1000M  17.5G  1000M  /poudriere/jails/92i386
+vault/poudriere/ports           545M  17.5G    31K  /poudriere/ports
+vault/poudriere/ports/default   545M  17.5G   545M  /usr/local/poudriere/ports/default
+</code></pre>
+
+<p>削除。オプションなしではうまくいかないので-rで再トライ。</p>
+
+<pre><code class="language-console">$ sudo zfs destroy vault/poudriere/jails/92i386
+cannot destroy 'vault/poudriere/jails/92i386': filesystem has children
+use '-r' to destroy the following datasets:
+vault/poudriere/jails/92i386@clean
+$ sudo zfs destroy -r vault/poudriere/jails/92i386
+$
+</code></pre>
+
+<p>きれいになった。</p>
+
+<pre><code class="language-console">$ zfs list
+NAME                            USED  AVAIL  REFER  MOUNTPOINT
+vault                          1.08G  18.5G    31K  /vault
+vault/poudriere                1.08G  18.5G   561M  /poudriere
+vault/poudriere/data             32K  18.5G    32K  /usr/local/poudriere/data
+vault/poudriere/jails            32K  18.5G    32K  /poudriere/jails
+vault/poudriere/ports           545M  18.5G    31K  /poudriere/ports
+vault/poudriere/ports/default   545M  18.5G   545M  /usr/local/poudriere/ports/default
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-作成したいpackagesのリストを作る-span"><span style="text-decoration: underline;">作成したいpackagesのリストを作る</span></h2>
+
+<p>作成したいpackagesを指定する。<br />
+テキストファイルにpackagesを並べればよい。</p>
+
+<p>ただしOriginで記載すること。<br />
+Originっていうのは&hellip;たとえばrsyncならnet/rsyncと書く。<br />
+Originが分からなければ、pkg searchするときに-oを付ければよい。</p>
+
+<pre><code class="language-console">$ pkg search -o rsync
+net/grsync
+net/librsync
+mail/maildirsync
+net/rsync
+sysutils/rsyncbackup
+sysutils/rsyncmanager
+sysutils/rsyncrypto
+</code></pre>
+
+<p>psearch（ports-mgmt/psearch）でもできる。</p>
+
+<pre><code class="language-console">$ psearch rsync
+archivers/rvm             Archive manager that uses rsync to manage backups
+devel/p5-File-DirSync     Perl5 module for synchronizing two directories rapidly
+mail/maildirsync          Online synchronizer for Maildir-format mailboxes
+net/grsync                GTK frontend for rsync
+net/librsync              Library for delta compression of streams
+net/p5-File-Rsync         Perl convenience wrapper for the rsync(1) program
+net/p5-File-RsyncP        Perl Rsync client
+net/rsync                 Network file distribution/synchronization utility
+sysutils/dirvish          Network backup system based off of rsync
+(略)
+</code></pre>
+
+<p>試しにrsyncだけ書く。</p>
+
+<pre><code class="language-console">$ cat ./pkg.list
+net/rsync
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-packagesの作成-poudriere-bulk-span"><span style="text-decoration: underline;">packagesの作成: poudriere bulk</span></h2>
+
+<p>いよいよ作成。<br />
+作成にはpoudriere bulkを使う。<br />
+poudriere bulkでオプションを一覧できる。</p>
+
+<p>-fで作成するパッケージリストを指定。さっき作ったやつ。</p>
+
+<p>特定のjailでのみ実施したい場合は-jでjailname指定。<br />
+-cで作成したpackagesをすべて吹き飛ばす。<br />
+-C -f <file>に書かれたpackagesのみ消す。</p>
+
+<p>では実行。<br />
+初回なのでpkgも作ってくれているようですな。</p>
+
+<pre><code class="language-console">$ sudo poudriere bulk -j 92i386 -f ./pkg.list
+====&gt;&gt; Creating the reference jail... done
+====&gt;&gt; Mounting system devices for 92i386-default
+====&gt;&gt; Mounting ports/packages/distfiles
+====&gt;&gt; Mounting packages from: /usr/local/poudriere/data/packages/92i386-default
+====&gt;&gt; Logs: /usr/local/poudriere/data/logs/bulk/92i386-default/2014-01-20_22h03m21s
+====&gt;&gt; Appending to make.conf: /usr/local/etc/poudriere.d/92i386-make.conf
+/etc/resolv.conf -&gt; /usr/local/poudriere/data/build/92i386-default/ref/etc/resolv.conf
+====&gt;&gt; Starting jail 92i386-default
+====&gt;&gt; Calculating ports order and dependencies
+====&gt;&gt; pkg package missing, skipping sanity
+====&gt;&gt; Cleaning the build queue
+====&gt;&gt; Building 2 packages using 1 builders
+====&gt;&gt; Starting/Cloning builders
+====&gt;&gt; Hit CTRL+t at any time to see build progress and stats
+====&gt;&gt; [01] Starting build of ports-mgmt/pkg
+====&gt;&gt; [01] Finished build of ports-mgmt/pkg: Success
+====&gt;&gt; [01] Starting build of net/rsync
+====&gt;&gt; [01] Finished build of net/rsync: Success
+====&gt;&gt; Stopping 1 builders
+====&gt;&gt; Creating pkgng repository
+Generating repository catalog in /packages: done!
+====&gt;&gt; Cleaning up
+====&gt;&gt; Umounting file systems
+====&gt;&gt; Built ports: ports-mgmt/pkg net/rsync
+
+====&gt;&gt; [92i386-default] 2 packages built, 0 failures, 0 ignored, 0 skipped
+====&gt;&gt; Logs: /usr/local/poudriere/data/logs/bulk/92i386-default/2014-01-20_22h03m21s
+$
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-自家製packagesの公開-span"><span style="text-decoration: underline;">自家製packagesの公開</span></h2>
+
+<p>さて。<br />
+作成したpackagesはどこにあるかというと、今回の場合は以下である。</p>
+
+<pre><code class="language-console">/usr/local/poudriere/data/packages/92i386-default/
+</code></pre>
+
+<p>このディレクトリをwebサーバで公開する。<br />
+※もちろん、webサーバで公開しているディレクトリに中身を移しても可。</p>
+
+<p>この場所は、poudriere.confのPOUDRIERE_DATAで決まる。<br />
+${POUDRIERE_DATA}/packages/＜jailname＞-default/となる。<br />
+もしこの場所が気に食わなかったら、POUDRIERE_DATAを変える。</p>
+
+<p>lsで中身を見てみると、オフィシャルpkgsiteのものと全くそっくりな内容になっている。</p>
+
+<pre><code class="language-console">$ ls /usr/local/poudriere/data/packages/92i386-default/
+All             Latest          digests.txz     packagesite.txz
+</code></pre>
+
+<p>ではこれをwebサーバで公開する。<br />
+ここではnginxを例にとる。<br />
+nginx.confは下記のように。</p>
+
+<pre><code class="language-console">worker_processes  1;
+events {
+    worker_connections  1024;
+}
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+    server {
+        listen       80;
+        server_name  localhost;
+        location / {
+            autoindex on; #Here!
+            root   /usr/local/poudriere/data/packages;　#Here!
+            index  index.html index.htm;
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/local/www/nginx-dist;
+        }
+    }
+}
+</code></pre>
+
+<p>デフォルトからほとんど変えていない。<br />
+変えたのは、#Here!と記載した箇所。<br />
+rootを/usr/local/poudriere/data/packagesに向ける。<br />
+autoindexをonにする。<br />
+nginxは、デフォルトではautoindex offなので、明示的に指定しないとForbiddenを食らってしまう。</p>
+
+<p>nginxを起動して;</p>
+
+<pre><code class="language-console">$ sudo service nginx start
+Performing sanity check on nginx configuration:
+nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful
+Starting nginx.
+</code></pre>
+
+<p>接続確認。良さそうですな。</p>
+
+<pre><code class="language-console">$ w3m http://localhost/92i386-default/
+Index of /92i386-default/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+../
+All/                                               20-Jan-2014 22:24
+Latest/                                            20-Jan-2014 22:06
+digests                                            20-Jan-2014 22:24
+digests.txz                                        20-Jan-2014 22:07                 3
+packagesite.txz                                    20-Jan-2014 22:07                12
+packagesite.yaml                                   20-Jan-2014 22:24
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</code></pre>
+
+<p>webサーバを他の用途にも使っている場合には、以下のようにlocation /packages/を/usr/local/poudriere/dataに向ければよい。<br />
+※冗長なのでserverディレクティブの中しか引用しない。</p>
+
+<pre><code class="language-console">server {
+        listen       80;
+        server_name  localhost;
+        location / {
+            root   /usr/local/www/nginx;
+            index  index.html index.htm;
+        }
+        location /packages/ {
+            autoindex on;
+            root   /usr/local/poudriere/data;
+        }
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-クライアント側の設定-span"><span style="text-decoration: underline;">クライアント側の設定</span></h2>
+
+<p>やっとたどり着いた。<br />
+クライアント側では/etc/pkg/の下か、/usr/local/etc/pkg/repos/の下に以下のような設定ファイルを作る。<br />
+ここで192.168.200.111はサーバのアドレス。</p>
+
+<p>/etc/pkg/homebrew.conf</p>
+
+<pre><code class="language-console">homebrew: {
+  url: &quot;http://192.168.200.111/92i386-default&quot;,
+  enabled: yes
+}
+</code></pre>
+
+<p>こうしておき、pkg -vvとすると見えるはず。</p>
+
+<pre><code class="language-console">Repositories:
+  homebrew: {
+    url             : &quot;http://192.168.200.111/92i386-default&quot;,
+    enabled         : yes
+  }
+</code></pre>
+
+<p>pkg updateするとさっき作ったpackagesも見える。</p>
+
+<pre><code class="language-console">$ sudo pkg update
+Updating repository catalogue
+digests.txz                         100%  352     0.3KB/s   0.3KB/s   00:00
+packagesite.txz                     100% 1904     1.9KB/s   1.9KB/s   00:00
+Incremental update completed, 2 packages processed:
+0 packages updated, 0 removed and 2 added.
+</code></pre>
+
+<p>いろんな工夫については別途。</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/pkgng" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">pkgng</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-02-09-pkg%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%8C%E5%A3%8A%E3%82%8C%E3%81%9F%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B%E3%82%88%E3%82%8D%E3%81%97%E3%81%84%E6%B6%88%E3%81%97%E3%81%A6%E3%81%8A%E3%81%97%E3%81%BE%E3%81%84/">pkgのデータが壊れたでござる。よろしい。消しておしまい。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-06-%E3%83%A1%E3%83%A2_pkgng%E3%81%A7%E6%9B%B4%E6%96%B0%E3%81%AE%E3%81%82%E3%82%8Bpackages%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] pkgngで更新のあるpackagesを一覧にするには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/">pkgngが死んで詰んだときには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDへのMATEインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/">EasyBotterをFreeBSDで動かす</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-02-freebsd-current%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AFpanicmail%E3%82%92%E3%81%84%E3%81%BE%E3%81%99%E3%81%90%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">FreeBSD-currentユーザはpanicmailをいますぐインストールしろ</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [Python] wxGladeでGUIのデザインを</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[Python] wxGladeでGUIのデザインを" />
+<meta property="og:description" content="Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-12-29-python_wxglade%E3%81%A7gui%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%82%92/" />
+<meta property="article:published_time" content="2014-12-29T13:39:02&#43;09:00"/>
+<meta property="article:modified_time" content="2014-12-29T13:39:02&#43;09:00"/>
+
+<meta itemprop="name" content="[Python] wxGladeでGUIのデザインを">
+<meta itemprop="description" content="Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素">
+
+
+<meta itemprop="datePublished" content="2014-12-29T13:39:02&#43;09:00" />
+<meta itemprop="dateModified" content="2014-12-29T13:39:02&#43;09:00" />
+<meta itemprop="wordCount" content="1276">
+
+
+
+<meta itemprop="keywords" content="python," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Python] wxGladeでGUIのデザインを"/>
+<meta name="twitter:description" content="Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[Python] wxGladeでGUIのデザインを</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-12-29T13:39:02&#43;09:00">December 29, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Python、Perl、Ruby、PHPなどのLight Languageは、俺みたいな素人プログラマでもじゃんじゃんコードを書けるところが素晴らしい。<br />
+さらにそのコードがGUIで動くようになるのなら、もっと素晴らしい。<br />
+wxGladeでそれができる。wxGladeでGUIを作ってみたので記す。</p>
+
+<h2 id="span-style-text-decoration-underline-wxgladeとは-span"><span style="text-decoration: underline;">wxGladeとは</span></h2>
+
+<p><a href="http://wxglade.sourceforge.net/index.php" target="_blank"><a href="http://wxglade.sourceforge.net/index.php">http://wxglade.sourceforge.net/index.php</a></a><br />
+wxPython向けのGUIデザイナーである。<br />
+<a href="http://wxpython.org/" target="_blank">wxPython</a>とはPythonのGUIツールキット。<br />
+また、GNOMEのGUIツールキットである<a href="https://glade.gnome.org/" target="_blank">Glade</a>が名前に入っている通り、wxGladeの設計思想はGladeに沿っている。</p>
+
+<h2 id="span-style-text-decoration-underline-インストール-span"><span style="text-decoration: underline;">インストール</span></h2>
+
+<p><a href="http://sourceforge.net/projects/wxglade/" target="_blank">こちら</a>からどうぞ。<br />
+以下の例ではWindowsを使っている。</p>
+
+<h2 id="span-style-text-decoration-underline-最初の一歩-span"><span style="text-decoration: underline;">最初の一歩</span></h2>
+
+<p>どんなGUIを作るにしても、まず最初にすべきことがある。</p>
+
+<p>起動すると以下のような画面。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyatstart.png"><img class="alignnone size-thumbnail wp-image-2895" src="../../../wp-content/uploads/2014/12/wxpyatstart-150x150.png" alt="wxpyatstart" width="150" height="150" /></a><br />
+何のとっかかりもなく、いきなり途方に暮れるわけだが、慌てず騒がず、左上ウインドウのさらに左上にあるアイコンをクリック。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyaddflame.jpg"><img class="alignnone size-thumbnail wp-image-2896" src="../../../wp-content/uploads/2014/12/wxpyaddflame-150x150.jpg" alt="wxpyaddflame" width="150" height="150" /></a><br />
+そのままOK。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyMyframe.jpg"><img class="alignnone size-thumbnail wp-image-2898" src="../../../wp-content/uploads/2014/12/wxpyMyframe-150x150.jpg" alt="wxpyMyframe" width="150" height="150" /></a><br />
+<a href="../../../wp-content/uploads/2014/12/wxpyaddframedone.jpg"><img class="alignnone size-thumbnail wp-image-2899" src="../../../wp-content/uploads/2014/12/wxpyaddframedone-150x150.jpg" alt="wxpyaddframedone" width="150" height="150" srcset="../../../wp-content/uploads/2014/12/wxpyaddframedone-150x150.jpg 150w, ../../../wp-content/uploads/2014/12/wxpyaddframedone.jpg 300w" sizes="(max-width: 150px) 100vw, 150px" /></a><br />
+なんか枠ができた。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyframewin.jpg"><img class="alignnone size-thumbnail wp-image-2900" src="../../../wp-content/uploads/2014/12/wxpyframewin-150x150.jpg" alt="wxpyframewin" width="150" height="150" /></a><br />
+そしてこちらを選んで、先ほどの枠に追加。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpaneladd.jpg"><img class="alignnone size-thumbnail wp-image-2901" src="../../../wp-content/uploads/2014/12/wxpaneladd-150x150.jpg" alt="wxpaneladd" width="150" height="150" /></a><br />
+するとこのようなのっぺりした画面に。<br />
+<a href="../../../wp-content/uploads/2014/12/basepanel01.jpg"><img class="alignnone size-thumbnail wp-image-2905" src="../../../wp-content/uploads/2014/12/basepanel01-150x150.jpg" alt="basepanel01" width="150" height="150" /><br />
+</a> あとは分かりやすいように名前を変更。<br />
+<a href="../../../wp-content/uploads/2014/12/rootpanel.jpg"><img class="alignnone size-thumbnail wp-image-2906" src="../../../wp-content/uploads/2014/12/rootpanel-150x150.jpg" alt="rootpanel" width="150" height="150" srcset="../../../wp-content/uploads/2014/12/rootpanel-150x150.jpg 150w, ../../../wp-content/uploads/2014/12/rootpanel.jpg 300w" sizes="(max-width: 150px) 100vw, 150px" /></a><br />
+これで最初の一歩が終了。<br />
+ここから、作りたいGUIに合わせて作業をしていく。</p>
+
+<h2 id="span-style-text-decoration-underline-作業の前に-日本語は使わないでおこう-span"><span style="text-decoration: underline;">作業の前に（日本語は使わないでおこう…）</span></h2>
+
+<p>超絶分かりやすいPythonにも弱点がある。<br />
+それは文字コードの扱い。<br />
+wxGladeで日本語を書き込むことはできるが、UTF-8なのかShift-JIS(CP932)なのかの扱いが大変に面倒である。<br />
+だから、GUI作成時のテキスト、注釈、ボタンは適当な英語で書いておき、実際の処理を書くときに日本語に変えるのがよいと思う。</p>
+
+<h2 id="span-style-text-decoration-underline-画面の分割と配置-span"><span style="text-decoration: underline;">画面の分割と配置</span></h2>
+
+<p>最終的に以下のようなGUIを作りたいとする。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpylast.jpg"><img class="alignnone size-thumbnail wp-image-2907" src="../../../wp-content/uploads/2014/12/wxpylast-150x108.jpg" alt="wxpylast" width="150" height="108" /></a><br />
+このGUIは、まず画面を縦に三分割する。さらに1行目、3行目を横に三分割する。<br />
+分割にはパレット上の以下のツールで行う。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpybunkatsu.jpg"><img class="alignnone size-thumbnail wp-image-2908" src="../../../wp-content/uploads/2014/12/wxpybunkatsu-150x150.jpg" alt="wxpybunkatsu" width="150" height="150" /></a><br />
+ざくざくと分割して以下のように。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyseparate.jpg"><img class="alignnone size-thumbnail wp-image-2909" src="../../../wp-content/uploads/2014/12/wxpyseparate-150x150.jpg" alt="wxpyseparate" width="150" height="150" /></a><br />
+以下のように便宜的に番号を振って、<br />
+<a href="../../../wp-content/uploads/2014/12/wxpynumbers.jpg"><img class="alignnone size-thumbnail wp-image-2910" src="../../../wp-content/uploads/2014/12/wxpynumbers-150x150.jpg" alt="wxpynumbers" width="150" height="150" /></a><br />
+①にはテキストを、②にはテキストの枠を、③にはボタン、④には横棒、⑤にはスペース、⑥、⑦にはボタンを置く。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyzakkuri.jpg"><img class="alignnone size-thumbnail wp-image-2911" src="../../../wp-content/uploads/2014/12/wxpyzakkuri-150x112.jpg" alt="wxpyzakkuri" width="150" height="112" /></a><br />
+ツリーはこんなかんじ。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpyhidarigawa.jpg"><img class="alignnone size-thumbnail wp-image-2912" src="../../../wp-content/uploads/2014/12/wxpyhidarigawa-150x150.jpg" alt="wxpyhidarigawa" width="150" height="150" srcset="../../../wp-content/uploads/2014/12/wxpyhidarigawa-150x150.jpg 150w, ../../../wp-content/uploads/2014/12/wxpyhidarigawa.jpg 300w" sizes="(max-width: 150px) 100vw, 150px" /></a><br />
+名前を変更し、空白（スペーサー）は適当に横に伸ばす。<br />
+あとは、経験上、各要素を以下のようにするといいかも。<br />
+<a href="../../../wp-content/uploads/2014/12/wxpybityousei.jpg"><img class="alignnone size-thumbnail wp-image-2913" src="../../../wp-content/uploads/2014/12/wxpybityousei-150x150.jpg" alt="wxpybityousei" width="150" height="150" /></a><br />
+<a href="../../../wp-content/uploads/2014/12/wxpylast.jpg"><img class="alignnone size-thumbnail wp-image-2907" src="../../../wp-content/uploads/2014/12/wxpylast-150x108.jpg" alt="wxpylast" width="150" height="108" /></a></p>
+
+<h2 id="span-style-text-decoration-underline-書き出し-span"><span style="text-decoration: underline;">書き出し</span></h2>
+
+<p><a href="../../../wp-content/uploads/2014/12/wxpyapp.jpg"><img class="alignnone size-thumbnail wp-image-2914" src="../../../wp-content/uploads/2014/12/wxpyapp-150x150.jpg" alt="wxpyapp" width="150" height="150" /></a><br />
+Appのプロパティから、LanguageにPython、Output Pathでファイルを指定し、Generate Codeでコード生成。</p>
+
+<p>以下が例。</p>
+
+<pre><code class="language-console">#!/usr/bin/env python
+# -*- coding: CP932 -*-
+#
+# generated by wxGlade 0.6.8 (standalone edition) on Sun Dec 28 07:13:39 2014
+#
+
+import wx
+
+# begin wxGlade: dependencies
+import gettext
+# end wxGlade
+
+# begin wxGlade: extracode
+# end wxGlade
+
+
+class MyFrame(wx.Frame):
+    def __init__(self, *args, **kwds):
+        # begin wxGlade: MyFrame.__init__
+        kwds[&quot;style&quot;] = wx.DEFAULT_FRAME_STYLE
+        wx.Frame.__init__(self, *args, **kwds)
+        self.panel_1 = wx.Panel(self, wx.ID_ANY)
+        self.label_1 = wx.StaticText(self.panel_1, wx.ID_ANY, _(&quot;input : &quot;))
+        self.inputfile = wx.TextCtrl(self.panel_1, wx.ID_ANY, &quot;&quot;)
+        self.ChooseButton = wx.Button(self.panel_1, wx.ID_ANY, _(&quot;Choose&quot;))
+        self.static_line_1 = wx.StaticLine(self.panel_1, wx.ID_ANY)
+        self.go = wx.Button(self.panel_1, wx.ID_ANY, _(&quot;Run&quot;))
+        self.exit = wx.Button(self.panel_1, wx.ID_ANY, _(&quot;Cancel&quot;))
+
+        self.__set_properties()
+        self.__do_layout()
+
+        self.Bind(wx.EVT_BUTTON, self.choosefile, self.ChooseButton)
+        self.Bind(wx.EVT_BUTTON, self.goclicked, self.go)
+        self.Bind(wx.EVT_BUTTON, self.exitclicked, self.exit)
+        # end wxGlade
+
+    def __set_properties(self):
+        # begin wxGlade: MyFrame.__set_properties
+        self.SetTitle(_(&quot;frame_1&quot;))
+        self.ChooseButton.SetToolTipString(_(&quot;choose a file &quot;))
+        # end wxGlade
+
+    def __do_layout(self):
+        # begin wxGlade: MyFrame.__do_layout
+        sizer_1 = wx.BoxSizer(wx.VERTICAL)
+        sizer_2 = wx.BoxSizer(wx.VERTICAL)
+        sizer_4 = wx.BoxSizer(wx.HORIZONTAL)
+        sizer_3 = wx.BoxSizer(wx.HORIZONTAL)
+        sizer_3.Add(self.label_1, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_3.Add(self.inputfile, 1, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_3.Add(self.ChooseButton, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_2.Add(sizer_3, 1, wx.EXPAND, 5)
+        sizer_2.Add(self.static_line_1, 0, wx.EXPAND, 5)
+        sizer_4.Add((200, 20), 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_4.Add(self.go, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_4.Add(self.exit, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_2.Add(sizer_4, 1, wx.EXPAND, 0)
+        self.panel_1.SetSizer(sizer_2)
+        sizer_1.Add(self.panel_1, 1, wx.EXPAND, 0)
+        self.SetSizer(sizer_1)
+        sizer_1.Fit(self)
+        self.Layout()
+        # end wxGlade
+
+    def choosefile(self, event):  # wxGlade: MyFrame.
+        print &quot;Event handler 'choosefile' not implemented!&quot;
+        event.Skip()
+
+    def goclicked(self, event):  # wxGlade: MyFrame.
+        print &quot;Event handler 'goclicked' not implemented!&quot;
+        event.Skip()
+
+    def exitclicked(self, event):  # wxGlade: MyFrame.
+        print &quot;Event handler 'exitclicked' not implemented!&quot;
+        event.Skip()
+
+# end of class MyFrame
+if __name__ == &quot;__main__&quot;:
+    gettext.install(&quot;app&quot;) # replace with the appropriate catalog name
+
+    app = wx.PySimpleApp(0)
+    wx.InitAllImageHandlers()
+    frame_1 = MyFrame(None, wx.ID_ANY, &quot;&quot;)
+    app.SetTopWindow(frame_1)
+    frame_1.Show()
+    app.MainLoop()
+</code></pre>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-10-23-python_pyinstaller%E3%81%AE%E9%81%85%E3%81%95%E3%81%AB%E3%81%8C%E3%81%A3%E3%81%8B%E3%82%8A%E3%81%97%E3%81%A6py2exe%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E7%88%86%E9%80%9F%E3%81%A7%E9%A9%9A%E3%81%84%E3%81%9F%E4%BB%B6/">[Python] pyInstallerの遅さにがっかりしてpy2exeにしたら爆速で驚いた件</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-19-%E3%83%A1%E3%83%A2_wxpython%E3%81%8Cos_x%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E8%A7%A3%E6%B1%BA/">[メモ] wxPythonがOS Xにインストールできない（解決）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-14-%E3%83%A1%E3%83%A2pythonsqlite_%E5%B7%A8%E5%A4%A7%E3%81%AAsqlite%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF/">[メモ][Python][SQLite] 巨大なSQLiteデータベースからレコードを取り出すには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-31-%E3%83%A1%E3%83%A2_python%E3%81%A7%E6%A8%99%E6%BA%96%E3%82%A8%E3%83%A9%E3%83%BC%E5%87%BA%E5%8A%9B%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] Pythonで標準エラー出力に表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-09-%E3%83%A1%E3%83%A2_mac%E3%81%ABpython%E3%81%AEmatplotlib%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] MacにPythonのmatplotlibをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-30-python_%E4%BA%8C%E3%81%A4%E3%81%AE%E3%82%BF%E3%82%A4%E3%83%A0%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%81%AE%E5%B7%AE%E5%88%86%E3%82%92%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python] 二つのタイムスタンプの差分を計算するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-06-01-%E3%83%A1%E3%83%A2_mac%E3%81%ABhomebrew%E3%81%A7python%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%ABvirtualenv%E3%81%BE%E3%81%A7/">[メモ] MacにhomebrewでPythonをインストール（virtualenvまで）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/">ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Pythonベースのプロジェクト管理ツール、tracのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-09-pyinstaller%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9Fwindows%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84version_resource_file%E3%81%AE%E4%BD%9C%E3%82%8A%E3%81%8B%E3%81%9F/">PyInstallerで作ったWindowsアプリでバージョンを表示させたい（Version Resource Fileの作りかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-05-windows%E3%81%ABpyinstaller%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Windowsにpyinstallerをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-01-python2_hex%E6%96%87%E5%AD%97%E5%88%97%E3%81%A8bin%E6%96%87%E5%AD%97%E5%88%97%E3%81%A7%E3%82%B3%E3%83%B3%E3%83%90%E3%83%BC%E3%83%88/">[Python2] Hex文字列とBin文字列でコンバート</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-30-python2_string%E3%82%92%E9%80%86%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python2] stringを逆に表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | pkgngが死んで詰んだときには</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="pkgngが死んで詰んだときには" />
+<meta property="og:description" content="pkgコマンドが何らかの要因で壊れてしまい、pkgコマンド自体の再インストールすらできず詰んでしまったときの対処方法を示す。 お急ぎの方は「蘇" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-02-04-pkgng%E3%81%8C%E6%AD%BB%E3%82%93%E3%81%A7%E8%A9%B0%E3%82%93%E3%81%A0%E3%81%A8%E3%81%8D%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2014-02-04T00:43:36&#43;09:00"/>
+<meta property="article:modified_time" content="2014-02-04T00:43:36&#43;09:00"/>
+
+<meta itemprop="name" content="pkgngが死んで詰んだときには">
+<meta itemprop="description" content="pkgコマンドが何らかの要因で壊れてしまい、pkgコマンド自体の再インストールすらできず詰んでしまったときの対処方法を示す。 お急ぎの方は「蘇">
+
+
+<meta itemprop="datePublished" content="2014-02-04T00:43:36&#43;09:00" />
+<meta itemprop="dateModified" content="2014-02-04T00:43:36&#43;09:00" />
+<meta itemprop="wordCount" content="1549">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,pkgng," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="pkgngが死んで詰んだときには"/>
+<meta name="twitter:description" content="pkgコマンドが何らかの要因で壊れてしまい、pkgコマンド自体の再インストールすらできず詰んでしまったときの対処方法を示す。 お急ぎの方は「蘇"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">pkgngが死んで詰んだときには</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-02-04T00:43:36&#43;09:00">February 4, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>pkgコマンドが何らかの要因で壊れてしまい、pkgコマンド自体の再インストールすらできず詰んでしまったときの対処方法を示す。<br />
+お急ぎの方は「蘇生方法」からお読みください。</p>
+
+<h2 id="span-style-text-decoration-underline-背景-pkgはベースシステム-package-span"><span style="text-decoration: underline;">背景: pkgはベースシステム？package？</span></h2>
+
+<p>pkgコマンドは、ベースシステムに組み込まれていながら、pkgシステムで管理されている。<br />
+言い換えると、ベースシステムに含まれているのに追加ソフトウェアとしてのpackagesでもある、というちょっと変わった存在である。</p>
+
+<p>これは、pkgコマンド自体を、OSのバージョンに固定されることなく、更新できるための仕組み。<br />
+pkgコマンドが純然たるベースシステムであった場合、pkgコマンドを更新するたびにOSリリースが発生してしまうからである。</p>
+
+<p>だから、皆さんご存知の通り、初めてpkgコマンドを実行すると最新のpkgをダウンロード&amp;インストールするのだが、それは上記のような理由である。</p>
+
+<p>なお、ここでの「ベースシステム」とは、FreeBSD projectがリリースする一式（カーネル+ユーザランド）を指す。packagesはユーザが任意に追加するソフトウェア。</p>
+
+<h2 id="span-style-text-decoration-underline-問題-pkgはpackageなのでpkgが壊れると詰む-span"><span style="text-decoration: underline;">問題: pkgはpackageなのでpkgが壊れると詰む。</span></h2>
+
+<p>よろしい。背景は、わかる。<br />
+しかし、問題もあって、すなわち;<br />
+pkgコマンドもpkgngで管理しているので、pkgコマンドが壊れてしまった場合、pkgの再インストールができず詰む<br />
+ということである。</p>
+
+<p>たとえば、pkgコマンドが依存しているshared objectが無くなったとか、壊れた場合である。<br />
+FreeBSDではこういう場合に備えて、/rescueにスタティックリンクされたコマンドが並べられているが、pkgはここにない（9.2-RELEASEで確認）。</p>
+
+<p>どうしたらよいか。</p>
+
+<h2 id="span-style-text-decoration-underline-蘇生方法-pkgコマンドをダウンロードして-それでpkgコマンドをインストールせよ-span"><span style="text-decoration: underline;">蘇生方法: pkgコマンドをダウンロードして、それでpkgコマンドをインストールせよ。</span></h2>
+
+<p>結論。pkgのpackageにはスタティックリンクされたpkgが含まれているのでそれを使う。<br />
+以下、手順。</p>
+
+<p><span style="text-decoration: underline;">pkgコマンドのダウンロード</span></p>
+
+<p>まず、pkg.freebsd.orgからpkgコマンドのpackageをダウンロードする。<br />
+OSバージョン、アーキテクチャに合ったpackageを選ぶこと。</p>
+
+<p>9.2 i386なら、以下<br />
+ <a href=" http://pkg.freebsd.org/freebsd:9:x86:32/latest/Latest/pkg.txz" target="_blank"><a href="http://pkg.freebsd.org/freebsd:9:x86:32/latest/Latest/pkg.txz">http://pkg.freebsd.org/freebsd:9:x86:32/latest/Latest/pkg.txz</a></a></p>
+
+<p>10.0 amd64なら、以下<br />
+ <a href=" http://pkg.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz" target="_blank"><a href="http://pkg.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz">http://pkg.freebsd.org/freebsd:10:x86:64/latest/Latest/pkg.txz</a></a></p>
+
+<p>※URLは変わる可能性があるので、都度、確認すること。<br />
+pkg.freebsd.orgから辿っていけばよい。</p>
+
+<p>実行例</p>
+
+<pre><code class="language-console">$ uname -a
+FreeBSD ascomoid 9.2-RELEASE FreeBSD 9.2-RELEASE #0 r255898: Fri Sep 27 03:52:52 UTC 2013     root@bake.isc.freebsd.org:/usr/obj/usr/src/sys/GENERIC  i386
+$ fetch http://pkg.freebsd.org/freebsd:9:x86:32/latest/Latest/pkg.txz
+pkg.txz                                       100% of 1811 kB   53 kBps 00m34s
+</code></pre>
+
+<p><span style="text-decoration: underline;">pkg-staticの取り出し。</span></p>
+
+<p>以下のようにしてpkg-staticを取り出す。<br />
+このpkg-staticがスタティックリンクされたpkg</p>
+
+<pre><code class="language-console">$ tar xvf ./pkg-1.2.4_1.tgz -s&quot;,/.*/,,g&quot; &quot;*/pkg-static&quot;
+x pkg-static
+</code></pre>
+
+<p><span style="text-decoration: underline;">pkgのインストール</span></p>
+
+<p>このpkg-staticを使って、ダウンロード済みのpkg packageをインストールする。<br />
+ローカルにダウンロード済みのpackageをインストールする場合には引数にaddを与える。<br />
+壊れたpkgが邪魔でインストールできないなら、-fを付けて強制的にインストールする。</p>
+
+<pre><code class="language-console">$ sudo ./pkg-static add -f ./pkg-1.2.4_1.tgz 
+Installing pkg-1.2.4_1...pkg-static: package pkg is already installed, forced install
+ done
+If you are upgrading from the old package format, first run:
+
+  # pkg2ng
+</code></pre>
+
+<p>あとは通常通りpkg updateなど。</p>
+
+<p><span style="text-decoration: underline;">pkgの設定確認</span></p>
+
+<p>pkgの設定を一覧したり、どのリポジトリを見ているかを確認するにはpkg -vvとする。<br />
+pkgについて、誰かに質問するときには、この出力も必ず付けること。</p>
+
+<pre><code class="language-console">$ pkg -vv
+Version                 : 1.2.4_1
+PACKAGESITE             :
+PKG_DBDIR               : /var/db/pkg
+PKG_CACHEDIR            : /var/cache/pkg
+PORTSDIR                : /usr/ports
+PUBKEY                  :
+HANDLE_RC_SCRIPTS       : no
+ASSUME_ALWAYS_YES       : no
+REPOS_DIR               : [
+  /etc/pkg/,
+  /usr/local/etc/pkg/repos/,
+]
+PLIST_KEYWORDS_DIR      :
+SYSLOG                  : yes
+AUTODEPS                : yes
+ABI                     : freebsd:9:x86:32
+DEVELOPER_MODE          : no
+PORTAUDIT_SITE          : http://portaudit.FreeBSD.org/auditfile.tbz
+VULNXML_SITE            : http://www.vuxml.org/freebsd/vuln.xml.bz2
+MIRROR_TYPE             : SRV
+FETCH_RETRY             : 3
+PKG_PLUGINS_DIR         : /usr/local/lib/pkg/
+PKG_ENABLE_PLUGINS      : yes
+PLUGINS                 : [
+]
+DEBUG_SCRIPTS           : no
+PLUGINS_CONF_DIR        : /usr/local/etc/pkg/
+PERMISSIVE              : no
+REPO_AUTOUPDATE         : yes
+NAMESERVER              :
+EVENT_PIPE              :
+FETCH_TIMEOUT           : 30
+UNSET_TIMESTAMP         : no
+SSH_RESTRICT_DIR        :
+PKG_SSH_ARGS            :
+PKG_ENV                 : {
+}
+DISABLE_MTREE           : no
+DEBUG_LEVEL             : 0
+ALIAS                   : {
+}
+
+Repositories:
+  FreeBSD: {
+    url             : &quot;pkg+http://pkg.FreeBSD.org/freebsd:9:x86:32/latest&quot;,
+    enabled         : yes,
+    mirror_type     : &quot;SRV&quot;
+  }
+</code></pre>
+
+<p><span style="text-decoration: underline;">pkgの設定ファイルなど。</span></p>
+
+<p>以下があれば何とかなるはず。</p>
+
+<p>/usr/local/etc/pkg/repos/FreeBSD.conf</p>
+
+<pre><code class="language-console">FreeBSD: {
+  url: &quot;pkg+http://pkg.FreeBSD.org/${ABI}/latest&quot;,
+  mirror_type: &quot;srv&quot;,
+  enabled: yes
+}
+</code></pre>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/pkgng" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">pkgng</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-%E3%83%A1%E3%83%A2_freebsd10.0-rc5%E3%81%AB%E3%81%97%E3%81%9F%E3%82%89%E5%85%A8pkg_ports%E3%82%92%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">[メモ] FreeBSD10.0-RC5にしたら全pkg/portsを再インストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-23-%E6%97%A5%E5%B8%B8%E4%BD%BF%E3%81%84%E3%81%AEpkgngpkg%E3%82%92%E6%8E%A2%E3%81%97%E3%81%A6%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">日常使いのpkgng:pkgを探してインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-30-freebsd%E3%81%B8%E3%81%AEmate%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSDへのMATEインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-13-easybotter%E3%82%92freebsd%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99/">EasyBotterをFreeBSDで動かす</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-02-freebsd-current%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AFpanicmail%E3%82%92%E3%81%84%E3%81%BE%E3%81%99%E3%81%90%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%82%8D/">FreeBSD-currentユーザはpanicmailをいますぐインストールしろ</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/">[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-08-24-freebsdfreenas%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">FreeBSD(FreeNAS)にPlex Media Serverをインストール</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

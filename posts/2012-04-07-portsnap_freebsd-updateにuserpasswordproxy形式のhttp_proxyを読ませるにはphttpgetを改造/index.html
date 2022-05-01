@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | portsnap, freebsd-updateにuser:password@proxy形式のHTTP_PROXYを読ませるには。（phttpgetを改造）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="portsnap, freebsd-updateにuser:password@proxy形式のHTTP_PROXYを読ませるには。（phttpgetを改造）" />
+<meta property="og:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20060501/p1&quot; target=&quot;_blank&quot;&gt;http://d.hatena.ne.jp/flageo/20060501/p1&lt;/a&gt; でも書いたけど、phttpget、つまりはportsnap, freebsd-updateはhttp://user:password@p" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2012-04-07-portsnap_freebsd-update%E3%81%ABuserpasswordproxy%E5%BD%A2%E5%BC%8F%E3%81%AEhttp_proxy%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AFphttpget%E3%82%92%E6%94%B9%E9%80%A0/" />
+<meta property="article:published_time" content="2012-04-07T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2012-04-07T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="portsnap, freebsd-updateにuser:password@proxy形式のHTTP_PROXYを読ませるには。（phttpgetを改造）">
+<meta itemprop="description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20060501/p1&quot; target=&quot;_blank&quot;&gt;http://d.hatena.ne.jp/flageo/20060501/p1&lt;/a&gt; でも書いたけど、phttpget、つまりはportsnap, freebsd-updateはhttp://user:password@p">
+
+
+<meta itemprop="datePublished" content="2012-04-07T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2012-04-07T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="542">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="portsnap, freebsd-updateにuser:password@proxy形式のHTTP_PROXYを読ませるには。（phttpgetを改造）"/>
+<meta name="twitter:description" content="&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20060501/p1&quot; target=&quot;_blank&quot;&gt;http://d.hatena.ne.jp/flageo/20060501/p1&lt;/a&gt; でも書いたけど、phttpget、つまりはportsnap, freebsd-updateはhttp://user:password@p"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">portsnap, freebsd-updateにuser:password@proxy形式のHTTP_PROXYを読ませるには。（phttpgetを改造）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2012-04-07T01:00:00&#43;09:00">April 7, 2012</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>&lt;a href=&quot;http://d.hatena.ne.jp/flageo/20060501/p1&quot; target=&quot;_blank&quot;&gt;http://d.hatena.ne.jp/flageo/20060501/p1&lt;/a&gt;
+
+
+
+でも書いたけど、phttpget、つまりはportsnap, freebsd-updateはhttp://user:password@proxy.server.com:8080形式の環境変数HTTP_PROXYを読んでくれない。
+
+
+
+そこでportsnap, freebsd-updateを実行するときにはHTTP_PROXY, HTTP_PROXY_AUTHに付け替える必要があるわけだが、これが面倒くさい。
+
+
+
+というわけで、phttpget自体を改造する。
+
+
+
+ネタは&lt;a href=&quot;http://www.freebsd.org/cgi/query-pr.cgi?pr=129431&quot; target=&quot;_blank&quot;&gt;http://www.freebsd.org/cgi/query-pr.cgi?pr=129431&lt;/a&gt;
+</code></pre>
+
+<pre><code class="language-console">$ uname -r
+8.2-RELEASE-p3
+$ grep FBSDID ./phttpget.c
+__FBSDID(&amp;#34;$FreeBSD: src/usr.sbin/portsnap/phttpget/phttpget.c,v 1.14.2.1.6.1 2010/12/21 17:09:25 kensmith Exp $&amp;#34;);
+</code></pre>
+
+<pre><code>以上の/usr/src/usr.sbin/portsnap/phttpget/phttpget.cに対して以下のような修正を。
+</code></pre>
+
+<pre><code class="language-console">$ diff -u phttpget.c.orig phttpget.c
+--- phttpget.c.orig     2012-04-05 10:58:52.000000000 +0900
++++ phttpget.c  2012-04-05 11:04:25.000000000 +0900
+@@ -44,7 +44,7 @@
+#include &amp;#60;sysexits.h&gt;
+#include &amp;#60;unistd.h&gt;
+-static const char *    env_HTTP_PROXY;
++static char *          env_HTTP_PROXY;
+static char *          env_HTTP_PROXY_AUTH;
+static const char *    env_HTTP_USER_AGENT;
+static char *          env_HTTP_TIMEOUT;
+@@ -136,6 +136,11 @@
+p = strchr(env_HTTP_PROXY, &amp;#39;/&amp;#39;);
+if (p != NULL)
+*p = 0;
++               if (strchr(env_HTTP_PROXY, &amp;#39;@&amp;#39;)) {
++                       proxy_auth_user = strsep(&amp;env_HTTP_PROXY, &amp;#34;:&amp;#34;);
++                       proxy_auth_pass = strsep(&amp;env_HTTP_PROXY, &amp;#34;@&amp;#34;);
++                       p = strchr(env_HTTP_PROXY, &amp;#39;@&amp;#39;);
++               }
+p = strchr(env_HTTP_PROXY, &amp;#39;:&amp;#39;);
+if (p != NULL) {
+*p = 0;
+</code></pre>
+
+<pre><code>あとは/usr/src/usr.sbin/portsnap/phttpget/でmakeして、できたphttpgetを/usr/libexec配下にコピーすればOK。
+
+
+
+当然ながらOSの更新（freebsd-updateやmake buildworld install）すると元に戻るので注意。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

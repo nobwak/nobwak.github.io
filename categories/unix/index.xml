@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Unix on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/unix/</link>
+    <description>Recent content in Unix on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Thu, 30 Oct 2014 22:52:56 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/unix/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>rsyncのディレクトリ指定でエスケープの必要な文字を含めるには</title>
+      <link>https://nobwak.github.io/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 30 Oct 2014 22:52:56 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>先に結論:ダブルクオーテーションで括ればよい。 rsyncの対象ディレクトリでカッコ「()」など、エスケープの必要な文字の含まれているケースが</description>
+    </item>
+    
+    <item>
+      <title>vimでまさかのタブ表示</title>
+      <link>https://nobwak.github.io/posts/2013-11-04-vim%E3%81%A7%E3%81%BE%E3%81%95%E3%81%8B%E3%81%AE%E3%82%BF%E3%83%96%E8%A1%A8%E7%A4%BA/</link>
+      <pubDate>Mon, 04 Nov 2013 20:03:18 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-11-04-vim%E3%81%A7%E3%81%BE%E3%81%95%E3%81%8B%E3%81%AE%E3%82%BF%E3%83%96%E8%A1%A8%E7%A4%BA/</guid>
+      <description>結論 vim -pで複数ファイルをタブ表示できる。 .profileにaliasを書いとけ。 以上。 -pオプション vimのmanを眺めていたらこんな記載</description>
+    </item>
+    
+    <item>
+      <title>nginxとlighttpdで悩んでlighttpd &#43; php5 &#43; fastcgiのインストールと設定へ</title>
+      <link>https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_&#43;_php5_&#43;_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/</link>
+      <pubDate>Wed, 23 Oct 2013 20:09:54 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-10-23-nginx%E3%81%A8lighttpd%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A7lighttpd_&#43;_php5_&#43;_fastcgi%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A8%E8%A8%AD%E5%AE%9A%E3%81%B8/</guid>
+      <description>apacheは吊るしのFreeBSD pkgでphpを使えない。 10.0-BETA1にして曲がりなりにもpkgが普通に使えるようになって、あま</description>
+    </item>
+    
+    <item>
+      <title>仮想マシンイメージの変換について</title>
+      <link>https://nobwak.github.io/posts/2013-08-04-%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%A4%89%E6%8F%9B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Sun, 04 Aug 2013 19:13:14 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-08-04-%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%A4%89%E6%8F%9B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>VMWare PlayerのイメージをESXi用に変換するには VMWareが提供しているコンバータを使う。 以下、まとめ。 なお、動機としては、「手元のVM</description>
+    </item>
+    
+    <item>
+      <title>コード、エラー、設定ファイル共有サイトのすすめ</title>
+      <link>https://nobwak.github.io/posts/2013-07-28-%E3%82%B3%E3%83%BC%E3%83%89%E3%82%A8%E3%83%A9%E3%83%BC%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/</link>
+      <pubDate>Sun, 28 Jul 2013 23:00:32 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-07-28-%E3%82%B3%E3%83%BC%E3%83%89%E3%82%A8%E3%83%A9%E3%83%BC%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%85%B1%E6%9C%89%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/</guid>
+      <description>sprunge.usというサービスがあるのを、いまさら知って驚いてそして大感謝した。 以下に顛末を記す。 sprunge.usってなんだ。 ブラウ</description>
+    </item>
+    
+    <item>
+      <title>[Hadoop]Hadoop 擬似分散（Psuedo-distributed）モードの設定</title>
+      <link>https://nobwak.github.io/posts/2013-07-28-hadoophadoop_%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3psuedo-distributed%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E8%A8%AD%E5%AE%9A/</link>
+      <pubDate>Sun, 28 Jul 2013 00:23:38 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-07-28-hadoophadoop_%E6%93%AC%E4%BC%BC%E5%88%86%E6%95%A3psuedo-distributed%E3%83%A2%E3%83%BC%E3%83%89%E3%81%AE%E8%A8%AD%E5%AE%9A/</guid>
+      <description>Standaloneモードでは、複数のホストを使った処理は行わない。デーモンも動かさない。 しかしHadoopは分散処理をしてナンボである。 分</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD][Linux] ssh経由でコマンド実行すると環境変数を読まないでござる</title>
+      <link>https://nobwak.github.io/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/</link>
+      <pubDate>Thu, 25 Jul 2013 23:21:35 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-07-25-freebsdlinux_ssh%E7%B5%8C%E7%94%B1%E3%81%A7%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%A8%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%82%92%E8%AA%AD%E3%81%BE%E3%81%AA%E3%81%84%E3%81%A7%E3%81%94%E3%81%96%E3%82%8B/</guid>
+      <description>&lt;p&gt;ssh経由bashでコマンド実行するときの環境変数を有効にするには。&lt;/p&gt;
+
+&lt;p&gt;以下のようにして、リモートホストでコマンドを実行する場合、リモートでの環境変数が有効にならない事がある。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-console&#34;&gt;$ ssh user@remotehost /path/command
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これはbashの仕様が原因で、解決にはsshdとリモートユーザの設定が必要。&lt;br /&gt;
+おそらくshでも同じと思うが、ひとくちにshと言ってもいろんな変種があるので調べていない。&lt;br /&gt;
+以下にまとめる。&lt;/p&gt;
+
+&lt;p&gt;なお、複数ホストを用意するのが面倒なので、本記事で実例を示す場合には接続先をlocalhostしている。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] Hadoopのportsからのインストール</title>
+      <link>https://nobwak.github.io/posts/2013-07-23-freebsd_hadoop%E3%81%AEports%E3%81%8B%E3%82%89%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Tue, 23 Jul 2013 22:43:34 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-07-23-freebsd_hadoop%E3%81%AEports%E3%81%8B%E3%82%89%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>Hadoopをインストールしたのでメモ。 野良HadoopとportsのHadoop Hadoopを野良で入れるか、portsから入れるか。 結局</description>
+    </item>
+    
+    <item>
+      <title>アーカイバlz4を試してみたら（圧縮は）速すぎ笑った</title>
+      <link>https://nobwak.github.io/posts/2013-02-11-%E3%82%A2%E3%83%BC%E3%82%AB%E3%82%A4%E3%83%90lz4%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%89%E5%9C%A7%E7%B8%AE%E3%81%AF%E9%80%9F%E3%81%99%E3%81%8E%E7%AC%91%E3%81%A3%E3%81%9F/</link>
+      <pubDate>Mon, 11 Feb 2013 22:51:32 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-02-11-%E3%82%A2%E3%83%BC%E3%82%AB%E3%82%A4%E3%83%90lz4%E3%82%92%E8%A9%A6%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%82%89%E5%9C%A7%E7%B8%AE%E3%81%AF%E9%80%9F%E3%81%99%E3%81%8E%E7%AC%91%E3%81%A3%E3%81%9F/</guid>
+      <description>lz4という圧縮形式があることを知った。 なんでも、なかなかの圧縮効率を誇るわりには、圧縮伸長が速いとのこと。 公式サイト通りにいえば、圧縮では</description>
+    </item>
+    
+    <item>
+      <title>MovableType</title>
+      <link>https://nobwak.github.io/posts/2012-03-03-movabletype/</link>
+      <pubDate>Sat, 03 Mar 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-03-03-movabletype/</guid>
+      <description>おなごもすなるMovableTypeを。 まず注意。 Xの入っていないサーバにインストールするときには、あらかじめImageMagick-nox</description>
+    </item>
+    
+    <item>
+      <title>popサーバ、dovecot2のインストール</title>
+      <link>https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Fri, 02 Mar 2012 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2012-03-02-pop%E3%82%B5%E3%83%BC%E3%83%90dovecot2%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>&amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot; class=&amp;quot;deco&amp;quot;&amp;gt;popサーバを構築する。&amp;lt;/span&amp;gt; LAN内にゆるーく作るので、とにか</description>
+    </item>
+    
+    <item>
+      <title>FreeBSDでのGNOMEインストール</title>
+      <link>https://nobwak.github.io/posts/2010-02-07-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Sun, 07 Feb 2010 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2010-02-07-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20071125/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;これ&amp;lt;/a&amp;gt;、古い記事なのに未だに見られているようなのでアップデー</description>
+    </item>
+    
+    <item>
+      <title>ddに与えるbsのメディアごとの値について</title>
+      <link>https://nobwak.github.io/posts/2009-05-02-dd%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8Bbs%E3%81%AE%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%94%E3%81%A8%E3%81%AE%E5%80%A4%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Sat, 02 May 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-05-02-dd%E3%81%AB%E4%B8%8E%E3%81%88%E3%82%8Bbs%E3%81%AE%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%94%E3%81%A8%E3%81%AE%E5%80%A4%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>&amp;lt;a href=&amp;quot;http://lists.freebsd.org/pipermail/freebsd-questions/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;FreeBSD-questionsメーリングリスト&amp;lt;/a&amp;gt;からのメ</description>
+    </item>
+    
+    <item>
+      <title>日本語入力の設定</title>
+      <link>https://nobwak.github.io/posts/2009-04-23-%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A5%E5%8A%9B%E3%81%AE%E8%A8%AD%E5%AE%9A/</link>
+      <pubDate>Thu, 23 Apr 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-04-23-%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A5%E5%8A%9B%E3%81%AE%E8%A8%AD%E5%AE%9A/</guid>
+      <description>日本語入力は、GNOMEだと勝手にやってくれたような気がしたが、XFCE4とかfluxboxだと自分でやる必要がある。 ただ、そんなに難しいわ</description>
+    </item>
+    
+    <item>
+      <title>roundcubeを入れた</title>
+      <link>https://nobwak.github.io/posts/2009-04-20-roundcube%E3%82%92%E5%85%A5%E3%82%8C%E3%81%9F/</link>
+      <pubDate>Mon, 20 Apr 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-04-20-roundcube%E3%82%92%E5%85%A5%E3%82%8C%E3%81%9F/</guid>
+      <description>webベースのIMAPクライアントであるroundcube（&amp;lt;a href=&amp;quot;http://roundcube.net/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;本家&amp;lt</description>
+    </item>
+    
+    <item>
+      <title>Xorg7.4のキーボード設定をkwsk その２</title>
+      <link>https://nobwak.github.io/posts/2009-03-18-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE%EF%BC%92/</link>
+      <pubDate>Wed, 18 Mar 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-03-18-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE%EF%BC%92/</guid>
+      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20090316/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;Xorg7.4のキーボード設定をkwsk その1&amp;lt;/a&amp;gt;の続き。 で話</description>
+    </item>
+    
+    <item>
+      <title>Xorg7.4のキーボード設定をkwsk その1</title>
+      <link>https://nobwak.github.io/posts/2009-03-16-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE1/</link>
+      <pubDate>Mon, 16 Mar 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-03-16-xorg7.4%E3%81%AE%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A%E3%82%92kwsk_%E3%81%9D%E3%81%AE1/</guid>
+      <description>HALのキーボード設定ファイルの書き方が分からない。 ググれば設定ファイルは山ほど出てくるが、どう書くかを説明したサイトはなかなか引っかからな</description>
+    </item>
+    
+    <item>
+      <title>sshログインしたユーザのディレクトリを制限するには。</title>
+      <link>https://nobwak.github.io/posts/2009-02-15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Sun, 15 Feb 2009 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2009-02-15-ssh%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E5%88%B6%E9%99%90%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>要するにchroot。 リモートユーザにどうしてもシェルを使わせる必要があるけれども、かといってシステムの中をじろじろ見られるのが嫌な場合に使</description>
+    </item>
+    
+    <item>
+      <title>vsftpdのホワイトリスト/ブラックリストの設定</title>
+      <link>https://nobwak.github.io/posts/2008-12-17-vsftpd%E3%81%AE%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%AA%E3%82%B9%E3%83%88_%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E8%A8%AD%E5%AE%9A/</link>
+      <pubDate>Wed, 17 Dec 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-12-17-vsftpd%E3%81%AE%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%AA%E3%82%B9%E3%83%88_%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88%E3%81%AE%E8%A8%AD%E5%AE%9A/</guid>
+      <description>仕事でvsftpdを入れたのでメモ。 ホワイトリスト/ブラックリストの設定 userlist_fileで指定するファイル（以降、userlist</description>
+    </item>
+    
+    <item>
+      <title>ハードウェアの情報を読み出すdmidecode</title>
+      <link>https://nobwak.github.io/posts/2008-10-31-%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E6%83%85%E5%A0%B1%E3%82%92%E8%AA%AD%E3%81%BF%E5%87%BA%E3%81%99dmidecode/</link>
+      <pubDate>Fri, 31 Oct 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-10-31-%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%81%AE%E6%83%85%E5%A0%B1%E3%82%92%E8%AA%AD%E3%81%BF%E5%87%BA%E3%81%99dmidecode/</guid>
+      <description>SMBIOSからハードウェアの情報を読み出してくれるコマンドdmidecode（&amp;lt;a href=&amp;quot;http://www.nongnu.org/dmidecode/&amp;quot; target=&amp;quot;_blank&amp;quot</description>
+    </item>
+    
+    <item>
+      <title>シェルスクリプトで、ファイル名から拡張子を判定する</title>
+      <link>https://nobwak.github.io/posts/2008-02-19-%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%8B%E3%82%89%E6%8B%A1%E5%BC%B5%E5%AD%90%E3%82%92%E5%88%A4%E5%AE%9A%E3%81%99%E3%82%8B/</link>
+      <pubDate>Tue, 19 Feb 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-02-19-%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%8B%E3%82%89%E6%8B%A1%E5%BC%B5%E5%AD%90%E3%82%92%E5%88%A4%E5%AE%9A%E3%81%99%E3%82%8B/</guid>
+      <description>あくまでも、ファイル名から拡張子を判断するだけ。 以下に、$filenameとして与えられたファイルが拡張子.gzを持つかどうかを確認するシェ</description>
+    </item>
+    
+    <item>
+      <title>Solaris, LinuxでNICのリンクスピード（帯域）、モードを知るには</title>
+      <link>https://nobwak.github.io/posts/2008-02-12-solaris_linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E5%B8%AF%E5%9F%9F%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Tue, 12 Feb 2008 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2008-02-12-solaris_linux%E3%81%A7nic%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E5%B8%AF%E5%9F%9F%E3%83%A2%E3%83%BC%E3%83%89%E3%82%92%E7%9F%A5%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>俺メモ FreeBSDではifconfigコマンドでリンクなどが表示される。 $ ifconfig -a em0: flags=8843&amp;amp;#60;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST&amp;gt; metric 0 mtu 1500 options=9b&amp;amp;#60;RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM&amp;gt; ether xx:xx:xx:xx:xx:xx inet 172.xx.xx.xx netmask 0xfffffe00 broadcast 172.xx.xx.xx media: Ethernet autoselect (&amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot;&amp;gt;1000baseTX &amp;amp;#60;full-duplex&amp;gt;&amp;lt;/span&amp;gt;) status: active Boldで示し</description>
+    </item>
+    
+    <item>
+      <title>ports/package周りの定期作業をperiodicで。</title>
+      <link>https://nobwak.github.io/posts/2007-11-27-portspackage%E5%91%A8%E3%82%8A%E3%81%AE%E5%AE%9A%E6%9C%9F%E4%BD%9C%E6%A5%AD%E3%82%92periodic%E3%81%A7/</link>
+      <pubDate>Tue, 27 Nov 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-11-27-portspackage%E5%91%A8%E3%82%8A%E3%81%AE%E5%AE%9A%E6%9C%9F%E4%BD%9C%E6%A5%AD%E3%82%92periodic%E3%81%A7/</guid>
+      <description>FreeBSDを長く運用していると、/usr/ports/distfiles配下に、portsで使うソースファイルがだんだんと溜まっていき、</description>
+    </item>
+    
+    <item>
+      <title>FreeBSDでのGNOMEインストール</title>
+      <link>https://nobwak.github.io/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Sun, 25 Nov 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-11-25-freebsd%E3%81%A7%E3%81%AEgnome%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>「FreeBSDはデスクトップ環境を構築するのは大変」 そう思っていた時期が、俺にもありました・・・。 &amp;lt;span style=&amp;quot;font-style:italic;&amp;quot;&amp;gt;* 2008/11追記: 過疎blogにも</description>
+    </item>
+    
+    <item>
+      <title>日本語の表示出来るvi</title>
+      <link>https://nobwak.github.io/posts/2007-10-22-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AE%E8%A1%A8%E7%A4%BA%E5%87%BA%E6%9D%A5%E3%82%8Bvi/</link>
+      <pubDate>Mon, 22 Oct 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-10-22-%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AE%E8%A1%A8%E7%A4%BA%E5%87%BA%E6%9D%A5%E3%82%8Bvi/</guid>
+      <description>そんなんjvimとかnviで決まりなわけだが、次の理由によりvim-liteをインストールした。 該当のFreeBSDマシンは純粋なサーバ運用</description>
+    </item>
+    
+    <item>
+      <title>FreeBSD:make.confのNOオプションが。</title>
+      <link>https://nobwak.github.io/posts/2007-10-21-freebsdmake.conf%E3%81%AEno%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%8C/</link>
+      <pubDate>Sun, 21 Oct 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-10-21-freebsdmake.conf%E3%81%AEno%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%8C/</guid>
+      <description>FreeBSD7.0ではmake.confのNO_***オプションがsrc.confに。 FreeBSDはシステムを再構築する際、/etc/m</description>
+    </item>
+    
+    <item>
+      <title>ubuntu上vmware-playerにFreeBSDをインストールしたときのメモ</title>
+      <link>https://nobwak.github.io/posts/2007-10-13-ubuntu%E4%B8%8Avmware-player%E3%81%ABfreebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2/</link>
+      <pubDate>Sat, 13 Oct 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-10-13-ubuntu%E4%B8%8Avmware-player%E3%81%ABfreebsd%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%A1%E3%83%A2/</guid>
+      <description>VMware Playerの入手 &amp;lt;a href=&amp;quot;http://www.vmware.com/download/player/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.vmware.com/download/player/&amp;lt;/a&amp;gt; tar.gz版をダウンロードし、perlスクリプトのインストーラを実行してインストール。 NIC関連はBridgeの</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 7.04 (”Feisty”)からUbuntu 7.10 (”Gutsy”)へのアップグレード</title>
+      <link>https://nobwak.github.io/posts/2007-09-13-ubuntu_7.04_feisty%E3%81%8B%E3%82%89ubuntu_7.10_gutsy%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</link>
+      <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-09-13-ubuntu_7.04_feisty%E3%81%8B%E3%82%89ubuntu_7.10_gutsy%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</guid>
+      <description>Ubuntuを7.04にアップグレードしたばかりだが、ある事情により7.10に続けてアップグレードしたその顛末。 とは言っても、&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20070906/p1&amp;quot; t</description>
+    </item>
+    
+    <item>
+      <title>ZABBIXのインストール</title>
+      <link>https://nobwak.github.io/posts/2007-09-13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-09-13-zabbix%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>&amp;lt;a href=&amp;quot;http://www.zabbix.com/index.php&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;ZABBIX&amp;lt;/a&amp;gt;とはフリーの統合監視ソフト。 Webインタフェー</description>
+    </item>
+    
+    <item>
+      <title>sources.listに書かれるmain, restrictedなどのコンポーネントの意味</title>
+      <link>https://nobwak.github.io/posts/2007-09-13-sources.list%E3%81%AB%E6%9B%B8%E3%81%8B%E3%82%8C%E3%82%8Bmain_restricted%E3%81%AA%E3%81%A9%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E6%84%8F%E5%91%B3/</link>
+      <pubDate>Thu, 13 Sep 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-09-13-sources.list%E3%81%AB%E6%9B%B8%E3%81%8B%E3%82%8C%E3%82%8Bmain_restricted%E3%81%AA%E3%81%A9%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88%E3%81%AE%E6%84%8F%E5%91%B3/</guid>
+      <description>コンポーネントを説明した&amp;lt;a href=&amp;quot;http://www.ubuntu.com/community/ubuntustory/components&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;http://www.ubuntu.com/c</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 6.10 (”Edgy Eft”)からUbuntu 7.04 (”Feisty Fawn”)へのアップデート</title>
+      <link>https://nobwak.github.io/posts/2007-09-06-ubuntu_6.10_edgy_eft%E3%81%8B%E3%82%89ubuntu_7.04_feisty_fawn%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88/</link>
+      <pubDate>Thu, 06 Sep 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-09-06-ubuntu_6.10_edgy_eft%E3%81%8B%E3%82%89ubuntu_7.04_feisty_fawn%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88/</guid>
+      <description>俺メモ。 Ubuntu 6.10から7.04へマニュアルアップグレードしたので、その時のメモ。 といっても、Ubuntu公式サイトに書いてある通り進めるだけ</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu7.04へのアップグレードでなぜかapache2 SSLが動かなくなった。</title>
+      <link>https://nobwak.github.io/posts/2007-09-06-ubuntu7.04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2_ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F/</link>
+      <pubDate>Thu, 06 Sep 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-09-06-ubuntu7.04%E3%81%B8%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AA%E3%81%9C%E3%81%8Bapache2_ssl%E3%81%8C%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%8F%E3%81%AA%E3%81%A3%E3%81%9F/</guid>
+      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20070220/p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;6.10のときにインストールしたApache2+SSL&amp;lt;/a&amp;gt;だが</description>
+    </item>
+    
+    <item>
+      <title>PHP5.2.1でCSVを扱うとき、フィールドにカンマが含まれていたら</title>
+      <link>https://nobwak.github.io/posts/2007-04-25-php5.2.1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89/</link>
+      <pubDate>Wed, 25 Apr 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-04-25-php5.2.1%E3%81%A7csv%E3%82%92%E6%89%B1%E3%81%86%E3%81%A8%E3%81%8D%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AB%E3%82%AB%E3%83%B3%E3%83%9E%E3%81%8C%E5%90%AB%E3%81%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%9F%E3%82%89/</guid>
+      <description>「a,b,&amp;quot;cde,fg&amp;quot;,e」 こんなCSVをPHPで扱おうとすると、結構面倒くさい。 &amp;lt;a href=&amp;quot;http://nhh.mo-blog.jp/ttt/2007/04/php521csv_212a.html&amp;quot; target=&amp;quot;_b</description>
+    </item>
+    
+    <item>
+      <title>mt-daapd</title>
+      <link>https://nobwak.github.io/posts/2007-03-03-mt-daapd/</link>
+      <pubDate>Sat, 03 Mar 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-03-03-mt-daapd/</guid>
+      <description>UbuntuにiTunesサーバであるmt-daapdを入れた俺メモ。 詳細はググれば大量に出てくるのでポイントだけ。 mt-daapdは、パッ</description>
+    </item>
+    
+    <item>
+      <title>ファイル名の文字コード変換</title>
+      <link>https://nobwak.github.io/posts/2007-03-02-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89%E5%A4%89%E6%8F%9B/</link>
+      <pubDate>Fri, 02 Mar 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-03-02-%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%AE%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89%E5%A4%89%E6%8F%9B/</guid>
+      <description>俺メモ ファイルの中身ではなく、ファイル名そのものの文字コードを変換するには、convmv&amp;lt;a class=&amp;quot;keyword&amp;quot; href=&amp;quot;http://d.hatena.ne.jp/keyword/convmv?mode=edit&amp;quot; rel=&amp;quot;nofollow&amp;</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu6.10でのApache/SSL構築</title>
+      <link>https://nobwak.github.io/posts/2007-02-20-ubuntu6.10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89/</link>
+      <pubDate>Tue, 20 Feb 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-02-20-ubuntu6.10%E3%81%A7%E3%81%AEapachessl%E6%A7%8B%E7%AF%89/</guid>
+      <description>Ubuntu6.10(Debianも？)でのapache構築は俺の今までの経験とはちょっと経路が違ったので俺メモ ◎apache2のインストー</description>
+    </item>
+    
+    <item>
+      <title>Ubuntuをネットワークインストール</title>
+      <link>https://nobwak.github.io/posts/2007-02-17-ubuntu%E3%82%92%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Sat, 17 Feb 2007 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2007-02-17-ubuntu%E3%82%92%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>Vaio N505A/BPにLinuxをインストールしようと思った顛末をダラダラと書く。 さっそくだが、マシンのスペックは下記の通りとても厳しい。 モバ</description>
+    </item>
+    
+    <item>
+      <title>WindowsでもOpenSSLでファイルの暗号化を</title>
+      <link>https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/</link>
+      <pubDate>Mon, 16 Oct 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-10-16-windows%E3%81%A7%E3%82%82openssl%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%9A%97%E5%8F%B7%E5%8C%96%E3%82%92/</guid>
+      <description>会社のWindowsマシンでOpenSSLコマンドを使ってみた。 バイナリは(&amp;lt;a href=&amp;quot;http://www.openssl.org/related/binaries.html&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;</description>
+    </item>
+    
+    <item>
+      <title>ports祭り開催中(FreeBSD)</title>
+      <link>https://nobwak.github.io/posts/2006-10-16-ports%E7%A5%AD%E3%82%8A%E9%96%8B%E5%82%AC%E4%B8%ADfreebsd/</link>
+      <pubDate>Mon, 16 Oct 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-10-16-ports%E7%A5%AD%E3%82%8A%E9%96%8B%E5%82%AC%E4%B8%ADfreebsd/</guid>
+      <description>In addition to the core GNOME ports, &amp;lt;span style=&amp;quot;font-weight:bold;&amp;quot;&amp;gt;almost 500 ports&amp;lt;/span&amp;gt; were also touched to chase the GNOME move from X11BASE to LOCALBASE and fix build problems with the new freetype2. (太字は俺) アッー!</description>
+    </item>
+    
+    <item>
+      <title>FreeBSDネタ : portutil</title>
+      <link>https://nobwak.github.io/posts/2006-09-17-freebsd%E3%83%8D%E3%82%BF__portutill/</link>
+      <pubDate>Sun, 17 Sep 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-09-17-freebsd%E3%83%8D%E3%82%BF__portutill/</guid>
+      <description>2chの&amp;lt;a href=&amp;quot;http://pc8.2ch.net/test/read.cgi/unix/1149936019/371-&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;FreeBSDを語ろう&amp;lt;/a&amp;gt;スレで、pkg/po</description>
+    </item>
+    
+    <item>
+      <title>あるファイル、ディスクを使用しているプロセスを探す</title>
+      <link>https://nobwak.github.io/posts/2006-08-30-%E3%81%82%E3%82%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%82%92%E6%8E%A2%E3%81%99/</link>
+      <pubDate>Wed, 30 Aug 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-08-30-%E3%81%82%E3%82%8B%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%82%92%E6%8E%A2%E3%81%99/</guid>
+      <description>FreeBSD-users-MLで面白い情報が流れていたのでメモ代わりに。 各UNIXにおいて、あるファイルを使用しているプロセスを探す代表的</description>
+    </item>
+    
+    <item>
+      <title>スーパーハカーCharlie Root</title>
+      <link>https://nobwak.github.io/posts/2006-06-06-%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%83%8F%E3%82%AB%E3%83%BCcharlie_root/</link>
+      <pubDate>Tue, 06 Jun 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-06-06-%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%83%8F%E3%82%AB%E3%83%BCcharlie_root/</guid>
+      <description>世のUNIXアドミニストレーターを時に驚かせる伝説のスーパーハカー、Charlie Rootのひみつ。 -- Charles Henry Rootは、大リーグのシカゴカブス</description>
+    </item>
+    
+    <item>
+      <title>portsnapの罠</title>
+      <link>https://nobwak.github.io/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/</link>
+      <pubDate>Mon, 15 May 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-05-15-portsnap%E3%81%AE%E7%BD%A0/</guid>
+      <description>&amp;lt;a href=&amp;quot;http://d.hatena.ne.jp/flageo/20060501#p1&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;先日&amp;lt;/a&amp;gt;の日記でも少し触れたportsnap。日記ではさらりと</description>
+    </item>
+    
+    <item>
+      <title>FreeBSD 6.1-RELEASE</title>
+      <link>https://nobwak.github.io/posts/2006-05-08-freebsd_6.1-release/</link>
+      <pubDate>Mon, 08 May 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-05-08-freebsd_6.1-release/</guid>
+      <description>公式発表はまだだが、6.1-RがFTPにアップされていたのでバージョンアップした。 俺のいるのはRELENG_6だけど。 $ uname -a FreeBSD ***.* 6.1-STABLE FreeBSD 6.1-STABLE #0: Sun May</description>
+    </item>
+    
+    <item>
+      <title>認証の必要なPROXY越しのportsnap</title>
+      <link>https://nobwak.github.io/posts/2006-05-01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap/</link>
+      <pubDate>Mon, 01 May 2006 01:00:00 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-05-01-%E8%AA%8D%E8%A8%BC%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AAproxy%E8%B6%8A%E3%81%97%E3%81%AEportsnap/</guid>
+      <description>認証の必要なPROXY越しのportsnapをしようとしても、必ず失敗する。 最初はportsnapサーバの調子が悪いだけかと思っていたのだが</description>
+    </item>
+    
+    <item>
+      <title>FreeBSDでext2ファイルシステムを扱う</title>
+      <link>https://nobwak.github.io/posts/2006-04-27-freebsd%E3%81%A7ext2%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E6%89%B1%E3%81%86/</link>
+      <pubDate>Thu, 27 Apr 2006 13:44:47 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-04-27-freebsd%E3%81%A7ext2%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E6%89%B1%E3%81%86/</guid>
+      <description>マウントにはmount_ext2fsコマンドを使用。 mountコマンドの-tオプションに与えるファイルシステムタイプにはext2fsが使用可</description>
+    </item>
+    
+    <item>
+      <title>DebianをFreeBSDのqemuにインストール。</title>
+      <link>https://nobwak.github.io/posts/2006-04-27-debian%E3%82%92freebsd%E3%81%AEqemu%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Thu, 27 Apr 2006 13:44:46 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-04-27-debian%E3%82%92freebsd%E3%81%AEqemu%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>・qemuのインストール portsからqemu, kqemu-kmodをインストール。 # portinstall -m-DWITH_KQEMU qemu # portinstall kqemu-kmod kqemu-kmodはqemuのアクセラレ</description>
+    </item>
+    
+    <item>
+      <title>DesktopBSD</title>
+      <link>https://nobwak.github.io/posts/2006-04-17-desktopbsd/</link>
+      <pubDate>Mon, 17 Apr 2006 13:51:13 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-04-17-desktopbsd/</guid>
+      <description>受けるつもりで友人に勉強方法も聞き、参考書も買った情報処理試験。 申し込みすら忘れていたことに昨日気がついた俺が来ましたよ。 それはさておきFr</description>
+    </item>
+    
+    <item>
+      <title>Knoppixありがとう。</title>
+      <link>https://nobwak.github.io/posts/2006-04-11-knoppix%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86/</link>
+      <pubDate>Tue, 11 Apr 2006 13:52:09 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2006-04-11-knoppix%E3%81%82%E3%82%8A%E3%81%8C%E3%81%A8%E3%81%86/</guid>
+      <description>仕事の助けにとSambaサーバをさせていたLinuxマシンが、異音を発し操作を受け付けなくなった。最終的に画面にDisk I/Oエラーを表示し</description>
+    </item>
+    
+  </channel>
+</rss>

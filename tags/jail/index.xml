@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jail on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/jail/</link>
+    <description>Recent content in Jail on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Mon, 08 Aug 2016 22:35:58 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/jail/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい</title>
+      <link>https://nobwak.github.io/posts/2016-08-08-%E3%83%A1%E3%83%A2freebsd_%E8%A4%87%E6%95%B0jail%E3%81%AEpkg_upgrade%E3%82%92%E4%B8%80%E6%B0%97%E3%81%AB%E6%B8%88%E3%81%BE%E3%81%9B%E3%81%9F%E3%81%84/</link>
+      <pubDate>Mon, 08 Aug 2016 22:35:58 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-08-08-%E3%83%A1%E3%83%A2freebsd_%E8%A4%87%E6%95%B0jail%E3%81%AEpkg_upgrade%E3%82%92%E4%B8%80%E6%B0%97%E3%81%AB%E6%B8%88%E3%81%BE%E3%81%9B%E3%81%9F%E3%81%84/</guid>
+      <description>メモ。 jailのpkg操作は、いちいちそのjailの中に入らなくてもpkg -j ＜jail名 or jail ID＞ &amp;hellip;というように-jオプション</description>
+    </item>
+    
+    <item>
+      <title>[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う</title>
+      <link>https://nobwak.github.io/posts/2016-04-16-slackhubotjail%E3%83%A1%E3%83%A2_freebsd_jail%E3%81%A7hubot%E3%82%92%E9%A3%BC%E3%81%86/</link>
+      <pubDate>Sat, 16 Apr 2016 22:20:53 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2016-04-16-slackhubotjail%E3%83%A1%E3%83%A2_freebsd_jail%E3%81%A7hubot%E3%82%92%E9%A3%BC%E3%81%86/</guid>
+      <description>slackにhubotを住まわせる記事は山のようにあるが、それを「hubotを自前サーバ」「それもFreeBSDに」という条件にすると記事数</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD] jailのetcを更新する(qjail)</title>
+      <link>https://nobwak.github.io/posts/2015-08-28-freebsd_jail%E3%81%AEetc%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8Bqjail/</link>
+      <pubDate>Fri, 28 Aug 2015 22:55:02 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-08-28-freebsd_jail%E3%81%AEetc%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8Bqjail/</guid>
+      <description>qjailだと、ここで示したようにqjail update -bでjailのバイナリアップグレードをしてくれる。 アップグレードといっても、ホストのバイナリ</description>
+    </item>
+    
+    <item>
+      <title>[FreeBSD][メモ] PlexConnectに関する情報</title>
+      <link>https://nobwak.github.io/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/</link>
+      <pubDate>Thu, 27 Aug 2015 23:16:28 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/</guid>
+      <description>PlexConnect https://github.com/iBaa/PlexConnect 最低限入れておくべきもの（jailを想定） plexmediaserver（これは当然） ca_root_nss python2.* スタートアップスクリプト /usr/local/</description>
+    </item>
+    
+    <item>
+      <title>[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール</title>
+      <link>https://nobwak.github.io/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</link>
+      <pubDate>Tue, 25 Aug 2015 23:42:59 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</guid>
+      <description>件名の通り。 FreeBSDホストに格納してある写真、動画を各種メディアプレイヤー向けに公開したいが、オリジナルのホストを直接は公開したくない</description>
+    </item>
+    
+    <item>
+      <title>Poudriereのjailにセキュリティアップデートを適用</title>
+      <link>https://nobwak.github.io/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/</link>
+      <pubDate>Fri, 25 Apr 2014 20:17:17 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/</guid>
+      <description>Heartbleedバグ対応では皆さんいかがお過ごしでしたか。 Poudriereではpackageの作成をjail内で実行するんだけども、も</description>
+    </item>
+    
+    <item>
+      <title>Hadoopフレンドリーなデータとは</title>
+      <link>https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/</link>
+      <pubDate>Thu, 23 Jan 2014 20:16:09 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/</guid>
+      <description>ログは1行1イベントに 何を言っとるんだお前はという感じであるが、つまりこういう事である。 通常、ログは1行が1イベントである。 たとえばapac</description>
+    </item>
+    
+  </channel>
+</rss>

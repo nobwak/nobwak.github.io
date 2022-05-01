@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ezjailで作るjailの基本設定を変えよう</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ezjailで作るjailの基本設定を変えよう" />
+<meta property="og:description" content="[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-03-ezjail%E3%81%A7%E4%BD%9C%E3%82%8Bjail%E3%81%AE%E5%9F%BA%E6%9C%AC%E8%A8%AD%E5%AE%9A%E3%82%92%E5%A4%89%E3%81%88%E3%82%88%E3%81%86/" />
+<meta property="article:published_time" content="2013-10-03T21:14:50&#43;09:00"/>
+<meta property="article:modified_time" content="2013-10-03T21:14:50&#43;09:00"/>
+
+<meta itemprop="name" content="ezjailで作るjailの基本設定を変えよう">
+<meta itemprop="description" content="[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表">
+
+
+<meta itemprop="datePublished" content="2013-10-03T21:14:50&#43;09:00" />
+<meta itemprop="dateModified" content="2013-10-03T21:14:50&#43;09:00" />
+<meta itemprop="wordCount" content="1557">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ezjailで作るjailの基本設定を変えよう"/>
+<meta name="twitter:description" content="[FreeBSD] ezjailを試そう の続き 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ezjailで作るjailの基本設定を変えよう</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-10-03T21:14:50&#43;09:00">October 3, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p><a href="../../../?p=2229" target="_blank">[FreeBSD] ezjailを試そう</a> の続き</p>
+
+<p>以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。<br />
+「Jailホスト」はjail環境で動くホストを表す。子。</p>
+
+<p>ezjailにはflavoursという仕組みがある。</p>
+
+<h2 id="span-style-text-decoration-underline-ezjailのflavoursとは-span"><span style="text-decoration: underline;">ezjailのflavoursとは。</span></h2>
+
+<p>以下より意訳。<br />
+<a href="http://erdgeist.org/arts/software/ezjail/#Flavours" target="_blank"><a href="http://erdgeist.org/arts/software/ezjail/#Flavours">http://erdgeist.org/arts/software/ezjail/#Flavours</a></a></p>
+
+<p>新しいJailは、真っ新（まっさら）のFreeBSDとして作られる。ezjailは、Jailホストの面倒な設定作業を簡素化する仕組みがある。これがflavoursである。<br />
+flavoursでは、予め設定された内容に従って、ファイルをコピーしたり、パッケージをインストールしたり、スクリプトを実行できる。<br />
+たとえば、rc.conf, make.conf, periodic.confやsudoersなどである。</p>
+
+<h2 id="span-style-text-decoration-underline-flavour-ではない基本の味付け-span"><span style="text-decoration: underline;">&ldquo;flavour&rdquo;ではない基本の味付け</span></h2>
+
+<p>flavourとは言ってみれば「風味」のこと。<br />
+新しいjailを作る時の「風味づけ」に使われるものだから、逆に言うと基本の味付けには不適切である。<br />
+具体的に言うと、新しいjailを作る際に必ず設定したいものは、flavoursではなく、基本設定に含めるべき、ということになる。</p>
+
+<p>では基本設定はどこでするのか、というと、まずezjailの仕組みを確認してから。</p>
+
+<h2 id="span-style-text-decoration-underline-ezjailの仕組み-span"><span style="text-decoration: underline;">ezjailの仕組み</span></h2>
+
+<p>/usr/jails/basejailというディレクトリがある。<br />
+これはFreeBSD環境のコピーで、ホスト上で作られたJailが使う。<br />
+共有して使うので、読み取り専用でマウントしている。</p>
+
+<p>これとは別に/usr/jails/newjailというディレクトリがある。<br />
+こちらは、新しいjailを作るときのテンプレートである。</p>
+
+<p>ということは、セキュリティパッチの適用やOSアップグレードはbasejailに対して行い、新しいjailホストを作る時の基本設定はnewjailに対して行えばよい。</p>
+
+<h2 id="span-style-text-decoration-underline-基本の味付けに必要なものは-span"><span style="text-decoration: underline;">基本の味付けに必要なものは？</span></h2>
+
+<p>パターンは二つある。<br />
+何らかのファイルを追加する場合と、ファイルを書き換える場合。</p>
+
+<p>追加するファイルには、/etc/resolv.conf、/etc/localtime、/etc/wall_cmos_clockは必須。<br />
+ただし、ホストの時刻がUTCなら/etc/wall_cmos_clock不要。</p>
+
+<p>resolv.confは名前解決（リゾルバ）のためのファイル、localtime, wall_cmos_clockはタイムゾーン関連ファイル。</p>
+
+<p>そのほか、/etc/hosts, /etc/nsswitch.confも必要であれば。</p>
+
+<p>ファイル書き換えの場合には、例えばportsnap.confを国内のportsnapサーバに向けておきたいとか、rootの.cshrcに手を入れておきたいとか、そういったもの。<br />
+ユーザの追加や、pkgの追加はbasejailにはできない（と思う）。<br />
+こういうのはflavoursで。</p>
+
+<h2 id="span-style-text-decoration-underline-基本味付け-span"><span style="text-decoration: underline;">基本味付け</span></h2>
+
+<p>前章で挙げたファイルは、端からnewjailに放り込んでいけばよい。<br />
+ID, group, パーミッションを保持するために-pオプションはつけましょう。</p>
+
+<pre><code class="language-console">$ sudo cp -p /etc/resolv.conf /etc/localtime /etc/wall_cmos_clock /usr/jails/newjail/etc/
+$
+</code></pre>
+
+<p>書き換え系は、newjail/etcの下のファイルをご自由に<br />
+例えば、/usr/jails/newjail/etc/portsnap.confのSERVERNAMEを以下のように。</p>
+
+<pre><code class="language-console">SERVERNAME=portsnap.allbsd.org
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-試してみよう-span"><span style="text-decoration: underline;">試してみよう</span></h2>
+
+<p>example01というjailを作ってみる。</p>
+
+<pre><code class="language-console">$ sudo ezjail-admin create example01 'em0|192.168.200.1'
+
+$ sudo ezjail-admin start example01
+Configuring jails:.
+Starting jails: example01.
+$
+$ sudo ezjail-admin console example01
+</code></pre>
+
+<p>コンソールログインして試してみると、日付もJSTになっているし、resolv.confも正しく設定されている。</p>
+
+<pre><code class="language-console">root@example01:~ # date
+Tue Oct 1 12:52:38 JST 2013
+
+root@example01:~ # cat /etc/resolv.conf
+# Generated by resolvconf
+search localdomain
+nameserver 192.168.154.2
+
+root@example01:/ # grep SERVER /etc/portsnap.conf
+SERVERNAME=portsnap.allbsd.org
+root@example01:/ #
+</code></pre>
+
+<p>flavoursの使い方はまた今度。</p>
+
+<p><a href="../../../?p=2252">ezjailのflavoursを使ってみよう その1</a></p>
+
+<p><a href="../../../?p=2254">ezjailのflavoursを使ってみよう その2</a></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

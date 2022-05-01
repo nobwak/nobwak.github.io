@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [メモ] MacにhomebrewでPythonをインストール（virtualenvまで）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[メモ] MacにhomebrewでPythonをインストール（virtualenvまで）" />
+<meta property="og:description" content="brewでpythonをインストールする 10.9.3にはPython 2.7.5が入っている。 brewでこれを新しいものに。 またvirtual" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-06-01-%E3%83%A1%E3%83%A2_mac%E3%81%ABhomebrew%E3%81%A7python%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%ABvirtualenv%E3%81%BE%E3%81%A7/" />
+<meta property="article:published_time" content="2014-06-01T06:06:42&#43;09:00"/>
+<meta property="article:modified_time" content="2014-06-01T06:06:42&#43;09:00"/>
+
+<meta itemprop="name" content="[メモ] MacにhomebrewでPythonをインストール（virtualenvまで）">
+<meta itemprop="description" content="brewでpythonをインストールする 10.9.3にはPython 2.7.5が入っている。 brewでこれを新しいものに。 またvirtual">
+
+
+<meta itemprop="datePublished" content="2014-06-01T06:06:42&#43;09:00" />
+<meta itemprop="dateModified" content="2014-06-01T06:06:42&#43;09:00" />
+<meta itemprop="wordCount" content="447">
+
+
+
+<meta itemprop="keywords" content="OSX,python," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[メモ] MacにhomebrewでPythonをインストール（virtualenvまで）"/>
+<meta name="twitter:description" content="brewでpythonをインストールする 10.9.3にはPython 2.7.5が入っている。 brewでこれを新しいものに。 またvirtual"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[メモ] MacにhomebrewでPythonをインストール（virtualenvまで）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-06-01T06:06:42&#43;09:00">June 1, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>brewでpythonをインストールする<br />
+10.9.3にはPython 2.7.5が入っている。<br />
+brewでこれを新しいものに。<br />
+またvirtualenvも入れてしまう。</p>
+
+<pre><code class="language-console">$ python --version
+Python 2.7.5
+</code></pre>
+
+<h2 id="brewでインストール">brewでインストール</h2>
+
+<pre><code class="language-console">$ brew install python --framework --universal
+==&gt; Installing dependencies for python: pkg-config, readline, sqlite, gdb
+==&gt; Installing python dependency: pkg-config
+==&gt; Downloading https://downloads.sf.net/project/machomebrew/Bottles/pkg-config-
+（略）
+See: https://github.com/Homebrew/homebrew/wiki/Homebrew-and-Python
+
+.app bundles were installed.
+Run `brew linkapps` to symlink these to /Applications.
+==&gt; /usr/local/Cellar/python/2.7.6_1/bin/python -s setup.py --no-user-cfg instal
+==&gt; /usr/local/Cellar/python/2.7.6_1/bin/python -s setup.py --no-user-cfg instal
+==&gt; Summary
+/usr/local/Cellar/python/2.7.6_1: 5945 files, 101M, built in 3.5 minutes
+$
+</code></pre>
+
+<p>すっ飛ばした途中にいろいろと重要なことが表示されている。<br />
+すなわち、Pythonのインストールに必要なソフトウェアはOS Xにもあるけど、いろいろと問題もあるから新しいの入れとくわなどなど。<br />
+また、pipとsetuptoolsもインストールされている。</p>
+
+<pre><code class="language-console">Setuptools and Pip have been installed. To update them
+  pip install --upgrade setuptools
+  pip install --upgrade pip
+</code></pre>
+
+<p>いずれにせよpythonのインストールはできた。<br />
+ターミナルで調べてみると2.7.6に変化していますね。</p>
+
+<pre><code class="language-console">$ python --version
+Python 2.7.6
+$ which python
+/usr/local/bin/python
+$
+</code></pre>
+
+<p>そのままvirtualenvなどのツールをインストール。</p>
+
+<h2 id="virtualenvのインストール">virtualenvのインストール</h2>
+
+<p>pipでインストールするだけ。</p>
+
+<pre><code class="language-console">$ pip install virtualenv
+（略）
+Successfully installed virtualenv
+Cleaning up...
+$ pip install virtualenvwrapper
+（略）
+Successfully installed virtualenvwrapper virtualenv-clone stevedore
+Cleaning up...
+</code></pre>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/osx" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">OSX</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-05-30-%E3%83%A1%E3%83%A2_mac%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] MacのパッケージマネージャHomebrewのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/">ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Pythonベースのプロジェクト管理ツール、tracのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-09-pyinstaller%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9Fwindows%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84version_resource_file%E3%81%AE%E4%BD%9C%E3%82%8A%E3%81%8B%E3%81%9F/">PyInstallerで作ったWindowsアプリでバージョンを表示させたい（Version Resource Fileの作りかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-05-windows%E3%81%ABpyinstaller%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Windowsにpyinstallerをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-01-python2_hex%E6%96%87%E5%AD%97%E5%88%97%E3%81%A8bin%E6%96%87%E5%AD%97%E5%88%97%E3%81%A7%E3%82%B3%E3%83%B3%E3%83%90%E3%83%BC%E3%83%88/">[Python2] Hex文字列とBin文字列でコンバート</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-30-python2_string%E3%82%92%E9%80%86%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python2] stringを逆に表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | FreeBSDのSecurity Advisory対応方法</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="FreeBSDのSecurity Advisory対応方法" />
+<meta property="og:description" content="FreeBSDのSecurity Advisory（以降, SA）。bind, libcに問題あり。 せっかくなので久しぶりにメモっておく。 BIND remote DoS with" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-02-19-freebsd%E3%81%AEsecurity_advisory%E5%AF%BE%E5%BF%9C%E6%96%B9%E6%B3%95/" />
+<meta property="article:published_time" content="2013-02-19T23:55:32&#43;09:00"/>
+<meta property="article:modified_time" content="2013-02-19T23:55:32&#43;09:00"/>
+
+<meta itemprop="name" content="FreeBSDのSecurity Advisory対応方法">
+<meta itemprop="description" content="FreeBSDのSecurity Advisory（以降, SA）。bind, libcに問題あり。 せっかくなので久しぶりにメモっておく。 BIND remote DoS with">
+
+
+<meta itemprop="datePublished" content="2013-02-19T23:55:32&#43;09:00" />
+<meta itemprop="dateModified" content="2013-02-19T23:55:32&#43;09:00" />
+<meta itemprop="wordCount" content="357">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FreeBSDのSecurity Advisory対応方法"/>
+<meta name="twitter:description" content="FreeBSDのSecurity Advisory（以降, SA）。bind, libcに問題あり。 せっかくなので久しぶりにメモっておく。 BIND remote DoS with"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">FreeBSDのSecurity Advisory対応方法</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-02-19T23:55:32&#43;09:00">February 19, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>FreeBSDのSecurity Advisory（以降, SA）。bind, libcに問題あり。<br />
+せっかくなので久しぶりにメモっておく。</p>
+
+<blockquote>
+<p>BIND remote DoS with deliberately crafted DNS64 query（FreeBSD 9.x以降のみ）<br />
+<a href="http://www.freebsd.org/security/advisories/FreeBSD-SA-13:01.bind.asc" target="_blank"><a href="http://www.freebsd.org/security/advisories/FreeBSD-SA-13:01.bind.asc">http://www.freebsd.org/security/advisories/FreeBSD-SA-13:01.bind.asc</a></a></p>
+
+<p>glob(3) related resource exhaustion<br />
+<a href="http://www.freebsd.org/security/advisories/FreeBSD-SA-13:02.libc.asc" target="_blank"><a href="http://www.freebsd.org/security/advisories/FreeBSD-SA-13:02.libc.asc">http://www.freebsd.org/security/advisories/FreeBSD-SA-13:02.libc.asc</a></a></p>
+</blockquote>
+
+<p>淡々と<a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading-freebsdupdate.html" target="_blank">Handbook</a>、およびSA沿って作業すればよろし。</p>
+
+<pre><code class="language-console">V.   Solution
+Perform one of the following:
+（略）
+3) To update your vulnerable system via a binary patch:
+
+Systems running a RELEASE version of FreeBSD on the i386 or amd64
+platforms can be updated via the freebsd-update(8) utility:
+
+# freebsd-update fetch
+# freebsd-update install
+
+Restart all daemons, or reboot the system.
+</code></pre>
+
+<p>Restart all daemonsは面倒なので再起動しておしまい。</p>
+
+<p>なおkernelにパッチがなければuname -aなどで表示されるパッチレベルやリビジョン番号は変わらない。</p>
+
+<p>本当にパッチがシステムに適用されてるか不安なら、/usr/src/sys/conf/newvers.shのBRANCHを見ればまあよし。</p>
+
+<pre><code class="language-console">$ grep &quot;^BRANCH&quot; /usr/src/sys/conf/newvers.sh
+BRANCH=&quot;RELEASE-p1&quot;
+</code></pre>
+
+<p>しかしbindはしょっちゅうSA発表されるなあ。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

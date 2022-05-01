@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD] 無人でのユーザ追加</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD] 無人でのユーザ追加" />
+<meta property="og:description" content="仮想化全盛のこの世の中、OSインストール直後の各種設定はなるだけ無人化したい。 そこでFreeBSDでのユーザ設定の無人化について。 pw(8) pwを使" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-09-09-freebsd_%E7%84%A1%E4%BA%BA%E3%81%A7%E3%81%AE%E3%83%A6%E3%83%BC%E3%82%B6%E8%BF%BD%E5%8A%A0/" />
+<meta property="article:published_time" content="2013-09-09T22:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2013-09-09T22:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD] 無人でのユーザ追加">
+<meta itemprop="description" content="仮想化全盛のこの世の中、OSインストール直後の各種設定はなるだけ無人化したい。 そこでFreeBSDでのユーザ設定の無人化について。 pw(8) pwを使">
+
+
+<meta itemprop="datePublished" content="2013-09-09T22:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2013-09-09T22:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1314">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD] 無人でのユーザ追加"/>
+<meta name="twitter:description" content="仮想化全盛のこの世の中、OSインストール直後の各種設定はなるだけ無人化したい。 そこでFreeBSDでのユーザ設定の無人化について。 pw(8) pwを使"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD] 無人でのユーザ追加</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-09-09T22:00:00&#43;09:00">September 9, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>仮想化全盛のこの世の中、OSインストール直後の各種設定はなるだけ無人化したい。<br />
+そこでFreeBSDでのユーザ設定の無人化について。</p>
+
+<h2 id="span-style-text-decoration-underline-pw-8-span"><span style="text-decoration: underline;">pw(8)</span></h2>
+
+<p>pwを使う。<br />
+man pwすると画面いっぱいに広がるSYNOPSISにまずのけぞる。<br />
+そのくらい、たくさんのことができるpwコマンドであるが、使うのは二つだけ。</p>
+
+<pre><code class="language-console">pw groupadd
+pw useradd
+</code></pre>
+
+<p>グループ追加とユーザ追加ですな。</p>
+
+<h2 id="span-style-text-decoration-underline-pwでのグループ追加-span"><span style="text-decoration: underline;">pwでのグループ追加</span></h2>
+
+<p>書式は以下の通り</p>
+
+<pre><code class="language-console">pw groupadd -q -n &lt;グループ名&gt; -g &lt;GID&gt;
+</code></pre>
+
+<p>-qはエラーメッセージの抑制。<br />
+じゃ実際にエラーが発生したらどうすんだ、って話になるが、そこはステータスコードを使う。</p>
+
+<p>グループ:testgをgroup ID:10010で追加するなら、以下の通り。</p>
+
+<pre><code class="language-console">pw groupadd -q -n testg -g 10010
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-pwでのユーザ追加-span"><span style="text-decoration: underline;">pwでのユーザ追加</span></h2>
+
+<p>グループ追加に比べ、こちらはちょっと複雑。<br />
+書式は以下の通り。</p>
+
+<pre><code class="language-console">pw useradd -n &lt;ユーザ名&gt; -u &lt;UID&gt; -s &lt;シェル&gt; \
+-m -d &lt;ホームディレクトリ&gt; -G &lt;グループ名&gt; \
+-c &lt;コメント&gt;
+</code></pre>
+
+<p>特に-mを除いて説明の必要はないと思う。<br />
+-mはホームディレクトリを新規に作る、という意味。</p>
+
+<p>しかしこれだけだとパスワードを訊かれてしまう。</p>
+
+<h2 id="span-style-text-decoration-underline-パスワード設定も無人でしたい-span"><span style="text-decoration: underline;">パスワード設定も無人でしたい。</span></h2>
+
+<p>パスワード設定も自動化するには、以下のようにする。</p>
+
+<pre><code class="language-console">echo -n '&lt;パスワード&gt;' |\
+pw useradd -n &lt;ユーザ名&gt; -u &lt;UID&gt; -s &lt;シェル&gt; \
+-m -d &lt;ホームディレクトリ&gt; -G &lt;グループ名&gt; \
+-c &lt;コメント&gt; \
+-h 0
+</code></pre>
+
+<p>-h 0をオプションとして与えると、pw はパスワード設定を標準入力から受け付けてくれる。<br />
+つまり、パスワードをechoし、その標準入力を-h 0オプションを与えたpw useraddにパイプすればよい。</p>
+
+<p>パスワードにtest, uidに10010, シェルに/bin/sh, ホームディレクトリは/home/test, グループ:testに所属するユーザtestを作成するには、以下のように。</p>
+
+<pre><code class="language-console">echo -n 'test' |\
+pw useradd -n test -u 10010 -s /bin/sh \
+-m -d /home/test -G test -c 'test user' \
+-h 0
+</code></pre>
+
+<p>いや、でもさあ、パスワード丸見えじゃないか。<br />
+そう思ったあなたは正しい。<br />
+上記のスクリプトは使うべきでない。</p>
+
+<h2 id="span-style-text-decoration-underline-暗号化済みのパスワードを無人で設定するには-span"><span style="text-decoration: underline;">暗号化済みのパスワードを無人で設定するには。</span></h2>
+
+<p>前章で追加した-hオプションを-Hにすれば、pwは暗号化済みのパスワードを受け付けてくれる。<br />
+こうしておけば、仮にスクリプトを覗かれたって、パスワードを平文で書いてあるよりははるかに危険度は少ない。</p>
+
+<p>パスワードにtest, uidに10010, シェルに/bin/sh, ホームディレクトリは/home/test, グループ:testに所属するユーザtestを作成するケースを考える。</p>
+
+<p><a href="../../../?p=2208">この記事</a>で触れた方法でパスワードを暗号化する。この例ではsaltは&rdquo;SALTsalt&rdquo;。</p>
+
+<pre><code class="language-console">$ perl -e 'print crypt(&quot;test&quot;, &quot;\$6\$SALTsalt&quot;);'
+$6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5ggew6RXLpl1eA72TpgX5pGDpr/.
+</code></pre>
+
+<p>得た文字列をechoしてpwに渡す。※文字列長いので省略してます。</p>
+
+<pre><code class="language-console">echo -n '&lt;暗号化済みパスワード&gt;' |\
+pw useradd -n test -u 10010 -s /bin/sh \
+-m -d /home/test -G test -c 'test user' \
+-H 0
+</code></pre>
+
+<p>自分のシステムがどの方法でパスワードを暗号化しているか、確認するのを忘れないこと。<br />
+MD5ならまずどのシステムでも大丈夫だが、MD5は今じゃちょっと危ないからね。</p>
+
+<p>以上</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

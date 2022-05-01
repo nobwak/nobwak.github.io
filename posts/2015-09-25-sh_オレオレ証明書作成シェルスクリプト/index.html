@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [sh] オレオレ証明書作成シェルスクリプト</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[sh] オレオレ証明書作成シェルスクリプト" />
+<meta property="og:description" content="すぐに作り方を忘れるので、シェルスクリプトを記録しておく。 変数OPENSSLにopensslをフルパスで与えること。 あとはchmod 755し" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2015-09-25-sh_%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/" />
+<meta property="article:published_time" content="2015-09-25T23:31:38&#43;09:00"/>
+<meta property="article:modified_time" content="2015-09-25T23:31:38&#43;09:00"/>
+
+<meta itemprop="name" content="[sh] オレオレ証明書作成シェルスクリプト">
+<meta itemprop="description" content="すぐに作り方を忘れるので、シェルスクリプトを記録しておく。 変数OPENSSLにopensslをフルパスで与えること。 あとはchmod 755し">
+
+
+<meta itemprop="datePublished" content="2015-09-25T23:31:38&#43;09:00" />
+<meta itemprop="dateModified" content="2015-09-25T23:31:38&#43;09:00" />
+<meta itemprop="wordCount" content="290">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,linux,OS X,sh," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[sh] オレオレ証明書作成シェルスクリプト"/>
+<meta name="twitter:description" content="すぐに作り方を忘れるので、シェルスクリプトを記録しておく。 変数OPENSSLにopensslをフルパスで与えること。 あとはchmod 755し"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[sh] オレオレ証明書作成シェルスクリプト</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2015-09-25T23:31:38&#43;09:00">September 25, 2015</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>すぐに作り方を忘れるので、シェルスクリプトを記録しておく。<br />
+変数OPENSSLにopensslをフルパスで与えること。<br />
+あとはchmod 755して実行すればカレントディレクトリにserver.crtとserver.keyができる。<br />
+おまけでDHパラメータ、dhparam.pemもできる。</p>
+
+<pre><code class="language-console">#!/bin/sh
+
+# Generates a self-signed certificate.
+
+OPENSSL=/usr/bin/openssl
+KEYFILE=server.key
+CERTFILE=server.crt
+SIGNREQ=server.csr
+DHPARAM=dhparam.pem
+
+if [ -f $CERTFILE ]; then
+  echo &quot;$CERTFILE already exists, won't overwrite&quot;
+  exit 1
+fi
+
+if [ -f $KEYFILE ]; then
+  echo &quot;$KEYFILE already exists, won't overwrite&quot;
+  exit 1
+fi
+
+if [ -f $SIGNREQ ]; then
+  echo &quot;$SIGNREQ already exists, won't overwrite&quot;
+  exit 1
+fi
+
+echo
+echo &quot;Generating key file, $KEYFILE&quot;
+echo &quot;============================&quot;
+$OPENSSL genrsa 2048 &gt; $KEYFILE || exit 2
+chmod 0600 $KEYFILE
+echo &quot;============================&quot;
+echo
+echo &quot;Generating sign request file, $SIGNREQ&quot;
+echo &quot;============================&quot;
+$OPENSSL req -new -key $KEYFILE &gt; $SIGNREQ || exit2
+echo &quot;============================&quot;
+echo
+echo &quot;Generating cert file, $CERTFILE&quot;
+echo &quot;============================&quot;
+$OPENSSL x509 -days 3650 -req -signkey $KEYFILE &lt; $SIGNREQ &gt; $CERTFILE || exit2
+echo &quot;============================&quot;
+echo
+echo &quot;Generating DH key, $DHPARAM&quot;
+echo &quot;============================&quot;
+$OPENSSL dhparam -out $DHPARAM 2048
+echo &quot;============================&quot;
+echo
+echo &quot;Now you have $CERTFILE, $KEYFILE and $DHPARAM&quot;
+echo
+</code></pre>
+
+<p>参考<br />
+<a href="http://d.hatena.ne.jp/rikunora/20120514/p1">http://d.hatena.ne.jp/rikunora/20120514/p1</a><br />
+<a href="http://qiita.com/kunichiko/items/12cbccaadcbf41c72735">http://qiita.com/kunichiko/items/12cbccaadcbf41c72735</a></p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/linux" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">linux</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/os-x" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">OS X</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/sh" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">sh</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-10-30-rsync%E3%81%AE%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%8C%87%E5%AE%9A%E3%81%A7%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97%E3%81%AE%E5%BF%85%E8%A6%81%E3%81%AA%E6%96%87%E5%AD%97%E3%82%92%E5%90%AB%E3%82%81%E3%82%8B%E3%81%AB%E3%81%AF/">rsyncのディレクトリ指定でエスケープの必要な文字を含めるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-07-23-%E3%83%A1%E3%83%A2_samba%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%A6%E3%83%BC%E3%82%B6%E4%B8%80%E8%A6%A7%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] sambaのパスワードファイルに登録されているユーザ一覧を表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-23-unix_tips_%E5%BE%A9%E6%B4%BB%E7%A5%AD%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AE%E6%97%A5%E4%BB%98%E3%81%AB%E7%A5%9E%E4%BB%A3%E3%81%AE%E9%81%8A%E3%81%B3%E5%BF%83%E3%82%92%E8%A6%8B%E3%81%9F2014%E5%B9%B4%E3%81%AE%E3%82%A4%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%81%AF4_20%E3%81%A7%E3%81%99/">[UNIX tips] 復活祭（イースター）の日付に神代の遊び心を見た（2014年のイースターは4/20です）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-16-%E3%83%A1%E3%83%A2_grep%E3%81%A7%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E8%A1%8C%E7%A9%BA%E8%A1%8C%E4%BB%A5%E5%A4%96%E3%81%AE%E8%A1%8C%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/">[メモ] grepでコメント行、空行以外の行を表示させるには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-09-14-%E3%83%A1%E3%83%A2pythonsqlite_%E5%B7%A8%E5%A4%A7%E3%81%AAsqlite%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99%E3%81%AB%E3%81%AF/">[メモ][Python][SQLite] 巨大なSQLiteデータベースからレコードを取り出すには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-26-windows7%E3%81%A7samba%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E3%81%86%E3%81%BE%E3%81%8F%E9%96%8B%E3%81%91%E3%81%AA%E3%81%84%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6oplocks%E6%AD%BB%E3%81%99%E3%81%B9%E3%81%97/">Windows7でsambaのファイルがうまく開けない件について（oplocks死すべし）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-21-nginx%E3%81%A7%E3%81%AEfastcgi_php%E8%A8%AD%E5%AE%9A/">NginxでのFastCGI PHP設定</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-09-22-%E3%83%A1%E3%83%A2vagrant_freebsd%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/">[メモ][Vagrant] FreeBSDのboxを作る。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-09-18-%E3%83%A1%E3%83%A2vagrant_ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/">[メモ][Vagrant] Ubuntuのboxを作る</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-28-freebsd_jail%E3%81%AEetc%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8Bqjail/">[FreeBSD] jailのetcを更新する(qjail)</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

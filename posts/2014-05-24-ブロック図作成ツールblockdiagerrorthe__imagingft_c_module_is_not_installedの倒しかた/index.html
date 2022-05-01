@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）" />
+<meta property="og:description" content="ブロック図作成ツールblockdiagとは、テキストファイルから以下のような図を作成してくれるツールである。 これをFreeBSD にインストー" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-05-24-%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E5%9B%B3%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%ABblockdiagerrorthe__imagingft_c_module_is_not_installed%E3%81%AE%E5%80%92%E3%81%97%E3%81%8B%E3%81%9F/" />
+<meta property="article:published_time" content="2014-05-24T22:35:35&#43;09:00"/>
+<meta property="article:modified_time" content="2014-05-24T22:35:35&#43;09:00"/>
+
+<meta itemprop="name" content="ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）">
+<meta itemprop="description" content="ブロック図作成ツールblockdiagとは、テキストファイルから以下のような図を作成してくれるツールである。 これをFreeBSD にインストー">
+
+
+<meta itemprop="datePublished" content="2014-05-24T22:35:35&#43;09:00" />
+<meta itemprop="dateModified" content="2014-05-24T22:35:35&#43;09:00" />
+<meta itemprop="wordCount" content="1539">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,python," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）"/>
+<meta name="twitter:description" content="ブロック図作成ツールblockdiagとは、テキストファイルから以下のような図を作成してくれるツールである。 これをFreeBSD にインストー"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ブロック図作成ツールblockdiag（ERROR: The _imagingft C module is not installedの倒しかた）</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-05-24T22:35:35&#43;09:00">May 24, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>ブロック図作成ツールblockdiagとは、テキストファイルから以下のような図を作成してくれるツールである。</p>
+
+<p><a href="../../../wp-content/uploads/2014/05/blockdiagplanejpaa.png"><img class="alignnone size-thumbnail wp-image-2732" src="../../../wp-content/uploads/2014/05/blockdiagplanejpaa-150x150.png" alt="blockdiagplanejpaa" width="150" height="150" /></a></p>
+
+<p>これをFreeBSD にインストールしたので経緯を示す。<br />
+環境は10.0-RELEASE-p3、blockdiag-1.3.3である。</p>
+
+<h2 id="必要なもの">必要なもの</h2>
+
+<p>lockdiagはpkgに用意されているものの、残念ながら一発インストールというわけにはいかない。<br />
+理由は後述。<br />
+pkg以外に必要なものは以下の通り。</p>
+
+<p>①ports（portsでインストールが必要なソフトウェアがある）<br />
+②日本語フォント（これはpkgでインストールしてよい）</p>
+
+<h2 id="blockdiagのインストール">blockdiagのインストール</h2>
+
+<p>一部ソフトウェアのportsからのインストールが必要だが、まずはblockdiagをpkgでインストールをしてしまったほうが楽。<br />
+依存とかあるからね。</p>
+
+<pre><code class="language-console">$ pkg search blockdiag
+py27-blockdiag-1.3.3
+
+</code></pre>
+
+<p>インストールしたあとに依存を調べてみると以下の通り。</p>
+
+<pre><code class="language-console">$ pkg info -d py27-blockdiag-1.3.3
+py27-blockdiag-1.3.3:
+        py27-reportlab-3.0_1
+        python27-2.7.6_4
+        py27-webcolors-1.4
+        py27-pillow-2.3.0_2
+        py27-setuptools27-2.0.1
+        py27-funcparserlib-0.3.6_1
+</code></pre>
+
+<h2 id="日本語フォントのインストール">日本語フォントのインストール</h2>
+
+<p>お好みで。<br />
+私はVLゴシックを。</p>
+
+<pre><code class="language-console">$ pkg info|grep ja-font
+ja-font-vlgothic-20130607      VLGothic Japanese TrueType fonts
+</code></pre>
+
+<p>さてここからが本題である。</p>
+
+<h2 id="blockdiagの罠-吊るしのpkgでは日本語フォントを使えない">blockdiagの罠: 吊るしのpkgでは日本語フォントを使えない</h2>
+
+<p>2014/5/24現在、blockdiagをpkgでインストールした場合、日本語フォントを扱うことができない。<br />
+厳密にいえば、TrueTypeフォントを使えない。<br />
+日本語を表示させようとすると、以下のように断られてしまう。</p>
+
+<pre><code class="language-console">$ blockdiag ./sample.txt
+ERROR: The _imagingft C module is not installed
+</code></pre>
+
+<p>原因は、FreeBSDにおいて言えばpy27-pillowのせい。</p>
+
+<p>blockdiagが画像を生成する際にはPIL（Python Image Library）を使う。<br />
+blockdiagが依存しているpy27-pillowがそれ。<br />
+しかしデフォルト設定では、py27-pillowのTrueTypeフォント対応が無効になってるんである。</p>
+
+<h2 id="対応策-py27-pillowだけportsからインストール">対応策: py27-pillowだけportsからインストール</h2>
+
+<p>ということでpy27-pillowだけportsからインストールする。<br />
+/usr/ports/graphics/py-pillowにおいてOption設定を変える。</p>
+
+<pre><code class="language-console">[vanilla@yaryka /usr/ports/graphics/py-pillow]$ sudo make config
+  ┌───────── py27-pillow-2.3.0_2 ─────
+  │ ┌─────────────────────────
+  │ │ [x] FREETYPE  TrueType font rendering support   
+  │ │ [x] JPEG      JPEG image format support         
+  │ │ [ ] LCMS      Little Color Management System    
+  │ │ [x] PNG       PNG image format support          
+  │ │ [ ] TIFF      TIFF image format support         
+  │ │ [ ] WEBP      WebP image format support         
+  │ └─────────────────────────
+  ├──────────────────────────
+  │               &lt;  OK  &gt;                     
+  └──────────────────────────
+</code></pre>
+
+<p>FREETYPEのところにチェックを入れる。<br />
+/var/db/ports/graphics_py-pillow/optionsの中身がこうなってればOK.</p>
+
+<pre><code class="language-console">$ cat /var/db/ports/graphics_py-pillow/options
+# This file is auto-generated by 'make config'.
+# Options for py27-pillow-2.3.0_2
+_OPTIONS_READ=py27-pillow-2.3.0_2
+_FILE_COMPLETE_OPTIONS_LIST=FREETYPE JPEG LCMS PNG TIFF WEBP
+OPTIONS_FILE_SET+=FREETYPE
+OPTIONS_FILE_SET+=JPEG
+OPTIONS_FILE_UNSET+=LCMS
+OPTIONS_FILE_SET+=PNG
+OPTIONS_FILE_UNSET+=TIFF
+OPTIONS_FILE_UNSET+=WEBP
+</code></pre>
+
+<p>そしたらpkgのpy27-pillowをいったんアンインストール。<br />
+依存があるから強制オプションを付ける。</p>
+
+<pre><code class="language-console">$ sudo pkg remove -fy py27-pillow-2.3.0_2
+pkg: You are trying to delete package(s) which has dependencies that are still required:
+graphics/py-pillow: print/py-reportlab, graphics/py-seqdiag, graphics/py-blockdiag
+... delete these packages anyway in forced mode
+Deinstallation has been requested for the following 1 packages:
+
+        py27-pillow-2.3.0_2
+
+The deinstallation will free 2 MB
+[1/1] Deleting py27-pillow-2.3.0_2...
+py27-pillow-2.3.0_2 is required by: py27-reportlab-3.0_1 py27-seqdiag-0.9.0 py27-blockdiag-1.3.3, deleting anyway
+ done
+$
+</code></pre>
+
+<p>そうしたらportsからpy27-pillowをインストール</p>
+
+<pre><code class="language-console">[vanilla@yaryka /usr/ports/graphics/py-pillow]$ sudo make install
+===&gt;  Installing for py27-pillow-2.3.0_2
+===&gt;   py27-pillow-2.3.0_2 depends on package: py27-setuptools27&gt;0 - found
+===&gt;   py27-pillow-2.3.0_2 depends on file: /usr/local/bin/python2.7 - found
+===&gt;   py27-pillow-2.3.0_2 depends on shared library: libfreetype.so - found
+===&gt;   py27-pillow-2.3.0_2 depends on shared library: libjpeg.so - found
+===&gt;  Checking if graphics/py-pillow already installed
+===&gt;   Registering installation for py27-pillow-2.3.0_2
+Installing py27-pillow-2.3.0_2... done
+[vanilla@yaryka /usr/ports/graphics/py-pillow]$ sudo make clean
+===&gt;  Cleaning for py27-pillow-2.3.0_2
+[vanilla@yaryka /usr/ports/graphics/py-pillow]$
+</code></pre>
+
+<h2 id="テスト">テスト</h2>
+
+<p>詳しい記述方法は公式サイトを。<br />
+<a href="http://blockdiag.com/ja/index.html" target="_blank"><a href="http://blockdiag.com/ja/index.html">http://blockdiag.com/ja/index.html</a></a></p>
+
+<p>テキストファイルに以下のような記述をする。<br />
+sample.txtとする。</p>
+
+<pre><code class="language-console">blockdiag {
+   春 -&gt; 夏 -&gt; 秋 -&gt; 冬;
+   A -&gt; E -&gt; F -&gt; G;
+}
+</code></pre>
+
+<p>あとはblockdiagに食わせるだけ。</p>
+
+<pre><code class="language-console">$ blockdiag sample.txt
+$
+</code></pre>
+
+<p>エラーもなくできた。<br />
+そしてできるファイルは以下のようなもの。<br />
+<a href="../../../wp-content/uploads/2014/05/blockdiagplanejp.png"><img class="alignnone size-thumbnail wp-image-2733" src="../../../wp-content/uploads/2014/05/blockdiagplanejp-150x150.png" alt="blockdiagplanejp" width="150" height="150" /></a></p>
+
+<p>カクカクなのがいやなら、-aをオプションに与えればよい。</p>
+
+<pre><code class="language-console">$ blockdiag -a ./sample.txt
+$
+</code></pre>
+
+<p>アンチエイリアスがかかる。<br />
+<a href="../../../wp-content/uploads/2014/05/blockdiagplanejpaa.png"><img class="alignnone size-thumbnail wp-image-2732" src="../../../wp-content/uploads/2014/05/blockdiagplanejpaa-150x150.png" alt="blockdiagplanejpaa" width="150" height="150" /></a></p>
+
+<p>以上。</p>
+
+<p><input id="mac_address" type="hidden" value="" /></p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/python" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">python</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-05-20-python%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABtrac%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Pythonベースのプロジェクト管理ツール、tracのインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-02-24-python%E3%81%8C%E3%81%82%E3%82%8C%E3%81%B0web%E3%82%B5%E3%83%BC%E3%83%90%E3%82%92%E5%8B%95%E3%81%8B%E3%81%9B%E3%82%8B%E4%BB%B6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Pythonがあればwebサーバを動かせる件について</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-23-hadoop%E3%83%95%E3%83%AC%E3%83%B3%E3%83%89%E3%83%AA%E3%83%BC%E3%81%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%A8%E3%81%AF/">Hadoopフレンドリーなデータとは</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-10-python%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E5%BC%95%E6%95%B0%E3%82%92%E6%B8%A1%E3%81%9D%E3%81%86/">Pythonアプリに引数を渡そう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-27-python%E3%81%A7windows%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">PythonでWindowsアプリケーションを作ってみよう</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-11-freebsd%E3%81%ABredmine%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%8F%96%E3%82%8A%E3%81%82%E3%81%88%E3%81%9A%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92%E3%82%8B%E3%81%A8%E3%81%93%E3%81%BE%E3%81%A7/">FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-09-pyinstaller%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9Fwindows%E3%82%A2%E3%83%97%E3%83%AA%E3%81%A7%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%81%9F%E3%81%84version_resource_file%E3%81%AE%E4%BD%9C%E3%82%8A%E3%81%8B%E3%81%9F/">PyInstallerで作ったWindowsアプリでバージョンを表示させたい（Version Resource Fileの作りかた）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-05-windows%E3%81%ABpyinstaller%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">Windowsにpyinstallerをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-05-01-python2_hex%E6%96%87%E5%AD%97%E5%88%97%E3%81%A8bin%E6%96%87%E5%AD%97%E5%88%97%E3%81%A7%E3%82%B3%E3%83%B3%E3%83%90%E3%83%BC%E3%83%88/">[Python2] Hex文字列とBin文字列でコンバート</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-30-python2_string%E3%82%92%E9%80%86%E3%81%AB%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/">[Python2] stringを逆に表示するには</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-04-25-poudriere%E3%81%AEjail%E3%81%AB%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88%E3%82%92%E9%81%A9%E7%94%A8/">Poudriereのjailにセキュリティアップデートを適用</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-29-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0samba-virusfilter%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。samba-virusfilter編</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-27-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0scannedonly%E7%B7%A8/">Sambaの汚物（ウイルス）は消毒だ。scannedonly編。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-25-samba%E3%81%AE%E6%B1%9A%E7%89%A9%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%81%AF%E6%B6%88%E6%AF%92%E3%81%A0%E3%81%82%E3%82%8B%E3%81%84%E3%81%AFsamba%E3%81%AEvfs%E3%81%A7%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%B3/">Sambaの汚物（ウイルス）は消毒だ。あるいはsambaのvfsでウイルススキャン</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-03-18-monitorix%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%97%E3%82%88%E3%81%86/">Monitorixをカスタマイズしよう</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

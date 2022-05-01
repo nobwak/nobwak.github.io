@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [メモ] MacのパッケージマネージャHomebrewのインストール</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[メモ] MacのパッケージマネージャHomebrewのインストール" />
+<meta property="og:description" content="Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。 Rubyで作られて" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2014-05-30-%E3%83%A1%E3%83%A2_mac%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2014-05-30T22:24:38&#43;09:00"/>
+<meta property="article:modified_time" content="2014-05-30T22:24:38&#43;09:00"/>
+
+<meta itemprop="name" content="[メモ] MacのパッケージマネージャHomebrewのインストール">
+<meta itemprop="description" content="Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。 Rubyで作られて">
+
+
+<meta itemprop="datePublished" content="2014-05-30T22:24:38&#43;09:00" />
+<meta itemprop="dateModified" content="2014-05-30T22:24:38&#43;09:00" />
+<meta itemprop="wordCount" content="660">
+
+
+
+<meta itemprop="keywords" content="homebrew,OSX,Ruby," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[メモ] MacのパッケージマネージャHomebrewのインストール"/>
+<meta name="twitter:description" content="Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。 Rubyで作られて"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[メモ] MacのパッケージマネージャHomebrewのインストール</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2014-05-30T22:24:38&#43;09:00">May 30, 2014</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Homebrewとは、Macのパッケージマネージメントツールで、UNIX系ソフトウェアのインストールを管理してくれるもの。<br />
+Rubyで作られている。</p>
+
+<p>インストールは<br />
+<a href="http://brew.sh/index_ja.html" target="_blank"><a href="http://brew.sh/index_ja.html">http://brew.sh/index_ja.html</a></a><br />
+ここの手順に沿う。</p>
+
+<h2 id="インストール">インストール</h2>
+
+<p>githubからダウンロード、インストールする。<br />
+<a href="http://brew.sh/index_ja.htmlの下の方にあるコマンドをそのまま実行すればよい。">http://brew.sh/index_ja.htmlの下の方にあるコマンドをそのまま実行すればよい。</a><br />
+以下が実行例。</p>
+
+<pre><code class="language-console">$ which ruby
+/usr/bin/ruby
+$ ruby -e &quot;$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)&quot;
+==&gt; This script will install:
+/usr/local/bin/brew
+/usr/local/Library/...
+/usr/local/share/man/man1/brew.1
+
+Press RETURN to continue or any other key to abort
+==&gt; /usr/bin/sudo /bin/mkdir /usr/local
+(略)
+From https://github.com/Homebrew/homebrew
+ * [new branch]      master     -&gt; origin/master
+HEAD is now at 17eceb1 pdf2htmlex: upstream patch to fix build with latest poppler
+==&gt; Installation successful!
+==&gt; Next steps
+Run `brew doctor` before you install anything
+Run `brew help` to get started
+$
+</code></pre>
+
+<p>まずbrew doctorをせい、ということなので。</p>
+
+<pre><code class="language-console">$ brew doctor
+Your system is ready to brew.
+</code></pre>
+
+<p>以上はうまくいった場合。<br />
+少しでも気を抜くとこんな風に怒られる。<br />
+24時間updateしてないだけで。<br />
+brewで作業するならまずbrew updateしてから、にしたほうが良さそう。</p>
+
+<pre><code class="language-console">$ brew doctor
+Warning: Your Homebrew is outdated.
+You haven't updated for at least 24 hours, this is a long time in brewland!
+To update Homebrew, run `brew update`.
+</code></pre>
+
+<p>update。</p>
+
+<pre><code class="language-console">$ brew update
+Updated Homebrew from 17eceb1a to 8510ebcd.
+==&gt; New Formulae
+aces_container		   libltc	
+（略）
+</code></pre>
+
+<h2 id="pathの変更">PATHの変更</h2>
+
+<p>せっかくbrewでソフトウェアをインストールするなら、それを使ってくれるようPATHを修正する。<br />
+profileに以下の一行を加える。</p>
+
+<pre><code class="language-console">$ vi ~/.bash_profile
+
+export PATH=/usr/local/bin:$PATH
+</code></pre>
+
+<p>試してみよう<br />
+ドット「 . 」に続けてprofileを指定すれば読み込んでくれる。<br />
+そのあとにPATHの中身を確認。</p>
+
+<pre><code class="language-console">$ . ~/.bash_profile
+$
+$ echo $PATH
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+</code></pre>
+
+<p>/usr/local/binが二回続けて出てくるけど、まあよしとする。</p>
+
+<h2 id="使い方">使い方</h2>
+
+<p>使い方は以下のとおり。<br />
+まあ、一般的ですよね。</p>
+
+<p><code>console
+brew [info | home | options ] [FORMULA...]
+  brew install FORMULA...
+  brew uninstall FORMULA...
+  brew search [foo]
+  brew list [FORMULA...]
+  brew update
+  brew upgrade [FORMULA...]
+  brew pin/unpin [FORMULA...]</code></p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/homebrew" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">homebrew</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/osx" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">OSX</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/ruby" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Ruby</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2014-05-11-freebsd%E3%81%ABredmine%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%8F%96%E3%82%8A%E3%81%82%E3%81%88%E3%81%9A%E7%AB%8B%E3%81%A1%E4%B8%8A%E3%81%92%E3%82%8B%E3%81%A8%E3%81%93%E3%81%BE%E3%81%A7/">FreeBSDにredmineのインストール（取りあえず立ち上げるとこまで）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

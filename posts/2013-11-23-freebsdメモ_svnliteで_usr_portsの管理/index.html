@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD][メモ] svnliteで/usr/portsの管理</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD][メモ] svnliteで/usr/portsの管理" />
+<meta property="og:description" content="/usr/portsをportsnapではなく、svnliteで管理してみた。 一般ユーザとしては、portsnapの管理が望ましいのだが、s" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-11-23-freebsd%E3%83%A1%E3%83%A2_svnlite%E3%81%A7_usr_ports%E3%81%AE%E7%AE%A1%E7%90%86/" />
+<meta property="article:published_time" content="2013-11-23T22:59:36&#43;09:00"/>
+<meta property="article:modified_time" content="2013-11-23T22:59:36&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD][メモ] svnliteで/usr/portsの管理">
+<meta itemprop="description" content="/usr/portsをportsnapではなく、svnliteで管理してみた。 一般ユーザとしては、portsnapの管理が望ましいのだが、s">
+
+
+<meta itemprop="datePublished" content="2013-11-23T22:59:36&#43;09:00" />
+<meta itemprop="dateModified" content="2013-11-23T22:59:36&#43;09:00" />
+<meta itemprop="wordCount" content="644">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD][メモ] svnliteで/usr/portsの管理"/>
+<meta name="twitter:description" content="/usr/portsをportsnapではなく、svnliteで管理してみた。 一般ユーザとしては、portsnapの管理が望ましいのだが、s"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD][メモ] svnliteで/usr/portsの管理</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-11-23T22:59:36&#43;09:00">November 23, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>/usr/portsをportsnapではなく、svnliteで管理してみた。<br />
+一般ユーザとしては、portsnapの管理が望ましいのだが、svnだとportsの個別更新が出来たりする。<br />
+このためだけにsvnlite管理にした。<br />
+<a href="http://www.freebsd.org/doc/ja/books/handbook/svn.html" target="_blank">Handbook</a>どおりにしただけ。</p>
+
+<p>以下のようなマシンで実施。</p>
+
+<pre><code class="language-console">$ uname -a
+FreeBSD vostro 10.0-BETA3 FreeBSD 10.0-BETA3 #0 r257580: Sun Nov  3 19:43:01 UTC 2013     root@snap.freebsd.org:/usr/obj/usr/src/sys/GENERIC  amd64
+$ which svnlite
+/usr/bin/svnlite
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-ミラーサイトを選ぶ-span"><span style="text-decoration: underline;">ミラーサイトを選ぶ</span></h2>
+
+<p>以下のページでミラーサイトを選ぶ。<br />
+<a href="http://web.archive.org/web/20131003105241/http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html" target="_blank"><a href="http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html">http://www.freebsd.org/doc/ja/books/handbook/svn-mirrors.html</a></a></p>
+
+<p>日本からならsvn0.us-west.FreeBSD.orgでしょうなあ。<br />
+このとき、SSLフィンガープリントも見ておくこと。<br />
+2013/11/12現在、us-westミラーのフィンガープリントは以下の通り</p>
+
+<pre><code class="language-console">SHASHA1 1C:BD:85:95:11:9F:EB:75:A5:4B:C8:A3:FE:08:E4:02:73:06:1E:61
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-初回チェックアウト-span"><span style="text-decoration: underline;">初回チェックアウト</span></h2>
+
+<p>/usr/portsの中身が何もないことを確認してからsvnlite checkout。<br />
+SSLフィンガープリントが表示されて、これでよいか訊かれる。<br />
+handbookの値と同じなので大丈夫ですな。</p>
+
+<pre><code class="language-console">$ sudo svnlite checkout https://svn0.us-west.FreeBSD.org/ports/head /usr/ports
+Password:
+Error validating server certificate for 'https://svn0.us-west.freebsd.org:443':
+ - The certificate is not issued by a trusted authority. Use the
+   fingerprint to validate the certificate manually!
+ - The certificate hostname does not match.
+Certificate information:
+ - Hostname: svnmir.ysv.FreeBSD.org
+ - Valid: from Jul 29 22:01:21 2013 GMT until Dec 13 22:01:21 2040 GMT
+ - Issuer: clusteradm, FreeBSD.org, (null), CA, US (clusteradm@FreeBSD.org)
+ - Fingerprint: 1C:BD:85:95:11:9F:EB:75:A5:4B:C8:A3:FE:08:E4:02:73:06:1E:61
+(R)eject, accept (t)emporarily or accept (p)ermanently? p
+
+&lt;snip&gt;
+
+A    /usr/ports/net-p2p/eiskaltdcpp-daemon/Makefile
+A    /usr/ports/net-p2p/tribler/pkg-plist
+A    /usr/ports/net-p2p/eiskaltdcpp-daemon/files/patch-nasdc__CMakeLists.txt
+ U   /usr/ports
+Checked out revision 333566.
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-二回目以降のcheckout-span"><span style="text-decoration: underline;">二回目以降のcheckout</span></h2>
+
+<p>svnlite update /usr/portsとすればよい。</p>
+
+<pre><code class="language-console">$ sudo svnlite update /usr/ports
+Updating '/usr/ports':
+&lt;snip&gt;
+U    /usr/ports/UPDATING
+Updated to revision 333571.
+</code></pre>
+
+<p>リビジョンが上がってますな。</p>
+
+<h2 id="span-style-text-decoration-underline-portsの個別checkout-span"><span style="text-decoration: underline;">portsの個別checkout</span></h2>
+
+<p>portsの個別checkoutができる。<br />
+つまり、/usr/ports全部をアップデートするのではなくて、特定のportsだけ更新する。</p>
+
+<pre><code class="language-console">$ sudo svnlite update /usr/ports/math/sage
+Updating '/usr/ports/math/sage':
+At revision 333571.
+</code></pre>
+
+<p>以上</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

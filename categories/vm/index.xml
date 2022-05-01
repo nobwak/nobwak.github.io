@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vm on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/categories/vm/</link>
+    <description>Recent content in Vm on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Tue, 22 Sep 2015 11:53:28 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/categories/vm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[メモ][Vagrant] FreeBSDのboxを作る。</title>
+      <link>https://nobwak.github.io/posts/2015-09-22-%E3%83%A1%E3%83%A2vagrant_freebsd%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <pubDate>Tue, 22 Sep 2015 11:53:28 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-09-22-%E3%83%A1%E3%83%A2vagrant_freebsd%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <description>インストール時設定 容量節約のためにgame, srcはインストールしない。 rootのパスワードはvagrantに。 ユーザvagrantを追加、</description>
+    </item>
+    
+    <item>
+      <title>[メモ][Vagrant] Ubuntuのboxを作る</title>
+      <link>https://nobwak.github.io/posts/2015-09-18-%E3%83%A1%E3%83%A2vagrant_ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <pubDate>Fri, 18 Sep 2015 23:07:12 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-09-18-%E3%83%A1%E3%83%A2vagrant_ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <description>Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でU</description>
+    </item>
+    
+    <item>
+      <title>[メモ][Windows] VirtualBoxの仮想マシンからvagrantのboxを作る</title>
+      <link>https://nobwak.github.io/posts/2015-09-17-%E3%83%A1%E3%83%A2windows_virtualbox%E3%81%AE%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%8B%E3%82%89vagrant%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <pubDate>Thu, 17 Sep 2015 23:40:11 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-09-17-%E3%83%A1%E3%83%A2windows_virtualbox%E3%81%AE%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%8B%E3%82%89vagrant%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <description>VirtualBox上の仮想マシンをvagrantのboxにする方法はありきたりだが、たいていはLinux、OS Xでの話で、Windowsで</description>
+    </item>
+    
+    <item>
+      <title>[memo] VirtualBoxのNATでホストからゲストへの接続を許可（ポートフォワーディング）</title>
+      <link>https://nobwak.github.io/posts/2015-09-03-memo_virtualbox%E3%81%AEnat%E3%81%A7%E3%83%9B%E3%82%B9%E3%83%88%E3%81%8B%E3%82%89%E3%82%B2%E3%82%B9%E3%83%88%E3%81%B8%E3%81%AE%E6%8E%A5%E7%B6%9A%E3%82%92%E8%A8%B1%E5%8F%AF%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AF%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0/</link>
+      <pubDate>Thu, 03 Sep 2015 22:43:24 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-09-03-memo_virtualbox%E3%81%AEnat%E3%81%A7%E3%83%9B%E3%82%B9%E3%83%88%E3%81%8B%E3%82%89%E3%82%B2%E3%82%B9%E3%83%88%E3%81%B8%E3%81%AE%E6%8E%A5%E7%B6%9A%E3%82%92%E8%A8%B1%E5%8F%AF%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AF%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0/</guid>
+      <description>ほんとにメモ。 VirtualBoxで; ゲストをホスト外へ露出させず、一方で ゲストから外部へのアクセスを許可し、なおかつ ホストからゲストへのs</description>
+    </item>
+    
+    <item>
+      <title>[VM] VMWareのイメージをVirtualBoxで読み込むには（OVF経由での読み込み）</title>
+      <link>https://nobwak.github.io/posts/2013-08-18-vm_vmware%E3%81%AE%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%82%92virtualbox%E3%81%A7%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%82%80%E3%81%AB%E3%81%AFovf%E7%B5%8C%E7%94%B1%E3%81%A7%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF/</link>
+      <pubDate>Sun, 18 Aug 2013 07:29:49 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-08-18-vm_vmware%E3%81%AE%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%82%92virtualbox%E3%81%A7%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%82%80%E3%81%AB%E3%81%AFovf%E7%B5%8C%E7%94%B1%E3%81%A7%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF/</guid>
+      <description>VMware Playerにはsnapshot機能がない。 仮想マシンを使う目的の一つは、本番マシンではできない、いろいろな実験をすることだ。 snapsh</description>
+    </item>
+    
+    <item>
+      <title>仮想マシンイメージの変換について</title>
+      <link>https://nobwak.github.io/posts/2013-08-04-%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%A4%89%E6%8F%9B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Sun, 04 Aug 2013 19:13:14 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-08-04-%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%81%AE%E5%A4%89%E6%8F%9B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>VMWare PlayerのイメージをESXi用に変換するには VMWareが提供しているコンバータを使う。 以下、まとめ。 なお、動機としては、「手元のVM</description>
+    </item>
+    
+    <item>
+      <title>VMWare vSphere5.0(ESXi5.0)インストーラをUSBメモリ「から」起動するには</title>
+      <link>https://nobwak.github.io/posts/2013-06-06-vmware_vsphere5.0esxi5.0%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%A9%E3%82%92usb%E3%83%A1%E3%83%A2%E3%83%AA%E3%81%8B%E3%82%89%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</link>
+      <pubDate>Thu, 06 Jun 2013 23:29:28 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2013-06-06-vmware_vsphere5.0esxi5.0%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%A9%E3%82%92usb%E3%83%A1%E3%83%A2%E3%83%AA%E3%81%8B%E3%82%89%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/</guid>
+      <description>VMWareのESXiは大変便利なのだが、インストーラをCDに書き込む必要のあるのが玉に瑕。 今更CD-R/DVD-Rなんて持ってないよ。 US</description>
+    </item>
+    
+  </channel>
+</rss>

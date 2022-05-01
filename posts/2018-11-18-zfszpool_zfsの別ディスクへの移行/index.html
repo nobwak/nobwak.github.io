@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [zfs][zpool] zfsの別ディスクへの移行</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[zfs][zpool] zfsの別ディスクへの移行" />
+<meta property="og:description" content="zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずsc" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2018-11-18-zfszpool_zfs%E3%81%AE%E5%88%A5%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/" />
+<meta property="article:published_time" content="2018-11-18T11:58:47&#43;09:00"/>
+<meta property="article:modified_time" content="2018-11-18T11:58:47&#43;09:00"/>
+
+<meta itemprop="name" content="[zfs][zpool] zfsの別ディスクへの移行">
+<meta itemprop="description" content="zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずsc">
+
+
+<meta itemprop="datePublished" content="2018-11-18T11:58:47&#43;09:00" />
+<meta itemprop="dateModified" content="2018-11-18T11:58:47&#43;09:00" />
+<meta itemprop="wordCount" content="2155">
+
+
+
+<meta itemprop="keywords" content="FreeBSD,zfs,zpool," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[zfs][zpool] zfsの別ディスクへの移行"/>
+<meta name="twitter:description" content="zpoolを容量の多い別HDDに移したのでメモ。 一度、同じようなことはやっているが、時間も経っているので。 最初に書いておくが移行元でまずsc"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[zfs][zpool] zfsの別ディスクへの移行</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-11-18T11:58:47&#43;09:00">November 18, 2018</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>zpoolを容量の多い別HDDに移したのでメモ。<br />
+一度、同じようなことはやっているが、時間も経っているので。<br />
+最初に書いておくが移行元でまずscrubしておくこと。</p>
+
+<p>流れとしては以下の通り。</p>
+
+<ol>
+<li>移行元HDD
+
+<ol>
+<li>scrubしておく</li>
+<li>snapshot</li>
+</ol></li>
+<li>移行先HDD
+
+<ol>
+<li>GPTでzfsのパーティションを作成</li>
+<li>zpool作成</li>
+</ol></li>
+<li>zfs send, recvで丸々コピー</li>
+</ol>
+
+<p>以下、実作業に触れる前に補足。</p>
+
+<h3 id="方針についての補足">方針についての補足</h3>
+
+<h4 id="なぜmirrorにしないのか">なぜmirrorにしないのか</h4>
+
+<p>上記の方法のほかには、追加のディスクをmirrorとしてzpoolに追加し、resilveringが終わったら旧ディスクを外してexpandという手がある。<br />
+が、その手は採らない。<br />
+実は、zpool statusをする都度、以下のメッセージが表示されていた。<br />
+旧ディスクは512Bセクタになっていると文句を言っているのである。<br />
+ディスクを交換するか、新Poolに移せ、と。</p>
+
+<pre><code class="language-console"> pool: vault  
+state: ONLINE  
+status: One or more devices are configured to use a non-native block size.  
+Expect reduced performance.  
+action: Replace affected devices with devices that support the  
+configured block size, or migrate data to a properly configured  
+pool.  
+scan: scrub repaired 0 in 8h3m with 0 errors on Sun Nov 4 04:16:39 2018  
+config:
+
+NAME STATE READ WRITE CKSUM  
+vault ONLINE 0 0 0  
+ada1 ONLINE 0 0 0 block size: 512B configured, 4096B native  
+</code></pre>
+
+<p>512Bセクタのpoolにmirrorを追加したら、やっぱり512Bになるんではと心配になったので、mirrorではなく新規ディスクの新規Poolに移す。</p>
+
+<h4 id="なぜディスクをまるっと使わずgptでパーティションを切るのか">なぜディスクをまるっと使わずgptでパーティションを切るのか</h4>
+
+<p>zpoolは、わざわざgptパーティションにしなくても、ディスクをまるっと使ってzpoolに指定できる。<br />
+できるのだが、/dev/ada2なんて名前よりも、gptラベルでpoolを作成したいのである。<br />
+これの有利な点は、例えば当該ディスクの物理的な位置で名前を付けることができる点である。<br />
+具体的には、slot_1とか名前を付けておくと、ディスク交換の時に楽。<br />
+幸いにもFreeBSDにおいては、gptパーティションを切ってもディスクをそのまま使っても、いずれもパフォーマンスに違いはない。<br />
+それならgptにしましょう。</p>
+
+<p><a href="https://www.freebsd.org/doc/handbook/zfs-zpool.html" target="_blank" rel="noopener"><a href="https://www.freebsd.org/doc/handbook/zfs-zpool.html">https://www.freebsd.org/doc/handbook/zfs-zpool.html</a></a><br />
+There is no performance penalty on FreeBSD when using a partition rather than a whole disk.<br />
+(2018/11/09)</p>
+
+<p>ではさっそく作業を。</p>
+
+<h3 id="実作業-移行元ディスクの準備">実作業（移行元ディスクの準備）</h3>
+
+<h4 id="scrubをしておく">scrubをしておく。</h4>
+
+<p>zpool scrub で。<br />
+かなり時間がかかるので覚悟しておくように。<br />
+なおscrubは最低3か月に一回が推奨<br />
+<a href="https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub" target="_blank" rel="noopener"><a href="https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub">https://www.freebsd.org/doc/handbook/zfs-term.html#zfs-term-scrub</a></a><br />
+recommended at least once every three months</p>
+
+<h4 id="作業直前にsnapshot">作業直前にsnapshot。</h4>
+
+<p>pool内に複数のディレクトリがある場合、最上階層でsnapshot -r（recursive）すればよい。<br />
+たとえばvaultというpoolにchamber, itunesがある場合に;</p>
+
+<pre><code class="language-console">vault  
+vault/chamber  
+vault/chamber@20170503  
+vault/itunes  
+vault/itunes@20170503
+</code></pre>
+
+<p>※zfs list -t allの出力を一部削除したもの</p>
+
+<p>zfs snapshot vault@20181109とすれば;</p>
+
+<pre><code class="language-console">vault  
+vault@20181109  
+vault/chamber  
+vault/chamber@20180503  
+vault/chamber@20181109  
+vault/itunes  
+vault/itunes@20180503  
+vault/itunes@20181109
+</code></pre>
+
+<p>※zfs list -t allの出力を一部削除したもの</p>
+
+<p>となる。いちいち各ディレクトリ配下でコマンドを叩かなくてよい。</p>
+
+<h3 id="移行先作業">移行先作業</h3>
+
+<h4 id="gptパーティションの作成">GPTパーティションの作成</h4>
+
+<p>以下のようなディスク</p>
+
+<pre><code class="language-console">ada3 at ahcich3 bus 0 scbus3 target 0 lun 0  
+ada3: ACS-3 ATA SATA 3.x device  
+ada3: Serial Number WD-WCC7K3PU64NE  
+ada3: 300.000MB/s transfers (SATA 2.x, UDMA6, PIO 8192bytes)  
+ada3: Command Queueing enabled  
+ada3: 3815447MB (7814037168 512 byte sectors)
+</code></pre>
+
+<p>GPTスキームをcreateし、全領域をfreebsd-zfsに割り当てる。<br />
+このとき、-lオプションでラベルを付ける。<br />
+同じくgpart showに-lオプションを付ければ名前を確認できる。</p>
+
+<pre><code class="language-console"># gpart create -s GPT ada3  
+ada3 created  
+# gpart add -l slot_4 -t freebsd-zfs /dev/ada3  
+ada3p1 added  
+$ gpart show ada3  
+40 7814037088 ada3 GPT (3.6T)  
+40 7814037088 1 freebsd-zfs (3.6T)
+
+$ gpart show -l /dev/ada3  
+40 7814037088 ada3 GPT (3.6T)  
+40 7814037088 1 slot_4 (3.6T)
+</code></pre>
+
+<h4 id="zpoolの作成">zpoolの作成</h4>
+
+<p>/dev/ada3ではなくGPTラベルで指定する。<br />
+GPTラベルで指定するときは、gpt/＜GPTラベル＞というように指定する。</p>
+
+<pre><code class="language-console"># zpool create warehouse gpt/slot_4  
+# zpool status warehouse  
+pool: warehouse  
+state: ONLINE  
+scan: none requested  
+config:  
+NAME STATE READ WRITE CKSUM  
+warehouse ONLINE 0 0 0  
+gpt/slot_4 ONLINE 0 0 0
+</code></pre>
+
+<h4 id="プロパティの変更">プロパティの変更</h4>
+
+<p>zfsを作成する前に。<br />
+圧縮モードをlz4にする。lz4は<a href="../../../2013/02/%e3%82%a2%e3%83%bc%e3%82%ab%e3%82%a4%e3%83%90lz4%e3%82%92%e8%a9%a6%e3%81%97%e3%81%a6%e3%81%bf%e3%81%9f%e3%82%89%ef%bc%88%e5%9c%a7%e7%b8%ae%e3%81%af%ef%bc%89%e9%80%9f%e3%81%99%e3%81%8e%e7%ac%91/" target="_blank" rel="noopener">CPU負荷の割には非常に効率が良い</a>ので積極的に有効にしたい。<br />
+また、atime（アクセスタイムの記録）もoffに。これがonだと差分snapshotが失敗するから、というのが一つと、これをoffにするとパフォーマンスが上がる（can result in significant performance gains）から。<br />
+zfs get &lt;プロパティ名&gt; で現在の値を取得。<br />
+zfs set &lt;プロパティ名&gt;=&lt;値&gt; で値のセット。<br />
+圧縮モードのプロパティ名はcompression、atimeはatime。</p>
+
+<pre><code class="language-console">$ zfs get compression warehouse  
+NAME PROPERTY VALUE SOURCE  
+warehouse compression off default  
+$ zfs get atime warehouse  
+NAME PROPERTY VALUE SOURCE  
+warehouse atime on default
+
+# zfs set compression=lz4 warehouse  
+# zfs set atime=off warehouse  
+$ zfs get compression warehouse  
+NAME PROPERTY VALUE SOURCE  
+warehouse compression lz4 local  
+$ zfs get atime warehouse  
+NAME PROPERTY VALUE SOURCE  
+warehouse atime off local
+</code></pre>
+
+<h4 id="ディレクトリの用意とsend-recv">ディレクトリの用意とsend/recv</h4>
+
+<pre><code class="language-console"># zfs create warehouse/itunes  
+# zfs create warehouse/chamber  
+</code></pre>
+
+<p>このとき、勝手にマウントされないようにすべきだった。-uを付ければよかったかな。<br />
+いずれにせよzfs set mountpointで後から変えられる。</p>
+
+<p>sendに-Rを付けると、子孫やスナップショットもまとめてsendされる。</p>
+
+<pre><code class="language-console"># zfs send -R vault/chamber@20181109 | zfs receive warehouse/chamber  
+# zfs send -R vault/itunes@20181109 | zfs receive warehouse/itunes  
+</code></pre>
+
+<p>かかった時間、容量は以下の通り。うーむ。ちょっとかかったかな。</p>
+
+<pre><code class="language-console"> 991GiB 3:09:00 [89.5MiB/s]  
+1.10TiB 3:58:24 [80.3MiB/s]  
+</code></pre>
+
+<p>このとき適当にhtopを叩いた結果。CPU負荷はそんなんでもないので、ボトルネックは別のところにあるように思われる。</p>
+
+<pre><code class="language-console">1 [||||||||||||||||||||| 47.6%] Tasks: 43, 0 thr; 2 running  
+2 [||||||||||||||||| 37.7%] Load average: 0.91 1.77 1.86  
+Mem[||||||||||||||||||||||||||||||||642M/1.84G] Uptime: 12:03:30  
+Swp[||||||||| 176M/907M]  
+</code></pre>
+
+<p>なおCPUはAMDのTurionである。</p>
+
+<p>compression=lz4の結果は.<br />
+プロパティused（HDD上の容量）とlogicalused（圧縮前容量）で調べられる。</p>
+
+<pre><code class="language-console">warehouse used 2.00T -  
+warehouse logicalused 2.02T -  
+
+</code></pre>
+
+<p>本来なら2.02Tのところ、2.00Tで済んでる。</p>
+
+<p>これで引っ越し完了。</p>
+
+<p>以上</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/freebsd" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">FreeBSD</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/zfs" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">zfs</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/zpool" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">zpool</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3"></p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/2015-01-02-freebsd_%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E3%81%AB%E3%81%AFzpoolzfs%E3%81%AE%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E3%82%82%E5%BF%98%E3%82%8C%E3%81%9A%E3%81%ABne/">[FreeBSD] システムアップグレード時にはzpool(ZFS)のアップグレードも忘れずにNE！</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-28-zfs_snapshot%E3%81%AE%E5%B7%AE%E5%88%86send_recv%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">zfs snapshotの差分send/recvについて</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2014-01-05-%E3%83%A1%E3%83%A2zpool%E3%81%AEversion%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6version%E3%83%8A%E3%83%B3%E3%83%90%E3%81%AF%E3%82%82%E3%81%86%E4%BD%BF%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84/">[メモ]zpoolのVersionについて（Versionナンバはもう使われない）</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2013-12-10-%E3%83%A1%E3%83%A2_%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%A6zfs%E3%82%92%E4%BD%9C%E3%82%8A%E4%BB%96zpool%E3%81%AEsnapshot%E3%82%92%E9%80%81%E3%82%8A%E8%BE%BC%E3%82%80/">[メモ] ディスクを追加してZFSを作り、他zpoolのsnapshotを送り込む</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-08-08-%E3%83%A1%E3%83%A2freebsd_%E8%A4%87%E6%95%B0jail%E3%81%AEpkg_upgrade%E3%82%92%E4%B8%80%E6%B0%97%E3%81%AB%E6%B8%88%E3%81%BE%E3%81%9B%E3%81%9F%E3%81%84/">[メモ][FreeBSD] 複数Jailのpkg upgradeを一気に済ませたい</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2016-04-16-slackhubotjail%E3%83%A1%E3%83%A2_freebsd_jail%E3%81%A7hubot%E3%82%92%E9%A3%BC%E3%81%86/">[slack][hubot][jail][メモ] FreeBSD Jailでhubotを飼う</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-09-25-sh_%E3%82%AA%E3%83%AC%E3%82%AA%E3%83%AC%E8%A8%BC%E6%98%8E%E6%9B%B8%E4%BD%9C%E6%88%90%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/">[sh] オレオレ証明書作成シェルスクリプト</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-09-22-%E3%83%A1%E3%83%A2vagrant_freebsd%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/">[メモ][Vagrant] FreeBSDのboxを作る。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-28-freebsd_jail%E3%81%AEetc%E3%82%92%E6%9B%B4%E6%96%B0%E3%81%99%E3%82%8Bqjail/">[FreeBSD] jailのetcを更新する(qjail)</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-27-freebsd%E3%83%A1%E3%83%A2_plexconnect%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%83%85%E5%A0%B1/">[FreeBSD][メモ] PlexConnectに関する情報</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-26-freebsd_pkg_quarterly%E3%81%A8latest%E3%83%AC%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E5%85%B1%E5%AD%98/">[FreeBSD] pkg quarterlyとlatestレポジトリの共存</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-25-%E3%83%A1%E3%83%A2_%E5%86%99%E7%9C%9F%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%93%E3%83%87%E3%82%AA%E7%AD%89%E3%82%92%E3%81%9F%E3%82%81%E8%BE%BC%E3%82%93%E3%81%A0freebsd%E3%83%9B%E3%82%B9%E3%83%88%E3%81%AEjail%E3%81%ABplex_media_server%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">[メモ] 写真、ホームビデオ等をため込んだFreeBSDホストのjailにPlex Media Serverをインストール</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-08-05-freebsd_10.2-release%E3%81%8B%E3%82%89%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%82%8Bpkg_quarterly%E3%81%A6%E3%81%AA%E3%82%93%E3%81%A0/">[FreeBSD] 10.2-RELEASEから適用されるpkg quarterlyてなんだ。</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-05-09-freebsd%E3%83%A1%E3%83%A2_aclaccess_control_lists%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B/">[FreeBSD][メモ] ACL（Access Control Lists）を有効にする</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/2015-05-07-freebsd_samba_3.x%E3%81%8B%E3%82%89samba_4.x%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/">[FreeBSD] Samba 3.xからSamba 4.xへの移行</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

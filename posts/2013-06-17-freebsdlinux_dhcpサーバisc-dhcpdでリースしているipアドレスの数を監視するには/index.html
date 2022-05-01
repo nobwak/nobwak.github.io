@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | [FreeBSD][Linux] DHCPサーバ(isc-dhcpd)でリースしているIPアドレスの数を監視するには</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="[FreeBSD][Linux] DHCPサーバ(isc-dhcpd)でリースしているIPアドレスの数を監視するには" />
+<meta property="og:description" content="DHCPサーバのIPアドレス数を監視したい。 具体的には、リースしているIPアドレス数と、空いているIPアドレス数のそれぞれである。 基になるデ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-06-17-freebsdlinux_dhcp%E3%82%B5%E3%83%BC%E3%83%90isc-dhcpd%E3%81%A7%E3%83%AA%E3%83%BC%E3%82%B9%E3%81%97%E3%81%A6%E3%81%84%E3%82%8Bip%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%AE%E6%95%B0%E3%82%92%E7%9B%A3%E8%A6%96%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2013-06-17T23:10:32&#43;09:00"/>
+<meta property="article:modified_time" content="2013-06-17T23:10:32&#43;09:00"/>
+
+<meta itemprop="name" content="[FreeBSD][Linux] DHCPサーバ(isc-dhcpd)でリースしているIPアドレスの数を監視するには">
+<meta itemprop="description" content="DHCPサーバのIPアドレス数を監視したい。 具体的には、リースしているIPアドレス数と、空いているIPアドレス数のそれぞれである。 基になるデ">
+
+
+<meta itemprop="datePublished" content="2013-06-17T23:10:32&#43;09:00" />
+<meta itemprop="dateModified" content="2013-06-17T23:10:32&#43;09:00" />
+<meta itemprop="wordCount" content="1222">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[FreeBSD][Linux] DHCPサーバ(isc-dhcpd)でリースしているIPアドレスの数を監視するには"/>
+<meta name="twitter:description" content="DHCPサーバのIPアドレス数を監視したい。 具体的には、リースしているIPアドレス数と、空いているIPアドレス数のそれぞれである。 基になるデ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">[FreeBSD][Linux] DHCPサーバ(isc-dhcpd)でリースしているIPアドレスの数を監視するには</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-06-17T23:10:32&#43;09:00">June 17, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>DHCPサーバのIPアドレス数を監視したい。</p>
+
+<p>具体的には、リースしているIPアドレス数と、空いているIPアドレス数のそれぞれである。</p>
+
+<p>基になるデータはdhcpd.leasesにあるのだが、そのままでは使えない。<br />
+<a href="http://linuxjm.sourceforge.jp/html/dhcp2/man5/dhcpd.leases.5.html" target="_blank">man</a>など読めば分かるのだが、ここにはIPアドレスの貸与、更新、破棄が末尾にだらだらと追記されていくので、同じクライアントが複数回出てきたりする。<br />
+だからリースされたもの、空いているものを数えようとすると意外に手間取るのである。</p>
+
+<p>同じ悩みを持つ方はいるようで、少し検索すると、こういったIPアドレス数を数えるスクリプトはいくつか見つかる。<br />
+調べてみた結果を記す。</p>
+
+<p>なお先に結論を言っておくと、どこかの誰かが作ってくれたawkスクリプトを使用することにした。</p>
+
+<h3 id="span-style-text-decoration-underline-いくつかのスクリプト-span"><span style="text-decoration: underline;">いくつかのスクリプト</span></h3>
+
+<p>いずれも判で押したようにperlスクリプトである。<br />
+繰り返すがここにあるものは使っていない。</p>
+
+<ul>
+<li>DHCPstatus <a href="http://dhcpstatus.sourceforge.net/" target="_blank"><a href="http://dhcpstatus.sourceforge.net/">http://dhcpstatus.sourceforge.net/</a></a></li>
+<li>dhcp-leasecount <a href="http://www.net-track.ch/opensource/dhcp-leasecount/(死亡確認">http://www.net-track.ch/opensource/dhcp-leasecount/(死亡確認</a>)</li>
+<li>reportdhcp.pl <a href="http://www.omar.org/opensource/reportdhcp/" target="_blank"><a href="http://www.omar.org/opensource/reportdhcp/">http://www.omar.org/opensource/reportdhcp/</a></a></li>
+</ul>
+
+<h3 id="span-style-text-decoration-underline-dhcpstatus-span"><span style="text-decoration: underline;">DHCPstatus</span></h3>
+
+<p>面倒くさい。<br />
+サイトからファイルをダウンロードして展開するとこのように。</p>
+
+<p><code>$ ls&lt;br /&gt;
+INSTALL README libraries.tar dhcpstatus.ini&lt;br /&gt;
+LICENSE VERSION scripts</code></p>
+
+<p>ここにあるibraries.tarを展開すると、dhcpstatusというディレクトリが出来る。<br />
+それを/usr/local/にコピー。<br />
+つまり/usr/local/dhcpstatusというディレクトリが出来る。</p>
+
+<p>さらに、dhcpstatus.iniも/usr/local/dhcpstatusの下へコピー。<br />
+そしてdhcpstatus.iniを修正<br />
+dhcpdの設定ファイル、leaseファイルの場所を指定する。<br />
+複数のサブネットを運用しているのでなければ、show_whole_subnetを1に変更</p>
+
+<p><code># location of the .conf file.&lt;br /&gt;
+conf_file=/usr/local/etc/dhcpd.conf&lt;br /&gt;
+leases_file=/var/db/dhcpd/dhcpd.leases&lt;br /&gt;
+show_whole_subnet=1&lt;br /&gt;
+</code></p>
+
+<p>そして実行</p>
+
+<p><code>$ perl ./scripts/dhcpstatus&lt;br /&gt;
+Legacy library timelocal.pl will be removed from the Perl core distribution in the next major release. Please install it from the CPAN distribution Perl4::CoreLibs. It is being used at dhcpstatus/dhcpstatus.pm, line 26.&lt;br /&gt;
+DHCP Subnet Information</code><br />
+<code>Subnet: 192.168.100.0 Netmask: 255.255.255.0&lt;br /&gt;
+IP range: 192.168.10.101 - 192.168.10.199 Router: 192.168.10.254&lt;br /&gt;
+IPs defined: 99 IPs used: 21 IPs free: 78</code></p>
+
+<p>ベースにしているPerlが古すぎるので却下。</p>
+
+<h3 id="span-style-text-decoration-underline-dhcp-leasecount-span"><span style="text-decoration: underline;">DHCP leasecount</span></h3>
+
+<p>こんな感じ。</p>
+
+<p><code>$ ./dhcp-leasecount -l /var/db/dhcpd/dhcpd.leases 172.29.16.0-172.29.16.255&lt;br /&gt;
+defined(%hash) is deprecated at ./dhcp-leasecount line 100.&lt;br /&gt;
+(Maybe you should just omit the defined()?)&lt;br /&gt;
+defined(%hash) is deprecated at ./dhcp-leasecount line 102.&lt;br /&gt;
+(Maybe you should just omit the defined()?)&lt;br /&gt;
+defined(%hash) is deprecated at ./dhcp-leasecount line 104.&lt;br /&gt;
+(Maybe you should just omit the defined()?)&lt;br /&gt;
+Total available addresses: 256&lt;br /&gt;
+Active leases: 37 (14.5%)&lt;br /&gt;
+Expired leases: 75 (29.3%)&lt;br /&gt;
+Available addresses: 144 (56.2%)</code></p>
+
+<p>なんかこれも間もなく使えなくなりそうな予感。perlスクリプト修正するのやだし。</p>
+
+<h3 id="span-style-text-decoration-underline-report-dhcp-span"><span style="text-decoration: underline;">Report DHCP</span></h3>
+
+<p>出力がhtmlなのですぐにやる気をなくした。</p>
+
+<h3 id="span-style-text-decoration-underline-結局awkで-span"><span style="text-decoration: underline;">結局awkで。</span></h3>
+
+<p>こういうawkスクリプトを使うことにした。stackoverflow.comとかで見つけたと思う。<br />
+例えばgetDhcpStatus.shとして保存しておく。</p>
+
+<p><code>#!/bin/sh&lt;br /&gt;
+awk '/^lease / { curlease = $2; } /^ binding state/ { lstates[curlease] = $3; } END { for (curl in lstates) { tstates[lstates[curl]]++; } for (curs in tstates) { print curs, tstates[curs]; } }' /var/db/dhcpd/dhcpd.leases</code></p>
+
+<p>出力結果は例えば以下のように。</p>
+
+<p><code>active; 66&lt;br /&gt;
+free; 275</code></p>
+
+<p>うーん。minimalでよろしい。</p>
+
+<h3 id="span-style-text-decoration-underline-出力をmrtgに-span"><span style="text-decoration: underline;">出力をMRTGに。</span></h3>
+
+<p>でこれをMRTGに食わせる場合には、さらに以下のようなスクリプトを使ってMRTGから呼ぶ。<br />
+<code>#!/bin/sh</code></p>
+
+<p><code>~/bin/mrtg/getDhcpStatus.sh | cut -f2 -d&quot; &quot;|head -2&lt;br /&gt;
+uptime | awk '{print $3}' | sed &quot;s/,//&quot;&lt;br /&gt;
+echo &quot;leased, free IP addresses&quot;</code></p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

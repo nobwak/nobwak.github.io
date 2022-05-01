@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ezjailのflavoursを使ってみよう その2</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ezjailのflavoursを使ってみよう その2" />
+<meta property="og:description" content="前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-10-10-ezjail%E3%81%AEflavours%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86_%E3%81%9D%E3%81%AE2/" />
+<meta property="article:published_time" content="2013-10-10T20:43:49&#43;09:00"/>
+<meta property="article:modified_time" content="2013-10-10T20:43:49&#43;09:00"/>
+
+<meta itemprop="name" content="ezjailのflavoursを使ってみよう その2">
+<meta itemprop="description" content="前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の">
+
+
+<meta itemprop="datePublished" content="2013-10-10T20:43:49&#43;09:00" />
+<meta itemprop="dateModified" content="2013-10-10T20:43:49&#43;09:00" />
+<meta itemprop="wordCount" content="2183">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ezjailのflavoursを使ってみよう その2"/>
+<meta name="twitter:description" content="前回の続き 前提 以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。 「Jailホスト」はjail環境で動くホストを表す。子。 今回の"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ezjailのflavoursを使ってみよう その2</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-10-10T20:43:49&#43;09:00">October 10, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p><a href="../../../?p=2252">前回</a>の続き</p>
+
+<p>前提</p>
+
+<p>以下、「ホスト」とはjailを動かすおおもとのマシンを表す。親。<br />
+「Jailホスト」はjail環境で動くホストを表す。子。</p>
+
+<h2 id="span-style-text-decoration-underline-今回の範囲-span"><span style="text-decoration: underline;">今回の範囲</span></h2>
+
+<p>本記事では二つ目以降を扱う。<br />
+一つ目まではホストOSでの設定作業だったが、今回は実際にflavoursに設定を書き込むことになる。</p>
+
+<ol>
+<li>ホストで動かしたいサービス<br />
+→sshdのみ。</li>
+<li>Jailホストで動かしたいサービス<br />
+→apache, sshd</li>
+<li>Jailホストに追加するユーザ/グループ<br />
+→vanilla:vanilla</li>
+<li>Jailホストで使用するソフトウェア<br />
+→apache22, sudo, bash, portaudit, portmaster, tmux</li>
+</ol>
+
+<h2 id="span-style-text-decoration-underline-flavoursを作ってみる-span"><span style="text-decoration: underline;">flavoursを作ってみる</span></h2>
+
+<p>設定変更せずezjail-admin installしたなら、flavoursは/usr/jails/flavoursの下にある。<br />
+flavoursの下には、設定サンプルとしてexampleというディレクトリがある。</p>
+
+<p>example flavoursをコピーして、&rdquo;testsv&rdquo;というflavoursを作る。</p>
+
+<pre><code class="language-console">$ cd /usr/jails/flavours/
+$ ls
+example
+$ sudo cp -pR ./example ./testsv
+$ cd /usr/jails/flavours/
+$ ls
+example testsv
+$
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-flavourの中身-span"><span style="text-decoration: underline;">flavourの中身</span></h2>
+
+<p>testsvの下は以下のようなディレクトリ構成で、flavourとして使うファイルがあらかじめ格納される。<br />
+※以下、断りのない限り、./etc/rc.conf などと記載した場合には、ホストのではなく、flavourのファイルとする。</p>
+
+<pre><code class="language-console">./etc:
+make.conf
+periodic.conf
+rc.conf
+rc.d
+
+./etc/rc.d:
+ezjail.flavour.example
+
+./usr/local/etc:
+sudoers
+</code></pre>
+
+<p>このうち、ezjail.flavour.exampleはjailホスト初回起動時に実行されるスクリプト。<br />
+ユーザ追加やpkgの追加はここで行う。</p>
+
+<p>また、rc.confの中を見てみると、sendmailやrpcbindを停止する設定や、syslogdがsocketを掴まないようにする設定が最初から書かれている。</p>
+
+<pre><code class="language-console"># Pretuned by German Engineers
+
+# No network interfaces in jails
+network_interfaces=&quot;&quot;
+
+# Prevent rpc
+rpcbind_enable=&quot;NO&quot;
+
+# Prevent loads of jails doing their cron jobs at the same time
+cron_flags=&quot;$cron_flags -J 15&quot;
+
+# Prevent syslog to open sockets
+syslogd_flags=&quot;-ss&quot;
+
+# Prevent sendmail to try to connect to localhost
+sendmail_enable=&quot;NO&quot;
+sendmail_submit_enable=&quot;NO&quot;
+sendmail_outbound_enable=&quot;NO&quot;
+sendmail_msp_queue_enable=&quot;NO&quot;
+
+# Bring up sshd, it takes some time and uses some entropy on first startup
+# sshd_enable=&quot;YES&quot;
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-flavourの設定-span"><span style="text-decoration: underline;">flavourの設定</span></h2>
+
+<p>ではtest flavourの設定を始める。<br />
+必要に応じてrc.confなどの設定ファイルを書き換えるのと、ezjail.flavour.exampleに、jailホストの初期設定スクリプトを書き込んでいく。<br />
+設定ファイルの書き換えには、ホストのファイルを参考にするとよいでしょう。</p>
+
+<h2 id="span-style-text-decoration-underline-各種設定ファイルの書き換え-span"><span style="text-decoration: underline;">各種設定ファイルの書き換え</span></h2>
+
+<p>jailホストで動かしたいのはsshdとapache。<br />
+よって./etc/rc.confに以下二行を加えた。</p>
+
+<pre><code class="language-console">apache22_enable=&quot;YES&quot;
+sshd_enable=&quot;YES&quot;
+</code></pre>
+
+<p>また./usr/local/etc/sudoersに以下を追加。<br />
+ここはお好みで。</p>
+
+<pre><code class="language-console">Defaults env_keep += &quot;HTTP_PROXY FTP_PROXY&quot;
+Defaults env_keep += &quot;PKG_PATH PKG_DBDIR PKG_TMPDIR TMPDIR PACKAGEROOT PACKAGESITE PKGDIR FTP_PASSIVE_MODE&quot;
+Defaults env_keep += &quot;PORTSDIR PORTS_INDEX PORTS_DBDIR PACKAGES PKGTOOLS_CONF&quot;
+</code></pre>
+
+<p>apache22の設定は&hellip;、これはjailホストが起動してからでいいか。</p>
+
+<h2 id="span-style-text-decoration-underline-ezjail-flavour-exampleでのユーザ-グループ追加-span"><span style="text-decoration: underline;">ezjail.flavour.exampleでのユーザ/グループ追加</span></h2>
+
+<p>ユーザvanilla、グループvanillaを追加する。<br />
+uid, gidは10010にし、vanillaはwheelグループに加える。</p>
+
+<p>以下をezjail.flavour.exampleに追加<br />
+ユーザ追加スクリプトの詳細は<a href="../../../?p=2214">こちら</a>。</p>
+
+<p>なお、グループ追加を先にすること。<br />
+ユーザ追加のときにグループ指定をするから。</p>
+
+<pre><code class="language-console">pw groupadd -q -n vanilla -g 10010
+echo -n '$6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5ggew6RXLpl1eA72TpgX5pGDpr/.' |\
+pw useradd -n vanilla -u 10010 -s /bin/sh \
+-m -d /home/vanilla -G vanilla -c 'vanilla user' \
+-H 0
+pw usermod vanilla -G wheel
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-ezjail-flavour-exampleでのpkg追加-span"><span style="text-decoration: underline;">ezjail.flavour.exampleでのpkg追加</span></h2>
+
+<p>pkg_add -rで必要なpkgを並べる。<br />
+./pkgにpkgを置いておく方法もあるのだが、依存関係も考慮して必要なpkgを揃えるのは面倒。<br />
+portsの場合は、basejailにportsのディレクトリを作っておく必要がある。今回は触れない。</p>
+
+<p>以下のようにpkgを取得するサーバを指定してからpkg_add。<br />
+proxyが必要なら、それも。</p>
+
+<pre><code class="language-console">#HTTP_PROXY=&quot;http://proxyserver:80/&quot;; export HTTP_PROXY
+PACKAGEROOT=&quot;ftp://ftp2.jp.freebsd.org/&quot;; export PACKAGEROOT
+
+pkg_add -r apache22 sudo bash portaudit portmaster tmux
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-シェルの変更-span"><span style="text-decoration: underline;">シェルの変更</span></h2>
+
+<p>ユーザvanillaのシェルをbashに変えておくために以下を追加。</p>
+
+<pre><code class="language-console">chpass -s /usr/local/bin/bash vanilla
+</code></pre>
+
+<h2 id="span-style-text-decoration-underline-rootパスワードの変更-span"><span style="text-decoration: underline;">rootパスワードの変更</span></h2>
+
+<p>rootのパスワードも変える。<br />
+nologinにすると、あとあとezjail-admin consoleでrootログインすることができなくなる。</p>
+
+<pre><code class="language-console">echo -n '$6$SALTsalt$gH47I0mRGadJVVlIpeTxVlYw.SjkPOZ7lJoGkqOyhyeUJ7PV5QWuYpIG6D5
+ggew6RXLpl1eA72TpgX5pGDpr/.' |\
+pw mod user root \
+-H 0
+</code></pre>
+
+<p>これでflavoursの設定は終わり。</p>
+
+<h2 id="span-style-text-decoration-underline-flavourでjailホスト作成-span"><span style="text-decoration: underline;">flavourでjailホスト作成。</span></h2>
+
+<p>あとは簡単。<br />
+jailホストを作成するときに、-fでflavourを指定すればいいだけ。</p>
+
+<pre><code class="language-console">$ sudo ezjail-admin create -f testsv example01 'em0|192.168.200.1'
+/usr/jails/example01/.
+/usr/jails/example01/./dev
+/usr/jails/example01/./.cshrc
+（中略）
+/usr/jails/example01/./usr/local/etc/sudoers
+18 blocks
+$
+</code></pre>
+
+<p>起動。pkg_add -rのせいで少し時間がかかる。</p>
+
+<pre><code class="language-console">$ sudo ezjail-admin start example01
+Configuring jails:.
+Starting jails: example01.
+$
+</code></pre>
+
+<p>consoleに入ってみると、ユーザvanillaやpkgの追加がなされていることが確認できる。<br />
+同時にsshdも起動している。<br />
+apacheは設定も何もしていないので動いてないけど。</p>
+
+<pre><code class="language-console">$ sudo ezjail-admin console example01
+
+（中略）
+
+root@example01:~ # finger vanilla
+Login: vanilla Name: vanilla user
+Directory: /home/vanilla Shell: /usr/local/bin/bash
+No Mail.
+No Plan.
+
+root@example01:~ # pkg_info
+apache22-2.2.25 Version 2.2.x of Apache web server with prefork MPM.
+apr-1.4.8.1.5.2 Apache Portability Library
+bash-4.2.45 The GNU Project's Bourne Again SHell
+db42-4.2.52_5 The Berkeley DB package, revision 4.2
+expat-2.1.0 XML 1.0 parser written in C
+gdbm-1.10 GNU database manager
+gettext-0.18.3 GNU gettext package
+libevent-1.4.14b_2 Provides an API to execute callback functions on certain ev
+libiconv-1.14_1 A character set conversion library
+pcre-8.33 Perl Compatible Regular Expressions library
+perl-5.14.4 Practical Extraction and Report Language
+portaudit-0.6.1 Checks installed ports against a list of security vulnerabi
+portmaster-3.17.1 Manage your ports without external databases or languages
+sudo-1.8.7_1 Allow others to run commands as root
+tmux-1.8_1 A Terminal Multiplexer
+root@example01:~ # service sshd status
+sshd is running as pid 2945.
+root@example01:~ #
+</code></pre>
+
+<p>あとは、testsvをさらにコピーし、インストールするpkgを変えればどんどん使い回せる。<br />
+もちろん、その時はユーザやパスワードも変えよう。<br />
+セキュリティのためにjail使ってるのに、同じユーザ同じパスワードだったら全く意味がないし。</p>
+
+<p>以上、flavoursの作り方。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

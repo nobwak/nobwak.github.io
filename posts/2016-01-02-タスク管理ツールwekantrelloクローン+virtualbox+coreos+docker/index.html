@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | タスク管理ツールWekan（Trelloクローン）&#43;VirtualBox&#43;CoreOS&#43;docker</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="タスク管理ツールWekan（Trelloクローン）&#43;VirtualBox&#43;CoreOS&#43;docker" />
+<meta property="og:description" content="WekanとはTrelloクローン。 鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2016-01-02-%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%83%84%E3%83%BC%E3%83%ABwekantrello%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3&#43;virtualbox&#43;coreos&#43;docker/" />
+<meta property="article:published_time" content="2016-01-02T00:52:11&#43;09:00"/>
+<meta property="article:modified_time" content="2016-01-02T00:52:11&#43;09:00"/>
+
+<meta itemprop="name" content="タスク管理ツールWekan（Trelloクローン）&#43;VirtualBox&#43;CoreOS&#43;docker">
+<meta itemprop="description" content="WekanとはTrelloクローン。 鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サ">
+
+
+<meta itemprop="datePublished" content="2016-01-02T00:52:11&#43;09:00" />
+<meta itemprop="dateModified" content="2016-01-02T00:52:11&#43;09:00" />
+<meta itemprop="wordCount" content="1730">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="タスク管理ツールWekan（Trelloクローン）&#43;VirtualBox&#43;CoreOS&#43;docker"/>
+<meta name="twitter:description" content="WekanとはTrelloクローン。 鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">タスク管理ツールWekan（Trelloクローン）&#43;VirtualBox&#43;CoreOS&#43;docker</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2016-01-02T00:52:11&#43;09:00">January 2, 2016</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>WekanとはTrelloクローン。<br />
+鉄壁のセキュリティに守られて、インターネッツに出て行けず、世の中のイケてるサービスを使えないせいで、「サービス名」＋「alternative」というキーワードで検索するのが癖になっている今日この頃です。<br />
+Trelloのalternativeで見つけたのがWekan。<br />
+これをCoreOSにインストールする。</p>
+
+<p>VirtualBox上のCoreOSにはdockerまでインストール済みの前提。<br />
+以下の手順に沿ってインストールする。<br />
+ <a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing" target="_blank"><a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing">https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing</a></a><br />
+ <a href="https://docs.docker.com/compose/install/" target="_blank"><a href="https://docs.docker.com/compose/install/">https://docs.docker.com/compose/install/</a></a></p>
+
+<p>URLの示す通り、テスト目的。<br />
+大量のユーザを相手にするのでなければ、これでも大丈夫でしょう。<br />
+参考までに書いておくと、テスト目的と、下記の本番用で示される構成の違いは、フロントエンドにApacheがあること。<br />
+テスト目的の方の手順だと、ユーザがいきなりWekanに接続する。</p>
+
+<p><a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-in-production" target="_blank"><a href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-in-production">https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-in-production</a></a></p>
+
+<p>繰り返すが、本稿ではWekanに直接、繋げさせる構成でセットアップする。</p>
+
+<h2 id="docker-composeのインストール">docker-composeのインストール。</h2>
+
+<p>まず、docker-composeのインストール。<br />
+docker-composeはdockerの管理ツール。<br />
+インストール済みならこの章は飛ばしてよい。<br />
+公式サイトの手順だと、/usr/local/bin下にインストールすることになっているが、CoreOSだと読み取り専用なので、そこ以外の、たとえばホームディレクトリのbin下等に置く。<br />
+実行権限の付与も忘れないように。</p>
+
+<pre><code class="language-console">$ curl -L https://github.com/docker/compose/releases/download/1.5.2/docker-compose-`uname -s`-`uname -m` &gt; ~/bin/docker-compose
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   600    0   600    0     0    687      0 --:--:-- --:--:-- --:--:--   697
+100 7739k  100 7739k    0     0  1458k      0  0:00:05  0:00:05 --:--:-- 1840k
+$ chmod +x ./bin/docker-compose
+$ ls -la ./bin/
+total 7760
+drwxr-xr-x 2 nobwak nobwak    4096 Jan  1 12:17 .
+drwxr-xr-x 5 nobwak nobwak    4096 Dec  7 14:05 ..
+-rwxr-xr-x 1 nobwak nobwak 7925655 Jan  1 12:17 docker-compose
+</code></pre>
+
+<h2 id="docker-compose-ymlの作成">docker-compose.ymlの作成。</h2>
+
+<p>wekanをインストールするディレクトリにdocker-compose.ymlを作成する。<br />
+以下の例では、ホストOS、つまりCoreOSのポート8081で待ち受ける。</p>
+
+<pre><code class="language-console">wekan:
+  image: mquandalle/wekan
+  links:
+    - wekandb
+  environment:
+    - MONGO_URL=mongodb://wekandb/wekan
+    - ROOT_URL=http://localhost:80
+  ports:
+    - 8081:80
+
+wekandb:
+   image: mongo
+   volumes:
+     - /home/wekan/data:/data/db
+</code></pre>
+
+<p>もし、ホストOSの起動時に自動的にWekanも起動させたい場合には、冒頭部分を以下のように書き換える。</p>
+
+<pre><code class="language-console">wekan:
+    image: mquandalle/wekan
+    restart: always
+</code></pre>
+
+<h2 id="wekanの起動">Wekanの起動</h2>
+
+<p>docker-composeから立ち上げる。<br />
+まずdocker-compose -helpとして使い方を一覧しておこう。<br />
+初回起動時はupだが、二回目以降はstartで良さそうだ。</p>
+
+<pre><code class="language-console">$ docker-compose --help
+Define and run multi-container applications with Docker.
+
+Usage:
+  docker-compose [-f=...] [options] [COMMAND] [ARGS...]
+  docker-compose -h|--help
+
+Options:
+  -f, --file FILE           Specify an alternate compose file (default: docker-compose.yml)
+  -p, --project-name NAME   Specify an alternate project name (default: directory name)
+  --x-networking            (EXPERIMENTAL) Use new Docker networking functionality.
+                            Requires Docker 1.9 or later.
+  --x-network-driver DRIVER (EXPERIMENTAL) Specify a network driver (default: &quot;bridge&quot;).
+                            Requires Docker 1.9 or later.
+  --verbose                 Show more output
+  -v, --version             Print version and exit
+
+Commands:
+  build              Build or rebuild services
+  help               Get help on a command
+  kill               Kill containers
+  logs               View output from containers
+  pause              Pause services
+  port               Print the public port for a port binding
+  ps                 List containers
+  pull               Pulls service images
+  restart            Restart services
+  rm                 Remove stopped containers
+  run                Run a one-off command
+  scale              Set number of containers for a service
+  start              Start services
+  stop               Stop services
+  unpause            Unpause services
+  up                 Create and start containers
+  migrate-to-labels  Recreate containers to add labels
+  version            Show the Docker-Compose version information
+</code></pre>
+
+<p>実際に作成＆起動。</p>
+
+<pre><code class="language-console">$ sudo ~/bin/docker-compose up
+Creating wekan_wekandb_1
+Creating wekan_wekan_1
+Attaching to wekan_wekandb_1, wekan_wekan_1
+wekan_1   | =&gt; Starting meteor app on port:80
+（略）
+</code></pre>
+
+<p>もしうまくいかない場合には、imagesをいったん削除してやり直してみよう。<br />
+エラーなど無さそうなら次のステップへ。<br />
+なお、問題なく動作することを確認できたら、Ctrl+Cで停止。<br />
+次回以降は</p>
+
+<pre><code class="language-console">docker-compose -d start
+</code></pre>
+
+<p>でよし。</p>
+
+<h2 id="virtualboxでポートフォワーディングの設定">VirtualBoxでポートフォワーディングの設定</h2>
+
+<p>上記で設定したCoreOSの待ち受けポートへの、VirtualBox上でのフォワーディングを設定する。<br />
+以下の例ではVirtualBoxを動かしているホストの8082が、VirtualBox上CoreOSの8081にフォワーディングされる。</p>
+
+<p><a href="../../../wp-content/uploads/2016/01/13.jpg" rel="attachment wp-att-3016"><img class="alignnone size-thumbnail wp-image-3016" src="../../../wp-content/uploads/2016/01/13-150x150.jpg" alt="13" width="150" height="150" /></a></p>
+
+<h2 id="接続確認">接続確認</h2>
+
+<p>前章で設定したポートにブラウザで繋ぐ。<br />
+本稿の例で言えば、<a href="http://127.0.0.1:8082へ繋ぐ。">http://127.0.0.1:8082へ繋ぐ。</a><br />
+以下の画面になればOK<br />
+<a href="../../../wp-content/uploads/2016/01/9.jpg" rel="attachment wp-att-3020"><img class="alignnone size-thumbnail wp-image-3020" src="../../../wp-content/uploads/2016/01/9-150x150.jpg" alt="9" width="150" height="150" /></a><br />
+ユーザを新規登録し、もし英語が嫌なら設定を変える。<br />
+<a href="../../../wp-content/uploads/2016/01/12.jpg" rel="attachment wp-att-3017"><img class="alignnone size-thumbnail wp-image-3017" src="../../../wp-content/uploads/2016/01/12-150x150.jpg" alt="12" width="150" height="150" /></a></p>
+
+<h2 id="ボードとリストの設定">ボードとリストの設定。</h2>
+
+<p>ボードは適当に、リストは <a href="http://www.sekai-lab.com/times/?p=473">http://www.sekai-lab.com/times/?p=473</a> を参考に作成。<br />
+というか、どういうリストを作ればよいか、って結構なノウハウだと思うのだが、ありがたや。</p>
+
+<pre><code class="language-console">　1. Tasks：タスクリスト(アサインと期日が定まっていないタスク)
+　2. Todo：やることリスト(アサインと期日が定まったタスク, 優先順位を手動で並べ替える)
+　3. Today：今日やることリスト
+　4. Doing：作業中のタスク
+　5. In review：他人がレビュー中のタスク(アサインをレビュー者に変更！)
+　6. Done：完了したタスク
+</code></pre>
+
+<p>以上</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

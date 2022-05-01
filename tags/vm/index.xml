@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vm on Nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/vm/</link>
+    <description>Recent content in Vm on Nobwak&#39;s Lair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Fri, 18 Sep 2015 23:07:12 +0900</lastBuildDate>
+    
+	<atom:link href="https://nobwak.github.io/tags/vm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[メモ][Vagrant] Ubuntuのboxを作る</title>
+      <link>https://nobwak.github.io/posts/2015-09-18-%E3%83%A1%E3%83%A2vagrant_ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <pubDate>Fri, 18 Sep 2015 23:07:12 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-09-18-%E3%83%A1%E3%83%A2vagrant_ubuntu%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <description>Vagrantは便利だが、boxの初回ダウンロードがウンザリするくらい長い。 torrentに流してくれればいいのに…。 しかたないので自分でU</description>
+    </item>
+    
+    <item>
+      <title>[メモ][Windows] VirtualBoxの仮想マシンからvagrantのboxを作る</title>
+      <link>https://nobwak.github.io/posts/2015-09-17-%E3%83%A1%E3%83%A2windows_virtualbox%E3%81%AE%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%8B%E3%82%89vagrant%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</link>
+      <pubDate>Thu, 17 Sep 2015 23:40:11 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2015-09-17-%E3%83%A1%E3%83%A2windows_virtualbox%E3%81%AE%E4%BB%AE%E6%83%B3%E3%83%9E%E3%82%B7%E3%83%B3%E3%81%8B%E3%82%89vagrant%E3%81%AEbox%E3%82%92%E4%BD%9C%E3%82%8B/</guid>
+      <description>VirtualBox上の仮想マシンをvagrantのboxにする方法はありきたりだが、たいていはLinux、OS Xでの話で、Windowsで</description>
+    </item>
+    
+    <item>
+      <title>[メモ]WindowsにVagrantを入れてみた</title>
+      <link>https://nobwak.github.io/posts/2014-06-08-%E3%83%A1%E3%83%A2windows%E3%81%ABvagrant%E3%82%92%E5%85%A5%E3%82%8C%E3%81%A6%E3%81%BF%E3%81%9F/</link>
+      <pubDate>Sun, 08 Jun 2014 00:05:08 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2014-06-08-%E3%83%A1%E3%83%A2windows%E3%81%ABvagrant%E3%82%92%E5%85%A5%E3%82%8C%E3%81%A6%E3%81%BF%E3%81%9F/</guid>
+      <description>タイトルの通り。 たかがインストールして使える状態にするまでだけで苦労したからだよ！ インストールした後はVagrantの使い方はこのあたり見た</description>
+    </item>
+    
+  </channel>
+</rss>

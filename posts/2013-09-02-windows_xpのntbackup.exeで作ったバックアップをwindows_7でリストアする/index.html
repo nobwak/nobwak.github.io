@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | Windows xpのntbackup.exeで作ったバックアップをWindows 7でリストアする</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Windows xpのntbackup.exeで作ったバックアップをWindows 7でリストアする" />
+<meta property="og:description" content="Windows xpには標準でバックアップツールが付属している。 ntbackup.exeというツールである。 使い方は以下のサイトに詳しい。 差分バックアップ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2013-09-02-windows_xp%E3%81%AEntbackup.exe%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%E3%82%92windows_7%E3%81%A7%E3%83%AA%E3%82%B9%E3%83%88%E3%82%A2%E3%81%99%E3%82%8B/" />
+<meta property="article:published_time" content="2013-09-02T22:08:20&#43;09:00"/>
+<meta property="article:modified_time" content="2013-09-02T22:08:20&#43;09:00"/>
+
+<meta itemprop="name" content="Windows xpのntbackup.exeで作ったバックアップをWindows 7でリストアする">
+<meta itemprop="description" content="Windows xpには標準でバックアップツールが付属している。 ntbackup.exeというツールである。 使い方は以下のサイトに詳しい。 差分バックアップ">
+
+
+<meta itemprop="datePublished" content="2013-09-02T22:08:20&#43;09:00" />
+<meta itemprop="dateModified" content="2013-09-02T22:08:20&#43;09:00" />
+<meta itemprop="wordCount" content="1833">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Windows xpのntbackup.exeで作ったバックアップをWindows 7でリストアする"/>
+<meta name="twitter:description" content="Windows xpには標準でバックアップツールが付属している。 ntbackup.exeというツールである。 使い方は以下のサイトに詳しい。 差分バックアップ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Windows xpのntbackup.exeで作ったバックアップをWindows 7でリストアする</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2013-09-02T22:08:20&#43;09:00">September 2, 2013</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Windows xpには標準でバックアップツールが付属している。<br />
+ntbackup.exeというツールである。</p>
+
+<p>使い方は以下のサイトに詳しい。</p>
+
+<p>差分バックアップと増分バックアップの違い<br />
+<a href="http://www.atmarkit.co.jp/fwin2k/win2ktips/305butype/butype.html" target="_blank"><a href="http://www.atmarkit.co.jp/fwin2k/win2ktips/305butype/butype.html">http://www.atmarkit.co.jp/fwin2k/win2ktips/305butype/butype.html</a></a></p>
+
+<p>しかし、ntbackup.exeには大きな穴がある。<br />
+それは、ntbackup.exeで作成したバックアップファイル（拡張子.bkf。以降.bkfファイル）をWindows 7で読めないこと。<br />
+これは大ダメージ。</p>
+
+<p>なんでも、ntbackup.exeが標準装備だったのはxp, server 2003が最後だったそうである。<br />
+さてどうやってリストアするか。<br />
+結論として、Windows 7 home editionしか持っていないのだったら、xpを抹殺してはいけない。<br />
+すくなくともライセンスは持っておくこと。</p>
+
+<p>以下、詳細。</p>
+
+<h2 id="span-style-text-decoration-underline-対策1-msのツールを使う-span"><span style="text-decoration: underline;">対策1: MSのツールを使う。</span></h2>
+
+<p>Microsoftから.bkfリストア専用のツールが公開されているので、それを使えばよい。<br />
+もともと、.bkfファイルを読めるツールは、Vista, Server 2008用には公開されていた。<br />
+xpから7に、Vistaを飛び越してアップグレードするユーザが多いため、7, Server 2008R2用にも公開された、という経緯がある。</p>
+
+<p><a href="http://answers.microsoft.com/en-us/windows/forum/windows_vista-windows_programs/nt-backup-restore-utility/38bcfe1a-9778-44ae-a583-3f1a2b1c8311" target="_blank">NT Backup Restore Utility</a></p>
+
+<p>しかし。</p>
+
+<h2 id="span-style-text-decoration-underline-msツールの制限-enterprise-edition以上じゃないとダメ-span"><span style="text-decoration: underline;">MSツールの制限（Enterprise edition以上じゃないとダメ）</span></h2>
+
+<p>そのツールは以下から入手できる。</p>
+
+<p><a href="http://support.microsoft.com/kb/974674" target="_blank">Windows 7 および Windows Server 2008 R2 用の Windows NT バックアップ/復元ユーティリティについて</a></p>
+
+<p>ただし以下のような条件がある。</p>
+
+<blockquote>
+<p>「この更新プログラムを適用するには、コンピューターに以下のいずれかのオペレーティング システムが搭載されている必要があります。<br />
+•英語版の Windows 7 または Windows Server 2008 R2<br />
+•EN-US 言語パックがインストールされている、英語版以外の Windows 7 またはWindows Server 2008 R2」</p>
+</blockquote>
+
+<p>「EN-US 言語パック」が必要なのだが、UltimateかEnterpriseいずれかにしかインストールできないという・・・。</p>
+
+<p><a href="http://windows.microsoft.com/en-US/windows/language-packs#lptabs=win7" target="_blank">Language packs</a><br />
+<a href="http://windows.microsoft.com/en-us/windows/downloads/install-languages-with-windows-update" target="_blank">Install language packs using Windows Update</a></p>
+
+<h2 id="span-style-text-decoration-underline-windows-7言語パックの仕組み-span">  <span style="text-decoration: underline;">Windows 7言語パックの仕組み</span></h2>
+
+<p>厳密に言うと、言語パックにはMUI (Multi-language User Interface) と LIP (Language Interface Pack)の二つがある。<br />
+MUIはUltimate, Enterpriseにしかインストールできない。<br />
+LIPにはどのeditionにもインストールできる。</p>
+
+<p>しかしLIPは基本の言語（parent language）を変えることができない。<br />
+というのも、LIPは複数言語が使われる国のために作られているものだから。<br />
+たとえば、スペインのWindows 7ではLIPでバスク語に変更できる。<br />
+こういった目的であるから、日本語版Home editionにEN-USをインストールすることはできない。</p>
+
+<p>MUIがUltimate, Enterpriseにのみ許可されている理由は、複数の国で事業を展開する「ビジネス向け」の機能だから。</p>
+
+<p>詳細（原文）は以下。<br />
+<a href="http://answers.microsoft.com/en-us/windows/forum/windows_7-desktop/language-pack-for-windows-7-home-edition/ecfa2df2-43a4-4c4b-84fd-431f394906eb" target="_blank">Language pack for Windows 7 Home Edition</a></p>
+
+<h2 id="span-style-text-decoration-underline-msツールのさらなる制限-wsusで許可されてなかったら詰み-span"><span style="text-decoration: underline;">MSツールのさらなる制限（WSUSで許可されてなかったら詰み）</span></h2>
+
+<p>よろしい私のWindows 7はEnterprise版である。<br />
+だからインストールしようではないかという方。</p>
+
+<p>しかし仮にWindows 7がEnterprise版だとしても、これらのツールは原則、Windows Update経由で入手する必要がある。</p>
+
+<p>個人使用のPCならともかく、企業内LANで使用しているPCだと、セキュリティポリシーってものがある。<br />
+調べた限り、上記の.bkfリストアツール、EN-US 言語パックのうち、少なくとも言語パックはWindows Update経由でしかインストールができない。<br />
+企業内からのWindows UpdateがWSUSサービスで管理されている場合、この言語パックがWSUSで許可されていないとインストールができないのである。</p>
+
+<p>Home Editionしか持っていなければ即時、Enterprise Edition以上でも言語パックが入手できなければ詰みである。</p>
+
+<h2 id="span-style-text-decoration-underline-対策2-xpからntbackup-exeを持ってきて動かす-span"><span style="text-decoration: underline;">対策2: xpからntbackup.exeを持ってきて動かす</span></h2>
+
+<p>こうなったらもうxpを使うしかない。</p>
+
+<p>xpがあればxpで.bkfからリストアして、そのファイルを7に移す。<br />
+あるいは、xpからntbackup.exeを持ってきて動かす。</p>
+
+<p>後者の場合、systemフォルダにあるntbackup.exe他、以下のファイルを持ってきて、Windows 7で実行する。<br />
+ありがたいことに、何とか動く。<br />
+さっさとリストアして.bkfは捨ててしまおう。</p>
+
+<pre><code class="language-console">ntbackup.exe
+ntmsapi.dll
+vssapi.dll
+</code></pre>
+
+<p>というわけで、バックアップはリストア出来る事を確認できて初めてバックアップということを改めて思い知らされた次第である。</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | DebianをFreeBSDのqemuにインストール。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="DebianをFreeBSDのqemuにインストール。" />
+<meta property="og:description" content="・qemuのインストール portsからqemu, kqemu-kmodをインストール。 # portinstall -m-DWITH_KQEMU qemu # portinstall kqemu-kmod kqemu-kmodはqemuのアクセラレ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2006-04-27-debian%E3%82%92freebsd%E3%81%AEqemu%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/" />
+<meta property="article:published_time" content="2006-04-27T13:44:46&#43;09:00"/>
+<meta property="article:modified_time" content="2006-04-27T13:44:46&#43;09:00"/>
+
+<meta itemprop="name" content="DebianをFreeBSDのqemuにインストール。">
+<meta itemprop="description" content="・qemuのインストール portsからqemu, kqemu-kmodをインストール。 # portinstall -m-DWITH_KQEMU qemu # portinstall kqemu-kmod kqemu-kmodはqemuのアクセラレ">
+
+
+<meta itemprop="datePublished" content="2006-04-27T13:44:46&#43;09:00" />
+<meta itemprop="dateModified" content="2006-04-27T13:44:46&#43;09:00" />
+<meta itemprop="wordCount" content="1688">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DebianをFreeBSDのqemuにインストール。"/>
+<meta name="twitter:description" content="・qemuのインストール portsからqemu, kqemu-kmodをインストール。 # portinstall -m-DWITH_KQEMU qemu # portinstall kqemu-kmod kqemu-kmodはqemuのアクセラレ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">DebianをFreeBSDのqemuにインストール。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2006-04-27T13:44:46&#43;09:00">April 27, 2006</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>・qemuのインストール
+
+
+
+portsからqemu, kqemu-kmodをインストール。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  # portinstall -m-DWITH_KQEMU qemu
+
+
+
+  # portinstall kqemu-kmod
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>kqemu-kmodはqemuのアクセラレータ。
+
+
+
+アクセラレータを有効にするには、qemuをWITH_KQEMUでコンパイルしなければならない。このためportinstallの-mオプションで-DWITH_KQEMUをmakeに渡している。
+
+
+
+・モジュールの設定
+
+
+
+また、下記のようにして、アクセラレータをロードすること。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  # kldload kqemu (←モジュールのロード)
+
+
+
+  # kldstat (←本当にロードされたか確認)
+
+
+
+  Id Refs Address Size Name
+
+
+
+  1 7 xxxx xxxx Kernel
+
+
+
+  2 1 xxxx xxxx acpi.ko
+
+
+
+  3 1 xxxx xxxx warp_saver.ko
+
+
+
+  4 1 xxxx xxxx ext2fs.ko
+
+
+
+  5 1 xxxx xxxx kqemu.ko (←きちんとロードされている)
+
+
+
+  #
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>このアクセラレータで動作がかなり速くなる。
+
+
+
+
+
+
+・ゲストOS用ディスクの確保
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  $ qemu-img create -f raw /usr/home/linux/debian.dsk 10G
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>として10Gを割り当て
+
+
+
+-fオプションで指定するのはイメージのファイルタイプ。
+
+
+
+rawはその名の通りrawイメージ。シンプルであるため他のエミュレータにも転用可能。
+
+
+
+ファイルシステムが&quot;holes&quot;に対応しているなら、例え100Gを確保しても、実際には使った分しか消費されない。
+
+
+
+holesに対応しているファイルシステムの例として、ext2、ext3が挙げられているが、UFSも対応しているようだ。
+
+
+
+他にはqcowというタイプがあり、QEMUイメージフォーマットと呼ばれるもの。
+
+
+
+AES暗号化、zlibベースの圧縮に対応していて便利。
+
+
+
+
+
+
+・Debianのインストール
+
+
+
+DebianのインストールCDイメージをダウンロードし、下記のようにして起動。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  $ qemu -kernel-kqemu -hda /usr/home/linux/debian.dsk -cdrom /usr/home/linux/debian.iso -boot d
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>-hdaでHDDイメージを指定、-cdromでCDROMイメージを指定、-bootで起動ディスクを指定。cならHDD、dならCDROMイメージから起動。
+
+
+
+上記の例では、HDDイメージに/usr/home/linux/debian.dskを、CDROMイメージに/usr/home/linux/debian.iso を設定し、CDROMから起動している。
+
+
+
+また、-kernel-kqemuでアクセラレータを有効にしている。
+
+
+
+
+
+
+・ゲストOSへの接続
+
+
+
+起動したゲストOSは、ネットワーク的には表に出てこない。
+
+
+
+ゲストOSから外へは繋げるものの、外からゲストOSには繋げない。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  $ qemu -hda /usr/home/linux/debian.dsk -boot c -redir :8022::22
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>上記のように、-redirオプションの後で、:ホストOSのポート::ゲストOSのポート: と指定したうえでホストOSの8022へ繋げば、ゲストOSの22に接続できる。
+
+
+
+ゲストOSがダイレクトに繋ぐ方法もあるが、別の機会に試す。
+
+
+
+
+
+
+・qemuの管理
+
+
+
+Ctrl+Alt+2で管理モードに。詳細はそこでhelpなりなんなり。
+
+
+
+Ctrl+Alt+1で元に戻る。
+
+
+
+なお、アクセラレータが有効になっているかどうかは、下記のように確認する。
+</code></pre>
+
+<p><blockquote></p>
+
+<pre><code>  ・OKの場合
+
+
+
+  (qemu) info kqemu
+
+
+
+  kqemu support: enabled for user and kernel code
+
+
+
+
+
+
+  ・ちょっとダメ
+
+
+
+  (qemu) info kqemu
+
+
+
+  kqemu support: enabled for user code
+
+
+
+
+
+
+  ・だめぽ
+
+
+
+  (qemu) info kqemu
+
+
+
+  kqemu support: disabled
+</code></pre>
+
+<p></blockquote></p>
+
+<pre><code>・スナップショット
+
+
+
+qemuに-snapshotオプションを付けて起動すると、起動する前の状態を保存したまま作業が可能。
+
+
+
+いろいろ危険な事を試したい時には便利。
+
+
+
+終了すれば作業した分は消えてしまうが、Ctrl+aの後にsを押せばいつでも反映可能。
+
+
+
+また、管理モードでcommitコマンドを実行しても可。
+
+
+
+問題は、差分がホストOSの/tmpディレクトリに保存されること。
+
+
+
+あまり大量の作業をするとホストOSのパーティションが溢れるので注意。
+
+
+
+qemu-imgで差分保存用のイメージを作成することも出来る。
+
+
+
+
+
+
+・メモリ用ディレクトリ
+
+
+
+kqemuは/dev/shm、/dev/shmがなければ/tmpに仮想OSのメモリを含む巨大なテンポラリファイルを作成する。
+
+
+
+上記のスナップショットで使用するファイルと同様かどうかは試していないので分からないが、環境変数QEMU_TMPDIRでディレクトリを指定できる。
+
+
+
+
+
+
+・キーボード
+
+
+
+JISキーボードが効かない。
+
+
+
+なぜかSHIFT+7で;が出る謎のキーマップ。
+
+
+
+qemuのkオプションを試したりしたが断念。カスタムキーマップをわざわざ作るのも面倒くさいのでvncviewerで操作している。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

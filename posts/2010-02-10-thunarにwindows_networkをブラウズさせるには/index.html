@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nobwak&#39;s Lair  | ThunarにWindows Networkをブラウズさせるには。</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.54.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.d98f2eb6bcd1eaedb7edf166bd16af26.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="ThunarにWindows Networkをブラウズさせるには。" />
+<meta property="og:description" content="Xubuntuは、Linuxの便利さを堪能できる割に軽いので素敵だ。 ThunarがWindows Networkを見にいけないのだけが残念だっ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nobwak.github.io/posts/2010-02-10-thunar%E3%81%ABwindows_network%E3%82%92%E3%83%96%E3%83%A9%E3%82%A6%E3%82%BA%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AB%E3%81%AF/" />
+<meta property="article:published_time" content="2010-02-10T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2010-02-10T01:00:00&#43;09:00"/>
+
+<meta itemprop="name" content="ThunarにWindows Networkをブラウズさせるには。">
+<meta itemprop="description" content="Xubuntuは、Linuxの便利さを堪能できる割に軽いので素敵だ。 ThunarがWindows Networkを見にいけないのだけが残念だっ">
+
+
+<meta itemprop="datePublished" content="2010-02-10T01:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2010-02-10T01:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="704">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ThunarにWindows Networkをブラウズさせるには。"/>
+<meta name="twitter:description" content="Xubuntuは、Linuxの便利さを堪能できる割に軽いので素敵だ。 ThunarがWindows Networkを見にいけないのだけが残念だっ"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://nobwak.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nobwak&#39;s Lair
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">ThunarにWindows Networkをブラウズさせるには。</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2010-02-10T01:00:00&#43;09:00">February 10, 2010</time>      
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><pre><code>Xubuntuは、Linuxの便利さを堪能できる割に軽いので素敵だ。
+
+
+
+ThunarがWindows Networkを見にいけないのだけが残念だったが、&lt;a href=&quot;http://ubuntuforums.org/showthread.php?t=304131&quot; target=&quot;_blank&quot;&gt;http://ubuntuforums.org/showthread.php?t=304131&lt;/a&gt;にHow toがあったので解決。
+
+
+
+
+
+
+1.Applications -&gt; システム -&gt; フォルダの共有　で、sambaのインストール。NFSは要らない。
+
+
+
+2.fusesmbをインストール
+</code></pre>
+
+<pre><code class="language-console">$ sudo apt-get install fusesmb
+</code></pre>
+
+<pre><code>3./etc/modulesに&quot;fuse&quot;と一行を追加（ダブルクオーテーションは不要）
+
+
+
+4.リブート
+
+
+
+5.Applications -&gt; システム -&gt; ユーザとグループ から、自分のユーザ名プロパティで「ユーザ空間ファイルシステムをマウントできる」にチェック
+
+
+
+
+
+
+6.ネットワークドライブをマウントするディレクトリを作る。
+
+
+
+　どこだってよい。パーミッションは777に。
+</code></pre>
+
+<pre><code class="language-console">$ sudo mkdir /media/network
+$ sudo chmod 777 /media/network
+</code></pre>
+
+<pre><code>7.Applications -&gt; システム -&gt; ユーザとグループ -&gt; グループの管理でfuseグループに自分がいることを確認
+
+
+
+8.リブート
+
+
+
+9.Applications -&gt; 設定 -&gt; セッションと起動　から「自動開始アプリケーション」タブから「追加」
+
+
+
+　適当に名前、説明を入れたあとに、以下のコマンドを設定
+</code></pre>
+
+<pre><code class="language-console">fusesmb /media/network
+</code></pre>
+
+<pre><code>10.マウントポイントをショートカットペインに作っておく。
+
+
+
+　ここの例では/media/networkのnetworkフォルダを左側のペインにドラッグ&amp;ドロップ
+
+
+
+11.ログアウトし、ログイン
+
+
+
+12.Thunarから先ほどのフォルダに行けば、Windows Networkが見えるはず。
+
+
+
+
+
+
+ustreamだって、何にもしなくても見れるし、ubuntu最高。
+</code></pre>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://nobwak.github.io/" >
+    &copy; 2019 Nobwak&#39;s Lair
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
