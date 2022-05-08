@@ -9,7 +9,16 @@
       <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 01 May 2022 22:52:47 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 May 2022 20:25:32 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2022-05-08-FreeBSDアップグレード時間短縮</title>
+      <link>https://nobwak.github.io/posts/2022/2022-05-08-freebsd%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E9%96%93%E7%9F%AD%E7%B8%AE/</link>
+      <pubDate>Sun, 08 May 2022 20:25:32 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2022/2022-05-08-freebsd%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E9%96%93%E7%9F%AD%E7%B8%AE/</guid>
+      <description>FreeBSDのOSアップグレードは再起動が2回 FreeBSDのアップグレードはfreebsd-updateコマンドが生まれたことでかなり楽</description>
+    </item>
+    
     <item>
       <title>2022-05-01-【git】過去のバージョンの記録から抹殺する</title>
       <link>https://nobwak.github.io/posts/2022/2022-05-01-git%E9%81%8E%E5%8E%BB%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E8%A8%98%E9%8C%B2%E3%81%8B%E3%82%89%E6%8A%B9%E6%AE%BA%E3%81%99%E3%82%8B/</link>

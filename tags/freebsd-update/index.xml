@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>freebsd-update on nobwak&#39;s Lair</title>
+    <link>https://nobwak.github.io/tags/freebsd-update/</link>
+    <description>Recent content in freebsd-update on nobwak&#39;s Lair</description>
+    <image>
+      <url>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nobwak.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 08 May 2022 20:25:32 +0900</lastBuildDate><atom:link href="https://nobwak.github.io/tags/freebsd-update/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2022-05-08-FreeBSDアップグレード時間短縮</title>
+      <link>https://nobwak.github.io/posts/2022/2022-05-08-freebsd%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E9%96%93%E7%9F%AD%E7%B8%AE/</link>
+      <pubDate>Sun, 08 May 2022 20:25:32 +0900</pubDate>
+      
+      <guid>https://nobwak.github.io/posts/2022/2022-05-08-freebsd%E3%82%A2%E3%83%83%E3%83%97%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89%E6%99%82%E9%96%93%E7%9F%AD%E7%B8%AE/</guid>
+      <description>FreeBSDのOSアップグレードは再起動が2回 FreeBSDのアップグレードはfreebsd-updateコマンドが生まれたことでかなり楽</description>
+    </item>
+    
+  </channel>
+</rss>
